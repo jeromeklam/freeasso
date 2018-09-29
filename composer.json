@@ -3,12 +3,12 @@
     "type"        : "application",
     "description" : "Free Association Back-Office",
     "keywords"    : ["FREE", "ASSOCIATION", "PHP"],
-    "homepage"    : "http://eau.jvs.fr",
+    "homepage"    : "http://github.com/jeromeklam",
     "license"     : "gpl",
     "authors" : [
         {
             "name"  : "KLAM Jérôme",
-            "email" : "jerome.klam@jvs.fr"
+            "email" : "jeromeklam@free.fr"
         }
     ],
     "minimum-stability": "dev",
@@ -16,25 +16,11 @@
         "php"                                  : ">=7.0",
         "robmorgan/phinx"                      : "*",
         "phing/phing"                          : "*",
-        "phpmailer/phpmailer"                  : "*",
-        "twig/twig"                            : "*",
-        "tecnickcom/tcpdf"                     : "*",
-        "setasign/fpdi-tcpdf"                  : "*",
-        "giggsey/libphonenumber-for-php"       : "*",
-        "psr/log"                              : "*",
-        "psr/cache"                            : "*",
-        "psr/http-message"                     : "*",
-        "psr/http-server-middleware"           : "*",
-        "http-interop/http-factory"            : "*",
-        "neomerx/json-api"                     : "^0.8",
-        "neomerx/cors-psr7"                    : "^1.0",
-        "firebase/php-jwt"                     : "^5.0",
-        "bshaffer/oauth2-server-php"           : "~1.8"
+        "jeromeklam/freefw"                    : "*"
     },
     "autoload" : {
         "psr-4" : {
-            "FreeAsso\\" : "src/FreeAsso/",
-            "FreeFw\\" : "src/FreeFw/"
+            "FreeAsso\\" : "src/FreeAsso/"
         }
     },
     "require-dev": {
