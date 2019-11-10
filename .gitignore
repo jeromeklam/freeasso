@@ -1,5 +1,6 @@
 /data/*.csv
 /vendor
+/private
 .settings
 .project
 .DS_Store
