@@ -1,0 +1,1 @@
+docker exec -it freeasso_php_1 /bin/bash

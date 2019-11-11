@@ -29,8 +29,16 @@ class FreeFW
                         ->setUrl($apiRoute['url'])
                         ->setController($apiRoute['controller'])
                         ->setFunction($apiRoute['function'])
-                        ->setSecured($apiRoute['secured'])
                     ;
+                    if (array_key_exists('auth', $apiRoute)) {
+                        $myRoute->setAuth($apiRoute['auth']);
+                    }
+                    if (array_key_exists('include', $apiRoute)) {
+                        $myRoute->setInclude($apiRoute['include']);
+                    }
+                    if (array_key_exists('model', $apiRoute)) {
+                        $myRoute->setDefaultModel($apiRoute['model']);
+                    }
                     $routes->addRoute($myRoute);
                 }
             }

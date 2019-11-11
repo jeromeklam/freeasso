@@ -1,6 +1,11 @@
 /data/*.csv
 /vendor
 /private
+/apachelogs
 .settings
 .project
 .DS_Store
+/docker-logs
+/docker-db
+/log/*.log
+/tmp

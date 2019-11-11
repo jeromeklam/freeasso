@@ -1,0 +1,40 @@
+version: "3.2"
+services:
+  php:
+    image: jeromeklam/u18_php
+    networks:
+      - backend
+    volumes:
+      - ./:/var/www/html/
+      - ../freefw/:/var/www/freefw/
+      - ../freesso/:/var/www/freesso/
+  apache:
+    image: jeromeklam/u18_apache
+    depends_on:
+      - php
+      - mysql
+    networks:
+      - frontend
+      - backend
+    environment:
+      DOCUMENTROOT: "www"
+      SERVERNAME: "freeasso.fr"
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html/
+      - ./docker-logs:/var/log/apache2
+  mysql:
+    image: jeromeklam/u18_mariadb
+    ports:
+      - "8006:3306"
+    networks:
+      - backend
+    environment:
+      - MYSQL_ROOT_PASSWORD=m0n1c4po
+    volumes:
+      - ./docker-db:/data
+      - ./docker-dumps:/data/dumps
+networks:
+  frontend:
+  backend:

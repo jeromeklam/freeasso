@@ -14,9 +14,9 @@ $config = [
     ),
     'storage'     => [
         'default' => [
-            'dsn'   => 'mysql:host=192.168.0.40;dbname=ecopattes;charset=utf8;',
-            'user'  => 'root',
-            'paswd' => 'm0n1c4po'
+            'dsn'   => 'mysql:host=mysql;dbname=ecopattes;charset=utf8;',
+            'user'  => 'super',
+            'paswd' => 'YggDrasil'
         ]
     ],
     'middleware'  => [

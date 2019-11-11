@@ -1,0 +1,1 @@
+docker exec -it freeasso_mysql_1 /bin/bash
