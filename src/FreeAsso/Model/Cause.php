@@ -11,7 +11,65 @@ use \FreeFW\Constants as FFCST;
 class Cause extends \FreeAsso\Model\Base\Cause implements
     \FreeFW\Interfaces\ApiResponseInterface
 {
-    
+
+    /**
+     * Site
+     * @var \FreeAsso\Model\Site
+     */
+    protected $site = null;
+
+    /**
+     * Type de cause
+     * @var \FreeAsso\Model\CauseType
+     */
+    protected $cause_type = null;
+
+    /**
+     * Set site
+     * 
+     * @param \FreeAsso\Model\Site $p_site
+     * 
+     * @return \FreeAsso\Model\Cause
+     */
+    public function setSite($p_site)
+    {
+        $this->site = $p_site;
+        return $this;
+    }
+
+    /**
+     * Get site
+     * 
+     * @return \FreeAsso\Model\Site
+     */
+    public function getSite()
+    {
+        return $this->site;
+    }
+
+    /**
+     * Set Cause type
+     * 
+     * @param \FreeAsso\Model\CauseType $p_cause_type
+     * 
+     * @return \FreeAsso\Model\Cause
+     */
+    public function setCauseType($p_cause_type)
+    {
+        $this->cause_type = $p_cause_type;
+        return $this;
+    }
+
+    /**
+     * Get cause type
+     * 
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function getCauseType()
+    {
+        return $this->cause_type;
+    }
+
     /**
      *
      * {@inheritDoc}

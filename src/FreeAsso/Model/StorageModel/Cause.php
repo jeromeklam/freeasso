@@ -23,13 +23,13 @@ abstract class Cause extends \FreeFW\Core\StorageModel
     protected static $PRP_BRK_ID = [
         FFCST::PROPERTY_PRIVATE => 'brk_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::PROPERTY_BROKER]
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_BROKER]
     ];
     protected static $PRP_CAUT_ID = [
         FFCST::PROPERTY_PRIVATE => 'caut_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_FK],
-        FFCST::PROPERTY_FK      => ['CauseType' => 
+        FFCST::PROPERTY_FK      => ['cause_type' => 
             [
                 'model' => 'FreeAsso::Model::CauseType',
                 'field' => 'caut_id',
@@ -66,7 +66,7 @@ abstract class Cause extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_PRIVATE => 'site_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_FK],
-        FFCST::PROPERTY_FK      => ['Site' =>
+        FFCST::PROPERTY_FK      => ['site' =>
             [
                 'model' => 'FreeAsso::Model::Site',
                 'field' => 'site_id',
@@ -84,7 +84,11 @@ abstract class Cause extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
         FFCST::PROPERTY_OPTIONS => []
     ];
-
+    protected static $PRP_CAU_FAMILY = [
+        FFCST::PROPERTY_PRIVATE => 'cau_family',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_SELECT,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
     /**
      * get properties
      *
@@ -103,7 +107,8 @@ abstract class Cause extends \FreeFW\Core\StorageModel
             'cau_public' => self::$PRP_CAU_PUBLIC,
             'site_id'    => self::$PRP_SITE_ID,
             'cau_mnt'    => self::$PRP_CAU_MNT,
-            'cau_code'   => self::$PRP_CAU_CODE
+            'cau_code'   => self::$PRP_CAU_CODE,
+            'cau_family' => self::$PRP_CAU_FAMILY
         ];
     }
 

@@ -76,6 +76,12 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     protected $cau_code = null;
 
     /**
+     * cau_family
+     * @var string
+     */
+    protected $cau_family = null;
+
+    /**
      * Set cau_id
      *
      * @param int $p_value
@@ -326,5 +332,28 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     public function getCauCode()
     {
         return $this->cau_code;
+    }
+
+    /**
+     * Set cau_family
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Cause
+     */
+    public function setCauFamily($p_value)
+    {
+        $this->cau_family = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get cau_family
+     *
+     * @return string
+     */
+    public function getCauFamily()
+    {
+        return $this->cau_family;
     }
 }

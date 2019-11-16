@@ -11,7 +11,7 @@ use \FreeFW\Constants as FFCST;
 class Site extends \FreeAsso\Model\Base\Site implements
     \FreeFW\Interfaces\ApiResponseInterface
 {
-    
+
     /**
      *
      * {@inheritDoc}
