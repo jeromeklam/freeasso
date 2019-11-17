@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="jeromeklam/freeasso" default="help" basedir=".">
+
+    <!--  all properties are in build.properties -->
+    <property file="project.properties" />
+    <property name="base.path" value="${env.PWD}"/>
+
+    <target name="help" description="Display help">
+        <exec command="${phing.bin} -l" passthru="true" />
+        <exec executable="env" passthru="true" />
+    </target>
+
+    <target name="infos" description="Display infos">
+        <echo message="env : ${env}" />
+        <echo message="host : ${hostname}" />
+    </target>
+
+    <!--
+        Composer
+    -->
+    <target name="composer">
+        <composer command="install" composer="${composer.bin}">
+            <arg value="--optimize-autoloader" />
+            <arg value="--no-dev" />
+        </composer>
+    </target>
+
+    <!--
+        Préparation de la structure pour le build
+        Le but est ici de créer le structure pour la compil
+        Ce répertoire ne sera pas dans le repo
+    -->
+    <target name="prepare-build-dirs">
+        <delete dir="${project.builddir}/docs"/>
+        <delete dir="${project.builddir}/logs"/>
+        <delete dir="${project.builddir}/coverage"/>
+        <delete dir="${project.builddir}/code-browser"/>
+        <delete dir="${project.builddir}/pdepend"/>
+        <delete dir="${project.builddir}/testresults"/>
+        <mkdir dir="${project.builddir}/docs"/>
+        <mkdir dir="${project.builddir}/logs"/>
+        <mkdir dir="${project.builddir}/testresults"/>
+        <mkdir dir="${project.builddir}/code-browser"/>
+        <mkdir dir="${project.builddir}/coverage"/>
+        <mkdir dir="${project.builddir}/pdepend"/>
+    </target>
+
+    <!--
+        Outil de parcours des sources 
+    -->
+    <target name="phpcb" description="Outil de parcours des sources">
+        <exec executable="phpcb">
+            <arg value="--log" />
+            <arg path="${project.builddir}/logs" />
+            <arg value="--source" />
+            <arg path="${project.source}" />
+            <arg value="--output" />
+            <arg path="${project.builddir}/code-browser" />
+        </exec>
+    </target>
+
+    <!--
+        Vérification des sources 
+    -->
+    <target name="phpcs" description="Vérification des sources, rapport lisible">
+        <exec executable="${phpcs.bin}" passthru="true">
+            <arg value="--standard=PSR2" />
+            <arg path="${project.basedir}/src" />
+        </exec>
+    </target>
+
+    <target name="phpcs-ci" description="Vérification des sources pour rapport">
+        <exec executable="${phpcs.bin}">
+            <arg value="--report=checkstyle" />
+            <arg value="--report-file=${project.builddir}/testresults/phpcs.xml" />
+            <arg value="--standard=PSR2" />
+            <arg path="${project.basedir}/src" />
+        </exec>
+    </target>
+
+    <!--
+        Statistiques sur le code 
+    -->
+    <target name="phploc" description="Statistiques sur le code">
+        <exec executable="phploc">
+            <arg value="--log-csv" />
+            <arg value="${project.builddir}/logs/phploc.csv" />
+            <arg path="${project.basedir}/src" />
+        </exec>
+    </target>
+
+    <!--
+        La documentation
+    -->
+    <target name="phpdoc" description="Génération de la documentation">
+        <exec executable="${phpdoc.bin}">
+            <arg line="-d '${project.basedir}/src' -t '${project.builddir}/docs' --title='Documentation' --template='clean'" />
+        </exec>
+    </target>
+
+    <!--
+        Dépendances
+    -->
+    <target name="pdepend">
+        <exec executable="pdepend">
+            <arg value="--jdepend-xml=${project.builddir}/logs/jdepend.xml"/>
+            <arg value="--jdepend-chart=${project.builddir}/pdepend/dependencies.svg"/>
+            <arg value="--overview-pyramid=${project.builddir}/pdepend/overview-pyramid.svg"/>
+            <arg path="${project.basedir}/app"/>
+        </exec>
+    </target>
+
+    <!--
+       Qualité des sources
+    -->
+    <target name="phpmd">
+        <exec executable="phpmd">
+            <arg path="${project.basedir}/php" />
+            <arg value="xml" />
+            <arg value="${project.basedir}/phpmd.xml" />
+            <arg value="--reportfile" />
+            <arg value="${project.builddir}/logs/pmd.xml" />
+        </exec>
+    </target>
+
+    <!--
+       Duplication de code
+    -->
+    <target name="phpcpd">
+        <exec executable="phpcpd">
+            <arg value="--log-pmd"/>
+            <arg value="${project.builddir}/logs/pmd-cpd.xml"/>
+            <arg path="${project.basedir}/src"/>
+        </exec>
+    </target>
+
+    <!--
+       Analyse de code
+    -->
+    <target name="lint">
+        <phplint errorproperty="lint.error" haltonfailure="true">
+            <fileset dir="${project.basedir}/src">
+                   <include name="**/*.php"/>
+            </fileset>
+        </phplint>
+    </target>
+
+    <!--
+        Tests unitaires
+    -->
+    <target name="phpunit">
+        <exec executable="${phpunit.bin}" dir="${phpunit.basedir}" checkreturn="true" passthru="true"/>
+    </target>
+
+    <!--
+        Préparation du déploiement : composer, ...
+    -->
+    <target name="prepare-deploy" depends="composer, bower">
+        <delete dir="${project.dist}"/>
+        <mkdir dir="${project.dist}" mode="0775" />
+        <echo message="${commit}" file="${project.basedir}/revision" />
+        <filesync excludeFile=".deployignore"
+                  sourcedir="${project.basedir}/"
+                  options="-lurpKz"
+                  destinationdir="${project.dist}" />
+    </target>
+
+    <!--
+        Création du fichier tgz à partir du répertoire dist
+    -->
+    <target name="create-tgz">
+        <tar destfile="${project.deploy}/${project.short}-${GITTAG}.tar.gz" basedir="${project.dist}" compression="gzip"/>
+        <copy file="${project.basedir}/install/install.sh" tofile="${project.deploy}/install-${GITTAG}.sh" overwrite="true"/>
+        <exec command="md5sum ${project.short}-${GITTAG}.tar.gz > ${project.short}-${GITTAG}.tar.gz.checksum" dir="${project.deploy}" />
+        <exec command="md5sum install-${GITTAG}.sh > install-${GITTAG}.sh.checksum" dir="${project.deploy}" />
+    </target>
+
+    <!--
+        Copie vers la production
+    -->
+    <target name="host-copy-production">
+        <echo message="copy to ${host}" />
+        <ssh username="${deploy.user}" pubkeyfile="${deploy.pubkeyfile}" privkeyfile="${deploy.prvkeyfile}"
+             host="${host}" command="mkdir -p ${deploy.basedir}" />
+        <ssh username="${deploy.user}" pubkeyfile="${deploy.pubkeyfile}" privkeyfile="${deploy.prvkeyfile}"
+             host="${host}" command="mkdir -p ${deploy.basedir}/${project.short}" />
+        <ssh username="${deploy.user}" pubkeyfile="${deploy.pubkeyfile}" privkeyfile="${deploy.prvkeyfile}"
+             host="${host}" command="chmod -R g+w ${deploy.basedir}/${project.short}" />
+        <echo message="copy files" />
+        <scp username="${deploy.user}" pubkeyfile="${deploy.pubkeyfile}" privkeyfile="${deploy.prvkeyfile}"
+             host="${host}" todir="${deploy.basedir}/${project.short}">
+            <fileset dir="${project.deploy}">
+                <include name="*-${GITTAG}.*" />
+            </fileset>
+        </scp>
+        <ssh username="${deploy.user}" pubkeyfile="${deploy.pubkeyfile}" privkeyfile="${deploy.prvkeyfile}"
+             host="${host}" command="chmod -R 775 ${deploy.basedir}/${project.short}/install-${GITTAG}.sh" />
+    </target>
+
+    <!--
+        Installation en production
+    -->
+    <target name="host-install-production">
+        <echo message="running install script on ${host} : ${deploy.basedir}/${project.short}/install-${GITTAG}.sh ${project.short}-${GITTAG}" />
+        <ssh username="${deploy.user}" pubkeyfile="${deploy.pubkeyfile}" privkeyfile="${deploy.prvkeyfile}"
+             host="${host}" command="cd ${deploy.basedir}/${project.short}; ./install-${GITTAG}.sh ${project.short}-${GITTAG}" />
+        <ssh username="${deploy.user}" pubkeyfile="${deploy.pubkeyfile}" privkeyfile="${deploy.prvkeyfile}"
+             host="${host}" command="chmod -R g+w ${deploy.basedir}/${project.short}" />
+        <ssh username="${deploy.user}" pubkeyfile="${deploy.pubkeyfile}" privkeyfile="${deploy.prvkeyfile}"
+             host="${host}" command="touch ${deploy.restart}/fpm.restart" />
+        <ssh username="${deploy.user}" pubkeyfile="${deploy.pubkeyfile}" privkeyfile="${deploy.prvkeyfile}"
+             host="${host}" command="touch ${deploy.restart}/apache.restart" />
+    </target>
+
+    <!--
+        Lancement du déploiement en production
+    -->
+    <target name="execute-deploy-production">
+        <foreach list="${deploy.hosts}" param="host" target="host-copy-production" />
+        <foreach list="${deploy.hosts}" param="host" target="host-install-production" />
+        <echo message="that's all folks..." />
+    </target>
+	
+    <!--
+        Préparation
+    -->
+    <target name="prepare" description="Configure l'application" depends="prepare-build-dirs" />
+
+    <!--
+        Tests
+    -->
+    <target name="verify" description="Test l'application" depends="lint, phpcpd, phpcs, phpcs-ci" />
+
+    <!--
+        Analyse
+    -->
+    <target name="metric" description="Analyse le code statiquement" depends="phploc" />
+
+    <!--
+        Documentation
+    -->
+    <target name="doc" description="Génère la documentation du code" depends="phpdoc" />
+
+    <!--
+        Déploiement
+    -->
+    <target name="deploy" description="Déploie l'application sur l'environnment donné" depends="prepare-deploy" />
+
+</project>

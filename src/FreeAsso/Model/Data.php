@@ -4,11 +4,11 @@ namespace FreeAsso\Model;
 use \FreeFW\Constants as FFCST;
 
 /**
- * CauseType
+ * Data
  *
  * @author jeromeklam
  */
-class CauseType extends \FreeAsso\Model\Base\CauseType implements
+class Data extends \FreeAsso\Model\Base\Data implements
     \FreeFW\Interfaces\ApiResponseInterface
 {
 
@@ -19,11 +19,8 @@ class CauseType extends \FreeAsso\Model\Base\CauseType implements
      */
     public function init()
     {
-        $this->caut_id         = 0;
-        $this->brk_id          = 0;
-        $this->caut_name       = '';
-        $this->caut_receipt    = 0;
-        $this->caut_certificat = 0;
+        $this->data_id = 0;
+        $this->brk_id  = 0;
         return $this;
     }
 }

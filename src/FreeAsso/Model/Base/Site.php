@@ -16,6 +16,18 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     protected $site_id = null;
 
     /**
+     * brk_id
+     * @var int
+     */
+    protected $brk_id = null;
+
+    /**
+     * sitt_id
+     * @var int
+     */
+    protected $sitt_id = null;
+
+    /**
      * site_name
      * @var string
      */
@@ -52,10 +64,34 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     protected $site_town = null;
 
     /**
-     * brk_id
+     * parent_site_id
      * @var int
      */
-    protected $brk_id = null;
+    protected $parent_site_id = null;
+
+    /**
+     * site_position
+     * @var string
+     */
+    protected $site_position = null;
+
+    /**
+     * site_left
+     * @var int
+     */
+    protected $site_left = null;
+
+    /**
+     * site_right
+     * @var int
+     */
+    protected $site_right = null;
+
+    /**
+     * site_level
+     * @var int
+     */
+    protected $site_level = null;
 
     /**
      * Set site_id
@@ -78,6 +114,52 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     public function getSiteId()
     {
         return $this->site_id;
+    }
+
+    /**
+     * Set brk_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setBrkId($p_value)
+    {
+        $this->brk_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get brk_id
+     *
+     * @return int
+     */
+    public function getBrkId()
+    {
+        return $this->brk_id;
+    }
+
+    /**
+     * Set sitt_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSittId($p_value)
+    {
+        $this->sitt_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get sitt_id
+     *
+     * @return int
+     */
+    public function getSittId()
+    {
+        return $this->sitt_id;
     }
 
     /**
@@ -219,25 +301,117 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     }
 
     /**
-     * Set brk_id
+     * Set parent_site_id
      *
      * @param int $p_value
      *
      * @return \FreeAsso\Model\Site
      */
-    public function setBrkId($p_value)
+    public function setParentSiteId($p_value)
     {
-        $this->brk_id = $p_value;
+        $this->parent_site_id = $p_value;
         return $this;
     }
 
     /**
-     * Get brk_id
+     * Get parent_site_id
      *
      * @return int
      */
-    public function getBrkId()
+    public function getParentSiteId()
     {
-        return $this->brk_id;
+        return $this->parent_site_id;
+    }
+
+    /**
+     * Set site_position
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSitePosition($p_value)
+    {
+        $this->site_position = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get site_position
+     *
+     * @return string
+     */
+    public function getSitePosition()
+    {
+        return $this->site_position;
+    }
+
+    /**
+     * Set site_left
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSiteLeft($p_value)
+    {
+        $this->site_left = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get site_left
+     *
+     * @return int
+     */
+    public function getSiteLeft()
+    {
+        return $this->site_left;
+    }
+
+    /**
+     * Set site_right
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSiteRight($p_value)
+    {
+        $this->site_right = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get site_right
+     *
+     * @return int
+     */
+    public function getSiteRight()
+    {
+        return $this->site_right;
+    }
+
+    /**
+     * Set site_level
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSiteLevel($p_value)
+    {
+        $this->site_level = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get site_level
+     *
+     * @return int
+     */
+    public function getSiteLevel()
+    {
+        return $this->site_level;
     }
 }

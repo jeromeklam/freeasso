@@ -91,9 +91,9 @@ try {
     $app = \FreeFW\Application\Application::getInstance($myConfig, $myLogger);
     // EventManager
     $myEvents = \FreeFW\Listener\EventManager::getInstance();
-    $myEvents->bind(\FreeFW\Constants::EVENT_ROUTE_NOT_FOUND, function () {
-        //@todo
-        var_dump('404'); die;
+    $myEvents->bind(\FreeFW\Constants::EVENT_ROUTE_NOT_FOUND, function () use ($app) {
+        // @todo
+        $app->sendHttpCode(404);
     });
     $myEvents->bind(\FreeFW\Constants::EVENT_AFTER_RENDER, function () use ($app, $startTs) {
         $endTs = microtime(true);
@@ -109,8 +109,8 @@ try {
     /**
      * On va chercher les routes des modules, ...
      */
-    $freeFWRoutes  = \FreeFW\Router\FreeFW::getRoutes();
-    $freeSSORoutes = \FreeSSO\Router\FreeFW::getRoutes();
+    $freeFWRoutes   = \FreeFW\Router\FreeFW::getRoutes();
+    $freeSSORoutes  = \FreeSSO\Router\FreeFW::getRoutes();
     $freeAssoRoutes = \FreeAsso\Router\FreeFW::getRoutes();
     /**
      * GO...
@@ -124,5 +124,6 @@ try {
     // GO
     $app->handle();
 } catch (\Exception $ex) {
+    // @todo
     var_dump($ex);
 }
