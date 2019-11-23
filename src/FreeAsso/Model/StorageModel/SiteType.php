@@ -23,12 +23,12 @@ abstract class SiteType extends \FreeFW\Core\StorageModel
     protected static $PRP_BRK_ID = [
         FFCST::PROPERTY_PRIVATE => 'brk_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_BROKER]
     ];
     protected static $PRP_SITT_NAME = [
         FFCST::PROPERTY_PRIVATE => 'sitt_name',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
 
     /**

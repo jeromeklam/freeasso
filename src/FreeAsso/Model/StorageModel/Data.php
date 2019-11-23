@@ -23,7 +23,7 @@ abstract class Data extends \FreeFW\Core\StorageModel
     protected static $PRP_BRK_ID = [
         FFCST::PROPERTY_PRIVATE => 'brk_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_BROKER]
     ];
     protected static $PRP_DATA_NAME = [
         FFCST::PROPERTY_PRIVATE => 'data_name',

@@ -7,5 +7,5 @@
 .DS_Store
 /docker-logs
 /docker-db
-/log/*.log
+/log/*.log*
 /tmp
