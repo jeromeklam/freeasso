@@ -44,7 +44,7 @@ class Data extends \FreeAsso\Model\Base\Data implements
      */
     public function setDataCode($p_value)
     {
-        $data_code = \FreeFW\Tools\PBXString::withoutAccent($this->data_name);
+        $data_code = \FreeFW\Tools\PBXString::withoutAccent($p_value);
         $data_code = strtoupper($data_code);
         $data_code = str_replace(["-", ".", "_", " "], '', $data_code);
         //
