@@ -6,6 +6,7 @@
 .project
 .DS_Store
 /docker-logs
+/docker-dumps
 /docker-db
 /log/*.log*
 /tmp
