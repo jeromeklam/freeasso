@@ -25,9 +25,29 @@ class SiteType extends \FreeAsso\Model\Base\SiteType implements
      */
     public function init()
     {
-        $this->sitt_id   = 0;
-        $this->brk_id    = 0;
-        $this->sitt_name = '';
+        $this->sitt_id       = 0;
+        $this->brk_id        = 0;
+        $this->sitt_name     = '';
+        $this->sitt_string_1 = 0;
+        $this->sitt_string_2 = 0;
+        $this->sitt_string_3 = 0;
+        $this->sitt_string_4 = 0;
+        $this->sitt_bool_1   = 0;
+        $this->sitt_bool_2   = 0;
+        $this->sitt_bool_3   = 0;
+        $this->sitt_bool_4   = 0;
+        $this->sitt_date_1   = 0;
+        $this->sitt_date_2   = 0;
+        $this->sitt_date_3   = 0;
+        $this->sitt_date_4   = 0;
+        $this->sitt_text_1   = 0;
+        $this->sitt_text_2   = 0;
+        $this->sitt_text_3   = 0;
+        $this->sitt_text_4   = 0;
+        $this->sitt_number_1 = 0;
+        $this->sitt_number_2 = 0;
+        $this->sitt_number_3 = 0;
+        $this->sitt_number_4 = 0;
         return $this;
     }
     

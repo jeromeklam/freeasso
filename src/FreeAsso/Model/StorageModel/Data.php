@@ -33,7 +33,7 @@ abstract class Data extends \FreeFW\Core\StorageModel
     protected static $PRP_DATA_CODE = [
         FFCST::PROPERTY_PRIVATE => 'data_code',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_DATA_TYPE = [
         FFCST::PROPERTY_PRIVATE => 'data_type',

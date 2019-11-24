@@ -1,5 +1,5 @@
 <?php
-namespace FreeAsso\Router;
+namespace FreeAsso\Http;
 
 /**
  * FreeFW routes

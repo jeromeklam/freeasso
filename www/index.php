@@ -109,9 +109,9 @@ try {
     /**
      * On va chercher les routes des modules, ...
      */
-    $freeFWRoutes   = \FreeFW\Router\FreeFW::getRoutes();
-    $freeSSORoutes  = \FreeSSO\Router\FreeFW::getRoutes();
-    $freeAssoRoutes = \FreeAsso\Router\FreeFW::getRoutes();
+    $freeFWRoutes   = \FreeFW\Http\FreeFW::getRoutes();
+    $freeSSORoutes  = \FreeSSO\Http\FreeFW::getRoutes();
+    $freeAssoRoutes = \FreeAsso\Http\FreeFW::getRoutes();
     /**
      * GO...
      */

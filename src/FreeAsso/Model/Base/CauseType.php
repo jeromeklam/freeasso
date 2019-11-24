@@ -58,6 +58,126 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     protected $caut_certificat = null;
 
     /**
+     * caut_string_1
+     * @var int
+     */
+    protected $caut_string_1 = null;
+
+    /**
+     * caut_string_2
+     * @var int
+     */
+    protected $caut_string_2 = null;
+
+    /**
+     * caut_string_3
+     * @var int
+     */
+    protected $caut_string_3 = null;
+
+    /**
+     * caut_string_4
+     * @var int
+     */
+    protected $caut_string_4 = null;
+
+    /**
+     * caut_number_1
+     * @var int
+     */
+    protected $caut_number_1 = null;
+
+    /**
+     * caut_number_2
+     * @var int
+     */
+    protected $caut_number_2 = null;
+
+    /**
+     * caut_number_3
+     * @var int
+     */
+    protected $caut_number_3 = null;
+
+    /**
+     * caut_number_4
+     * @var int
+     */
+    protected $caut_number_4 = null;
+
+    /**
+     * caut_date_1
+     * @var int
+     */
+    protected $caut_date_1 = null;
+
+    /**
+     * caut_date_2
+     * @var int
+     */
+    protected $caut_date_2 = null;
+
+    /**
+     * caut_date_3
+     * @var int
+     */
+    protected $caut_date_3 = null;
+
+    /**
+     * caut_date_4
+     * @var int
+     */
+    protected $caut_date_4 = null;
+
+    /**
+     * caut_text_1
+     * @var int
+     */
+    protected $caut_text_1 = null;
+
+    /**
+     * caut_text_2
+     * @var int
+     */
+    protected $caut_text_2 = null;
+
+    /**
+     * caut_text_3
+     * @var int
+     */
+    protected $caut_text_3 = null;
+
+    /**
+     * caut_text_4
+     * @var int
+     */
+    protected $caut_text_4 = null;
+
+    /**
+     * caut_bool_1
+     * @var int
+     */
+    protected $caut_bool_1 = null;
+
+    /**
+     * caut_bool_2
+     * @var int
+     */
+    protected $caut_bool_2 = null;
+
+    /**
+     * caut_bool_3
+     * @var int
+     */
+    protected $caut_bool_3 = null;
+
+    /**
+     * caut_bool_4
+     * @var int
+     */
+    protected $caut_bool_4 = null;
+
+    /**
      * Set caut_id
      *
      * @param int $p_value
@@ -239,5 +359,465 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     public function getCautCertificat()
     {
         return $this->caut_certificat;
+    }
+
+    /**
+     * Set caut_string_1
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautString_1($p_value)
+    {
+        $this->caut_string_1 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_string_1
+     *
+     * @return int
+     */
+    public function getCautString_1()
+    {
+        return $this->caut_string_1;
+    }
+
+    /**
+     * Set caut_string_2
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautString_2($p_value)
+    {
+        $this->caut_string_2 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_string_2
+     *
+     * @return int
+     */
+    public function getCautString_2()
+    {
+        return $this->caut_string_2;
+    }
+
+    /**
+     * Set caut_string_3
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautString_3($p_value)
+    {
+        $this->caut_string_3 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_string_3
+     *
+     * @return int
+     */
+    public function getCautString_3()
+    {
+        return $this->caut_string_3;
+    }
+
+    /**
+     * Set caut_string_4
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautString_4($p_value)
+    {
+        $this->caut_string_4 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_string_4
+     *
+     * @return int
+     */
+    public function getCautString_4()
+    {
+        return $this->caut_string_4;
+    }
+
+    /**
+     * Set caut_number_1
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautNumber_1($p_value)
+    {
+        $this->caut_number_1 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_number_1
+     *
+     * @return int
+     */
+    public function getCautNumber_1()
+    {
+        return $this->caut_number_1;
+    }
+
+    /**
+     * Set caut_number_2
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautNumber_2($p_value)
+    {
+        $this->caut_number_2 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_number_2
+     *
+     * @return int
+     */
+    public function getCautNumber_2()
+    {
+        return $this->caut_number_2;
+    }
+
+    /**
+     * Set caut_number_3
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautNumber_3($p_value)
+    {
+        $this->caut_number_3 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_number_3
+     *
+     * @return int
+     */
+    public function getCautNumber_3()
+    {
+        return $this->caut_number_3;
+    }
+
+    /**
+     * Set caut_number_4
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautNumber_4($p_value)
+    {
+        $this->caut_number_4 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_number_4
+     *
+     * @return int
+     */
+    public function getCautNumber_4()
+    {
+        return $this->caut_number_4;
+    }
+
+    /**
+     * Set caut_date_1
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautDate_1($p_value)
+    {
+        $this->caut_date_1 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_date_1
+     *
+     * @return int
+     */
+    public function getCautDate_1()
+    {
+        return $this->caut_date_1;
+    }
+
+    /**
+     * Set caut_date_2
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautDate_2($p_value)
+    {
+        $this->caut_date_2 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_date_2
+     *
+     * @return int
+     */
+    public function getCautDate_2()
+    {
+        return $this->caut_date_2;
+    }
+
+    /**
+     * Set caut_date_3
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautDate_3($p_value)
+    {
+        $this->caut_date_3 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_date_3
+     *
+     * @return int
+     */
+    public function getCautDate_3()
+    {
+        return $this->caut_date_3;
+    }
+
+    /**
+     * Set caut_date_4
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautDate_4($p_value)
+    {
+        $this->caut_date_4 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_date_4
+     *
+     * @return int
+     */
+    public function getCautDate_4()
+    {
+        return $this->caut_date_4;
+    }
+
+    /**
+     * Set caut_text_1
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautText_1($p_value)
+    {
+        $this->caut_text_1 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_text_1
+     *
+     * @return int
+     */
+    public function getCautText_1()
+    {
+        return $this->caut_text_1;
+    }
+
+    /**
+     * Set caut_text_2
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautText_2($p_value)
+    {
+        $this->caut_text_2 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_text_2
+     *
+     * @return int
+     */
+    public function getCautText_2()
+    {
+        return $this->caut_text_2;
+    }
+
+    /**
+     * Set caut_text_3
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautText_3($p_value)
+    {
+        $this->caut_text_3 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_text_3
+     *
+     * @return int
+     */
+    public function getCautText_3()
+    {
+        return $this->caut_text_3;
+    }
+
+    /**
+     * Set caut_text_4
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautText_4($p_value)
+    {
+        $this->caut_text_4 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_text_4
+     *
+     * @return int
+     */
+    public function getCautText_4()
+    {
+        return $this->caut_text_4;
+    }
+
+    /**
+     * Set caut_bool_1
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautBool_1($p_value)
+    {
+        $this->caut_bool_1 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_bool_1
+     *
+     * @return int
+     */
+    public function getCautBool_1()
+    {
+        return $this->caut_bool_1;
+    }
+
+    /**
+     * Set caut_bool_2
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautBool_2($p_value)
+    {
+        $this->caut_bool_2 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_bool_2
+     *
+     * @return int
+     */
+    public function getCautBool_2()
+    {
+        return $this->caut_bool_2;
+    }
+
+    /**
+     * Set caut_bool_3
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautBool_3($p_value)
+    {
+        $this->caut_bool_3 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_bool_3
+     *
+     * @return int
+     */
+    public function getCautBool_3()
+    {
+        return $this->caut_bool_3;
+    }
+
+    /**
+     * Set caut_bool_4
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautBool_4($p_value)
+    {
+        $this->caut_bool_4 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_bool_4
+     *
+     * @return int
+     */
+    public function getCautBool_4()
+    {
+        return $this->caut_bool_4;
     }
 }

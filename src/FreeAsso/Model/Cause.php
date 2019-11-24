@@ -13,6 +13,14 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
 {
 
     /**
+     * Constantes
+     * @var string
+     */
+    const FAMILY_NONE   = 'NONE';
+    const FAMILY_ANIMAL = 'ANIMAL';
+    const FAMILY_OTHER  = 'OTHER';
+
+    /**
      * Site
      * @var \FreeAsso\Model\Site
      */
@@ -77,10 +85,13 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
      */
     public function init()
     {
-        $this->cau_id   = 0;
-        $this->brk_id   = 0;
-        $this->cau_name = '';
-        $this->cau_code = '';
+        $this->cau_id        = 0;
+        $this->brk_id        = 0;
+        $this->cau_name      = '';
+        $this->cau_code      = '';
+        $this->cau_public    = 1;
+        $this->cau_available = 1;
+        $this->cau_family    = self::FAMILY_NONE;
         return $this;
     }
 }

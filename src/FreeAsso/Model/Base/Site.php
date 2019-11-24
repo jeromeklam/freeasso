@@ -94,6 +94,126 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     protected $site_level = null;
 
     /**
+     * site_string_1
+     * @var string
+     */
+    protected $site_string_1 = null;
+
+    /**
+     * site_string_2
+     * @var string
+     */
+    protected $site_string_2 = null;
+
+    /**
+     * site_string_3
+     * @var string
+     */
+    protected $site_string_3 = null;
+
+    /**
+     * site_string_4
+     * @var string
+     */
+    protected $site_string_4 = null;
+
+    /**
+     * site_number_1
+     * @var string
+     */
+    protected $site_number_1 = null;
+
+    /**
+     * site_number_2
+     * @var string
+     */
+    protected $site_number_2 = null;
+
+    /**
+     * site_number_3
+     * @var string
+     */
+    protected $site_number_3 = null;
+
+    /**
+     * site_number_4
+     * @var string
+     */
+    protected $site_number_4 = null;
+
+    /**
+     * site_date_1
+     * @var string
+     */
+    protected $site_date_1 = null;
+
+    /**
+     * site_date_2
+     * @var string
+     */
+    protected $site_date_2 = null;
+
+    /**
+     * site_date_3
+     * @var string
+     */
+    protected $site_date_3 = null;
+
+    /**
+     * site_date_4
+     * @var string
+     */
+    protected $site_date_4 = null;
+
+    /**
+     * site_text_1
+     * @var mixed
+     */
+    protected $site_text_1 = null;
+
+    /**
+     * site_text_2
+     * @var mixed
+     */
+    protected $site_text_2 = null;
+
+    /**
+     * site_text_3
+     * @var mixed
+     */
+    protected $site_text_3 = null;
+
+    /**
+     * site_text_4
+     * @var mixed
+     */
+    protected $site_text_4 = null;
+
+    /**
+     * site_bool_1
+     * @var int
+     */
+    protected $site_bool_1 = null;
+
+    /**
+     * site_bool_2
+     * @var int
+     */
+    protected $site_bool_2 = null;
+
+    /**
+     * site_bool_3
+     * @var int
+     */
+    protected $site_bool_3 = null;
+
+    /**
+     * site_bool_4
+     * @var int
+     */
+    protected $site_bool_4 = null;
+
+    /**
      * Set site_id
      *
      * @param int $p_value
@@ -413,5 +533,465 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     public function getSiteLevel()
     {
         return $this->site_level;
+    }
+
+    /**
+     * Set site_string_1
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSiteString_1($p_value)
+    {
+        $this->site_string_1 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get site_string_1
+     *
+     * @return string
+     */
+    public function getSiteString_1()
+    {
+        return $this->site_string_1;
+    }
+
+    /**
+     * Set site_string_2
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSiteString_2($p_value)
+    {
+        $this->site_string_2 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get site_string_2
+     *
+     * @return string
+     */
+    public function getSiteString_2()
+    {
+        return $this->site_string_2;
+    }
+
+    /**
+     * Set site_string_3
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSiteString_3($p_value)
+    {
+        $this->site_string_3 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get site_string_3
+     *
+     * @return string
+     */
+    public function getSiteString_3()
+    {
+        return $this->site_string_3;
+    }
+
+    /**
+     * Set site_string_4
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSiteString_4($p_value)
+    {
+        $this->site_string_4 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get site_string_4
+     *
+     * @return string
+     */
+    public function getSiteString_4()
+    {
+        return $this->site_string_4;
+    }
+
+    /**
+     * Set site_number_1
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSiteNumber_1($p_value)
+    {
+        $this->site_number_1 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get site_number_1
+     *
+     * @return string
+     */
+    public function getSiteNumber_1()
+    {
+        return $this->site_number_1;
+    }
+
+    /**
+     * Set site_number_2
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSiteNumber_2($p_value)
+    {
+        $this->site_number_2 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get site_number_2
+     *
+     * @return string
+     */
+    public function getSiteNumber_2()
+    {
+        return $this->site_number_2;
+    }
+
+    /**
+     * Set site_number_3
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSiteNumber_3($p_value)
+    {
+        $this->site_number_3 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get site_number_3
+     *
+     * @return string
+     */
+    public function getSiteNumber_3()
+    {
+        return $this->site_number_3;
+    }
+
+    /**
+     * Set site_number_4
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSiteNumber_4($p_value)
+    {
+        $this->site_number_4 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get site_number_4
+     *
+     * @return string
+     */
+    public function getSiteNumber_4()
+    {
+        return $this->site_number_4;
+    }
+
+    /**
+     * Set site_date_1
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSiteDate_1($p_value)
+    {
+        $this->site_date_1 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get site_date_1
+     *
+     * @return string
+     */
+    public function getSiteDate_1()
+    {
+        return $this->site_date_1;
+    }
+
+    /**
+     * Set site_date_2
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSiteDate_2($p_value)
+    {
+        $this->site_date_2 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get site_date_2
+     *
+     * @return string
+     */
+    public function getSiteDate_2()
+    {
+        return $this->site_date_2;
+    }
+
+    /**
+     * Set site_date_3
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSiteDate_3($p_value)
+    {
+        $this->site_date_3 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get site_date_3
+     *
+     * @return string
+     */
+    public function getSiteDate_3()
+    {
+        return $this->site_date_3;
+    }
+
+    /**
+     * Set site_date_4
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSiteDate_4($p_value)
+    {
+        $this->site_date_4 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get site_date_4
+     *
+     * @return string
+     */
+    public function getSiteDate_4()
+    {
+        return $this->site_date_4;
+    }
+
+    /**
+     * Set site_text_1
+     *
+     * @param mixed $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSiteText_1($p_value)
+    {
+        $this->site_text_1 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get site_text_1
+     *
+     * @return mixed
+     */
+    public function getSiteText_1()
+    {
+        return $this->site_text_1;
+    }
+
+    /**
+     * Set site_text_2
+     *
+     * @param mixed $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSiteText_2($p_value)
+    {
+        $this->site_text_2 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get site_text_2
+     *
+     * @return mixed
+     */
+    public function getSiteText_2()
+    {
+        return $this->site_text_2;
+    }
+
+    /**
+     * Set site_text_3
+     *
+     * @param mixed $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSiteText_3($p_value)
+    {
+        $this->site_text_3 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get site_text_3
+     *
+     * @return mixed
+     */
+    public function getSiteText_3()
+    {
+        return $this->site_text_3;
+    }
+
+    /**
+     * Set site_text_4
+     *
+     * @param mixed $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSiteText_4($p_value)
+    {
+        $this->site_text_4 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get site_text_4
+     *
+     * @return mixed
+     */
+    public function getSiteText_4()
+    {
+        return $this->site_text_4;
+    }
+
+    /**
+     * Set site_bool_1
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSiteBool_1($p_value)
+    {
+        $this->site_bool_1 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get site_bool_1
+     *
+     * @return int
+     */
+    public function getSiteBool_1()
+    {
+        return $this->site_bool_1;
+    }
+
+    /**
+     * Set site_bool_2
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSiteBool_2($p_value)
+    {
+        $this->site_bool_2 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get site_bool_2
+     *
+     * @return int
+     */
+    public function getSiteBool_2()
+    {
+        return $this->site_bool_2;
+    }
+
+    /**
+     * Set site_bool_3
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSiteBool_3($p_value)
+    {
+        $this->site_bool_3 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get site_bool_3
+     *
+     * @return int
+     */
+    public function getSiteBool_3()
+    {
+        return $this->site_bool_3;
+    }
+
+    /**
+     * Set site_bool_4
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSiteBool_4($p_value)
+    {
+        $this->site_bool_4 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get site_bool_4
+     *
+     * @return int
+     */
+    public function getSiteBool_4()
+    {
+        return $this->site_bool_4;
     }
 }

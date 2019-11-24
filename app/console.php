@@ -83,12 +83,12 @@ try {
         throw new \FreeFW\Core\FreeFWException('No storage configuration found !');
     }
     // Micro application
-    $app = \FreeFW\Application\Application::getInstance($myConfig, $myLogger);
+    $app = \FreeFW\Application\Console::getInstance($myConfig, $myLogger);
     // EventManager
     $myEvents = \FreeFW\Listener\EventManager::getInstance();
     $myEvents->bind(\FreeFW\Constants::EVENT_ROUTE_NOT_FOUND, function () {
         //@todo
-        var_dump('404'); die;
+        echo "Commande introuvable\n";
     });
     $myEvents->bind(\FreeFW\Constants::EVENT_AFTER_RENDER, function () use ($app, $startTs) {
         $endTs = microtime(true);
@@ -104,20 +104,20 @@ try {
     /**
      * On va chercher les routes des modules, ...
      */
-    $freeFWRoutes  = \FreeFW\Router\FreeFW::getRoutes();
-    $freeSSORoutes = \FreeSSO\Router\FreeFW::getRoutes();
-    $freeAssoRoutes = \FreeAsso\Router\FreeFW::getRoutes();
+    $freeFWCommands  = \FreeFW\Console\FreeFW::getCommands();
+    $freeSSOCommands = \FreeSSO\Console\FreeFW::getCommands();
+    $freeAssoCommands = \FreeAsso\Console\FreeFW::getCommands();
     /**
      * GO...
      */
     $app
         ->setEventManager($myEvents)
-        ->addRoutes($freeAssoRoutes)
-        ->addRoutes($freeSSORoutes)
-        ->addRoutes($freeFWRoutes)
+        ->addCommands($freeAssoCommands)
+        ->addCommands($freeSSOCommands)
+        ->addCommands($freeFWCommands)
     ;
     // GO
     $app->handle();
 } catch (\Exception $ex) {
-    var_dump($ex);
+    echo $ex->getMessage() . "\n";
 }

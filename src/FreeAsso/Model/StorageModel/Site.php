@@ -92,6 +92,106 @@ abstract class Site extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
         FFCST::PROPERTY_OPTIONS => []
     ];
+    protected static $PRP_SITE_STRING_1 = [
+        FFCST::PROPERTY_PRIVATE => 'site_string_1',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_SITE_STRING_2 = [
+        FFCST::PROPERTY_PRIVATE => 'site_string_2',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_SITE_STRING_3 = [
+        FFCST::PROPERTY_PRIVATE => 'site_string_3',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_SITE_STRING_4 = [
+        FFCST::PROPERTY_PRIVATE => 'site_string_4',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_SITE_NUMBER_1 = [
+        FFCST::PROPERTY_PRIVATE => 'site_number_1',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_SITE_NUMBER_2 = [
+        FFCST::PROPERTY_PRIVATE => 'site_number_2',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_SITE_NUMBER_3 = [
+        FFCST::PROPERTY_PRIVATE => 'site_number_3',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_SITE_NUMBER_4 = [
+        FFCST::PROPERTY_PRIVATE => 'site_number_4',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_SITE_DATE_1 = [
+        FFCST::PROPERTY_PRIVATE => 'site_date_1',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIME,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_SITE_DATE_2 = [
+        FFCST::PROPERTY_PRIVATE => 'site_date_2',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIME,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_SITE_DATE_3 = [
+        FFCST::PROPERTY_PRIVATE => 'site_date_3',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIME,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_SITE_DATE_4 = [
+        FFCST::PROPERTY_PRIVATE => 'site_date_4',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIME,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_SITE_TEXT_1 = [
+        FFCST::PROPERTY_PRIVATE => 'site_text_1',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BLOB,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_SITE_TEXT_2 = [
+        FFCST::PROPERTY_PRIVATE => 'site_text_2',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BLOB,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_SITE_TEXT_3 = [
+        FFCST::PROPERTY_PRIVATE => 'site_text_3',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BLOB,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_SITE_TEXT_4 = [
+        FFCST::PROPERTY_PRIVATE => 'site_text_4',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BLOB,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_SITE_BOOL_1 = [
+        FFCST::PROPERTY_PRIVATE => 'site_bool_1',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_SITE_BOOL_2 = [
+        FFCST::PROPERTY_PRIVATE => 'site_bool_2',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_SITE_BOOL_3 = [
+        FFCST::PROPERTY_PRIVATE => 'site_bool_3',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_SITE_BOOL_4 = [
+        FFCST::PROPERTY_PRIVATE => 'site_bool_4',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
 
     /**
      * get properties
@@ -114,7 +214,27 @@ abstract class Site extends \FreeFW\Core\StorageModel
             'site_position'  => self::$PRP_SITE_POSITION,
             'site_left'      => self::$PRP_SITE_LEFT,
             'site_right'     => self::$PRP_SITE_RIGHT,
-            'site_level'     => self::$PRP_SITE_LEVEL
+            'site_level'     => self::$PRP_SITE_LEVEL,
+            'site_string_1'  => self::$PRP_SITE_STRING_1,
+            'site_string_2'  => self::$PRP_SITE_STRING_2,
+            'site_string_3'  => self::$PRP_SITE_STRING_3,
+            'site_string_4'  => self::$PRP_SITE_STRING_4,
+            'site_number_1'  => self::$PRP_SITE_NUMBER_1,
+            'site_number_2'  => self::$PRP_SITE_NUMBER_2,
+            'site_number_3'  => self::$PRP_SITE_NUMBER_3,
+            'site_number_4'  => self::$PRP_SITE_NUMBER_4,
+            'site_date_1'    => self::$PRP_SITE_DATE_1,
+            'site_date_2'    => self::$PRP_SITE_DATE_2,
+            'site_date_3'    => self::$PRP_SITE_DATE_3,
+            'site_date_4'    => self::$PRP_SITE_DATE_4,
+            'site_text_1'    => self::$PRP_SITE_TEXT_1,
+            'site_text_2'    => self::$PRP_SITE_TEXT_2,
+            'site_text_3'    => self::$PRP_SITE_TEXT_3,
+            'site_text_4'    => self::$PRP_SITE_TEXT_4,
+            'site_bool_1'    => self::$PRP_SITE_BOOL_1,
+            'site_bool_2'    => self::$PRP_SITE_BOOL_2,
+            'site_bool_3'    => self::$PRP_SITE_BOOL_3,
+            'site_bool_4'    => self::$PRP_SITE_BOOL_4
         ];
     }
 

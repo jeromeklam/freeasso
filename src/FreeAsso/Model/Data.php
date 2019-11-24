@@ -13,14 +13,27 @@ class Data extends \FreeAsso\Model\Base\Data implements
 {
 
     /**
+     * Types
+     * @var string
+     */
+    const TYPE_LIST     = "LIST";
+    const TYPE_STRING   = "STRING";
+    const TYPE_DATETIME = "DATETIME";
+    const TYPE_TEXT     = "TEXT";
+    const TYPE_DATE     = "DATE";
+    const TYPE_BOOLEAN  = "BOOLEAN";
+    const TYPE_NUMBER   = "NUMBER";
+
+    /**
      *
      * {@inheritDoc}
      * @see \FreeFW\Core\Model::init()
      */
     public function init()
     {
-        $this->data_id = 0;
-        $this->brk_id  = 0;
+        $this->data_id   = 0;
+        $this->brk_id    = 0;
+        $this->data_type = self::TYPE_STRING;
         return $this;
     }
 

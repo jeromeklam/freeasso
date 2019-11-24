@@ -28,6 +28,126 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     protected $sitt_name = null;
 
     /**
+     * sitt_string_1
+     * @var int
+     */
+    protected $sitt_string_1 = null;
+
+    /**
+     * sitt_string_2
+     * @var int
+     */
+    protected $sitt_string_2 = null;
+
+    /**
+     * sitt_string_3
+     * @var int
+     */
+    protected $sitt_string_3 = null;
+
+    /**
+     * sitt_string_4
+     * @var int
+     */
+    protected $sitt_string_4 = null;
+
+    /**
+     * sitt_number_1
+     * @var int
+     */
+    protected $sitt_number_1 = null;
+
+    /**
+     * sitt_number_2
+     * @var int
+     */
+    protected $sitt_number_2 = null;
+
+    /**
+     * sitt_number_3
+     * @var int
+     */
+    protected $sitt_number_3 = null;
+
+    /**
+     * sitt_number_4
+     * @var int
+     */
+    protected $sitt_number_4 = null;
+
+    /**
+     * sitt_date_1
+     * @var int
+     */
+    protected $sitt_date_1 = null;
+
+    /**
+     * sitt_date_2
+     * @var int
+     */
+    protected $sitt_date_2 = null;
+
+    /**
+     * sitt_date_3
+     * @var int
+     */
+    protected $sitt_date_3 = null;
+
+    /**
+     * sitt_date_4
+     * @var int
+     */
+    protected $sitt_date_4 = null;
+
+    /**
+     * sitt_text_1
+     * @var int
+     */
+    protected $sitt_text_1 = null;
+
+    /**
+     * sitt_text_2
+     * @var int
+     */
+    protected $sitt_text_2 = null;
+
+    /**
+     * sitt_text_3
+     * @var int
+     */
+    protected $sitt_text_3 = null;
+
+    /**
+     * sitt_text_4
+     * @var int
+     */
+    protected $sitt_text_4 = null;
+
+    /**
+     * sitt_bool_1
+     * @var int
+     */
+    protected $sitt_bool_1 = null;
+
+    /**
+     * sitt_bool_2
+     * @var int
+     */
+    protected $sitt_bool_2 = null;
+
+    /**
+     * sitt_bool_3
+     * @var int
+     */
+    protected $sitt_bool_3 = null;
+
+    /**
+     * sitt_bool_4
+     * @var int
+     */
+    protected $sitt_bool_4 = null;
+
+    /**
      * Set sitt_id
      *
      * @param int $p_value
@@ -94,5 +214,465 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     public function getSittName()
     {
         return $this->sitt_name;
+    }
+
+    /**
+     * Set sitt_string_1
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\SiteType
+     */
+    public function setSittString_1($p_value)
+    {
+        $this->sitt_string_1 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get sitt_string_1
+     *
+     * @return int
+     */
+    public function getSittString_1()
+    {
+        return $this->sitt_string_1;
+    }
+
+    /**
+     * Set sitt_string_2
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\SiteType
+     */
+    public function setSittString_2($p_value)
+    {
+        $this->sitt_string_2 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get sitt_string_2
+     *
+     * @return int
+     */
+    public function getSittString_2()
+    {
+        return $this->sitt_string_2;
+    }
+
+    /**
+     * Set sitt_string_3
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\SiteType
+     */
+    public function setSittString_3($p_value)
+    {
+        $this->sitt_string_3 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get sitt_string_3
+     *
+     * @return int
+     */
+    public function getSittString_3()
+    {
+        return $this->sitt_string_3;
+    }
+
+    /**
+     * Set sitt_string_4
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\SiteType
+     */
+    public function setSittString_4($p_value)
+    {
+        $this->sitt_string_4 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get sitt_string_4
+     *
+     * @return int
+     */
+    public function getSittString_4()
+    {
+        return $this->sitt_string_4;
+    }
+
+    /**
+     * Set sitt_number_1
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\SiteType
+     */
+    public function setSittNumber_1($p_value)
+    {
+        $this->sitt_number_1 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get sitt_number_1
+     *
+     * @return int
+     */
+    public function getSittNumber_1()
+    {
+        return $this->sitt_number_1;
+    }
+
+    /**
+     * Set sitt_number_2
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\SiteType
+     */
+    public function setSittNumber_2($p_value)
+    {
+        $this->sitt_number_2 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get sitt_number_2
+     *
+     * @return int
+     */
+    public function getSittNumber_2()
+    {
+        return $this->sitt_number_2;
+    }
+
+    /**
+     * Set sitt_number_3
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\SiteType
+     */
+    public function setSittNumber_3($p_value)
+    {
+        $this->sitt_number_3 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get sitt_number_3
+     *
+     * @return int
+     */
+    public function getSittNumber_3()
+    {
+        return $this->sitt_number_3;
+    }
+
+    /**
+     * Set sitt_number_4
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\SiteType
+     */
+    public function setSittNumber_4($p_value)
+    {
+        $this->sitt_number_4 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get sitt_number_4
+     *
+     * @return int
+     */
+    public function getSittNumber_4()
+    {
+        return $this->sitt_number_4;
+    }
+
+    /**
+     * Set sitt_date_1
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\SiteType
+     */
+    public function setSittDate_1($p_value)
+    {
+        $this->sitt_date_1 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get sitt_date_1
+     *
+     * @return int
+     */
+    public function getSittDate_1()
+    {
+        return $this->sitt_date_1;
+    }
+
+    /**
+     * Set sitt_date_2
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\SiteType
+     */
+    public function setSittDate_2($p_value)
+    {
+        $this->sitt_date_2 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get sitt_date_2
+     *
+     * @return int
+     */
+    public function getSittDate_2()
+    {
+        return $this->sitt_date_2;
+    }
+
+    /**
+     * Set sitt_date_3
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\SiteType
+     */
+    public function setSittDate_3($p_value)
+    {
+        $this->sitt_date_3 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get sitt_date_3
+     *
+     * @return int
+     */
+    public function getSittDate_3()
+    {
+        return $this->sitt_date_3;
+    }
+
+    /**
+     * Set sitt_date_4
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\SiteType
+     */
+    public function setSittDate_4($p_value)
+    {
+        $this->sitt_date_4 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get sitt_date_4
+     *
+     * @return int
+     */
+    public function getSittDate_4()
+    {
+        return $this->sitt_date_4;
+    }
+
+    /**
+     * Set sitt_text_1
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\SiteType
+     */
+    public function setSittText_1($p_value)
+    {
+        $this->sitt_text_1 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get sitt_text_1
+     *
+     * @return int
+     */
+    public function getSittText_1()
+    {
+        return $this->sitt_text_1;
+    }
+
+    /**
+     * Set sitt_text_2
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\SiteType
+     */
+    public function setSittText_2($p_value)
+    {
+        $this->sitt_text_2 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get sitt_text_2
+     *
+     * @return int
+     */
+    public function getSittText_2()
+    {
+        return $this->sitt_text_2;
+    }
+
+    /**
+     * Set sitt_text_3
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\SiteType
+     */
+    public function setSittText_3($p_value)
+    {
+        $this->sitt_text_3 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get sitt_text_3
+     *
+     * @return int
+     */
+    public function getSittText_3()
+    {
+        return $this->sitt_text_3;
+    }
+
+    /**
+     * Set sitt_text_4
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\SiteType
+     */
+    public function setSittText_4($p_value)
+    {
+        $this->sitt_text_4 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get sitt_text_4
+     *
+     * @return int
+     */
+    public function getSittText_4()
+    {
+        return $this->sitt_text_4;
+    }
+
+    /**
+     * Set sitt_bool_1
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\SiteType
+     */
+    public function setSittBool_1($p_value)
+    {
+        $this->sitt_bool_1 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get sitt_bool_1
+     *
+     * @return int
+     */
+    public function getSittBool_1()
+    {
+        return $this->sitt_bool_1;
+    }
+
+    /**
+     * Set sitt_bool_2
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\SiteType
+     */
+    public function setSittBool_2($p_value)
+    {
+        $this->sitt_bool_2 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get sitt_bool_2
+     *
+     * @return int
+     */
+    public function getSittBool_2()
+    {
+        return $this->sitt_bool_2;
+    }
+
+    /**
+     * Set sitt_bool_3
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\SiteType
+     */
+    public function setSittBool_3($p_value)
+    {
+        $this->sitt_bool_3 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get sitt_bool_3
+     *
+     * @return int
+     */
+    public function getSittBool_3()
+    {
+        return $this->sitt_bool_3;
+    }
+
+    /**
+     * Set sitt_bool_4
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\SiteType
+     */
+    public function setSittBool_4($p_value)
+    {
+        $this->sitt_bool_4 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get sitt_bool_4
+     *
+     * @return int
+     */
+    public function getSittBool_4()
+    {
+        return $this->sitt_bool_4;
     }
 }
