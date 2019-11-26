@@ -34,6 +34,12 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     protected $site_name = null;
 
     /**
+     * site_code
+     * @var string
+     */
+    protected $site_code = null;
+
+    /**
      * site_address1
      * @var string
      */
@@ -64,16 +70,40 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     protected $site_town = null;
 
     /**
+     * owner_cli_id
+     * @var int
+     */
+    protected $owner_cli_id = null;
+
+    /**
+     * sanit_cli_id
+     * @var int
+     */
+    protected $sanit_cli_id = null;
+
+    /**
      * parent_site_id
      * @var int
      */
     protected $parent_site_id = null;
 
     /**
+     * area
+     * @var string
+     */
+    protected $site_area = null;
+
+    /**
      * site_position
      * @var string
      */
     protected $site_position = null;
+
+    /**
+     * plots
+     * @var mixed
+     */
+    protected $site_plots = null;
 
     /**
      * site_left
@@ -306,6 +336,29 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     }
 
     /**
+     * Set site_code
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSiteCode($p_value)
+    {
+        $this->site_code = $p_value;
+        return $this;
+    }
+    
+    /**
+     * Get site_code
+     *
+     * @return string
+     */
+    public function getSiteCode()
+    {
+        return $this->site_code;
+    }
+
+    /**
      * Set site_address1
      *
      * @param string $p_value
@@ -421,6 +474,52 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     }
 
     /**
+     * Set owner_cli_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setOwnerCliId($p_value)
+    {
+        $this->owner_cli_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get owner_cli_id
+     *
+     * @return int
+     */
+    public function getOwnerCliId()
+    {
+        return $this->owner_cli_id;
+    }
+
+    /**
+     * Set sanit_cli_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSanitCliId($p_value)
+    {
+        $this->sanit_cli_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get sanit_cli_id
+     *
+     * @return int
+     */
+    public function getSanitCliId()
+    {
+        return $this->sanit_cli_id;
+    }
+
+    /**
      * Set parent_site_id
      *
      * @param int $p_value
@@ -444,6 +543,29 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     }
 
     /**
+     * Set site_area
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSiteArea($p_value)
+    {
+        $this->site_area = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get site_area
+     *
+     * @return string
+     */
+    public function getSiteArea()
+    {
+        return $this->site_area;
+    }
+
+    /**
      * Set site_position
      *
      * @param string $p_value
@@ -464,6 +586,29 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     public function getSitePosition()
     {
         return $this->site_position;
+    }
+
+    /**
+     * Set site_plots
+     *
+     * @param mixed $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSitePlots($p_value)
+    {
+        $this->site_plots = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get site_plots
+     *
+     * @return mixed
+     */
+    public function getSitePlots()
+    {
+        return $this->site_plots;
     }
 
     /**

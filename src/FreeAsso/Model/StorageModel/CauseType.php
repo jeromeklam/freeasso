@@ -25,6 +25,18 @@ abstract class CauseType extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_BROKER]
     ];
+    protected static $PRP_CAMT_ID = [
+        FFCST::PROPERTY_PRIVATE => 'camt_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['camt_id' =>
+            [
+                'model' => 'FreeAsso::Model::CauseMainType',
+                'field' => 'camt_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
     protected static $PRP_CAUT_NAME = [
         FFCST::PROPERTY_PRIVATE => 'caut_name',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
@@ -166,6 +178,7 @@ abstract class CauseType extends \FreeFW\Core\StorageModel
         return [
             'caut_id'         => self::$PRP_CAUT_ID,
             'brk_id'          => self::$PRP_BRK_ID,
+            'camt_id'         => self::$PRP_CAMT_ID,
             'caut_name'       => self::$PRP_CAUT_NAME,
             'caut_receipt'    => self::$PRP_CAUT_RECEIPT,
             'caut_max_mnt'    => self::$PRP_CAUT_MAX_MNT,

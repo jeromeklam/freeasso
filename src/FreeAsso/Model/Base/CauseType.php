@@ -22,6 +22,12 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     protected $brk_id = null;
 
     /**
+     * camt_id
+     * @var int
+     */
+    protected $camt_id = null;
+
+    /**
      * caut_name
      * @var string
      */
@@ -221,6 +227,29 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     public function getBrkId()
     {
         return $this->brk_id;
+    }
+
+    /**
+     * Set camt_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCamtId($p_value)
+    {
+        $this->camt_id = $p_value;
+        return $this;
+    }
+    
+    /**
+     * Get camt_id
+     *
+     * @return int
+     */
+    public function getCamtId()
+    {
+        return $this->camt_id;
     }
 
     /**

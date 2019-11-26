@@ -42,6 +42,11 @@ abstract class Site extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
+    protected static $PRP_SITE_CODE = [
+        FFCST::PROPERTY_PRIVATE => 'site_code',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
     protected static $PRP_SITE_ADDRESS1 = [
         FFCST::PROPERTY_PRIVATE => 'site_address1',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
@@ -67,14 +72,55 @@ abstract class Site extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
         FFCST::PROPERTY_OPTIONS => []
     ];
+    protected static $PRP_OWNER_CLI_ID = [
+        FFCST::PROPERTY_PRIVATE => 'owner_cli_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['owner_cli_id' =>
+            [
+                'model' => 'FreeAsso::Model::Client',
+                'field' => 'owner_cli_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
+    protected static $PRP_SANIT_CLI_ID = [
+        FFCST::PROPERTY_PRIVATE => 'sanit_cli_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['sanit_cli_id' =>
+            [
+                'model' => 'FreeAsso::Model::Client',
+                'field' => 'sanit_cli_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
     protected static $PRP_PARENT_SITE_ID = [
         FFCST::PROPERTY_PRIVATE => 'parent_site_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['parent_site_id' =>
+            [
+                'model' => 'FreeAsso::Model::Site',
+                'field' => 'parent_site_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
+    protected static $PRP_SITE_AREA = [
+        FFCST::PROPERTY_PRIVATE => 'site_area',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_SITE_POSITION = [
         FFCST::PROPERTY_PRIVATE => 'site_position',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_SITE_PLOTS = [
+        FFCST::PROPERTY_PRIVATE => 'site_plots',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BLOB,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_SITE_LEFT = [
@@ -114,22 +160,22 @@ abstract class Site extends \FreeFW\Core\StorageModel
     ];
     protected static $PRP_SITE_NUMBER_1 = [
         FFCST::PROPERTY_PRIVATE => 'site_number_1',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_SITE_NUMBER_2 = [
         FFCST::PROPERTY_PRIVATE => 'site_number_2',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_SITE_NUMBER_3 = [
         FFCST::PROPERTY_PRIVATE => 'site_number_3',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_SITE_NUMBER_4 = [
         FFCST::PROPERTY_PRIVATE => 'site_number_4',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_SITE_DATE_1 = [
@@ -174,22 +220,22 @@ abstract class Site extends \FreeFW\Core\StorageModel
     ];
     protected static $PRP_SITE_BOOL_1 = [
         FFCST::PROPERTY_PRIVATE => 'site_bool_1',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_SITE_BOOL_2 = [
         FFCST::PROPERTY_PRIVATE => 'site_bool_2',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_SITE_BOOL_3 = [
         FFCST::PROPERTY_PRIVATE => 'site_bool_3',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_SITE_BOOL_4 = [
         FFCST::PROPERTY_PRIVATE => 'site_bool_4',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => []
     ];
 
@@ -205,13 +251,18 @@ abstract class Site extends \FreeFW\Core\StorageModel
             'brk_id'         => self::$PRP_BRK_ID,
             'sitt_id'        => self::$PRP_SITT_ID,
             'site_name'      => self::$PRP_SITE_NAME,
+            'site_code'      => self::$PRP_SITE_CODE,
             'site_address1'  => self::$PRP_SITE_ADDRESS1,
             'site_address2'  => self::$PRP_SITE_ADDRESS2,
             'site_address3'  => self::$PRP_SITE_ADDRESS3,
             'site_cp'        => self::$PRP_SITE_CP,
             'site_town'      => self::$PRP_SITE_TOWN,
+            'owner_cli_id'   => self::$PRP_OWNER_CLI_ID,
+            'sanit_cli_id'   => self::$PRP_SANIT_CLI_ID,
             'parent_site_id' => self::$PRP_PARENT_SITE_ID,
+            'site_area'      => self::$PRP_SITE_AREA,
             'site_position'  => self::$PRP_SITE_POSITION,
+            'site_plots'     => self::$PRP_SITE_PLOTS,
             'site_left'      => self::$PRP_SITE_LEFT,
             'site_right'     => self::$PRP_SITE_RIGHT,
             'site_level'     => self::$PRP_SITE_LEVEL,

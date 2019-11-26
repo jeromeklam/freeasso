@@ -10,3 +10,4 @@
 /docker-db
 /log/*.log*
 /tmp
+/datas

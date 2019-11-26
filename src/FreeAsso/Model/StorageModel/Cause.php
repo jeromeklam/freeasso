@@ -79,6 +79,18 @@ abstract class Cause extends \FreeFW\Core\StorageModel
             ]
         ]
     ];
+    protected static $PRP_ORIG_CLI_ID = [
+        FFCST::PROPERTY_PRIVATE => 'orig_cli_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['orig_cli_id' =>
+            [
+                'model' => 'FreeAsso::Model::Client',
+                'field' => 'orig_cli_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
     protected static $PRP_CAU_MNT = [
         FFCST::PROPERTY_PRIVATE => 'cau_mnt',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
@@ -213,6 +225,7 @@ abstract class Cause extends \FreeFW\Core\StorageModel
             'cau_public'    => self::$PRP_CAU_PUBLIC,
             'cau_available' => self::$PRP_CAU_AVAILABLE,
             'site_id'       => self::$PRP_SITE_ID,
+            'orig_cli_id'   => self::$PRP_ORIG_CLI_ID,
             'cau_mnt'       => self::$PRP_CAU_MNT,
             'cau_code'      => self::$PRP_CAU_CODE,
             'cau_family'    => self::$PRP_CAU_FAMILY,

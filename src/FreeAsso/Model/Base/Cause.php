@@ -70,6 +70,13 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     protected $site_id = null;
 
     /**
+     * orig_cli_id
+     * @var int
+     */
+    protected $orig_cli_id = null;
+    
+
+    /**
      * cau_mnt
      * @var string
      */
@@ -427,6 +434,29 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
         return $this;
     }
 
+    /**
+     * Get orig_cli_id
+     *
+     * @return int
+     */
+    public function getOrigCliId()
+    {
+        return $this->orig_cli_id;
+    }
+    
+    /**
+     * Set site_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Cause
+     */
+    public function setOrigCliId($p_value)
+    {
+        $this->orig_cli_id = $p_value;
+        return $this;
+    }
+    
     /**
      * Get site_id
      *
