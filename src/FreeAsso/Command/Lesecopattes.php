@@ -250,7 +250,7 @@ class Lesecopattes
          */
         $myCfgCloture = \FreeFW\DI\DI::get('FreeAsso::Model::Config');
         $myCfgCloture
-            ->setAcfgCode(\FreeAsso\Model\Config::CONFIG_SITT_STRING_1)
+            ->setAcfgCode('DATA_ID@' . \FreeAsso\Model\Config::CONFIG_SITE_STRING_1)
             ->setAcfgValue($myDataCloture->getDataId())
         ;
         if (!$myCfgCloture->create()) {
@@ -259,7 +259,7 @@ class Lesecopattes
         //
         $myCfgAbrevoir = \FreeFW\DI\DI::get('FreeAsso::Model::Config');
         $myCfgAbrevoir
-            ->setAcfgCode(\FreeAsso\Model\Config::CONFIG_SITT_STRING_2)
+            ->setAcfgCode('DATA_ID@' . \FreeAsso\Model\Config::CONFIG_SITE_STRING_2)
             ->setAcfgValue($myDataAbrev->getDataId())
         ;
         if (!$myCfgAbrevoir->create()) {
@@ -268,7 +268,7 @@ class Lesecopattes
         //
         $myCfgAccesE = \FreeFW\DI\DI::get('FreeAsso::Model::Config');
         $myCfgAccesE
-            ->setAcfgCode(\FreeAsso\Model\Config::CONFIG_SITT_BOOL_1)
+            ->setAcfgCode('DATA_ID@' . \FreeAsso\Model\Config::CONFIG_SITE_BOOL_1)
             ->setAcfgValue($myDataAccesE->getDataId())
         ;
         if (!$myCfgAccesE->create()) {
@@ -277,14 +277,14 @@ class Lesecopattes
         //
         $myCfgNbElec = \FreeFW\DI\DI::get('FreeAsso::Model::Config');
         $myCfgNbElec
-            ->setAcfgCode(\FreeAsso\Model\Config::CONFIG_SITT_NUMBER_1)
+            ->setAcfgCode('DATA_ID@' . \FreeAsso\Model\Config::CONFIG_SITE_NUMBER_1)
             ->setAcfgValue($myDataNbElec->getDataId())
         ;
         if (!$myCfgNbElec->create()) {
             var_export($myCfgNbElec->getErrors());die;
         }
         /**
-         * Sites
+         * Causes
          */
         $tabCauses = [];
         $tabCType  = [];
@@ -314,11 +314,25 @@ class Lesecopattes
                     }
                     $origId = $tabOrigs[$columns[10]];
                 }
+                $cautId = $myCauseType->getCautId();
+                if ($columns[2] != '') {
+                    if (!array_key_exists(strtolower($columns[2]), $tabCType)) {
+                        $newCtype = \FreeFW\DI\DI::get('FreeAsso::Model::CauseType');
+                        $newCtype
+                            ->setCautName(strtolower($columns[2]))
+                        ;
+                        if (!$newCtype->create()) {
+                            var_export($newCtype->getErrors());die;
+                        }
+                        $tabCType[strtolower($columns[2])] = $newCtype->getCautId();
+                    }
+                    $cautId = $tabCType[strtolower($columns[2])];
+                }
                 $myCause = \FreeFW\DI\DI::get('FreeAsso::Model::Cause');
                 $myCause
                     ->setCauName($columns[0])
                     ->setCauCode($columns[0])
-                    ->setCautId($myCauseType->getCautId())
+                    ->setCautId($cautId)
                     ->setCauFamily(\FreeAsso\Model\Cause::FAMILY_ANIMAL)
                 ;
                 if ($origId) {
@@ -367,7 +381,7 @@ class Lesecopattes
         }
         $myCfgSexe = \FreeFW\DI\DI::get('FreeAsso::Model::Config');
         $myCfgSexe
-            ->setAcfgCode(\FreeAsso\Model\Config::CONFIG_CAUT_STRING_1)
+            ->setAcfgCode('DATA_ID@' . \FreeAsso\Model\Config::CONFIG_CAU_STRING_1)
             ->setAcfgValue($myDataSexe->getDataId())
         ;
         if (!$myCfgSexe->create()) {
@@ -392,7 +406,7 @@ class Lesecopattes
         }
         $myCfgColor = \FreeFW\DI\DI::get('FreeAsso::Model::Config');
         $myCfgColor
-            ->setAcfgCode(\FreeAsso\Model\Config::CONFIG_CAUT_STRING_2)
+            ->setAcfgCode('DATA_ID@' . \FreeAsso\Model\Config::CONFIG_CAU_STRING_2)
             ->setAcfgValue($myDataColor->getDataId())
         ;
         if (!$myCfgColor->create()) {
