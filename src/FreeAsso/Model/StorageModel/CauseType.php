@@ -29,7 +29,7 @@ abstract class CauseType extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_PRIVATE => 'camt_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
-        FFCST::PROPERTY_FK      => ['camt_id' =>
+        FFCST::PROPERTY_FK      => ['cause_main_type' =>
             [
                 'model' => 'FreeAsso::Model::CauseMainType',
                 'field' => 'camt_id',

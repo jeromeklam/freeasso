@@ -21,6 +21,12 @@ class CauseType extends \FreeAsso\Model\Base\CauseType implements
     const MNT_TYPE_MAXIMUM = 'MAXIMUM';
 
     /**
+     * Type de cause principal
+     * @var \FreeAsso\Model\CauseMainType
+     */
+    protected $cause_main_type = null;
+    
+    /**
      *
      * {@inheritDoc}
      * @see \FreeFW\Core\Model::init()
@@ -54,5 +60,28 @@ class CauseType extends \FreeAsso\Model\Base\CauseType implements
         $this->caut_text_3     = 0;
         $this->caut_text_4     = 0;
         return $this;
+    }
+
+    /**
+     * Set Cause main type
+     *
+     * @param \FreeAsso\Model\CauseMainType $p_cause_main_type
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCauseMainType($p_cause_main_type)
+    {
+        $this->cause_main_type = $p_cause_main_type;
+        return $this;
+    }
+    
+    /**
+     * Get cause main type
+     *
+     * @return \FreeAsso\Model\CauseMainType
+     */
+    public function getCauseMainType()
+    {
+        return $this->cause_main_type;
     }
 }
