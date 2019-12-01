@@ -12,3 +12,4 @@
 /tmp
 /datas
 phinx.yml
+/config/*.php

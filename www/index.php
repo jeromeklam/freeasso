@@ -30,6 +30,7 @@ if (isset($_SERVER['SERVER_NAME'])) {
 /**
  * Fichier de configuration
  */
+var_export($server);
 if (is_file(APP_ROOT . '/config/' . strtolower($server) . '.ini.php')) {
     require_once APP_ROOT . '/config/' . strtolower($server) . '.ini.php';
 } else {
