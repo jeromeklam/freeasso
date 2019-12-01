@@ -30,6 +30,7 @@ class Lesecopattes
         $query = $assoPdo->exec("DELETE FROM asso_site WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_cause WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_cause_type WHERE brk_id = " . $brokerId);
+        $query = $assoPdo->exec("DELETE FROM asso_cause_main_type WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_site_type WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_data WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_config WHERE brk_id = " . $brokerId);
@@ -80,16 +81,6 @@ class Lesecopattes
         ;
         if (!$mySiteType->create()) {
             var_export($mySiteType->getErrors());die;
-        }
-        $myCauseType = \FreeFW\DI\DI::get('FreeAsso::Model::CauseType');
-        $myCauseType
-            ->setCautName('Autre')
-            ->setCautReceipt(false)
-            ->setCautCertificat(false)
-            ->setCautString_1(true)
-        ;
-        if (!$myCauseType->create()) {
-            var_export($myCauseType->getErrors());die;
         }
         /**
          * Sites
@@ -203,9 +194,9 @@ class Lesecopattes
         /**
          * Configs
          */
-        $content = '"Aucun"';
+        $content = '{"value":"Aucun","label":"Aucun"}';
         foreach ($tabTypeClot as $idx => $val) {
-            $content .= ',"' . $val . '"';
+            $content .= ',{"value":"' . $val . '","label":"' . $val . '"}';
         }
         $myDataCloture = \FreeFW\DI\DI::get('FreeAsso::Model::Data');
         $myDataCloture
@@ -216,9 +207,9 @@ class Lesecopattes
         if (!$myDataCloture->create()) {
             var_export($myDataCloture->getErrors());die;
         }
-        $content = '"Aucun"';
+        $content = '{"value":"Aucun","label":"Aucun"}';
         foreach ($tabTypeAbr as $idx => $val) {
-            $content .= ',"' . $val . '"';
+            $content .= ',{"value":"' . $val . '","label":"' . $val . '"}';
         }
         $myDataAbrev = \FreeFW\DI\DI::get('FreeAsso::Model::Data');
         $myDataAbrev
@@ -288,6 +279,7 @@ class Lesecopattes
          */
         $tabCauses = [];
         $tabCType  = [];
+        $tabCMType = [];
         $tabColor  = [];
         $tabOrigs  = [];
         $hCauses   = fopen(__DIR__ . '/../../../datas/lesecopattes/causes.csv', 'r');
@@ -314,12 +306,27 @@ class Lesecopattes
                     }
                     $origId = $tabOrigs[$columns[10]];
                 }
-                $cautId = $myCauseType->getCautId();
+                $camtId = null;
+                if ($columns[1] != '') {
+                    if (!array_key_exists(strtolower($columns[1]), $tabCMType)) {
+                        $newCMtype = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMainType');
+                        $newCMtype
+                            ->setCamtName(strtolower($columns[1]))
+                        ;
+                        if (!$newCMtype->create()) {
+                            var_export($newCMtype->getErrors());die;
+                        }
+                        $tabCMType[strtolower($columns[1])] = $newCMtype->getCamtId();
+                    }
+                    $camtId = $tabCMType[strtolower($columns[1])];
+                }
+                $cautId = null;
                 if ($columns[2] != '') {
                     if (!array_key_exists(strtolower($columns[2]), $tabCType)) {
                         $newCtype = \FreeFW\DI\DI::get('FreeAsso::Model::CauseType');
                         $newCtype
                             ->setCautName(strtolower($columns[2]))
+                            ->setCamtId($camtId)
                         ;
                         if (!$newCtype->create()) {
                             var_export($newCtype->getErrors());die;
@@ -374,7 +381,7 @@ class Lesecopattes
         $myDataSexe
             ->setDataName("Sexe")
             ->setDataType(\FreeAsso\Model\Data::TYPE_LIST)
-            ->setDataContent('["Male", "Femelle", "Indéfini"]')
+            ->setDataContent('[{"value":"Male":"label":"Male"}, {"value":"Femelle":"label":"Femelle"}, {"value":"Indéfini":"label":"Indéfini"}]')
         ;
         if (!$myDataSexe->create()) {
             var_export($myDataSexe->getErrors());die;
@@ -390,9 +397,9 @@ class Lesecopattes
         $content = '';
         foreach ($tabColor as $idx => $val) {
             if ($content != '') {
-                $content .= ',"' . $val . '"';
+                $content .= ',{"value":"' . $val . '","label":"' . $val . '"';
             } else {
-                $content .= '"' . $val . '"';
+                $content .= '{"value":"' . $val . '","label":"' . $val . '"';
             }
         }
         $myDataColor = \FreeFW\DI\DI::get('FreeAsso::Model::Data');

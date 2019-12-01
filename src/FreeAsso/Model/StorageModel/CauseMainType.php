@@ -20,6 +20,11 @@ abstract class CauseMainType extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_PK]
     ];
+    protected static $PRP_BRK_ID = [
+        FFCST::PROPERTY_PRIVATE => 'brk_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_BROKER]
+    ];
     protected static $PRP_CAMT_NAME = [
         FFCST::PROPERTY_PRIVATE => 'camt_name',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
@@ -35,6 +40,7 @@ abstract class CauseMainType extends \FreeFW\Core\StorageModel
     {
         return [
             'camt_id'   => self::$PRP_CAMT_ID,
+            'brk_id'    => self::$PRP_BRK_ID,
             'camt_name' => self::$PRP_CAMT_NAME
         ];
     }

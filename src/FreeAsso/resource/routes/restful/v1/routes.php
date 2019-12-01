@@ -235,6 +235,19 @@ $localRoutes = [
             ]
         ]
     ],
+    'freeasso.causemaintype.deleteone' => [
+        'method'     => \FreeFW\Router\Route::METHOD_DELETE,
+        'model'      => 'FreeAsso::Model::CauseMainType',
+        'url'        => '/v1/asso/cause_main_type/:camt_id',
+        'controller' => 'FreeAsso::Controller::CauseMainType',
+        'function'   => 'removeOne',
+        'auth'       => \FreeFW\Router\Route::AUTH_IN,
+        'middleware' => [],
+        'results' => [
+            '204' => [
+            ]
+        ]
+    ],
     /**
      * ########################################################################
      * Types de cause
@@ -388,7 +401,7 @@ $localRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['cause_type', 'site', 'cause_type.cause_main_type']
+            'default' => ['cause_type', 'cause_type.cause_main_type', 'site']
         ],
         'results' => [
             '200' => [
@@ -406,7 +419,7 @@ $localRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['cause_type', 'site', 'cause_type.cause_main_type']
+            'default' => ['cause_type', 'cause_type.cause_main_type', 'site']
         ],
         'results' => [
             '200' => [

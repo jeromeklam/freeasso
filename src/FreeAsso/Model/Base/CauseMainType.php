@@ -16,6 +16,12 @@ abstract class CauseMainType extends \FreeAsso\Model\StorageModel\CauseMainType
     protected $camt_id = null;
 
     /**
+     * brk_id
+     * @var int
+     */
+    protected $brk_id = null;
+
+    /**
      * camt_name
      * @var string
      */
@@ -42,6 +48,29 @@ abstract class CauseMainType extends \FreeAsso\Model\StorageModel\CauseMainType
     public function getCamtId()
     {
         return $this->camt_id;
+    }
+
+    /**
+     * Set brk_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setBrkId($p_value)
+    {
+        $this->brk_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get brk_id
+     *
+     * @return int
+     */
+    public function getBrkId()
+    {
+        return $this->brk_id;
     }
 
     /**
