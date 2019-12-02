@@ -27,8 +27,8 @@ class Lesecopattes
          * Nettoyage
          */
         $p_output->write("Nettoyage", true);
-        $query = $assoPdo->exec("DELETE FROM asso_site WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_cause WHERE brk_id = " . $brokerId);
+        $query = $assoPdo->exec("DELETE FROM asso_site WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_cause_type WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_cause_main_type WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_site_type WHERE brk_id = " . $brokerId);
@@ -40,8 +40,8 @@ class Lesecopattes
         /**
          * De base
          */
-        $france = \FreeAsso\Model\Country::findFirst(['cnty_name' => 'France']);
-        $lang   = \FreeAsso\Model\Lang::findFirst(['lang_name' => 'Français']);
+        $france = \FreeFW\Model\Country::findFirst(['cnty_name' => 'France']);
+        $lang   = \FreeFW\Model\Lang::findFirst(['lang_name' => 'Français']);
         /**
          * Données de base
          */
@@ -334,6 +334,8 @@ class Lesecopattes
                         $tabCType[strtolower($columns[2])] = $newCtype->getCautId();
                     }
                     $cautId = $tabCType[strtolower($columns[2])];
+                } else {
+                    var_export($columns);die;
                 }
                 $myCause = \FreeFW\DI\DI::get('FreeAsso::Model::Cause');
                 $myCause
@@ -397,9 +399,9 @@ class Lesecopattes
         $content = '';
         foreach ($tabColor as $idx => $val) {
             if ($content != '') {
-                $content .= ',{"value":"' . $val . '","label":"' . $val . '"';
+                $content .= ',{"value":"' . $val . '","label":"' . $val . '"}';
             } else {
-                $content .= '{"value":"' . $val . '","label":"' . $val . '"';
+                $content .= '{"value":"' . $val . '","label":"' . $val . '"}';
             }
         }
         $myDataColor = \FreeFW\DI\DI::get('FreeAsso::Model::Data');

@@ -13,7 +13,7 @@ $localRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_NONE,
         'middleware' => [],
         'results' => [
-            '200' => [
+            '404' => [
             ]
         ]
     ],
@@ -102,6 +102,175 @@ $localRoutes = [
             ]
         ]
     ],
+    'freeasso.data.deleteone' => [
+        'method'     => \FreeFW\Router\Route::METHOD_DELETE,
+        'model'      => 'FreeAsso::Model::Data',
+        'url'        => '/v1/asso/data/:data_id',
+        'controller' => 'FreeAsso::Controller::Data',
+        'function'   => 'removeOne',
+        'auth'       => \FreeFW\Router\Route::AUTH_IN,
+        'middleware' => [],
+        'results' => [
+            '204' => [
+            ]
+        ]
+    ],
+    /**
+     * ########################################################################
+     * Catégories de client
+     * ########################################################################
+     */
+    'freeasso.clientcategory.getall' => [
+        'method'     => \FreeFW\Router\Route::METHOD_GET,
+        'model'      => 'FreeAsso::Model::ClientCategory',
+        'url'        => '/v1/asso/client_category',
+        'controller' => 'FreeAsso::Controller::ClientCategory',
+        'function'   => 'getAll',
+        'auth'       => \FreeFW\Router\Route::AUTH_IN,
+        'middleware' => [],
+        'results' => [
+            '200' => [
+                'type'  => \FreeFW\Router\Route::RESULT_LIST,
+                'model' => 'FreeSso::Model::ClientCategory'
+            ]
+        ]
+    ],
+    'freeasso.clientcategory.getone' => [
+        'method'     => \FreeFW\Router\Route::METHOD_GET,
+        'model'      => 'FreeAsso::Model::ClientCategory',
+        'url'        => '/v1/asso/client_category/:clic_id',
+        'controller' => 'FreeAsso::Controller::ClientCategory',
+        'function'   => 'getOne',
+        'auth'       => \FreeFW\Router\Route::AUTH_IN,
+        'middleware' => [],
+        'results' => [
+            '200' => [
+                'type'  => \FreeFW\Router\Route::RESULT_OBJECT,
+                'model' => 'FreeSso::Model::ClientCategory'
+            ]
+        ]
+    ],
+    'freeasso.clientcategory.createone' => [
+        'method'     => \FreeFW\Router\Route::METHOD_POST,
+        'model'      => 'FreeAsso::Model::ClientCategory',
+        'url'        => '/v1/asso/client_category',
+        'controller' => 'FreeAsso::Controller::ClientCategory',
+        'function'   => 'createOne',
+        'auth'       => \FreeFW\Router\Route::AUTH_IN,
+        'middleware' => [],
+        'results' => [
+            '201' => [
+                'type'  => \FreeFW\Router\Route::RESULT_OBJECT,
+                'model' => 'FreeSso::Model::ClientCategory'
+            ]
+        ]
+    ],
+    'freeasso.clientcategory.updateone' => [
+        'method'     => \FreeFW\Router\Route::METHOD_PUT,
+        'model'      => 'FreeAsso::Model::ClientCategory',
+        'url'        => '/v1/asso/client_category/:clic_id',
+        'controller' => 'FreeAsso::Controller::ClientCategory',
+        'function'   => 'updateOne',
+        'auth'       => \FreeFW\Router\Route::AUTH_IN,
+        'middleware' => [],
+        'results' => [
+            '200' => [
+                'type'  => \FreeFW\Router\Route::RESULT_OBJECT,
+                'model' => 'FreeSso::Model::ClientCategory'
+            ]
+        ]
+    ],
+    'freeasso.clientcategory.deleteone' => [
+        'method'     => \FreeFW\Router\Route::METHOD_DELETE,
+        'model'      => 'FreeAsso::Model::ClientCategory',
+        'url'        => '/v1/asso/client_category/:clic_id',
+        'controller' => 'FreeAsso::Controller::ClientCategory',
+        'function'   => 'removeOne',
+        'auth'       => \FreeFW\Router\Route::AUTH_IN,
+        'middleware' => [],
+        'results' => [
+            '204' => [
+            ]
+        ]
+    ],
+    /**
+     * ########################################################################
+     * Types de client
+     * ########################################################################
+     */
+    'freeasso.clienttype.getall' => [
+        'method'     => \FreeFW\Router\Route::METHOD_GET,
+        'model'      => 'FreeAsso::Model::ClientType',
+        'url'        => '/v1/asso/client_type',
+        'controller' => 'FreeAsso::Controller::ClientType',
+        'function'   => 'getAll',
+        'auth'       => \FreeFW\Router\Route::AUTH_IN,
+        'middleware' => [],
+        'results' => [
+            '200' => [
+                'type'  => \FreeFW\Router\Route::RESULT_LIST,
+                'model' => 'FreeSso::Model::ClientType'
+            ]
+        ]
+    ],
+    'freeasso.clienttype.getone' => [
+        'method'     => \FreeFW\Router\Route::METHOD_GET,
+        'model'      => 'FreeAsso::Model::ClientType',
+        'url'        => '/v1/asso/client_type/:clit_id',
+        'controller' => 'FreeAsso::Controller::ClientType',
+        'function'   => 'getOne',
+        'auth'       => \FreeFW\Router\Route::AUTH_IN,
+        'middleware' => [],
+        'results' => [
+            '200' => [
+                'type'  => \FreeFW\Router\Route::RESULT_OBJECT,
+                'model' => 'FreeSso::Model::ClientType'
+            ]
+        ]
+    ],
+    'freeasso.clienttype.createone' => [
+        'method'     => \FreeFW\Router\Route::METHOD_POST,
+        'model'      => 'FreeAsso::Model::ClientType',
+        'url'        => '/v1/asso/client_type',
+        'controller' => 'FreeAsso::Controller::ClientType',
+        'function'   => 'createOne',
+        'auth'       => \FreeFW\Router\Route::AUTH_IN,
+        'middleware' => [],
+        'results' => [
+            '201' => [
+                'type'  => \FreeFW\Router\Route::RESULT_OBJECT,
+                'model' => 'FreeSso::Model::ClientType'
+            ]
+        ]
+    ],
+    'freeasso.clienttype.updateone' => [
+        'method'     => \FreeFW\Router\Route::METHOD_PUT,
+        'model'      => 'FreeAsso::Model::ClientType',
+        'url'        => '/v1/asso/client_type/:clit_id',
+        'controller' => 'FreeAsso::Controller::ClientType',
+        'function'   => 'updateOne',
+        'auth'       => \FreeFW\Router\Route::AUTH_IN,
+        'middleware' => [],
+        'results' => [
+            '200' => [
+                'type'  => \FreeFW\Router\Route::RESULT_OBJECT,
+                'model' => 'FreeSso::Model::ClientType'
+            ]
+        ]
+    ],
+    'freeasso.clienttype.deleteone' => [
+        'method'     => \FreeFW\Router\Route::METHOD_DELETE,
+        'model'      => 'FreeAsso::Model::ClientType',
+        'url'        => '/v1/asso/client_type/:clit_id',
+        'controller' => 'FreeAsso::Controller::ClientType',
+        'function'   => 'removeOne',
+        'auth'       => \FreeFW\Router\Route::AUTH_IN,
+        'middleware' => [],
+        'results' => [
+            '204' => [
+            ]
+        ]
+    ],
     /**
      * ########################################################################
      * Types de site
@@ -167,6 +336,19 @@ $localRoutes = [
             '200' => [
                 'type'  => \FreeFW\Router\Route::RESULT_OBJECT,
                 'model' => 'FreeSso::Model::SiteType'
+            ]
+        ]
+    ],
+    'freeasso.sitetype.deleteone' => [
+        'method'     => \FreeFW\Router\Route::METHOD_DELETE,
+        'model'      => 'FreeAsso::Model::SiteType',
+        'url'        => '/v1/asso/site_type/:sitt_id',
+        'controller' => 'FreeAsso::Controller::SiteType',
+        'function'   => 'removeOne',
+        'auth'       => \FreeFW\Router\Route::AUTH_IN,
+        'middleware' => [],
+        'results' => [
+            '204' => [
             ]
         ]
     ],
@@ -319,6 +501,19 @@ $localRoutes = [
             ]
         ]
     ],
+    'freeasso.causetype.deleteone' => [
+        'method'     => \FreeFW\Router\Route::METHOD_DELETE,
+        'model'      => 'FreeAsso::Model::CauseType',
+        'url'        => '/v1/asso/cause_type/:caut_id',
+        'controller' => 'FreeAsso::Controller::CauseType',
+        'function'   => 'removeOne',
+        'auth'       => \FreeFW\Router\Route::AUTH_IN,
+        'middleware' => [],
+        'results' => [
+            '204' => [
+            ]
+        ]
+    ],
     /**
      * ########################################################################
      * Sites
@@ -332,6 +527,9 @@ $localRoutes = [
         'function'   => 'getAll',
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
+        'include'    => [
+            'default' => ['site_type']
+        ],
         'results' => [
             '200' => [
                 'type'  => \FreeFW\Router\Route::RESULT_LIST,
@@ -384,6 +582,19 @@ $localRoutes = [
             '201' => [
                 'type'  => \FreeFW\Router\Route::RESULT_OBJECT,
                 'model' => 'FreeSso::Model::Site'
+            ]
+        ]
+    ],
+    'freeasso.site.deleteone' => [
+        'method'     => \FreeFW\Router\Route::METHOD_DELETE,
+        'model'      => 'FreeAsso::Model::Site',
+        'url'        => '/v1/asso/site/:site_id',
+        'controller' => 'FreeAsso::Controller::Site',
+        'function'   => 'removeOne',
+        'auth'       => \FreeFW\Router\Route::AUTH_IN,
+        'middleware' => [],
+        'results' => [
+            '204' => [
             ]
         ]
     ],
@@ -440,6 +651,115 @@ $localRoutes = [
             '200' => [
                 'type'  => \FreeFW\Router\Route::RESULT_OBJECT,
                 'model' => 'FreeSso::Model::Cause'
+            ]
+        ]
+    ],
+    'freeasso.cause.createone' => [
+        'method'     => \FreeFW\Router\Route::METHOD_POST,
+        'model'      => 'FreeAsso::Model::Cause',
+        'url'        => '/v1/asso/cause',
+        'controller' => 'FreeAsso::Controller::Cause',
+        'function'   => 'createOne',
+        'auth'       => \FreeFW\Router\Route::AUTH_IN,
+        'middleware' => [],
+        'results' => [
+            '201' => [
+                'type'  => \FreeFW\Router\Route::RESULT_OBJECT,
+                'model' => 'FreeSso::Model::Cause'
+            ]
+        ]
+    ],
+    'freeasso.cause.deleteone' => [
+        'method'     => \FreeFW\Router\Route::METHOD_DELETE,
+        'model'      => 'FreeAsso::Model::Cause',
+        'url'        => '/v1/asso/cause/:cau_id',
+        'controller' => 'FreeAsso::Controller::Cause',
+        'function'   => 'removeOne',
+        'auth'       => \FreeFW\Router\Route::AUTH_IN,
+        'middleware' => [],
+        'results' => [
+            '204' => [
+            ]
+        ]
+    ],
+    /**
+     * ########################################################################
+     * Client
+     * ########################################################################
+     */
+    'freeasso.client.getall' => [
+        'method'     => \FreeFW\Router\Route::METHOD_GET,
+        'model'      => 'FreeAsso::Model::Client',
+        'url'        => '/v1/asso/client',
+        'controller' => 'FreeAsso::Controller::Client',
+        'function'   => 'getAll',
+        'auth'       => \FreeFW\Router\Route::AUTH_IN,
+        'middleware' => [],
+        'results' => [
+            '200' => [
+                'type'  => \FreeFW\Router\Route::RESULT_LIST,
+                'model' => 'FreeSso::Model::Client'
+            ]
+        ]
+    ],
+    'freeasso.client.getone' => [
+        'method'     => \FreeFW\Router\Route::METHOD_GET,
+        'model'      => 'FreeAsso::Model::Client',
+        'url'        => '/v1/asso/client/:cli_id',
+        'controller' => 'FreeAsso::Controller::Client',
+        'function'   => 'getOne',
+        'auth'       => \FreeFW\Router\Route::AUTH_IN,
+        'middleware' => [],
+        'include'    => [
+            'default' => ['client_category', 'client_type', 'country', 'lang']
+        ],
+        'results' => [
+            '200' => [
+                'type'  => \FreeFW\Router\Route::RESULT_OBJECT,
+                'model' => 'FreeSso::Model::Client'
+            ]
+        ]
+    ],
+    'freeasso.client.updateone' => [
+        'method'     => \FreeFW\Router\Route::METHOD_PUT,
+        'model'      => 'FreeAsso::Model::Client',
+        'url'        => '/v1/asso/client/:cli_id',
+        'controller' => 'FreeAsso::Controller::Client',
+        'function'   => 'updateOne',
+        'auth'       => \FreeFW\Router\Route::AUTH_IN,
+        'middleware' => [],
+        'results' => [
+            '200' => [
+                'type'  => \FreeFW\Router\Route::RESULT_OBJECT,
+                'model' => 'FreeSso::Model::Client'
+            ]
+        ]
+    ],
+    'freeasso.client.createone' => [
+        'method'     => \FreeFW\Router\Route::METHOD_POST,
+        'model'      => 'FreeAsso::Model::Client',
+        'url'        => '/v1/asso/client',
+        'controller' => 'FreeAsso::Controller::Client',
+        'function'   => 'createOne',
+        'auth'       => \FreeFW\Router\Route::AUTH_IN,
+        'middleware' => [],
+        'results' => [
+            '201' => [
+                'type'  => \FreeFW\Router\Route::RESULT_OBJECT,
+                'model' => 'FreeSso::Model::Client'
+            ]
+        ]
+    ],
+    'freeasso.client.deleteone' => [
+        'method'     => \FreeFW\Router\Route::METHOD_DELETE,
+        'model'      => 'FreeAsso::Model::Client',
+        'url'        => '/v1/asso/client/:cli_id',
+        'controller' => 'FreeAsso::Controller::Client',
+        'function'   => 'removeOne',
+        'auth'       => \FreeFW\Router\Route::AUTH_IN,
+        'middleware' => [],
+        'results' => [
+            '204' => [
             ]
         ]
     ],

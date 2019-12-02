@@ -76,7 +76,7 @@ abstract class Site extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_PRIVATE => 'owner_cli_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
-        FFCST::PROPERTY_FK      => ['owner_cli_id' =>
+        FFCST::PROPERTY_FK      => ['owner' =>
             [
                 'model' => 'FreeAsso::Model::Client',
                 'field' => 'owner_cli_id',
@@ -88,7 +88,7 @@ abstract class Site extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_PRIVATE => 'sanit_cli_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
-        FFCST::PROPERTY_FK      => ['sanit_cli_id' =>
+        FFCST::PROPERTY_FK      => ['sanitary' =>
             [
                 'model' => 'FreeAsso::Model::Client',
                 'field' => 'sanit_cli_id',
