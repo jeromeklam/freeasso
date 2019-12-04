@@ -383,7 +383,7 @@ class Lesecopattes
         $myDataSexe
             ->setDataName("Sexe")
             ->setDataType(\FreeAsso\Model\Data::TYPE_LIST)
-            ->setDataContent('[{"value":"Male":"label":"Male"}, {"value":"Femelle":"label":"Femelle"}, {"value":"Indéfini":"label":"Indéfini"}]')
+            ->setDataContent('[{"value":"Mâle","label":"Mâle"}, {"value":"Femelle","label":"Femelle"}, {"value":"Indéfini","label":"Indéfini"}]')
         ;
         if (!$myDataSexe->create()) {
             var_export($myDataSexe->getErrors());die;

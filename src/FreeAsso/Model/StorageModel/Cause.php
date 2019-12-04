@@ -70,7 +70,7 @@ abstract class Cause extends \FreeFW\Core\StorageModel
     protected static $PRP_SITE_ID = [
         FFCST::PROPERTY_PRIVATE => 'site_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_FK],
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
         FFCST::PROPERTY_FK      => ['site' =>
             [
                 'model' => 'FreeAsso::Model::Site',
@@ -260,5 +260,15 @@ abstract class Cause extends \FreeFW\Core\StorageModel
     public static function getSource()
     {
         return 'asso_cause';
+    }
+
+    /**
+     * Get autocomplete field
+     *
+     * @return string
+     */
+    public static function getAutocompleteField()
+    {
+        return 'cau_name';
     }
 }

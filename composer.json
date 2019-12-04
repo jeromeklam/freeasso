@@ -19,7 +19,6 @@
             "jeromeklam/freesso": "../freesso"
         }
     },
-    "minimum-stability": "dev",
     "require" : {
         "php"                                  : ">=7.2",
         "robmorgan/phinx"                      : "*",

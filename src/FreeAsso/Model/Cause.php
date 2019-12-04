@@ -87,6 +87,7 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
     {
         $this->cau_id        = 0;
         $this->brk_id        = 0;
+        $this->caut_id       = 0;
         $this->cau_name      = '';
         $this->cau_code      = '';
         $this->cau_public    = 1;

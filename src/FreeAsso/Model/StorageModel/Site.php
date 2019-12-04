@@ -298,4 +298,14 @@ abstract class Site extends \FreeFW\Core\StorageModel
     {
         return 'asso_site';
     }
+    
+    /**
+     * Get autocomplete field
+     *
+     * @return string
+     */
+    public static function getAutocompleteField()
+    {
+        return 'site_name';
+    }
 }

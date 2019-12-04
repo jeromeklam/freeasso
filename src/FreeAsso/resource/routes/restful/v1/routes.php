@@ -519,6 +519,20 @@ $localRoutes = [
      * Sites
      * ########################################################################
      */
+    'freeasso.site.autocomplete' => [
+        'method'     => \FreeFW\Router\Route::METHOD_GET,
+        'model'      => 'FreeAsso::Model::Site',
+        'url'        => '/v1/asso/site/autocomplete/:search',
+        'controller' => 'FreeAsso::Controller::Site',
+        'function'   => 'autocomplete',
+        'auth'       => \FreeFW\Router\Route::AUTH_IN,
+        'middleware' => [],
+        'results' => [
+            '200' => [
+                'type'  => \FreeFW\Router\Route::RESULT_OBJECT
+            ]
+        ]
+    ],
     'freeasso.site.getall' => [
         'method'     => \FreeFW\Router\Route::METHOD_GET,
         'model'      => 'FreeAsso::Model::Site',
@@ -603,6 +617,20 @@ $localRoutes = [
      * Causes
      * ########################################################################
      */
+    'freeasso.cause.autocomplete' => [
+        'method'     => \FreeFW\Router\Route::METHOD_GET,
+        'model'      => 'FreeAsso::Model::Cause',
+        'url'        => '/v1/asso/cause/autocomplete/:search',
+        'controller' => 'FreeAsso::Controller::Cause',
+        'function'   => 'autocomplete',
+        'auth'       => \FreeFW\Router\Route::AUTH_IN,
+        'middleware' => [],
+        'results' => [
+            '200' => [
+                'type'  => \FreeFW\Router\Route::RESULT_OBJECT
+            ]
+        ]
+    ],
     'freeasso.cause.getall' => [
         'method'     => \FreeFW\Router\Route::METHOD_GET,
         'model'      => 'FreeAsso::Model::Cause',
@@ -687,6 +715,20 @@ $localRoutes = [
      * Client
      * ########################################################################
      */
+    'freeasso.client.autocomplete' => [
+        'method'     => \FreeFW\Router\Route::METHOD_GET,
+        'model'      => 'FreeAsso::Model::Client',
+        'url'        => '/v1/asso/client/autocomplete/:search',
+        'controller' => 'FreeAsso::Controller::Client',
+        'function'   => 'autocomplete',
+        'auth'       => \FreeFW\Router\Route::AUTH_IN,
+        'middleware' => [],
+        'results' => [
+            '200' => [
+                'type'  => \FreeFW\Router\Route::RESULT_OBJECT
+            ]
+        ]
+    ],
     'freeasso.client.getall' => [
         'method'     => \FreeFW\Router\Route::METHOD_GET,
         'model'      => 'FreeAsso::Model::Client',

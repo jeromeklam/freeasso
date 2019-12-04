@@ -217,4 +217,14 @@ abstract class CauseType extends \FreeFW\Core\StorageModel
     {
         return 'asso_cause_type';
     }
+
+    /**
+     * Get autocomplete field
+     *
+     * @return string
+     */
+    public static function getAutocompleteField()
+    {
+        return 'caut_name';
+    }
 }
