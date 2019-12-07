@@ -33,6 +33,18 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
     protected $cause_type = null;
 
     /**
+     * Parent 1
+     * @var \FreeAsso\Model\Cause
+     */
+    protected $parent1 = null;
+
+    /**
+     * Parent 2
+     * @var \FreeAsso\Model\Cause
+     */
+    protected $parent2 = null;
+
+    /**
      * Set site
      * 
      * @param \FreeAsso\Model\Site $p_site
@@ -76,6 +88,52 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
     public function getCauseType()
     {
         return $this->cause_type;
+    }
+
+    /**
+     * Set parent1
+     * 
+     * @param \FreeAsso\Model\Cause $p_cause
+     * 
+     * @return \FreeAsso\Model\Cause
+     */
+    public function setParent1($p_cause)
+    {
+        $this->parent1 = $p_cause;
+        return $this;
+    }
+
+    /**
+     * Get parent1
+     *
+     * @return \FreeAsso\Model\Cause
+     */
+    public function getParent1()
+    {
+        return $this->parent1;
+    }
+
+    /**
+     * Set parent2
+     *
+     * @param \FreeAsso\Model\Cause $p_cause
+     *
+     * @return \FreeAsso\Model\Cause
+     */
+    public function setParent2($p_cause)
+    {
+        $this->parent2 = $p_cause;
+        return $this;
+    }
+
+    /**
+     * Get parent2
+     *
+     * @return \FreeAsso\Model\Cause
+     */
+    public function getParent2()
+    {
+        return $this->parent2;
     }
 
     /**

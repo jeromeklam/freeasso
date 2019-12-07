@@ -238,7 +238,42 @@ abstract class Site extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => []
     ];
-
+    protected static $PRP_SITE_COORD = [
+        FFCST::PROPERTY_PRIVATE => 'site_coord',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_SITE_CODE_EX = [
+        FFCST::PROPERTY_PRIVATE => 'site_code_ex',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_SITE_DESC = [
+        FFCST::PROPERTY_PRIVATE => 'site_desc',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT_HTML,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_SITE_STRING_5 = [
+        FFCST::PROPERTY_PRIVATE => 'site_string_5',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_SITE_STRING_6 = [
+        FFCST::PROPERTY_PRIVATE => 'site_string_6',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_SITE_NUMBER_5 = [
+        FFCST::PROPERTY_PRIVATE => 'site_number_5',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_SITE_NUMBER_6 = [
+        FFCST::PROPERTY_PRIVATE => 'site_number_6',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    
     /**
      * get properties
      *
@@ -285,7 +320,14 @@ abstract class Site extends \FreeFW\Core\StorageModel
             'site_bool_1'    => self::$PRP_SITE_BOOL_1,
             'site_bool_2'    => self::$PRP_SITE_BOOL_2,
             'site_bool_3'    => self::$PRP_SITE_BOOL_3,
-            'site_bool_4'    => self::$PRP_SITE_BOOL_4
+            'site_bool_4'    => self::$PRP_SITE_BOOL_4,
+            'site_coord'     => self::$PRP_SITE_COORD,
+            'site_code_ex'   => self::$PRP_SITE_CODE_EX,
+            'site_desc'      => self::$PRP_SITE_DESC,
+            'site_string_5'  => self::$PRP_SITE_STRING_5,
+            'site_string_6'  => self::$PRP_SITE_STRING_6,
+            'site_number_5'  => self::$PRP_SITE_NUMBER_5,
+            'site_number_6'  => self::$PRP_SITE_NUMBER_6,
         ];
     }
 

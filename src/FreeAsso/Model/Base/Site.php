@@ -244,6 +244,48 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     protected $site_bool_4 = null;
 
     /**
+     * site_coord
+     * @var string
+     */
+    protected $site_coord = null;
+
+    /**
+     * site_code_ex
+     * @var string
+     */
+    protected $site_code_ex = null;
+
+    /**
+     * site_code_desc
+     * @var string
+     */
+    protected $site_desc = null;
+
+    /**
+     * site_string_5
+     * @var string
+     */
+    protected $site_string_5 = null;
+
+    /**
+     * site_string_6
+     * @var string
+     */
+    protected $site_string_6 = null;
+
+    /**
+     * site_number_5
+     * @var number
+     */
+    protected $site_number_5 = null;
+
+    /**
+     * site_number_6
+     * @var number
+     */
+    protected $site_number_6 = null;
+
+    /**
      * Set site_id
      *
      * @param int $p_value
@@ -773,6 +815,52 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     }
 
     /**
+     * Set site_string_5
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSiteString_5($p_value)
+    {
+        $this->site_string_5 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get site_string_5
+     *
+     * @return string
+     */
+    public function getSiteString_5()
+    {
+        return $this->site_string_5;
+    }
+
+    /**
+     * Set site_string_6
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSiteString_6($p_value)
+    {
+        $this->site_string_6 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get site_string_6
+     *
+     * @return string
+     */
+    public function getSiteString_6()
+    {
+        return $this->site_string_6;
+    }
+
+    /**
      * Set site_number_1
      *
      * @param string $p_value
@@ -862,6 +950,52 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     public function getSiteNumber_4()
     {
         return $this->site_number_4;
+    }
+
+    /**
+     * Set site_number_5
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSiteNumber_5($p_value)
+    {
+        $this->site_number_5 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get site_number_5
+     *
+     * @return string
+     */
+    public function getSiteNumber_5()
+    {
+        return $this->site_number_5;
+    }
+
+    /**
+     * Set site_number_6
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSiteNumber_6($p_value)
+    {
+        $this->site_number_6 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get site_number_6
+     *
+     * @return string
+     */
+    public function getSiteNumber_6()
+    {
+        return $this->site_number_6;
     }
 
     /**
@@ -1138,5 +1272,74 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     public function getSiteBool_4()
     {
         return $this->site_bool_4;
+    }
+
+    /**
+     * Set site_coord
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSiteCoord($p_value)
+    {
+        $this->site_coord = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get site_coord
+     *
+     * @return string
+     */
+    public function getSiteCoord()
+    {
+        return $this->site_coord;
+    }
+
+    /**
+     * Set site_code_ex
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSiteCodeEx($p_value)
+    {
+        $this->site_code_ex = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get site_code_ex
+     *
+     * @return string
+     */
+    public function getSiteCodeEx()
+    {
+        return $this->site_code_ex;
+    }
+
+    /**
+     * Set site_desc
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSiteDesc($p_value)
+    {
+        $this->site_desc = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get site_desc
+     *
+     * @return string
+     */
+    public function getSiteDesc()
+    {
+        return $this->site_desc;
     }
 }

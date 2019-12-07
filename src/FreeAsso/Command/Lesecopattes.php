@@ -98,6 +98,10 @@ class Lesecopattes
         $tabSites      = [];
         $tabTypeClot   = [];
         $tabTypeAbr    = [];
+        $tabTypeAbri   = [];
+        $tabTypeReserv = [];
+        $tabTypePiq    = [];
+        $tabTypeElec   = [];
         $hSityes       = fopen(__DIR__ . '/../../../datas/lesecopattes/sites.csv', 'r');
         if ($hSityes) {
             while (($columns = fgetcsv($hSityes, 1000, ";")) !== FALSE) {
@@ -148,33 +152,75 @@ class Lesecopattes
                     ->setSiteCp($columns[5])
                     ->setSiteTown($columns[2])
                     ->setSittId($mySiteType->getSittId())
-                    ->setSiteArea(intval($columns[9]))
+                    ->setSiteArea(intval(str_replace([' ', " ", "\t"], '', $columns[9])))
+                    ->setSiteCodeEx($columns[21])
+                    ->setSitePlots($columns[8])
                     ->setSiteBool_1(false)
                 ;
-                if ($columns[13] != '') {
-                    if (strtolower($columns[13]) == 'oui') {
-                        $mySite->setSiteBool_1(true);
+                if ($columns[10] != '') {
+                    $mySite->setSiteNumber_1(intval(str_replace([' ', " ", "\t"], '', $columns[10])));
+                }
+                if ($columns[11] != '') {
+                    $mySite->setSiteNumber_4(intval(str_replace([' ', " ", "\t"], '', $columns[11])));
+                }
+                if ($columns[12] != '') {
+                    if (!array_key_exists(strtolower($columns[12]), $tabTypeAbri)) {
+                        $tabTypeAbri[strtolower($columns[12])] = strtolower($columns[12]);
                     }
+                    $mySite->setSiteString_4(strtolower($columns[12]));
+                } else {
+                    $mySite->setSiteString_4('Aucun');
                 }
                 if ($columns[13] != '') {
                     if (strtolower($columns[13]) == 'oui') {
                         $mySite->setSiteBool_1(true);
                     }
+                }
+                if ($columns[14] != '') {
+                    if (!array_key_exists(strtolower($columns[14]), $tabTypeReserv)) {
+                        $tabTypeReserv[strtolower($columns[14])] = strtolower($columns[14]);
+                    }
+                    $mySite->setSiteString_5(strtolower($columns[14]));
+                } else {
+                    $mySite->setSiteString_5('Aucun');
+                }
+                if ($columns[15] != '') {
+                    $mySite->setSiteNumber_5(intval(str_replace([' ', " ", "\t"], '', $columns[15])));
+                }
+                if ($columns[16] != '') {
+                    if (!array_key_exists(strtolower($columns[16]), $tabTypeAbr)) {
+                        $tabTypeAbr[strtolower($columns[16])] = strtolower($columns[16]);
+                    }
+                    $mySite->setSiteString_6(strtolower($columns[16]));
+                } else {
+                    $mySite->setSiteString_6('Aucun');
                 }
                 if ($columns[17] != '') {
                     if (!array_key_exists(strtolower($columns[17]), $tabTypeClot)) {
                         $tabTypeClot[strtolower($columns[17])] = strtolower($columns[17]);
-                        $mySite->setSiteString_1(strtolower($columns[17]));
                     }
+                    $mySite->setSiteString_1(strtolower($columns[17]));
+                } else {
+                    $mySite->setSiteString_1('Aucun');
                 }
-                if ($columns[16] != '') {
-                    if (!array_key_exists(strtolower($columns[16]), $tabTypeClot)) {
-                        $tabTypeAbr[strtolower($columns[16])] = strtolower($columns[16]);
+                if ($columns[18] != '') {
+                    if (!array_key_exists(strtolower($columns[18]), $tabTypePiq)) {
+                        $tabTypePiq[strtolower($columns[18])] = strtolower($columns[18]);
                     }
-                    $mySite->setSiteString_2(strtolower($columns[16]));
+                    $mySite->setSiteString_2(strtolower($columns[18]));
+                } else {
+                    $mySite->setSiteString_2('Aucun');
                 }
                 if ($columns[19] != '') {
-                    $mySite->setSiteNumber_1(intval($columns[19]));
+                    $mySite->setSiteNumber_3(intval($columns[19]));
+                }
+                if ($columns[20] != '') {
+                    if (!array_key_exists(strtolower($columns[20]), $tabTypeElec)) {
+                        $tabTypeElec[strtolower($columns[20])] = strtolower($columns[20]);
+                    }
+                    $mySite->setSiteString_3(strtolower($columns[20]));
+                } else {
+                    $mySite->setSiteString_3('Aucun');
                 }
                 if ($ownerId) {
                     $mySite->setOwnerCliId($ownerId);
@@ -192,8 +238,9 @@ class Lesecopattes
             die;
         }
         /**
-         * Configs
+         * Datas
          */
+        /* *************************** */
         $content = '{"value":"Aucun","label":"Aucun"}';
         foreach ($tabTypeClot as $idx => $val) {
             $content .= ',{"value":"' . $val . '","label":"' . $val . '"}';
@@ -207,6 +254,16 @@ class Lesecopattes
         if (!$myDataCloture->create()) {
             var_export($myDataCloture->getErrors());die;
         }
+        /* *************************** */
+        $myDataLinClot = \FreeFW\DI\DI::get('FreeAsso::Model::Data');
+        $myDataLinClot
+            ->setDataName("Linéaire clôture")
+            ->setDataType(\FreeAsso\Model\Data::TYPE_NUMBER)
+        ;
+        if (!$myDataLinClot->create()) {
+            var_export($myDataLinClot->getErrors());die;
+        }
+        /* *************************** */
         $content = '{"value":"Aucun","label":"Aucun"}';
         foreach ($tabTypeAbr as $idx => $val) {
             $content .= ',{"value":"' . $val . '","label":"' . $val . '"}';
@@ -220,14 +277,81 @@ class Lesecopattes
         if (!$myDataAbrev->create()) {
             var_export($myDataAbrev->getErrors());die;
         }
-        $myDataAccesE = \FreeFW\DI\DI::get('FreeAsso::Model::Data');
-        $myDataAccesE
-            ->setDataName("Accès eau")
-            ->setDataType(\FreeAsso\Model\Data::TYPE_BOOLEAN)
-        ;
-        if (!$myDataAccesE->create()) {
-            var_export($myDataAccesE->getErrors());die;
+        /* *************************** */
+        $content = '{"value":"Aucun","label":"Aucun"}';
+        foreach ($tabTypeAbri as $idx => $val) {
+            $content .= ',{"value":"' . $val . '","label":"' . $val . '"}';
         }
+        $myDataAbri = \FreeFW\DI\DI::get('FreeAsso::Model::Data');
+        $myDataAbri
+            ->setDataName("Type d'abri")
+            ->setDataType(\FreeAsso\Model\Data::TYPE_LIST)
+            ->setDataContent('[' . $content . ']')
+        ;
+        if (!$myDataAbri->create()) {
+            var_export($myDataAbri->getErrors());die;
+        }
+        /* *************************** */
+        $myDataNbAbri = \FreeFW\DI\DI::get('FreeAsso::Model::Data');
+        $myDataNbAbri
+            ->setDataName("Nombre d'abri")
+            ->setDataType(\FreeAsso\Model\Data::TYPE_NUMBER)
+        ;
+        if (!$myDataNbAbri->create()) {
+            var_export($myDataNbAbri->getErrors());die;
+        }
+        /* *************************** */
+        $content = '{"value":"Aucun","label":"Aucun"}';
+        foreach ($tabTypeReserv as $idx => $val) {
+            $content .= ',{"value":"' . $val . '","label":"' . $val . '"}';
+        }
+        $myDataReser = \FreeFW\DI\DI::get('FreeAsso::Model::Data');
+        $myDataReser
+            ->setDataName("Type de réserve")
+            ->setDataType(\FreeAsso\Model\Data::TYPE_LIST)
+            ->setDataContent('[' . $content . ']')
+        ;
+        if (!$myDataReser->create()) {
+            var_export($myDataReser->getErrors());die;
+        }
+        /* *************************** */
+        $myDataVolRes = \FreeFW\DI\DI::get('FreeAsso::Model::Data');
+        $myDataVolRes
+            ->setDataName("Volume réserve")
+            ->setDataType(\FreeAsso\Model\Data::TYPE_NUMBER)
+        ;
+        if (!$myDataVolRes->create()) {
+            var_export($myDataVolRes->getErrors());die;
+        }
+        /* *************************** */
+        $content = '{"value":"Aucun","label":"Aucun"}';
+        foreach ($tabTypePiq as $idx => $val) {
+            $content .= ',{"value":"' . $val . '","label":"' . $val . '"}';
+        }
+        $myDataPiq = \FreeFW\DI\DI::get('FreeAsso::Model::Data');
+        $myDataPiq
+            ->setDataName("Type de piquet")
+            ->setDataType(\FreeAsso\Model\Data::TYPE_LIST)
+            ->setDataContent('[' . $content . ']')
+        ;
+        if (!$myDataPiq->create()) {
+            var_export($myDataPiq->getErrors());die;
+        }
+        /* *************************** */
+        $content = '{"value":"Aucun","label":"Aucun"}';
+        foreach ($tabTypeElec as $idx => $val) {
+            $content .= ',{"value":"' . $val . '","label":"' . $val . '"}';
+        }
+        $myDataElec = \FreeFW\DI\DI::get('FreeAsso::Model::Data');
+        $myDataElec
+            ->setDataName("Type électrificateur")
+            ->setDataType(\FreeAsso\Model\Data::TYPE_LIST)
+            ->setDataContent('[' . $content . ']')
+        ;
+        if (!$myDataElec->create()) {
+            var_export($myDataElec->getErrors());die;
+        }
+        /* *************************** */
         $myDataNbElec = \FreeFW\DI\DI::get('FreeAsso::Model::Data');
         $myDataNbElec
             ->setDataName("Nb électrificateur")
@@ -236,9 +360,19 @@ class Lesecopattes
         if (!$myDataNbElec->create()) {
             var_export($myDataNbElec->getErrors());die;
         }
+        /* *************************** */
+        $myDataAccesE = \FreeFW\DI\DI::get('FreeAsso::Model::Data');
+        $myDataAccesE
+            ->setDataName("Accès eau")
+            ->setDataType(\FreeAsso\Model\Data::TYPE_BOOLEAN)
+        ;
+        if (!$myDataAccesE->create()) {
+            var_export($myDataAccesE->getErrors());die;
+        }
         /**
          * Config
          */
+        /* *************************** */
         $myCfgCloture = \FreeFW\DI\DI::get('FreeAsso::Model::Config');
         $myCfgCloture
             ->setAcfgCode('DATA_ID@' . \FreeAsso\Model\Config::CONFIG_SITE_STRING_1)
@@ -247,16 +381,84 @@ class Lesecopattes
         if (!$myCfgCloture->create()) {
             var_export($myCfgCloture->getErrors());die;
         }
-        //
+        $myCfgCloture2 = \FreeFW\DI\DI::get('FreeAsso::Model::Config');
+        $myCfgCloture2
+            ->setAcfgCode('DATA_ID@' . \FreeAsso\Model\Config::CONFIG_SITE_NUMBER_1)
+            ->setAcfgValue($myDataLinClot->getDataId())
+        ;
+        if (!$myCfgCloture2->create()) {
+            var_export($myCfgCloture2->getErrors());die;
+        }
+        /* *************************** */
+        $myCfgAbri = \FreeFW\DI\DI::get('FreeAsso::Model::Config');
+        $myCfgAbri
+            ->setAcfgCode('DATA_ID@' . \FreeAsso\Model\Config::CONFIG_SITE_STRING_4)
+            ->setAcfgValue($myDataAbri->getDataId())
+        ;
+        if (!$myCfgAbri->create()) {
+            var_export($myCfgAbri->getErrors());die;
+        }
+        $myCfgNbAbri = \FreeFW\DI\DI::get('FreeAsso::Model::Config');
+        $myCfgNbAbri
+            ->setAcfgCode('DATA_ID@' . \FreeAsso\Model\Config::CONFIG_SITE_NUMBER_4)
+            ->setAcfgValue($myDataNbAbri->getDataId())
+        ;
+        if (!$myCfgNbAbri->create()) {
+            var_export($myCfgNbAbri->getErrors());die;
+        }
+        /* *************************** */
         $myCfgAbrevoir = \FreeFW\DI\DI::get('FreeAsso::Model::Config');
         $myCfgAbrevoir
-            ->setAcfgCode('DATA_ID@' . \FreeAsso\Model\Config::CONFIG_SITE_STRING_2)
+            ->setAcfgCode('DATA_ID@' . \FreeAsso\Model\Config::CONFIG_SITE_STRING_6)
             ->setAcfgValue($myDataAbrev->getDataId())
         ;
         if (!$myCfgAbrevoir->create()) {
             var_export($myCfgAbrevoir->getErrors());die;
         }
-        //
+        /* *************************** */
+        $myCfgPiq = \FreeFW\DI\DI::get('FreeAsso::Model::Config');
+        $myCfgPiq
+            ->setAcfgCode('DATA_ID@' . \FreeAsso\Model\Config::CONFIG_SITE_STRING_2)
+            ->setAcfgValue($myDataPiq->getDataId())
+        ;
+        if (!$myCfgPiq->create()) {
+            var_export($myCfgPiq->getErrors());die;
+        }
+        /* *************************** */
+        $myCfgElec = \FreeFW\DI\DI::get('FreeAsso::Model::Config');
+        $myCfgElec
+            ->setAcfgCode('DATA_ID@' . \FreeAsso\Model\Config::CONFIG_SITE_STRING_3)
+            ->setAcfgValue($myDataElec->getDataId())
+        ;
+        if (!$myCfgElec->create()) {
+            var_export($myCfgElec->getErrors());die;
+        }
+        $myCfgNbElec = \FreeFW\DI\DI::get('FreeAsso::Model::Config');
+        $myCfgNbElec
+            ->setAcfgCode('DATA_ID@' . \FreeAsso\Model\Config::CONFIG_SITE_NUMBER_3)
+            ->setAcfgValue($myDataNbElec->getDataId())
+        ;
+        if (!$myCfgNbElec->create()) {
+            var_export($myCfgNbElec->getErrors());die;
+        }
+        /* *************************** */
+        $myCfgReser = \FreeFW\DI\DI::get('FreeAsso::Model::Config');
+        $myCfgReser
+            ->setAcfgCode('DATA_ID@' . \FreeAsso\Model\Config::CONFIG_SITE_STRING_5)
+            ->setAcfgValue($myDataReser->getDataId())
+        ;
+        if (!$myCfgReser->create()) {
+            var_export($myCfgReser->getErrors());die;
+        }
+        $myCfgVolReser = \FreeFW\DI\DI::get('FreeAsso::Model::Config');
+        $myCfgVolReser
+            ->setAcfgCode('DATA_ID@' . \FreeAsso\Model\Config::CONFIG_SITE_NUMBER_5)
+            ->setAcfgValue($myDataVolRes->getDataId())
+        ;
+        if (!$myCfgVolReser->create()) {
+            var_export($myCfgVolReser->getErrors());die;
+        }
+        /* *************************** */
         $myCfgAccesE = \FreeFW\DI\DI::get('FreeAsso::Model::Config');
         $myCfgAccesE
             ->setAcfgCode('DATA_ID@' . \FreeAsso\Model\Config::CONFIG_SITE_BOOL_1)
@@ -264,15 +466,6 @@ class Lesecopattes
         ;
         if (!$myCfgAccesE->create()) {
             var_export($myCfgAccesE->getErrors());die;
-        }
-        //
-        $myCfgNbElec = \FreeFW\DI\DI::get('FreeAsso::Model::Config');
-        $myCfgNbElec
-            ->setAcfgCode('DATA_ID@' . \FreeAsso\Model\Config::CONFIG_SITE_NUMBER_1)
-            ->setAcfgValue($myDataNbElec->getDataId())
-        ;
-        if (!$myCfgNbElec->create()) {
-            var_export($myCfgNbElec->getErrors());die;
         }
         /**
          * Causes
@@ -350,6 +543,33 @@ class Lesecopattes
                 if ($columns[15] != '') {
                     $myCause->setCauDesc($columns[15]);
                 }
+                if ($columns[3] != '') {
+                    if ($columns[3] == 'M') {
+                        $myCause->setCauSex("M");
+                    } else {
+                        $myCause->setCauSex("F");
+                    }
+                } else {
+                    $myCause->setCauSex("OTHER");
+                }
+                if ($columns[4] != '') {
+                    $myCause->setCauNumber_1(intval(str_replace([' ', " ", "\t"], '', $columns[4])));
+                }
+                if ($columns[8] != '') {
+                    $myCause->setCauFrom(\FreeFW\Tools\Date::ddmmyyyyToMysql($columns[8]));
+                }
+                if ($columns[9] != '') {
+                    if (!array_key_exists(strtolower($columns[9]), $tabColor)) {
+                        $tabColor[strtolower($columns[9])] = strtolower($columns[9]);
+                    }
+                    $myCause->setCauString_1($columns[9]);
+                } else {
+                    $myCause->setCauString_1('Indéfini');
+                }
+                
+                if ($columns[10] != '') {
+                    $myCause->setCauString_2($columns[10]);
+                }
                 if ($columns[14] != '') {
                     if (array_key_exists(strtolower($columns[14]), $tabSites)) {
                         $myCause->setSiteId($tabSites[strtolower($columns[14])]);
@@ -359,50 +579,15 @@ class Lesecopattes
                 } else {
                     $myCause->setSiteId($myDSite->getSiteId());
                 }
-                if ($columns[3] != '') {
-                    if ($columns[3] == 'M') {
-                        $myCause->setCauString_1("Mâle");
-                    } else {
-                        $myCause->setCauString_1("Femelle");
-                    }
-                } else {
-                    $myCause->setCauString_1("Indéfini");
-                }
-                if ($columns[9] != '') {
-                    if (!array_key_exists(strtolower($columns[9]), $tabColor)) {
-                        $tabColor[strtolower($columns[9])] = strtolower($columns[9]);
-                    }
-                    $myCause->setCauString_2($columns[9]);
-                }
                 if (!$myCause->create()) {
                     var_export($myCause->getErrors());die;
                 }
             }
         }
-        $myDataSexe = \FreeFW\DI\DI::get('FreeAsso::Model::Data');
-        $myDataSexe
-            ->setDataName("Sexe")
-            ->setDataType(\FreeAsso\Model\Data::TYPE_LIST)
-            ->setDataContent('[{"value":"Mâle","label":"Mâle"}, {"value":"Femelle","label":"Femelle"}, {"value":"Indéfini","label":"Indéfini"}]')
-        ;
-        if (!$myDataSexe->create()) {
-            var_export($myDataSexe->getErrors());die;
-        }
-        $myCfgSexe = \FreeFW\DI\DI::get('FreeAsso::Model::Config');
-        $myCfgSexe
-            ->setAcfgCode('DATA_ID@' . \FreeAsso\Model\Config::CONFIG_CAU_STRING_1)
-            ->setAcfgValue($myDataSexe->getDataId())
-        ;
-        if (!$myCfgSexe->create()) {
-            var_export($myCfgSexe->getErrors());die;
-        }
-        $content = '';
+        /* *************************** */
+        $content = '{"value":"Indéfini","label":"Indéfini"}';
         foreach ($tabColor as $idx => $val) {
-            if ($content != '') {
-                $content .= ',{"value":"' . $val . '","label":"' . $val . '"}';
-            } else {
-                $content .= '{"value":"' . $val . '","label":"' . $val . '"}';
-            }
+            $content .= ',{"value":"' . $val . '","label":"' . $val . '"}';
         }
         $myDataColor = \FreeFW\DI\DI::get('FreeAsso::Model::Data');
         $myDataColor
@@ -415,11 +600,45 @@ class Lesecopattes
         }
         $myCfgColor = \FreeFW\DI\DI::get('FreeAsso::Model::Config');
         $myCfgColor
-            ->setAcfgCode('DATA_ID@' . \FreeAsso\Model\Config::CONFIG_CAU_STRING_2)
+            ->setAcfgCode('DATA_ID@' . \FreeAsso\Model\Config::CONFIG_CAU_STRING_1)
             ->setAcfgValue($myDataColor->getDataId())
         ;
         if (!$myCfgColor->create()) {
             var_export($myCfgColor->getErrors());die;
+        }
+        /* *************************** */
+        $myDataBorn = \FreeFW\DI\DI::get('FreeAsso::Model::Data');
+        $myDataBorn
+            ->setDataName("Année de naissance")
+            ->setDataType(\FreeAsso\Model\Data::TYPE_NUMBER)
+        ;
+        if (!$myDataBorn->create()) {
+            var_export($myDataBorn->getErrors());die;
+        }
+        $myCfgBorn = \FreeFW\DI\DI::get('FreeAsso::Model::Config');
+        $myCfgBorn
+            ->setAcfgCode('DATA_ID@' . \FreeAsso\Model\Config::CONFIG_CAU_NUMBER_1)
+            ->setAcfgValue($myDataBorn->getDataId())
+        ;
+        if (!$myCfgBorn->create()) {
+            var_export($myCfgBorn->getErrors());die;
+        }
+        /* *************************** */
+        $myDataProv = \FreeFW\DI\DI::get('FreeAsso::Model::Data');
+        $myDataProv
+            ->setDataName("Provenance")
+            ->setDataType(\FreeAsso\Model\Data::TYPE_STRING)
+        ;
+        if (!$myDataProv->create()) {
+            var_export($myDataProv->getErrors());die;
+        }
+        $myCfgProv = \FreeFW\DI\DI::get('FreeAsso::Model::Config');
+        $myCfgProv
+            ->setAcfgCode('DATA_ID@' . \FreeAsso\Model\Config::CONFIG_CAU_STRING_2)
+            ->setAcfgValue($myDataProv->getDataId())
+        ;
+        if (!$myCfgProv->create()) {
+            var_export($myCfgProv->getErrors());die;
         }
         /**
          * 

@@ -40,10 +40,14 @@ class Config extends \FreeAsso\Model\Base\Config implements
     const CONFIG_SITE_STRING_2     = 'SITE_STRING_2';
     const CONFIG_SITE_STRING_3     = 'SITE_STRING_3';
     const CONFIG_SITE_STRING_4     = 'SITE_STRING_4';
+    const CONFIG_SITE_STRING_5     = 'SITE_STRING_5';
+    const CONFIG_SITE_STRING_6     = 'SITE_STRING_6';
     const CONFIG_SITE_NUMBER_1     = 'SITE_NUMBER_1';
     const CONFIG_SITE_NUMBER_2     = 'SITE_NUMBER_2';
     const CONFIG_SITE_NUMBER_3     = 'SITE_NUMBER_3';
     const CONFIG_SITE_NUMBER_4     = 'SITE_NUMBER_4';
+    const CONFIG_SITE_NUMBER_5     = 'SITE_NUMBER_5';
+    const CONFIG_SITE_NUMBER_6     = 'SITE_NUMBER_6';
     const CONFIG_SITE_BOOL_1       = 'SITE_BOOL_1';
     const CONFIG_SITE_BOOL_2       = 'SITE_BOOL_2';
     const CONFIG_SITE_BOOL_3       = 'SITE_BOOL_3';

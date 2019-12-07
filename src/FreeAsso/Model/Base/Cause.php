@@ -215,6 +215,30 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     protected $cau_bool_4 = null;
 
     /**
+     * cau_coord
+     * @var string
+     */
+    protected $cau_coord = null;
+
+    /**
+     * cau_sex
+     * @var string
+     */
+    protected $cau_sex = null;
+
+    /**
+     * parent1_cau_id
+     * @var number
+     */
+    protected $parent1_cau_id = null;
+
+    /**
+     * parent2_cau_id
+     * @var number
+     */
+    protected $parent2_cau_id = null;
+
+    /**
      * Set cau_id
      *
      * @param int $p_value
@@ -994,5 +1018,97 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     public function getCauBool_4()
     {
         return $this->cau_bool_4;
+    }
+
+    /**
+     * Set cau_coord
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Cause
+     */
+    public function setCauCoord($p_value)
+    {
+        $this->cau_coord = $p_value;
+        return $this;
+    }
+    
+    /**
+     * Get cau_coord
+     *
+     * @return string
+     */
+    public function getCauCoord()
+    {
+        return $this->cau_coord;
+    }
+
+    /**
+     * Set cau_sex
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Cause
+     */
+    public function setCauSex($p_value)
+    {
+        $this->cau_sex = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get cau_sex
+     *
+     * @return string
+     */
+    public function getCauSex()
+    {
+        return $this->cau_sex;
+    }
+
+    /**
+     * Set parent1_cau_id
+     *
+     * @param number $p_value
+     *
+     * @return \FreeAsso\Model\Cause
+     */
+    public function setParent1CauId($p_value)
+    {
+        $this->parent1_cau_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get parent1_cau_id
+     *
+     * @return string
+     */
+    public function getParent1CauId()
+    {
+        return $this->parent1_cau_id;
+    }
+
+    /**
+     * Set parent2_cau_id
+     *
+     * @param number $p_value
+     *
+     * @return \FreeAsso\Model\Cause
+     */
+    public function setParent2CauId($p_value)
+    {
+        $this->parent2_cau_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get parent2_cau_id
+     *
+     * @return string
+     */
+    public function getParent2CauId()
+    {
+        return $this->parent2_cau_id;
     }
 }

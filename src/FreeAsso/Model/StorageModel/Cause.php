@@ -206,6 +206,40 @@ abstract class Cause extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
         FFCST::PROPERTY_OPTIONS => []
     ];
+    protected static $PRP_CAU_COORD = [
+        FFCST::PROPERTY_PRIVATE => 'cau_coord',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_CAU_SEX = [
+        FFCST::PROPERTY_PRIVATE => 'cau_sex',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_PARENT1_CAU_ID = [
+        FFCST::PROPERTY_PRIVATE => 'parent1_cau_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['parent1' =>
+            [
+                'model' => 'FreeAsso::Model::Cause',
+                'field' => 'parent1_cau_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
+    protected static $PRP_PARENT2_CAU_ID = [
+        FFCST::PROPERTY_PRIVATE => 'parent2_cau_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['parent2' =>
+            [
+                'model' => 'FreeAsso::Model::Cause',
+                'field' => 'parent2_cau_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
 
     /**
      * get properties
@@ -215,40 +249,44 @@ abstract class Cause extends \FreeFW\Core\StorageModel
     public static function getProperties()
     {
         return [
-            'cau_id'        => self::$PRP_CAU_ID,
-            'brk_id'        => self::$PRP_BRK_ID,
-            'caut_id'       => self::$PRP_CAUT_ID,
-            'cau_name'      => self::$PRP_CAU_NAME,
-            'cau_desc'      => self::$PRP_CAU_DESC,
-            'cau_from'      => self::$PRP_CAU_FROM,
-            'cau_to'        => self::$PRP_CAU_TO,
-            'cau_public'    => self::$PRP_CAU_PUBLIC,
-            'cau_available' => self::$PRP_CAU_AVAILABLE,
-            'site_id'       => self::$PRP_SITE_ID,
-            'orig_cli_id'   => self::$PRP_ORIG_CLI_ID,
-            'cau_mnt'       => self::$PRP_CAU_MNT,
-            'cau_code'      => self::$PRP_CAU_CODE,
-            'cau_family'    => self::$PRP_CAU_FAMILY,
-            'cau_string_1'  => self::$PRP_CAU_STRING_1,
-            'cau_string_2'  => self::$PRP_CAU_STRING_2,
-            'cau_string_3'  => self::$PRP_CAU_STRING_3,
-            'cau_string_4'  => self::$PRP_CAU_STRING_4,
-            'cau_number_1'  => self::$PRP_CAU_NUMBER_1,
-            'cau_number_2'  => self::$PRP_CAU_NUMBER_2,
-            'cau_number_3'  => self::$PRP_CAU_NUMBER_3,
-            'cau_number_4'  => self::$PRP_CAU_NUMBER_4,
-            'cau_date_1'    => self::$PRP_CAU_DATE_1,
-            'cau_date_2'    => self::$PRP_CAU_DATE_2,
-            'cau_date_3'    => self::$PRP_CAU_DATE_3,
-            'cau_date_4'    => self::$PRP_CAU_DATE_4,
-            'cau_text_1'    => self::$PRP_CAU_TEXT_1,
-            'cau_text_2'    => self::$PRP_CAU_TEXT_2,
-            'cau_text_3'    => self::$PRP_CAU_TEXT_3,
-            'cau_text_4'    => self::$PRP_CAU_TEXT_4,
-            'cau_bool_1'    => self::$PRP_CAU_BOOL_1,
-            'cau_bool_2'    => self::$PRP_CAU_BOOL_2,
-            'cau_bool_3'    => self::$PRP_CAU_BOOL_3,
-            'cau_bool_4'    => self::$PRP_CAU_BOOL_4
+            'cau_id'         => self::$PRP_CAU_ID,
+            'brk_id'         => self::$PRP_BRK_ID,
+            'caut_id'        => self::$PRP_CAUT_ID,
+            'cau_name'       => self::$PRP_CAU_NAME,
+            'cau_desc'       => self::$PRP_CAU_DESC,
+            'cau_from'       => self::$PRP_CAU_FROM,
+            'cau_to'         => self::$PRP_CAU_TO,
+            'cau_public'     => self::$PRP_CAU_PUBLIC,
+            'cau_available'  => self::$PRP_CAU_AVAILABLE,
+            'site_id'        => self::$PRP_SITE_ID,
+            'orig_cli_id'    => self::$PRP_ORIG_CLI_ID,
+            'cau_mnt'        => self::$PRP_CAU_MNT,
+            'cau_code'       => self::$PRP_CAU_CODE,
+            'cau_family'     => self::$PRP_CAU_FAMILY,
+            'cau_string_1'   => self::$PRP_CAU_STRING_1,
+            'cau_string_2'   => self::$PRP_CAU_STRING_2,
+            'cau_string_3'   => self::$PRP_CAU_STRING_3,
+            'cau_string_4'   => self::$PRP_CAU_STRING_4,
+            'cau_number_1'   => self::$PRP_CAU_NUMBER_1,
+            'cau_number_2'   => self::$PRP_CAU_NUMBER_2,
+            'cau_number_3'   => self::$PRP_CAU_NUMBER_3,
+            'cau_number_4'   => self::$PRP_CAU_NUMBER_4,
+            'cau_date_1'     => self::$PRP_CAU_DATE_1,
+            'cau_date_2'     => self::$PRP_CAU_DATE_2,
+            'cau_date_3'     => self::$PRP_CAU_DATE_3,
+            'cau_date_4'     => self::$PRP_CAU_DATE_4,
+            'cau_text_1'     => self::$PRP_CAU_TEXT_1,
+            'cau_text_2'     => self::$PRP_CAU_TEXT_2,
+            'cau_text_3'     => self::$PRP_CAU_TEXT_3,
+            'cau_text_4'     => self::$PRP_CAU_TEXT_4,
+            'cau_bool_1'     => self::$PRP_CAU_BOOL_1,
+            'cau_bool_2'     => self::$PRP_CAU_BOOL_2,
+            'cau_bool_3'     => self::$PRP_CAU_BOOL_3,
+            'cau_bool_4'     => self::$PRP_CAU_BOOL_4,
+            'cau_coord'      => self::$PRP_CAU_COORD,
+            'cau_sex'        => self::$PRP_CAU_ID,
+            'parent1_cau_id' => self::$PRP_PARENT1_CAU_ID,
+            'parent2_cau_id' => self::$PRP_PARENT2_CAU_ID,
         ];
     }
 
