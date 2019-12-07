@@ -284,7 +284,7 @@ abstract class Cause extends \FreeFW\Core\StorageModel
             'cau_bool_3'     => self::$PRP_CAU_BOOL_3,
             'cau_bool_4'     => self::$PRP_CAU_BOOL_4,
             'cau_coord'      => self::$PRP_CAU_COORD,
-            'cau_sex'        => self::$PRP_CAU_ID,
+            'cau_sex'        => self::$PRP_CAU_SEX,
             'parent1_cau_id' => self::$PRP_PARENT1_CAU_ID,
             'parent2_cau_id' => self::$PRP_PARENT2_CAU_ID,
         ];

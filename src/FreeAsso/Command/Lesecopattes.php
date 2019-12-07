@@ -156,6 +156,7 @@ class Lesecopattes
                     ->setSiteCodeEx($columns[21])
                     ->setSitePlots($columns[8])
                     ->setSiteBool_1(false)
+                    ->setSiteCoord('{"lat": 49.096306, "long": 6.160053, "alt": 0}')
                 ;
                 if ($columns[10] != '') {
                     $mySite->setSiteNumber_1(intval(str_replace([' ', " ", "\t"], '', $columns[10])));
