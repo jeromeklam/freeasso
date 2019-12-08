@@ -79,7 +79,7 @@ abstract class Site extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_FK      => ['owner' =>
             [
                 'model' => 'FreeAsso::Model::Client',
-                'field' => 'owner_cli_id',
+                'field' => 'cli_id',
                 'type'  => \FreeFW\Model\Query::JOIN_LEFT
             ]
         ]
@@ -91,7 +91,7 @@ abstract class Site extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_FK      => ['sanitary' =>
             [
                 'model' => 'FreeAsso::Model::Client',
-                'field' => 'sanit_cli_id',
+                'field' => 'cli_id',
                 'type'  => \FreeFW\Model\Query::JOIN_LEFT
             ]
         ]
@@ -103,7 +103,7 @@ abstract class Site extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_FK      => ['parent_site_id' =>
             [
                 'model' => 'FreeAsso::Model::Site',
-                'field' => 'parent_site_id',
+                'field' => 'site_id',
                 'type'  => \FreeFW\Model\Query::JOIN_LEFT
             ]
         ]
@@ -340,7 +340,7 @@ abstract class Site extends \FreeFW\Core\StorageModel
     {
         return 'asso_site';
     }
-    
+
     /**
      * Get autocomplete field
      *

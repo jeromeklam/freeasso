@@ -286,4 +286,14 @@ abstract class Client extends \FreeFW\Core\StorageModel
     {
         return 'crm_client';
     }
+
+    /**
+     * Get autocomplete field
+     *
+     * @return string
+     */
+    public static function getAutocompleteField()
+    {
+        return 'cli_lastname';
+    }
 }

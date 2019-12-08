@@ -560,7 +560,7 @@ $localRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['site_type']
+            'default' => ['site_type', 'owner', 'sanitary']
         ],
         'results' => [
             '200' => [
@@ -658,7 +658,7 @@ $localRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['cause_type', 'cause_type.cause_main_type', 'site']
+            'default' => ['cause_type', 'cause_type.cause_main_type', 'site', 'parent1', 'parent2', 'proprietary']
         ],
         'results' => [
             '200' => [

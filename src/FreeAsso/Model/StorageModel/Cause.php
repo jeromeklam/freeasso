@@ -83,10 +83,10 @@ abstract class Cause extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_PRIVATE => 'orig_cli_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
-        FFCST::PROPERTY_FK      => ['orig_cli_id' =>
+        FFCST::PROPERTY_FK      => ['proprietary' =>
             [
                 'model' => 'FreeAsso::Model::Client',
-                'field' => 'orig_cli_id',
+                'field' => 'cli_id',
                 'type'  => \FreeFW\Model\Query::JOIN_LEFT
             ]
         ]
@@ -223,7 +223,7 @@ abstract class Cause extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_FK      => ['parent1' =>
             [
                 'model' => 'FreeAsso::Model::Cause',
-                'field' => 'parent1_cau_id',
+                'field' => 'cau_id',
                 'type'  => \FreeFW\Model\Query::JOIN_LEFT
             ]
         ]
@@ -235,7 +235,7 @@ abstract class Cause extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_FK      => ['parent2' =>
             [
                 'model' => 'FreeAsso::Model::Cause',
-                'field' => 'parent2_cau_id',
+                'field' => 'cau_id',
                 'type'  => \FreeFW\Model\Query::JOIN_LEFT
             ]
         ]

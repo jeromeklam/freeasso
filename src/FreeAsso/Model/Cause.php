@@ -33,6 +33,12 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
     protected $cause_type = null;
 
     /**
+     * Proprietary
+     * @var \FreeAsso\Model\Client
+     */
+    protected $proprietary = null;
+    
+    /**
      * Parent 1
      * @var \FreeAsso\Model\Cause
      */
@@ -134,6 +140,29 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
     public function getParent2()
     {
         return $this->parent2;
+    }
+
+    /**
+     * Get proprietary
+     * 
+     * @param \FreeAsso\Model\Client $p_client
+     * 
+     * @return \FreeAsso\Model\Cause
+     */
+    public function setProprietary($p_client)
+    {
+        $this->proprietary = $p_client;
+        return $this;
+    }
+
+    /**
+     * Get proprietary
+     *
+     * @return \FreeAsso\Model\Client
+     */
+    public function getProprietary()
+    {
+        return $this->proprietary;
     }
 
     /**
