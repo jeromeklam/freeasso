@@ -363,7 +363,6 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     public function setCauFrom($p_value)
     {
         $this->cau_from = $p_value;
-        return $this;
     }
 
     /**
@@ -386,7 +385,6 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     public function setCauTo($p_value)
     {
         $this->cau_to = $p_value;
-        return $this;
     }
 
     /**

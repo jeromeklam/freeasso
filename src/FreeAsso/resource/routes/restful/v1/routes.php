@@ -479,6 +479,9 @@ $localRoutes = [
         'function'   => 'createOne',
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
+        'include'    => [
+            'default' => ['cause_main_type']
+        ],
         'results' => [
             '201' => [
                 'type'  => \FreeFW\Router\Route::RESULT_OBJECT,
@@ -494,6 +497,9 @@ $localRoutes = [
         'function'   => 'updateOne',
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
+        'include'    => [
+            'default' => ['cause_main_type']
+        ],
         'results' => [
             '200' => [
                 'type'  => \FreeFW\Router\Route::RESULT_OBJECT,
@@ -577,6 +583,9 @@ $localRoutes = [
         'function'   => 'updateOne',
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
+        'include'    => [
+            'default' => ['site_type', 'owner', 'sanitary']
+        ],
         'results' => [
             '200' => [
                 'type'  => \FreeFW\Router\Route::RESULT_OBJECT,
@@ -592,6 +601,9 @@ $localRoutes = [
         'function'   => 'createOne',
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
+        'include'    => [
+            'default' => ['site_type', 'owner', 'sanitary']
+        ],
         'results' => [
             '201' => [
                 'type'  => \FreeFW\Router\Route::RESULT_OBJECT,
@@ -675,6 +687,9 @@ $localRoutes = [
         'function'   => 'updateOne',
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
+        'include'    => [
+            'default' => ['cause_type', 'cause_type.cause_main_type', 'site', 'parent1', 'parent2', 'proprietary']
+        ],
         'results' => [
             '200' => [
                 'type'  => \FreeFW\Router\Route::RESULT_OBJECT,
@@ -690,6 +705,9 @@ $localRoutes = [
         'function'   => 'createOne',
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
+        'include'    => [
+            'default' => ['cause_type', 'cause_type.cause_main_type', 'site', 'parent1', 'parent2', 'proprietary']
+        ],
         'results' => [
             '201' => [
                 'type'  => \FreeFW\Router\Route::RESULT_OBJECT,
@@ -770,6 +788,9 @@ $localRoutes = [
         'function'   => 'updateOne',
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
+        'include'    => [
+            'default' => ['client_category', 'client_type', 'country', 'lang']
+        ],
         'results' => [
             '200' => [
                 'type'  => \FreeFW\Router\Route::RESULT_OBJECT,
@@ -785,6 +806,9 @@ $localRoutes = [
         'function'   => 'createOne',
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
+        'include'    => [
+            'default' => ['client_category', 'client_type', 'country', 'lang']
+        ],
         'results' => [
             '201' => [
                 'type'  => \FreeFW\Router\Route::RESULT_OBJECT,

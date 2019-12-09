@@ -49,12 +49,12 @@ abstract class Cause extends \FreeFW\Core\StorageModel
     ];
     protected static $PRP_CAU_FROM = [
         FFCST::PROPERTY_PRIVATE => 'cau_from',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIME,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CAU_TO = [
         FFCST::PROPERTY_PRIVATE => 'cau_to',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIME,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CAU_PUBLIC = [
