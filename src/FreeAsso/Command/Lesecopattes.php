@@ -9,6 +9,62 @@ namespace FreeAsso\Command;
 class Lesecopattes
 {
 
+    protected function http_response($url, $status = null, $wait = 3)
+    {
+        $time = microtime(true);
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+            $head = curl_exec($ch);
+            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            curl_close($ch);
+            if (!$head) {
+                return false;
+            }
+            return $head;
+    }
+    
+    /**
+     * Retourne les coordonnées GPS
+     * 
+     * @param string $p_address
+     * @param string $p_cp
+     * @param string $p_town
+     * 
+     * @return string
+     */
+    protected function getCoordsFromAddress($p_address, $p_cp, $p_town, $p_loop = true)
+    {
+        sleep(4);
+        $gps = '{"lat": 49.096306, "lon": 6.160053, "alt": 0}';
+        $urlStart = 'https://nominatim.openstreetmap.org/search.php?q=';
+        $urlEnd   = '&email=jeromeklam@free.fr&format=json&polygon=1&addressdetails=1';
+        $query    = 'FRANCE ' . $p_cp . ' ' . $p_town . ' ' . $p_address;
+        $url      = $urlStart . urlencode($query) . $urlEnd;
+        $content  = $this->http_response($url);
+        try {
+            $json = json_decode($content, true);
+            if (is_array($json) && count(json) > 0) {
+                if (array_key_exists('lat', $json[0]) && array_key_exists('lon', $json[0])) {
+                    $gps='{"lat": ' . $json[0]['lat'] . ', "lon" : ' . $json[0]['lon'] . '}';
+                } else {
+                    if ($p_loop) {
+                        return $this->getCoordsFromAddress('', $p_cp, $p_town, false);
+                    }
+                }
+            } else {
+                if ($p_loop) {
+                    return $this->getCoordsFromAddress('', $p_cp, $p_town, false);
+                }
+            }
+        } catch (\Exception $ex) {
+            if ($p_loop) {
+                return $this->getCoordsFromAddress('', $p_cp, $p_town, false);
+            }
+        }
+        return $gps;
+    }
+
     /**
      * Import data
      *
@@ -27,6 +83,7 @@ class Lesecopattes
          * Nettoyage
          */
         $p_output->write("Nettoyage", true);
+        $query = $assoPdo->exec("UPDATE asso_cause SET parent1_cau_id = null, parent2_cau_id = null WHERE  brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_cause WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_site WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_cause_type WHERE brk_id = " . $brokerId);
@@ -145,6 +202,7 @@ class Lesecopattes
                     $sanitId = $tabSanitaries[$columns[22]];
                 }
                 $mySite = \FreeFW\DI\DI::get('FreeAsso::Model::Site');
+                $coords = $this->getCoordsFromAddress($columns[4], $columns[5], $columns[2]);
                 $mySite
                     ->setSiteName($columns[1])
                     ->setSiteCode($columns[21])
@@ -156,7 +214,7 @@ class Lesecopattes
                     ->setSiteCodeEx($columns[21])
                     ->setSitePlots($columns[8])
                     ->setSiteBool_1(false)
-                    ->setSiteCoord('{"lat": 49.096306, "long": 6.160053, "alt": 0}')
+                    ->setSiteCoord($coords)
                 ;
                 if ($columns[10] != '') {
                     $mySite->setSiteNumber_1(intval(str_replace([' ', " ", "\t"], '', $columns[10])));
@@ -166,11 +224,11 @@ class Lesecopattes
                 }
                 if ($columns[12] != '') {
                     if (!array_key_exists(strtolower($columns[12]), $tabTypeAbri)) {
-                        $tabTypeAbri[strtolower($columns[12])] = strtolower($columns[12]);
+                        $tabTypeAbri[strtolower($columns[12])] = $columns[12];
                     }
                     $mySite->setSiteString_4(strtolower($columns[12]));
                 } else {
-                    $mySite->setSiteString_4('Aucun');
+                    $mySite->setSiteString_4('aucun');
                 }
                 if ($columns[13] != '') {
                     if (strtolower($columns[13]) == 'oui') {
@@ -179,49 +237,49 @@ class Lesecopattes
                 }
                 if ($columns[14] != '') {
                     if (!array_key_exists(strtolower($columns[14]), $tabTypeReserv)) {
-                        $tabTypeReserv[strtolower($columns[14])] = strtolower($columns[14]);
+                        $tabTypeReserv[strtolower($columns[14])] = $columns[14];
                     }
                     $mySite->setSiteString_5(strtolower($columns[14]));
                 } else {
-                    $mySite->setSiteString_5('Aucun');
+                    $mySite->setSiteString_5('aucun');
                 }
                 if ($columns[15] != '') {
                     $mySite->setSiteNumber_5(intval(str_replace([' ', " ", "\t"], '', $columns[15])));
                 }
                 if ($columns[16] != '') {
                     if (!array_key_exists(strtolower($columns[16]), $tabTypeAbr)) {
-                        $tabTypeAbr[strtolower($columns[16])] = strtolower($columns[16]);
+                        $tabTypeAbr[strtolower($columns[16])] = $columns[16];
                     }
                     $mySite->setSiteString_6(strtolower($columns[16]));
                 } else {
-                    $mySite->setSiteString_6('Aucun');
+                    $mySite->setSiteString_6('aucun');
                 }
                 if ($columns[17] != '') {
                     if (!array_key_exists(strtolower($columns[17]), $tabTypeClot)) {
-                        $tabTypeClot[strtolower($columns[17])] = strtolower($columns[17]);
+                        $tabTypeClot[strtolower($columns[17])] = $columns[17];
                     }
                     $mySite->setSiteString_1(strtolower($columns[17]));
                 } else {
-                    $mySite->setSiteString_1('Aucun');
+                    $mySite->setSiteString_1('aucun');
                 }
                 if ($columns[18] != '') {
                     if (!array_key_exists(strtolower($columns[18]), $tabTypePiq)) {
-                        $tabTypePiq[strtolower($columns[18])] = strtolower($columns[18]);
+                        $tabTypePiq[strtolower($columns[18])] = $columns[18];
                     }
                     $mySite->setSiteString_2(strtolower($columns[18]));
                 } else {
-                    $mySite->setSiteString_2('Aucun');
+                    $mySite->setSiteString_2('aucun');
                 }
                 if ($columns[19] != '') {
                     $mySite->setSiteNumber_3(intval($columns[19]));
                 }
                 if ($columns[20] != '') {
                     if (!array_key_exists(strtolower($columns[20]), $tabTypeElec)) {
-                        $tabTypeElec[strtolower($columns[20])] = strtolower($columns[20]);
+                        $tabTypeElec[strtolower($columns[20])] = $columns[20];
                     }
                     $mySite->setSiteString_3(strtolower($columns[20]));
                 } else {
-                    $mySite->setSiteString_3('Aucun');
+                    $mySite->setSiteString_3('aucun');
                 }
                 if ($ownerId) {
                     $mySite->setOwnerCliId($ownerId);
@@ -244,7 +302,7 @@ class Lesecopattes
         /* *************************** */
         $content = '{"value":"Aucun","label":"Aucun"}';
         foreach ($tabTypeClot as $idx => $val) {
-            $content .= ',{"value":"' . $val . '","label":"' . $val . '"}';
+            $content .= ',{"value":"' . $idx . '","label":"' . $val . '"}';
         }
         $myDataCloture = \FreeFW\DI\DI::get('FreeAsso::Model::Data');
         $myDataCloture
@@ -265,9 +323,9 @@ class Lesecopattes
             var_export($myDataLinClot->getErrors());die;
         }
         /* *************************** */
-        $content = '{"value":"Aucun","label":"Aucun"}';
+        $content = '{"value":"aucun","label":"Aucun"}';
         foreach ($tabTypeAbr as $idx => $val) {
-            $content .= ',{"value":"' . $val . '","label":"' . $val . '"}';
+            $content .= ',{"value":"' . $idx . '","label":"' . $val . '"}';
         }
         $myDataAbrev = \FreeFW\DI\DI::get('FreeAsso::Model::Data');
         $myDataAbrev
@@ -279,9 +337,9 @@ class Lesecopattes
             var_export($myDataAbrev->getErrors());die;
         }
         /* *************************** */
-        $content = '{"value":"Aucun","label":"Aucun"}';
+        $content = '{"value":"aucun","label":"Aucun"}';
         foreach ($tabTypeAbri as $idx => $val) {
-            $content .= ',{"value":"' . $val . '","label":"' . $val . '"}';
+            $content .= ',{"value":"' . $idx . '","label":"' . $val . '"}';
         }
         $myDataAbri = \FreeFW\DI\DI::get('FreeAsso::Model::Data');
         $myDataAbri
@@ -302,9 +360,9 @@ class Lesecopattes
             var_export($myDataNbAbri->getErrors());die;
         }
         /* *************************** */
-        $content = '{"value":"Aucun","label":"Aucun"}';
+        $content = '{"value":"aucun","label":"Aucun"}';
         foreach ($tabTypeReserv as $idx => $val) {
-            $content .= ',{"value":"' . $val . '","label":"' . $val . '"}';
+            $content .= ',{"value":"' . $idx . '","label":"' . $val . '"}';
         }
         $myDataReser = \FreeFW\DI\DI::get('FreeAsso::Model::Data');
         $myDataReser
@@ -325,9 +383,9 @@ class Lesecopattes
             var_export($myDataVolRes->getErrors());die;
         }
         /* *************************** */
-        $content = '{"value":"Aucun","label":"Aucun"}';
+        $content = '{"value":"aucun","label":"Aucun"}';
         foreach ($tabTypePiq as $idx => $val) {
-            $content .= ',{"value":"' . $val . '","label":"' . $val . '"}';
+            $content .= ',{"value":"' . $idx . '","label":"' . $val . '"}';
         }
         $myDataPiq = \FreeFW\DI\DI::get('FreeAsso::Model::Data');
         $myDataPiq
@@ -339,9 +397,9 @@ class Lesecopattes
             var_export($myDataPiq->getErrors());die;
         }
         /* *************************** */
-        $content = '{"value":"Aucun","label":"Aucun"}';
+        $content = '{"value":"aucun","label":"Aucun"}';
         foreach ($tabTypeElec as $idx => $val) {
-            $content .= ',{"value":"' . $val . '","label":"' . $val . '"}';
+            $content .= ',{"value":"' . $idx . '","label":"' . $val . '"}';
         }
         $myDataElec = \FreeFW\DI\DI::get('FreeAsso::Model::Data');
         $myDataElec
@@ -561,11 +619,11 @@ class Lesecopattes
                 }
                 if ($columns[9] != '') {
                     if (!array_key_exists(strtolower($columns[9]), $tabColor)) {
-                        $tabColor[strtolower($columns[9])] = strtolower($columns[9]);
+                        $tabColor[strtolower($columns[9])] = $columns[9];
                     }
-                    $myCause->setCauString_1($columns[9]);
+                    $myCause->setCauString_1(strtolower($columns[9]));
                 } else {
-                    $myCause->setCauString_1('Indéfini');
+                    $myCause->setCauString_1('indefini');
                 }
                 
                 if ($columns[10] != '') {
@@ -586,9 +644,9 @@ class Lesecopattes
             }
         }
         /* *************************** */
-        $content = '{"value":"Indéfini","label":"Indéfini"}';
+        $content = '{"value":"indefini","label":"Indéfini"}';
         foreach ($tabColor as $idx => $val) {
-            $content .= ',{"value":"' . $val . '","label":"' . $val . '"}';
+            $content .= ',{"value":"' . $idx . '","label":"' . $val . '"}';
         }
         $myDataColor = \FreeFW\DI\DI::get('FreeAsso::Model::Data');
         $myDataColor
