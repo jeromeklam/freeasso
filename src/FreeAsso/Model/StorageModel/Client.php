@@ -92,7 +92,7 @@ abstract class Client extends \FreeFW\Core\StorageModel
     protected static $PRP_CNTY_ID = [
         FFCST::PROPERTY_PRIVATE => 'cnty_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_FK],
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
         FFCST::PROPERTY_FK      => ['country' =>
             [
                 'model' => 'FreeFW::Model::Country',
@@ -109,7 +109,7 @@ abstract class Client extends \FreeFW\Core\StorageModel
     protected static $PRP_LANG_ID = [
         FFCST::PROPERTY_PRIVATE => 'lang_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_FK],
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
         FFCST::PROPERTY_FK      => ['lang' =>
             [
                 'model' => 'FreeFW::Model::Lang',

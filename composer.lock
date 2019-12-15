@@ -754,16 +754,16 @@
         },
         {
             "name": "jeromeklam/freefw",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jeromeklam/freefw.git",
-                "reference": "69f067024dbd3c2a93b9c22540af663ba9813d3c"
+                "reference": "dd531398c9b25c8d3b90f6532d530ce88b095401"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jeromeklam/freefw/zipball/69f067024dbd3c2a93b9c22540af663ba9813d3c",
-                "reference": "69f067024dbd3c2a93b9c22540af663ba9813d3c",
+                "url": "https://api.github.com/repos/jeromeklam/freefw/zipball/dd531398c9b25c8d3b90f6532d530ce88b095401",
+                "reference": "dd531398c9b25c8d3b90f6532d530ce88b095401",
                 "shasum": ""
             },
             "require": {
@@ -811,20 +811,20 @@
                 "free",
                 "php"
             ],
-            "time": "2019-12-12T19:25:20+00:00"
+            "time": "2019-12-15T16:32:24+00:00"
         },
         {
             "name": "jeromeklam/freesso",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jeromeklam/freesso.git",
-                "reference": "67fe8d6616c4b5e632195350b12ddd521290d455"
+                "reference": "1793ca387f26b3cf0814f709b686f62c455e0962"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jeromeklam/freesso/zipball/67fe8d6616c4b5e632195350b12ddd521290d455",
-                "reference": "67fe8d6616c4b5e632195350b12ddd521290d455",
+                "url": "https://api.github.com/repos/jeromeklam/freesso/zipball/1793ca387f26b3cf0814f709b686f62c455e0962",
+                "reference": "1793ca387f26b3cf0814f709b686f62c455e0962",
                 "shasum": ""
             },
             "require": {
@@ -861,7 +861,7 @@
                 "free",
                 "php"
             ],
-            "time": "2019-12-04T07:34:23+00:00"
+            "time": "2019-12-15T16:30:03+00:00"
         },
         {
             "name": "neomerx/cors-psr7",
