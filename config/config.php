@@ -5,13 +5,20 @@
 $config = [
     'development' => true,
     'basepath'    => '/api',
-    'logger'      => array(
+    'logger'      => [
         'file'  => APP_LOG.'/freeasso.log',
         'level' => \Psr\Log\LogLevel::DEBUG
-    ),
-    'sso' => array(
-        'broker' => 'freeasso'
-    ),
+    ],
+    'sso' => [
+        'broker' => 'kalaweit'
+    ],
+    'queue' => [
+        'name' => 'freeasso-lesecopattes',
+        'host' => 'rabbit',
+        'port' => 5672,
+        'user' => 'guest',
+        'paswd' => 'guest'
+    ],
     'storage'     => [
         'default' => [
             'dsn'   => 'mysql:host=mysql;dbname=ecopattes;charset=utf8;',

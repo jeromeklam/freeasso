@@ -95,7 +95,7 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
 
     /**
      * lang_id
-     * @var number
+     * @var int
      */
     protected $lang_id = null;
 
@@ -110,6 +110,60 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
      * @var mixed
      */
     protected $cli_avatar = null;
+
+    /**
+     * cli_phone_home
+     * @var string
+     */
+    protected $cli_phone_home = null;
+
+    /**
+     * cli_phone_gsm
+     * @var string
+     */
+    protected $cli_phone_gsm = null;
+
+    /**
+     * cli_desc
+     * @var mixed
+     */
+    protected $cli_desc = null;
+
+    /**
+     * cli_email
+     * @var string
+     */
+    protected $cli_email = null;
+
+    /**
+     * cli_email_old
+     * @var string
+     */
+    protected $cli_email_old = null;
+
+    /**
+     * cli_receipt
+     * @var int
+     */
+    protected $cli_receipt = null;
+
+    /**
+     * cli_certificat
+     * @var int
+     */
+    protected $cli_certificat = null;
+
+    /**
+     * cli_extern_id
+     * @var string
+     */
+    protected $cli_extern_id = null;
+
+    /**
+     * cli_sponsor_id
+     * @var int
+     */
+    protected $cli_sponsor_id = null;
 
     /**
      * cli_string_1
@@ -556,7 +610,7 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     /**
      * Set lang_id
      *
-     * @param number $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Client
      */
@@ -569,7 +623,7 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     /**
      * Get lang_id
      *
-     * @return number
+     * @return int
      */
     public function getLangId()
     {
@@ -620,6 +674,213 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     public function getCliAvatar()
     {
         return $this->cli_avatar;
+    }
+
+    /**
+     * Set cli_phone_home
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Client
+     */
+    public function setCliPhoneHome($p_value)
+    {
+        $this->cli_phone_home = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get cli_phone_home
+     *
+     * @return string
+     */
+    public function getCliPhoneHome()
+    {
+        return $this->cli_phone_home;
+    }
+
+    /**
+     * Set cli_phone_gsm
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Client
+     */
+    public function setCliPhoneGsm($p_value)
+    {
+        $this->cli_phone_gsm = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get cli_phone_gsm
+     *
+     * @return string
+     */
+    public function getCliPhoneGsm()
+    {
+        return $this->cli_phone_gsm;
+    }
+
+    /**
+     * Set cli_desc
+     *
+     * @param mixed $p_value
+     *
+     * @return \FreeAsso\Model\Client
+     */
+    public function setCliDesc($p_value)
+    {
+        $this->cli_desc = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get cli_desc
+     *
+     * @return mixed
+     */
+    public function getCliDesc()
+    {
+        return $this->cli_desc;
+    }
+
+    /**
+     * Set cli_email
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Client
+     */
+    public function setCliEmail($p_value)
+    {
+        $this->cli_email = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get cli_email
+     *
+     * @return string
+     */
+    public function getCliEmail()
+    {
+        return $this->cli_email;
+    }
+
+    /**
+     * Set cli_email_old
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Client
+     */
+    public function setCliEmailOld($p_value)
+    {
+        $this->cli_email_old = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get cli_email_old
+     *
+     * @return string
+     */
+    public function getCliEmailOld()
+    {
+        return $this->cli_email_old;
+    }
+
+    /**
+     * Set cli_receipt
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Client
+     */
+    public function setCliReceipt($p_value)
+    {
+        $this->cli_receipt = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get cli_receipt
+     *
+     * @return int
+     */
+    public function getCliReceipt()
+    {
+        return $this->cli_receipt;
+    }
+
+    /**
+     * Set cli_certificat
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Client
+     */
+    public function setCliCertificat($p_value)
+    {
+        $this->cli_certificat = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get cli_certificat
+     *
+     * @return int
+     */
+    public function getCliCertificat()
+    {
+        return $this->cli_certificat;
+    }
+
+    /**
+     * Set cli_extern_id
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Client
+     */
+    public function setCliExternId($p_value)
+    {
+        $this->cli_extern_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get cli_extern_id
+     *
+     * @return string
+     */
+    public function getCliExternId()
+    {
+        return $this->cli_extern_id;
+    }
+
+    /**
+     * Set cli_sponsor_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Client
+     */
+    public function setCliSponsorId($p_value)
+    {
+        $this->cli_sponsor_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get cli_sponsor_id
+     *
+     * @return int
+     */
+    public function getCliSponsorId()
+    {
+        return $this->cli_sponsor_id;
     }
 
     /**

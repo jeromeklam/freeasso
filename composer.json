@@ -16,7 +16,8 @@
         "bin-dir"     : "install",
         "localdev": {
             "jeromeklam/freefw": "../freefw",
-            "jeromeklam/freesso": "../freesso"
+            "jeromeklam/freesso": "../freesso",
+            "jeromeklam/freews": "../freews"
         }
     },
     "require" : {
@@ -29,7 +30,11 @@
         "psr/http-server-middleware"           : "*",
         "guzzlehttp/guzzle"                    : "*",
         "jeromeklam/freesso"                   : "*",
-        "jeromeklam/freefw"                    : "*"
+        "jeromeklam/freefw"                    : "*",
+        "jeromeklam/freews"                    : "*",
+        "cboden/ratchet"                       : "^0.4.1",
+        "php-amqplib/php-amqplib": "^2.11",
+        "react/zmq": "^0.4.0"
     },
     "autoload" : {
         "psr-4" : {

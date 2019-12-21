@@ -4,19 +4,19 @@ namespace FreeAsso\Model\StorageModel;
 use \FreeFW\Constants as FFCST;
 
 /**
- * Data
+ * PaymentType
  *
  * @author jeromeklam
  */
-abstract class Data extends \FreeAsso\Model\StorageModel\Base
+abstract class PaymentType extends \FreeFW\Core\StorageModel
 {
 
 /**
  * Field properties as static arrays
  * @var array
  */
-    protected static $PRP_DATA_ID = [
-        FFCST::PROPERTY_PRIVATE => 'data_id',
+    protected static $PRP_PTYP_ID = [
+        FFCST::PROPERTY_PRIVATE => 'ptyp_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_PK]
     ];
@@ -25,34 +25,29 @@ abstract class Data extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_BROKER]
     ];
-    protected static $PRP_DATA_NAME = [
-        FFCST::PROPERTY_PRIVATE => 'data_name',
+    protected static $PRP_PTYP_CODE = [
+        FFCST::PROPERTY_PRIVATE => 'ptyp_code',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
         FFCST::PROPERTY_OPTIONS => []
     ];
-    protected static $PRP_DATA_CODE = [
-        FFCST::PROPERTY_PRIVATE => 'data_code',
+    protected static $PRP_PTYP_NAME = [
+        FFCST::PROPERTY_PRIVATE => 'ptyp_name',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
         FFCST::PROPERTY_OPTIONS => []
     ];
-    protected static $PRP_DATA_TYPE = [
-        FFCST::PROPERTY_PRIVATE => 'data_type',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+    protected static $PRP_PTYP_RECEIPT = [
+        FFCST::PROPERTY_PRIVATE => 'ptyp_receipt',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
-    protected static $PRP_DATA_FROM = [
-        FFCST::PROPERTY_PRIVATE => 'data_from',
+    protected static $PRP_PTYP_FROM = [
+        FFCST::PROPERTY_PRIVATE => 'ptyp_from',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIME,
         FFCST::PROPERTY_OPTIONS => []
     ];
-    protected static $PRP_DATA_TO = [
-        FFCST::PROPERTY_PRIVATE => 'data_to',
+    protected static $PRP_PTYP_TO = [
+        FFCST::PROPERTY_PRIVATE => 'ptyp_to',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIME,
-        FFCST::PROPERTY_OPTIONS => []
-    ];
-    protected static $PRP_DATA_CONTENT = [
-        FFCST::PROPERTY_PRIVATE => 'data_content',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BLOB,
         FFCST::PROPERTY_OPTIONS => []
     ];
 
@@ -64,14 +59,13 @@ abstract class Data extends \FreeAsso\Model\StorageModel\Base
     public static function getProperties()
     {
         return [
-            'data_id'      => self::$PRP_DATA_ID,
+            'ptyp_id'      => self::$PRP_PTYP_ID,
             'brk_id'       => self::$PRP_BRK_ID,
-            'data_name'    => self::$PRP_DATA_NAME,
-            'data_code'    => self::$PRP_DATA_CODE,
-            'data_type'    => self::$PRP_DATA_TYPE,
-            'data_from'    => self::$PRP_DATA_FROM,
-            'data_to'      => self::$PRP_DATA_TO,
-            'data_content' => self::$PRP_DATA_CONTENT
+            'ptyp_code'    => self::$PRP_PTYP_CODE,
+            'ptyp_name'    => self::$PRP_PTYP_NAME,
+            'ptyp_receipt' => self::$PRP_PTYP_RECEIPT,
+            'ptyp_from'    => self::$PRP_PTYP_FROM,
+            'ptyp_to'      => self::$PRP_PTYP_TO
         ];
     }
 
@@ -82,6 +76,6 @@ abstract class Data extends \FreeAsso\Model\StorageModel\Base
      */
     public static function getSource()
     {
-        return 'asso_data';
+        return 'asso_payment_type';
     }
 }

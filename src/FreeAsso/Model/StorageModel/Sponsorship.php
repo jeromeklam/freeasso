@@ -1,0 +1,138 @@
+<?php
+namespace FreeAsso\Model\StorageModel;
+
+use \FreeFW\Constants as FFCST;
+
+/**
+ * Sponsorship
+ *
+ * @author jeromeklam
+ */
+abstract class Sponsorship extends \FreeFW\Core\StorageModel
+{
+
+/**
+ * Field properties as static arrays
+ * @var array
+ */
+    protected static $PRP_SPO_ID = [
+        FFCST::PROPERTY_PRIVATE => 'spo_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_PK]
+    ];
+    protected static $PRP_BRK_ID = [
+        FFCST::PROPERTY_PRIVATE => 'brk_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_BROKER]
+    ];
+    protected static $PRP_CAU_ID = [
+        FFCST::PROPERTY_PRIVATE => 'cau_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['cause' =>
+            [
+                'model' => 'FreeAsso::Model::Cause',
+                'field' => 'cau_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
+    protected static $PRP_CLI_ID = [
+        FFCST::PROPERTY_PRIVATE => 'cli_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['member' =>
+            [
+                'model' => 'FreeAsso::Model::Client',
+                'field' => 'cli_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
+    protected static $PRP_SPO_FROM = [
+        FFCST::PROPERTY_PRIVATE => 'spo_from',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIME,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_SPO_TO = [
+        FFCST::PROPERTY_PRIVATE => 'spo_to',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIME,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_SPO_MNT = [
+        FFCST::PROPERTY_PRIVATE => 'spo_mnt',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_SPO_FREQ = [
+        FFCST::PROPERTY_PRIVATE => 'spo_freq',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+    ];
+    protected static $PRP_SPO_FREQ_DETAIL = [
+        FFCST::PROPERTY_PRIVATE => 'spo_freq_detail',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_PTYP_ID = [
+        FFCST::PROPERTY_PRIVATE => 'ptyp_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['payment_type' =>
+            [
+                'model' => 'FreeAsso::Model::PaymentType',
+                'field' => 'ptyp_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
+    protected static $PRP_SPO_SPONSORS = [
+        FFCST::PROPERTY_PRIVATE => 'spo_sponsors',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BLOB,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_SPO_DISPLAY_SITE = [
+        FFCST::PROPERTY_PRIVATE => 'spo_display_site',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+    ];
+    protected static $PRP_SPO_SEND_NEWS = [
+        FFCST::PROPERTY_PRIVATE => 'spo_send_news',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+
+    /**
+     * get properties
+     *
+     * @return array[]
+     */
+    public static function getProperties()
+    {
+        return [
+            'spo_id'           => self::$PRP_SPO_ID,
+            'brk_id'           => self::$PRP_BRK_ID,
+            'cau_id'           => self::$PRP_CAU_ID,
+            'cli_id'           => self::$PRP_CLI_ID,
+            'spo_from'         => self::$PRP_SPO_FROM,
+            'spo_to'           => self::$PRP_SPO_TO,
+            'spo_mnt'          => self::$PRP_SPO_MNT,
+            'spo_freq'         => self::$PRP_SPO_FREQ,
+            'spo_freq_detail'  => self::$PRP_SPO_FREQ_DETAIL,
+            'ptyp_id'          => self::$PRP_PTYP_ID,
+            'spo_sponsors'     => self::$PRP_SPO_SPONSORS,
+            'spo_display_site' => self::$PRP_SPO_DISPLAY_SITE,
+            'spo_send_news'    => self::$PRP_SPO_SEND_NEWS
+        ];
+    }
+
+    /**
+     * Set object source
+     *
+     * @return string
+     */
+    public static function getSource()
+    {
+        return 'asso_sponsorship';
+    }
+}

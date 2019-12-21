@@ -2,6 +2,7 @@
 <buildpath>
 	<buildpathentry external="true" kind="lib" path="/Users/jeromeklam/GitHub/freesso"/>
 	<buildpathentry external="true" kind="lib" path="/Users/jeromeklam/GitHub/freefw"/>
+	<buildpathentry external="true" kind="lib" path="/Users/jeromeklam/GitHub/freews"/>
 	<buildpathentry kind="con" path="org.eclipse.php.core.LANGUAGE"/>
 	<buildpathentry kind="src" path=""/>
 </buildpath>

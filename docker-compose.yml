@@ -3,27 +3,39 @@ services:
   php:
     image: jeromeklam/u18_php
     networks:
+      - frontend
       - backend
+    ports:
+      - "8008:8080"
     volumes:
       - ./:/var/www/html/
       - ../freefw/:/var/www/freefw/
       - ../freesso/:/var/www/freesso/
+      - ../freews/:/var/www/freews/
   apache:
     image: jeromeklam/u18_apache
     depends_on:
       - php
       - mysql
+      - rabbit
     networks:
       - frontend
       - backend
     environment:
-      DOCUMENTROOT: "www"
-      SERVERNAME: "freeasso.fr"
+      - DOCUMENTROOT=www
+      - SERVERNAME=freeasso.fr
     ports:
       - "8080:80"
     volumes:
       - ./:/var/www/html/
       - ./docker-logs:/var/log/apache2
+  rabbit:
+    image: jeromeklam/u18_rabbitmq
+    ports:
+      - "8072:5672"
+      - "8073:15672"
+    networks:
+      - backend
   mysql:
     image: jeromeklam/u18_mariadb
     ports:

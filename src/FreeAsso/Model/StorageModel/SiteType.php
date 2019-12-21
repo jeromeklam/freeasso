@@ -8,7 +8,7 @@ use \FreeFW\Constants as FFCST;
  *
  * @author jeromeklam
  */
-abstract class SiteType extends \FreeFW\Core\StorageModel
+abstract class SiteType extends \FreeAsso\Model\StorageModel\Base
 {
 
 /**

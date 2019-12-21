@@ -72,6 +72,19 @@ try {
     } else {
         $myLogger = new \Psr\Log\NullLogger();
     }
+    // Queue
+    $myQueue    = false;
+    $myQueueCfg = $myConfig->get('queue');
+    if (is_array($myQueueCfg)) {
+        $myQueue = \PhpAmqpLib\Connection\AMQPStreamConnection::create_connection([
+            [
+                'host' => $myQueueCfg['host'],
+                'port' => $myQueueCfg['port'],
+                'user' => $myQueueCfg['user'],
+                'password' => $myQueueCfg['paswd']
+            ]
+        ]);
+    }
     // La connexion DB
     $myStgCfg = $myConfig->get('storage');
     if (is_array($myStgCfg)) {
@@ -91,15 +104,54 @@ try {
     $app = \FreeFW\Application\Application::getInstance($myConfig, $myLogger);
     // EventManager
     $myEvents = \FreeFW\Listener\EventManager::getInstance();
+    // 404
     $myEvents->bind(\FreeFW\Constants::EVENT_ROUTE_NOT_FOUND, function () use ($app) {
         // @todo
         $app->sendHttpCode(404);
     });
+    // Render finished
     $myEvents->bind(\FreeFW\Constants::EVENT_AFTER_RENDER, function () use ($app, $startTs) {
         $endTs = microtime(true);
         $diff  = $endTs - $startTs;
         $app->getLogger()->info('Total execution time : ' . $diff);
     });
+    // CRUD for notifications and cache clear
+    if ($myQueue) {
+        $myEvents->bind(
+            [
+                \FreeFW\Constants::EVENT_STORAGE_CREATE,
+                \FreeFW\Constants::EVENT_STORAGE_UPDATE,
+                \FreeFW\Constants::EVENT_STORAGE_DELETE,
+            ],
+            function ($p_object) use ($app, $myQueue, $myQueueCfg) {
+                // Only Core Models
+                if ($p_object instanceof \FreeFW\Core\Model) {
+                    // Only if requested
+                    if ($p_object->forwardStorageEvent()) {
+                        // First to RabbitMQ
+                        $properties = [
+                            'content_type' => 'application/json',
+                            'delivery_mode' => \PhpAmqpLib\Message\AMQPMessage::DELIVERY_MODE_PERSISTENT
+                        ];
+                        $channel = $myQueue->channel();
+                        // Exchange as fanout, only to connected consumers
+                        $channel->exchange_declare($myQueueCfg['name'], 'fanout', false, false, false);
+                        $msg = new \PhpAmqpLib\Message\AMQPMessage(
+                            serialize($p_object),
+                            $properties
+                        );
+                        $channel->basic_publish($msg, $myQueueCfg['name']);
+                        $channel->close();
+                        // And then send Event to webSocket...
+                        $context = new \ZMQContext();
+                        $socket = $context->getSocket(\ZMQ::SOCKET_PUSH, 'my event');
+                        $socket->connect("tcp://localhost:5555");
+                        $socket->send(serialize($p_object));
+                    }
+                }
+            }
+        );
+    }
     /**
      * FreeAsso DI
      */
@@ -123,7 +175,11 @@ try {
     ;
     // GO
     $app->handle();
+    // Finish
+    if ($myQueue) {
+        $myQueue->close();
+    }
 } catch (\Exception $ex) {
     // @todo
-    var_dump($ex);
+    //var_dump($ex);
 }

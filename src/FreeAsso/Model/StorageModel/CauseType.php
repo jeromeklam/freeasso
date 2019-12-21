@@ -8,7 +8,7 @@ use \FreeFW\Constants as FFCST;
  *
  * @author jeromeklam
  */
-abstract class CauseType extends \FreeFW\Core\StorageModel
+abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
 {
 
 /**

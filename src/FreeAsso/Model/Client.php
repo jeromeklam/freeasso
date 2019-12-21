@@ -37,6 +37,12 @@ class Client extends \FreeAsso\Model\Base\Client implements
     protected $lang = null;
 
     /**
+     * Sponsor
+     * @var \FreeAsso\Model\Client
+     */
+    protected $sponsor = null;
+
+    /**
      *
      * {@inheritDoc}
      * @see \FreeFW\Core\Model::init()
@@ -141,5 +147,28 @@ class Client extends \FreeAsso\Model\Base\Client implements
     public function getLang()
     {
         return $this->lang;
+    }
+
+    /**
+     * Set sponsor
+     * 
+     * @param \FreeAsso\Model\Client $p_client
+     * 
+     * @return \FreeAsso\Model\Client
+     */
+    public function setSponsor($p_client)
+    {
+        $this->sponsor = $p_client;
+        return $this;
+    }
+
+    /**
+     * Get sponsor
+     * 
+     * @return \FreeAsso\Model\Client
+     */
+    public function getSponsor()
+    {
+        return $this->sponsor;
     }
 }
