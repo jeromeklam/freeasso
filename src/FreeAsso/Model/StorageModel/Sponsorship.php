@@ -61,7 +61,7 @@ abstract class Sponsorship extends \FreeFW\Core\StorageModel
     ];
     protected static $PRP_SPO_MNT = [
         FFCST::PROPERTY_PRIVATE => 'spo_mnt',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DECIMAL,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_SPO_FREQ = [

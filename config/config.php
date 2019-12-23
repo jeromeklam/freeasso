@@ -21,7 +21,7 @@ $config = [
     ],
     'storage'     => [
         'default' => [
-            'dsn'   => 'mysql:host=mysql;dbname=ecopattes;charset=utf8;',
+            'dsn'   => 'mysql:host=mysql;dbname=freeasso;charset=utf8;',
             'user'  => 'super',
             'paswd' => 'YggDrasil'
         ]

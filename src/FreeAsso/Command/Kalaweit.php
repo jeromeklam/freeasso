@@ -30,6 +30,8 @@ class Kalaweit
          */
         $p_output->write("Nettoyage", true);
         $query = $assoPdo->exec("UPDATE asso_cause SET parent1_cau_id = null, parent2_cau_id = null WHERE  brk_id = " . $brokerId);
+        $query = $assoPdo->exec("DELETE FROM asso_donation WHERE brk_id = " . $brokerId);
+        $query = $assoPdo->exec("DELETE FROM asso_sponsorship WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_cause WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_site WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_cause_type WHERE brk_id = " . $brokerId);
@@ -155,11 +157,11 @@ class Kalaweit
                 $tabCausesGibbon[$row->Especes_Id] = $myCauseGibbon->getCautId();
             }
         } catch (\PDOException $ex) {
-            
+            var_export($ex);die;
         }
         // Cause Forêt
-        $myCauseForet = \FreeFW\DI\DI::get('FreeAsso::Model::CauseType');
-        $myCauseForet
+        $myCauseTForet = \FreeFW\DI\DI::get('FreeAsso::Model::CauseType');
+        $myCauseTForet
             ->setCautName('Forêt')
             ->setCautMntType(\FreeAsso\Model\CauseType::MNT_TYPE_MAXIMUM)
             ->setCautMaxMnt(1000000)
@@ -168,12 +170,25 @@ class Kalaweit
             ->setCautCertificat(1)
             ->setCautText_1(1)
         ;
+        if (!$myCauseTForet->create()) {
+            var_export($myCauseTForet->getErrors());die;
+        }
+        $myCauseForet = \FreeFW\DI\DI::get('FreeAsso::Model::Cause');
+        $myCauseForet
+            ->setCauName('Forêt')
+            ->setCautId($myCauseTForet->getCautId())
+            ->setSiteId($myIleBorneo->getSiteId())
+            ->setCauDesc(null)
+            ->setCauFamily(\FreeAsso\Model\Cause::FAMILY_FOREST)
+            ->setCauPublic(0)
+            ->setCauAvailable(0)
+        ;
         if (!$myCauseForet->create()) {
             var_export($myCauseForet->getErrors());die;
         }
         // Cause Dulan
-        $myCauseDulan = \FreeFW\DI\DI::get('FreeAsso::Model::CauseType');
-        $myCauseDulan
+        $myCauseTDulan = \FreeFW\DI\DI::get('FreeAsso::Model::CauseType');
+        $myCauseTDulan
             ->setCautName('Dulan')
             ->setCautMntType(\FreeAsso\Model\CauseType::MNT_TYPE_MAXIMUM)
             ->setCautMaxMnt(1000000)
@@ -181,6 +196,19 @@ class Kalaweit
             ->setCautReceipt(1)
             ->setCautCertificat(1)
             ->setCautText_1(1)
+        ;
+        if (!$myCauseTDulan->create()) {
+            var_export($myCauseTDulan->getErrors());die;
+        }
+        $myCauseDulan = \FreeFW\DI\DI::get('FreeAsso::Model::Cause');
+        $myCauseDulan
+            ->setCauName('Dulan')
+            ->setCautId($myCauseTDulan->getCautId())
+            ->setSiteId($myIleBorneo->getSiteId())
+            ->setCauDesc(null)
+            ->setCauFamily(\FreeAsso\Model\Cause::FAMILY_FOREST)
+            ->setCauPublic(0)
+            ->setCauAvailable(0)
         ;
         if (!$myCauseDulan->create()) {
             var_export($myCauseDulan->getErrors());die;
@@ -217,13 +245,16 @@ class Kalaweit
                 }
             }
         } catch (\PDOException $ex) {
-            
+            var_export($ex);die;
         }
         /**
          * Import des Types de paiement
          */
         $tabTypePay = [];
         $p_output->write("Import des Types de paiement", true);
+        $TypHelloAsso = 0;
+        $TypAlvarum = 0;
+        $TypFacebook = 0;
         try {
             $query = $provider->prepare("Select * from type_reglement_id");
             $query->execute();
@@ -231,19 +262,51 @@ class Kalaweit
                 $myTP = \FreeFW\DI\DI::get('FreeAsso::Model::PaymentType');
                 $lib  = utf8_encode($row->Type_reglement_Libelle);
                 $myTP
-                    ->setPtypId($row->Type_reglement_id)
                     ->setPtypCode(strtoupper(\FreeFW\Tools\PBXString::withoutAccent(str_replace([' '], '', $lib))))
                     ->setPtypName($lib)
                     ->setPtypReceipt(1)
                 ;
-                
                 if (!$myTP->create()) {
                     var_export($myTP->getErrors());die;
                 }
-                $tabTypePay[$row->Type_reglement_id] = $myTP->getPtypId();
+                $tabTypePay[$row->Type_reglement_Id] = $myTP->getPtypId();
             }
+            //
+            $myTP = \FreeFW\DI\DI::get('FreeAsso::Model::PaymentType');
+            $myTP
+                ->setPtypCode('HELLOASSO')
+                ->setPtypName('HelloAsso')
+                ->setPtypReceipt(0)
+            ;
+            if (!$myTP->create()) {
+                var_export($myTP->getErrors());die;
+            }
+            $TypHelloAsso = $myTP->getPtypId();
+            //
+            $myTP = \FreeFW\DI\DI::get('FreeAsso::Model::PaymentType');
+            $myTP
+                ->setPtypCode('ALVARUM')
+                ->setPtypName('Alvarum')
+                ->setPtypReceipt(0)
+            ;
+            if (!$myTP->create()) {
+                var_export($myTP->getErrors());die;
+            }
+            $TypAlvarum = $myTP->getPtypId();
+            //
+            $myTP = \FreeFW\DI\DI::get('FreeAsso::Model::PaymentType');
+            $myTP
+                ->setPtypCode('FACEBOOK')
+                ->setPtypName('Facebook')
+                ->setPtypReceipt(0)
+            ;
+            if (!$myTP->create()) {
+                var_export($myTP->getErrors());die;
+            }
+            $TypFacebook = $myTP->getPtypId();
+            //
         } catch (\PDOException $ex) {
-            
+            var_export($ex);die;
         }
         /**
          * Import des Pays
@@ -265,7 +328,7 @@ class Kalaweit
                 }
             }
         } catch (\PDOException $ex) {
-            
+            var_export($ex);die;
         }
         /**
          * Import des catégories de client
@@ -287,7 +350,7 @@ class Kalaweit
                 }
             }
         } catch (\PDOException $ex) {
-            
+            var_export($ex);die;
         }
         /**
          * Import des Gibbons
@@ -358,10 +421,10 @@ class Kalaweit
                         var_export($myCause->getErrors());die;
                     }
                 }
-                $tabGibbons[$row->Numero_gibbon] = $myCause->getCauId();
+                $tabGibbons[$row->Numero_gibbon] = $myCause;
             }
         } catch (\PDOException $ex) {
-            echo "Error: ". $ex->getMessage();
+            var_export($ex);die;
         }
         /**
          * Import des Membres
@@ -439,22 +502,47 @@ class Kalaweit
                 }
             }
         } catch (\PDOException $ex) {
-            
+            var_export($ex);die;
         }
         /**
          * Import des dons réguliers
          */
+        $tabAmis = [];
         $p_output->write("Import des Amis", true);
         try {
             $query = $provider->prepare("Select * from les_amis");
             $query->execute();
             while ($row = $query->fetch(\PDO::FETCH_OBJ)) {
-                $sponsors = '';
+                $sponsors = [];
                 if ($row->invites != '') {
-                    $list = exmplode(',##', $row->invites);
+                    $list = explode(',##', $row->invites);
                     foreach ($list as $idx => $oneS) {
                         $parts = explode(';#', $oneS);
-                        var_export($parts);
+                        if ($parts[0] != '') {
+                            $name  = $parts[0];
+                            $email = $parts[1];
+                            $sponsors[] = '{"name":"' . $name . '","email":"' . $email . '"}';
+                        }
+                    }
+                }
+                $from = \FreeFW\Tools\Date::mysqlToDatetime($row->date_debut);
+                $to   = \FreeFW\Tools\Date::mysqlToDatetime($row->date_fin);
+                if ($from) {
+                    if (intval($from->format('Y')) <= 2020) {
+                        $from = \FreeFW\Tools\Date::datetimeToMysql($from);
+                    } else {
+                        $from = null;
+                    }
+                }
+                if ($to) {
+                    if (intval($to->format('Y')) <= 2020) {
+                        if (intval($to->format('Y')) > 1980) {
+                            $to = \FreeFW\Tools\Date::datetimeToMysql($to);
+                        } else {
+                            $to = \FreeFW\Tools\Date::getCurrentTimestamp();
+                        }
+                    } else {
+                        $to = null;
                     }
                 }
                 $mySponsorship = \FreeFW\DI\DI::get('FreeAsso::Model::Sponsorship');
@@ -462,9 +550,31 @@ class Kalaweit
                     ->setSpoDisplaySite($row->afficher_nom_parrain)
                     ->setSpoSponsors($sponsors)
                     ->setSpoFreq(\FreeAsso\Model\Sponsorship::PAYMENT_TYPE_MONTH)
+                    ->setSpoMnt($row->montant)
+                    ->setSpoFrom($from)
+                    ->setSpoTo($to)
                 ;
+                if (count($sponsors) > 0) {
+                    $mySponsorship->setSpoSponsors('[' . implode(',', $sponsors) . ']');
+                } else {
+                    $mySponsorship->setSpoSponsors(null);
+                }
+                if (intval($row->id_gibbon) > 0) {
+                    if (array_key_exists($row->id_gibbon, $tabGibbons)) {
+                        $mySponsorship->setCauId($tabGibbons[$row->id_gibbon]->getCauId());
+                    } else {
+                        var_export('Pb Gibbon ' . $row->id_gibbon . ' !');
+                    }
+                }
+                if (intval($row->Type_reglement_Id) > 0) {
+                    if (array_key_exists($row->Type_reglement_Id, $tabTypePay)) {
+                        $mySponsorship->setPtypId($tabTypePay[$row->Type_reglement_Id]);
+                    } else {
+                        var_export('Pb type de règlement ' . $row->id_ligne_amis . ' !');
+                    }
+                }
                 if (array_key_exists($row->id_membre, $tabMembres)) {
-                    $mySponsorship->setCliId($tabMembres[$row->id_membre])->getCliId();
+                    $mySponsorship->setCliId($tabMembres[$row->id_membre]->getCliId());
                 } else {
                     var_export('Member not found : ' . $row->id_membre . ' !');
                     continue;
@@ -472,11 +582,103 @@ class Kalaweit
                 if (!$mySponsorship->create()) {
                     var_export($mySponsorship->getErrors());
                 }
+                $tabAmis[$row->id_ligne_amis] = $mySponsorship;
             }
         } catch (\Exception $ex) {
-            
+            var_export($ex);die;
         }
         //
+        /**
+         * Import des dons
+         */
+        $tabEntrees = [];
+        $p_output->write("Import des dons", true);
+        try {
+            $query = $provider->prepare("Select * from entrees");
+            $query->execute();
+            while ($row = $query->fetch(\PDO::FETCH_OBJ)) {
+                $myDonation = \FreeFW\DI\DI::get('FreeAsso::Model::Donation');
+                $myDonation
+                    ->setDonStatus(\FreeAsso\Model\Donation::STATUS_NOK)
+                    ->setDonMnt($row->montant)
+                    ->setDonDisplaySite(0)
+                ;
+                $ts = \FreeFW\Tools\Date::mysqlToDatetime($row->date_entree);
+                if ($ts) {
+                    if (intval($ts->format('Y')) <= 2020) {
+                        $ts = \FreeFW\Tools\Date::datetimeToMysql($ts);
+                    } else {
+                        var_export('Erreur ts !');
+                        continue;
+                    }
+                } else {
+                    var_export('Erreur ts !');
+                    continue;
+                }
+                $myDonation->setDonTs($ts);
+                if ($row->etat_paiement == '1') {
+                    $myDonation
+                        ->setDonStatus(\FreeAsso\Model\Donation::STATUS_OK)
+                    ;
+                }
+                if ($row->commentaire != '') {
+                    $myDonation->setDonComment('<p>' . $row->commentaire . '</p>');
+                }
+                if (intval($row->id_adoption) > 0) {
+                    if (array_key_exists($row->id_adoption, $tabGibbons)) {
+                        $myDonation->setCauId($tabGibbons[$row->id_adoption]->getCauId());
+                    } else {
+                        var_export('Pb Gibbon ' . $row->id_adoption . ' !');
+                    }
+                } else {
+                    $myDonation->setCauId(null);
+                }
+                if (intval($row->id_methode_paiement) >= 0) {
+                    if (array_key_exists($row->id_methode_paiement, $tabTypePay)) {
+                        $myDonation->setPtypId($tabTypePay[$row->id_methode_paiement]);
+                    } else {
+                        var_export('Pb type de règlement ' . $row->id_methode_paiement . ' !');
+                    }
+                }
+                switch (intval($row->origine)) {
+                    case 2:
+                        $myDonation->setPtypId($TypHelloAsso);
+                        break;
+                    case 3:
+                        $myDonation->setPtypId($TypAlvarum);
+                        break;
+                    case 4:
+                        $myDonation->setPtypId($TypFacebook);
+                        break;
+                }
+                if (array_key_exists($row->id_membre, $tabMembres)) {
+                    $myDonation->setCliId($tabMembres[$row->id_membre]->getCliId());
+                } else {
+                    var_export('Member not found : ' . $row->id_membre . ' !');
+                    continue;
+                }
+                if (intval($row->afficher_nom_parrain) > 0) {
+                    $myDonation->setDonDisplaySite(1);
+                }
+                if (intval($row->id_ligne_amis) > 0) {
+                    if (array_key_exists($row->id_ligne_amis, $tabAmis)) {
+                        $myDonation->setSpoId($tabAmis[$row->id_ligne_amis]->getSpoId());
+                    } else {
+                        var_export('Ami not found : ' . $row->id_ligne_amis . ' !');
+                        continue;
+                    }
+                }
+                if (!$myDonation->create()) {
+                    var_export($myDonation->getErrors());
+                }
+                $tabEntrees[$row->id] = $myDonation;
+            }
+        } catch (\Exception $ex) {
+            var_export($ex);die;
+        }
+        /**
+         * 
+         */
         $p_output->write("Fin de l'import", true);
     }
 }

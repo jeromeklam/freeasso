@@ -19,6 +19,7 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
     const FAMILY_NONE   = 'NONE';
     const FAMILY_ANIMAL = 'ANIMAL';
     const FAMILY_OTHER  = 'OTHER';
+    const FAMILY_FOREST = 'FOREST';
 
     /**
      * Site
