@@ -52,7 +52,7 @@ abstract class Data extends \FreeAsso\Model\StorageModel\Base
     ];
     protected static $PRP_DATA_CONTENT = [
         FFCST::PROPERTY_PRIVATE => 'data_content',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BLOB,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
         FFCST::PROPERTY_OPTIONS => []
     ];
 

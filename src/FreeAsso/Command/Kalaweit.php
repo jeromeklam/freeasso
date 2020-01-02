@@ -30,6 +30,7 @@ class Kalaweit
          */
         $p_output->write("Nettoyage", true);
         $query = $assoPdo->exec("UPDATE asso_cause SET parent1_cau_id = null, parent2_cau_id = null WHERE  brk_id = " . $brokerId);
+        $query = $assoPdo->exec("DELETE FROM asso_cause_media WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_donation WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_sponsorship WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_cause WHERE brk_id = " . $brokerId);
@@ -43,6 +44,8 @@ class Kalaweit
         $query = $assoPdo->exec("DELETE FROM crm_client WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM crm_client_category WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM crm_client_type WHERE brk_id = " . $brokerId);
+        $query = $assoPdo->exec("DELETE FROM core_country");
+        $query = $assoPdo->exec("DELETE FROM core_lang");
         /**
          * Paramètres de base
          */
@@ -421,6 +424,44 @@ class Kalaweit
                         var_export($myCause->getErrors());die;
                     }
                 }
+                // Gestion des medias
+                if ($row->Photo1 != '') {
+                    $file = APP_ROOT . '/datas/kalaweit/adoption/' . $row->Photo1;
+                    if (is_file($file)) {
+                        $myCauseMedia = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMedia');
+                        $myCauseMedia
+                            ->setCaumType(\FreeAsso\Model\CauseMedia::TYPE_PHOTO)
+                            ->setCauId($myCause->getCauId())
+                            ->setCaumCode('PHOTO1')
+                            ->setCaumTs(\FreeFW\Tools\Date::getCurrentTimestamp())
+                            ->setCaumBlob(file_get_contents($file))
+                        ;
+                        if (!$myCauseMedia->create()) {
+                            var_export($myCauseMedia);
+                        }
+                    } else {
+                        var_export($file . ' not found !');
+                    }
+                }
+                if ($row->Photo2 != '') {
+                    $file = APP_ROOT . '/datas/kalaweit/adoption/' . $row->Photo2;
+                    if (is_file($file)) {
+                        $myCauseMedia = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMedia');
+                        $myCauseMedia
+                            ->setCaumType(\FreeAsso\Model\CauseMedia::TYPE_PHOTO)
+                            ->setCauId($myCause->getCauId())
+                            ->setCaumCode('PHOTO2')
+                            ->setCaumTs(\FreeFW\Tools\Date::getCurrentTimestamp())
+                            ->setCaumBlob(file_get_contents($file))
+                        ;
+                        if (!$myCauseMedia->create()) {
+                            var_export($myCauseMedia);
+                        }
+                    } else {
+                        var_export($file . ' not found !');
+                    }
+                }
+                //
                 $tabGibbons[$row->Numero_gibbon] = $myCause;
             }
         } catch (\PDOException $ex) {

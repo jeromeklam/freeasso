@@ -25,7 +25,13 @@ class CauseType extends \FreeAsso\Model\Base\CauseType implements
      * @var \FreeAsso\Model\CauseMainType
      */
     protected $cause_main_type = null;
-    
+
+    /**
+     * Cause count
+     * @var number
+     */
+    protected $count_cause = false;
+
     /**
      *
      * {@inheritDoc}
@@ -74,7 +80,7 @@ class CauseType extends \FreeAsso\Model\Base\CauseType implements
         $this->cause_main_type = $p_cause_main_type;
         return $this;
     }
-    
+
     /**
      * Get cause main type
      *
@@ -83,5 +89,31 @@ class CauseType extends \FreeAsso\Model\Base\CauseType implements
     public function getCauseMainType()
     {
         return $this->cause_main_type;
+    }
+
+    /**
+     * Set cause count
+     * 
+     * @param number $p_count
+     * 
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCountCause($p_count)
+    {
+        $this->count_cause = $p_count;
+        return $this;
+    }
+
+    /**
+     * Count causes
+     * 
+     * @return number
+     */
+    public function getCountCause()
+    {
+        if ($this->count_cause === false) {
+            \FreeAsso\Model\Cause::count([]);
+        }
+        return $this->count_cause;
     }
 }

@@ -103,7 +103,7 @@ abstract class Client extends \FreeFW\Core\StorageModel
     ];
     protected static $PRP_CLI_ACTIVE = [
         FFCST::PROPERTY_PRIVATE => 'cli_active',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_LANG_ID = [
@@ -155,12 +155,12 @@ abstract class Client extends \FreeFW\Core\StorageModel
     ];
     protected static $PRP_CLI_RECEIPT = [
         FFCST::PROPERTY_PRIVATE => 'cli_receipt',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CLI_CERTIFICAT = [
         FFCST::PROPERTY_PRIVATE => 'cli_certificat',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CLI_EXTERN_ID = [
