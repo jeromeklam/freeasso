@@ -29,7 +29,7 @@ abstract class Donation extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_PRIVATE => 'cli_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_FK],
-        FFCST::PROPERTY_FK      => ['member' =>
+        FFCST::PROPERTY_FK      => ['client' =>
             [
                 'model' => 'FreeAsso::Model::Client',
                 'field' => 'cli_id',

@@ -120,7 +120,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
     ];
     protected static $PRP_SITE_PLOTS = [
         FFCST::PROPERTY_PRIVATE => 'site_plots',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BLOB,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_SITE_LEFT = [
