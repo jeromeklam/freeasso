@@ -64,10 +64,22 @@ abstract class CauseMedia extends \FreeAsso\Model\StorageModel\CauseMedia
     protected $caum_text = null;
 
     /**
+     * caum_short_text
+     * @var mixed
+     */
+    protected $caum_short_text = null;
+
+    /**
      * caum_blob
      * @var mixed
      */
     protected $caum_blob = null;
+
+    /**
+     * caum_short_blob
+     * @var mixed
+     */
+    protected $caum_short_blob = null;
 
     /**
      * lang_id
@@ -295,6 +307,29 @@ abstract class CauseMedia extends \FreeAsso\Model\StorageModel\CauseMedia
     }
 
     /**
+     * Set caum_short_text
+     *
+     * @param mixed $p_value
+     *
+     * @return \FreeAsso\Model\CauseMedia
+     */
+    public function setCaumShortText($p_value)
+    {
+        $this->caum_short_text = $p_value;
+        return $this;
+    }
+    
+    /**
+     * Get caum_short_text
+     *
+     * @return mixed
+     */
+    public function getCaumShortText()
+    {
+        return $this->caum_short_text;
+    }
+
+    /**
      * Set caum_blob
      *
      * @param mixed $p_value
@@ -315,6 +350,29 @@ abstract class CauseMedia extends \FreeAsso\Model\StorageModel\CauseMedia
     public function getCaumBlob()
     {
         return $this->caum_blob;
+    }
+
+    /**
+     * Set caum_short_blob
+     *
+     * @param mixed $p_value
+     *
+     * @return \FreeAsso\Model\CauseMedia
+     */
+    public function setCaumShortBlob($p_value)
+    {
+        $this->caum_short_blob = $p_value;
+        return $this;
+    }
+    
+    /**
+     * Get caum_short_blob
+     *
+     * @return mixed
+     */
+    public function getCaumShortBlob()
+    {
+        return $this->caum_short_blob;
     }
 
     /**

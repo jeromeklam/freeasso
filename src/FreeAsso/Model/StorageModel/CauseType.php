@@ -44,7 +44,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
     ];
     protected static $PRP_CAUT_RECEIPT = [
         FFCST::PROPERTY_PRIVATE => 'caut_receipt',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_CAUT_MAX_MNT = [
@@ -64,7 +64,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
     ];
     protected static $PRP_CAUT_CERTIFICAT = [
         FFCST::PROPERTY_PRIVATE => 'caut_certificat',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_CAUT_STRING_1 = [

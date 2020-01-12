@@ -74,10 +74,20 @@ abstract class CauseMedia extends \FreeFW\Core\StorageModel
     protected static $PRP_CAUM_TEXT = [
         FFCST::PROPERTY_PRIVATE => 'caum_text',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_JSONIGNORE]
+    ];
+    protected static $PRP_CAUM_SHORT_TEXT = [
+        FFCST::PROPERTY_PRIVATE => 'caum_short_text',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CAUM_BLOB = [
         FFCST::PROPERTY_PRIVATE => 'caum_blob',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BLOB,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_JSONIGNORE]
+    ];
+    protected static $PRP_CAUM_SHORT_BLOB = [
+        FFCST::PROPERTY_PRIVATE => 'caum_short_blob',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BLOB,
         FFCST::PROPERTY_OPTIONS => []
     ];
@@ -112,19 +122,21 @@ abstract class CauseMedia extends \FreeFW\Core\StorageModel
     public static function getProperties()
     {
         return [
-            'caum_id'    => self::$PRP_CAUM_ID,
-            'cau_id'     => self::$PRP_CAU_ID,
-            'brk_id'     => self::$PRP_BRK_ID,
-            'caum_code'  => self::$PRP_CAUM_CODE,
-            'caum_type'  => self::$PRP_CAUM_TYPE,
-            'caum_ts'    => self::$PRP_CAUM_TS,
-            'caum_from'  => self::$PRP_CAUM_FROM,
-            'caum_to'    => self::$PRP_CAUM_TO,
-            'caum_text'  => self::$PRP_CAUM_TEXT,
-            'caum_blob'  => self::$PRP_CAUM_BLOB,
-            'lang_id'    => self::$PRP_LANG_ID,
-            'caum_order' => self::$PRP_CAUM_ORDER,
-            'caum_title' => self::$PRP_CAUM_TITLE
+            'caum_id'         => self::$PRP_CAUM_ID,
+            'cau_id'          => self::$PRP_CAU_ID,
+            'brk_id'          => self::$PRP_BRK_ID,
+            'caum_code'       => self::$PRP_CAUM_CODE,
+            'caum_type'       => self::$PRP_CAUM_TYPE,
+            'caum_ts'         => self::$PRP_CAUM_TS,
+            'caum_from'       => self::$PRP_CAUM_FROM,
+            'caum_to'         => self::$PRP_CAUM_TO,
+            'caum_text'       => self::$PRP_CAUM_TEXT,
+            'caum_short_text' => self::$PRP_CAUM_SHORT_TEXT,
+            'caum_blob'       => self::$PRP_CAUM_BLOB,
+            'caum_short_blob' => self::$PRP_CAUM_SHORT_BLOB,
+            'lang_id'         => self::$PRP_LANG_ID,
+            'caum_order'      => self::$PRP_CAUM_ORDER,
+            'caum_title'      => self::$PRP_CAUM_TITLE
         ];
     }
 

@@ -239,6 +239,18 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     protected $parent2_cau_id = null;
 
     /**
+     * caum_text_id
+     * @var number
+     */
+    protected $caum_text_id = null;
+
+    /**
+     * caum_blob_id
+     * @var number
+     */
+    protected $caum_blob_id = null;
+
+    /**
      * Set cau_id
      *
      * @param int $p_value
@@ -1108,5 +1120,51 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     public function getParent2CauId()
     {
         return $this->parent2_cau_id;
+    }
+
+    /**
+     * Set caum_text_id
+     *
+     * @param number $p_value
+     *
+     * @return \FreeAsso\Model\Cause
+     */
+    public function setCaumTextId($p_value)
+    {
+        $this->caum_text_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caum_text_id
+     *
+     * @return string
+     */
+    public function getCaumTextId()
+    {
+        return $this->caum_text_id;
+    }
+
+    /**
+     * Set caum_blob_id
+     *
+     * @param number $p_value
+     *
+     * @return \FreeAsso\Model\Cause
+     */
+    public function setCaumBlobId($p_value)
+    {
+        $this->caum_blob_id = $p_value;
+        return $this;
+    }
+    
+    /**
+     * Get caum_blob_id
+     *
+     * @return string
+     */
+    public function getCaumBlobId()
+    {
+        return $this->caum_blob_id;
     }
 }

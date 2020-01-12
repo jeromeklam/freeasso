@@ -122,6 +122,13 @@ class Kalaweit
         if (!$myIleAutre->create()) {
             var_export($myIleAutre->getErrors());die;
         }
+        // Grandes causes
+        $myGibbonCause = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMainType');
+        $myGibbonCause->setCamtName('Gibbons');
+        $myGibbonCause->create();
+        $myForestCause = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMainType');
+        $myForestCause->setCamtName('Forêt');
+        $myForestCause->create();
         // Causes Gibbon
         $tabCausesGibbon = [];
         $myCauseGibbon = \FreeFW\DI\DI::get('FreeAsso::Model::CauseType');
@@ -134,6 +141,7 @@ class Kalaweit
             ->setCautString_2(1)
             ->setCautString_3(1)
             ->setCautText_1(1)
+            ->setCamtId($myGibbonCause->getCamtId())
         ;
         if (!$myCauseGibbon->create()) {
             var_export($myCauseGibbon->getErrors());die;
@@ -153,6 +161,7 @@ class Kalaweit
                     ->setCautString_2(1)
                     ->setCautString_3(1)
                     ->setCautText_1(1)
+                    ->setCamtId($myGibbonCause->getCamtId())
                 ;
                 if (!$myCauseGibbon->create()) {
                     var_export($myCauseGibbon->getErrors());die;
@@ -172,6 +181,7 @@ class Kalaweit
             ->setCautReceipt(1)
             ->setCautCertificat(1)
             ->setCautText_1(1)
+            ->setCamtId($myForestCause->getCamtId())
         ;
         if (!$myCauseTForet->create()) {
             var_export($myCauseTForet->getErrors());die;
@@ -199,6 +209,7 @@ class Kalaweit
             ->setCautReceipt(1)
             ->setCautCertificat(1)
             ->setCautText_1(1)
+            ->setCamtId($myForestCause->getCamtId())
         ;
         if (!$myCauseTDulan->create()) {
             var_export($myCauseTDulan->getErrors());die;
@@ -425,9 +436,12 @@ class Kalaweit
                     }
                 }
                 // Gestion des medias
+                $blob = false;
                 if ($row->Photo1 != '') {
                     $file = APP_ROOT . '/datas/kalaweit/adoption/' . $row->Photo1;
                     if (is_file($file)) {
+                        $photo        = file_get_contents($file);
+                        $thumb        = new \FreeFW\Tools\ImageResizer($file);
                         $myCauseMedia = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMedia');
                         $myCauseMedia
                             ->setCaumType(\FreeAsso\Model\CauseMedia::TYPE_PHOTO)
@@ -435,9 +449,14 @@ class Kalaweit
                             ->setCaumCode('PHOTO1')
                             ->setCaumTs(\FreeFW\Tools\Date::getCurrentTimestamp())
                             ->setCaumBlob(file_get_contents($file))
+                            ->setCaumShortBlob($thumb->resizeToBestFit(200, 200))
                         ;
                         if (!$myCauseMedia->create()) {
                             var_export($myCauseMedia);
+                        } else {
+                            $myCause->setCaumBlobId($myCauseMedia->getCaumId());
+                            $myCause->save();
+                            $blob = true;
                         }
                     } else {
                         var_export($file . ' not found !');
@@ -446,16 +465,25 @@ class Kalaweit
                 if ($row->Photo2 != '') {
                     $file = APP_ROOT . '/datas/kalaweit/adoption/' . $row->Photo2;
                     if (is_file($file)) {
+                        $photo        = file_get_contents($file);
+                        $thumb        = new \FreeFW\Tools\ImageResizer($file);
                         $myCauseMedia = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMedia');
                         $myCauseMedia
                             ->setCaumType(\FreeAsso\Model\CauseMedia::TYPE_PHOTO)
                             ->setCauId($myCause->getCauId())
                             ->setCaumCode('PHOTO2')
                             ->setCaumTs(\FreeFW\Tools\Date::getCurrentTimestamp())
-                            ->setCaumBlob(file_get_contents($file))
+                            ->setCaumBlob($photo)
+                            ->setCaumShortBlob($thumb->resizeToBestFit(200, 200))
                         ;
                         if (!$myCauseMedia->create()) {
                             var_export($myCauseMedia);
+                        } else {
+                            if (!$blob) {
+                                $myCause->setCaumBlobId($myCauseMedia->getCaumId());
+                                $myCause->save();
+                                $blob = true;
+                            }
                         }
                     } else {
                         var_export($file . ' not found !');

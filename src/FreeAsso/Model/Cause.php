@@ -52,6 +52,36 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
     protected $parent2 = null;
 
     /**
+     * Default text
+     * @var \FreeAsso\Model\CauseMedia
+     */
+    protected $default_text = null;
+
+    /**
+     * Default blob
+     * @var \FreeAsso\Model\CauseMedia
+     */
+    protected $default_blob = null;
+
+    /**
+     *
+     * {@inheritDoc}
+     * @see \FreeFW\Core\Model::init()
+     */
+    public function init()
+    {
+        $this->cau_id        = 0;
+        $this->brk_id        = 0;
+        $this->caut_id       = 0;
+        $this->cau_name      = '';
+        $this->cau_code      = '';
+        $this->cau_public    = 1;
+        $this->cau_available = 1;
+        $this->cau_family    = self::FAMILY_NONE;
+        return $this;
+    }
+
+    /**
      * Set site
      * 
      * @param \FreeAsso\Model\Site $p_site
@@ -167,20 +197,48 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
     }
 
     /**
-     *
-     * {@inheritDoc}
-     * @see \FreeFW\Core\Model::init()
+     * Set default text
+     * 
+     * @param \FreeAsso\Model\CauseMedia $p_media
+     * 
+     * @return \FreeAsso\Model\Cause
      */
-    public function init()
+    public function setDefaultText($p_media)
     {
-        $this->cau_id        = 0;
-        $this->brk_id        = 0;
-        $this->caut_id       = 0;
-        $this->cau_name      = '';
-        $this->cau_code      = '';
-        $this->cau_public    = 1;
-        $this->cau_available = 1;
-        $this->cau_family    = self::FAMILY_NONE;
+        $this->default_text = $p_media;
         return $this;
+    }
+
+    /**
+     * get default text
+     *
+     * @return \FreeAsso\Model\CauseMedia
+     */
+    public function getDefaultText()
+    {
+        return $this->default_text;
+    }
+
+    /**
+     * Set default blob
+     *
+     * @param \FreeAsso\Model\CauseMedia $p_media
+     *
+     * @return \FreeAsso\Model\Cause
+     */
+    public function setDefaultBlob($p_media)
+    {
+        $this->default_blob = $p_media;
+        return $this;
+    }
+    
+    /**
+     * get default blob
+     *
+     * @return \FreeAsso\Model\CauseMedia
+     */
+    public function getDefaultBlob()
+    {
+        return $this->default_blob;
     }
 }

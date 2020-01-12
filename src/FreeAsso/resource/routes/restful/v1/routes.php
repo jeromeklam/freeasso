@@ -669,7 +669,7 @@ $localRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['cause_type', 'cause_type.cause_main_type', 'site']
+            'default' => ['cause_type', 'cause_type.cause_main_type', 'site', 'default_blob']
         ],
         'results' => [
             '200' => [
@@ -687,7 +687,7 @@ $localRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['cause_type', 'cause_type.cause_main_type', 'site', 'parent1', 'parent2', 'proprietary']
+            'default' => ['cause_type', 'cause_type.cause_main_type', 'site', 'parent1', 'parent2', 'proprietary', 'default_blob']
         ],
         'results' => [
             '200' => [
@@ -956,6 +956,24 @@ $localRoutes = [
         'middleware' => [],
         'results' => [
             '204' => [
+            ]
+        ]
+    ],
+    'freeasso.causemediablob.createone' => [
+        'method'     => \FreeFW\Router\Route::METHOD_POST,
+        'model'      => 'FreeAsso::Model::CauseMediaBlob',
+        'url'        => '/v1/asso/cause_media_blob',
+        'controller' => 'FreeAsso::Controller::CauseMedia',
+        'function'   => 'createOneBlob',
+        'auth'       => \FreeFW\Router\Route::AUTH_IN,
+        'middleware' => [],
+        'include'    => [
+            'default' => ['cause', 'lang']
+        ],
+        'results' => [
+            '201' => [
+                'type'  => \FreeFW\Router\Route::RESULT_OBJECT,
+                'model' => 'FreeSso::Model::CauseMedia'
             ]
         ]
     ],

@@ -240,6 +240,30 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
             ]
         ]
     ];
+    protected static $PRP_CAUM_TEXT_ID = [
+        FFCST::PROPERTY_PRIVATE => 'caum_text_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['default_text' =>
+            [
+                'model' => 'FreeAsso::Model::CauseMedia',
+                'field' => 'caum_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
+    protected static $PRP_CAUM_BLOB_ID = [
+        FFCST::PROPERTY_PRIVATE => 'caum_blob_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['default_blob' =>
+            [
+                'model' => 'FreeAsso::Model::CauseMedia',
+                'field' => 'caum_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
 
     /**
      * get properties
@@ -287,6 +311,8 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
             'cau_sex'        => self::$PRP_CAU_SEX,
             'parent1_cau_id' => self::$PRP_PARENT1_CAU_ID,
             'parent2_cau_id' => self::$PRP_PARENT2_CAU_ID,
+            'caum_text_id'   => self::$PRP_CAUM_TEXT_ID,
+            'caum_blob_id'   => self::$PRP_CAUM_BLOB_ID,
         ];
     }
 
