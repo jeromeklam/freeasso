@@ -120,7 +120,7 @@ abstract class Client extends \FreeFW\Core\StorageModel
     ];
     protected static $PRP_CLI_PREFS = [
         FFCST::PROPERTY_PRIVATE => 'cli_prefs',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BLOB,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CLI_AVATAR = [
@@ -140,7 +140,7 @@ abstract class Client extends \FreeFW\Core\StorageModel
     ];
     protected static $PRP_CLI_DESC = [
         FFCST::PROPERTY_PRIVATE => 'cli_desc',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BLOB,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CLI_EMAIL = [
@@ -242,22 +242,22 @@ abstract class Client extends \FreeFW\Core\StorageModel
     ];
     protected static $PRP_CLI_TEXT_1 = [
         FFCST::PROPERTY_PRIVATE => 'cli_text_1',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BLOB,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CLI_TEXT_2 = [
         FFCST::PROPERTY_PRIVATE => 'cli_text_2',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BLOB,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CLI_TEXT_3 = [
         FFCST::PROPERTY_PRIVATE => 'cli_text_3',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BLOB,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CLI_TEXT_4 = [
         FFCST::PROPERTY_PRIVATE => 'cli_text_4',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BLOB,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CLI_BOOL_1 = [
@@ -346,5 +346,15 @@ abstract class Client extends \FreeFW\Core\StorageModel
     public static function getSource()
     {
         return 'crm_client';
+    }
+
+    /**
+     * Get autocomplete field
+     *
+     * @return string
+     */
+    public static function getAutocompleteField()
+    {
+        return 'cli_lastname';
     }
 }
