@@ -2,18 +2,18 @@
 namespace FreeAsso\Model\Base;
 
 /**
- * CauseMediaBlob
+ * SiteMediaBlob
  *
  * @author jeromeklam
  */
-abstract class CauseMediaBlob extends \FreeAsso\Model\StorageModel\CauseMediaBlob
+abstract class SiteMediaBlob extends \FreeAsso\Model\StorageModel\SiteMediaBlob
 {
 
     /**
-     * cau_id
+     * site_id
      * @var int
      */
-    protected $cau_id = null;
+    protected $site_id = null;
 
     /**
      * blob
@@ -28,26 +28,26 @@ abstract class CauseMediaBlob extends \FreeAsso\Model\StorageModel\CauseMediaBlo
     protected $title = null;
 
     /**
-     * Set cau_id
+     * Set site_id
      *
      * @param int $p_value
      *
-     * @return \FreeAsso\Model\CauseMediaBlob
+     * @return \FreeAsso\Model\SiteMediaBlob
      */
-    public function setCauId($p_value)
+    public function setSiteId($p_value)
     {
-        $this->cau_id = $p_value;
+        $this->site_id = $p_value;
         return $this;
     }
 
     /**
-     * Get cau_id
+     * Get site_id
      *
      * @return int
      */
-    public function getCauId()
+    public function getSiteId()
     {
-        return $this->cau_id;
+        return $this->site_id;
     }
 
     /**
@@ -55,7 +55,7 @@ abstract class CauseMediaBlob extends \FreeAsso\Model\StorageModel\CauseMediaBlo
      *
      * @param mixed $p_value
      *
-     * @return \FreeAsso\Model\CauseMediaBlob
+     * @return \FreeAsso\Model\SiteMediaBlob
      */
     public function setBlob($p_value)
     {
@@ -75,9 +75,9 @@ abstract class CauseMediaBlob extends \FreeAsso\Model\StorageModel\CauseMediaBlo
 
     /**
      * Set title
-     * 
+     *
      * @param string $p_title
-     * 
+     *
      * @return \FreeAsso\Model\CauseMediaBlob
      */
     public function setTitle($p_title)
@@ -88,7 +88,7 @@ abstract class CauseMediaBlob extends \FreeAsso\Model\StorageModel\CauseMediaBlo
 
     /**
      * Get title
-     * 
+     *
      * @return string
      */
     public function getTitle()

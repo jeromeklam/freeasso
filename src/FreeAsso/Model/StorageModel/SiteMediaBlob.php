@@ -8,15 +8,15 @@ use \FreeFW\Constants as FFCST;
  *
  * @author jeromeklam
  */
-abstract class CauseMediaBlob extends \FreeFW\Core\StorageModel
+abstract class SiteMediaBlob extends \FreeFW\Core\StorageModel
 {
 
 /**
  * Field properties as static arrays
  * @var array
  */
-    protected static $PRP_CAU_ID = [
-        FFCST::PROPERTY_PRIVATE => 'cau_id',
+    protected static $PRP_SITE_ID = [
+        FFCST::PROPERTY_PRIVATE => 'site_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
@@ -39,9 +39,9 @@ abstract class CauseMediaBlob extends \FreeFW\Core\StorageModel
     public static function getProperties()
     {
         return [
-            'cau_id' => self::$PRP_CAU_ID,
-            'blob'   => self::$PRP_BLOB,
-            'title'  => self::$PRP_TITLE
+            'site_id' => self::$PRP_SITE_ID,
+            'blob'    => self::$PRP_BLOB,
+            'title'   => self::$PRP_TITLE,
         ];
     }
 
@@ -52,6 +52,6 @@ abstract class CauseMediaBlob extends \FreeFW\Core\StorageModel
      */
     public static function getSource()
     {
-        return 'asso_cause_media_blob';
+        return 'asso_site_media_blob';
     }
 }

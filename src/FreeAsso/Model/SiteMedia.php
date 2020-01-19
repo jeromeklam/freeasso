@@ -4,11 +4,11 @@ namespace FreeAsso\Model;
 use \FreeFW\Constants as FFCST;
 
 /**
- * CauseMedia
+ * SiteMedia
  *
  * @author jeromeklam
  */
-class CauseMedia extends \FreeAsso\Model\Base\CauseMedia
+class SiteMedia extends \FreeAsso\Model\Base\SiteMedia
 {
 
     /**
@@ -19,9 +19,9 @@ class CauseMedia extends \FreeAsso\Model\Base\CauseMedia
 
     /**
      * Cause
-     * @var \FreeAsso\Model\Cause
+     * @var \FreeAsso\Model\Site
      */
-    protected $cause = null;
+    protected $site = null;
 
     /**
      *
@@ -30,9 +30,9 @@ class CauseMedia extends \FreeAsso\Model\Base\CauseMedia
      */
     public function init()
     {
-        $this->caum_id = 0;
+        $this->sitm_id = 0;
         $this->brk_id  = 0;
-        $this->cau_id  = 0;
+        $this->site_id = 0;
         $this->lang_id = null;
         return $this;
     }
@@ -42,7 +42,7 @@ class CauseMedia extends \FreeAsso\Model\Base\CauseMedia
      *
      * @param \FreeFW\Model\Lang $p_lang
      *
-     * @return \FreeAsso\Model\CauseMedia
+     * @return \FreeAsso\Model\SiteMedia
      */
     public function setLang($p_lang)
     {
@@ -61,25 +61,25 @@ class CauseMedia extends \FreeAsso\Model\Base\CauseMedia
     }
 
     /**
-     * Set cause
+     * Set site
      *
-     * @param \FreeAsso\Model\Cause $p_cause
+     * @param \FreeAsso\Model\Site $p_site
      *
-     * @return \FreeAsso\Model\CauseMedia
+     * @return \FreeAsso\Model\SiteMedia
      */
-    public function setCause($p_cause)
+    public function setSite($p_site)
     {
-        $this->cause = $p_cause;
+        $this->site = $p_site;
         return $this;
     }
-    
+
     /**
-     * Get cause
+     * Get site
      *
-     * @return \FreeAsso\Model\Cause
+     * @return \FreeAsso\Model\Site
      */
-    public function getCause()
+    public function getSite()
     {
-        return $this->cause;
+        return $this->site;
     }
 }

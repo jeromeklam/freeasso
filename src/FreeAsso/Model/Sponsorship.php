@@ -32,6 +32,12 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
     protected $client = null;
 
     /**
+     * Payment Type
+     * @var \FreeAsso\Model\PaymentType
+     */
+    protected $payment_type = null;
+
+    /**
      *
      * {@inheritDoc}
      * @see \FreeFW\Core\Model::init()
@@ -87,5 +93,28 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
     public function getClient()
     {
         return $this->client;
+    }
+
+    /**
+     * Set payment type
+     * 
+     * @param \FreeAsso\Model\PaymentType $p_payment_type
+     * 
+     * @return \FreeAsso\Model\Sponsorship
+     */
+    public function setPaymentType($p_payment_type)
+    {
+        $this->payment_type = $p_payment_type;
+        return $this;
+    }
+
+    /**
+     * Get payment type
+     * 
+     * @return \FreeAsso\Model\PaymentType
+     */
+    public function getPaymentType()
+    {
+        return $this->payment_type;
     }
 }

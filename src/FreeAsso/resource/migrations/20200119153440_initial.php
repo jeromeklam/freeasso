@@ -39,6 +39,10 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'encoding' => 'utf8',
                 'after' => 'lang_name',
             ])
+            ->addIndex(['lang_name'], [
+                'name' => 'ix_lang_lang_name',
+                'unique' => true,
+            ])
             ->create();
         $this->table('wf_workflow_field', [
                 'id' => false,
@@ -279,6 +283,131 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'unique' => false,
             ])
             ->create();
+        $this->table('sso_group', [
+                'id' => false,
+                'primary_key' => ['grp_id'],
+                'engine' => 'InnoDB',
+                'encoding' => 'utf8',
+                'collation' => 'utf8_general_ci',
+                'comment' => '',
+                'row_format' => 'DYNAMIC',
+            ])
+            ->addColumn('grp_id', 'biginteger', [
+                'null' => false,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'identity' => 'enable',
+            ])
+            ->addColumn('grpt_id', 'biginteger', [
+                'null' => false,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'after' => 'grp_id',
+            ])
+            ->addColumn('grp_code', 'string', [
+                'null' => false,
+                'default' => '\'\'',
+                'limit' => 20,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'grpt_id',
+            ])
+            ->addColumn('grp_name', 'string', [
+                'null' => false,
+                'default' => '\'\'',
+                'limit' => 80,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'grp_code',
+            ])
+            ->addColumn('grp_address1', 'string', [
+                'null' => true,
+                'default' => null,
+                'limit' => 80,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'grp_name',
+            ])
+            ->addColumn('grp_address2', 'string', [
+                'null' => true,
+                'default' => null,
+                'limit' => 80,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'grp_address1',
+            ])
+            ->addColumn('grp_address3', 'string', [
+                'null' => true,
+                'default' => null,
+                'limit' => 80,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'grp_address2',
+            ])
+            ->addColumn('grp_cp', 'string', [
+                'null' => true,
+                'default' => null,
+                'limit' => 20,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'grp_address3',
+            ])
+            ->addColumn('grp_town', 'string', [
+                'null' => true,
+                'default' => null,
+                'limit' => 80,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'grp_cp',
+            ])
+            ->addColumn('cnty_id', 'biginteger', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'after' => 'grp_town',
+            ])
+            ->addColumn('lang_id', 'biginteger', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'after' => 'cnty_id',
+            ])
+            ->addColumn('grp_from', 'timestamp', [
+                'null' => true,
+                'default' => null,
+                'after' => 'lang_id',
+            ])
+            ->addColumn('grp_to', 'timestamp', [
+                'null' => true,
+                'default' => null,
+                'after' => 'grp_from',
+            ])
+            ->addColumn('grp_parent_id', 'biginteger', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'after' => 'grp_to',
+            ])
+            ->addIndex(['grp_code'], [
+                'name' => 'idx1_group',
+                'unique' => true,
+            ])
+            ->addIndex(['cnty_id'], [
+                'name' => 'fk_group_country',
+                'unique' => false,
+            ])
+            ->addIndex(['lang_id'], [
+                'name' => 'fk_group_lang',
+                'unique' => false,
+            ])
+            ->addIndex(['grpt_id'], [
+                'name' => 'fk_group_group_type',
+                'unique' => false,
+            ])
+            ->create();
         $this->table('ged_document_structure', [
                 'id' => false,
                 'primary_key' => ['dstr_id'],
@@ -511,13 +640,23 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'encoding' => 'utf8',
                 'after' => 'sitt_id',
             ])
+            ->addColumn('site_from', 'timestamp', [
+                'null' => true,
+                'default' => null,
+                'after' => 'site_name',
+            ])
+            ->addColumn('site_to', 'timestamp', [
+                'null' => true,
+                'default' => null,
+                'after' => 'site_from',
+            ])
             ->addColumn('site_code', 'string', [
                 'null' => true,
                 'default' => null,
                 'limit' => 32,
                 'collation' => 'utf8_general_ci',
                 'encoding' => 'utf8',
-                'after' => 'site_name',
+                'after' => 'site_to',
             ])
             ->addColumn('site_address1', 'string', [
                 'null' => true,
@@ -753,12 +892,80 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'limit' => MysqlAdapter::INT_TINY,
                 'after' => 'site_bool_3',
             ])
+            ->addColumn('site_coord', 'string', [
+                'null' => true,
+                'default' => null,
+                'limit' => 80,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'site_bool_4',
+            ])
+            ->addColumn('site_code_ex', 'string', [
+                'null' => true,
+                'default' => null,
+                'limit' => 32,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'site_coord',
+            ])
+            ->addColumn('site_string_5', 'string', [
+                'null' => true,
+                'default' => null,
+                'limit' => 255,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'site_code_ex',
+            ])
+            ->addColumn('site_string_6', 'string', [
+                'null' => true,
+                'default' => null,
+                'limit' => 255,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'site_string_5',
+            ])
+            ->addColumn('site_number_5', 'integer', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::INT_REGULAR,
+                'after' => 'site_string_6',
+            ])
+            ->addColumn('site_number_6', 'integer', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::INT_REGULAR,
+                'after' => 'site_number_5',
+            ])
+            ->addColumn('site_desc', 'text', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::TEXT_LONG,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'site_number_6',
+            ])
+            ->addIndex(['site_name', 'site_to', 'brk_id'], [
+                'name' => 'ix_site_site_name',
+                'unique' => true,
+            ])
             ->addIndex(['sitt_id'], [
                 'name' => 'fk_site_site_type',
                 'unique' => false,
             ])
             ->addIndex(['brk_id'], [
                 'name' => 'fk_site_broker',
+                'unique' => false,
+            ])
+            ->addIndex(['owner_cli_id'], [
+                'name' => 'fk_site_owner',
+                'unique' => false,
+            ])
+            ->addIndex(['sanit_cli_id'], [
+                'name' => 'fk_site_sanitary',
+                'unique' => false,
+            ])
+            ->addIndex(['parent_site_id'], [
+                'name' => 'fk_site_parent',
                 'unique' => false,
             ])
             ->create();
@@ -783,13 +990,20 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'signed' => false,
                 'after' => 'caum_id',
             ])
+            ->addColumn('brk_id', 'biginteger', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'after' => 'cau_id',
+            ])
             ->addColumn('caum_code', 'string', [
                 'null' => false,
                 'default' => '\'\'',
                 'limit' => 20,
                 'collation' => 'utf8_general_ci',
                 'encoding' => 'utf8',
-                'after' => 'cau_id',
+                'after' => 'brk_id',
             ])
             ->addColumn('caum_type', 'enum', [
                 'null' => false,
@@ -813,7 +1027,7 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'default' => null,
                 'after' => 'caum_from',
             ])
-            ->addColumn('caum_file', 'text', [
+            ->addColumn('caum_text', 'text', [
                 'null' => true,
                 'default' => null,
                 'limit' => MysqlAdapter::TEXT_LONG,
@@ -821,16 +1035,57 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'encoding' => 'utf8',
                 'after' => 'caum_to',
             ])
-            ->addColumn('caum_lang', 'string', [
-                'null' => false,
-                'default' => '\'___\'',
-                'limit' => 3,
+            ->addColumn('caum_short_text', 'text', [
+                'null' => true,
+                'default' => null,
+                'limit' => 65535,
                 'collation' => 'utf8_general_ci',
                 'encoding' => 'utf8',
-                'after' => 'caum_file',
+                'after' => 'caum_text',
+            ])
+            ->addColumn('caum_blob', 'blob', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::BLOB_LONG,
+                'after' => 'caum_short_text',
+            ])
+            ->addColumn('caum_short_blob', 'blob', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::BLOB_REGULAR,
+                'after' => 'caum_blob',
+            ])
+            ->addColumn('lang_id', 'biginteger', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'after' => 'caum_short_blob',
+            ])
+            ->addColumn('caum_order', 'integer', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::INT_REGULAR,
+                'after' => 'lang_id',
+            ])
+            ->addColumn('caum_title', 'string', [
+                'null' => true,
+                'default' => null,
+                'limit' => 255,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'caum_order',
             ])
             ->addIndex(['cau_id'], [
                 'name' => 'fk_cause_media_cause',
+                'unique' => false,
+            ])
+            ->addIndex(['brk_id'], [
+                'name' => 'fk_cause_media_broker',
+                'unique' => false,
+            ])
+            ->addIndex(['lang_id'], [
+                'name' => 'fk_cause_media_lang',
                 'unique' => false,
             ])
             ->create();
@@ -895,6 +1150,48 @@ class Initial extends Phinx\Migration\AbstractMigration
             ->addIndex(['cautd_id'], [
                 'name' => 'fk_cause_data_cause_type_data',
                 'unique' => false,
+            ])
+            ->create();
+        $this->table('sso_group_type', [
+                'id' => false,
+                'primary_key' => ['grpt_id'],
+                'engine' => 'InnoDB',
+                'encoding' => 'utf8',
+                'collation' => 'utf8_general_ci',
+                'comment' => '',
+                'row_format' => 'DYNAMIC',
+            ])
+            ->addColumn('grpt_id', 'biginteger', [
+                'null' => false,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'identity' => 'enable',
+            ])
+            ->addColumn('grpt_code', 'string', [
+                'null' => true,
+                'default' => null,
+                'limit' => 20,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'grpt_id',
+            ])
+            ->addColumn('grpt_name', 'string', [
+                'null' => true,
+                'default' => null,
+                'limit' => 80,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'grpt_code',
+            ])
+            ->addColumn('grpt_from', 'timestamp', [
+                'null' => true,
+                'default' => null,
+                'after' => 'grpt_name',
+            ])
+            ->addColumn('grpt_to', 'timestamp', [
+                'null' => true,
+                'default' => null,
+                'after' => 'grpt_from',
             ])
             ->create();
         $this->table('crm_client_data', [
@@ -979,16 +1276,16 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'null' => false,
                 'default' => '\'\'',
                 'limit' => 32,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
                 'after' => 'dom_id',
             ])
             ->addColumn('dom_name', 'string', [
                 'null' => false,
                 'default' => '\'\'',
                 'limit' => 80,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
                 'after' => 'dom_key',
             ])
             ->addColumn('dom_concurrent_user', 'integer', [
@@ -1013,8 +1310,8 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'null' => true,
                 'default' => null,
                 'limit' => 65535,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
                 'after' => 'dom_session_minutes',
             ])
             ->create();
@@ -1117,6 +1414,7 @@ class Initial extends Phinx\Migration\AbstractMigration
             ->create();
         $this->table('sso_autologin_cookie', [
                 'id' => false,
+                'primary_key' => ['auto_cookie'],
                 'engine' => 'InnoDB',
                 'encoding' => 'utf8',
                 'collation' => 'utf8_general_ci',
@@ -1130,28 +1428,30 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'signed' => false,
             ])
             ->addColumn('auto_cookie', 'string', [
-                'null' => true,
-                'default' => null,
-                'limit' => 32,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
+                'null' => false,
+                'default' => '\'\'',
+                'limit' => 128,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
                 'after' => 'user_id',
             ])
             ->addColumn('auto_ip', 'string', [
                 'null' => true,
                 'default' => null,
                 'limit' => 32,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
                 'after' => 'auto_cookie',
             ])
-            ->addColumn('auto_paswd', 'string', [
+            ->addColumn('auto_ts', 'timestamp', [
                 'null' => true,
                 'default' => null,
-                'limit' => 255,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
                 'after' => 'auto_ip',
+            ])
+            ->addColumn('auto_expire', 'timestamp', [
+                'null' => true,
+                'default' => null,
+                'after' => 'auto_ts',
             ])
             ->create();
         $this->table('wf_subscription', [
@@ -1549,6 +1849,10 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'default' => null,
                 'after' => 'ptyp_from',
             ])
+            ->addIndex(['ptyp_name', 'brk_id', 'ptyp_to'], [
+                'name' => 'ix_payment_type_ptyp_name',
+                'unique' => true,
+            ])
             ->addIndex(['brk_id'], [
                 'name' => 'fk_payment_type_broker',
                 'unique' => false,
@@ -1635,24 +1939,24 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'null' => true,
                 'default' => null,
                 'limit' => 255,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
                 'after' => 'dom_id',
             ])
             ->addColumn('brk_name', 'string', [
                 'null' => false,
                 'default' => '\'\'',
                 'limit' => 80,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
                 'after' => 'brk_key',
             ])
             ->addColumn('brk_certificate', 'string', [
                 'null' => true,
                 'default' => null,
                 'limit' => 255,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
                 'after' => 'brk_name',
             ])
             ->addColumn('brk_active', 'boolean', [
@@ -1670,33 +1974,51 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'null' => true,
                 'default' => null,
                 'limit' => 65535,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
                 'after' => 'brk_ts',
             ])
             ->addColumn('brk_users_scope', 'text', [
                 'null' => true,
                 'default' => null,
                 'limit' => 65535,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
                 'after' => 'brk_api_scope',
             ])
             ->addColumn('brk_ips', 'text', [
                 'null' => true,
                 'default' => null,
                 'limit' => 65535,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'comment' => "Liste des ips s\xc3\xa9par\xc3\xa9es par ;",
                 'after' => 'brk_users_scope',
             ])
             ->addColumn('brk_config', 'text', [
                 'null' => true,
                 'default' => null,
                 'limit' => MysqlAdapter::TEXT_LONG,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'comment' => 'Configuration au format JSON',
                 'after' => 'brk_ips',
+            ])
+            ->addColumn('grp_id', 'biginteger', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'comment' => "Groupe propri\xc3\xa9taire du broker",
+                'after' => 'brk_config',
+            ])
+            ->addIndex(['brk_name'], [
+                'name' => 'ix_broker_brk_key',
+                'unique' => true,
+            ])
+            ->addIndex(['brk_key'], [
+                'name' => 'ix_broker_brk_name',
+                'unique' => true,
             ])
             ->addIndex(['dom_id'], [
                 'name' => 'fk_broker_dom_id',
@@ -1704,6 +2026,10 @@ class Initial extends Phinx\Migration\AbstractMigration
             ])
             ->addIndex(['brk_key', 'brk_active'], [
                 'name' => 'sso_brokers_idx1',
+                'unique' => false,
+            ])
+            ->addIndex(['grp_id'], [
+                'name' => 'fk_broker_group',
                 'unique' => false,
             ])
             ->create();
@@ -1886,6 +2212,102 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'after' => 'pool_desc',
             ])
             ->create();
+        $this->table('sso_group_user', [
+                'id' => false,
+                'primary_key' => ['gru_id'],
+                'engine' => 'InnoDB',
+                'encoding' => 'utf8',
+                'collation' => 'utf8_general_ci',
+                'comment' => '',
+                'row_format' => 'DYNAMIC',
+            ])
+            ->addColumn('gru_id', 'biginteger', [
+                'null' => false,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'identity' => 'enable',
+            ])
+            ->addColumn('grp_id', 'biginteger', [
+                'null' => false,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'after' => 'gru_id',
+            ])
+            ->addColumn('user_id', 'biginteger', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'after' => 'grp_id',
+            ])
+            ->addColumn('fct_id', 'biginteger', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'after' => 'user_id',
+            ])
+            ->addColumn('gru_privileges', 'string', [
+                'null' => true,
+                'default' => null,
+                'limit' => 255,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'fct_id',
+            ])
+            ->addColumn('gru_tel1', 'string', [
+                'null' => true,
+                'default' => null,
+                'limit' => 20,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'gru_privileges',
+            ])
+            ->addColumn('gru_tel2', 'string', [
+                'null' => true,
+                'default' => null,
+                'limit' => 20,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'gru_tel1',
+            ])
+            ->addColumn('gru_email', 'string', [
+                'null' => true,
+                'default' => null,
+                'limit' => 255,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'gru_tel2',
+            ])
+            ->addColumn('gru_from', 'timestamp', [
+                'null' => true,
+                'default' => null,
+                'after' => 'gru_email',
+            ])
+            ->addColumn('gru_to', 'timestamp', [
+                'null' => true,
+                'default' => null,
+                'after' => 'gru_from',
+            ])
+            ->addColumn('gru_activ', 'boolean', [
+                'null' => false,
+                'default' => '1',
+                'limit' => MysqlAdapter::INT_TINY,
+                'after' => 'gru_to',
+            ])
+            ->addIndex(['grp_id'], [
+                'name' => 'fk_group_user_group',
+                'unique' => false,
+            ])
+            ->addIndex(['user_id'], [
+                'name' => 'fk_group_user_user',
+                'unique' => false,
+            ])
+            ->addIndex(['fct_id'], [
+                'name' => 'fk_group_user_function',
+                'unique' => false,
+            ])
+            ->create();
         $this->table('ged_document_version', [
                 'id' => false,
                 'primary_key' => ['dver_id'],
@@ -2026,7 +2448,8 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'after' => 'spo_id',
             ])
             ->addColumn('cau_id', 'biginteger', [
-                'null' => false,
+                'null' => true,
+                'default' => null,
                 'limit' => MysqlAdapter::INT_BIG,
                 'signed' => false,
                 'after' => 'brk_id',
@@ -2047,10 +2470,11 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'default' => null,
                 'after' => 'spo_from',
             ])
-            ->addColumn('spo_mnt', 'integer', [
+            ->addColumn('spo_mnt', 'decimal', [
                 'null' => true,
                 'default' => null,
-                'limit' => MysqlAdapter::INT_REGULAR,
+                'precision' => '15',
+                'scale' => '2',
                 'comment' => 'cents',
                 'after' => 'spo_to',
             ])
@@ -2061,11 +2485,39 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'values' => ['MONTH', 'YEAR', 'OTHER'],
                 'after' => 'spo_mnt',
             ])
+            ->addColumn('spo_freq_detail', 'string', [
+                'null' => true,
+                'default' => null,
+                'limit' => 255,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'spo_freq',
+            ])
             ->addColumn('ptyp_id', 'biginteger', [
                 'null' => false,
                 'limit' => MysqlAdapter::INT_BIG,
                 'signed' => false,
-                'after' => 'spo_freq',
+                'after' => 'spo_freq_detail',
+            ])
+            ->addColumn('spo_sponsors', 'text', [
+                'null' => true,
+                'default' => null,
+                'limit' => 65535,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'ptyp_id',
+            ])
+            ->addColumn('spo_display_site', 'boolean', [
+                'null' => false,
+                'default' => '1',
+                'limit' => MysqlAdapter::INT_TINY,
+                'after' => 'spo_sponsors',
+            ])
+            ->addColumn('spo_send_news', 'boolean', [
+                'null' => true,
+                'default' => '1',
+                'limit' => MysqlAdapter::INT_TINY,
+                'after' => 'spo_display_site',
             ])
             ->addIndex(['cau_id'], [
                 'name' => 'fk_sponsorship_cause',
@@ -2313,6 +2765,10 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'encoding' => 'utf8',
                 'after' => 'brk_id',
             ])
+            ->addIndex(['camt_name', 'brk_id'], [
+                'name' => 'ix_cause_main_type_camt_name',
+                'unique' => true,
+            ])
             ->addIndex(['brk_id'], [
                 'name' => 'fk_cause_main_type_broker',
                 'unique' => false,
@@ -2351,6 +2807,90 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'encoding' => 'utf8',
                 'comment' => 'Description',
                 'after' => 'thm_name',
+            ])
+            ->create();
+        $this->table('core_email', [
+                'id' => false,
+                'primary_key' => ['email_id'],
+                'engine' => 'InnoDB',
+                'encoding' => 'utf8',
+                'collation' => 'utf8_general_ci',
+                'comment' => '',
+                'row_format' => 'DYNAMIC',
+            ])
+            ->addColumn('email_id', 'biginteger', [
+                'null' => false,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'identity' => 'enable',
+            ])
+            ->addColumn('brk_id', 'biginteger', [
+                'null' => false,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'after' => 'email_id',
+            ])
+            ->addColumn('lang_id', 'biginteger', [
+                'null' => false,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'after' => 'brk_id',
+            ])
+            ->addColumn('email_code', 'string', [
+                'null' => false,
+                'default' => '\'\'',
+                'limit' => 80,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'lang_id',
+            ])
+            ->addColumn('email_subject', 'string', [
+                'null' => true,
+                'default' => null,
+                'limit' => 255,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'email_code',
+            ])
+            ->addColumn('email_body', 'text', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::TEXT_LONG,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'email_subject',
+            ])
+            ->addColumn('email_from', 'string', [
+                'null' => true,
+                'default' => null,
+                'limit' => 255,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'email_body',
+            ])
+            ->addColumn('email_from_name', 'string', [
+                'null' => true,
+                'default' => null,
+                'limit' => 255,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'email_from',
+            ])
+            ->addColumn('email_reply_to', 'string', [
+                'null' => true,
+                'default' => null,
+                'limit' => 255,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'email_from_name',
+            ])
+            ->addIndex(['brk_id'], [
+                'name' => 'fk_email_broker',
+                'unique' => false,
+            ])
+            ->addIndex(['lang_id'], [
+                'name' => 'fk_email_lang',
+                'unique' => false,
             ])
             ->create();
         $this->table('ged_document_type_metadata', [
@@ -2751,6 +3291,10 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'name' => 'i1_asso_cause_type',
                 'unique' => true,
             ])
+            ->addIndex(['caut_name', 'brk_id'], [
+                'name' => 'ix_cause_type_caut_name',
+                'unique' => true,
+            ])
             ->addIndex(['brk_id'], [
                 'name' => 'fk_cause_type_broker',
                 'unique' => false,
@@ -2965,7 +3509,8 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'after' => 'cli_cp',
             ])
             ->addColumn('cnty_id', 'biginteger', [
-                'null' => false,
+                'null' => true,
+                'default' => null,
                 'limit' => MysqlAdapter::INT_BIG,
                 'signed' => false,
                 'after' => 'cli_town',
@@ -2977,7 +3522,8 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'after' => 'cnty_id',
             ])
             ->addColumn('lang_id', 'biginteger', [
-                'null' => false,
+                'null' => true,
+                'default' => null,
                 'limit' => MysqlAdapter::INT_BIG,
                 'signed' => false,
                 'after' => 'cli_active',
@@ -2996,13 +3542,80 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'limit' => MysqlAdapter::BLOB_REGULAR,
                 'after' => 'cli_prefs',
             ])
+            ->addColumn('cli_phone_home', 'string', [
+                'null' => true,
+                'default' => null,
+                'limit' => 80,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'cli_avatar',
+            ])
+            ->addColumn('cli_phone_gsm', 'string', [
+                'null' => true,
+                'default' => null,
+                'limit' => 80,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'cli_phone_home',
+            ])
+            ->addColumn('cli_desc', 'text', [
+                'null' => true,
+                'default' => null,
+                'limit' => 65535,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'cli_phone_gsm',
+            ])
+            ->addColumn('cli_email', 'string', [
+                'null' => true,
+                'default' => null,
+                'limit' => 255,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'cli_desc',
+            ])
+            ->addColumn('cli_email_old', 'string', [
+                'null' => true,
+                'default' => null,
+                'limit' => 255,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'cli_email',
+            ])
+            ->addColumn('cli_receipt', 'boolean', [
+                'null' => true,
+                'default' => '1',
+                'limit' => MysqlAdapter::INT_TINY,
+                'after' => 'cli_email_old',
+            ])
+            ->addColumn('cli_certificat', 'boolean', [
+                'null' => true,
+                'default' => '1',
+                'limit' => MysqlAdapter::INT_TINY,
+                'after' => 'cli_receipt',
+            ])
+            ->addColumn('cli_extern_id', 'string', [
+                'null' => true,
+                'default' => null,
+                'limit' => 20,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'cli_certificat',
+            ])
+            ->addColumn('cli_sponsor_id', 'biginteger', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'after' => 'cli_extern_id',
+            ])
             ->addColumn('cli_string_1', 'string', [
                 'null' => true,
                 'default' => null,
                 'limit' => 255,
                 'collation' => 'utf8_general_ci',
                 'encoding' => 'utf8',
-                'after' => 'cli_avatar',
+                'after' => 'cli_sponsor_id',
             ])
             ->addColumn('cli_string_2', 'string', [
                 'null' => true,
@@ -3144,6 +3757,10 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'name' => 'fk_client_client_category',
                 'unique' => false,
             ])
+            ->addIndex(['cli_firstname', 'cli_lastname'], [
+                'name' => 'idx1_client_fullname',
+                'unique' => false,
+            ])
             ->create();
         $this->table('asso_site_type_data', [
                 'id' => false,
@@ -3195,6 +3812,85 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'null' => true,
                 'default' => null,
                 'after' => 'sittd_from',
+            ])
+            ->addIndex(['sitt_id'], [
+                'name' => 'fk_site_type_data_site_type',
+                'unique' => false,
+            ])
+            ->addIndex(['data_id'], [
+                'name' => 'fk_site_type_data_data',
+                'unique' => false,
+            ])
+            ->create();
+        $this->table('asso_cause_media_lang', [
+                'id' => false,
+                'primary_key' => ['caml_id'],
+                'engine' => 'InnoDB',
+                'encoding' => 'utf8',
+                'collation' => 'utf8_general_ci',
+                'comment' => '',
+                'row_format' => 'DYNAMIC',
+            ])
+            ->addColumn('caml_id', 'biginteger', [
+                'null' => false,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'identity' => 'enable',
+            ])
+            ->addColumn('caum_id', 'biginteger', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'after' => 'caml_id',
+            ])
+            ->addColumn('brk_id', 'biginteger', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'after' => 'caum_id',
+            ])
+            ->addColumn('lang_id', 'biginteger', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'after' => 'brk_id',
+            ])
+            ->addColumn('caml_subject', 'string', [
+                'null' => true,
+                'default' => null,
+                'limit' => 255,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'lang_id',
+            ])
+            ->addColumn('caml_blob', 'blob', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::BLOB_LONG,
+                'after' => 'caml_subject',
+            ])
+            ->addColumn('caml_text', 'text', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::TEXT_LONG,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'caml_blob',
+            ])
+            ->addIndex(['caum_id'], [
+                'name' => 'fk_cause_media_lang_cause_media',
+                'unique' => false,
+            ])
+            ->addIndex(['brk_id'], [
+                'name' => 'fk_cause_media_lang_broker',
+                'unique' => false,
+            ])
+            ->addIndex(['lang_id'], [
+                'name' => 'fk_cause_media_lang_lang',
+                'unique' => false,
             ])
             ->create();
         $this->table('crm_client_type', [
@@ -3658,8 +4354,8 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'null' => false,
                 'default' => '\'\'',
                 'limit' => 80,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
                 'after' => 'ptok_id',
             ])
             ->addColumn('ptok_used', 'boolean', [
@@ -3672,8 +4368,8 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'null' => false,
                 'default' => '\'\'',
                 'limit' => 255,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
                 'after' => 'ptok_used',
             ])
             ->addColumn('user_id', 'biginteger', [
@@ -3687,16 +4383,16 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'null' => true,
                 'default' => null,
                 'limit' => 50,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
                 'after' => 'user_id',
             ])
             ->addColumn('ptok_resolve_ip', 'string', [
                 'null' => true,
                 'default' => null,
                 'limit' => 50,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
                 'after' => 'ptok_request_ip',
             ])
             ->addColumn('ptok_end', 'timestamp', [
@@ -3871,6 +4567,7 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'null' => true,
                 'default' => null,
                 'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
                 'after' => 'sitt_id',
             ])
             ->addColumn('sitt_name', 'string', [
@@ -4001,6 +4698,56 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'limit' => MysqlAdapter::INT_TINY,
                 'after' => 'sitt_bool_3',
             ])
+            ->addIndex(['sitt_name', 'brk_id'], [
+                'name' => 'ix_site_type_sitt_name',
+                'unique' => true,
+            ])
+            ->addIndex(['brk_id'], [
+                'name' => 'fk_site_type_broker',
+                'unique' => false,
+            ])
+            ->create();
+        $this->table('sso_job_function', [
+                'id' => false,
+                'primary_key' => ['fct_id'],
+                'engine' => 'InnoDB',
+                'encoding' => 'utf8',
+                'collation' => 'utf8_general_ci',
+                'comment' => '',
+                'row_format' => 'DYNAMIC',
+            ])
+            ->addColumn('fct_id', 'biginteger', [
+                'null' => false,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'identity' => 'enable',
+            ])
+            ->addColumn('fct_code', 'string', [
+                'null' => true,
+                'default' => null,
+                'limit' => 20,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'fct_id',
+            ])
+            ->addColumn('fct_name', 'string', [
+                'null' => true,
+                'default' => null,
+                'limit' => 80,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'fct_code',
+            ])
+            ->addColumn('fct_from', 'timestamp', [
+                'null' => true,
+                'default' => null,
+                'after' => 'fct_name',
+            ])
+            ->addColumn('fct_to', 'timestamp', [
+                'null' => true,
+                'default' => null,
+                'after' => 'fct_from',
+            ])
             ->create();
         $this->table('tech_applicationversion', [
                 'id' => false,
@@ -4124,6 +4871,126 @@ class Initial extends Phinx\Migration\AbstractMigration
             ])
             ->addIndex(['caut_id'], [
                 'name' => 'fk_cause_type_data_cause_type',
+                'unique' => false,
+            ])
+            ->create();
+        $this->table('asso_site_media', [
+                'id' => false,
+                'primary_key' => ['sitm_id'],
+                'engine' => 'InnoDB',
+                'encoding' => 'utf8',
+                'collation' => 'utf8_general_ci',
+                'comment' => '',
+                'row_format' => 'DYNAMIC',
+            ])
+            ->addColumn('sitm_id', 'biginteger', [
+                'null' => false,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'identity' => 'enable',
+            ])
+            ->addColumn('site_id', 'biginteger', [
+                'null' => false,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'after' => 'sitm_id',
+            ])
+            ->addColumn('brk_id', 'biginteger', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'after' => 'site_id',
+            ])
+            ->addColumn('sitm_code', 'string', [
+                'null' => false,
+                'default' => '\'\'',
+                'limit' => 20,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'brk_id',
+            ])
+            ->addColumn('sitm_type', 'enum', [
+                'null' => false,
+                'default' => '\'OTHER\'',
+                'limit' => 5,
+                'values' => ['PHOTO', 'NEWS', 'HTML', 'OTHER'],
+                'after' => 'sitm_code',
+            ])
+            ->addColumn('sitm_ts', 'timestamp', [
+                'null' => true,
+                'default' => null,
+                'after' => 'sitm_type',
+            ])
+            ->addColumn('sitm_from', 'timestamp', [
+                'null' => true,
+                'default' => null,
+                'after' => 'sitm_ts',
+            ])
+            ->addColumn('sitm_to', 'timestamp', [
+                'null' => true,
+                'default' => null,
+                'after' => 'sitm_from',
+            ])
+            ->addColumn('sitm_text', 'text', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::TEXT_LONG,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'sitm_to',
+            ])
+            ->addColumn('sitm_short_text', 'text', [
+                'null' => true,
+                'default' => null,
+                'limit' => 65535,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'sitm_text',
+            ])
+            ->addColumn('sitm_blob', 'blob', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::BLOB_LONG,
+                'after' => 'sitm_short_text',
+            ])
+            ->addColumn('sitm_short_blob', 'blob', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::BLOB_REGULAR,
+                'after' => 'sitm_blob',
+            ])
+            ->addColumn('lang_id', 'biginteger', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'after' => 'sitm_short_blob',
+            ])
+            ->addColumn('sitm_order', 'integer', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::INT_REGULAR,
+                'after' => 'lang_id',
+            ])
+            ->addColumn('sitm_title', 'string', [
+                'null' => true,
+                'default' => null,
+                'limit' => 255,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'sitm_order',
+            ])
+            ->addIndex(['site_id'], [
+                'name' => 'fk_cause_media_cause',
+                'unique' => false,
+            ])
+            ->addIndex(['brk_id'], [
+                'name' => 'fk_site_media_broker',
+                'unique' => false,
+            ])
+            ->addIndex(['lang_id'], [
+                'name' => 'fk_site_media_lang',
                 'unique' => false,
             ])
             ->create();
@@ -4299,8 +5166,15 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'null' => false,
                 'default' => '\'NONE\'',
                 'limit' => 6,
-                'values' => ['OTHER', 'NONE', 'ANIMAL'],
+                'values' => ['OTHER', 'NONE', 'ANIMAL', 'FOREST'],
                 'after' => 'cau_code',
+            ])
+            ->addColumn('cau_sex', 'enum', [
+                'null' => true,
+                'default' => '\'OTHER\'',
+                'limit' => 5,
+                'values' => ['M', 'F', 'OTHER'],
+                'after' => 'cau_family',
             ])
             ->addColumn('cau_string_1', 'string', [
                 'null' => true,
@@ -4308,7 +5182,7 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'limit' => 255,
                 'collation' => 'utf8_general_ci',
                 'encoding' => 'utf8',
-                'after' => 'cau_family',
+                'after' => 'cau_sex',
             ])
             ->addColumn('cau_string_2', 'string', [
                 'null' => true,
@@ -4434,6 +5308,46 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'limit' => MysqlAdapter::INT_TINY,
                 'after' => 'cau_bool_3',
             ])
+            ->addColumn('cau_coord', 'string', [
+                'null' => true,
+                'default' => null,
+                'limit' => 80,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'cau_bool_4',
+            ])
+            ->addColumn('parent1_cau_id', 'biginteger', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'after' => 'cau_coord',
+            ])
+            ->addColumn('parent2_cau_id', 'biginteger', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'after' => 'parent1_cau_id',
+            ])
+            ->addColumn('caum_text_id', 'biginteger', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'after' => 'parent2_cau_id',
+            ])
+            ->addColumn('caum_blob_id', 'biginteger', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'after' => 'caum_text_id',
+            ])
+            ->addIndex(['cau_name', 'brk_id', 'cau_to'], [
+                'name' => 'ix_cause_cause_name',
+                'unique' => true,
+            ])
             ->addIndex(['caut_id'], [
                 'name' => 'fk_cause_cause_type',
                 'unique' => false,
@@ -4444,6 +5358,26 @@ class Initial extends Phinx\Migration\AbstractMigration
             ])
             ->addIndex(['site_id'], [
                 'name' => 'fk_cause_site',
+                'unique' => false,
+            ])
+            ->addIndex(['parent1_cau_id'], [
+                'name' => 'fk_cause_cause_parent1',
+                'unique' => false,
+            ])
+            ->addIndex(['parent2_cau_id'], [
+                'name' => 'fk_cause_cause_parent2',
+                'unique' => false,
+            ])
+            ->addIndex(['orig_cli_id'], [
+                'name' => 'fk_cause_proprietary',
+                'unique' => false,
+            ])
+            ->addIndex(['caum_blob_id'], [
+                'name' => 'fk_cause_cause_media_blob',
+                'unique' => false,
+            ])
+            ->addIndex(['caum_text_id'], [
+                'name' => 'fk_cause_cause_media_text',
                 'unique' => false,
             ])
             ->create();
@@ -4466,32 +5400,32 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'null' => false,
                 'default' => '\'\'',
                 'limit' => 32,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
                 'after' => 'brs_id',
             ])
             ->addColumn('brs_token', 'string', [
                 'null' => false,
                 'default' => '\'\'',
                 'limit' => 32,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
                 'after' => 'brk_key',
             ])
             ->addColumn('brs_session_id', 'string', [
                 'null' => true,
                 'default' => '\'\'',
                 'limit' => 80,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
                 'after' => 'brs_token',
             ])
             ->addColumn('brs_client_address', 'string', [
                 'null' => true,
                 'default' => null,
                 'limit' => 50,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
                 'after' => 'brs_session_id',
             ])
             ->addColumn('brs_date_created', 'timestamp', [
@@ -4554,6 +5488,10 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'collation' => 'utf8_general_ci',
                 'encoding' => 'utf8',
                 'after' => 'cnty_name',
+            ])
+            ->addIndex(['cnty_name'], [
+                'name' => 'ix_country_cnty_name',
+                'unique' => true,
             ])
             ->create();
         $this->table('tech_poolservice', [
@@ -4619,16 +5557,16 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'null' => false,
                 'default' => '\'\'',
                 'limit' => 255,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
                 'after' => 'user_id',
             ])
             ->addColumn('user_password', 'string', [
                 'null' => false,
                 'default' => '\'\'',
                 'limit' => 255,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
                 'after' => 'user_login',
             ])
             ->addColumn('user_active', 'boolean', [
@@ -4641,32 +5579,32 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'null' => false,
                 'default' => '\'\'',
                 'limit' => 80,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
                 'after' => 'user_active',
             ])
             ->addColumn('user_email', 'string', [
                 'null' => true,
                 'default' => null,
                 'limit' => 255,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
                 'after' => 'user_salt',
             ])
             ->addColumn('user_first_name', 'string', [
                 'null' => true,
                 'default' => null,
                 'limit' => 80,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
                 'after' => 'user_email',
             ])
             ->addColumn('user_last_name', 'string', [
                 'null' => true,
                 'default' => null,
                 'limit' => 80,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
                 'after' => 'user_first_name',
             ])
             ->addColumn('user_title', 'enum', [
@@ -4680,8 +5618,8 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'null' => true,
                 'default' => null,
                 'limit' => 65535,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
                 'after' => 'user_title',
             ])
             ->addColumn('user_type', 'enum', [
@@ -4695,8 +5633,8 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'null' => true,
                 'default' => null,
                 'limit' => 65535,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
                 'after' => 'user_type',
             ])
             ->addColumn('user_last_update', 'timestamp', [
@@ -4708,8 +5646,8 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'null' => true,
                 'default' => '\'FR\'',
                 'limit' => 3,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
                 'after' => 'user_last_update',
             ])
             ->addColumn('user_avatar', 'blob', [
@@ -4722,16 +5660,16 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'null' => true,
                 'default' => null,
                 'limit' => 65535,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
                 'after' => 'user_avatar',
             ])
             ->addColumn('user_val_string', 'string', [
                 'null' => true,
                 'default' => null,
                 'limit' => 32,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
                 'after' => 'user_cache',
             ])
             ->addColumn('user_val_end', 'timestamp', [
@@ -4743,33 +5681,29 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'null' => true,
                 'default' => null,
                 'limit' => 255,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
                 'after' => 'user_val_end',
             ])
             ->addColumn('user_cnx', 'text', [
                 'null' => true,
                 'default' => null,
                 'limit' => 65535,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
                 'after' => 'user_val_login',
             ])
             ->addColumn('user_extern_code', 'string', [
                 'null' => true,
                 'default' => null,
                 'limit' => 255,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
                 'after' => 'user_cnx',
             ])
             ->addIndex(['user_login', 'user_active'], [
-                'name' => 'sso_users_idx1',
-                'unique' => false,
-            ])
-            ->addIndex(['user_val_string'], [
-                'name' => 'sso_users_idx2',
-                'unique' => false,
+                'name' => 'ix_user_user_login',
+                'unique' => true,
             ])
             ->create();
         $this->table('ged_metadata', [
@@ -5138,10 +6072,11 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'values' => ['WAIT', 'OK', 'NOK', 'NEXT'],
                 'after' => 'don_ts',
             ])
-            ->addColumn('don_mnt', 'integer', [
+            ->addColumn('don_mnt', 'decimal', [
                 'null' => true,
                 'default' => null,
-                'limit' => MysqlAdapter::INT_REGULAR,
+                'precision' => '15',
+                'scale' => '2',
                 'comment' => 'cents',
                 'after' => 'don_status',
             ])
@@ -5151,12 +6086,46 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'signed' => false,
                 'after' => 'don_mnt',
             ])
-            ->addColumn('don_support', 'enum', [
-                'null' => false,
-                'default' => '\'NONE\'',
-                'limit' => 5,
-                'values' => ['YEAR', 'MONTH', 'NONE'],
+            ->addColumn('don_comment', 'text', [
+                'null' => true,
+                'default' => null,
+                'limit' => 65535,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
                 'after' => 'ptyp_id',
+            ])
+            ->addColumn('don_dstat', 'timestamp', [
+                'null' => true,
+                'default' => null,
+                'after' => 'don_comment',
+            ])
+            ->addColumn('rec_id', 'biginteger', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'after' => 'don_dstat',
+            ])
+            ->addColumn('cert_id', 'biginteger', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'after' => 'rec_id',
+            ])
+            ->addColumn('don_sponsors', 'text', [
+                'null' => true,
+                'default' => null,
+                'limit' => 65535,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'cert_id',
+            ])
+            ->addColumn('don_display_site', 'boolean', [
+                'null' => true,
+                'default' => '1',
+                'limit' => MysqlAdapter::INT_TINY,
+                'after' => 'don_sponsors',
             ])
             ->addIndex(['cli_id'], [
                 'name' => 'fk_donation_client',
@@ -5215,8 +6184,8 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'null' => false,
                 'default' => '\'\'',
                 'limit' => 20,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
                 'after' => 'ubrk_ts',
             ])
             ->addColumn('ubrk_partner_id', 'biginteger', [
@@ -5228,16 +6197,16 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'null' => false,
                 'default' => '\'AUTO\'',
                 'limit' => 20,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
                 'after' => 'ubrk_partner_id',
             ])
             ->addColumn('ubrk_auth_datas', 'text', [
                 'null' => true,
                 'default' => null,
                 'limit' => 65535,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
                 'after' => 'ubrk_auth_method',
             ])
             ->addColumn('ubrk_end', 'timestamp', [
@@ -5295,16 +6264,16 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'null' => true,
                 'default' => null,
                 'limit' => 65535,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
                 'after' => 'sess_touch',
             ])
             ->addColumn('sess_client_addr', 'string', [
                 'null' => true,
                 'default' => null,
                 'limit' => 50,
-                'collation' => 'latin1_swedish_ci',
-                'encoding' => 'latin1',
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
                 'after' => 'sess_content',
             ])
             ->addIndex(['user_id'], [

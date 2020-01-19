@@ -6,28 +6,8 @@ namespace FreeAsso\Controller;
  *
  * @author jeromeklam
  */
-class CauseMedia extends \FreeFW\Core\ApiController
+class CauseMedia extends \FreeFW\Core\ApiMediaController
 {
-
-    /**
-     * Get base64 src format
-     * 
-     * @param mixed $p_data
-     * 
-     * @return boolean|string
-     */
-    public function decode_chunk($p_data)
-    {
-        $data = explode(';base64,', $p_data);
-        if (!is_array($data) || !isset($data[1])) {
-            return false;
-        }
-        $data = base64_decode($data[1]);
-        if (!$data) {
-            return false;
-        }
-        return $data;
-    }
 
     /**
      *
@@ -49,20 +29,24 @@ class CauseMedia extends \FreeFW\Core\ApiController
                 return $this->createResponse(409, $data);
             }
             $cau_id     = $data->getCauId();
-            $myCause    = \FreeAsso\Model\Cause::findFirst([cau_id => $cau_id]);
+            $myCause    = \FreeAsso\Model\Cause::findFirst(['cau_id' => $cau_id]);
             $causeMedia = false;
+            $typeMedia  = $this->getMediaType($data->getTitle());
             if ($myCause) {
                 $blob       = $this->decode_chunk($data->getBlob());
-                $thumb      = \FreeFW\Tools\ImageResizer::createFromString($blob);
                 $causeMedia = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMedia');
                 $causeMedia
                     ->setCauId($myCause->getCauId())
-                    ->setCaumType(\FreeAsso\Model\CauseMedia::TYPE_PHOTO)
-                    ->setCaumCode('PHOTO')
+                    ->setCaumType($typeMedia)
+                    ->setCaumCode($typeMedia)
                     ->setCaumTs(\FreeFW\Tools\Date::getCurrentTimestamp())
                     ->setCaumBlob($blob)
-                    ->setCaumShortBlob($thumb->resizeToBestFit(200, 200))
+                    ->setCaumTitle($data->getTitle())
                 ;
+                if ($typeMedia === \FreeAsso\Model\CauseMedia::TYPE_PHOTO) {
+                    $thumb = \FreeFW\Tools\ImageResizer::createFromString($blob);
+                    $causeMedia->setCaumShortBlob($thumb->resizeToBestFit(200, 200));
+                }
                 if (!$causeMedia->create()) {
                     return $this->createResponse(409, $causeMedia->getErrors());
                 }
