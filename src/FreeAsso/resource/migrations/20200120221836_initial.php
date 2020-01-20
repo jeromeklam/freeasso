@@ -4056,6 +4056,89 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'unique' => false,
             ])
             ->create();
+        $this->table('asso_cause_movement', [
+                'id' => false,
+                'primary_key' => ['camv_id'],
+                'engine' => 'InnoDB',
+                'encoding' => 'utf8',
+                'collation' => 'utf8_general_ci',
+                'comment' => '',
+                'row_format' => 'DYNAMIC',
+            ])
+            ->addColumn('camv_id', 'biginteger', [
+                'null' => false,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'identity' => 'enable',
+            ])
+            ->addColumn('brk_id', 'biginteger', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'after' => 'camv_id',
+            ])
+            ->addColumn('cau_id', 'biginteger', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'after' => 'brk_id',
+            ])
+            ->addColumn('camv_site_from_id', 'biginteger', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'after' => 'cau_id',
+            ])
+            ->addColumn('camv_site_to_id', 'biginteger', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'after' => 'camv_site_from_id',
+            ])
+            ->addColumn('camv_ts', 'timestamp', [
+                'null' => true,
+                'default' => null,
+                'after' => 'camv_site_to_id',
+            ])
+            ->addColumn('camv_start', 'timestamp', [
+                'null' => true,
+                'default' => null,
+                'after' => 'camv_ts',
+            ])
+            ->addColumn('camv_to', 'timestamp', [
+                'null' => true,
+                'default' => null,
+                'after' => 'camv_start',
+            ])
+            ->addColumn('camv_comment', 'text', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::TEXT_LONG,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'camv_to',
+            ])
+            ->addIndex(['cau_id'], [
+                'name' => 'fk_cause_movement_cause',
+                'unique' => false,
+            ])
+            ->addIndex(['camv_site_from_id'], [
+                'name' => 'fk_cause_movement_site_from',
+                'unique' => false,
+            ])
+            ->addIndex(['camv_site_to_id'], [
+                'name' => 'fk_cause_movement_site_to',
+                'unique' => false,
+            ])
+            ->addIndex(['brk_id'], [
+                'name' => 'fk_cause_movement_broker',
+                'unique' => false,
+            ])
+            ->create();
         $this->table('asso_cause_link', [
                 'id' => false,
                 'primary_key' => ['caul_id'],

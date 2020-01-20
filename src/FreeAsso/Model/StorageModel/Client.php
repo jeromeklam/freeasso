@@ -62,7 +62,7 @@ abstract class Client extends \FreeFW\Core\StorageModel
     protected static $PRP_CLI_LASTNAME = [
         FFCST::PROPERTY_PRIVATE => 'cli_lastname',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_CLI_ADDRESS1 = [
         FFCST::PROPERTY_PRIVATE => 'cli_address1',
