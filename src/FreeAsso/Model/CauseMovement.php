@@ -12,6 +12,14 @@ class CauseMovement extends \FreeAsso\Model\Base\CauseMovement
 {
 
     /**
+     * Status
+     * @var string
+     */
+    const STATUS_OK   = 'OK';
+    const STATUS_WAIT = 'WAIT';
+    const STATUS_KO   = 'KO';
+
+    /**
      * Cause
      * @var \FreeAsso\Model\Cause
      */
@@ -40,6 +48,7 @@ class CauseMovement extends \FreeAsso\Model\Base\CauseMovement
         $this->brk_id            = 0;
         $this->camv_site_from_id = null;
         $this->camv_site_to_id   = null;
+        $this->camv_status       = self::STATUS_OK;
         return $this;
     }
 
@@ -110,5 +119,23 @@ class CauseMovement extends \FreeAsso\Model\Base\CauseMovement
     public function getToSite()
     {
         return $this->to_site;
+    }
+
+    /**
+     * Before create
+     */
+    public function beforeCreate()
+    {
+        if ($this->cause) {
+            $this->cause = \FreeAsso\Model\Cause::findFirst(
+                [
+                    'cau_id' => $this->cause->getCauId()
+                ]
+            );
+            $this->from_site = $this->cause->getSite();
+            $this->setCamvTs(\FreeFW\Tools\Date::getCurrentTimestamp());
+            $this->setCamvSiteFromId($this->cause->getSiteId());
+        }
+        return true;
     }
 }

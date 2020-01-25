@@ -156,7 +156,7 @@
     <!--
         Préparation du déploiement : composer, ...
     -->
-    <target name="prepare-deploy" depends="composer, bower">
+    <target name="prepare-deploy" depends="composer">
         <delete dir="${project.dist}"/>
         <mkdir dir="${project.dist}" mode="0775" />
         <echo message="${commit}" file="${project.basedir}/revision" />

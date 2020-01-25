@@ -63,23 +63,28 @@ abstract class CauseMovement extends \FreeFW\Core\StorageModel
     ];
     protected static $PRP_CAMV_TS = [
         FFCST::PROPERTY_PRIVATE => 'camv_ts',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIME,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CAMV_START = [
         FFCST::PROPERTY_PRIVATE => 'camv_start',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIME,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CAMV_TO = [
         FFCST::PROPERTY_PRIVATE => 'camv_to',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIME,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CAMV_COMMENT = [
         FFCST::PROPERTY_PRIVATE => 'camv_comment',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
         FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_CAMV_STATUS = [
+        FFCST::PROPERTY_PRIVATE => 'camv_status',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
 
     /**
@@ -98,7 +103,8 @@ abstract class CauseMovement extends \FreeFW\Core\StorageModel
             'camv_ts'           => self::$PRP_CAMV_TS,
             'camv_start'        => self::$PRP_CAMV_START,
             'camv_to'           => self::$PRP_CAMV_TO,
-            'camv_comment'      => self::$PRP_CAMV_COMMENT
+            'camv_comment'      => self::$PRP_CAMV_COMMENT,
+            'camv_status'       => self::$PRP_CAMV_STATUS
         ];
     }
 

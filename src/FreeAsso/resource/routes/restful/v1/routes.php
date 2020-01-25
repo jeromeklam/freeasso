@@ -38,6 +38,6 @@ $localRoutes = array_merge(
     $siteTypeRoutes,
     $siteRoutes,
     $specificRoutes,
-    $sponsorshipRoutes,
+    $sponsorshipRoutes
 );
 return $localRoutes;

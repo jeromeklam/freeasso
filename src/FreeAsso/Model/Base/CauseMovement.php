@@ -64,6 +64,12 @@ abstract class CauseMovement extends \FreeAsso\Model\StorageModel\CauseMovement
     protected $camv_comment = null;
 
     /**
+     * camv_status
+     * @var string
+     */
+    protected $camv_status = null;
+
+    /**
      * Set camv_id
      *
      * @param int $p_value
@@ -268,5 +274,28 @@ abstract class CauseMovement extends \FreeAsso\Model\StorageModel\CauseMovement
     public function getCamvComment()
     {
         return $this->camv_comment;
+    }
+
+    /**
+     * Set camv_status
+     * 
+     * @param string $p_status
+     * 
+     * @return \FreeAsso\Model\CauseMovement
+     */
+    public function setCamvStatus($p_status)
+    {
+        $this->camv_status = $p_status;
+        return $this;
+    }
+
+    /**
+     * Get camv_status
+     * 
+     * @return string
+     */
+    public function getCamvStatus()
+    {
+        return $this->camv_status;
     }
 }
