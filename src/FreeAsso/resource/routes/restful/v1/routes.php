@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/cause_alert.php';
 require_once __DIR__ . '/cause_link.php';
 require_once __DIR__ . '/cause_main_type.php';
 require_once __DIR__ . '/cause_media.php';
@@ -13,6 +14,7 @@ require_once __DIR__ . '/dashboard.php';
 require_once __DIR__ . '/data.php';
 require_once __DIR__ . '/donation.php';
 require_once __DIR__ . '/payment_type.php';
+require_once __DIR__ . '/site_alert.php';
 require_once __DIR__ . '/site_media.php';
 require_once __DIR__ . '/site_type.php';
 require_once __DIR__ . '/site.php';
@@ -20,6 +22,7 @@ require_once __DIR__ . '/specific.php';
 require_once __DIR__ . '/sponsorship.php';
 
 $localRoutes = array_merge(
+    $causeAlertRoutes,
     $causeLinkRoutes,
     $causeMainTypeRoutes,
     $causeMediaRoutes,
@@ -34,6 +37,7 @@ $localRoutes = array_merge(
     $dataRoutes,
     $donationRoutes,
     $paymentTypeRoutes,
+    $siteAlertRoutes,
     $siteMediaRoutes,
     $siteTypeRoutes,
     $siteRoutes,
