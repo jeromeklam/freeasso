@@ -15,7 +15,7 @@ class SiteMedia extends \FreeFW\Core\ApiMediaController
      * @param \Psr\Http\Message\ServerRequestInterface $p_request
      * @param string                                   $p_id
      * 
-     * @return unknown
+     * @return \Psr\Http\Message\ResponseInterface
      */
     public function downloadOneBlob(\Psr\Http\Message\ServerRequestInterface $p_request, $p_id)
     {

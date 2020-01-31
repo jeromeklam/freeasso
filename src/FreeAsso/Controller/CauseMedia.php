@@ -10,6 +10,23 @@ class CauseMedia extends \FreeFW\Core\ApiMediaController
 {
 
     /**
+     * Get file content for download
+     *
+     * @param \Psr\Http\Message\ServerRequestInterface $p_request
+     * @param string                                   $p_id
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function downloadOneBlob(\Psr\Http\Message\ServerRequestInterface $p_request, $p_id)
+    {
+        $myMedia = \FreeAsso\Model\CauseMedia::findFirst(['caum_id' => $p_id]);
+        if ($myMedia) {
+            return $this->createMimeTypeResponse($myMedia->getCaumTitle(), $myMedia->getCaumBlob());
+        }
+        return $this->createResponse(409);
+    }
+    
+    /**
      *
      * @param \Psr\Http\Message\ServerRequestInterface $p_request
      * @return \Psr\Http\Message\ResponseInterface

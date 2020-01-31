@@ -108,4 +108,19 @@ $causeMediaRoutes = [
             ]
         ]
     ],
+    'freeasso.causemediablob.downloadone' => [
+        'method'     => \FreeFW\Router\Route::METHOD_GET,
+        'model'      => 'FreeAsso::Model::CauseMediaBlob',
+        'url'        => '/v1/asso/cause_media_blob/download/:caum_id',
+        'controller' => 'FreeAsso::Controller::CauseMedia',
+        'function'   => 'downloadOneBlob',
+        'auth'       => \FreeFW\Router\Route::AUTH_IN,
+        'middleware' => [],
+        'include'    => [],
+        'results' => [
+            '200' => [
+                'type'  => \FreeFW\Router\Route::RESULT_DATA,
+            ]
+        ]
+    ],
 ];
