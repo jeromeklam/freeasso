@@ -100,7 +100,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_PRIVATE => 'parent_site_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
-        FFCST::PROPERTY_FK      => ['parent_site_id' =>
+        FFCST::PROPERTY_FK      => ['parent_site' =>
             [
                 'model' => 'FreeAsso::Model::Site',
                 'field' => 'site_id',

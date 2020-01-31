@@ -39,9 +39,9 @@ class Site extends \FreeAsso\Model\Base\Site  implements
     {
         $this->site_id        = 0;
         $this->brk_id         = 0;
-        $this->sitt_id        = 0;
+        $this->sitt_id        = null;
         $this->site_name      = '';
-        $this->parent_site_id = 0;
+        $this->parent_site_id = null;
         $this->site_left      = 0;
         $this->site_right     = 0;
         $this->site_position  = 0;

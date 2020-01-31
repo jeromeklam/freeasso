@@ -132,9 +132,36 @@ class CauseMovement extends \FreeAsso\Model\Base\CauseMovement
                     'cau_id' => $this->cause->getCauId()
                 ]
             );
-            $this->from_site = $this->cause->getSite();
+            if (!$this->from_site) {
+                $this->from_site = $this->cause->getSite();
+                $this->setCamvSiteFromId($this->cause->getSiteId());
+            }
             $this->setCamvTs(\FreeFW\Tools\Date::getCurrentTimestamp());
-            $this->setCamvSiteFromId($this->cause->getSiteId());
+        }
+        return true;
+    }
+
+    /**
+     * After create
+     */
+    public function afterCreate()
+    {
+        if ($this->cause) {
+            $this->cause = \FreeAsso\Model\Cause::findFirst(
+                [
+                    'cau_id' => $this->cause->getCauId()
+                ]
+            );
+            if ($this->getCamvStatus() !== self::STATUS_WAIT) {
+                $site = \FreeAsso\Model\Site::findFirst(
+                    [
+                        'site_id' => $this->getToSite()->getSiteId()
+                    ]
+                );
+                $this->cause->setSite($site);
+                $this->cause->setSiteId($site->getSiteId());
+                return $this->cause->save();
+            }
         }
         return true;
     }
