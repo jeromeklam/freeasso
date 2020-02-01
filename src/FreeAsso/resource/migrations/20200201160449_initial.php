@@ -80,7 +80,7 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'limit' => 256,
                 'collation' => 'utf8_general_ci',
                 'encoding' => 'utf8',
-                'comment' => "Valeur par d\xc3\xa9faut",
+                'comment' => 'Valeur par défaut',
                 'after' => 'fld_id',
             ])
             ->addColumn('wfld_required', 'integer', [
@@ -262,7 +262,7 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'null' => false,
                 'limit' => MysqlAdapter::INT_BIG,
                 'signed' => false,
-                'comment' => "Identifiant de la m\xc3\xa9tadonn\xc3\xa9e",
+                'comment' => 'Identifiant de la métadonnée',
                 'after' => 'doc_id',
             ])
             ->addColumn('dmet_value', 'string', [
@@ -271,7 +271,7 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'limit' => 512,
                 'collation' => 'utf8_general_ci',
                 'encoding' => 'utf8',
-                'comment' => "Valeur de la m\xc3\xa9tadonn\xc3\xa9e",
+                'comment' => 'Valeur de la métadonnée',
                 'after' => 'meta_id',
             ])
             ->addIndex(['doc_id'], [
@@ -1482,7 +1482,7 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'null' => false,
                 'limit' => MysqlAdapter::INT_BIG,
                 'signed' => false,
-                'comment' => "Identifiant du th\xc3\xa8me",
+                'comment' => 'Identifiant du thème',
                 'after' => 'wf_id',
             ])
             ->addColumn('user_id', 'biginteger', [
@@ -1490,7 +1490,7 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'default' => null,
                 'limit' => MysqlAdapter::INT_BIG,
                 'signed' => false,
-                'comment' => "Utilisateur de d\xc3\xa9clenchement",
+                'comment' => 'Utilisateur de déclenchement',
                 'after' => 'thm_id',
             ])
             ->addColumn('sub_name', 'string', [
@@ -1508,7 +1508,7 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'limit' => 16,
                 'collation' => 'utf8_general_ci',
                 'encoding' => 'utf8',
-                'comment' => "Libell\xc3\xa9 court",
+                'comment' => 'Libellé court',
                 'after' => 'sub_name',
             ])
             ->addColumn('sub_libl', 'string', [
@@ -1517,7 +1517,7 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'limit' => 256,
                 'collation' => 'utf8_general_ci',
                 'encoding' => 'utf8',
-                'comment' => "Libell\xc3\xa9 long",
+                'comment' => 'Libellé long',
                 'after' => 'sub_libc',
             ])
             ->addColumn('sub_desc', 'text', [
@@ -1534,7 +1534,7 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'default' => '\'OR\'',
                 'limit' => 3,
                 'values' => ['OR', 'AND'],
-                'comment' => "Type de jointure des arcs en entr\xc3\xa9e",
+                'comment' => 'Type de jointure des arcs en entrée',
                 'after' => 'sub_desc',
             ])
             ->addColumn('sub_out_type', 'enum', [
@@ -1550,7 +1550,7 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'default' => '\'DIRECT\'',
                 'limit' => 10,
                 'values' => ['DIRECT', 'CRON', 'BACKGROUND'],
-                'comment' => "Type d'ex\xc3\xa9cution",
+                'comment' => 'Type d\'exécution',
                 'after' => 'sub_out_type',
             ])
             ->addColumn('sub_callback_type', 'enum', [
@@ -1575,7 +1575,7 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'default' => null,
                 'limit' => MysqlAdapter::INT_BIG,
                 'signed' => false,
-                'comment' => "Fonction \xc3\xa0 d\xc3\xa9clencher",
+                'comment' => 'Fonction à déclencher',
                 'after' => 'sub_callback_data',
             ])
             ->addColumn('sub_mode', 'enum', [
@@ -1583,14 +1583,14 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'default' => '\'UNIQ\'',
                 'limit' => 9,
                 'values' => ['UNIQ', 'UNLIMITED'],
-                'comment' => "Mode d'ex\xc3\xa9cution",
+                'comment' => 'Mode d\'exécution',
                 'after' => 'fct_id',
             ])
             ->addColumn('sub_max_iteration', 'integer', [
                 'null' => true,
                 'default' => null,
                 'limit' => '9',
-                'comment' => "It\xc3\xa9rations max en mode UNLIMITED",
+                'comment' => 'Itérations max en mode UNLIMITED',
                 'after' => 'sub_mode',
             ])
             ->addColumn('sub_exclusiv', 'integer', [
@@ -1634,7 +1634,7 @@ class Initial extends Phinx\Migration\AbstractMigration
             ->addColumn('sub_last_run', 'timestamp', [
                 'null' => true,
                 'default' => 'current_timestamp()',
-                'comment' => "Dernier ex\xc3\xa9cution (cas hors workflow)",
+                'comment' => 'Dernier exécution (cas hors workflow)',
                 'after' => 'sub_status',
             ])
             ->addColumn('sub_object_id', 'string', [
@@ -1734,7 +1734,7 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'null' => false,
                 'limit' => MysqlAdapter::INT_BIG,
                 'signed' => false,
-                'comment' => "Identifiant du th\xc3\xa8me",
+                'comment' => 'Identifiant du thème',
                 'after' => 'ctx_id',
             ])
             ->addColumn('fct_name', 'string', [
@@ -1784,7 +1784,7 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'null' => true,
                 'default' => '1',
                 'limit' => '1',
-                'comment' => "Syst\xc3\xa8me",
+                'comment' => 'Système',
                 'after' => 'fct_app_code',
             ])
             ->addIndex(['ctx_id'], [
@@ -1992,7 +1992,7 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'limit' => 65535,
                 'collation' => 'utf8_general_ci',
                 'encoding' => 'utf8',
-                'comment' => "Liste des ips s\xc3\xa9par\xc3\xa9es par ;",
+                'comment' => 'Liste des ips séparées par ;',
                 'after' => 'brk_users_scope',
             ])
             ->addColumn('brk_config', 'text', [
@@ -2009,7 +2009,7 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'default' => null,
                 'limit' => MysqlAdapter::INT_BIG,
                 'signed' => false,
-                'comment' => "Groupe propri\xc3\xa9taire du broker",
+                'comment' => 'Groupe propriétaire du broker',
                 'after' => 'brk_config',
             ])
             ->addIndex(['brk_name'], [
@@ -2536,6 +2536,94 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'unique' => false,
             ])
             ->create();
+        $this->table('asso_alert', [
+                'id' => false,
+                'primary_key' => ['alert_id'],
+                'engine' => 'InnoDB',
+                'encoding' => 'utf8',
+                'collation' => 'utf8_general_ci',
+                'comment' => '',
+                'row_format' => 'DYNAMIC',
+            ])
+            ->addColumn('alert_id', 'biginteger', [
+                'null' => false,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'identity' => 'enable',
+            ])
+            ->addColumn('site_id', 'biginteger', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'after' => 'alert_id',
+            ])
+            ->addColumn('cau_id', 'biginteger', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'after' => 'site_id',
+            ])
+            ->addColumn('cli_id', 'biginteger', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'after' => 'cau_id',
+            ])
+            ->addColumn('brk_id', 'biginteger', [
+                'null' => false,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'after' => 'cli_id',
+            ])
+            ->addColumn('alert_from', 'timestamp', [
+                'null' => true,
+                'default' => null,
+                'after' => 'brk_id',
+            ])
+            ->addColumn('alert_to', 'timestamp', [
+                'null' => true,
+                'default' => null,
+                'after' => 'alert_from',
+            ])
+            ->addColumn('alert_ts', 'timestamp', [
+                'null' => true,
+                'default' => null,
+                'after' => 'alert_to',
+            ])
+            ->addColumn('alert_text', 'text', [
+                'null' => true,
+                'default' => null,
+                'limit' => 65535,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'alert_ts',
+            ])
+            ->addColumn('alert_activ', 'boolean', [
+                'null' => true,
+                'default' => '1',
+                'limit' => MysqlAdapter::INT_TINY,
+                'after' => 'alert_text',
+            ])
+            ->addIndex(['brk_id'], [
+                'name' => 'fk_alert_broker',
+                'unique' => false,
+            ])
+            ->addIndex(['cau_id'], [
+                'name' => 'fk_alert_cause',
+                'unique' => false,
+            ])
+            ->addIndex(['site_id'], [
+                'name' => 'fk_alert_site',
+                'unique' => false,
+            ])
+            ->addIndex(['cli_id'], [
+                'name' => 'fk_alert_client',
+                'unique' => false,
+            ])
+            ->create();
         $this->table('ged_user_inbox', [
                 'id' => false,
                 'primary_key' => ['inbx_id'],
@@ -2584,7 +2672,7 @@ class Initial extends Phinx\Migration\AbstractMigration
             ->addColumn('inbx_ts', 'timestamp', [
                 'null' => true,
                 'default' => null,
-                'comment' => "Date de la derni\xc3\xa8re action",
+                'comment' => 'Date de la dernière action',
                 'after' => 'inbx_created',
             ])
             ->addColumn('inbx_show', 'integer', [
@@ -2796,7 +2884,7 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'limit' => 80,
                 'collation' => 'utf8_general_ci',
                 'encoding' => 'utf8',
-                'comment' => "Nom du th\xc3\xa8me",
+                'comment' => 'Nom du thème',
                 'after' => 'thm_id',
             ])
             ->addColumn('thm_description', 'text', [
@@ -2920,7 +3008,7 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'null' => false,
                 'limit' => MysqlAdapter::INT_BIG,
                 'signed' => false,
-                'comment' => "Identifiant de la m\xc3\xa9tadonn\xc3\xa9e",
+                'comment' => 'Identifiant de la métadonnée',
                 'after' => 'dtyp_id',
             ])
             ->addColumn('dtm_required', 'integer', [
@@ -2967,7 +3055,7 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'limit' => 80,
                 'collation' => 'utf8_general_ci',
                 'encoding' => 'utf8',
-                'comment' => "Libell\xc3\xa9 du type",
+                'comment' => 'Libellé du type',
                 'after' => 'brk_id',
             ])
             ->addColumn('dtyp_from', 'timestamp', [
@@ -2984,7 +3072,7 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'null' => true,
                 'default' => null,
                 'limit' => '9',
-                'comment' => "Dur\xc3\xa9e de conservation",
+                'comment' => 'Durée de conservation',
                 'after' => 'dtyp_to',
             ])
             ->addColumn('dtyp_lifetime_type', 'enum', [
@@ -3034,7 +3122,7 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'limit' => 256,
                 'collation' => 'utf8_general_ci',
                 'encoding' => 'utf8',
-                'comment' => "Nom du fichier, wildcard autoris\xc3\xa9",
+                'comment' => 'Nom du fichier, wildcard autorisé',
                 'after' => 'doc_extern_id',
             ])
             ->addColumn('dtyp_id', 'biginteger', [
@@ -3048,7 +3136,7 @@ class Initial extends Phinx\Migration\AbstractMigration
             ->addColumn('doc_ts', 'timestamp', [
                 'null' => false,
                 'default' => 'current_timestamp()',
-                'comment' => "Date de derni\xc3\xa8re modification",
+                'comment' => 'Date de dernière modification',
                 'after' => 'dtyp_id',
             ])
             ->addColumn('doc_start', 'timestamp', [
@@ -3074,7 +3162,7 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'null' => false,
                 'default' => '0',
                 'limit' => '1',
-                'comment' => "Est archiv\xc3\xa9 ?",
+                'comment' => 'Est archivé ?',
                 'after' => 'doc_description',
             ])
             ->addColumn('wf_id', 'biginteger', [
@@ -4072,36 +4160,32 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'identity' => 'enable',
             ])
             ->addColumn('brk_id', 'biginteger', [
-                'null' => true,
-                'default' => null,
+                'null' => false,
                 'limit' => MysqlAdapter::INT_BIG,
                 'signed' => false,
                 'after' => 'camv_id',
             ])
             ->addColumn('cau_id', 'biginteger', [
-                'null' => true,
-                'default' => null,
+                'null' => false,
                 'limit' => MysqlAdapter::INT_BIG,
                 'signed' => false,
                 'after' => 'brk_id',
             ])
             ->addColumn('camv_site_from_id', 'biginteger', [
-                'null' => true,
-                'default' => null,
+                'null' => false,
                 'limit' => MysqlAdapter::INT_BIG,
                 'signed' => false,
                 'after' => 'cau_id',
             ])
             ->addColumn('camv_site_to_id', 'biginteger', [
-                'null' => true,
-                'default' => null,
+                'null' => false,
                 'limit' => MysqlAdapter::INT_BIG,
                 'signed' => false,
                 'after' => 'camv_site_from_id',
             ])
             ->addColumn('camv_ts', 'timestamp', [
-                'null' => true,
-                'default' => null,
+                'null' => false,
+                'default' => 'current_timestamp()',
                 'after' => 'camv_site_to_id',
             ])
             ->addColumn('camv_start', 'timestamp', [
@@ -4110,8 +4194,8 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'after' => 'camv_ts',
             ])
             ->addColumn('camv_to', 'timestamp', [
-                'null' => true,
-                'default' => null,
+                'null' => false,
+                'default' => '\'0000-00-00 00:00:00\'',
                 'after' => 'camv_start',
             ])
             ->addColumn('camv_comment', 'text', [
@@ -4121,6 +4205,13 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'collation' => 'utf8_general_ci',
                 'encoding' => 'utf8',
                 'after' => 'camv_to',
+            ])
+            ->addColumn('camv_status', 'enum', [
+                'null' => false,
+                'default' => '\'OK\'',
+                'limit' => 4,
+                'values' => ['OK', 'WAIT', 'KO'],
+                'after' => 'camv_comment',
             ])
             ->addIndex(['cau_id'], [
                 'name' => 'fk_cause_movement_cause',
@@ -4230,7 +4321,7 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'null' => false,
                 'default' => '1',
                 'limit' => '1',
-                'comment' => "Syst\xc3\xa8me",
+                'comment' => 'Système',
                 'after' => 'ctx_type',
             ])
             ->addColumn('ctx_version', 'string', [
@@ -4303,7 +4394,7 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'limit' => MysqlAdapter::TEXT_LONG,
                 'collation' => 'utf8_general_ci',
                 'encoding' => 'utf8',
-                'comment' => "Pour des types sp\xc3\xa9cifiques",
+                'comment' => 'Pour des types spécifiques',
                 'after' => 'fld_type',
             ])
             ->addColumn('fld_from', 'timestamp', [
@@ -4322,7 +4413,7 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'limit' => 256,
                 'collation' => 'utf8_general_ci',
                 'encoding' => 'utf8',
-                'comment' => "Valeur par d\xc3\xa9faut",
+                'comment' => 'Valeur par défaut',
                 'after' => 'fld_to',
             ])
             ->addColumn('fld_required', 'integer', [
@@ -4372,7 +4463,7 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'default' => null,
                 'limit' => '10',
                 'signed' => false,
-                'comment' => "Identifiant du th\xc3\xa8me",
+                'comment' => 'Identifiant du thème',
                 'after' => 'ctx_id',
             ])
             ->addColumn('eve_name', 'string', [
@@ -4406,7 +4497,7 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'null' => false,
                 'default' => '1',
                 'limit' => '1',
-                'comment' => "Ev\xc3\xa9nement syst\xc3\xa8me",
+                'comment' => 'Evénement système',
                 'after' => 'eve_app_code',
             ])
             ->addIndex(['ctx_id'], [
@@ -4530,7 +4621,7 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'limit' => 16,
                 'collation' => 'utf8_general_ci',
                 'encoding' => 'utf8',
-                'comment' => "Libell\xc3\xa9 court",
+                'comment' => 'Libellé court',
                 'after' => 'plc_name',
             ])
             ->addColumn('plc_libl', 'string', [
@@ -4539,7 +4630,7 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'limit' => 256,
                 'collation' => 'utf8_general_ci',
                 'encoding' => 'utf8',
-                'comment' => "Libell\xc3\xa9 long",
+                'comment' => 'Libellé long',
                 'after' => 'plc_libc',
             ])
             ->addColumn('plc_desc', 'text', [
@@ -4564,7 +4655,7 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'default' => null,
                 'limit' => MysqlAdapter::INT_BIG,
                 'signed' => false,
-                'comment' => "Identifiant de l'\xc3\xa9v\xc3\xa9nement (START)",
+                'comment' => 'Identifiant de l\'événement (START)',
                 'after' => 'plc_type',
             ])
             ->addColumn('plc_x', 'integer', [
@@ -5803,7 +5894,7 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'limit' => MysqlAdapter::INT_BIG,
                 'signed' => false,
                 'identity' => 'enable',
-                'comment' => "Identifiant de la metadonn\xc3\xa9e",
+                'comment' => 'Identifiant de la metadonnée',
             ])
             ->addColumn('brk_id', 'biginteger', [
                 'null' => false,
@@ -5890,7 +5981,7 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'default' => null,
                 'limit' => MysqlAdapter::INT_BIG,
                 'signed' => false,
-                'comment' => "Identifiant du lien utilis\xc3\xa9",
+                'comment' => 'Identifiant du lien utilisé',
                 'after' => 'dver_id',
             ])
             ->addColumn('down_ts', 'timestamp', [
@@ -5990,7 +6081,7 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'default' => null,
                 'limit' => MysqlAdapter::INT_BIG,
                 'signed' => false,
-                'comment' => "Identifiant du th\xc3\xa8me",
+                'comment' => 'Identifiant du thème',
                 'after' => 'ctx_id',
             ])
             ->addColumn('wf_name', 'string', [
@@ -6017,7 +6108,7 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'limit' => 256,
                 'collation' => 'utf8_general_ci',
                 'encoding' => 'utf8',
-                'comment' => "Libell\xc3\xa9 long",
+                'comment' => 'Libellé long',
                 'after' => 'wf_libc',
             ])
             ->addColumn('wf_description', 'text', [
@@ -6057,7 +6148,7 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'null' => false,
                 'default' => '1',
                 'limit' => '1',
-                'comment' => "Syst\xc3\xa8me ?",
+                'comment' => 'Système ?',
                 'after' => 'wf_height',
             ])
             ->addColumn('wf_app_code', 'string', [
@@ -6075,14 +6166,14 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'limit' => 20,
                 'collation' => 'utf8_general_ci',
                 'encoding' => 'utf8',
-                'comment' => "Pr\xc3\xa9fixe par d\xc3\xa9faut des \xc3\xa9l\xc3\xa9ments",
+                'comment' => 'Préfixe par défaut des éléments',
                 'after' => 'wf_app_code',
             ])
             ->addColumn('wf_expired', 'integer', [
                 'null' => true,
                 'default' => null,
                 'limit' => '9',
-                'comment' => "Dur\xc3\xa9e de conservation des cas (jours)",
+                'comment' => 'Durée de conservation des cas (jours)',
                 'after' => 'wf_prefix',
             ])
             ->addIndex(['ctx_id'], [
