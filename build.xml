@@ -156,13 +156,13 @@
     <!--
         Préparation du déploiement : composer, ...
     -->
-    <target name="prepare-deploy" depends="composer">
+    <target name="prepare-deploy">
         <delete dir="${project.dist}"/>
         <mkdir dir="${project.dist}" mode="0775" />
         <echo message="${commit}" file="${project.basedir}/revision" />
         <filesync excludeFile=".deployignore"
                   sourcedir="${project.basedir}/"
-                  options="-lurpKz"
+                  options="-LurpKz"
                   destinationdir="${project.dist}" />
     </target>
 
@@ -170,10 +170,11 @@
         Création du fichier tgz à partir du répertoire dist
     -->
     <target name="create-tgz">
-        <tar destfile="${project.deploy}/${project.short}-${GITTAG}.tar.gz" basedir="${project.dist}" compression="gzip"/>
-        <copy file="${project.basedir}/install/install.sh" tofile="${project.deploy}/install-${GITTAG}.sh" overwrite="true"/>
-        <exec command="md5sum ${project.short}-${GITTAG}.tar.gz > ${project.short}-${GITTAG}.tar.gz.checksum" dir="${project.deploy}" />
-        <exec command="md5sum install-${GITTAG}.sh > install-${GITTAG}.sh.checksum" dir="${project.deploy}" />
+        <mkdir dir="${project.deploy}" mode="0775" />
+        <tar destfile="${project.deploy}/${project.short}-latest.tar.gz" basedir="${project.dist}" compression="gzip"/>
+        <copy file="${project.basedir}/install/install.sh" tofile="${project.deploy}/install-latest.sh" overwrite="true"/>
+        <exec command="md5sum ${project.short}-latest.tar.gz > ${project.short}-latest.tar.gz.checksum" dir="${project.deploy}" />
+        <exec command="md5sum install-latest.sh > install-latest.sh.checksum" dir="${project.deploy}" />
     </target>
 
     <!--
