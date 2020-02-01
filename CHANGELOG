@@ -1,7 +1,8 @@
-# 1.0.* : ...
+# 1.0.2 : 01/02/2020
 
 * FreeSSO & FreeFW update
 * Client (country & lang no more required)
+* Cause, CauseMovement, CauseMedia, SiteMedia
 
 # 1.0.1 : First test version
 

@@ -25,7 +25,7 @@ class CauseMedia extends \FreeFW\Core\ApiMediaController
         }
         return $this->createResponse(409);
     }
-    
+
     /**
      *
      * @param \Psr\Http\Message\ServerRequestInterface $p_request
