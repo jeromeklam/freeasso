@@ -2485,13 +2485,19 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'values' => ['MONTH', 'YEAR', 'OTHER'],
                 'after' => 'spo_mnt',
             ])
+            ->addColumn('spo_freq_when', 'integer', [
+                'null' => true,
+                'default' => null,
+                'limit' => '4',
+                'after' => 'spo_freq',
+            ])
             ->addColumn('spo_freq_detail', 'string', [
                 'null' => true,
                 'default' => null,
                 'limit' => 255,
                 'collation' => 'utf8_general_ci',
                 'encoding' => 'utf8',
-                'after' => 'spo_freq',
+                'after' => 'spo_freq_when',
             ])
             ->addColumn('ptyp_id', 'biginteger', [
                 'null' => false,

@@ -44,8 +44,12 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
      */
     public function init()
     {
-        $this->spo_id = 0;
-        $this->brk_id = 0;
+        $this->spo_id           = 0;
+        $this->brk_id           = 0;
+        $this->spo_send_news    = true;
+        $this->spo_display_site = true;
+        $this->spo_freq         = self::PAYMENT_TYPE_MONTH;
+        $this->spo_freq_when    = 10;
         return $this;
     }
 

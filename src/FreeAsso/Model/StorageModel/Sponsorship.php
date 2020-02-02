@@ -51,23 +51,28 @@ abstract class Sponsorship extends \FreeFW\Core\StorageModel
     ];
     protected static $PRP_SPO_FROM = [
         FFCST::PROPERTY_PRIVATE => 'spo_from',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIME,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_SPO_TO = [
         FFCST::PROPERTY_PRIVATE => 'spo_to',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIME,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_SPO_MNT = [
         FFCST::PROPERTY_PRIVATE => 'spo_mnt',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DECIMAL,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_SPO_FREQ = [
         FFCST::PROPERTY_PRIVATE => 'spo_freq',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+    ];
+    protected static $PRP_SPO_FREQ_WHEN = [
+        FFCST::PROPERTY_PRIVATE => 'spo_freq_when',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_SPO_FREQ_DETAIL = [
         FFCST::PROPERTY_PRIVATE => 'spo_freq_detail',
@@ -88,17 +93,17 @@ abstract class Sponsorship extends \FreeFW\Core\StorageModel
     ];
     protected static $PRP_SPO_SPONSORS = [
         FFCST::PROPERTY_PRIVATE => 'spo_sponsors',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BLOB,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_SPO_DISPLAY_SITE = [
         FFCST::PROPERTY_PRIVATE => 'spo_display_site',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_SPO_SEND_NEWS = [
         FFCST::PROPERTY_PRIVATE => 'spo_send_news',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => []
     ];
 
@@ -118,6 +123,7 @@ abstract class Sponsorship extends \FreeFW\Core\StorageModel
             'spo_to'           => self::$PRP_SPO_TO,
             'spo_mnt'          => self::$PRP_SPO_MNT,
             'spo_freq'         => self::$PRP_SPO_FREQ,
+            'spo_freq_when'    => self::$PRP_SPO_FREQ_WHEN,
             'spo_freq_detail'  => self::$PRP_SPO_FREQ_DETAIL,
             'ptyp_id'          => self::$PRP_PTYP_ID,
             'spo_sponsors'     => self::$PRP_SPO_SPONSORS,
