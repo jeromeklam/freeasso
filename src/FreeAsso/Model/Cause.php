@@ -84,7 +84,7 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
         $this->cau_public    = 1;
         $this->cau_available = 1;
         $this->cau_family    = self::FAMILY_NONE;
-        $this->cau_year      = date('Y');
+        $this->cau_year      = null;
         return $this;
     }
 

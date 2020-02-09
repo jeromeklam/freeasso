@@ -486,7 +486,7 @@ class Lesecopattes
         /* *************************** */
         $myCfgCloture = \FreeFW\DI\DI::get('FreeAsso::Model::Config');
         $myCfgCloture
-            ->setAcfgCode('DATA_ID@' . \FreeAsso\Model\Config::CONFIG_SITE_STRING_1)
+            ->setAcfgCode('' . \FreeAsso\Model\Config::CONFIG_SITE_STRING_1)
             ->setAcfgValue($myDataCloture->getDataId())
         ;
         if (!$myCfgCloture->create()) {
@@ -494,7 +494,7 @@ class Lesecopattes
         }
         $myCfgCloture2 = \FreeFW\DI\DI::get('FreeAsso::Model::Config');
         $myCfgCloture2
-            ->setAcfgCode('DATA_ID@' . \FreeAsso\Model\Config::CONFIG_SITE_NUMBER_1)
+            ->setAcfgCode('' . \FreeAsso\Model\Config::CONFIG_SITE_NUMBER_1)
             ->setAcfgValue($myDataLinClot->getDataId())
         ;
         if (!$myCfgCloture2->create()) {
@@ -503,7 +503,7 @@ class Lesecopattes
         /* *************************** */
         $myCfgAbri = \FreeFW\DI\DI::get('FreeAsso::Model::Config');
         $myCfgAbri
-            ->setAcfgCode('DATA_ID@' . \FreeAsso\Model\Config::CONFIG_SITE_STRING_4)
+            ->setAcfgCode('' . \FreeAsso\Model\Config::CONFIG_SITE_STRING_4)
             ->setAcfgValue($myDataAbri->getDataId())
         ;
         if (!$myCfgAbri->create()) {
@@ -511,7 +511,7 @@ class Lesecopattes
         }
         $myCfgNbAbri = \FreeFW\DI\DI::get('FreeAsso::Model::Config');
         $myCfgNbAbri
-            ->setAcfgCode('DATA_ID@' . \FreeAsso\Model\Config::CONFIG_SITE_NUMBER_4)
+            ->setAcfgCode('' . \FreeAsso\Model\Config::CONFIG_SITE_NUMBER_4)
             ->setAcfgValue($myDataNbAbri->getDataId())
         ;
         if (!$myCfgNbAbri->create()) {
@@ -520,7 +520,7 @@ class Lesecopattes
         /* *************************** */
         $myCfgAbrevoir = \FreeFW\DI\DI::get('FreeAsso::Model::Config');
         $myCfgAbrevoir
-            ->setAcfgCode('DATA_ID@' . \FreeAsso\Model\Config::CONFIG_SITE_STRING_6)
+            ->setAcfgCode('' . \FreeAsso\Model\Config::CONFIG_SITE_STRING_6)
             ->setAcfgValue($myDataAbrev->getDataId())
         ;
         if (!$myCfgAbrevoir->create()) {
@@ -529,7 +529,7 @@ class Lesecopattes
         /* *************************** */
         $myCfgPiq = \FreeFW\DI\DI::get('FreeAsso::Model::Config');
         $myCfgPiq
-            ->setAcfgCode('DATA_ID@' . \FreeAsso\Model\Config::CONFIG_SITE_STRING_2)
+            ->setAcfgCode('' . \FreeAsso\Model\Config::CONFIG_SITE_STRING_2)
             ->setAcfgValue($myDataPiq->getDataId())
         ;
         if (!$myCfgPiq->create()) {
@@ -538,7 +538,7 @@ class Lesecopattes
         /* *************************** */
         $myCfgElec = \FreeFW\DI\DI::get('FreeAsso::Model::Config');
         $myCfgElec
-            ->setAcfgCode('DATA_ID@' . \FreeAsso\Model\Config::CONFIG_SITE_STRING_3)
+            ->setAcfgCode('' . \FreeAsso\Model\Config::CONFIG_SITE_STRING_3)
             ->setAcfgValue($myDataElec->getDataId())
         ;
         if (!$myCfgElec->create()) {
@@ -546,7 +546,7 @@ class Lesecopattes
         }
         $myCfgNbElec = \FreeFW\DI\DI::get('FreeAsso::Model::Config');
         $myCfgNbElec
-            ->setAcfgCode('DATA_ID@' . \FreeAsso\Model\Config::CONFIG_SITE_NUMBER_3)
+            ->setAcfgCode('' . \FreeAsso\Model\Config::CONFIG_SITE_NUMBER_3)
             ->setAcfgValue($myDataNbElec->getDataId())
         ;
         if (!$myCfgNbElec->create()) {
@@ -555,7 +555,7 @@ class Lesecopattes
         /* *************************** */
         $myCfgReser = \FreeFW\DI\DI::get('FreeAsso::Model::Config');
         $myCfgReser
-            ->setAcfgCode('DATA_ID@' . \FreeAsso\Model\Config::CONFIG_SITE_STRING_5)
+            ->setAcfgCode('' . \FreeAsso\Model\Config::CONFIG_SITE_STRING_5)
             ->setAcfgValue($myDataReser->getDataId())
         ;
         if (!$myCfgReser->create()) {
@@ -563,7 +563,7 @@ class Lesecopattes
         }
         $myCfgVolReser = \FreeFW\DI\DI::get('FreeAsso::Model::Config');
         $myCfgVolReser
-            ->setAcfgCode('DATA_ID@' . \FreeAsso\Model\Config::CONFIG_SITE_NUMBER_5)
+            ->setAcfgCode('' . \FreeAsso\Model\Config::CONFIG_SITE_NUMBER_5)
             ->setAcfgValue($myDataVolRes->getDataId())
         ;
         if (!$myCfgVolReser->create()) {
@@ -572,7 +572,7 @@ class Lesecopattes
         /* *************************** */
         $myCfgAccesE = \FreeFW\DI\DI::get('FreeAsso::Model::Config');
         $myCfgAccesE
-            ->setAcfgCode('DATA_ID@' . \FreeAsso\Model\Config::CONFIG_SITE_BOOL_1)
+            ->setAcfgCode('' . \FreeAsso\Model\Config::CONFIG_SITE_BOOL_1)
             ->setAcfgValue($myDataAccesE->getDataId())
         ;
         if (!$myCfgAccesE->create()) {
@@ -729,7 +729,7 @@ class Lesecopattes
         }
         $myCfgColor = \FreeFW\DI\DI::get('FreeAsso::Model::Config');
         $myCfgColor
-            ->setAcfgCode('DATA_ID@' . \FreeAsso\Model\Config::CONFIG_CAU_STRING_1)
+            ->setAcfgCode('' . \FreeAsso\Model\Config::CONFIG_CAU_STRING_1)
             ->setAcfgValue($myDataColor->getDataId())
         ;
         if (!$myCfgColor->create()) {
@@ -746,7 +746,7 @@ class Lesecopattes
         }
         $myCfgProv = \FreeFW\DI\DI::get('FreeAsso::Model::Config');
         $myCfgProv
-            ->setAcfgCode('DATA_ID@' . \FreeAsso\Model\Config::CONFIG_CAU_STRING_2)
+            ->setAcfgCode('' . \FreeAsso\Model\Config::CONFIG_CAU_STRING_2)
             ->setAcfgValue($myDataProv->getDataId())
         ;
         if (!$myCfgProv->create()) {
