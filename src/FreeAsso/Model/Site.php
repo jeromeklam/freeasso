@@ -31,6 +31,12 @@ class Site extends \FreeAsso\Model\Base\Site  implements
     protected $sanitary = null;
 
     /**
+     * Parent_site
+     * @var \FreeAsso\Model\Site
+     */
+    protected $parent_site = null;
+
+    /**
      *
      * {@inheritDoc}
      * @see \FreeFW\Core\Model::init()
@@ -46,6 +52,7 @@ class Site extends \FreeAsso\Model\Base\Site  implements
         $this->site_right     = 0;
         $this->site_position  = 0;
         $this->site_level     = 1;
+        $this->site_conform   = true;
         return $this;
     }
 
@@ -116,5 +123,28 @@ class Site extends \FreeAsso\Model\Base\Site  implements
     public function getSanitary()
     {
         return $this->sanitary;
+    }
+
+    /**
+     * Set parent site
+     * 
+     * @param \FreeAsso\Model\Site $p_site
+     * 
+     * @return \FreeAsso\Model\Site
+     */
+    public function setParentSite($p_site)
+    {
+        $this->parent_site = $p_site;
+        return $this;
+    }
+
+    /**
+     * Get parent site
+     * 
+     * @return \FreeAsso\Model\Site
+     */
+    public function getParentSite()
+    {
+        return $this->parent_site;
     }
 }

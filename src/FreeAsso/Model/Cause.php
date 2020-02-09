@@ -34,11 +34,17 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
     protected $cause_type = null;
 
     /**
-     * Proprietary
+     * Origin
      * @var \FreeAsso\Model\Client
      */
-    protected $proprietary = null;
-    
+    protected $origin = null;
+
+    /**
+     * Raiser
+     * @var \FreeAsso\Model\Client
+     */
+    protected $raiser = null;
+
     /**
      * Parent 1
      * @var \FreeAsso\Model\Cause
@@ -78,6 +84,7 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
         $this->cau_public    = 1;
         $this->cau_available = 1;
         $this->cau_family    = self::FAMILY_NONE;
+        $this->cau_year      = date('Y');
         return $this;
     }
 
@@ -174,26 +181,49 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
     }
 
     /**
-     * Get proprietary
+     * Get origin
      * 
      * @param \FreeAsso\Model\Client $p_client
      * 
      * @return \FreeAsso\Model\Cause
      */
-    public function setProprietary($p_client)
+    public function setOrigin($p_client)
     {
-        $this->proprietary = $p_client;
+        $this->origin = $p_client;
         return $this;
     }
 
     /**
-     * Get proprietary
+     * Get origin
      *
      * @return \FreeAsso\Model\Client
      */
-    public function getProprietary()
+    public function getOrigin()
     {
-        return $this->proprietary;
+        return $this->origin;
+    }
+
+    /**
+     * Set raiser
+     * 
+     * @param \FreeAsso\Model\Client $p_raiser
+     * 
+     * @return \FreeAsso\Model\Cause
+     */
+    public function setRaiser($p_raiser)
+    {
+        $this->raiser = $p_raiser;
+        return $this;
+    }
+
+    /**
+     * Get raiser
+     * 
+     * @return \FreeAsso\Model\Client
+     */
+    public function getRaiser()
+    {
+        return $this->raiser;
     }
 
     /**

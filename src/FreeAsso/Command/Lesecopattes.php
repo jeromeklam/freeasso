@@ -66,6 +66,47 @@ class Lesecopattes
     }
 
     /**
+     * Foamattage code exploitation
+     * 
+     * @param mixed $p_code
+     * 
+     * @return NULL|string
+     */
+    protected function formatSiteCode($p_code)
+    {
+        $ret = null;
+        if (trim($p_code != '')) {
+            $codePays  = substr($p_code, 0, 2);
+            $codeInsee = substr($p_code, 2, 5);
+            $codeExp   = substr($p_code, 7, 3);
+            $ret = strtoupper($codePays) . '.' . $codeInsee . '.' . $codeExp;
+        }
+        return $ret;
+    }
+
+    /**
+     * Foamattage numéro de boucle
+     *
+     * @param mixed $p_code
+     *
+     * @return NULL|string
+     */
+    protected function formatCauseCode($p_code)
+    {
+        $ret = null;
+        if (trim($p_code != '')) {
+            $parts = explode('.', $p_code);
+            if (count($parts) == 3) {
+                $ret = 'FR.' . str_pad(intval($parts[0]), 3, '0', STR_PAD_LEFT) . 
+                    str_pad(intval($parts[1]), 3, '0', STR_PAD_LEFT) . '.' . 
+                    str_pad(intval($parts[2]), 5, '0', STR_PAD_LEFT)
+                ;
+            }
+        }
+        return $ret;
+    }
+
+    /**
      * Import data
      *
      * @param \FreeFW\Console\Input\Input $p_input
@@ -82,9 +123,13 @@ class Lesecopattes
         /**
          * Nettoyage
          */
-        $p_output->write("Nettoyage", true);
+        $p_output->write("Nettoyage : " . $brokerId, true);
         $query = $assoPdo->exec("UPDATE asso_cause SET parent1_cau_id = null, parent2_cau_id = null WHERE  brk_id = " . $brokerId);
+        $query = $assoPdo->exec("UPDATE asso_site SET parent_site_id = null WHERE  brk_id = " . $brokerId);
+        $query = $assoPdo->exec("DELETE FROM asso_cause_movement WHERE brk_id = " . $brokerId);
+        $query = $assoPdo->exec("DELETE FROM asso_cause_media WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_cause WHERE brk_id = " . $brokerId);
+        $query = $assoPdo->exec("DELETE FROM asso_site_media WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_site WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_cause_type WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_cause_main_type WHERE brk_id = " . $brokerId);
@@ -122,6 +167,13 @@ class Lesecopattes
         ;
         if (!$myTypeOrig->create()) {
             var_export($myTypeOrig->getErrors());die;
+        }
+        $myTypeRaiser = \FreeFW\DI\DI::get('FreeAsso::Model::ClientType');
+        $myTypeRaiser
+            ->setClitName('Eleveur')
+        ;
+        if (!$myTypeRaiser->create()) {
+            var_export($myTypeRaiser->getErrors());die;
         }
         $myTypeOwner = \FreeFW\DI\DI::get('FreeAsso::Model::ClientType');
         $myTypeOwner
@@ -205,7 +257,7 @@ class Lesecopattes
                 $coords = $this->getCoordsFromAddress($columns[4], $columns[5], $columns[2]);
                 $mySite
                     ->setSiteName($columns[1])
-                    ->setSiteCode($columns[21])
+                    ->setSiteCode($this->formatSiteCode($columns[21]))
                     ->setSiteAddress1($columns[4])
                     ->setSiteCp($columns[5])
                     ->setSiteTown($columns[2])
@@ -529,12 +581,13 @@ class Lesecopattes
         /**
          * Causes
          */
-        $tabCauses = [];
-        $tabCType  = [];
-        $tabCMType = [];
-        $tabColor  = [];
-        $tabOrigs  = [];
-        $hCauses   = fopen(__DIR__ . '/../../../datas/lesecopattes/causes.csv', 'r');
+        $tabCauses  = [];
+        $tabCType   = [];
+        $tabCMType  = [];
+        $tabColor   = [];
+        $tabOrigs   = [];
+        $tabRaisers = [];
+        $hCauses    = fopen(__DIR__ . '/../../../datas/lesecopattes/causes.csv', 'r');
         if ($hCauses) {
             while (($columns = fgetcsv($hCauses, 1000, ";")) !== FALSE) {
                 if ($columns[2] == 'Race') {
@@ -557,6 +610,24 @@ class Lesecopattes
                         $tabOrigs[$columns[10]] = $myOrig->getCliId();
                     }
                     $origId = $tabOrigs[$columns[10]];
+                }
+                $raisId = false;
+                if ($columns[11] != '') {
+                    if (!array_key_exists($columns[11], $tabRaisers)) {
+                        $myRaiser = \FreeFW\DI\DI::get('FreeAsso::Model::Client');
+                        $myRaiser
+                            ->setClitId($myTypeRaiser->getClitId())
+                            ->setClicId($myClicPart->getClicId())
+                            ->setCliLastname($columns[11])
+                            ->setCntyId($france->getCntyId())
+                            ->setLangId($lang->getLangId())
+                        ;
+                        if (!$myRaiser->create()) {
+                            var_export($myRaiser->getErrors());die;
+                        }
+                        $tabRaisers[$columns[11]] = $myRaiser->getCliId();
+                    }
+                    $raisId = $tabRaisers[$columns[11]];
                 }
                 $camtId = null;
                 if ($columns[1] != '') {
@@ -592,12 +663,15 @@ class Lesecopattes
                 $myCause = \FreeFW\DI\DI::get('FreeAsso::Model::Cause');
                 $myCause
                     ->setCauName($columns[0])
-                    ->setCauCode($columns[0])
+                    ->setCauCode($this->formatCauseCode($columns[0]))
                     ->setCautId($cautId)
                     ->setCauFamily(\FreeAsso\Model\Cause::FAMILY_ANIMAL)
                 ;
                 if ($origId) {
                     $myCause->setOrigCliId($origId);
+                }
+                if ($raisId) {
+                    $myCause->setRaisCliId($raisId);
                 }
                 if ($columns[15] != '') {
                     $myCause->setCauDesc($columns[15]);
@@ -612,7 +686,7 @@ class Lesecopattes
                     $myCause->setCauSex("OTHER");
                 }
                 if ($columns[4] != '') {
-                    $myCause->setCauNumber_1(intval(str_replace([' ', " ", "\t"], '', $columns[4])));
+                    $myCause->setCauYear(intval($columns[4]));
                 }
                 if ($columns[8] != '') {
                     $myCause->setCauFrom(\FreeFW\Tools\Date::ddmmyyyyToMysql($columns[8]));
@@ -624,10 +698,6 @@ class Lesecopattes
                     $myCause->setCauString_1(strtolower($columns[9]));
                 } else {
                     $myCause->setCauString_1('indefini');
-                }
-                
-                if ($columns[10] != '') {
-                    $myCause->setCauString_2($columns[10]);
                 }
                 if ($columns[14] != '') {
                     if (array_key_exists(strtolower($columns[14]), $tabSites)) {
@@ -664,23 +734,6 @@ class Lesecopattes
         ;
         if (!$myCfgColor->create()) {
             var_export($myCfgColor->getErrors());die;
-        }
-        /* *************************** */
-        $myDataBorn = \FreeFW\DI\DI::get('FreeAsso::Model::Data');
-        $myDataBorn
-            ->setDataName("Année de naissance")
-            ->setDataType(\FreeAsso\Model\Data::TYPE_NUMBER)
-        ;
-        if (!$myDataBorn->create()) {
-            var_export($myDataBorn->getErrors());die;
-        }
-        $myCfgBorn = \FreeFW\DI\DI::get('FreeAsso::Model::Config');
-        $myCfgBorn
-            ->setAcfgCode('DATA_ID@' . \FreeAsso\Model\Config::CONFIG_CAU_NUMBER_1)
-            ->setAcfgValue($myDataBorn->getDataId())
-        ;
-        if (!$myCfgBorn->create()) {
-            var_export($myCfgBorn->getErrors());die;
         }
         /* *************************** */
         $myDataProv = \FreeFW\DI\DI::get('FreeAsso::Model::Data');

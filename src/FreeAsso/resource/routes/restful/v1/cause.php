@@ -46,7 +46,7 @@ $causeRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['cause_type', 'cause_type.cause_main_type', 'site', 'parent1', 'parent2', 'proprietary', 'default_blob']
+            'default' => ['cause_type', 'cause_type.cause_main_type', 'site', 'parent1', 'parent2', 'origin', 'raiser', 'default_blob']
         ],
         'results' => [
             '200' => [
@@ -64,7 +64,7 @@ $causeRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['cause_type', 'cause_type.cause_main_type', 'site', 'parent1', 'parent2', 'proprietary']
+            'default' => ['cause_type', 'cause_type.cause_main_type', 'site', 'parent1', 'parent2', 'origin', 'raiser', ]
         ],
         'results' => [
             '200' => [
@@ -82,7 +82,7 @@ $causeRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['cause_type', 'cause_type.cause_main_type', 'site', 'parent1', 'parent2', 'proprietary']
+            'default' => ['cause_type', 'cause_type.cause_main_type', 'site', 'parent1', 'parent2', 'origin', 'raiser']
         ],
         'results' => [
             '201' => [

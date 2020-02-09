@@ -10,7 +10,7 @@ $config = [
         'level' => \Psr\Log\LogLevel::DEBUG
     ],
     'sso' => [
-        'broker' => 'kalaweit'
+        'broker' => 'ecopattes'
     ],
     'queue' => [
         'name' => 'freeasso-lesecopattes',

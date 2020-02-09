@@ -180,42 +180,42 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
     ];
     protected static $PRP_SITE_DATE_1 = [
         FFCST::PROPERTY_PRIVATE => 'site_date_1',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIME,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_SITE_DATE_2 = [
         FFCST::PROPERTY_PRIVATE => 'site_date_2',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIME,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_SITE_DATE_3 = [
         FFCST::PROPERTY_PRIVATE => 'site_date_3',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIME,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_SITE_DATE_4 = [
         FFCST::PROPERTY_PRIVATE => 'site_date_4',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIME,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_SITE_TEXT_1 = [
         FFCST::PROPERTY_PRIVATE => 'site_text_1',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BLOB,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_SITE_TEXT_2 = [
         FFCST::PROPERTY_PRIVATE => 'site_text_2',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BLOB,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_SITE_TEXT_3 = [
         FFCST::PROPERTY_PRIVATE => 'site_text_3',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BLOB,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_SITE_TEXT_4 = [
         FFCST::PROPERTY_PRIVATE => 'site_text_4',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BLOB,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_SITE_BOOL_1 = [
@@ -273,6 +273,16 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
         FFCST::PROPERTY_OPTIONS => []
     ];
+    protected static $PRP_SITE_CONFORM = [
+        FFCST::PROPERTY_PRIVATE => 'site_conform',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_SITE_CONFORM_TEXT = [
+        FFCST::PROPERTY_PRIVATE => 'site_conform_text',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
     
     /**
      * get properties
@@ -282,52 +292,54 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
     public static function getProperties()
     {
         return [
-            'site_id'        => self::$PRP_SITE_ID,
-            'brk_id'         => self::$PRP_BRK_ID,
-            'sitt_id'        => self::$PRP_SITT_ID,
-            'site_name'      => self::$PRP_SITE_NAME,
-            'site_code'      => self::$PRP_SITE_CODE,
-            'site_address1'  => self::$PRP_SITE_ADDRESS1,
-            'site_address2'  => self::$PRP_SITE_ADDRESS2,
-            'site_address3'  => self::$PRP_SITE_ADDRESS3,
-            'site_cp'        => self::$PRP_SITE_CP,
-            'site_town'      => self::$PRP_SITE_TOWN,
-            'owner_cli_id'   => self::$PRP_OWNER_CLI_ID,
-            'sanit_cli_id'   => self::$PRP_SANIT_CLI_ID,
-            'parent_site_id' => self::$PRP_PARENT_SITE_ID,
-            'site_area'      => self::$PRP_SITE_AREA,
-            'site_position'  => self::$PRP_SITE_POSITION,
-            'site_plots'     => self::$PRP_SITE_PLOTS,
-            'site_left'      => self::$PRP_SITE_LEFT,
-            'site_right'     => self::$PRP_SITE_RIGHT,
-            'site_level'     => self::$PRP_SITE_LEVEL,
-            'site_string_1'  => self::$PRP_SITE_STRING_1,
-            'site_string_2'  => self::$PRP_SITE_STRING_2,
-            'site_string_3'  => self::$PRP_SITE_STRING_3,
-            'site_string_4'  => self::$PRP_SITE_STRING_4,
-            'site_number_1'  => self::$PRP_SITE_NUMBER_1,
-            'site_number_2'  => self::$PRP_SITE_NUMBER_2,
-            'site_number_3'  => self::$PRP_SITE_NUMBER_3,
-            'site_number_4'  => self::$PRP_SITE_NUMBER_4,
-            'site_date_1'    => self::$PRP_SITE_DATE_1,
-            'site_date_2'    => self::$PRP_SITE_DATE_2,
-            'site_date_3'    => self::$PRP_SITE_DATE_3,
-            'site_date_4'    => self::$PRP_SITE_DATE_4,
-            'site_text_1'    => self::$PRP_SITE_TEXT_1,
-            'site_text_2'    => self::$PRP_SITE_TEXT_2,
-            'site_text_3'    => self::$PRP_SITE_TEXT_3,
-            'site_text_4'    => self::$PRP_SITE_TEXT_4,
-            'site_bool_1'    => self::$PRP_SITE_BOOL_1,
-            'site_bool_2'    => self::$PRP_SITE_BOOL_2,
-            'site_bool_3'    => self::$PRP_SITE_BOOL_3,
-            'site_bool_4'    => self::$PRP_SITE_BOOL_4,
-            'site_coord'     => self::$PRP_SITE_COORD,
-            'site_code_ex'   => self::$PRP_SITE_CODE_EX,
-            'site_desc'      => self::$PRP_SITE_DESC,
-            'site_string_5'  => self::$PRP_SITE_STRING_5,
-            'site_string_6'  => self::$PRP_SITE_STRING_6,
-            'site_number_5'  => self::$PRP_SITE_NUMBER_5,
-            'site_number_6'  => self::$PRP_SITE_NUMBER_6,
+            'site_id'           => self::$PRP_SITE_ID,
+            'brk_id'            => self::$PRP_BRK_ID,
+            'sitt_id'           => self::$PRP_SITT_ID,
+            'site_name'         => self::$PRP_SITE_NAME,
+            'site_code'         => self::$PRP_SITE_CODE,
+            'site_address1'     => self::$PRP_SITE_ADDRESS1,
+            'site_address2'     => self::$PRP_SITE_ADDRESS2,
+            'site_address3'     => self::$PRP_SITE_ADDRESS3,
+            'site_cp'           => self::$PRP_SITE_CP,
+            'site_town'         => self::$PRP_SITE_TOWN,
+            'owner_cli_id'      => self::$PRP_OWNER_CLI_ID,
+            'sanit_cli_id'      => self::$PRP_SANIT_CLI_ID,
+            'parent_site_id'    => self::$PRP_PARENT_SITE_ID,
+            'site_area'         => self::$PRP_SITE_AREA,
+            'site_position'     => self::$PRP_SITE_POSITION,
+            'site_plots'        => self::$PRP_SITE_PLOTS,
+            'site_left'         => self::$PRP_SITE_LEFT,
+            'site_right'        => self::$PRP_SITE_RIGHT,
+            'site_level'        => self::$PRP_SITE_LEVEL,
+            'site_string_1'     => self::$PRP_SITE_STRING_1,
+            'site_string_2'     => self::$PRP_SITE_STRING_2,
+            'site_string_3'     => self::$PRP_SITE_STRING_3,
+            'site_string_4'     => self::$PRP_SITE_STRING_4,
+            'site_number_1'     => self::$PRP_SITE_NUMBER_1,
+            'site_number_2'     => self::$PRP_SITE_NUMBER_2,
+            'site_number_3'     => self::$PRP_SITE_NUMBER_3,
+            'site_number_4'     => self::$PRP_SITE_NUMBER_4,
+            'site_date_1'       => self::$PRP_SITE_DATE_1,
+            'site_date_2'       => self::$PRP_SITE_DATE_2,
+            'site_date_3'       => self::$PRP_SITE_DATE_3,
+            'site_date_4'       => self::$PRP_SITE_DATE_4,
+            'site_text_1'       => self::$PRP_SITE_TEXT_1,
+            'site_text_2'       => self::$PRP_SITE_TEXT_2,
+            'site_text_3'       => self::$PRP_SITE_TEXT_3,
+            'site_text_4'       => self::$PRP_SITE_TEXT_4,
+            'site_bool_1'       => self::$PRP_SITE_BOOL_1,
+            'site_bool_2'       => self::$PRP_SITE_BOOL_2,
+            'site_bool_3'       => self::$PRP_SITE_BOOL_3,
+            'site_bool_4'       => self::$PRP_SITE_BOOL_4,
+            'site_coord'        => self::$PRP_SITE_COORD,
+            'site_code_ex'      => self::$PRP_SITE_CODE_EX,
+            'site_desc'         => self::$PRP_SITE_DESC,
+            'site_string_5'     => self::$PRP_SITE_STRING_5,
+            'site_string_6'     => self::$PRP_SITE_STRING_6,
+            'site_number_5'     => self::$PRP_SITE_NUMBER_5,
+            'site_number_6'     => self::$PRP_SITE_NUMBER_6,
+            'site_conform'      => self::$PRP_SITE_CONFORM,
+            'site_conform_text' => self::$PRP_SITE_CONFORM_TEXT,
         ];
     }
 

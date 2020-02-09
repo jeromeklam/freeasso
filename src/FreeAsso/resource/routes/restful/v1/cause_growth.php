@@ -1,15 +1,15 @@
 <?php
-$siteRoutes = [
+$causeGrowthRoutes = [
     /**
      * ########################################################################
-     * Sites
+     * Cause growths
      * ########################################################################
      */
-    'freeasso.site.autocomplete' => [
+    'freeasso.causegrowth.autocomplete' => [
         'method'     => \FreeFW\Router\Route::METHOD_GET,
-        'model'      => 'FreeAsso::Model::Site',
-        'url'        => '/v1/asso/site/autocomplete/:search',
-        'controller' => 'FreeAsso::Controller::Site',
+        'model'      => 'FreeAsso::Model::CauseGrowth',
+        'url'        => '/v1/asso/cause_growth/autocomplete/:search',
+        'controller' => 'FreeAsso::Controller::CauseGrowth',
         'function'   => 'autocomplete',
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
@@ -19,83 +19,83 @@ $siteRoutes = [
             ]
         ]
     ],
-    'freeasso.site.getall' => [
+    'freeasso.causegrowth.getall' => [
         'method'     => \FreeFW\Router\Route::METHOD_GET,
-        'model'      => 'FreeAsso::Model::Site',
-        'url'        => '/v1/asso/site',
-        'controller' => 'FreeAsso::Controller::Site',
+        'model'      => 'FreeAsso::Model::CauseGrowth',
+        'url'        => '/v1/asso/cause_growth',
+        'controller' => 'FreeAsso::Controller::CauseGrowth',
         'function'   => 'getAll',
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['site_type', 'parent_site']
+            'default' => ['cause']
         ],
         'results' => [
             '200' => [
                 'type'  => \FreeFW\Router\Route::RESULT_LIST,
-                'model' => 'FreeSso::Model::Site'
+                'model' => 'FreeSso::Model::CauseGrowth'
             ]
         ]
     ],
-    'freeasso.site.getone' => [
+    'freeasso.causegrowth.getone' => [
         'method'     => \FreeFW\Router\Route::METHOD_GET,
-        'model'      => 'FreeAsso::Model::Site',
-        'url'        => '/v1/asso/site/:site_id',
-        'controller' => 'FreeAsso::Controller::Site',
+        'model'      => 'FreeAsso::Model::CauseGrowth',
+        'url'        => '/v1/asso/cause_growth/:grow_id',
+        'controller' => 'FreeAsso::Controller::CauseGrowth',
         'function'   => 'getOne',
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['site_type', 'owner', 'sanitary', 'parent_site']
+            'default' => ['cause']
         ],
         'results' => [
             '200' => [
                 'type'  => \FreeFW\Router\Route::RESULT_OBJECT,
-                'model' => 'FreeSso::Model::Site'
+                'model' => 'FreeSso::Model::CauseGrowth'
             ]
         ]
     ],
-    'freeasso.site.updateone' => [
+    'freeasso.causegrowth.updateone' => [
         'method'     => \FreeFW\Router\Route::METHOD_PUT,
-        'model'      => 'FreeAsso::Model::Site',
-        'url'        => '/v1/asso/site/:site_id',
-        'controller' => 'FreeAsso::Controller::Site',
+        'model'      => 'FreeAsso::Model::CauseGrowth',
+        'url'        => '/v1/asso/cause_growth/:grow_id',
+        'controller' => 'FreeAsso::Controller::CauseGrowth',
         'function'   => 'updateOne',
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['site_type', 'owner', 'sanitary', 'parent_site']
+            'default' => ['cause']
         ],
         'results' => [
             '200' => [
                 'type'  => \FreeFW\Router\Route::RESULT_OBJECT,
-                'model' => 'FreeSso::Model::Site'
+                'model' => 'FreeSso::Model::CauseGrowth'
             ]
         ]
     ],
-    'freeasso.site.createone' => [
+    'freeasso.causegrowth.createone' => [
         'method'     => \FreeFW\Router\Route::METHOD_POST,
-        'model'      => 'FreeAsso::Model::Site',
-        'url'        => '/v1/asso/site',
-        'controller' => 'FreeAsso::Controller::Site',
+        'model'      => 'FreeAsso::Model::CauseGrowth',
+        'url'        => '/v1/asso/cause_growth',
+        'controller' => 'FreeAsso::Controller::CauseGrowth',
         'function'   => 'createOne',
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['site_type', 'owner', 'sanitary', 'parent_site']
+            'default' => ['cause']
         ],
         'results' => [
             '201' => [
                 'type'  => \FreeFW\Router\Route::RESULT_OBJECT,
-                'model' => 'FreeSso::Model::Site'
+                'model' => 'FreeSso::Model::CauseGrowth'
             ]
         ]
     ],
-    'freeasso.site.deleteone' => [
+    'freeasso.causegrowth.deleteone' => [
         'method'     => \FreeFW\Router\Route::METHOD_DELETE,
-        'model'      => 'FreeAsso::Model::Site',
-        'url'        => '/v1/asso/site/:site_id',
-        'controller' => 'FreeAsso::Controller::Site',
+        'model'      => 'FreeAsso::Model::CauseGrowth',
+        'url'        => '/v1/asso/cause_growth/:grow_id',
+        'controller' => 'FreeAsso::Controller::CauseGrowth',
         'function'   => 'removeOne',
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],

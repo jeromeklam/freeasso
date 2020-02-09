@@ -74,7 +74,12 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
      * @var int
      */
     protected $orig_cli_id = null;
-    
+
+    /**
+     * rais_cli_id
+     * @var int
+     */
+    protected $rais_cli_id = null;
 
     /**
      * cau_mnt
@@ -225,6 +230,12 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
      * @var string
      */
     protected $cau_sex = null;
+
+    /**
+     * cau_year
+     * @var string
+     */
+    protected $cau_year = null;
 
     /**
      * parent1_cau_id
@@ -477,7 +488,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     {
         return $this->orig_cli_id;
     }
-    
+
     /**
      * Set site_id
      *
@@ -490,7 +501,30 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
         $this->orig_cli_id = $p_value;
         return $this;
     }
-    
+
+    /**
+     * Get rais_cli_id
+     *
+     * @return int
+     */
+    public function getRaisCliId()
+    {
+        return $this->rais_cli_id;
+    }
+
+    /**
+     * Set rais_cli_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Cause
+     */
+    public function setRaisCliId($p_value)
+    {
+        $this->rais_cli_id = $p_value;
+        return $this;
+    }
+
     /**
      * Get site_id
      *
@@ -1074,6 +1108,29 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     public function getCauSex()
     {
         return $this->cau_sex;
+    }
+
+    /**
+     * Set cau_year
+     *
+     * @param number $p_value
+     *
+     * @return \FreeAsso\Model\Cause
+     */
+    public function setCauYear($p_value)
+    {
+        $this->cau_year = $p_value;
+        return $this;
+    }
+    
+    /**
+     * Get cau_year
+     *
+     * @return number
+     */
+    public function getCauYear()
+    {
+        return $this->cau_year;
     }
 
     /**

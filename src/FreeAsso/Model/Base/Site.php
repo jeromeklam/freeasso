@@ -286,6 +286,18 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     protected $site_number_6 = null;
 
     /**
+     * site_conform
+     * @var bool
+     */
+    protected $site_conform = true;
+
+    /**
+     * site_conform
+     * @var string
+     */
+    protected $site_conform_text = null;
+
+    /**
      * Set site_id
      *
      * @param int $p_value
@@ -1341,5 +1353,51 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     public function getSiteDesc()
     {
         return $this->site_desc;
+    }
+
+    /**
+     * Set site_conform
+     * 
+     * @param boolean $p_value
+     * 
+     * @return \FreeAsso\Model\Base\Site
+     */
+    public function setSiteConform($p_value)
+    {
+        $this->site_conform = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get site_conform
+     * 
+     * @return boolean
+     */
+    public function getSiteConform()
+    {
+        return $this->site_conform;
+    }
+
+    /**
+     * Set site_conform_text
+     *
+     * @param boolean $p_value
+     *
+     * @return \FreeAsso\Model\Base\Site
+     */
+    public function setSiteConformText($p_value)
+    {
+        $this->site_conform_text = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get site_conform_text
+     *
+     * @return string
+     */
+    public function getSiteConformText()
+    {
+        return $this->site_conform_text;
     }
 }

@@ -944,6 +944,20 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'encoding' => 'utf8',
                 'after' => 'site_number_6',
             ])
+            ->addColumn('site_conform', 'boolean', [
+                'null' => false,
+                'default' => '1',
+                'limit' => MysqlAdapter::INT_TINY,
+                'after' => 'site_desc',
+            ])
+            ->addColumn('site_conform_text', 'text', [
+                'null' => true,
+                'default' => null,
+                'limit' => 65535,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'site_conform',
+            ])
             ->addIndex(['site_name', 'site_to', 'brk_id'], [
                 'name' => 'ix_site_site_name',
                 'unique' => true,
@@ -2105,6 +2119,61 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'after' => 'rate_currency',
             ])
             ->create();
+        $this->table('asso_cause_growth', [
+                'id' => false,
+                'primary_key' => ['grow_id'],
+                'engine' => 'InnoDB',
+                'encoding' => 'utf8',
+                'collation' => 'utf8_general_ci',
+                'comment' => '',
+                'row_format' => 'DYNAMIC',
+            ])
+            ->addColumn('grow_id', 'biginteger', [
+                'null' => false,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'identity' => 'enable',
+            ])
+            ->addColumn('brk_id', 'biginteger', [
+                'null' => false,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'after' => 'grow_id',
+            ])
+            ->addColumn('cau_id', 'biginteger', [
+                'null' => false,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'after' => 'brk_id',
+            ])
+            ->addColumn('grow_ts', 'timestamp', [
+                'null' => false,
+                'default' => 'current_timestamp()',
+                'after' => 'cau_id',
+            ])
+            ->addColumn('grow_weight', 'decimal', [
+                'null' => true,
+                'default' => null,
+                'precision' => '5',
+                'scale' => '2',
+                'after' => 'grow_ts',
+            ])
+            ->addColumn('grow_height', 'decimal', [
+                'null' => true,
+                'default' => null,
+                'precision' => '5',
+                'scale' => '2',
+                'after' => 'grow_weight',
+            ])
+            ->addIndex(['brk_id'], [
+                'name' => 'fk_cause_growth_broker',
+                'unique' => false,
+            ])
+            ->addIndex(['cau_id'], [
+                'name' => 'fk_cause_growth_cause',
+                'unique' => false,
+            ])
+            ->create();
         $this->table('asso_data', [
                 'id' => false,
                 'primary_key' => ['data_id'],
@@ -3228,11 +3297,19 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'encoding' => 'utf8',
                 'after' => 'camt_id',
             ])
+            ->addColumn('caut_pattern', 'string', [
+                'null' => true,
+                'default' => null,
+                'limit' => 255,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'caut_name',
+            ])
             ->addColumn('caut_receipt', 'integer', [
                 'null' => false,
                 'default' => '1',
                 'limit' => '1',
-                'after' => 'caut_name',
+                'after' => 'caut_pattern',
             ])
             ->addColumn('caut_max_mnt', 'integer', [
                 'null' => true,
@@ -4758,11 +4835,19 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'encoding' => 'utf8',
                 'after' => 'brk_id',
             ])
+            ->addColumn('sitt_pattern', 'string', [
+                'null' => true,
+                'default' => null,
+                'limit' => 255,
+                'collation' => 'utf8_general_ci',
+                'encoding' => 'utf8',
+                'after' => 'sitt_name',
+            ])
             ->addColumn('sitt_string_1', 'integer', [
                 'null' => false,
                 'default' => '0',
                 'limit' => MysqlAdapter::INT_SMALL,
-                'after' => 'sitt_name',
+                'after' => 'sitt_pattern',
             ])
             ->addColumn('sitt_string_2', 'integer', [
                 'null' => false,
@@ -5327,12 +5412,19 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'signed' => false,
                 'after' => 'site_id',
             ])
+            ->addColumn('rais_cli_id', 'biginteger', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::INT_BIG,
+                'signed' => false,
+                'after' => 'orig_cli_id',
+            ])
             ->addColumn('cau_mnt', 'integer', [
                 'null' => true,
                 'default' => null,
                 'limit' => MysqlAdapter::INT_REGULAR,
                 'comment' => 'cents',
-                'after' => 'orig_cli_id',
+                'after' => 'rais_cli_id',
             ])
             ->addColumn('cau_code', 'string', [
                 'null' => true,
@@ -5356,13 +5448,19 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'values' => ['M', 'F', 'OTHER'],
                 'after' => 'cau_family',
             ])
+            ->addColumn('cau_year', 'integer', [
+                'null' => true,
+                'default' => null,
+                'limit' => MysqlAdapter::INT_REGULAR,
+                'after' => 'cau_sex',
+            ])
             ->addColumn('cau_string_1', 'string', [
                 'null' => true,
                 'default' => null,
                 'limit' => 255,
                 'collation' => 'utf8_general_ci',
                 'encoding' => 'utf8',
-                'after' => 'cau_sex',
+                'after' => 'cau_year',
             ])
             ->addColumn('cau_string_2', 'string', [
                 'null' => true,
@@ -5558,6 +5656,10 @@ class Initial extends Phinx\Migration\AbstractMigration
             ])
             ->addIndex(['caum_text_id'], [
                 'name' => 'fk_cause_cause_media_text',
+                'unique' => false,
+            ])
+            ->addIndex(['rais_cli_id'], [
+                'name' => 'fk_cause_raiser',
                 'unique' => false,
             ])
             ->create();
@@ -6245,12 +6347,22 @@ class Initial extends Phinx\Migration\AbstractMigration
                 'default' => null,
                 'after' => 'don_desc',
             ])
+            ->addColumn('don_ask_ts', 'timestamp', [
+                'null' => true,
+                'default' => null,
+                'after' => 'don_ts',
+            ])
+            ->addColumn('don_real_ts', 'timestamp', [
+                'null' => true,
+                'default' => null,
+                'after' => 'don_ask_ts',
+            ])
             ->addColumn('don_status', 'enum', [
                 'null' => false,
                 'default' => '\'WAIT\'',
                 'limit' => 4,
                 'values' => ['WAIT', 'OK', 'NOK', 'NEXT'],
-                'after' => 'don_ts',
+                'after' => 'don_real_ts',
             ])
             ->addColumn('don_mnt', 'decimal', [
                 'null' => true,

@@ -42,6 +42,11 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
+    protected static $PRP_CAUT_PATTERN = [
+        FFCST::PROPERTY_PRIVATE => 'caut_pattern',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
     protected static $PRP_CAUT_RECEIPT = [
         FFCST::PROPERTY_PRIVATE => 'caut_receipt',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
@@ -180,6 +185,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
             'brk_id'          => self::$PRP_BRK_ID,
             'camt_id'         => self::$PRP_CAMT_ID,
             'caut_name'       => self::$PRP_CAUT_NAME,
+            'caut_pattern'    => self::$PRP_CAUT_PATTERN,
             'caut_receipt'    => self::$PRP_CAUT_RECEIPT,
             'caut_max_mnt'    => self::$PRP_CAUT_MAX_MNT,
             'caut_min_mnt'    => self::$PRP_CAUT_MIN_MNT,

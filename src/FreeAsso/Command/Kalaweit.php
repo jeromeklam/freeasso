@@ -684,7 +684,11 @@ class Kalaweit
                     var_export('Erreur ts !');
                     continue;
                 }
-                $myDonation->setDonTs($ts);
+                $myDonation
+                    ->setDonTs($ts)
+                    ->setDonAskTs($ts)
+                    ->setDonRealTs($ts)
+                ;
                 if ($row->etat_paiement == '1') {
                     $myDonation
                         ->setDonStatus(\FreeAsso\Model\Donation::STATUS_OK)

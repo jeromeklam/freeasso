@@ -33,14 +33,24 @@ class Donation extends \FreeAsso\Model\Base\Donation
     protected $cause = null;
 
     /**
+     * Payment Type
+     * @var \FreeAsso\Model\PaymentType
+     */
+    protected $payment_type = null;
+
+    /**
      *
      * {@inheritDoc}
      * @see \FreeFW\Core\Model::init()
      */
     public function init()
     {
-        $this->don_id = 0;
-        $this->brk_id = 0;
+        $this->don_id      = 0;
+        $this->brk_id      = 0;
+        $this->don_ts      = \FreeFW\Tools\Date::getCurrentTimestamp();
+        $this->don_ask_ts  = \FreeFW\Tools\Date::getCurrentTimestamp();
+        $this->don_real_ts = \FreeFW\Tools\Date::getCurrentTimestamp();
+        $this->don_status  = self::STATUS_WAIT;
         return $this;
     }
 
@@ -88,5 +98,28 @@ class Donation extends \FreeAsso\Model\Base\Donation
     public function getCause()
     {
         return $this->cause;
+    }
+
+    /**
+     * Set payment type
+     *
+     * @param \FreeAsso\Model\PaymentType $p_payment_type
+     *
+     * @return \FreeAsso\Model\Sponsorship
+     */
+    public function setPaymentType($p_payment_type)
+    {
+        $this->payment_type = $p_payment_type;
+        return $this;
+    }
+
+    /**
+     * Get payment type
+     *
+     * @return \FreeAsso\Model\PaymentType
+     */
+    public function getPaymentType()
+    {
+        return $this->payment_type;
     }
 }

@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/alert.php';
+require_once __DIR__ . '/cause_growth.php';
 require_once __DIR__ . '/cause_link.php';
 require_once __DIR__ . '/cause_main_type.php';
 require_once __DIR__ . '/cause_media.php';
@@ -22,6 +23,7 @@ require_once __DIR__ . '/sponsorship.php';
 
 $localRoutes = array_merge(
     $alertRoutes,
+    $causeGrowthRoutes,
     $causeLinkRoutes,
     $causeMainTypeRoutes,
     $causeMediaRoutes,

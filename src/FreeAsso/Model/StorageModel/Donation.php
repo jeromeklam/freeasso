@@ -68,8 +68,18 @@ abstract class Donation extends \FreeFW\Core\StorageModel
     ];
     protected static $PRP_DON_TS = [
         FFCST::PROPERTY_PRIVATE => 'don_ts',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIME,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+    ];
+    protected static $PRP_DON_ASK_TS = [
+        FFCST::PROPERTY_PRIVATE => 'don_ask_ts',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+    ];
+    protected static $PRP_DON_REAL_TS = [
+        FFCST::PROPERTY_PRIVATE => 'don_real_ts',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_DON_STATUS = [
         FFCST::PROPERTY_PRIVATE => 'don_status',
@@ -79,7 +89,7 @@ abstract class Donation extends \FreeFW\Core\StorageModel
     protected static $PRP_DON_MNT = [
         FFCST::PROPERTY_PRIVATE => 'don_mnt',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DECIMAL,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_PTYP_ID = [
         FFCST::PROPERTY_PRIVATE => 'ptyp_id',
@@ -100,7 +110,7 @@ abstract class Donation extends \FreeFW\Core\StorageModel
     ];
     protected static $PRP_DON_DSTAT = [
         FFCST::PROPERTY_PRIVATE => 'don_dstat',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIME,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_REC_ID = [
@@ -115,12 +125,12 @@ abstract class Donation extends \FreeFW\Core\StorageModel
     ];
     protected static $PRP_DON_SPONSORS = [
         FFCST::PROPERTY_PRIVATE => 'don_sponsors',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BLOB,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_DON_DISPLAY_SITE = [
         FFCST::PROPERTY_PRIVATE => 'don_display_site',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => []
     ];
 
@@ -139,6 +149,8 @@ abstract class Donation extends \FreeFW\Core\StorageModel
             'spo_id'           => self::$PRP_SPO_ID,
             'don_desc'         => self::$PRP_DON_DESC,
             'don_ts'           => self::$PRP_DON_TS,
+            'don_ask_ts'       => self::$PRP_DON_ASK_TS,
+            'don_real_ts'      => self::$PRP_DON_REAL_TS,
             'don_status'       => self::$PRP_DON_STATUS,
             'don_mnt'          => self::$PRP_DON_MNT,
             'ptyp_id'          => self::$PRP_PTYP_ID,

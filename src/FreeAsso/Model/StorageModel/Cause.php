@@ -83,7 +83,19 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_PRIVATE => 'orig_cli_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
-        FFCST::PROPERTY_FK      => ['proprietary' =>
+        FFCST::PROPERTY_FK      => ['origin' =>
+            [
+                'model' => 'FreeAsso::Model::Client',
+                'field' => 'cli_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
+    protected static $PRP_RAIS_CLI_ID = [
+        FFCST::PROPERTY_PRIVATE => 'rais_cli_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['raiser' =>
             [
                 'model' => 'FreeAsso::Model::Client',
                 'field' => 'cli_id',
@@ -216,6 +228,11 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
         FFCST::PROPERTY_OPTIONS => []
     ];
+    protected static $PRP_CAU_YEAR = [
+        FFCST::PROPERTY_PRIVATE => 'cau_year',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
     protected static $PRP_PARENT1_CAU_ID = [
         FFCST::PROPERTY_PRIVATE => 'parent1_cau_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
@@ -284,6 +301,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
             'cau_available'  => self::$PRP_CAU_AVAILABLE,
             'site_id'        => self::$PRP_SITE_ID,
             'orig_cli_id'    => self::$PRP_ORIG_CLI_ID,
+            'rais_cli_id'    => self::$PRP_RAIS_CLI_ID,
             'cau_mnt'        => self::$PRP_CAU_MNT,
             'cau_code'       => self::$PRP_CAU_CODE,
             'cau_family'     => self::$PRP_CAU_FAMILY,
@@ -309,6 +327,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
             'cau_bool_4'     => self::$PRP_CAU_BOOL_4,
             'cau_coord'      => self::$PRP_CAU_COORD,
             'cau_sex'        => self::$PRP_CAU_SEX,
+            'cau_year'       => self::$PRP_CAU_YEAR,
             'parent1_cau_id' => self::$PRP_PARENT1_CAU_ID,
             'parent2_cau_id' => self::$PRP_PARENT2_CAU_ID,
             'caum_text_id'   => self::$PRP_CAUM_TEXT_ID,
