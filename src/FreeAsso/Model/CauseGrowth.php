@@ -40,6 +40,11 @@ class CauseGrowth extends \FreeAsso\Model\Base\CauseGrowth
     public function setCause($p_cause)
     {
         $this->cause = $p_cause;
+        if ($p_cause) {
+            $this->cau_id = $p_cause->getCauId();
+        } else {
+            $this->cau_id = null;
+        }
         return $this;
     }
 

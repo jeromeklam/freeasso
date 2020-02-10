@@ -74,102 +74,122 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
     ];
     protected static $PRP_CAUT_STRING_1 = [
         FFCST::PROPERTY_PRIVATE => 'caut_string_1',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_CAUT_STRING_2 = [
         FFCST::PROPERTY_PRIVATE => 'caut_string_2',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_CAUT_STRING_3 = [
         FFCST::PROPERTY_PRIVATE => 'caut_string_3',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_CAUT_STRING_4 = [
         FFCST::PROPERTY_PRIVATE => 'caut_string_4',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_CAUT_NUMBER_1 = [
         FFCST::PROPERTY_PRIVATE => 'caut_number_1',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_CAUT_NUMBER_2 = [
         FFCST::PROPERTY_PRIVATE => 'caut_number_2',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_CAUT_NUMBER_3 = [
         FFCST::PROPERTY_PRIVATE => 'caut_number_3',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_CAUT_NUMBER_4 = [
         FFCST::PROPERTY_PRIVATE => 'caut_number_4',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_CAUT_DATE_1 = [
         FFCST::PROPERTY_PRIVATE => 'caut_date_1',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_CAUT_DATE_2 = [
         FFCST::PROPERTY_PRIVATE => 'caut_date_2',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_CAUT_DATE_3 = [
         FFCST::PROPERTY_PRIVATE => 'caut_date_3',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_CAUT_DATE_4 = [
         FFCST::PROPERTY_PRIVATE => 'caut_date_4',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_CAUT_TEXT_1 = [
         FFCST::PROPERTY_PRIVATE => 'caut_text_1',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_CAUT_TEXT_2 = [
         FFCST::PROPERTY_PRIVATE => 'caut_text_2',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_CAUT_TEXT_3 = [
         FFCST::PROPERTY_PRIVATE => 'caut_text_3',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_CAUT_TEXT_4 = [
         FFCST::PROPERTY_PRIVATE => 'caut_text_4',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_CAUT_BOOL_1 = [
         FFCST::PROPERTY_PRIVATE => 'caut_bool_1',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_CAUT_BOOL_2 = [
         FFCST::PROPERTY_PRIVATE => 'caut_bool_2',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_CAUT_BOOL_3 = [
         FFCST::PROPERTY_PRIVATE => 'caut_bool_3',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_CAUT_BOOL_4 = [
         FFCST::PROPERTY_PRIVATE => 'caut_bool_4',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+    ];
+    protected static $PRP_CAUT_MAX_WEIGHT = [
+        FFCST::PROPERTY_PRIVATE => 'caut_max_weight',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DECIMAL,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+    ];
+    protected static $PRP_CAUT_MAX_HEIGHT = [
+        FFCST::PROPERTY_PRIVATE => 'caut_max_height',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DECIMAL,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+    ];
+    protected static $PRP_CAUT_GROWTH_FREQ = [
+        FFCST::PROPERTY_PRIVATE => 'caut_growth_freq',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+    ];
+    protected static $PRP_CAUT_GROWTH_GRAPH = [
+        FFCST::PROPERTY_PRIVATE => 'caut_growth_graph',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
 
@@ -181,36 +201,40 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
     public static function getProperties()
     {
         return [
-            'caut_id'         => self::$PRP_CAUT_ID,
-            'brk_id'          => self::$PRP_BRK_ID,
-            'camt_id'         => self::$PRP_CAMT_ID,
-            'caut_name'       => self::$PRP_CAUT_NAME,
-            'caut_pattern'    => self::$PRP_CAUT_PATTERN,
-            'caut_receipt'    => self::$PRP_CAUT_RECEIPT,
-            'caut_max_mnt'    => self::$PRP_CAUT_MAX_MNT,
-            'caut_min_mnt'    => self::$PRP_CAUT_MIN_MNT,
-            'caut_mnt_type'   => self::$PRP_CAUT_MNT_TYPE,
-            'caut_certificat' => self::$PRP_CAUT_CERTIFICAT,
-            'caut_string_1'   => self::$PRP_CAUT_STRING_1,
-            'caut_string_2'   => self::$PRP_CAUT_STRING_2,
-            'caut_string_3'   => self::$PRP_CAUT_STRING_3,
-            'caut_string_4'   => self::$PRP_CAUT_STRING_4,
-            'caut_number_1'   => self::$PRP_CAUT_NUMBER_1,
-            'caut_number_2'   => self::$PRP_CAUT_NUMBER_2,
-            'caut_number_3'   => self::$PRP_CAUT_NUMBER_3,
-            'caut_number_4'   => self::$PRP_CAUT_NUMBER_4,
-            'caut_date_1'     => self::$PRP_CAUT_DATE_1,
-            'caut_date_2'     => self::$PRP_CAUT_DATE_2,
-            'caut_date_3'     => self::$PRP_CAUT_DATE_3,
-            'caut_date_4'     => self::$PRP_CAUT_DATE_4,
-            'caut_text_1'     => self::$PRP_CAUT_TEXT_1,
-            'caut_text_2'     => self::$PRP_CAUT_TEXT_2,
-            'caut_text_3'     => self::$PRP_CAUT_TEXT_3,
-            'caut_text_4'     => self::$PRP_CAUT_TEXT_4,
-            'caut_bool_1'     => self::$PRP_CAUT_BOOL_1,
-            'caut_bool_2'     => self::$PRP_CAUT_BOOL_2,
-            'caut_bool_3'     => self::$PRP_CAUT_BOOL_3,
-            'caut_bool_4'     => self::$PRP_CAUT_BOOL_4
+            'caut_id'           => self::$PRP_CAUT_ID,
+            'brk_id'            => self::$PRP_BRK_ID,
+            'camt_id'           => self::$PRP_CAMT_ID,
+            'caut_name'         => self::$PRP_CAUT_NAME,
+            'caut_pattern'      => self::$PRP_CAUT_PATTERN,
+            'caut_receipt'      => self::$PRP_CAUT_RECEIPT,
+            'caut_max_mnt'      => self::$PRP_CAUT_MAX_MNT,
+            'caut_min_mnt'      => self::$PRP_CAUT_MIN_MNT,
+            'caut_mnt_type'     => self::$PRP_CAUT_MNT_TYPE,
+            'caut_certificat'   => self::$PRP_CAUT_CERTIFICAT,
+            'caut_string_1'     => self::$PRP_CAUT_STRING_1,
+            'caut_string_2'     => self::$PRP_CAUT_STRING_2,
+            'caut_string_3'     => self::$PRP_CAUT_STRING_3,
+            'caut_string_4'     => self::$PRP_CAUT_STRING_4,
+            'caut_number_1'     => self::$PRP_CAUT_NUMBER_1,
+            'caut_number_2'     => self::$PRP_CAUT_NUMBER_2,
+            'caut_number_3'     => self::$PRP_CAUT_NUMBER_3,
+            'caut_number_4'     => self::$PRP_CAUT_NUMBER_4,
+            'caut_date_1'       => self::$PRP_CAUT_DATE_1,
+            'caut_date_2'       => self::$PRP_CAUT_DATE_2,
+            'caut_date_3'       => self::$PRP_CAUT_DATE_3,
+            'caut_date_4'       => self::$PRP_CAUT_DATE_4,
+            'caut_text_1'       => self::$PRP_CAUT_TEXT_1,
+            'caut_text_2'       => self::$PRP_CAUT_TEXT_2,
+            'caut_text_3'       => self::$PRP_CAUT_TEXT_3,
+            'caut_text_4'       => self::$PRP_CAUT_TEXT_4,
+            'caut_bool_1'       => self::$PRP_CAUT_BOOL_1,
+            'caut_bool_2'       => self::$PRP_CAUT_BOOL_2,
+            'caut_bool_3'       => self::$PRP_CAUT_BOOL_3,
+            'caut_bool_4'       => self::$PRP_CAUT_BOOL_4,
+            'caut_max_weight'   => self::$PRP_CAUT_MAX_WEIGHT,
+            'caut_max_height'   => self::$PRP_CAUT_MAX_HEIGHT,
+            'caut_growth_freq'  => self::$PRP_CAUT_GROWTH_FREQ,
+            'caut_growth_graph' => self::$PRP_CAUT_GROWTH_GRAPH,
         ];
     }
 

@@ -190,6 +190,30 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     protected $caut_bool_4 = null;
 
     /**
+     * caut_max_weight
+     * @var string
+     */
+    protected $caut_max_weight = null;
+
+    /**
+     * caut_max_height
+     * @var string
+     */
+    protected $caut_max_height = null;
+
+    /**
+     * caut_growth_freq
+     * @var string
+     */
+    protected $caut_growth_freq = null;
+
+    /**
+     * caut_growth_graph
+     * @var mixed
+     */
+    protected $caut_growth_graph = null;
+
+    /**
      * Set caut_id
      *
      * @param int $p_value
@@ -247,7 +271,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
         $this->camt_id = $p_value;
         return $this;
     }
-    
+
     /**
      * Get camt_id
      *
@@ -877,5 +901,97 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     public function getCautBool_4()
     {
         return $this->caut_bool_4;
+    }
+
+    /**
+     * Set caut_max_weight
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautMaxWeight($p_value)
+    {
+        $this->caut_max_weight = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_max_weight
+     *
+     * @return string
+     */
+    public function getCautMaxWeight()
+    {
+        return $this->caut_max_weight;
+    }
+
+    /**
+     * Set caut_max_height
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautMaxHeight($p_value)
+    {
+        $this->caut_max_height = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_max_height
+     *
+     * @return string
+     */
+    public function getCautMaxHeight()
+    {
+        return $this->caut_max_height;
+    }
+
+    /**
+     * Set caut_growth_freq
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautGrowthFreq($p_value)
+    {
+        $this->caut_growth_freq = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_growth_freq
+     *
+     * @return string
+     */
+    public function getCautGrowthFreq()
+    {
+        return $this->caut_growth_freq;
+    }
+
+    /**
+     * Set caut_growth_graph
+     *
+     * @param mixed $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautGrowthGraph($p_value)
+    {
+        $this->caut_growth_graph = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_growth_graph
+     *
+     * @return mixed
+     */
+    public function getCautGrowthGraph()
+    {
+        return $this->caut_growth_graph;
     }
 }

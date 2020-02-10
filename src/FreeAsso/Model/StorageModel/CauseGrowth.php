@@ -23,26 +23,33 @@ abstract class CauseGrowth extends \FreeFW\Core\StorageModel
     protected static $PRP_BRK_ID = [
         FFCST::PROPERTY_PRIVATE => 'brk_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_BROKER]
     ];
     protected static $PRP_CAU_ID = [
         FFCST::PROPERTY_PRIVATE => 'cau_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['cause' =>
+            [
+                'model' => 'FreeAsso::Model::Cause',
+                'field' => 'cau_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
     ];
     protected static $PRP_GROW_TS = [
         FFCST::PROPERTY_PRIVATE => 'grow_ts',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIME,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_GROW_WEIGHT = [
         FFCST::PROPERTY_PRIVATE => 'grow_weight',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DECIMAL,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_GROW_HEIGHT = [
         FFCST::PROPERTY_PRIVATE => 'grow_height',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DECIMAL,
         FFCST::PROPERTY_OPTIONS => []
     ];
 
