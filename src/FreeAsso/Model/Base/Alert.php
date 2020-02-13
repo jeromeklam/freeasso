@@ -16,6 +16,12 @@ abstract class Alert extends \FreeAsso\Model\StorageModel\Alert
     protected $alert_id = null;
 
     /**
+     * brk_id
+     * @var int
+     */
+    protected $brk_id = null;
+
+    /**
      * site_id
      * @var int
      */
@@ -32,12 +38,6 @@ abstract class Alert extends \FreeAsso\Model\StorageModel\Alert
      * @var int
      */
     protected $cli_id = null;
-
-    /**
-     * brk_id
-     * @var int
-     */
-    protected $brk_id = null;
 
     /**
      * alert_from
@@ -70,6 +70,12 @@ abstract class Alert extends \FreeAsso\Model\StorageModel\Alert
     protected $alert_activ = null;
 
     /**
+     * alert_priority
+     * @var string
+     */
+    protected $alert_priority = null;
+
+    /**
      * Set alert_id
      *
      * @param int $p_value
@@ -90,6 +96,29 @@ abstract class Alert extends \FreeAsso\Model\StorageModel\Alert
     public function getAlertId()
     {
         return $this->alert_id;
+    }
+
+    /**
+     * Set brk_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Alert
+     */
+    public function setBrkId($p_value)
+    {
+        $this->brk_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get brk_id
+     *
+     * @return int
+     */
+    public function getBrkId()
+    {
+        return $this->brk_id;
     }
 
     /**
@@ -159,29 +188,6 @@ abstract class Alert extends \FreeAsso\Model\StorageModel\Alert
     public function getCliId()
     {
         return $this->cli_id;
-    }
-
-    /**
-     * Set brk_id
-     *
-     * @param int $p_value
-     *
-     * @return \FreeAsso\Model\Alert
-     */
-    public function setBrkId($p_value)
-    {
-        $this->brk_id = $p_value;
-        return $this;
-    }
-
-    /**
-     * Get brk_id
-     *
-     * @return int
-     */
-    public function getBrkId()
-    {
-        return $this->brk_id;
     }
 
     /**
@@ -297,5 +303,28 @@ abstract class Alert extends \FreeAsso\Model\StorageModel\Alert
     public function getAlertActiv()
     {
         return $this->alert_activ;
+    }
+
+    /**
+     * Set alert_priority
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Alert
+     */
+    public function setAlertPriority($p_value)
+    {
+        $this->alert_priority = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get alert_priority
+     *
+     * @return string
+     */
+    public function getAlertPriority()
+    {
+        return $this->alert_priority;
     }
 }

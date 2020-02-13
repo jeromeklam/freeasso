@@ -28,7 +28,7 @@ $causeRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['cause_type', 'cause_type.cause_main_type', 'site', 'default_blob']
+            'default' => ['cause_type', 'cause_type.cause_main_type', 'site', 'default_blob', 'parent1', 'parent2']
         ],
         'results' => [
             '200' => [

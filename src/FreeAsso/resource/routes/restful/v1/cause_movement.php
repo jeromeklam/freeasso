@@ -14,7 +14,7 @@ $causeMovementRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['cause', 'from_site', 'to_site']
+            'default' => ['cause', 'from_site', 'to_site', 'movement']
         ],
         'results' => [
             '200' => [
@@ -32,7 +32,7 @@ $causeMovementRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['cause', 'from_site', 'to_site']
+            'default' => ['cause', 'from_site', 'to_site', 'movement']
         ],
         'results' => [
             '200' => [
@@ -64,7 +64,7 @@ $causeMovementRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['cause', 'from_site', 'to_site']
+            'default' => ['cause', 'from_site', 'to_site', 'movement']
         ],
         'results' => [
             '200' => [
@@ -82,7 +82,7 @@ $causeMovementRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['cause', 'from_site', 'to_site']
+            'default' => ['cause', 'from_site', 'to_site', 'movement']
         ],
         'results' => [
             '200' => [
@@ -100,7 +100,7 @@ $causeMovementRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['cause', 'from_site', 'to_site']
+            'default' => ['cause', 'from_site', 'to_site', 'movement']
         ],
         'results' => [
             '200' => [
@@ -118,7 +118,7 @@ $causeMovementRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['cause', 'from_site', 'to_site']
+            'default' => ['cause', 'from_site', 'to_site', 'movement']
         ],
         'results' => [
             '201' => [

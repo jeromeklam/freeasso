@@ -70,6 +70,12 @@ abstract class CauseMovement extends \FreeAsso\Model\StorageModel\CauseMovement
     protected $camv_status = null;
 
     /**
+     * move_id
+     * @var int
+     */
+    protected $move_id = null;
+
+    /**
      * Set camv_id
      *
      * @param int $p_value
@@ -278,24 +284,47 @@ abstract class CauseMovement extends \FreeAsso\Model\StorageModel\CauseMovement
 
     /**
      * Set camv_status
-     * 
-     * @param string $p_status
-     * 
+     *
+     * @param string $p_value
+     *
      * @return \FreeAsso\Model\CauseMovement
      */
-    public function setCamvStatus($p_status)
+    public function setCamvStatus($p_value)
     {
-        $this->camv_status = $p_status;
+        $this->camv_status = $p_value;
         return $this;
     }
 
     /**
      * Get camv_status
-     * 
+     *
      * @return string
      */
     public function getCamvStatus()
     {
         return $this->camv_status;
+    }
+
+    /**
+     * Set move_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\CauseMovement
+     */
+    public function setMoveId($p_value)
+    {
+        $this->move_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get move_id
+     *
+     * @return int
+     */
+    public function getMoveId()
+    {
+        return $this->move_id;
     }
 }

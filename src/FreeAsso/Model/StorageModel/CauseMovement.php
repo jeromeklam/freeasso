@@ -86,6 +86,18 @@ abstract class CauseMovement extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
+    protected static $PRP_MOVE_ID = [
+        FFCST::PROPERTY_PRIVATE => 'move_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['movement' =>
+            [
+                'model' => 'FreeAsso::Model::Movement',
+                'field' => 'move_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
 
     /**
      * get properties
@@ -104,7 +116,8 @@ abstract class CauseMovement extends \FreeFW\Core\StorageModel
             'camv_start'        => self::$PRP_CAMV_START,
             'camv_to'           => self::$PRP_CAMV_TO,
             'camv_comment'      => self::$PRP_CAMV_COMMENT,
-            'camv_status'       => self::$PRP_CAMV_STATUS
+            'camv_status'       => self::$PRP_CAMV_STATUS,
+            'move_id'           => self::$PRP_MOVE_ID,
         ];
     }
 

@@ -38,6 +38,12 @@ class CauseMovement extends \FreeAsso\Model\Base\CauseMovement
     protected $to_site = null;
 
     /**
+     * Movement
+     * @var \FreeAsso\Model\Movement
+     */
+    protected $movement = null;
+
+    /**
      *
      * {@inheritDoc}
      * @see \FreeFW\Core\Model::init()
@@ -49,6 +55,7 @@ class CauseMovement extends \FreeAsso\Model\Base\CauseMovement
         $this->camv_site_from_id = null;
         $this->camv_site_to_id   = null;
         $this->camv_status       = self::STATUS_OK;
+        $this->move_id           = null;
         return $this;
     }
 
@@ -119,6 +126,29 @@ class CauseMovement extends \FreeAsso\Model\Base\CauseMovement
     public function getToSite()
     {
         return $this->to_site;
+    }
+
+    /**
+     * Set movement
+     * 
+     * @param \FreeAsso\Model\Movement $p_movement
+     * 
+     * @return \FreeAsso\Model\CauseMovement
+     */
+    public function setMovement($p_movement)
+    {
+        $this->movement = $p_movement;
+        return $this;
+    }
+
+    /**
+     * Get movement
+     * 
+     * @return \FreeAsso\Model\Movement
+     */
+    public function getMovement()
+    {
+        return $this->movement;
     }
 
     /**

@@ -86,7 +86,12 @@ abstract class Alert extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => []
     ];
-
+    protected static $PRP_ALERT_PRIORITY = [
+        FFCST::PROPERTY_PRIVATE => 'alert_priority',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_SELECT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+    ];
+    
     /**
      * get properties
      *
@@ -95,16 +100,17 @@ abstract class Alert extends \FreeFW\Core\StorageModel
     public static function getProperties()
     {
         return [
-            'alert_id'    => self::$PRP_ALERT_ID,
-            'site_id'     => self::$PRP_SITE_ID,
-            'cau_id'      => self::$PRP_CAU_ID,
-            'cli_id'      => self::$PRP_CLI_ID,
-            'brk_id'      => self::$PRP_BRK_ID,
-            'alert_from'  => self::$PRP_ALERT_FROM,
-            'alert_to'    => self::$PRP_ALERT_TO,
-            'alert_ts'    => self::$PRP_ALERT_TS,
-            'alert_text'  => self::$PRP_ALERT_TEXT,
-            'alert_activ' => self::$PRP_ALERT_ACTIV
+            'alert_id'       => self::$PRP_ALERT_ID,
+            'site_id'        => self::$PRP_SITE_ID,
+            'cau_id'         => self::$PRP_CAU_ID,
+            'cli_id'         => self::$PRP_CLI_ID,
+            'brk_id'         => self::$PRP_BRK_ID,
+            'alert_from'     => self::$PRP_ALERT_FROM,
+            'alert_to'       => self::$PRP_ALERT_TO,
+            'alert_ts'       => self::$PRP_ALERT_TS,
+            'alert_text'     => self::$PRP_ALERT_TEXT,
+            'alert_activ'    => self::$PRP_ALERT_ACTIV,
+            'alert_priority' => self::$PRP_ALERT_PRIORITY,
         ];
     }
 
@@ -115,6 +121,6 @@ abstract class Alert extends \FreeFW\Core\StorageModel
      */
     public static function getSource()
     {
-        return 'asso_alert';
+        return 'crm_alert';
     }
 }
