@@ -14,6 +14,7 @@ require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/dashboard.php';
 require_once __DIR__ . '/data.php';
 require_once __DIR__ . '/donation.php';
+require_once __DIR__ . '/family.php';
 require_once __DIR__ . '/movement.php';
 require_once __DIR__ . '/payment_type.php';
 require_once __DIR__ . '/sickness.php';
@@ -39,6 +40,7 @@ $localRoutes = array_merge(
     $dashboardRoutes,
     $dataRoutes,
     $donationRoutes,
+    $familyRoutes,
     $movementRoutes,
     $paymentTypeRoutes,
     $sicknessRoutes,
