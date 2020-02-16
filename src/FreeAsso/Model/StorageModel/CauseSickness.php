@@ -23,7 +23,7 @@ abstract class CauseSickness extends \FreeFW\Core\StorageModel
     protected static $PRP_BRK_ID = [
         FFCST::PROPERTY_PRIVATE => 'brk_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_BROKER]
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_BROKER]
     ];
     protected static $PRP_CAU_ID = [
         FFCST::PROPERTY_PRIVATE => 'cau_id',
@@ -44,7 +44,7 @@ abstract class CauseSickness extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_FK      => ['sickness' =>
             [
                 'model' => 'FreeAsso::Model::Sickness',
-                'field' => 'cau_id',
+                'field' => 'sick_id',
                 'type'  => \FreeFW\Model\Query::JOIN_LEFT
             ]
         ]

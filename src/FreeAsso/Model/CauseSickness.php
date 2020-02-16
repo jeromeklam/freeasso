@@ -38,9 +38,9 @@ class CauseSickness extends \FreeAsso\Model\Base\CauseSickness
     {
         $this->caus_id     = 0;
         $this->brk_id      = 0;
-        $this->cau_id      = 0;
-        $this->sick_id     = 0;
-        $this->sanitary_id = 0;
+        $this->cau_id      = null;
+        $this->sick_id     = null;
+        $this->sanitary_id = null;
         return $this;
     }
 

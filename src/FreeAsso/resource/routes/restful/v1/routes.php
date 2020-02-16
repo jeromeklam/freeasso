@@ -5,6 +5,7 @@ require_once __DIR__ . '/cause_link.php';
 require_once __DIR__ . '/cause_main_type.php';
 require_once __DIR__ . '/cause_media.php';
 require_once __DIR__ . '/cause_movement.php';
+require_once __DIR__ . '/cause_sickness.php';
 require_once __DIR__ . '/cause_type.php';
 require_once __DIR__ . '/cause.php';
 require_once __DIR__ . '/client_category.php';
@@ -33,8 +34,9 @@ $localRoutes = array_merge(
     $causeMainTypeRoutes,
     $causeMediaRoutes,
     $causeMovementRoutes,
-    $causeTypeRoutes,
     $causeRoutes,
+    $causeSicknessRoutes,
+    $causeTypeRoutes,
     $clientCategoryRoutes,
     $clientTypeRoutes,
     $clientRoutes,
