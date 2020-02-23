@@ -19,6 +19,24 @@ $causeSicknessRoutes = [
             ]
         ]
     ],
+    'freeasso.causesickness.getpendings' => [
+        'method'     => \FreeFW\Router\Route::METHOD_GET,
+        'model'      => 'FreeAsso::Model::CauseSickness',
+        'url'        => '/v1/asso/cause_sickness/pendings',
+        'controller' => 'FreeAsso::Controller::CauseSickness',
+        'function'   => 'getPendings',
+        'auth'       => \FreeFW\Router\Route::AUTH_IN,
+        'middleware' => [],
+        'include'    => [
+            'default' => ['cause.site', 'sickness', 'sanitary']
+        ],
+        'results' => [
+            '200' => [
+                'type'  => \FreeFW\Router\Route::RESULT_LIST,
+                'model' => 'FreeSso::Model::CauseSickness'
+            ]
+        ]
+    ],
     'freeasso.causesickness.getall' => [
         'method'     => \FreeFW\Router\Route::METHOD_GET,
         'model'      => 'FreeAsso::Model::CauseSickness',
