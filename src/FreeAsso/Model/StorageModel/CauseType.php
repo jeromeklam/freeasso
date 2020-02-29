@@ -175,22 +175,22 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_CAUT_MAX_WEIGHT = [
         FFCST::PROPERTY_PRIVATE => 'caut_max_weight',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DECIMAL,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CAUT_MAX_HEIGHT = [
         FFCST::PROPERTY_PRIVATE => 'caut_max_height',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DECIMAL,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CAUT_GROWTH_FREQ = [
         FFCST::PROPERTY_PRIVATE => 'caut_growth_freq',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CAUT_GROWTH_GRAPH = [
         FFCST::PROPERTY_PRIVATE => 'caut_growth_graph',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_OPTIONS => []
     ];
 
     /**

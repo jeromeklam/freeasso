@@ -42,8 +42,9 @@ class Item extends \FreeAsso\Model\Base\Item
      */
     public function init()
     {
-        $this->item_id = 0;
-        $this->brk_id  = 0;
+        $this->item_id        = 0;
+        $this->brk_id         = 0;
+        $this->item_dangerous = false;
         return $this;
     }
 

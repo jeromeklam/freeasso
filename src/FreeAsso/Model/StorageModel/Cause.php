@@ -180,22 +180,22 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
     ];
     protected static $PRP_CAU_TEXT_1 = [
         FFCST::PROPERTY_PRIVATE => 'cau_text_1',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BLOB,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CAU_TEXT_2 = [
         FFCST::PROPERTY_PRIVATE => 'cau_text_2',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BLOB,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CAU_TEXT_3 = [
         FFCST::PROPERTY_PRIVATE => 'cau_text_3',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BLOB,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CAU_TEXT_4 = [
         FFCST::PROPERTY_PRIVATE => 'cau_text_4',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BLOB,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CAU_BOOL_1 = [
