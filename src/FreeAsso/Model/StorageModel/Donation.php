@@ -63,7 +63,7 @@ abstract class Donation extends \FreeFW\Core\StorageModel
     ];
     protected static $PRP_DON_DESC = [
         FFCST::PROPERTY_PRIVATE => 'don_desc',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BLOB,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_DON_TS = [

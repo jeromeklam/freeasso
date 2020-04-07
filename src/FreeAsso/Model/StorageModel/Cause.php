@@ -352,6 +352,6 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
      */
     public static function getAutocompleteField()
     {
-        return 'cau_code';
+        return ['cau_code', 'cau_name'];
     }
 }
