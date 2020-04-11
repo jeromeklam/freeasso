@@ -16,10 +16,11 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
      * Constantes
      * @var string
      */
-    const FAMILY_NONE   = 'NONE';
-    const FAMILY_ANIMAL = 'ANIMAL';
-    const FAMILY_OTHER  = 'OTHER';
-    const FAMILY_FOREST = 'FOREST';
+    const FAMILY_NONE          = 'NONE';
+    const FAMILY_ANIMAL        = 'ANIMAL';
+    const FAMILY_OTHER         = 'OTHER';
+    const FAMILY_NATURE        = 'NATURE';
+    const FAMILY_ADMINISTRATIV = 'ADMINISTRATIV';
 
     /**
      * Site

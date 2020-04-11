@@ -25,14 +25,28 @@ class Kalaweit
         $p_output->write("Broker : " . $brokerId, true);
         $storage = \FreeFW\DI\DI::getShared('Storage::default');
         $assoPdo = $storage->getProvider();
+        if ($brokerId != '4') {
+            die('Wrong brokerId !');
+        }
+        /**
+         * Langues
+         */
+        $langFR = 368;
+        $langEN = 366;
+        $langES = 367;
         /**
          * Nettoyage
          */
         $p_output->write("Nettoyage", true);
-        $query = $assoPdo->exec("UPDATE asso_cause SET parent1_cau_id = null, parent2_cau_id = null WHERE  brk_id = " . $brokerId);
+        $query = $assoPdo->exec("UPDATE asso_cause SET parent1_cau_id = null, parent2_cau_id = null, caum_blob_id = null, caum_text_id = null WHERE  brk_id = " . $brokerId);
+        $query = $assoPdo->exec("DELETE FROM asso_file WHERE brk_id = " . $brokerId);
+        $query = $assoPdo->exec("DELETE FROM asso_certificate WHERE brk_id = " . $brokerId);
+        $query = $assoPdo->exec("DELETE FROM asso_cause_media_lang WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_cause_media WHERE brk_id = " . $brokerId);
+        $query = $assoPdo->exec("DELETE FROM asso_receipt_donation WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_donation WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_sponsorship WHERE brk_id = " . $brokerId);
+        $query = $assoPdo->exec("DELETE FROM asso_receipt WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_cause WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_site WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_cause_type WHERE brk_id = " . $brokerId);
@@ -41,11 +55,12 @@ class Kalaweit
         $query = $assoPdo->exec("DELETE FROM asso_data WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_config WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_payment_type WHERE brk_id = " . $brokerId);
+        $query = $assoPdo->exec("DELETE FROM asso_receipt_type WHERE brk_id = " . $brokerId);
+        $query = $assoPdo->exec("DELETE FROM asso_session WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM crm_client WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM crm_client_category WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM crm_client_type WHERE brk_id = " . $brokerId);
-        $query = $assoPdo->exec("DELETE FROM core_country");
-        $query = $assoPdo->exec("DELETE FROM core_lang");
+        $query = $assoPdo->exec("DELETE FROM core_email WHERE brk_id = " . $brokerId);
         /**
          * Paramètres de base
          */
@@ -129,6 +144,9 @@ class Kalaweit
         $myForestCause = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMainType');
         $myForestCause->setCamtName('Forêt');
         $myForestCause->create();
+        $myKalaweitCause = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMainType');
+        $myKalaweitCause->setCamtName('Kalaweit');
+        $myKalaweitCause->create();
         // Causes Gibbon
         $tabCausesGibbon = [];
         $myCauseGibbon = \FreeFW\DI\DI::get('FreeAsso::Model::CauseType');
@@ -152,8 +170,12 @@ class Kalaweit
             $query->execute();
             while ($row = $query->fetch(\PDO::FETCH_OBJ)) {
                 $myCauseGibbon = \FreeFW\DI\DI::get('FreeAsso::Model::CauseType');
+                $name = $row->Especes_nom_francais . ' (' . $row->Especes_nom_latin . ')';
+                $name = \FreeFW\Tools\Encoding::toUTF8($name);
+                $name = \FreeFW\Tools\Encoding::fixUTF8($name);
+                $name = \FreeFW\Tools\PBXString::clean($name);
                 $myCauseGibbon
-                    ->setCautName(utf8_encode($row->Especes_nom_francais) . ' (' . $row->Especes_nom_latin . ')')
+                    ->setCautName($name)
                     ->setCautMntType(\FreeAsso\Model\CauseType::MNT_TYPE_ANNUAL)
                     ->setCautMaxMnt(360)
                     ->setCautMinMnt(0)
@@ -192,7 +214,7 @@ class Kalaweit
             ->setCautId($myCauseTForet->getCautId())
             ->setSiteId($myIleBorneo->getSiteId())
             ->setCauDesc(null)
-            ->setCauFamily(\FreeAsso\Model\Cause::FAMILY_FOREST)
+            ->setCauFamily(\FreeAsso\Model\Cause::FAMILY_NATURE)
             ->setCauPublic(0)
             ->setCauAvailable(0)
         ;
@@ -220,12 +242,40 @@ class Kalaweit
             ->setCautId($myCauseTDulan->getCautId())
             ->setSiteId($myIleBorneo->getSiteId())
             ->setCauDesc(null)
-            ->setCauFamily(\FreeAsso\Model\Cause::FAMILY_FOREST)
+            ->setCauFamily(\FreeAsso\Model\Cause::FAMILY_NATURE)
             ->setCauPublic(0)
             ->setCauAvailable(0)
         ;
         if (!$myCauseDulan->create()) {
             var_export($myCauseDulan->getErrors());die;
+        }
+        // Cause Kalaweit
+        $myCauseTKalaweit = \FreeFW\DI\DI::get('FreeAsso::Model::CauseType');
+        $myCauseTKalaweit
+            ->setCautName('Kalaweit')
+            ->setCautMntType(\FreeAsso\Model\CauseType::MNT_TYPE_MAXIMUM)
+            ->setCautMaxMnt(1000000)
+            ->setCautMinMnt(0)
+            ->setCautReceipt(1)
+            ->setCautCertificat(1)
+            ->setCautText_1(1)
+            ->setCamtId($myKalaweitCause->getCamtId())
+        ;
+        if (!$myCauseTKalaweit->create()) {
+            var_export($myCauseTKalaweit->getErrors());die;
+        }
+        $myCauseKalaweit = \FreeFW\DI\DI::get('FreeAsso::Model::Cause');
+        $myCauseKalaweit
+            ->setCauName('Kalaweit')
+            ->setCautId($myCauseTDulan->getCautId())
+            ->setSiteId($myIleBorneo->getSiteId())
+            ->setCauDesc(null)
+            ->setCauFamily(\FreeAsso\Model\Cause::FAMILY_ADMINISTRATIV)
+            ->setCauPublic(0)
+            ->setCauAvailable(0)
+        ;
+        if (!$myCauseKalaweit->create()) {
+            var_export($myCauseKalaweit->getErrors());die;
         }
         // Type de client 
         $myTypeMembre = \FreeFW\DI\DI::get('FreeAsso::Model::ClientType');
@@ -244,11 +294,24 @@ class Kalaweit
             $query = $provider->prepare("Select * from lang_parle_id");
             $query->execute();
             while ($row = $query->fetch(\PDO::FETCH_OBJ)) {
-                $myLang = \FreeFW\DI\DI::get('FreeFW::Model::Lang');
-                $myLang->setLangName($row->lang_parle);
-                if (!$myLang->create()) {
-                    $myLang->flushErrors();
-                    $myLang->setLangName(utf8_encode($row->lang_parle));
+                $name = \FreeFW\Tools\Encoding::toUTF8($row->lang_parle);
+                $name = \FreeFW\Tools\Encoding::fixUTF8($name);
+                $name = \FreeFW\Tools\PBXString::clean($name);
+                $myLang = \FreeFW\Model\Lang::findFirst(
+                    [
+                        'lang_name' => $name
+                    ]
+                );
+                if (!$myLang) {
+                    $myLang = \FreeFW\Model\Lang::findFirst(
+                        [
+                            'lang_name' => $name
+                        ]
+                    );
+                }
+                if (!$myLang) {
+                    $myLang = \FreeFW\DI\DI::get('FreeFW::Model::Lang');
+                    $myLang->setLangName($name);
                     if (!$myLang->create()) {
                         var_export($myLang->getErrors());die;
                     }
@@ -274,7 +337,9 @@ class Kalaweit
             $query->execute();
             while ($row = $query->fetch(\PDO::FETCH_OBJ)) {
                 $myTP = \FreeFW\DI\DI::get('FreeAsso::Model::PaymentType');
-                $lib  = utf8_encode($row->Type_reglement_Libelle);
+                $lib = \FreeFW\Tools\Encoding::toUTF8($row->Type_reglement_Libelle);
+                $lib = \FreeFW\Tools\Encoding::fixUTF8($lib);
+                $lib = \FreeFW\Tools\PBXString::clean($lib);
                 $myTP
                     ->setPtypCode(strtoupper(\FreeFW\Tools\PBXString::withoutAccent(str_replace([' '], '', $lib))))
                     ->setPtypName($lib)
@@ -331,14 +396,21 @@ class Kalaweit
             $query = $provider->prepare("Select * from pays_id");
             $query->execute();
             while ($row = $query->fetch(\PDO::FETCH_OBJ)) {
-                $myCountry = \FreeFW\DI\DI::get('FreeFW::Model::Country');
-                $myCountry->setCntyName($row->Pays_nom);
-                if (!$myCountry->create()) {
-                    var_export($myCountry->getErrors());die;
+                $myCountry = \FreeFW\Model\Country::findFirst(
+                    [
+                        'cnty_name' => $row->Pays_nom
+                    ]
+                );
+                if (!$myCountry) {
+                    $myCountry = \FreeFW\DI\DI::get('FreeFW::Model::Country');
+                    $myCountry->setCntyName($row->Pays_nom);
+                    if (!$myCountry->create()) {
+                        var_export($myCountry->getErrors());die;
+                    }
                 }
-                $tabPays[$row->Pays_id] = $myCountry->getCntyId();
+                $tabPays[$row->Pays_id] = $myCountry;
                 if ($row->Pays_nom == 'France') {
-                    $tabPays['default'] = $myCountry->getCntyId();
+                    $tabPays['default'] = $myCountry;
                 }
             }
         } catch (\PDOException $ex) {
@@ -353,8 +425,11 @@ class Kalaweit
             $query = $provider->prepare("Select * from type_membre_id");
             $query->execute();
             while ($row = $query->fetch(\PDO::FETCH_OBJ)) {
+                $name = \FreeFW\Tools\Encoding::toUTF8($row->type_membre);
+                $name = \FreeFW\Tools\Encoding::fixUTF8($name);
+                $name = \FreeFW\Tools\PBXString::clean($name);
                 $myClientCategory = \FreeFW\DI\DI::get('FreeAsso::Model::ClientCategory');
-                $myClientCategory->setClicName(utf8_encode($row->type_membre));
+                $myClientCategory->setClicName($name);
                 if (!$myClientCategory->create()) {
                     var_export($myClientCategory->getErrors());die;
                 }
@@ -375,12 +450,21 @@ class Kalaweit
             $query = $provider->prepare("Select * from gibbons");
             $query->execute();
             while ($row = $query->fetch(\PDO::FETCH_OBJ)) {
+                $desc = trim(\FreeFW\Tools\Encoding::toUTF8($row->Details));
+                $desc = trim(\FreeFW\Tools\Encoding::fixUTF8($desc));
+                $desc = \FreeFW\Tools\PBXString::clean($desc);
+                if (strpos($desc, '<p>') === false) {
+                    $desc = '<p>' . $desc . '</p>';
+                }
                 /*its getting data in line.And its an object*/
+                $name = trim(\FreeFW\Tools\Encoding::toUTF8($row->Nom_gibbon));
+                $name = \FreeFW\Tools\Encoding::fixUTF8($name);
+                $name = \FreeFW\Tools\PBXString::clean($name);
                 $myCause = \FreeFW\DI\DI::get('FreeAsso::Model::Cause');
                 $myCause
-                    ->setCauName(utf8_encode($row->Nom_gibbon))
+                    ->setCauName($name)
                     ->setCautId($myCauseGibbon->getCautId())
-                    ->setCauDesc($row->Details)
+                    ->setCauDesc($desc)
                     ->setCauFamily(\FreeAsso\Model\Cause::FAMILY_ANIMAL)
                     ->setCauPublic(0)
                     ->setCauAvailable(0)
@@ -403,7 +487,6 @@ class Kalaweit
                 } else {
                     $myCause->setCauSex("M");
                 }
-                
                 if (array_key_exists($row->Espece, $tabCausesGibbon)) {
                     $myCause->setCautId($tabCausesGibbon[$row->Espece]);
                 } else {
@@ -429,11 +512,7 @@ class Kalaweit
                     }
                 }
                 if (!$myCause->create()) {
-                    $myCause->flushErrors();
-                    $myCause->setCauDesc(utf8_encode($row->Details));
-                    if (!$myCause->create()) {
-                        var_export($myCause->getErrors());die;
-                    }
+                    var_export($myCause->getErrors());die;
                 }
                 // Gestion des medias
                 $blob = false;
@@ -459,7 +538,7 @@ class Kalaweit
                             $blob = true;
                         }
                     } else {
-                        var_export($file . ' not found !');
+                        echo $file . ' not found !' . PHP_EOL;
                     }
                 }
                 if ($row->Photo2 != '') {
@@ -486,7 +565,74 @@ class Kalaweit
                             }
                         }
                     } else {
-                        var_export($file . ' not found !');
+                        echo $file . ' not found !' . PHP_EOL;
+                    }
+                }
+                if ($row->Details != '' || $row->Details_ang != '' || $row->Details_esp != '') {
+                    $myCauseMedia = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMedia');
+                    $myCauseMedia
+                        ->setCaumType(\FreeAsso\Model\CauseMedia::TYPE_HTML)
+                        ->setCauId($myCause->getCauId())
+                        ->setCaumCode('NEWS')
+                        ->setCaumTs(\FreeFW\Tools\Date::getCurrentTimestamp())
+                        ->setCaumTitle('Journal')
+                    ;
+                    if (!$myCauseMedia->create()) {
+                        var_export($myCauseMedia);
+                    }
+                    // Version française
+                    if ($row->Details != '') {
+                        $desc = \FreeFW\Tools\Encoding::toUTF8($row->Details);
+                        $desc = trim(\FreeFW\Tools\Encoding::fixUTF8($desc));
+                        $desc = \FreeFW\Tools\PBXString::clean($desc);
+                        if (strpos('<p>', $desc) === false) {
+                            $desc = '<p>' . $desc . '</p>';
+                        }
+                        $myCauseMediaLang = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMediaLang');
+                        $myCauseMediaLang
+                            ->setCaumId($myCauseMedia->getCaumId())
+                            ->setLangId($langFR)
+                            ->setCamlText($desc)
+                        ;
+                        if (!$myCauseMediaLang->create()) {
+                            var_export($myCauseMediaLang);die;
+                        }
+                    }
+                    // Version anglaise
+                    if ($row->Details_ang != '') {
+                        $desc = \FreeFW\Tools\Encoding::toUTF8($row->Details_ang);
+                        $desc = trim(\FreeFW\Tools\Encoding::fixUTF8($desc));
+                        $desc = \FreeFW\Tools\PBXString::clean($desc);
+                        if (strpos('<p>', $desc) === false) {
+                            $desc = '<p>' . $desc . '</p>';
+                        }
+                        $myCauseMediaLang = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMediaLang');
+                        $myCauseMediaLang
+                            ->setCaumId($myCauseMedia->getCaumId())
+                            ->setLangId($langEN)
+                            ->setCamlText($desc)
+                        ;
+                        if (!$myCauseMediaLang->create()) {
+                            var_export($myCauseMediaLang);
+                        }
+                    }
+                    // Version espagnole
+                    if ($row->Details_esp != '') {
+                        $desc = \FreeFW\Tools\Encoding::toUTF8($row->Details_esp);
+                        $desc = trim(\FreeFW\Tools\Encoding::fixUTF8($desc));
+                        $desc = \FreeFW\Tools\PBXString::clean($desc);
+                        if (strpos('<p>', $desc) === false) {
+                            $desc = '<p>' . $desc . '</p>';
+                        }
+                        $myCauseMediaLang = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMediaLang');
+                        $myCauseMediaLang
+                            ->setCaumId($myCauseMedia->getCaumId())
+                            ->setLangId($langES)
+                            ->setCamlText($desc)
+                        ;
+                        if (!$myCauseMediaLang->create()) {
+                            var_export($myCauseMediaLang);
+                        }
                     }
                 }
                 //
@@ -506,13 +652,30 @@ class Kalaweit
             $query->execute();
             while ($row = $query->fetch(\PDO::FETCH_OBJ)) {
                 $myClient = \FreeFW\DI\DI::get('FreeAsso::Model::Client');
+                $name = trim($row->nom);
+                if ($name == '') {
+                    $name = 'membre ' . $row->id;
+                    echo 'Membre ' . $row->id . ' sans nom' . PHP_EOL;
+                } else {
+                    $name = \FreeFW\Tools\Encoding::toUTF8($name);
+                    $name = \FreeFW\Tools\Encoding::fixUTF8($name);
+                    $name = \FreeFW\Tools\PBXString::clean($name);
+                }
+                $pren = trim($row->prenom);
+                $pren = \FreeFW\Tools\Encoding::toUTF8($pren);
+                $pren = \FreeFW\Tools\Encoding::fixUTF8($pren);
+                $pren = \FreeFW\Tools\PBXString::clean($pren);
+                $ville = trim($row->ville);
+                $ville = \FreeFW\Tools\Encoding::toUTF8($ville);
+                $ville = \FreeFW\Tools\Encoding::fixUTF8($ville);
+                $ville = \FreeFW\Tools\PBXString::clean($ville);
                 $myClient
                     ->setCliExternId($row->id)
-                    ->setCliFirstname($row->prenom)
-                    ->setCliLastname($row->nom)
+                    ->setCliFirstname($pren)
+                    ->setCliLastname($name)
                     ->setClitId($myTypeMembre->getClitId())
                     ->setCliCp($row->code_postal)
-                    ->setCliTown($row->ville)
+                    ->setCliTown($ville)
                     ->setCliPhoneHome($row->tel1)
                     ->setCliPhoneGsm($row->tel2)
                     ->setCliEmail($row->email)
@@ -521,19 +684,25 @@ class Kalaweit
                     ->setCliCertificat(1)
                 ;
                 if ($row->commentaires != '') {
-                    $myClient->setCliDesc('<p>' . utf8_encode($row->commentaires) . '</p>');
+                    $comment = \FreeFW\Tools\Encoding::toUTF8($row->commentaires);
+                    $comment = \FreeFW\Tools\Encoding::fixUTF8($comment);
+                    $comment = \FreeFW\Tools\PBXString::clean($comment);
+                    $myClient->setCliDesc('<p>' . $comment . '</p>');
                 }
-                $addresses = explode("\n", $row->adresse);
+                $address = trim(\FreeFW\Tools\Encoding::toUTF8($row->adresse));
+                $address = \FreeFW\Tools\Encoding::fixUTF8($address);
+                $address = \FreeFW\Tools\PBXString::clean($address);
+                $addresses = explode("\n", $address);
                 if (count($addresses) > 0) {
-                    $myClient->setCliAddress1($addresses[0]);
+                    $myClient->setCliAddress1(trim($addresses[0]));
                     array_shift($addresses);
                 }
                 if (count($addresses) > 0) {
-                    $myClient->setCliAddress2($addresses[0]);
+                    $myClient->setCliAddress2(trim($addresses[0]));
                     array_shift($addresses);
                 }
                 if (count($addresses) > 0) {
-                    $myClient->setCliAddress3(implode(' ', $addresses));
+                    $myClient->setCliAddress3(trim(implode(' ', $addresses)));
                 }
                 if (array_key_exists($row->id_type, $tabClientCategory)) {
                     $myClient->setClicId($tabClientCategory[$row->id_type]);
@@ -541,9 +710,9 @@ class Kalaweit
                     $myClient->setClicId($tabClientCategory['default']);
                 }
                 if (array_key_exists($row->pays_id, $tabPays)) {
-                    $myClient->setCntyId($tabPays[$row->pays_id]);
+                    $myClient->setCntyId($tabPays[$row->pays_id]->getCntyId());
                 } else {
-                    $myClient->setCntyId($tabPays['default']);
+                    $myClient->setCntyId($tabPays['default']->getCntyId());
                 }
                 if (array_key_exists($row->lang_parle_id, $tabLangues)) {
                     $myClient->setLangId($tabLangues[$row->lang_parle_id]);
@@ -551,12 +720,7 @@ class Kalaweit
                     $myClient->setLangId($tabLangues['default']);
                 }
                 if (!$myClient->create()) {
-                    $myClient->flushErrors();
-                    $myClient->setCliDesc(null);
-                    var_export($row);
-                    if (!$myClient->create()) {
-                        var_export($myClient->getErrors());
-                    }
+                    var_export($myClient->getErrors());
                 }
                 if (intval($row->parraine_par) > 0) {
                     $updates[$row->id] = $row->parraine_par;
@@ -632,34 +796,232 @@ class Kalaweit
                     if (array_key_exists($row->id_gibbon, $tabGibbons)) {
                         $mySponsorship->setCauId($tabGibbons[$row->id_gibbon]->getCauId());
                     } else {
-                        var_export('Pb Gibbon ' . $row->id_gibbon . ' !');
+                        echo 'Pb Gibbon parrainage ' . $row->id_gibbon . ' !' . PHP_EOL;
+                        $myCause = \FreeFW\DI\DI::get('FreeAsso::Model::Cause');
+                        $myCause
+                            ->setCauName('Gibbon ' . $row->id_gibbon)
+                            ->setCautId($myCauseGibbon->getCautId())
+                            ->setCauFamily(\FreeAsso\Model\Cause::FAMILY_ANIMAL)
+                            ->setCauPublic(0)
+                            ->setCauAvailable(0)
+                            ->setSiteId($myIleAutre->getSiteId())
+                        ;
+                        if (!$myCause->create()) {
+                            var_export($myCause->getErrors());die;
+                        }
+                        $tabGibbons[$row->id_gibbon] = $myCause;
+                        $mySponsorship->setCauId($tabGibbons[$row->id_gibbon]->getCauId());
                     }
+                } else {
+                    $mySponsorship->setCauId($myCauseKalaweit->getCauId());
                 }
                 if (intval($row->Type_reglement_Id) > 0) {
                     if (array_key_exists($row->Type_reglement_Id, $tabTypePay)) {
                         $mySponsorship->setPtypId($tabTypePay[$row->Type_reglement_Id]);
                     } else {
-                        var_export('Pb type de règlement ' . $row->id_ligne_amis . ' !');
+                        echo 'Pb type de règlement ' . $row->id_ligne_amis . ' !' . PHP_EOL;
                     }
                 }
                 if (array_key_exists($row->id_membre, $tabMembres)) {
                     $mySponsorship->setCliId($tabMembres[$row->id_membre]->getCliId());
                 } else {
-                    var_export('Member not found : ' . $row->id_membre . ' !');
-                    continue;
+                    echo 'Member not found : ' . $row->id_membre . ', ' . $row->id_ligne_amis . ' !' . PHP_EOL;
+                    $myClient = \FreeFW\DI\DI::get('FreeAsso::Model::Client');
+                    $myClient
+                        ->setCliExternId($row->id_membre)
+                        ->setCliLastname('Membre ' . $row->id_membre)
+                        ->setClitId($myTypeMembre->getClitId())
+                        ->setClicId($tabClientCategory['default'])
+                        ->setCliCertificat(1)
+                    ;
+                    if (!$myClient->create()){
+                        var_export($myClient->getErrors());die;
+                    }
+                    $tabMembres[$row->id_membre] = $myClient;
+                    $mySponsorship->setCliId($tabMembres[$row->id_membre]->getCliId());
                 }
                 if (!$mySponsorship->create()) {
-                    var_export($mySponsorship->getErrors());
+                    var_export($mySponsorship->getErrors());die;
                 }
                 $tabAmis[$row->id_ligne_amis] = $mySponsorship;
             }
         } catch (\Exception $ex) {
             var_export($ex);die;
         }
-        //
+        /**
+         * Import des générations de prélèvement
+         */
+        $tabDonationOrigins = [];
+        $p_output->write("Import des générations de dons", true);
+        try {
+            $query = $provider->prepare("Select * from prelevements");
+            $query->execute();
+            while ($row = $query->fetch(\PDO::FETCH_OBJ)) {
+                $comments = $row->prlv_anomalies;
+                $myDonationOrigin = \FreeFW\DI\DI::get('FreeAsso::Model::DonationOrigin');
+                $myDonationOrigin
+                    ->setDonoTs($row->prlv_ts)
+                    ->setDonoYear($row->prlv_annee)
+                    ->setDonoMonth($row->prlv_mois)
+                    ->setDonoStatus($row->prlv_status)
+                    ->setDonoComments($comments)
+                ;
+                if (!$myDonationOrigin->create()) {
+                    var_export($myDonationOrigin->getErrors());die;
+                }
+                $tabDonationOrigins[$row->prlv_id] = $myDonationOrigin;
+            }
+        } catch (\Exception $ex) {
+            var_export($ex);die;
+        }
+        /**
+         * Import des en-têtes de reçus
+         */
+        $tabTypesRecus = [];
+        $myReceiptType = \FreeFW\DI\DI::get('FreeAsso::Model::ReceiptType');
+        $myReceiptType
+            ->setRettName('Type adhésion')
+        ;
+        if (!$myReceiptType->create()) {
+            var_export($myReceiptType->getErrors());die;
+        }
+        $tabTypesRecus['ADH'] = $myReceiptType;
+        $myReceiptType = \FreeFW\DI\DI::get('FreeAsso::Model::ReceiptType');
+        $myReceiptType
+            ->setRettName('Type ami')
+        ;
+        if (!$myReceiptType->create()) {
+            var_export($myReceiptType->getErrors());die;
+        }
+        $tabTypesRecus['AM'] = $myReceiptType;
+        $myReceiptType = \FreeFW\DI\DI::get('FreeAsso::Model::ReceiptType');
+        $myReceiptType
+            ->setRettName('Type don ponctuel)')
+        ;
+        if (!$myReceiptType->create()) {
+            var_export($myReceiptType->getErrors());die;
+        }
+        $tabTypesRecus['D'] = $myReceiptType;
+        $myReceiptType = \FreeFW\DI\DI::get('FreeAsso::Model::ReceiptType');
+        $myReceiptType
+            ->setRettName('Type parrainage ponctuel')
+        ;
+        if (!$myReceiptType->create()) {
+            var_export($myReceiptType->getErrors());die;
+        }
+        $tabTypesRecus['P'] = $myReceiptType;
+        $myReceiptType = \FreeFW\DI\DI::get('FreeAsso::Model::ReceiptType');
+        $myReceiptType
+            ->setRettName('Type autre')
+        ;
+        if (!$myReceiptType->create()) {
+            var_export($myReceiptType->getErrors());die;
+        }
+        $tabTypesRecus['O'] = $myReceiptType;
+        $tabReceipts = [];
+        $p_output->write("Import des reçus fiscaux", true);
+        try {
+            $query = $provider->prepare("Select * from recus_fiscaux");
+            $query->execute();
+            while ($row = $query->fetch(\PDO::FETCH_OBJ)) {
+                $myReceipt = \FreeFW\DI\DI::get('FreeAsso::Model::Receipt');
+                $myReceipt->setRettId($tabTypesRecus['O']->getRettId());
+                if (strpos($row->numero, 'ADH') !== false) {
+                    $myReceipt->setRettId($tabTypesRecus['ADH']->getRettId());
+                }
+                if (strpos($row->numero, 'AM') !== false) {
+                    $myReceipt->setRettId($tabTypesRecus['AM']->getRettId());
+                }
+                if (strpos($row->numero, 'D') !== false) {
+                    $myReceipt->setRettId($tabTypesRecus['D']->getRettId());
+                }
+                if (strpos($row->numero, 'P') !== false) {
+                    $myReceipt->setRettId($tabTypesRecus['P']->getRettId());
+                }
+                if (array_key_exists($row->id_membre, $tabMembres)) {
+                    $myReceipt
+                        ->setCliId($tabMembres[$row->id_membre]->getCliId())
+                        ->setRecEmail($tabMembres[$row->id_membre]->getCliEmail())
+                    ;
+                } else {
+                    echo 'Member not found : ' . $row->id_membre . ' !' . PHP_EOL;
+                }
+                $fullname = $row->nom_membre;
+                $fullname = \FreeFW\Tools\Encoding::toUTF8($fullname);
+                $fullname = \FreeFW\Tools\Encoding::fixUTF8($fullname);
+                $fullname = \FreeFW\Tools\PBXString::clean($fullname);
+                $myReceipt->setRecFullname($fullname);
+                $address = $row->adresse_membre;
+                $address = html_entity_decode($address);
+                $address = str_replace("<br />", "\n", $address);
+                $address = str_replace("<br/>", "\n", $address);
+                $address = str_replace("<br>", "\n", $address);
+                $address = \FreeFW\Tools\Encoding::toUTF8($address);
+                $address = \FreeFW\Tools\Encoding::fixUTF8($address);
+                $address = \FreeFW\Tools\PBXString::clean($address);
+                $parts = explode("\n", $address);
+                $myReceipt->setRecAddress1($parts[0]);
+                if (count($parts) > 1) {
+                    $myReceipt->setRecAddress2($parts[1]);
+                }
+                if (count($parts) > 2) {
+                    $myReceipt->setRecAddress3($parts[2]);
+                }
+                $myReceipt->setRecCp($row->code_postale_membre);
+                $town = $row->ville_membre;
+                $town = \FreeFW\Tools\Encoding::toUTF8($town);
+                $town = \FreeFW\Tools\Encoding::fixUTF8($town);
+                $town = \FreeFW\Tools\PBXString::clean($town);
+                $myReceipt->setRecTown($town);
+                $pays  = $row->pays_membre_fr;
+                $found = false;
+                foreach ($tabPays as $idx => $country) {
+                    if (strtoupper($country->getCntyName()) == strtoupper($pays)) {
+                        $myReceipt->setCntyId($tabPays[$idx]->getCntyId());
+                        $found = true;
+                        break;
+                    }
+                }
+                if (!$found) {
+                    echo 'Receipt ' . $row->id_recus_fiscaux . ' country not found !' . PHP_EOL;
+                    $myReceipt->setCntyId($tabPays['default']->getCntyId());
+                }
+                if (array_key_exists($row->id_langue_parle, $tabLangues)) {
+                    $myReceipt->setLangId($tabLangues[$row->id_langue_parle]);
+                } else {
+                    $myReceipt->setLangId($tabLangues['default']);
+                }
+                $myReceipt
+                    ->setRecTs($row->date_emission)
+                    ->setRecGenTs($row->date_emission)
+                    ->setRecPrintTs($row->date_emission)
+                    ->setRecMoney('EUR')
+                    ->setRecMode('AUTO')
+                    ->setRecSendMethod('MANUAL')
+                    ->setRecYear($row->annee)
+                    ->setRecNumber($row->numero)
+                    ->setRecMnt($row->montant)
+                ;
+                if (intval($row->email_membre) > 0) {
+                    $myReceipt->setRecSendMethod('EMAIL');
+                }
+                if ($row->id_langue_parle == '1' || $row->id_langue_parle == '0') {
+                    $myReceipt->setRecMntLetter($row->montant_lettre_fr);
+                } else {
+                    $myReceipt->setRecMntLetter($row->montant_lettre_en);
+                }
+                if (!$myReceipt->create()) {
+                    var_export($myReceipt->getErrors());die;
+                }
+                $tabReceipts[$row->id_recus_fiscaux] = $myReceipt->getRecId();
+            }
+        } catch (\Exception $ex) {
+            var_export($ex);die;
+        }
         /**
          * Import des dons
          */
+        $tabSessions = [];
         $tabEntrees = [];
         $p_output->write("Import des dons", true);
         try {
@@ -670,10 +1032,13 @@ class Kalaweit
                 $myDonation
                     ->setDonStatus(\FreeAsso\Model\Donation::STATUS_NOK)
                     ->setDonMnt($row->montant)
+                    ->setDonMoney('EUR')
                     ->setDonDisplaySite(0)
                 ;
                 $ts = \FreeFW\Tools\Date::mysqlToDatetime($row->date_entree);
+                $year = 2020;
                 if ($ts) {
+                    $year = $ts->format('Y');
                     if (intval($ts->format('Y')) <= 2020) {
                         $ts = \FreeFW\Tools\Date::datetimeToMysql($ts);
                     } else {
@@ -684,10 +1049,26 @@ class Kalaweit
                     var_export('Erreur ts !');
                     continue;
                 }
+                if (!array_key_exists($year, $tabSessions)) {
+                    $mySession = \FreeFW\DI\DI::get('FreeAsso::Model::Session');
+                    $mySession
+                        ->setSessName('Année ' . $year)
+                        ->setSessExercice($year)
+                        ->setSessStatus('CLOSED')
+                    ;
+                    if ($year == '2020') {
+                        $mySession->setSessStatus('OPEN');
+                    }
+                    if (!$mySession->create()) {
+                        var_export($mySession->getErrors());die;
+                    }
+                    $tabSessions[$year] = $mySession;
+                }
                 $myDonation
                     ->setDonTs($ts)
                     ->setDonAskTs($ts)
                     ->setDonRealTs($ts)
+                    ->setSessId($tabSessions[$year]->getSessId())
                 ;
                 if ($row->etat_paiement == '1') {
                     $myDonation
@@ -695,16 +1076,44 @@ class Kalaweit
                     ;
                 }
                 if ($row->commentaire != '') {
-                    $myDonation->setDonComment('<p>' . $row->commentaire . '</p>');
+                    $comment = \FreeFW\Tools\Encoding::toUTF8($row->commentaire);
+                    $comment = \FreeFW\Tools\Encoding::fixUTF8($address);
+                    $comment = \FreeFW\Tools\PBXString::clean($address);
+                    $myDonation->setDonComment('<p>' . $comment . '</p>');
+                }
+                if (intVal($row->id_prelevement) > 1) {
+                    $myDonationOrigin = $tabDonationOrigins[$row->id_prelevement];
+                    $myDonation->setDonoId($myDonationOrigin->getDonoId());
                 }
                 if (intval($row->id_adoption) > 0) {
                     if (array_key_exists($row->id_adoption, $tabGibbons)) {
                         $myDonation->setCauId($tabGibbons[$row->id_adoption]->getCauId());
                     } else {
-                        var_export('Pb Gibbon ' . $row->id_adoption . ' !');
+                        echo 'Pb Gibbon don : ' . $row->id_adoption . ' !' . PHP_EOL;
+                        $myCause = \FreeFW\DI\DI::get('FreeAsso::Model::Cause');
+                        $myCause
+                            ->setCauName('Gibbon ' . $row->id_adoption)
+                            ->setCautId($myCauseGibbon->getCautId())
+                            ->setCauFamily(\FreeAsso\Model\Cause::FAMILY_ANIMAL)
+                            ->setCauPublic(0)
+                            ->setCauAvailable(0)
+                            ->setSiteId($myIleAutre->getSiteId())
+                        ;
+                        if (!$myCause->create()) {
+                            var_export($myCause->getErrors());die;
+                        }
+                        $tabGibbons[$row->id_adoption] = $myCause;
+                        $myDonation->setCauId($tabGibbons[$row->id_adoption]->getCauId());
                     }
                 } else {
-                    $myDonation->setCauId(null);
+                    $myDonation->setCauId($myCauseKalaweit->getCauId());
+                    $typeE = $row->type_entree;
+                    if ($typeE == '12' || $typeE == '14') {
+                        $myDonation->setCauId($myCauseForet->getCauId());
+                    }
+                    if ($typeE == '15') {
+                        $myDonation->setCauId($myCauseDulan->getCauId());
+                    }
                 }
                 if (intval($row->id_methode_paiement) >= 0) {
                     if (array_key_exists($row->id_methode_paiement, $tabTypePay)) {
@@ -727,8 +1136,20 @@ class Kalaweit
                 if (array_key_exists($row->id_membre, $tabMembres)) {
                     $myDonation->setCliId($tabMembres[$row->id_membre]->getCliId());
                 } else {
-                    var_export('Member not found : ' . $row->id_membre . ' !');
-                    continue;
+                    echo 'Member not found : ' . $row->id_membre . ' !' . PHP_EOL;
+                    $myClient = \FreeFW\DI\DI::get('FreeAsso::Model::Client');
+                    $myClient
+                        ->setCliExternId($row->id_membre)
+                        ->setCliLastname('Membre ' . $row->id_membre)
+                        ->setClitId($myTypeMembre->getClitId())
+                        ->setClicId($tabClientCategory['default'])
+                        ->setCliCertificat(1)
+                    ;
+                    if (!$myClient->create()){
+                        var_export($myClient->getErrors());die;
+                    }
+                    $tabMembres[$row->id_membre] = $myClient;
+                    $myDonation->setCliId($tabMembres[$row->id_membre]->getCliId());
                 }
                 if (intval($row->afficher_nom_parrain) > 0) {
                     $myDonation->setDonDisplaySite(1);
@@ -737,14 +1158,99 @@ class Kalaweit
                     if (array_key_exists($row->id_ligne_amis, $tabAmis)) {
                         $myDonation->setSpoId($tabAmis[$row->id_ligne_amis]->getSpoId());
                     } else {
-                        var_export('Ami not found : ' . $row->id_ligne_amis . ' !');
+                        echo 'Ami not found : ' . $row->id_ligne_amis . ' !' . PHP_EOL;
                         continue;
                     }
                 }
                 if (!$myDonation->create()) {
-                    var_export($myDonation->getErrors());
+                    var_export($myDonation->getErrors());die;
                 }
                 $tabEntrees[$row->id] = $myDonation;
+                // Vérification et enregistrement du certificat
+                if ($row->id_certificat > 0) {
+                    $queryCert = $provider->prepare("Select * from certificats where id_certificat = " . $row->id_certificat);
+                    $queryCert->execute();
+                    while ($rowCert = $queryCert->fetch(\PDO::FETCH_OBJ)) {
+                        $member = $tabMembres[$row->id_membre];
+                        $fullname = $rowCert->nom;
+                        $fullname = \FreeFW\Tools\Encoding::toUTF8($fullname);
+                        $fullname = \FreeFW\Tools\Encoding::fixUTF8($fullname);
+                        $fullname = \FreeFW\Tools\PBXString::clean($fullname);
+                        $myCertificate = \FreeFW\DI\DI::get('FreeAsso::Model::Certificate');
+                        $myCertificate
+                            ->setCliId($member->getCliId())
+                            ->setLangId($member->getLangId())
+                            ->setCertFullname($fullname)
+                            ->setCertEmail($rowCert->email)
+                            ->setCntyId($member->getCntyId())
+                            ->setCertAddress1($member->getCliAddress1())
+                            ->setCertAddress2($member->getCliAddress2())
+                            ->setCertAddress3($member->getCliAddress3())
+                            ->setCertCp($member->getCliCp())
+                            ->setCertTown($member->getCliTown())
+                            ->setCertInputMnt($rowCert->montant)
+                            ->setCertInputMoney('EUR')
+                            ->setCertOutputMnt($rowCert->montant_roupies)
+                            ->setCertOutputMoney('IDR')
+                            ->setCertData1($rowCert->surface_calcul)
+                        ;
+                        if ($rowCert->date_send != '') {
+                            $myCertificate->setCertPrintTs($rowCert->date_send);
+                        }
+                        if ($rowCert->date_emission != '') {
+                            $myCertificate->setCertGenTs($rowCert->date_emission);
+                        }
+                        if ($rowCert->date_calcul != '') {
+                            $myCertificate->setCertTs($rowCert->date_calcul);
+                        }
+                        if (!$myCertificate->create()) {
+                            var_export($rowCert);
+                            var_export($myCertificate->getErrors());die;
+                        }
+                        $myDonation->setCertId($myCertificate->getCertId());
+                        if (!$myDonation->save()) {
+                            var_export($myDonation->getErrors());die;
+                        }
+                        break;
+                    }
+                }
+                $queryRecu = $provider->prepare("Select * from recus_fiscaux_entrees where id_entrees = " . $row->id);
+                $queryRecu->execute();
+                while ($rowRecu = $queryRecu->fetch(\PDO::FETCH_OBJ)) {
+                    if (array_key_exists($rowRecu->id_recus_fiscaux, $tabReceipts)) {
+                        $myReceiptDonation = \FreeFW\DI\DI::get('FreeAsso::Model::ReceiptDonation');
+                        $myReceiptDonation
+                            ->setDonId($myDonation->getDonId())
+                            ->setRecid($tabReceipts[$rowRecu->id_recus_fiscaux])
+                            ->setRdoTs($myDonation->getDonTs())
+                            ->setRdoMnt($myDonation->getDonMnt())
+                            ->setRdoMoney($myDonation->getDonMoney())
+                            ->setPtypId($myDonation->getPtypId())
+                        ;
+                        $desc = null;
+                        if (intval($row->id_adoption) > 0) {
+                            if (array_key_exists($row->id_adoption, $tabGibbons)) {
+                                $desc = $tabGibbons[$row->id_adoption]->getCauName();
+                            } else {
+                                echo 'Gibbon id ' . $row->id_adoption . ' non trouvé !' . PHP_EOL;
+                            }
+                        } else {
+                            $typeE = $row->type_entree;
+                            if ($typeE == '12' || $typeE == '14') {
+                                $desc = 'Forêt';
+                            }
+                            if ($typeE == '15') {
+                                $desc = 'Dulan';
+                            }
+                        }
+                        $myReceiptDonation->setRdoDesc($desc);
+                        if (!$myReceiptDonation->create()) {
+                            var_export($myReceiptDonation->getErrors());die;
+                        }
+                    } else {
+                        echo 'Reçu fiscal introuvable pour le reçu ' . $row->id . ' !' . PHP_EOL;
+                    }
+                }
             }
         } catch (\Exception $ex) {
             var_export($ex);die;

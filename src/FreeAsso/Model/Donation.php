@@ -39,6 +39,18 @@ class Donation extends \FreeAsso\Model\Base\Donation
     protected $payment_type = null;
 
     /**
+     * Origin
+     * @var \FreeAsso\Model\DonationOrigin
+     */
+    protected $origin = null;
+
+    /**
+     * Session
+     * @var \FreeAsso\Model\Session
+     */
+    protected $session = null;
+
+    /**
      *
      * {@inheritDoc}
      * @see \FreeFW\Core\Model::init()
@@ -51,6 +63,8 @@ class Donation extends \FreeAsso\Model\Base\Donation
         $this->don_ask_ts  = \FreeFW\Tools\Date::getCurrentTimestamp();
         $this->don_real_ts = \FreeFW\Tools\Date::getCurrentTimestamp();
         $this->don_status  = self::STATUS_WAIT;
+        $this->dono_id     = null;
+        $this->sess_id     = null;
         return $this;
     }
 
@@ -121,5 +135,51 @@ class Donation extends \FreeAsso\Model\Base\Donation
     public function getPaymentType()
     {
         return $this->payment_type;
+    }
+
+    /**
+     * Set origin
+     *
+     * @param \FreeAsso\Model\DonationOrigin $p_origin
+     *
+     * @return \FreeAsso\Model\Donation
+     */
+    public function setOrigin($p_origin)
+    {
+        $this->origin = $p_origin;
+        return $this;
+    }
+
+    /**
+     * Get origin
+     *
+     * @return \FreeAsso\Model\DonationOrigin
+     */
+    public function getOrigin()
+    {
+        return $this->origin;
+    }
+
+    /**
+     * Set session
+     * 
+     * @param \FreeAsso\Model\Session $p_session
+     * 
+     * @return \FreeAsso\Model\Donation
+     */
+    public function setSession($p_session)
+    {
+        $this->session = $p_session;
+        return $this;
+    }
+
+    /**
+     * Get session
+     *
+     * @return \FreeAsso\Model\Session
+     */
+    public function getSession()
+    {
+        return $this->session;
     }
 }

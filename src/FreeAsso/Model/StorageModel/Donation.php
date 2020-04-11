@@ -11,10 +11,10 @@ use \FreeFW\Constants as FFCST;
 abstract class Donation extends \FreeFW\Core\StorageModel
 {
 
-/**
- * Field properties as static arrays
- * @var array
- */
+    /**
+     * Field properties as static arrays
+     * @var array
+     */
     protected static $PRP_DON_ID = [
         FFCST::PROPERTY_PRIVATE => 'don_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
@@ -91,6 +91,11 @@ abstract class Donation extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DECIMAL,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
+    protected static $PRP_DON_MONEY = [
+        FFCST::PROPERTY_PRIVATE => 'don_money',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+    ];
     protected static $PRP_PTYP_ID = [
         FFCST::PROPERTY_PRIVATE => 'ptyp_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
@@ -121,7 +126,14 @@ abstract class Donation extends \FreeFW\Core\StorageModel
     protected static $PRP_CERT_ID = [
         FFCST::PROPERTY_PRIVATE => 'cert_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['certificate' =>
+            [
+                'model' => 'FreeAsso::Model::Certificate',
+                'field' => 'cert_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
     ];
     protected static $PRP_DON_SPONSORS = [
         FFCST::PROPERTY_PRIVATE => 'don_sponsors',
@@ -132,6 +144,30 @@ abstract class Donation extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_PRIVATE => 'don_display_site',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_DONO_ID = [
+        FFCST::PROPERTY_PRIVATE => 'dono_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['origin' =>
+            [
+                'model' => 'FreeAsso::Model::DonationOrigin',
+                'field' => 'dono_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
+    protected static $PRP_SESS_ID = [
+        FFCST::PROPERTY_PRIVATE => 'sess_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['session' =>
+            [
+                'model' => 'FreeAsso::Model::Session',
+                'field' => 'sess_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
     ];
 
     /**
@@ -153,13 +189,16 @@ abstract class Donation extends \FreeFW\Core\StorageModel
             'don_real_ts'      => self::$PRP_DON_REAL_TS,
             'don_status'       => self::$PRP_DON_STATUS,
             'don_mnt'          => self::$PRP_DON_MNT,
+            'don_money'        => self::$PRP_DON_MONEY,
             'ptyp_id'          => self::$PRP_PTYP_ID,
             'don_comment'      => self::$PRP_DON_COMMENT,
             'don_dstat'        => self::$PRP_DON_DSTAT,
             'rec_id'           => self::$PRP_REC_ID,
             'cert_id'          => self::$PRP_CERT_ID,
             'don_sponsors'     => self::$PRP_DON_SPONSORS,
-            'don_display_site' => self::$PRP_DON_DISPLAY_SITE
+            'don_display_site' => self::$PRP_DON_DISPLAY_SITE,
+            'dono_id'          => self::$PRP_DONO_ID,
+            'sess_id'          => self::$PRP_SESS_ID
         ];
     }
 

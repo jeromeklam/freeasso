@@ -52,6 +52,18 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
     protected $don_ts = null;
 
     /**
+     * don_ask_ts
+     * @var string
+     */
+    protected $don_ask_ts = null;
+
+    /**
+     * don_real_ts
+     * @var string
+     */
+    protected $don_real_ts = null;
+
+    /**
      * don_status
      * @var string
      */
@@ -62,6 +74,12 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
      * @var string
      */
     protected $don_mnt = null;
+
+    /**
+     * don_money
+     * @var string
+     */
+    protected $don_money = null;
 
     /**
      * ptyp_id
@@ -104,6 +122,18 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
      * @var int
      */
     protected $don_display_site = null;
+
+    /**
+     * dono_id
+     * @var int
+     */
+    protected $dono_id = null;
+
+    /**
+     * sess_id
+     * @var int
+     */
+    protected $sess_id = null;
 
     /**
      * Set don_id
@@ -267,6 +297,52 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
     }
 
     /**
+     * Set don_ask_ts
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Donation
+     */
+    public function setDonAskTs($p_value)
+    {
+        $this->don_ask_ts = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get don_ask_ts
+     *
+     * @return string
+     */
+    public function getDonAskTs()
+    {
+        return $this->don_ask_ts;
+    }
+
+    /**
+     * Set don_real_ts
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Donation
+     */
+    public function setDonRealTs($p_value)
+    {
+        $this->don_real_ts = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get don_real_ts
+     *
+     * @return string
+     */
+    public function getDonRealTs()
+    {
+        return $this->don_real_ts;
+    }
+
+    /**
      * Set don_status
      *
      * @param string $p_value
@@ -310,6 +386,29 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
     public function getDonMnt()
     {
         return $this->don_mnt;
+    }
+
+    /**
+     * Set don_money
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Donation
+     */
+    public function setDonMoney($p_value)
+    {
+        $this->don_money = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get don_money
+     *
+     * @return string
+     */
+    public function getDonMoney()
+    {
+        return $this->don_money;
     }
 
     /**
@@ -471,5 +570,51 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
     public function getDonDisplaySite()
     {
         return $this->don_display_site;
+    }
+
+    /**
+     * Set dono_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Donation
+     */
+    public function setDonoId($p_value)
+    {
+        $this->dono_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get dono_id
+     *
+     * @return int
+     */
+    public function getDonoId()
+    {
+        return $this->dono_id;
+    }
+
+    /**
+     * Set sess_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Donation
+     */
+    public function setSessId($p_value)
+    {
+        $this->sess_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get sess_id
+     *
+     * @return int
+     */
+    public function getSessId()
+    {
+        return $this->sess_id;
     }
 }
