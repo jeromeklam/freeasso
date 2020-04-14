@@ -52,6 +52,12 @@ abstract class Sponsorship extends \FreeAsso\Model\StorageModel\Sponsorship
     protected $spo_mnt = null;
 
     /**
+     * spo_money
+     * @var string
+     */
+    protected $spo_money = null;
+
+    /**
      * spo_freq
      * @var string
      */
@@ -59,7 +65,7 @@ abstract class Sponsorship extends \FreeAsso\Model\StorageModel\Sponsorship
 
     /**
      * spo_freq_when
-     * @var number
+     * @var string
      */
     protected $spo_freq_when = null;
 
@@ -255,6 +261,29 @@ abstract class Sponsorship extends \FreeAsso\Model\StorageModel\Sponsorship
     }
 
     /**
+     * Set spo_money
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Sponsorship
+     */
+    public function setSpoMoney($p_value)
+    {
+        $this->spo_money = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get spo_money
+     *
+     * @return string
+     */
+    public function getSpoMoney()
+    {
+        return $this->spo_money;
+    }
+
+    /**
      * Set spo_freq
      *
      * @param string $p_value
@@ -280,7 +309,7 @@ abstract class Sponsorship extends \FreeAsso\Model\StorageModel\Sponsorship
     /**
      * Set spo_freq_when
      *
-     * @param number $p_value
+     * @param string $p_value
      *
      * @return \FreeAsso\Model\Sponsorship
      */
@@ -289,7 +318,7 @@ abstract class Sponsorship extends \FreeAsso\Model\StorageModel\Sponsorship
         $this->spo_freq_when = $p_value;
         return $this;
     }
-    
+
     /**
      * Get spo_freq_when
      *

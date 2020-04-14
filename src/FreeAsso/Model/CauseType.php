@@ -45,6 +45,7 @@ class CauseType extends \FreeAsso\Model\Base\CauseType implements
         $this->caut_receipt    = 0;
         $this->caut_certificat = 0;
         $this->caut_mnt_type   = self::MNT_TYPE_OTHER;
+        $this->caut_money      = 'EUR';
         $this->caut_string_1   = 0;
         $this->caut_string_2   = 0;
         $this->caut_string_3   = 0;

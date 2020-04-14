@@ -64,6 +64,12 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
     protected $don_real_ts = null;
 
     /**
+     * don_end_ts
+     * @var string
+     */
+    protected $don_end_ts = null;
+
+    /**
      * don_status
      * @var string
      */
@@ -340,6 +346,29 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
     public function getDonRealTs()
     {
         return $this->don_real_ts;
+    }
+
+    /**
+     * Set don_end_ts
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Donation
+     */
+    public function setDonEndTs($p_value)
+    {
+        $this->don_end_ts = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get don_end_ts
+     *
+     * @return string
+     */
+    public function getDonEndTs()
+    {
+        return $this->don_end_ts;
     }
 
     /**

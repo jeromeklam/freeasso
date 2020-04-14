@@ -105,6 +105,16 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
     ];
     protected static $PRP_CAU_MNT = [
         FFCST::PROPERTY_PRIVATE => 'cau_mnt',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DECIMAL,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_CAU_MNT_LEFT = [
+        FFCST::PROPERTY_PRIVATE => 'cau_mnt_left',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DECIMAL,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_CAU_MONEY = [
+        FFCST::PROPERTY_PRIVATE => 'cau_money',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
         FFCST::PROPERTY_OPTIONS => []
     ];
@@ -303,6 +313,8 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
             'orig_cli_id'    => self::$PRP_ORIG_CLI_ID,
             'rais_cli_id'    => self::$PRP_RAIS_CLI_ID,
             'cau_mnt'        => self::$PRP_CAU_MNT,
+            'cau_mnt_left'   => self::$PRP_CAU_MNT_LEFT,
+            'cau_money'      => self::$PRP_CAU_MONEY,
             'cau_code'       => self::$PRP_CAU_CODE,
             'cau_family'     => self::$PRP_CAU_FAMILY,
             'cau_string_1'   => self::$PRP_CAU_STRING_1,

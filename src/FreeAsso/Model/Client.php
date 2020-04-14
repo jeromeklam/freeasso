@@ -43,17 +43,26 @@ class Client extends \FreeAsso\Model\Base\Client implements
     protected $sponsor = null;
 
     /**
+     * Last donation
+     * @var \FreeAsso\Model\Donation
+     */
+    protected $last_donation = null;
+
+    /**
      *
      * {@inheritDoc}
      * @see \FreeFW\Core\Model::init()
      */
     public function init()
     {
-        $this->cli_id     = 0;
-        $this->brk_id     = 0;
-        $this->clic_id    = 0;
-        $this->clit_it    = '';
-        $this->cli_active = 1;
+        $this->cli_id           = 0;
+        $this->brk_id           = 0;
+        $this->clic_id          = 0;
+        $this->clit_it          = '';
+        $this->cli_active       = true;
+        $this->last_don_id      = null;
+        $this->cli_display_site = true;
+        $this->cli_send_news    = true;
         return $this;
     }
 
@@ -170,5 +179,59 @@ class Client extends \FreeAsso\Model\Base\Client implements
     public function getSponsor()
     {
         return $this->sponsor;
+    }
+
+    /**
+     * Set last donation
+     * 
+     * @param \FreeAsso\Model\Donation $p_donation
+     * 
+     * @return \FreeAsso\Model\Client
+     */
+    public function setLastDonation($p_donation)
+    {
+        $this->last_donation = $p_donation;
+        return $this;
+    }
+
+    /**
+     * Get last donation
+     *
+     * @return \FreeAsso\Model\Donation
+     */
+    public function getLastDonation()
+    {
+        return $this->last_donation;
+    }
+
+    /**
+     * Update last donation
+     * 
+     * @return boolean
+     */
+    public function updateLastDonation()
+    {
+        $model   = \FreeFW\DI\DI::get('FreeAsso::Model::Donation');
+        $query   = $model->getQuery();
+        $filters = [
+            'cli_id'     => $this->getCliId(),
+            'don_status' => \FreeAsso\Model\Donation::STATUS_OK,
+            'don_ts'     => [\FreeFW\Storage\Storage::COND_LOWER_EQUAL => \FreeFW\Tools\Date::getCurrentTimestamp()]
+        ];
+        $query
+            ->addFromFilters($filters)
+            ->setSort('-don_ts')
+            ->setLimit(0, 1)
+        ;
+        if ($query->execute()) {
+            $results = $query->getResult();
+            if ($results) {
+                foreach ($results as $row) {
+                    $this->setLastDonId($row->getDonId());
+                    return $this->save();
+                }
+            }
+        }
+        return true;
     }
 }

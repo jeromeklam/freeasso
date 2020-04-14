@@ -27,6 +27,9 @@ $clientRoutes = [
         'function'   => 'getAll',
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
+        'include'    => [
+            'default' => ['lang', 'last_donation']
+        ],
         'results' => [
             '200' => [
                 'type'  => \FreeFW\Router\Route::RESULT_LIST,
@@ -43,7 +46,7 @@ $clientRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['client_category', 'client_type', 'country', 'lang']
+            'default' => ['client_category', 'client_type', 'country', 'lang', 'last_donation']
         ],
         'results' => [
             '200' => [
@@ -61,7 +64,7 @@ $clientRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['client_category', 'client_type', 'country', 'lang']
+            'default' => ['client_category', 'client_type', 'country', 'lang', 'last_donation']
         ],
         'results' => [
             '200' => [
@@ -79,7 +82,7 @@ $clientRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['client_category', 'client_type', 'country', 'lang']
+            'default' => ['client_category', 'client_type', 'country', 'lang', 'last_donation']
         ],
         'results' => [
             '201' => [

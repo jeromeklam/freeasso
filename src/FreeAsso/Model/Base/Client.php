@@ -166,6 +166,12 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     protected $cli_sponsor_id = null;
 
     /**
+     * last_don_id
+     * @var int
+     */
+    protected $last_don_id = null;
+
+    /**
      * cli_string_1
      * @var string
      */
@@ -284,6 +290,18 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
      * @var int
      */
     protected $cli_bool_4 = null;
+
+    /**
+     * cli_display_site
+     * @var string
+     */
+    protected $cli_display_site = null;
+
+    /**
+     * cli_send_news
+     * @var string
+     */
+    protected $cli_send_news = null;
 
     /**
      * Set cli_id
@@ -884,6 +902,29 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     }
 
     /**
+     * Set last_don_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Client
+     */
+    public function setLastDonId($p_value)
+    {
+        $this->last_don_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get last_don_id
+     *
+     * @return int
+     */
+    public function getLastDonId()
+    {
+        return $this->last_don_id;
+    }
+
+    /**
      * Set cli_string_1
      *
      * @param string $p_value
@@ -1341,5 +1382,51 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     public function getCliBool_4()
     {
         return $this->cli_bool_4;
+    }
+
+    /**
+     * Set cli_display_site
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Client
+     */
+    public function setCliDisplaySite($p_value)
+    {
+        $this->cli_display_site = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get cli_display_site
+     *
+     * @return string
+     */
+    public function getCliDisplaySite()
+    {
+        return $this->cli_display_site;
+    }
+
+    /**
+     * Set cli_send_news
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Client
+     */
+    public function setCliSendNews($p_value)
+    {
+        $this->cli_send_news = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get cli_send_news
+     *
+     * @return string
+     */
+    public function getCliSendNews()
+    {
+        return $this->cli_send_news;
     }
 }

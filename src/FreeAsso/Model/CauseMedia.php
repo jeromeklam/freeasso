@@ -12,16 +12,16 @@ class CauseMedia extends \FreeAsso\Model\Base\CauseMedia
 {
 
     /**
-     * Langue
-     * @var \FreeFW\Model\Lang
-     */
-    protected $lang = null;
-
-    /**
      * Cause
      * @var \FreeAsso\Model\Cause
      */
     protected $cause = null;
+
+    /**
+     * Versions
+     * @var [\FreeAsso\Model\CauseMediaLang]
+     */
+    protected $versions = null;
 
     /**
      *
@@ -33,31 +33,7 @@ class CauseMedia extends \FreeAsso\Model\Base\CauseMedia
         $this->caum_id = 0;
         $this->brk_id  = 0;
         $this->cau_id  = 0;
-        $this->lang_id = null;
         return $this;
-    }
-
-    /**
-     * Set lang
-     *
-     * @param \FreeFW\Model\Lang $p_lang
-     *
-     * @return \FreeAsso\Model\CauseMedia
-     */
-    public function setLang($p_lang)
-    {
-        $this->lang = $p_lang;
-        return $this;
-    }
-
-    /**
-     * Get lang
-     *
-     * @return \FreeFW\Model\Lang
-     */
-    public function getLang()
-    {
-        return $this->lang;
     }
 
     /**
@@ -81,5 +57,28 @@ class CauseMedia extends \FreeAsso\Model\Base\CauseMedia
     public function getCause()
     {
         return $this->cause;
+    }
+
+    /**
+     * Get versions
+     * 
+     * @return [\FreeAsso\Model\CauseMediaLang]
+     */
+    public function getVersions()
+    {
+        if ($this->versions === null) {
+            if ($this->getCaumType() != self::TYPE_PHOTO) {
+                $model  = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMediaLang');
+                $query  = $model->getQuery();
+                $query
+                    ->addFromFilters(['caum_id' => $this->getCaumId()])
+                    ->addRelations([lang])
+                ;
+                if ($query->execute()) {
+                    $this->versions = $query->getResult();
+                }
+            }
+        }
+        return $this->versions;
     }
 }

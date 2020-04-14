@@ -14,7 +14,7 @@ $causeMediaRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['cause', 'lang']
+            'default' => ['cause', 'versions', 'versions.lang']
         ],
         'results' => [
             '200' => [
@@ -32,7 +32,7 @@ $causeMediaRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['cause', 'lang']
+            'default' => ['cause', 'versions', 'versions.lang']
         ],
         'results' => [
             '200' => [
@@ -50,7 +50,7 @@ $causeMediaRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['cause', 'lang']
+            'default' => ['cause', 'versions', 'versions.lang']
         ],
         'results' => [
             '200' => [
@@ -68,7 +68,7 @@ $causeMediaRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['cause', 'lang']
+            'default' => ['cause', 'versions', 'versions.lang']
         ],
         'results' => [
             '201' => [
@@ -99,7 +99,7 @@ $causeMediaRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['cause', 'lang']
+            'default' => ['cause', 'versions', 'versions.lang']
         ],
         'results' => [
             '201' => [

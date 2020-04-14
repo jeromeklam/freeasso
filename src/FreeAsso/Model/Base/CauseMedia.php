@@ -82,12 +82,6 @@ abstract class CauseMedia extends \FreeAsso\Model\StorageModel\CauseMedia
     protected $caum_short_blob = null;
 
     /**
-     * lang_id
-     * @var int
-     */
-    protected $lang_id = null;
-
-    /**
      * caum_order
      * @var string
      */
@@ -373,29 +367,6 @@ abstract class CauseMedia extends \FreeAsso\Model\StorageModel\CauseMedia
     public function getCaumShortBlob()
     {
         return $this->caum_short_blob;
-    }
-
-    /**
-     * Set lang_id
-     *
-     * @param int $p_value
-     *
-     * @return \FreeAsso\Model\CauseMedia
-     */
-    public function setLangId($p_value)
-    {
-        $this->lang_id = $p_value;
-        return $this;
-    }
-
-    /**
-     * Get lang_id
-     *
-     * @return int
-     */
-    public function getLangId()
-    {
-        return $this->lang_id;
     }
 
     /**

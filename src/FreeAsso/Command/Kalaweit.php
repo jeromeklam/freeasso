@@ -10,6 +10,131 @@ class Kalaweit
 {
 
     /**
+     * Découpage du détail français en blocs
+     * 
+     * @param string $p_detail
+     * 
+     * @return string[]
+     */
+    protected function getDetailsFrAsArray($p_detail)
+    {
+        $monthsFR = ['JANVIER', 'FEVRIER', 'MARS', 'AVRIL', 'MAIL', 'JUIN', 'JUILLET', 'AOUT', 'SEPTEMBRE', 'OCTOBRE', 'NOVEMBRE', 'DECEMBRE'];
+        $monthsEN = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
+        $lib = \FreeFW\Tools\Encoding::toUTF8($p_detail);
+        $lib = \FreeFW\Tools\Encoding::fixUTF8($lib);
+        $lib = str_replace('&nbsp;', ' ', $lib);
+        $lib = html_entity_decode($lib);
+        $lib = strip_tags($lib);
+        $lib = \FreeFW\Tools\PBXString::clean($lib);
+        $lines = explode("\n", $lib);
+        $crtSubject = 'Presentation';
+        $parts[$crtSubject] = [];
+        $parts[$crtSubject]['subject'] = 'Présentation';
+        $parts[$crtSubject]['text']    = '';
+        foreach ($lines as $line) {
+            $words = explode(" ", trim($line));
+            if (count($words) <= 5) {
+                $subject = '';
+                $number  = false;
+                $date    = false;
+                foreach ($words as $word) {
+                    $word = str_replace('-', '', $word);
+                    $word = str_replace(',', '', $word);
+                    $word = str_replace(';', '', $word);
+                    $word = str_replace('.', '', $word);
+                    if (intval($word) == $word && intval($word) > 1900) {
+                        $number = '' . intval($word);
+                    }
+                    $maj = strtoupper(\FreeFW\Tools\PBXString::withoutAccent($word));
+                    if (in_array($maj, $monthsEN) !== false || in_array($maj, $monthsFR) !== false) {
+                        $date = true;
+                        if (in_array($maj, $monthsFR) !== false) {
+                            $date = '-' . array_search($maj, $monthsFR);
+                        }
+                        if (in_array($maj, $monthsEN) !== false) {
+                            $date = '-' . array_search($maj, $monthsEN);
+                        }
+                    }
+                }
+                if ($date && $number) {
+                    $crtSubject = $number . $date;
+                }
+            }
+            if (!array_key_exists($crtSubject, $parts)) {
+                $parts[$crtSubject] = [];
+                $parts[$crtSubject]['subject'] = trim($line);
+                $parts[$crtSubject]['text']    = '';
+                continue;
+            }
+            $parts[$crtSubject]['text'] .= $line . PHP_EOL;
+        }
+        return $parts;
+    }
+
+    /**
+     * Découpage du détail anglais en blocs
+     *
+     * @param string $p_detail
+     *
+     * @return string[]
+     */
+    protected function getDetailsEnAsArray($p_detail)
+    {
+        $monthsFR = ['JANVIER', 'FEVRIER', 'MARS', 'AVRIL', 'MAIL', 'JUIN', 'JUILLET', 'AOUT', 'SEPTEMBRE', 'OCTOBRE', 'NOVEMBRE', 'DECEMBRE'];
+        $monthsEN = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
+        $lib = \FreeFW\Tools\Encoding::toUTF8($p_detail);
+        $lib = \FreeFW\Tools\Encoding::fixUTF8($lib);
+        $lib = str_replace('&nbsp;', ' ', $lib);
+        $lib = html_entity_decode($lib);
+        $lib = strip_tags($lib);
+        $lib = \FreeFW\Tools\PBXString::clean($lib);
+        $lines = explode("\n", $lib);
+        $crtSubject = 'Presentation';
+        $parts = [];
+        $parts[$crtSubject] = [];
+        $parts[$crtSubject]['subject'] = 'Presentation';
+        $parts[$crtSubject]['text']    = '';
+        foreach ($lines as $line) {
+            $words = explode(" ", trim($line));
+            if (count($words) <= 5) {
+                $subject = '';
+                $number  = false;
+                $date    = false;
+                foreach ($words as $word) {
+                    $word = str_replace('-', '', $word);
+                    $word = str_replace(',', '', $word);
+                    $word = str_replace(';', '', $word);
+                    $word = str_replace('.', '', $word);
+                    if (intval($word) == $word && intval($word) > 1900) {
+                        $number = '' . intval($word);
+                    }
+                    $maj = strtoupper(\FreeFW\Tools\PBXString::withoutAccent($word));
+                    if (in_array($maj, $monthsEN) !== false || in_array($maj, $monthsFR) !== false) {
+                        $date = true;
+                        if (in_array($maj, $monthsFR) !== false) {
+                            $date = '-' . array_search($maj, $monthsFR);
+                        }
+                        if (in_array($maj, $monthsEN) !== false) {
+                            $date = '-' . array_search($maj, $monthsEN);
+                        }
+                    }
+                }
+                if ($date && $number) {
+                    $crtSubject = $number . $date;
+                }
+            }
+            if (!array_key_exists($crtSubject, $parts)) {
+                $parts[$crtSubject] = [];
+                $parts[$crtSubject]['subject'] = trim($line);
+                $parts[$crtSubject]['text']    = '';
+                continue;
+            }
+            $parts[$crtSubject]['text'] .= $line . PHP_EOL;
+        }
+        return $parts;
+    }
+    
+    /**
      * Import data
      *
      * @param \FreeFW\Console\Input\Input $p_input
@@ -28,6 +153,27 @@ class Kalaweit
         if ($brokerId != '4') {
             die('Wrong brokerId !');
         }
+        
+        /*
+        $p_output->write("Import des Gibbons", true);
+        try {
+            $query = $provider->prepare("Select * from gibbons");
+            $query->execute();
+            while ($row = $query->fetch(\PDO::FETCH_OBJ)) {
+                if ($row->Details != '' || $row->Details_ang != '' || $row->Details_esp != '') {
+                    $partsFR = $this->getDetailsFrAsArray($row->Details);
+                    $partsEN = $this->getDetailsEnAsArray($row->Details_ang);
+                    $keys = array_unique(array_merge(array_keys($partsFR), array_keys($partsEN)));
+                    sort($keys);
+                    var_export($keys) . PHP_EOL;;
+                }
+            }
+        } catch (\Exception $ex) {
+            
+        }
+        die('End');
+        */
+        
         /**
          * Langues
          */
@@ -39,13 +185,15 @@ class Kalaweit
          */
         $p_output->write("Nettoyage", true);
         $query = $assoPdo->exec("UPDATE asso_cause SET parent1_cau_id = null, parent2_cau_id = null, caum_blob_id = null, caum_text_id = null WHERE  brk_id = " . $brokerId);
+        $query = $assoPdo->exec("UPDATE crm_client SET last_don_id = null WHERE  brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_file WHERE brk_id = " . $brokerId);
-        $query = $assoPdo->exec("DELETE FROM asso_certificate WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_cause_media_lang WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_cause_media WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_receipt_donation WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_donation WHERE brk_id = " . $brokerId);
+        $query = $assoPdo->exec("DELETE FROM asso_donation_origin WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_sponsorship WHERE brk_id = " . $brokerId);
+        $query = $assoPdo->exec("DELETE FROM asso_certificate WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_receipt WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_cause WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_site WHERE brk_id = " . $brokerId);
@@ -57,6 +205,7 @@ class Kalaweit
         $query = $assoPdo->exec("DELETE FROM asso_payment_type WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_receipt_type WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_session WHERE brk_id = " . $brokerId);
+        $query = $assoPdo->exec("DELETE FROM asso_file WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM crm_client WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM crm_client_category WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM crm_client_type WHERE brk_id = " . $brokerId);
@@ -139,7 +288,7 @@ class Kalaweit
         }
         // Grandes causes
         $myGibbonCause = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMainType');
-        $myGibbonCause->setCamtName('Gibbons');
+        $myGibbonCause->setCamtName('Animaux');
         $myGibbonCause->create();
         $myForestCause = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMainType');
         $myForestCause->setCamtName('Forêt');
@@ -153,7 +302,7 @@ class Kalaweit
         $myCauseGibbon
             ->setCautName('Gibbon')
             ->setCautMntType(\FreeAsso\Model\CauseType::MNT_TYPE_ANNUAL)
-            ->setCautMaxMnt(360)
+            ->setCautMaxMnt(280)
             ->setCautMinMnt(0)
             ->setCautReceipt(1)
             ->setCautString_2(1)
@@ -297,6 +446,7 @@ class Kalaweit
                 $name = \FreeFW\Tools\Encoding::toUTF8($row->lang_parle);
                 $name = \FreeFW\Tools\Encoding::fixUTF8($name);
                 $name = \FreeFW\Tools\PBXString::clean($name);
+                $name = html_entity_decode($name);
                 $myLang = \FreeFW\Model\Lang::findFirst(
                     [
                         'lang_name' => $name
@@ -498,16 +648,23 @@ class Kalaweit
                 if (strtolower($row->adoption) == 'oui') {
                     $myCause->setCauAvailable(1);
                 }
+                $keep = true;
                 if (strtolower($row->Gibbon_libere) == 'oui') {
                     $myCause->setCauString_3('Libéré');
+                    $keep = false;
                 }
                 if (strtolower($row->Gibbon_mort) == 'oui') {
                     $myCause->setCauString_3('Mort');
+                    $keep = false;
                 }
                 if (strtolower($row->Date_mort) != '') {
                     if ($row->Date_mort != '0000-00-00') {
                         $myCause->setCauTo($row->Date_mort);
                     } else {
+                        $myCause->setCauTo(\FreeFW\Tools\Date::getCurrentTimestamp());
+                    }
+                } else {
+                    if (!$keep) {
                         $myCause->setCauTo(\FreeFW\Tools\Date::getCurrentTimestamp());
                     }
                 }
@@ -569,70 +726,67 @@ class Kalaweit
                     }
                 }
                 if ($row->Details != '' || $row->Details_ang != '' || $row->Details_esp != '') {
-                    $myCauseMedia = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMedia');
-                    $myCauseMedia
-                        ->setCaumType(\FreeAsso\Model\CauseMedia::TYPE_HTML)
-                        ->setCauId($myCause->getCauId())
-                        ->setCaumCode('NEWS')
-                        ->setCaumTs(\FreeFW\Tools\Date::getCurrentTimestamp())
-                        ->setCaumTitle('Journal')
-                    ;
-                    if (!$myCauseMedia->create()) {
-                        var_export($myCauseMedia);
-                    }
-                    // Version française
-                    if ($row->Details != '') {
-                        $desc = \FreeFW\Tools\Encoding::toUTF8($row->Details);
-                        $desc = trim(\FreeFW\Tools\Encoding::fixUTF8($desc));
-                        $desc = \FreeFW\Tools\PBXString::clean($desc);
-                        if (strpos('<p>', $desc) === false) {
-                            $desc = '<p>' . $desc . '</p>';
+                    $partsFR = $this->getDetailsFrAsArray($row->Details);
+                    $partsEN = $this->getDetailsEnAsArray($row->Details_ang);
+                    $keys = array_unique(array_merge(array_keys($partsFR), array_keys($partsEN)));
+                    sort($keys);
+                    $idx = count($keys) - 1;
+                    $order = 0;
+                    while ($idx >= 0) {
+                        if ($keys[$idx] == 'Presentation') {
+                            $desc = htmlentities($partsFR[$keys[$idx]]['text']);
+                            if (strpos('<p>', $desc) === false) {
+                                $desc = '<p>' . $desc . '</p>';
+                            }
+                            $myCause->setCauDesc($desc);
+                            $myCause->save();
                         }
-                        $myCauseMediaLang = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMediaLang');
-                        $myCauseMediaLang
-                            ->setCaumId($myCauseMedia->getCaumId())
-                            ->setLangId($langFR)
-                            ->setCamlText($desc)
+                        $order++;
+                        $myCauseMedia = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMedia');
+                        $myCauseMedia
+                            ->setCaumType(\FreeAsso\Model\CauseMedia::TYPE_HTML)
+                            ->setCauId($myCause->getCauId())
+                            ->setCaumCode('NEWS')
+                            ->setCaumTs(\FreeFW\Tools\Date::getCurrentTimestamp())
+                            ->setCaumTitle($keys[$idx])
+                            ->setCaumOrder($order)
                         ;
-                        if (!$myCauseMediaLang->create()) {
-                            var_export($myCauseMediaLang);die;
+                        if (!$myCauseMedia->create()) {
+                            var_export($myCauseMedia);
                         }
-                    }
-                    // Version anglaise
-                    if ($row->Details_ang != '') {
-                        $desc = \FreeFW\Tools\Encoding::toUTF8($row->Details_ang);
-                        $desc = trim(\FreeFW\Tools\Encoding::fixUTF8($desc));
-                        $desc = \FreeFW\Tools\PBXString::clean($desc);
-                        if (strpos('<p>', $desc) === false) {
-                            $desc = '<p>' . $desc . '</p>';
+                        if (array_key_exists($keys[$idx], $partsFR)) {
+                            $desc = htmlentities($partsFR[$keys[$idx]]['text']);
+                            if (strpos('<p>', $desc) === false) {
+                                $desc = '<p>' . $desc . '</p>';
+                            }
+                            $myCauseMediaLang = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMediaLang');
+                            $myCauseMediaLang
+                                ->setCaumId($myCauseMedia->getCaumId())
+                                ->setLangId($langFR)
+                                ->setCamlSubject($partsFR[$keys[$idx]]['subject'])
+                                ->setCamlText($desc)
+                            ;
+                            if (!$myCauseMediaLang->create()) {
+                                var_export($myCauseMediaLang);die;
+                            }
                         }
-                        $myCauseMediaLang = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMediaLang');
-                        $myCauseMediaLang
-                            ->setCaumId($myCauseMedia->getCaumId())
-                            ->setLangId($langEN)
-                            ->setCamlText($desc)
-                        ;
-                        if (!$myCauseMediaLang->create()) {
-                            var_export($myCauseMediaLang);
+                        if (array_key_exists($keys[$idx], $partsEN)) {
+                            $desc = htmlentities($partsEN[$keys[$idx]]['text']);
+                            if (strpos('<p>', $desc) === false) {
+                                $desc = '<p>' . $desc . '</p>';
+                            }
+                            $myCauseMediaLang = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMediaLang');
+                            $myCauseMediaLang
+                                ->setCaumId($myCauseMedia->getCaumId())
+                                ->setLangId($langEN)
+                                ->setCamlSubject($partsEN[$keys[$idx]]['subject'])
+                                ->setCamlText($desc)
+                            ;
+                            if (!$myCauseMediaLang->create()) {
+                                var_export($myCauseMediaLang);die;
+                            }
                         }
-                    }
-                    // Version espagnole
-                    if ($row->Details_esp != '') {
-                        $desc = \FreeFW\Tools\Encoding::toUTF8($row->Details_esp);
-                        $desc = trim(\FreeFW\Tools\Encoding::fixUTF8($desc));
-                        $desc = \FreeFW\Tools\PBXString::clean($desc);
-                        if (strpos('<p>', $desc) === false) {
-                            $desc = '<p>' . $desc . '</p>';
-                        }
-                        $myCauseMediaLang = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMediaLang');
-                        $myCauseMediaLang
-                            ->setCaumId($myCauseMedia->getCaumId())
-                            ->setLangId($langES)
-                            ->setCamlText($desc)
-                        ;
-                        if (!$myCauseMediaLang->create()) {
-                            var_export($myCauseMediaLang);
-                        }
+                        $idx--;
                     }
                 }
                 //
@@ -681,8 +835,21 @@ class Kalaweit
                     ->setCliEmail($row->email)
                     ->setCliEmailOld($row->old_email)
                     ->setCliReceipt($row->recu)
-                    ->setCliCertificat(1)
+                    ->setCliCertificat(true)
+                    ->setCliDisplaySite(true)
+                    ->setCliSendNews(true)
                 ;
+                $queryAmi = $provider->prepare("Select * from les_amis where id_membre = " . $row->id . " order by date_debut desc");
+                $queryAmi->execute();
+                while ($rowAmi = $queryAmi->fetch(\PDO::FETCH_OBJ)) {
+                    if ($rowAmi->afficher_nom_parrain != '1') {
+                        $myClient->setCliDisplaySite(false);
+                    }
+                    if ($rowAmi->recevoir_nouvelle_adoption != '1') {
+                        $myClient->setCliSendNews(false);
+                    }
+                    break;
+                }
                 if ($row->commentaires != '') {
                     $comment = \FreeFW\Tools\Encoding::toUTF8($row->commentaires);
                     $comment = \FreeFW\Tools\Encoding::fixUTF8($comment);
@@ -720,7 +887,7 @@ class Kalaweit
                     $myClient->setLangId($tabLangues['default']);
                 }
                 if (!$myClient->create()) {
-                    var_export($myClient->getErrors());
+                    var_export($myClient->getErrors());die;
                 }
                 if (intval($row->parraine_par) > 0) {
                     $updates[$row->id] = $row->parraine_par;
@@ -784,6 +951,7 @@ class Kalaweit
                     ->setSpoSponsors($sponsors)
                     ->setSpoFreq(\FreeAsso\Model\Sponsorship::PAYMENT_TYPE_MONTH)
                     ->setSpoMnt($row->montant)
+                    ->setSpoMoney('EUR')
                     ->setSpoFrom($from)
                     ->setSpoTo($to)
                 ;
@@ -1064,10 +1232,23 @@ class Kalaweit
                     }
                     $tabSessions[$year] = $mySession;
                 }
+                $realTs = null;
+                if ($row->date_parrainage != '') {
+                    $realTs = \FreeFW\Tools\Date::mysqlToDatetime($row->date_parrainage);
+                    $realTs = \FreeFW\Tools\Date::datetimeToMysql($realTs);
+                } else {
+                    $realTs = $ts;
+                }
+                $endTs = null;
+                if ($row->date_fin != '') {
+                    $endTs = \FreeFW\Tools\Date::mysqlToDatetime($row->date_fin);
+                    $endTs = \FreeFW\Tools\Date::datetimeToMysql($endTs);
+                }
                 $myDonation
                     ->setDonTs($ts)
-                    ->setDonAskTs($ts)
-                    ->setDonRealTs($ts)
+                    ->setDonAskTs($realTs)
+                    ->setDonRealTs($realTs)
+                    ->setDonEndTs($endTs)
                     ->setSessId($tabSessions[$year]->getSessId())
                 ;
                 if ($row->etat_paiement == '1') {
@@ -1163,6 +1344,7 @@ class Kalaweit
                     }
                 }
                 if (!$myDonation->create()) {
+                    var_export($row);
                     var_export($myDonation->getErrors());die;
                 }
                 $tabEntrees[$row->id] = $myDonation;

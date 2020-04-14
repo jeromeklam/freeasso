@@ -81,6 +81,11 @@ abstract class Donation extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
+    protected static $PRP_DON_END_TS = [
+        FFCST::PROPERTY_PRIVATE => 'don_end_ts',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
     protected static $PRP_DON_STATUS = [
         FFCST::PROPERTY_PRIVATE => 'don_status',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
@@ -187,6 +192,7 @@ abstract class Donation extends \FreeFW\Core\StorageModel
             'don_ts'           => self::$PRP_DON_TS,
             'don_ask_ts'       => self::$PRP_DON_ASK_TS,
             'don_real_ts'      => self::$PRP_DON_REAL_TS,
+            'don_end_ts'       => self::$PRP_DON_END_TS,
             'don_status'       => self::$PRP_DON_STATUS,
             'don_mnt'          => self::$PRP_DON_MNT,
             'don_money'        => self::$PRP_DON_MONEY,

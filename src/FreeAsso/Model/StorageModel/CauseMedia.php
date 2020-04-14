@@ -91,18 +91,6 @@ abstract class CauseMedia extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BLOB,
         FFCST::PROPERTY_OPTIONS => []
     ];
-    protected static $PRP_LANG_ID = [
-        FFCST::PROPERTY_PRIVATE => 'lang_id',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
-        FFCST::PROPERTY_FK      => ['lang' =>
-            [
-                'model' => 'FreeFW::Model::lang',
-                'field' => 'lang_id',
-                'type'  => \FreeFW\Model\Query::JOIN_LEFT
-            ]
-        ]
-    ];
     protected static $PRP_CAUM_ORDER = [
         FFCST::PROPERTY_PRIVATE => 'caum_order',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
@@ -134,7 +122,6 @@ abstract class CauseMedia extends \FreeFW\Core\StorageModel
             'caum_short_text' => self::$PRP_CAUM_SHORT_TEXT,
             'caum_blob'       => self::$PRP_CAUM_BLOB,
             'caum_short_blob' => self::$PRP_CAUM_SHORT_BLOB,
-            'lang_id'         => self::$PRP_LANG_ID,
             'caum_order'      => self::$PRP_CAUM_ORDER,
             'caum_title'      => self::$PRP_CAUM_TITLE
         ];
@@ -148,5 +135,21 @@ abstract class CauseMedia extends \FreeFW\Core\StorageModel
     public static function getSource()
     {
         return 'asso_cause_media';
+    }
+
+    /**
+     * Get One To many relationShips
+     *
+     * @return array
+     */
+    public function getRelationships()
+    {
+        return [
+            'versions' => [
+                'model' => 'FreeAsso::Model::CauseMediaLang',
+                'field' => 'caum_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ];
     }
 }

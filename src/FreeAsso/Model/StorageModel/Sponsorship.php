@@ -64,6 +64,11 @@ abstract class Sponsorship extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DECIMAL,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
+    protected static $PRP_SPO_MONEY = [
+        FFCST::PROPERTY_PRIVATE => 'spo_money',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+    ];
     protected static $PRP_SPO_FREQ = [
         FFCST::PROPERTY_PRIVATE => 'spo_freq',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
@@ -122,6 +127,7 @@ abstract class Sponsorship extends \FreeFW\Core\StorageModel
             'spo_from'         => self::$PRP_SPO_FROM,
             'spo_to'           => self::$PRP_SPO_TO,
             'spo_mnt'          => self::$PRP_SPO_MNT,
+            'spo_money'        => self::$PRP_SPO_MONEY,
             'spo_freq'         => self::$PRP_SPO_FREQ,
             'spo_freq_when'    => self::$PRP_SPO_FREQ_WHEN,
             'spo_freq_detail'  => self::$PRP_SPO_FREQ_DETAIL,

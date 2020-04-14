@@ -53,13 +53,13 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
 
     /**
      * cau_public
-     * @var boolean
+     * @var string
      */
     protected $cau_public = null;
 
     /**
      * cau_available
-     * @var boolean
+     * @var string
      */
     protected $cau_available = null;
 
@@ -88,6 +88,18 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     protected $cau_mnt = null;
 
     /**
+     * cau_mnt_left
+     * @var string
+     */
+    protected $cau_mnt_left = null;
+
+    /**
+     * cau_money
+     * @var string
+     */
+    protected $cau_money = null;
+
+    /**
      * cau_code
      * @var string
      */
@@ -98,6 +110,18 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
      * @var string
      */
     protected $cau_family = null;
+
+    /**
+     * cau_sex
+     * @var string
+     */
+    protected $cau_sex = null;
+
+    /**
+     * cau_year
+     * @var string
+     */
+    protected $cau_year = null;
 
     /**
      * cau_string_1
@@ -226,38 +250,26 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     protected $cau_coord = null;
 
     /**
-     * cau_sex
-     * @var string
-     */
-    protected $cau_sex = null;
-
-    /**
-     * cau_year
-     * @var string
-     */
-    protected $cau_year = null;
-
-    /**
      * parent1_cau_id
-     * @var number
+     * @var int
      */
     protected $parent1_cau_id = null;
 
     /**
      * parent2_cau_id
-     * @var number
+     * @var int
      */
     protected $parent2_cau_id = null;
 
     /**
      * caum_text_id
-     * @var number
+     * @var int
      */
     protected $caum_text_id = null;
 
     /**
      * caum_blob_id
-     * @var number
+     * @var int
      */
     protected $caum_blob_id = null;
 
@@ -386,6 +398,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     public function setCauFrom($p_value)
     {
         $this->cau_from = $p_value;
+        return $this;
     }
 
     /**
@@ -408,6 +421,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     public function setCauTo($p_value)
     {
         $this->cau_to = $p_value;
+        return $this;
     }
 
     /**
@@ -442,7 +456,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     {
         return $this->cau_public;
     }
-    
+
     /**
      * Set cau_available
      *
@@ -480,17 +494,17 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     }
 
     /**
-     * Get orig_cli_id
+     * Get site_id
      *
      * @return int
      */
-    public function getOrigCliId()
+    public function getSiteId()
     {
-        return $this->orig_cli_id;
+        return $this->site_id;
     }
 
     /**
-     * Set site_id
+     * Set orig_cli_id
      *
      * @param int $p_value
      *
@@ -503,13 +517,13 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     }
 
     /**
-     * Get rais_cli_id
+     * Get orig_cli_id
      *
      * @return int
      */
-    public function getRaisCliId()
+    public function getOrigCliId()
     {
-        return $this->rais_cli_id;
+        return $this->orig_cli_id;
     }
 
     /**
@@ -526,13 +540,13 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     }
 
     /**
-     * Get site_id
+     * Get rais_cli_id
      *
      * @return int
      */
-    public function getSiteId()
+    public function getRaisCliId()
     {
-        return $this->site_id;
+        return $this->rais_cli_id;
     }
 
     /**
@@ -556,6 +570,52 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     public function getCauMnt()
     {
         return $this->cau_mnt;
+    }
+
+    /**
+     * Set cau_mnt_left
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Cause
+     */
+    public function setCauMntLeft($p_value)
+    {
+        $this->cau_mnt_left = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get cau_mnt_left
+     *
+     * @return string
+     */
+    public function getCauMntLeft()
+    {
+        return $this->cau_mnt_left;
+    }
+
+    /**
+     * Set cau_money
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Cause
+     */
+    public function setCauMoney($p_value)
+    {
+        $this->cau_money = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get cau_money
+     *
+     * @return string
+     */
+    public function getCauMoney()
+    {
+        return $this->cau_money;
     }
 
     /**
@@ -602,6 +662,52 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     public function getCauFamily()
     {
         return $this->cau_family;
+    }
+
+    /**
+     * Set cau_sex
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Cause
+     */
+    public function setCauSex($p_value)
+    {
+        $this->cau_sex = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get cau_sex
+     *
+     * @return string
+     */
+    public function getCauSex()
+    {
+        return $this->cau_sex;
+    }
+
+    /**
+     * Set cau_year
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Cause
+     */
+    public function setCauYear($p_value)
+    {
+        $this->cau_year = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get cau_year
+     *
+     * @return string
+     */
+    public function getCauYear()
+    {
+        return $this->cau_year;
     }
 
     /**
@@ -1076,7 +1182,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
         $this->cau_coord = $p_value;
         return $this;
     }
-    
+
     /**
      * Get cau_coord
      *
@@ -1088,55 +1194,9 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     }
 
     /**
-     * Set cau_sex
-     *
-     * @param string $p_value
-     *
-     * @return \FreeAsso\Model\Cause
-     */
-    public function setCauSex($p_value)
-    {
-        $this->cau_sex = $p_value;
-        return $this;
-    }
-
-    /**
-     * Get cau_sex
-     *
-     * @return string
-     */
-    public function getCauSex()
-    {
-        return $this->cau_sex;
-    }
-
-    /**
-     * Set cau_year
-     *
-     * @param number $p_value
-     *
-     * @return \FreeAsso\Model\Cause
-     */
-    public function setCauYear($p_value)
-    {
-        $this->cau_year = $p_value;
-        return $this;
-    }
-    
-    /**
-     * Get cau_year
-     *
-     * @return number
-     */
-    public function getCauYear()
-    {
-        return $this->cau_year;
-    }
-
-    /**
      * Set parent1_cau_id
      *
-     * @param number $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Cause
      */
@@ -1149,7 +1209,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Get parent1_cau_id
      *
-     * @return string
+     * @return int
      */
     public function getParent1CauId()
     {
@@ -1159,7 +1219,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Set parent2_cau_id
      *
-     * @param number $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Cause
      */
@@ -1172,7 +1232,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Get parent2_cau_id
      *
-     * @return string
+     * @return int
      */
     public function getParent2CauId()
     {
@@ -1182,7 +1242,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Set caum_text_id
      *
-     * @param number $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Cause
      */
@@ -1195,7 +1255,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Get caum_text_id
      *
-     * @return string
+     * @return int
      */
     public function getCaumTextId()
     {
@@ -1205,7 +1265,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Set caum_blob_id
      *
-     * @param number $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Cause
      */
@@ -1214,11 +1274,11 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
         $this->caum_blob_id = $p_value;
         return $this;
     }
-    
+
     /**
      * Get caum_blob_id
      *
-     * @return string
+     * @return int
      */
     public function getCaumBlobId()
     {

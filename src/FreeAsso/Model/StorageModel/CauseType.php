@@ -62,6 +62,11 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
         FFCST::PROPERTY_OPTIONS => []
     ];
+    protected static $PRP_CAUT_MONEY = [
+        FFCST::PROPERTY_PRIVATE => 'caut_money',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+    ];
     protected static $PRP_CAUT_MNT_TYPE = [
         FFCST::PROPERTY_PRIVATE => 'caut_mnt_type',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
@@ -210,6 +215,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
             'caut_max_mnt'      => self::$PRP_CAUT_MAX_MNT,
             'caut_min_mnt'      => self::$PRP_CAUT_MIN_MNT,
             'caut_mnt_type'     => self::$PRP_CAUT_MNT_TYPE,
+            'caut_money'        => self::$PRP_CAUT_MONEY,
             'caut_certificat'   => self::$PRP_CAUT_CERTIFICAT,
             'caut_string_1'     => self::$PRP_CAUT_STRING_1,
             'caut_string_2'     => self::$PRP_CAUT_STRING_2,

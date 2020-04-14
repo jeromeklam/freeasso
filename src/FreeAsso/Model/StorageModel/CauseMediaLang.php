@@ -61,7 +61,7 @@ abstract class CauseMediaLang extends \FreeFW\Core\StorageModel
     ];
     protected static $PRP_CAML_TEXT = [
         FFCST::PROPERTY_PRIVATE => 'caml_text',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BLOB,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
         FFCST::PROPERTY_OPTIONS => []
     ];
 

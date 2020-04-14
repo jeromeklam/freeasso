@@ -58,6 +58,12 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     protected $caut_min_mnt = null;
 
     /**
+     * caut_money
+     * @var string
+     */
+    protected $caut_money = null;
+
+    /**
      * caut_mnt_type
      * @var string
      */
@@ -395,6 +401,29 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     public function getCautMinMnt()
     {
         return $this->caut_min_mnt;
+    }
+
+    /**
+     * Set caut_money
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautMoney($p_value)
+    {
+        $this->caut_money = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_money
+     *
+     * @return string
+     */
+    public function getCautMoney()
+    {
+        return $this->caut_money;
     }
 
     /**

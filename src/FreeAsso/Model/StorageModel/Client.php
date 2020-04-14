@@ -180,6 +180,18 @@ abstract class Client extends \FreeFW\Core\StorageModel
             ]
         ]
     ];
+    protected static $PRP_LAST_DON_ID = [
+        FFCST::PROPERTY_PRIVATE => 'last_don_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['last_donation' =>
+            [
+                'model' => 'FreeAsso::Model::Donation',
+                'field' => 'don_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
     protected static $PRP_CLI_STRING_1 = [
         FFCST::PROPERTY_PRIVATE => 'cli_string_1',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
@@ -280,6 +292,16 @@ abstract class Client extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
         FFCST::PROPERTY_OPTIONS => []
     ];
+    protected static $PRP_CLI_DISPLAY_SITE = [
+        FFCST::PROPERTY_PRIVATE => 'cli_display_site',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_CLI_SEND_NEWS = [
+        FFCST::PROPERTY_PRIVATE => 'cli_send_news',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
 
     /**
      * get properties
@@ -289,52 +311,55 @@ abstract class Client extends \FreeFW\Core\StorageModel
     public static function getProperties()
     {
         return [
-            'cli_id'         => self::$PRP_CLI_ID,
-            'brk_id'         => self::$PRP_BRK_ID,
-            'clic_id'        => self::$PRP_CLIC_ID,
-            'clit_id'        => self::$PRP_CLIT_ID,
-            'cli_gender'     => self::$PRP_CLI_GENDER,
-            'cli_firstname'  => self::$PRP_CLI_FIRSTNAME,
-            'cli_lastname'   => self::$PRP_CLI_LASTNAME,
-            'cli_address1'   => self::$PRP_CLI_ADDRESS1,
-            'cli_address2'   => self::$PRP_CLI_ADDRESS2,
-            'cli_address3'   => self::$PRP_CLI_ADDRESS3,
-            'cli_cp'         => self::$PRP_CLI_CP,
-            'cli_town'       => self::$PRP_CLI_TOWN,
-            'cnty_id'        => self::$PRP_CNTY_ID,
-            'cli_active'     => self::$PRP_CLI_ACTIVE,
-            'lang_id'        => self::$PRP_LANG_ID,
-            'cli_prefs'      => self::$PRP_CLI_PREFS,
-            'cli_avatar'     => self::$PRP_CLI_AVATAR,
-            'cli_phone_home' => self::$PRP_CLI_PHONE_HOME,
-            'cli_phone_gsm'  => self::$PRP_CLI_PHONE_GSM,
-            'cli_desc'       => self::$PRP_CLI_DESC,
-            'cli_email'      => self::$PRP_CLI_EMAIL,
-            'cli_email_old'  => self::$PRP_CLI_EMAIL_OLD,
-            'cli_receipt'    => self::$PRP_CLI_RECEIPT,
-            'cli_certificat' => self::$PRP_CLI_CERTIFICAT,
-            'cli_extern_id'  => self::$PRP_CLI_EXTERN_ID,
-            'cli_sponsor_id' => self::$PRP_CLI_SPONSOR_ID,
-            'cli_string_1'   => self::$PRP_CLI_STRING_1,
-            'cli_string_2'   => self::$PRP_CLI_STRING_2,
-            'cli_string_3'   => self::$PRP_CLI_STRING_3,
-            'cli_string_4'   => self::$PRP_CLI_STRING_4,
-            'cli_number_1'   => self::$PRP_CLI_NUMBER_1,
-            'cli_number_2'   => self::$PRP_CLI_NUMBER_2,
-            'cli_number_3'   => self::$PRP_CLI_NUMBER_3,
-            'cli_number_4'   => self::$PRP_CLI_NUMBER_4,
-            'cli_date_1'     => self::$PRP_CLI_DATE_1,
-            'cli_date_2'     => self::$PRP_CLI_DATE_2,
-            'cli_date_3'     => self::$PRP_CLI_DATE_3,
-            'cli_date_4'     => self::$PRP_CLI_DATE_4,
-            'cli_text_1'     => self::$PRP_CLI_TEXT_1,
-            'cli_text_2'     => self::$PRP_CLI_TEXT_2,
-            'cli_text_3'     => self::$PRP_CLI_TEXT_3,
-            'cli_text_4'     => self::$PRP_CLI_TEXT_4,
-            'cli_bool_1'     => self::$PRP_CLI_BOOL_1,
-            'cli_bool_2'     => self::$PRP_CLI_BOOL_2,
-            'cli_bool_3'     => self::$PRP_CLI_BOOL_3,
-            'cli_bool_4'     => self::$PRP_CLI_BOOL_4
+            'cli_id'           => self::$PRP_CLI_ID,
+            'brk_id'           => self::$PRP_BRK_ID,
+            'clic_id'          => self::$PRP_CLIC_ID,
+            'clit_id'          => self::$PRP_CLIT_ID,
+            'cli_gender'       => self::$PRP_CLI_GENDER,
+            'cli_firstname'    => self::$PRP_CLI_FIRSTNAME,
+            'cli_lastname'     => self::$PRP_CLI_LASTNAME,
+            'cli_address1'     => self::$PRP_CLI_ADDRESS1,
+            'cli_address2'     => self::$PRP_CLI_ADDRESS2,
+            'cli_address3'     => self::$PRP_CLI_ADDRESS3,
+            'cli_cp'           => self::$PRP_CLI_CP,
+            'cli_town'         => self::$PRP_CLI_TOWN,
+            'cnty_id'          => self::$PRP_CNTY_ID,
+            'cli_active'       => self::$PRP_CLI_ACTIVE,
+            'lang_id'          => self::$PRP_LANG_ID,
+            'cli_prefs'        => self::$PRP_CLI_PREFS,
+            'cli_avatar'       => self::$PRP_CLI_AVATAR,
+            'cli_phone_home'   => self::$PRP_CLI_PHONE_HOME,
+            'cli_phone_gsm'    => self::$PRP_CLI_PHONE_GSM,
+            'cli_desc'         => self::$PRP_CLI_DESC,
+            'cli_email'        => self::$PRP_CLI_EMAIL,
+            'cli_email_old'    => self::$PRP_CLI_EMAIL_OLD,
+            'cli_receipt'      => self::$PRP_CLI_RECEIPT,
+            'cli_certificat'   => self::$PRP_CLI_CERTIFICAT,
+            'cli_extern_id'    => self::$PRP_CLI_EXTERN_ID,
+            'cli_sponsor_id'   => self::$PRP_CLI_SPONSOR_ID,
+            'last_don_id'      => self::$PRP_LAST_DON_ID,
+            'cli_string_1'     => self::$PRP_CLI_STRING_1,
+            'cli_string_2'     => self::$PRP_CLI_STRING_2,
+            'cli_string_3'     => self::$PRP_CLI_STRING_3,
+            'cli_string_4'     => self::$PRP_CLI_STRING_4,
+            'cli_number_1'     => self::$PRP_CLI_NUMBER_1,
+            'cli_number_2'     => self::$PRP_CLI_NUMBER_2,
+            'cli_number_3'     => self::$PRP_CLI_NUMBER_3,
+            'cli_number_4'     => self::$PRP_CLI_NUMBER_4,
+            'cli_date_1'       => self::$PRP_CLI_DATE_1,
+            'cli_date_2'       => self::$PRP_CLI_DATE_2,
+            'cli_date_3'       => self::$PRP_CLI_DATE_3,
+            'cli_date_4'       => self::$PRP_CLI_DATE_4,
+            'cli_text_1'       => self::$PRP_CLI_TEXT_1,
+            'cli_text_2'       => self::$PRP_CLI_TEXT_2,
+            'cli_text_3'       => self::$PRP_CLI_TEXT_3,
+            'cli_text_4'       => self::$PRP_CLI_TEXT_4,
+            'cli_bool_1'       => self::$PRP_CLI_BOOL_1,
+            'cli_bool_2'       => self::$PRP_CLI_BOOL_2,
+            'cli_bool_3'       => self::$PRP_CLI_BOOL_3,
+            'cli_bool_4'       => self::$PRP_CLI_BOOL_4,
+            'cli_display_site' => self::$PRP_CLI_DISPLAY_SITE,
+            'cli_send_news'    => self::$PRP_CLI_SEND_NEWS
         ];
     }
 

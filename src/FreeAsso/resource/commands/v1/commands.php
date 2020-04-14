@@ -19,6 +19,26 @@ $localCommands = [
         'command'    => 'lesecopattes::import',
         'controller' => 'FreeAsso::Command::Lesecopattes',
         'function'   => 'import'
+    ],
+    /**
+     * ########################################################################
+     * Mise à jour des données des clients
+     * ########################################################################
+     */
+    'freeasso.cron.updateclient' => [
+        'command'    => 'client::update',
+        'controller' => 'FreeAsso::Command::Cron',
+        'function'   => 'updateClient'
+    ],
+    /**
+     * ########################################################################
+     * Mise à jour des données des causes
+     * ########################################################################
+     */
+    'freeasso.cron.updatecause' => [
+        'command'    => 'cause::update',
+        'controller' => 'FreeAsso::Command::Cron',
+        'function'   => 'updateCause'
     ]
 ];
 
