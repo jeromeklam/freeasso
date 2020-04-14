@@ -326,7 +326,7 @@ class Kalaweit
                 $myCauseGibbon
                     ->setCautName($name)
                     ->setCautMntType(\FreeAsso\Model\CauseType::MNT_TYPE_ANNUAL)
-                    ->setCautMaxMnt(360)
+                    ->setCautMaxMnt(280)
                     ->setCautMinMnt(0)
                     ->setCautReceipt(1)
                     ->setCautString_2(1)
@@ -597,7 +597,7 @@ class Kalaweit
         $tabGibbons = [];
         $p_output->write("Import des Gibbons", true);
         try {
-            $query = $provider->prepare("Select * from gibbons");
+            $query = $provider->prepare("Select * from gibbons order by Numero_gibbon");
             $query->execute();
             while ($row = $query->fetch(\PDO::FETCH_OBJ)) {
                 $desc = trim(\FreeFW\Tools\Encoding::toUTF8($row->Details));
@@ -624,6 +624,7 @@ class Kalaweit
                 }
                 if (intval($row->Annee_naissance) > 0) {
                     $myCause->setCauNumber_1(intval($row->Annee_naissance));
+                    $myCause->setCauYear(intval($row->Annee_naissance));
                 }
                 $myCause->setSiteId($myIleAutre->getSiteId());
                 if ($row->Ile == 'B') {
@@ -802,7 +803,7 @@ class Kalaweit
         $updates    = [];
         $p_output->write("Import des Membres", true);
         try {
-            $query = $provider->prepare("Select * from membres");
+            $query = $provider->prepare("Select * from membres order by id");
             $query->execute();
             while ($row = $query->fetch(\PDO::FETCH_OBJ)) {
                 $myClient = \FreeFW\DI\DI::get('FreeAsso::Model::Client');
@@ -1089,7 +1090,7 @@ class Kalaweit
         $tabReceipts = [];
         $p_output->write("Import des reçus fiscaux", true);
         try {
-            $query = $provider->prepare("Select * from recus_fiscaux");
+            $query = $provider->prepare("Select * from recus_fiscaux order by id_recus_fiscaux");
             $query->execute();
             while ($row = $query->fetch(\PDO::FETCH_OBJ)) {
                 $myReceipt = \FreeFW\DI\DI::get('FreeAsso::Model::Receipt');
@@ -1193,7 +1194,7 @@ class Kalaweit
         $tabEntrees = [];
         $p_output->write("Import des dons", true);
         try {
-            $query = $provider->prepare("Select * from entrees");
+            $query = $provider->prepare("Select * from entrees order by id");
             $query->execute();
             while ($row = $query->fetch(\PDO::FETCH_OBJ)) {
                 $myDonation = \FreeFW\DI\DI::get('FreeAsso::Model::Donation');

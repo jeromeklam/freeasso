@@ -39,6 +39,12 @@ class Donation extends \FreeAsso\Model\Base\Donation
     protected $payment_type = null;
 
     /**
+     * Sponsorship
+     * @var \FreeAsso\Model\Sponsorship
+     */
+    protected $sponsorship = null;
+
+    /**
      * Origin
      * @var \FreeAsso\Model\DonationOrigin
      */
@@ -65,6 +71,7 @@ class Donation extends \FreeAsso\Model\Base\Donation
         $this->don_status  = self::STATUS_WAIT;
         $this->dono_id     = null;
         $this->sess_id     = null;
+        $this->spo_id      = null;
         return $this;
     }
 
@@ -181,5 +188,28 @@ class Donation extends \FreeAsso\Model\Base\Donation
     public function getSession()
     {
         return $this->session;
+    }
+
+    /**
+     * Set sponsorship
+     * 
+     * @param \FreeAsso\Model\Sponsorship $p_value
+     * 
+     * @return \FreeAsso\Model\Donation
+     */
+    public function setSponsorship($p_value)
+    {
+        $this->sponsorship = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get sponsorship
+     *
+     * @return \FreeAsso\Model\Sponsorship
+     */
+    public function getSponsorship()
+    {
+        return $this->sponsorship;
     }
 }
