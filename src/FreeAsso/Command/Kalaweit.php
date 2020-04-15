@@ -572,19 +572,22 @@ class Kalaweit
         $tabClientCategory = [];
         $p_output->write("Import des Catégories de client", true);
         try {
-            $query = $provider->prepare("Select * from type_membre_id");
+            $query = $provider->prepare("Select distinct id_type from membres");
             $query->execute();
             while ($row = $query->fetch(\PDO::FETCH_OBJ)) {
-                $name = \FreeFW\Tools\Encoding::toUTF8($row->type_membre);
+                $name = \FreeFW\Tools\Encoding::toUTF8($row->id_type);
                 $name = \FreeFW\Tools\Encoding::fixUTF8($name);
                 $name = \FreeFW\Tools\PBXString::clean($name);
                 $myClientCategory = \FreeFW\DI\DI::get('FreeAsso::Model::ClientCategory');
+                if ($name == '') {
+                    continue;
+                }
                 $myClientCategory->setClicName($name);
                 if (!$myClientCategory->create()) {
                     var_export($myClientCategory->getErrors());die;
                 }
-                $tabClientCategory[$row->type_membre] = $myClientCategory->getClicId();
-                if ($row->id_type_membre == 0) {
+                $tabClientCategory[$row->id_type] = $myClientCategory->getClicId();
+                if ($row->id_type == 'Autre') {
                     $tabClientCategory['default'] = $myClientCategory->getClicId();
                 }
             }
@@ -735,7 +738,7 @@ class Kalaweit
                     $order = 0;
                     while ($idx >= 0) {
                         if ($keys[$idx] == 'Presentation') {
-                            $desc = htmlentities($partsFR[$keys[$idx]]['text']);
+                            $desc = str_replace("\n", "<br />", $partsFR[$keys[$idx]]['text']);
                             if (strpos('<p>', $desc) === false) {
                                 $desc = '<p>' . $desc . '</p>';
                             }
@@ -756,7 +759,7 @@ class Kalaweit
                             var_export($myCauseMedia);
                         }
                         if (array_key_exists($keys[$idx], $partsFR)) {
-                            $desc = htmlentities($partsFR[$keys[$idx]]['text']);
+                            $desc = str_replace("\n", "<br />", $partsFR[$keys[$idx]]['text']);
                             if (strpos('<p>', $desc) === false) {
                                 $desc = '<p>' . $desc . '</p>';
                             }
@@ -772,7 +775,7 @@ class Kalaweit
                             }
                         }
                         if (array_key_exists($keys[$idx], $partsEN)) {
-                            $desc = htmlentities($partsEN[$keys[$idx]]['text']);
+                            $desc = str_replace("\n", "<br />", $partsEN[$keys[$idx]]['text']);
                             if (strpos('<p>', $desc) === false) {
                                 $desc = '<p>' . $desc . '</p>';
                             }

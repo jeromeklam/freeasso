@@ -8,6 +8,7 @@ require_once __DIR__ . '/cause_movement.php';
 require_once __DIR__ . '/cause_sickness.php';
 require_once __DIR__ . '/cause_type.php';
 require_once __DIR__ . '/cause.php';
+require_once __DIR__ . '/certificate.php';
 require_once __DIR__ . '/client_category.php';
 require_once __DIR__ . '/client_type.php';
 require_once __DIR__ . '/client.php';
@@ -15,10 +16,13 @@ require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/dashboard.php';
 require_once __DIR__ . '/data.php';
 require_once __DIR__ . '/donation.php';
+require_once __DIR__ . '/donation_origin.php';
 require_once __DIR__ . '/family.php';
 require_once __DIR__ . '/item.php';
 require_once __DIR__ . '/movement.php';
 require_once __DIR__ . '/payment_type.php';
+require_once __DIR__ . '/receipt.php';
+require_once __DIR__ . '/session.php';
 require_once __DIR__ . '/sickness.php';
 require_once __DIR__ . '/site_media.php';
 require_once __DIR__ . '/site_type.php';
@@ -37,6 +41,7 @@ $localRoutes = array_merge(
     $causeRoutes,
     $causeSicknessRoutes,
     $causeTypeRoutes,
+    $certificateRoutes,
     $clientCategoryRoutes,
     $clientTypeRoutes,
     $clientRoutes,
@@ -44,10 +49,13 @@ $localRoutes = array_merge(
     $dashboardRoutes,
     $dataRoutes,
     $donationRoutes,
+    $donationOriginRoutes,
     $familyRoutes,
     $itemRoutes,
     $movementRoutes,
     $paymentTypeRoutes,
+    $receiptRoutes,
+    $sessionRoutes,
     $sicknessRoutes,
     $siteMediaRoutes,
     $siteTypeRoutes,
