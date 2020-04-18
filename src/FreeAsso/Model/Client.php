@@ -234,4 +234,30 @@ class Client extends \FreeAsso\Model\Base\Client implements
         }
         return true;
     }
+
+    /**
+     * Get fullname
+     * 
+     * @return string
+     */
+    public function getFullname()
+    {
+        $name = trim($this->getCliFirstname()) . ' ' . trim($this->getCliLastname());
+        return trim($name);
+    }
+
+    /**
+     * Client is active ?
+     * 
+     * @param \DateTime $p_date
+     *
+     * @return string
+     */
+    public function isActive(\DateTime $p_date = null)
+    {
+        if ($p_date === null) {
+            $p_date = \FreeFW\Tools\Date::getServerDatetime();
+        }
+        return $this->getCliActive();
+    }
 }

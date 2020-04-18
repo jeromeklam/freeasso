@@ -122,4 +122,39 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
     {
         return $this->payment_type;
     }
+    
+    /**
+     * Get new donation
+     *
+     * @return \FreeFW\Interfaces\DependencyInjectorInterface
+     */
+    public function getNewDonation(\Datetime $p_date = null)
+    {
+        if ($p_date === null) {
+            $p_date = \FreeFW\Tools\Date::getServerDatetime();
+        }
+        $askTs = $p_date;
+        $askTs->setDate($p_date->format('Y'), $p_date->format('m'), $this->getSpoFreqWhen());
+        /**
+         * Generate new donation
+         * @var \FreeAsso\Model\Donation $donation
+         */
+        $donation = \FreeFW\DI\DI::get('FreeAsso::Model::Donation');
+        $donation
+            ->setCauId($this->getCauId())
+            ->setCliId($this->getCliId())
+            ->setSpoId($this->getSpoId())
+            ->setPtypId($this->getPtypId())
+            ->setDonDisplaySite($this->getSpoDisplaySite())
+            ->setDonStatus(\FreeAsso\Model\Donation::STATUS_WAIT)
+            ->setDonMoney($this->getSpoMoney())
+            ->setDonMnt($this->getSpoMnt())
+            ->setDonSponsors($this->getSpoSponsors())
+            ->setDonTs(\FreeFW\Tools\Date::getCurrentTimestamp())
+            ->setDonAskTs(\FreeFW\Tools\Date::datetimeToMysql($askTs))
+            ->setDonRealTs(\FreeFW\Tools\Date::datetimeToMysql($askTs))
+            ->setDonEndTs(\FreeFW\Tools\Date::datetimeToMysql($askTs->add(new \DateInterval('P1Y'))))
+        ;
+        return $donation;
+    }
 }

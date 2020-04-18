@@ -28,7 +28,7 @@ $clientRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['lang', 'last_donation']
+            'default' => ['lang', 'last_donation', 'client_category']
         ],
         'results' => [
             '200' => [

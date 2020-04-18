@@ -39,6 +39,16 @@ $localCommands = [
         'command'    => 'cause::update',
         'controller' => 'FreeAsso::Command::Cron',
         'function'   => 'updateCause'
+    ],
+    /**
+     * ########################################################################
+     * Vérification de la file d'attente
+     * ########################################################################
+     */
+    'freeasso.cron.checkjobqueue' => [
+        'command'    => 'jobqueue::check',
+        'controller' => 'FreeAsso::Command::Cron',
+        'function'   => 'checkJobqueue'
     ]
 ];
 

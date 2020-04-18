@@ -43,12 +43,17 @@ abstract class DonationOrigin extends \FreeFW\Core\StorageModel
     protected static $PRP_DONO_YEAR = [
         FFCST::PROPERTY_PRIVATE => 'dono_year',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_DONO_MONTH = [
         FFCST::PROPERTY_PRIVATE => 'dono_month',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+    ];
+    protected static $PRP_DONO_DAY = [
+        FFCST::PROPERTY_PRIVATE => 'dono_day',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_DONO_STATUS = [
         FFCST::PROPERTY_PRIVATE => 'dono_status',
@@ -71,6 +76,7 @@ abstract class DonationOrigin extends \FreeFW\Core\StorageModel
             'dono_comments' => self::$PRP_DONO_COMMENTS,
             'dono_year'     => self::$PRP_DONO_YEAR,
             'dono_month'    => self::$PRP_DONO_MONTH,
+            'dono_day'      => self::$PRP_DONO_DAY,
             'dono_status'   => self::$PRP_DONO_STATUS
         ];
     }

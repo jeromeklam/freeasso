@@ -412,4 +412,24 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
         ;
         return $this->save();
     }
+    
+    /**
+     * Cause is active ?
+     *
+     * @param \DateTime $p_date
+     *
+     * @return string
+     */
+    public function isActive(\DateTime $p_date = null)
+    {
+        if ($p_date === null) {
+            $p_date = \FreeFW\Tools\Date::getServerDatetime();
+        }
+        $from = $this->getCauFrom();
+        $to   = $this->getCauTo();
+        if (($from && $from > $p_date) || ($to && $to < $p_date)) {
+            return false;
+        }
+        return true;
+    }
 }

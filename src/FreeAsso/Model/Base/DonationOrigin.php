@@ -52,6 +52,12 @@ abstract class DonationOrigin extends \FreeAsso\Model\StorageModel\DonationOrigi
     protected $dono_month = null;
 
     /**
+     * dono_day
+     * @var string
+     */
+    protected $dono_day = null;
+
+    /**
      * dono_status
      * @var string
      */
@@ -216,6 +222,29 @@ abstract class DonationOrigin extends \FreeAsso\Model\StorageModel\DonationOrigi
     public function getDonoMonth()
     {
         return $this->dono_month;
+    }
+
+    /**
+     * Set dono_day
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\DonationOrigin
+     */
+    public function setDonoDay($p_value)
+    {
+        $this->dono_day = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get dono_day
+     *
+     * @return string
+     */
+    public function getDonoDay()
+    {
+        return $this->dono_day;
     }
 
     /**
