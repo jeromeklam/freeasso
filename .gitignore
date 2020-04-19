@@ -13,5 +13,6 @@
 /datas
 phinx.yml
 /config/*.php
+/config/config.php
 /target
 /dist

@@ -26,6 +26,9 @@ $config = [
             'paswd' => 'YggDrasil'
         ]
     ],
+    'email' => [
+        'mode'       => 'SMTP',
+    ],
     'middleware'  => [
         'FreeFW::Middleware::IgnoreMethod',
         'FreeFW::Middleware::ApiNegociator',
