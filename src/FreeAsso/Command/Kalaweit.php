@@ -919,12 +919,12 @@ class Kalaweit
             while ($row = $query->fetch(\PDO::FETCH_OBJ)) {
                 $sponsors = [];
                 if ($row->invites != '') {
-                    $list = explode(',##', $row->invites);
+                    $list = explode(';##', $row->invites);
                     foreach ($list as $idx => $oneS) {
                         $parts = explode(';#', $oneS);
                         if ($parts[0] != '') {
-                            $name  = $parts[0];
-                            $email = $parts[1];
+                            $name  = str_replace([';','#'], '', $parts[0]);
+                            $email = str_replace([';','#'], '', $parts[1]);
                             $sponsors[] = '{"name":"' . $name . '","email":"' . $email . '"}';
                         }
                     }
@@ -952,7 +952,6 @@ class Kalaweit
                 $mySponsorship = \FreeFW\DI\DI::get('FreeAsso::Model::Sponsorship');
                 $mySponsorship
                     ->setSpoDisplaySite($row->afficher_nom_parrain)
-                    ->setSpoSponsors($sponsors)
                     ->setSpoFreq(\FreeAsso\Model\Sponsorship::PAYMENT_TYPE_MONTH)
                     ->setSpoMnt($row->montant)
                     ->setSpoMoney('EUR')
@@ -1200,6 +1199,18 @@ class Kalaweit
             $query = $provider->prepare("Select * from entrees order by id");
             $query->execute();
             while ($row = $query->fetch(\PDO::FETCH_OBJ)) {
+                $sponsors = [];
+                if ($row->invites != '') {
+                    $list = explode(';##', $row->invites);
+                    foreach ($list as $idx => $oneS) {
+                        $parts = explode(';#', $oneS);
+                        if ($parts[0] != '') {
+                            $name  = str_replace([';','#'], '', $parts[0]);
+                            $email = str_replace([';','#'], '', $parts[1]);
+                            $sponsors[] = '{"name":"' . $name . '","email":"' . $email . '"}';
+                        }
+                    }
+                }
                 $myDonation = \FreeFW\DI\DI::get('FreeAsso::Model::Donation');
                 $myDonation
                     ->setDonStatus(\FreeAsso\Model\Donation::STATUS_NOK)
@@ -1207,6 +1218,11 @@ class Kalaweit
                     ->setDonMoney('EUR')
                     ->setDonDisplaySite(0)
                 ;
+                if (count($sponsors) > 0) {
+                    $myDonation->setDonSponsors('[' . implode(',', $sponsors) . ']');
+                } else {
+                    $myDonation->setDonSponsors(null);
+                }
                 $ts = \FreeFW\Tools\Date::mysqlToDatetime($row->date_entree);
                 $year = 2020;
                 if ($ts) {

@@ -40,6 +40,24 @@ $causeRoutes = [
             ]
         ]
     ],
+    'freeasso.cause.getcurrentsponsors' => [
+        'method'     => \FreeFW\Router\Route::METHOD_GET,
+        'model'      => 'FreeAsso::Model::Sponsor',
+        'url'        => '/v1/asso/cause/current_sponsors/:cau_id',
+        'controller' => 'FreeAsso::Controller::Cause',
+        'function'   => 'getCurrentSponsors',
+        'auth'       => \FreeFW\Router\Route::AUTH_IN,
+        'middleware' => [],
+        'include'    => [
+            'default' => []
+        ],
+        'results' => [
+            '200' => [
+                'type'  => \FreeFW\Router\Route::RESULT_LIST,
+                'model' => 'FreeSso::Model::Sponsor'
+            ]
+        ]
+    ],
     'freeasso.cause.getone' => [
         'method'     => \FreeFW\Router\Route::METHOD_GET,
         'model'      => 'FreeAsso::Model::Cause',

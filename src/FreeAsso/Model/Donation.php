@@ -21,7 +21,7 @@ class Donation extends \FreeAsso\Model\Base\Donation
     const STATUS_NOK  = 'NOK';
 
     /**
-     * Cause
+     * Client
      * @var \FreeAsso\Model\Client
      */
     protected $client = null;

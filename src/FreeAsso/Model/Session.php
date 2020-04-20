@@ -15,8 +15,9 @@ class Session extends \FreeAsso\Model\Base\Session
      * Status
      * @var string
      */
-    const STATUS_OPEN   = 'OPEN';
-    const STATUS_CLOSED = 'CLOSED';
+    const STATUS_OPEN       = 'OPEN';
+    const STATUS_CLOSED     = 'CLOSED';
+    const STATUS_VALIDATION = 'VALIDATION';
 
     /**
      *
