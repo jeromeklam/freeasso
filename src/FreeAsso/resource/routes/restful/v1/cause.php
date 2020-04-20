@@ -13,6 +13,9 @@ $causeRoutes = [
         'function'   => 'autocomplete',
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
+        'include'    => [
+            'default' => ['cause_type']
+        ],
         'results' => [
             '200' => [
                 'type'  => \FreeFW\Router\Route::RESULT_OBJECT
