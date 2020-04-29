@@ -82,6 +82,12 @@ abstract class CauseMedia extends \FreeAsso\Model\StorageModel\CauseMedia
     protected $caum_short_blob = null;
 
     /**
+     * lang_id
+     * @var int
+     */
+    protected $lang_id = null;
+
+    /**
      * caum_order
      * @var string
      */
@@ -92,6 +98,12 @@ abstract class CauseMedia extends \FreeAsso\Model\StorageModel\CauseMedia
      * @var string
      */
     protected $caum_title = null;
+
+    /**
+     * caum_public
+     * @var string
+     */
+    protected $caum_public = null;
 
     /**
      * Set caum_id
@@ -312,7 +324,7 @@ abstract class CauseMedia extends \FreeAsso\Model\StorageModel\CauseMedia
         $this->caum_short_text = $p_value;
         return $this;
     }
-    
+
     /**
      * Get caum_short_text
      *
@@ -358,7 +370,7 @@ abstract class CauseMedia extends \FreeAsso\Model\StorageModel\CauseMedia
         $this->caum_short_blob = $p_value;
         return $this;
     }
-    
+
     /**
      * Get caum_short_blob
      *
@@ -367,6 +379,29 @@ abstract class CauseMedia extends \FreeAsso\Model\StorageModel\CauseMedia
     public function getCaumShortBlob()
     {
         return $this->caum_short_blob;
+    }
+
+    /**
+     * Set lang_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\CauseMedia
+     */
+    public function setLangId($p_value)
+    {
+        $this->lang_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get lang_id
+     *
+     * @return int
+     */
+    public function getLangId()
+    {
+        return $this->lang_id;
     }
 
     /**
@@ -413,5 +448,28 @@ abstract class CauseMedia extends \FreeAsso\Model\StorageModel\CauseMedia
     public function getCaumTitle()
     {
         return $this->caum_title;
+    }
+
+    /**
+     * Set caum_public
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\CauseMedia
+     */
+    public function setCaumPublic($p_value)
+    {
+        $this->caum_public = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caum_public
+     *
+     * @return string
+     */
+    public function getCaumPublic()
+    {
+        return $this->caum_public;
     }
 }

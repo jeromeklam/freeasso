@@ -18,7 +18,7 @@ class Kalaweit
      */
     protected function getDetailsFrAsArray($p_detail)
     {
-        $monthsFR = ['JANVIER', 'FEVRIER', 'MARS', 'AVRIL', 'MAIL', 'JUIN', 'JUILLET', 'AOUT', 'SEPTEMBRE', 'OCTOBRE', 'NOVEMBRE', 'DECEMBRE'];
+        $monthsFR = ['JANVIER', 'FEVRIER', 'MARS', 'AVRIL', 'MAI', 'JUIN', 'JUILLET', 'AOUT', 'SEPTEMBRE', 'OCTOBRE', 'NOVEMBRE', 'DECEMBRE'];
         $monthsEN = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
         $lib = \FreeFW\Tools\Encoding::toUTF8($p_detail);
         $lib = \FreeFW\Tools\Encoding::fixUTF8($lib);
@@ -293,6 +293,9 @@ class Kalaweit
         $myForestCause = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMainType');
         $myForestCause->setCamtName('Forêt');
         $myForestCause->create();
+        $myReserveCause = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMainType');
+        $myReserveCause->setCamtName('Réserve');
+        $myReserveCause->create();
         $myKalaweitCause = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMainType');
         $myKalaweitCause->setCamtName('Kalaweit');
         $myKalaweitCause->create();
@@ -304,6 +307,11 @@ class Kalaweit
             ->setCautMntType(\FreeAsso\Model\CauseType::MNT_TYPE_ANNUAL)
             ->setCautMaxMnt(280)
             ->setCautMinMnt(0)
+            ->setCautFamily(\FreeAsso\Model\CauseType::FAMILY_ANIMAL)
+            ->setCautDonation(\FreeAsso\Model\CauseType::DONATION_ALL)
+            ->setCautOnceDuration(\FreeAsso\Model\CauseType::DURATION_1YEAR)
+            ->setCautRegularDuration(\FreeAsso\Model\CauseType::DURATION_1YEAR)
+            ->setCautNews(true)
             ->setCautReceipt(1)
             ->setCautString_2(1)
             ->setCautString_3(1)
@@ -328,6 +336,10 @@ class Kalaweit
                     ->setCautMntType(\FreeAsso\Model\CauseType::MNT_TYPE_ANNUAL)
                     ->setCautMaxMnt(280)
                     ->setCautMinMnt(0)
+                    ->setCautDonation(\FreeAsso\Model\CauseType::DONATION_ALL)
+                    ->setCautOnceDuration(\FreeAsso\Model\CauseType::DURATION_1YEAR)
+                    ->setCautRegularDuration(\FreeAsso\Model\CauseType::DURATION_1YEAR)
+                    ->setCautNews(true)
                     ->setCautReceipt(1)
                     ->setCautString_2(1)
                     ->setCautString_3(1)
@@ -351,6 +363,11 @@ class Kalaweit
             ->setCautMinMnt(0)
             ->setCautReceipt(1)
             ->setCautCertificat(1)
+            ->setCautFamily(\FreeAsso\Model\CauseType::FAMILY_NATURE)
+            ->setCautDonation(\FreeAsso\Model\CauseType::DONATION_ALL)
+            ->setCautOnceDuration(\FreeAsso\Model\CauseType::DURATION_INFINITE)
+            ->setCautRegularDuration(\FreeAsso\Model\CauseType::DURATION_INFINITE)
+            ->setCautNews(false)
             ->setCautText_1(1)
             ->setCamtId($myForestCause->getCamtId())
         ;
@@ -363,9 +380,8 @@ class Kalaweit
             ->setCautId($myCauseTForet->getCautId())
             ->setSiteId($myIleBorneo->getSiteId())
             ->setCauDesc(null)
-            ->setCauFamily(\FreeAsso\Model\Cause::FAMILY_NATURE)
             ->setCauPublic(0)
-            ->setCauAvailable(0)
+            ->setCauAvailable(1)
         ;
         if (!$myCauseForet->create()) {
             var_export($myCauseForet->getErrors());die;
@@ -376,11 +392,16 @@ class Kalaweit
             ->setCautName('Dulan')
             ->setCautMntType(\FreeAsso\Model\CauseType::MNT_TYPE_MAXIMUM)
             ->setCautMaxMnt(1000000)
+            ->setCautFamily(\FreeAsso\Model\CauseType::FAMILY_NATURE)
+            ->setCautDonation(\FreeAsso\Model\CauseType::DONATION_ALL)
+            ->setCautOnceDuration(\FreeAsso\Model\CauseType::DURATION_INFINITE)
+            ->setCautRegularDuration(\FreeAsso\Model\CauseType::DURATION_INFINITE)
+            ->setCautNews(false)
             ->setCautMinMnt(0)
             ->setCautReceipt(1)
             ->setCautCertificat(1)
             ->setCautText_1(1)
-            ->setCamtId($myForestCause->getCamtId())
+            ->setCamtId($myReserveCause->getCamtId())
         ;
         if (!$myCauseTDulan->create()) {
             var_export($myCauseTDulan->getErrors());die;
@@ -391,9 +412,8 @@ class Kalaweit
             ->setCautId($myCauseTDulan->getCautId())
             ->setSiteId($myIleBorneo->getSiteId())
             ->setCauDesc(null)
-            ->setCauFamily(\FreeAsso\Model\Cause::FAMILY_NATURE)
             ->setCauPublic(0)
-            ->setCauAvailable(0)
+            ->setCauAvailable(1)
         ;
         if (!$myCauseDulan->create()) {
             var_export($myCauseDulan->getErrors());die;
@@ -405,8 +425,13 @@ class Kalaweit
             ->setCautMntType(\FreeAsso\Model\CauseType::MNT_TYPE_MAXIMUM)
             ->setCautMaxMnt(1000000)
             ->setCautMinMnt(0)
+            ->setCautFamily(\FreeAsso\Model\CauseType::FAMILY_ADMINISTRATIV)
+            ->setCautDonation(\FreeAsso\Model\CauseType::DONATION_ALL)
+            ->setCautOnceDuration(\FreeAsso\Model\CauseType::DURATION_INFINITE)
+            ->setCautRegularDuration(\FreeAsso\Model\CauseType::DURATION_INFINITE)
+            ->setCautNews(false)
             ->setCautReceipt(1)
-            ->setCautCertificat(1)
+            ->setCautCertificat(0)
             ->setCautText_1(1)
             ->setCamtId($myKalaweitCause->getCamtId())
         ;
@@ -419,9 +444,8 @@ class Kalaweit
             ->setCautId($myCauseTDulan->getCautId())
             ->setSiteId($myIleBorneo->getSiteId())
             ->setCauDesc(null)
-            ->setCauFamily(\FreeAsso\Model\Cause::FAMILY_ADMINISTRATIV)
             ->setCauPublic(0)
-            ->setCauAvailable(0)
+            ->setCauAvailable(1)
         ;
         if (!$myCauseKalaweit->create()) {
             var_export($myCauseKalaweit->getErrors());die;
@@ -618,7 +642,6 @@ class Kalaweit
                     ->setCauName($name)
                     ->setCautId($myCauseGibbon->getCautId())
                     ->setCauDesc($desc)
-                    ->setCauFamily(\FreeAsso\Model\Cause::FAMILY_ANIMAL)
                     ->setCauPublic(0)
                     ->setCauAvailable(0)
                 ;
@@ -827,6 +850,12 @@ class Kalaweit
                 $ville = \FreeFW\Tools\Encoding::toUTF8($ville);
                 $ville = \FreeFW\Tools\Encoding::fixUTF8($ville);
                 $ville = \FreeFW\Tools\PBXString::clean($ville);
+                $email = $row->email;
+                if ($row->old_email != '') {
+                    if ($email == '') {
+                        $email = $row->old_email;
+                    }
+                }
                 $myClient
                     ->setCliExternId($row->id)
                     ->setCliFirstname($pren)
@@ -836,8 +865,8 @@ class Kalaweit
                     ->setCliTown($ville)
                     ->setCliPhoneHome($row->tel1)
                     ->setCliPhoneGsm($row->tel2)
-                    ->setCliEmail($row->email)
-                    ->setCliEmailOld($row->old_email)
+                    ->setCliEmail($email)
+                    ->setCliEmailRefused($row->old_email)
                     ->setCliReceipt($row->recu)
                     ->setCliCertificat(true)
                     ->setCliDisplaySite(true)
@@ -972,7 +1001,6 @@ class Kalaweit
                         $myCause
                             ->setCauName('Gibbon ' . $row->id_gibbon)
                             ->setCautId($myCauseGibbon->getCautId())
-                            ->setCauFamily(\FreeAsso\Model\Cause::FAMILY_ANIMAL)
                             ->setCauPublic(0)
                             ->setCauAvailable(0)
                             ->setSiteId($myIleAutre->getSiteId())
@@ -1052,6 +1080,7 @@ class Kalaweit
         $myReceiptType = \FreeFW\DI\DI::get('FreeAsso::Model::ReceiptType');
         $myReceiptType
             ->setRettName('Type adhésion')
+            ->setRettRegexp('ADH[[:number:]]')
         ;
         if (!$myReceiptType->create()) {
             var_export($myReceiptType->getErrors());die;
@@ -1060,6 +1089,7 @@ class Kalaweit
         $myReceiptType = \FreeFW\DI\DI::get('FreeAsso::Model::ReceiptType');
         $myReceiptType
             ->setRettName('Type ami')
+            ->setRettRegexp('AM[[:number:]]')
         ;
         if (!$myReceiptType->create()) {
             var_export($myReceiptType->getErrors());die;
@@ -1067,7 +1097,8 @@ class Kalaweit
         $tabTypesRecus['AM'] = $myReceiptType;
         $myReceiptType = \FreeFW\DI\DI::get('FreeAsso::Model::ReceiptType');
         $myReceiptType
-            ->setRettName('Type don ponctuel)')
+            ->setRettName('Type don ponctuel')
+            ->setRettRegexp('D[[:number:]]')
         ;
         if (!$myReceiptType->create()) {
             var_export($myReceiptType->getErrors());die;
@@ -1076,6 +1107,7 @@ class Kalaweit
         $myReceiptType = \FreeFW\DI\DI::get('FreeAsso::Model::ReceiptType');
         $myReceiptType
             ->setRettName('Type parrainage ponctuel')
+            ->setRettRegexp('P[[:number:]]')
         ;
         if (!$myReceiptType->create()) {
             var_export($myReceiptType->getErrors());die;
@@ -1084,11 +1116,21 @@ class Kalaweit
         $myReceiptType = \FreeFW\DI\DI::get('FreeAsso::Model::ReceiptType');
         $myReceiptType
             ->setRettName('Type autre')
+            ->setRettRegexp('O[[:number:]]')
         ;
         if (!$myReceiptType->create()) {
             var_export($myReceiptType->getErrors());die;
         }
         $tabTypesRecus['O'] = $myReceiptType;
+        $myReceiptType = \FreeFW\DI\DI::get('FreeAsso::Model::ReceiptType');
+        $myReceiptType
+            ->setRettName('Type manuel')
+            ->setRettRegexp('M[[:number:]]')
+        ;
+        if (!$myReceiptType->create()) {
+            var_export($myReceiptType->getErrors());die;
+        }
+        $tabTypesRecus['M'] = $myReceiptType;
         $tabReceipts = [];
         $p_output->write("Import des reçus fiscaux", true);
         try {
@@ -1295,7 +1337,6 @@ class Kalaweit
                         $myCause
                             ->setCauName('Gibbon ' . $row->id_adoption)
                             ->setCautId($myCauseGibbon->getCautId())
-                            ->setCauFamily(\FreeAsso\Model\Cause::FAMILY_ANIMAL)
                             ->setCauPublic(0)
                             ->setCauAvailable(0)
                             ->setSiteId($myIleAutre->getSiteId())

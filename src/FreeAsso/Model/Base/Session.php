@@ -40,6 +40,12 @@ abstract class Session extends \FreeAsso\Model\StorageModel\Session
     protected $sess_status = null;
 
     /**
+     * sess_type
+     * @var string
+     */
+    protected $sess_type = null;
+
+    /**
      * Set sess_id
      *
      * @param int $p_value
@@ -152,5 +158,28 @@ abstract class Session extends \FreeAsso\Model\StorageModel\Session
     public function getSessStatus()
     {
         return $this->sess_status;
+    }
+
+    /**
+     * Set sess_type
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Session
+     */
+    public function setSessType($p_value)
+    {
+        $this->sess_type = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get sess_type
+     *
+     * @return string
+     */
+    public function getSessType()
+    {
+        return $this->sess_type;
     }
 }

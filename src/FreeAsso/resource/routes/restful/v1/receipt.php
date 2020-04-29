@@ -14,7 +14,7 @@ $receiptRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['client', 'cause', 'payment_type', 'sponsorship']
+            'default' => ['country', 'client', 'lang']
         ],
         'results' => [
             '200' => [
@@ -32,7 +32,7 @@ $receiptRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['client', 'cause', 'payment_type', 'sponsorship']
+            'default' => ['country', 'client', 'lang']
         ],
         'results' => [
             '200' => [
@@ -50,7 +50,7 @@ $receiptRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['client', 'cause', 'payment_type', 'sponsorship']
+            'default' => ['country', 'client', 'lang']
         ],
         'results' => [
             '200' => [
@@ -68,7 +68,7 @@ $receiptRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['client', 'cause', 'payment_type', 'sponsorship']
+            'default' => ['country', 'client', 'lang']
         ],
         'results' => [
             '201' => [

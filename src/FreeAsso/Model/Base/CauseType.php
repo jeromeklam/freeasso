@@ -76,6 +76,36 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     protected $caut_certificat = null;
 
     /**
+     * caut_donation
+     * @var string
+     */
+    protected $caut_donation = null;
+
+    /**
+     * caut_once_duration
+     * @var string
+     */
+    protected $caut_once_duration = null;
+
+    /**
+     * caut_regular_duration
+     * @var string
+     */
+    protected $caut_regular_duration = null;
+
+    /**
+     * caut_news
+     * @var string
+     */
+    protected $caut_news = null;
+
+    /**
+     * caut_family
+     * @var string
+     */
+    protected $caut_family = null;
+
+    /**
      * caut_string_1
      * @var int
      */
@@ -470,6 +500,121 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     public function getCautCertificat()
     {
         return $this->caut_certificat;
+    }
+
+    /**
+     * Set caut_donation
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautDonation($p_value)
+    {
+        $this->caut_donation = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_donation
+     *
+     * @return string
+     */
+    public function getCautDonation()
+    {
+        return $this->caut_donation;
+    }
+
+    /**
+     * Set caut_once_duration
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautOnceDuration($p_value)
+    {
+        $this->caut_once_duration = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_once_duration
+     *
+     * @return string
+     */
+    public function getCautOnceDuration()
+    {
+        return $this->caut_once_duration;
+    }
+
+    /**
+     * Set caut_regular_duration
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautRegularDuration($p_value)
+    {
+        $this->caut_regular_duration = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_regular_duration
+     *
+     * @return string
+     */
+    public function getCautRegularDuration()
+    {
+        return $this->caut_regular_duration;
+    }
+
+    /**
+     * Set caut_news
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautNews($p_value)
+    {
+        $this->caut_news = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_news
+     *
+     * @return string
+     */
+    public function getCautNews()
+    {
+        return $this->caut_news;
+    }
+
+    /**
+     * Set caut_family
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautFamily($p_value)
+    {
+        $this->caut_family = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_family
+     *
+     * @return string
+     */
+    public function getCautFamily()
+    {
+        return $this->caut_family;
     }
 
     /**

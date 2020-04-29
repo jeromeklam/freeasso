@@ -16,7 +16,19 @@ class Receipt extends \FreeAsso\Model\Base\Receipt
      * @var \FreeAsso\Model\Client
      */
     protected $client = null;
-    
+
+    /**
+     * Country
+     * @var \FreeFW\Model\Country
+     */
+    protected $country = null;
+
+    /**
+     * Lang
+     * @var \FreeFW\Model\Lang
+     */
+    protected $lang = null;
+
     /**
      *
      * {@inheritDoc}
@@ -52,5 +64,51 @@ class Receipt extends \FreeAsso\Model\Base\Receipt
     public function getClient()
     {
         return $this->client;
+    }
+
+    /**
+     * Set country
+     * 
+     * @param \FreeFW\Model\Country $p_country
+     * 
+     * @return \FreeAsso\Model\Receipt
+     */
+    public function setCountry($p_country)
+    {
+        $this->country = $p_country;
+        return $this;
+    }
+
+    /**
+     * Get country
+     * 
+     * @return \FreeFW\Model\Country
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * Set lang
+     * 
+     * @param \FreeFW\Model\Lang $p_lang
+     * 
+     * @return \FreeAsso\Model\Receipt
+     */
+    public function setLang($p_lang)
+    {
+        $this->lang = $p_lang;
+        return $this;
+    }
+
+    /**
+     * Get lang
+     * 
+     * @return \FreeFW\Model\Lang
+     */
+    public function getLang()
+    {
+        return $this->lang;
     }
 }

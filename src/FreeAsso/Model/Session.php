@@ -20,6 +20,13 @@ class Session extends \FreeAsso\Model\Base\Session
     const STATUS_VALIDATION = 'VALIDATION';
 
     /**
+     * Type
+     * @var string
+     */
+    const TYPE_STANDARD   = 'STANDARD';
+    const TYPE_CORRECTION = 'CORRECTION';
+
+    /**
      *
      * {@inheritDoc}
      * @see \FreeFW\Core\Model::init()
@@ -29,6 +36,7 @@ class Session extends \FreeAsso\Model\Base\Session
         $this->sess_id     = 0;
         $this->brk_id      = 0;
         $this->sess_status = self::STATUS_OPEN;
+        $this->sess_type   = self::TYPE_STANDARD;
         return $this;
     }
 }

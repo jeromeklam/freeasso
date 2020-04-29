@@ -30,9 +30,10 @@ class CauseMedia extends \FreeAsso\Model\Base\CauseMedia
      */
     public function init()
     {
-        $this->caum_id = 0;
-        $this->brk_id  = 0;
-        $this->cau_id  = 0;
+        $this->caum_id     = 0;
+        $this->brk_id      = 0;
+        $this->cau_id      = 0;
+        $this->caum_public = true;
         return $this;
     }
 
@@ -72,7 +73,7 @@ class CauseMedia extends \FreeAsso\Model\Base\CauseMedia
                 $query  = $model->getQuery();
                 $query
                     ->addFromFilters(['caum_id' => $this->getCaumId()])
-                    ->addRelations([lang])
+                    ->addRelations(['lang'])
                 ;
                 if ($query->execute()) {
                     $this->versions = $query->getResult();

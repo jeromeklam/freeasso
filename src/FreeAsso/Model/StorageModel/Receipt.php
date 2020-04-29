@@ -125,7 +125,7 @@ abstract class Receipt extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
         FFCST::PROPERTY_FK      => ['country' =>
             [
-                'model' => 'FreeAsso::Model::Country',
+                'model' => 'FreeFW::Model::Country',
                 'field' => 'cnty_id',
                 'type'  => \FreeFW\Model\Query::JOIN_LEFT
             ]
@@ -137,7 +137,7 @@ abstract class Receipt extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
         FFCST::PROPERTY_FK      => ['lang' =>
             [
-                'model' => 'FreeAsso::Model::Lang',
+                'model' => 'FreeFW::Model::Lang',
                 'field' => 'lang_id',
                 'type'  => \FreeFW\Model\Query::JOIN_LEFT
             ]

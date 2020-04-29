@@ -136,10 +136,16 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     protected $cli_email = null;
 
     /**
-     * cli_email_old
+     * cli_email_2
      * @var string
      */
-    protected $cli_email_old = null;
+    protected $cli_email_2 = null;
+
+    /**
+     * cli_email_refused
+     * @var string
+     */
+    protected $cli_email_refused = null;
 
     /**
      * cli_receipt
@@ -787,26 +793,49 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     }
 
     /**
-     * Set cli_email_old
+     * Set cli_email_2
      *
      * @param string $p_value
      *
      * @return \FreeAsso\Model\Client
      */
-    public function setCliEmailOld($p_value)
+    public function setCliEmail_2($p_value)
     {
-        $this->cli_email_old = $p_value;
+        $this->cli_email_2 = $p_value;
         return $this;
     }
 
     /**
-     * Get cli_email_old
+     * Get cli_email_2
      *
      * @return string
      */
-    public function getCliEmailOld()
+    public function getCliEmail_2()
     {
-        return $this->cli_email_old;
+        return $this->cli_email_2;
+    }
+
+    /**
+     * Set cli_email_refused
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Client
+     */
+    public function setCliEmailRefused($p_value)
+    {
+        $this->cli_email_refused = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get cli_email_refused
+     *
+     * @return string
+     */
+    public function getCliEmailRefused()
+    {
+        return $this->cli_email_refused;
     }
 
     /**

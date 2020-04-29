@@ -50,7 +50,7 @@ class CauseMedia extends \FreeFW\Core\ApiMediaController
             $causeMedia = false;
             $typeMedia  = $this->getMediaType($data->getTitle());
             if ($myCause) {
-                $blob       = $this->decode_chunk($data->getBlob());
+                $blob       = $data->getBlob();
                 $causeMedia = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMedia');
                 $causeMedia
                     ->setCauId($myCause->getCauId())

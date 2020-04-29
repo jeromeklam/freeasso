@@ -19,6 +19,73 @@ class Cause extends \FreeFW\Core\ApiController
      */
     public function getCurrentSponsors(\Psr\Http\Message\ServerRequestInterface $p_request, $p_id = null)
     {
+        $data = new \FreeFW\Model\ResultSet();
+        /**
+         * @var \FreeAsso\Model\Donation $donation
+         */
+        $donation = \FreeFW\DI\DI::get('FreeAsso::Model::Donation');
+        /**
+         * @var \FreeFW\Model\Query $query
+         */
+        $query = $donation->getQuery();
+        $query
+            ->addFromFilters(
+                [
+                    'cau_id'      => $p_id,
+                    'don_real_ts' => [\FreeFW\Storage\Storage::COND_LOWER_EQUAL => \FreeFW\Tools\Date::getCurrentTimestamp()],
+                    'don_end_ts'  => [\FreeFW\Storage\Storage::COND_GREATER_EQUAL_OR_NULL => \FreeFW\Tools\Date::getCurrentTimestamp()]
+                ]
+            )
+            ->addRelations(['client'])
+        ;
+        if ($query->execute()) {
+            $results = $query->getResult();
+            foreach ($results as $donation) {
+                /**
+                 * @var \FreeAsso\Model\Sponsor $sponsor
+                 */
+                $sponsor = \FreeFW\DI\DI::get('FreeAsso::Model::Sponsor');
+                $sponsor
+                    ->setSponId($donation->getCliId())
+                    ->setSponName($donation->getClient()->getFullName())
+                    ->setSponEmail($donation->getClient()->getCliEmail())
+                    ->setSponSite($donation->getDonDisplaySite())
+                    ->setSponNews(false)
+                    ->setCliId($donation->getCliId())
+                    ->setSponDonator(true)
+                ;
+                $data->add($sponsor);
+                $sponsors = json_decode($donation->getDonSponsors(), true);
+                if (is_array($sponsors)) {
+                    $i = 0;
+                    foreach ($sponsors as $oneSponsor) {
+                        $i++;
+                        $site = $donation->getDonDisplaySite();
+                        if (array_key_exists('site', $oneSponsor)) {
+                            $site = (bool)$oneSponsor['site'];
+                        }
+                        $news = true;
+                        if (array_key_exists('news', $oneSponsor)) {
+                            $news = (bool)$oneSponsor['news'];
+                        }
+                        /**
+                         * @var \FreeAsso\Model\Sponsor $sponsor2
+                         */
+                        $sponsor2 = \FreeFW\DI\DI::get('FreeAsso::Model::Sponsor');
+                        $sponsor2
+                            ->setSponId($donation->getCliId() . '_' . $i)
+                            ->setSponName($oneSponsor['name'])
+                            ->setSponEmail($oneSponsor['email'])
+                            ->setSponSite($site)
+                            ->setSponNews($news)
+                            ->setCliId($donation->getCliId())
+                            ->setSponDonator(false)
+                        ;
+                        $data->add($sponsor2);
+                    }
+                }
+            }
+        }
         /**
          * @var \FreeAsso\Model\Sponsorship $sponsorship
          */
@@ -37,7 +104,6 @@ class Cause extends \FreeFW\Core\ApiController
             )
             ->addRelations(['client'])
         ;
-        $data = new \FreeFW\Model\ResultSet();
         if ($query->execute()) {
             $results = $query->getResult();
             foreach ($results as $sponsorship) {

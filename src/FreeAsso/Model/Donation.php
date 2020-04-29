@@ -63,16 +63,39 @@ class Donation extends \FreeAsso\Model\Base\Donation
      */
     public function init()
     {
-        $this->don_id      = 0;
-        $this->brk_id      = 0;
-        $this->don_ts      = \FreeFW\Tools\Date::getCurrentTimestamp();
-        $this->don_ask_ts  = \FreeFW\Tools\Date::getCurrentTimestamp();
-        $this->don_real_ts = \FreeFW\Tools\Date::getCurrentTimestamp();
-        $this->don_status  = self::STATUS_WAIT;
-        $this->dono_id     = null;
-        $this->sess_id     = null;
-        $this->spo_id      = null;
+        $this->don_id           = 0;
+        $this->brk_id           = 0;
+        $this->don_ts           = \FreeFW\Tools\Date::getCurrentTimestamp();
+        $this->don_ask_ts       = \FreeFW\Tools\Date::getCurrentTimestamp();
+        $this->don_real_ts      = \FreeFW\Tools\Date::getCurrentTimestamp();
+        $this->don_status       = self::STATUS_OK;
+        $this->dono_id          = null;
+        $this->sess_id          = null;
+        $this->spo_id           = null;
+        $this->don_display_site = true;
+        $this->don_money        = 'EUR';
         return $this;
+    }
+
+    /**
+     * 
+     */
+    public function afterRead()
+    {
+        if ($this->don_id === 0) {
+            $session = \FreeAsso\Model\Session::findFirst(
+                [
+                    'sess_type'     => \FreeAsso\Model\Session::TYPE_STANDARD,
+                    'sess_exercice' => date('Y')
+                ]
+            );
+            if ($session) {
+                $this
+                    ->setSessId($session->getSessId())
+                    ->setSession($session)
+                ;
+            }
+        }
     }
 
     /**

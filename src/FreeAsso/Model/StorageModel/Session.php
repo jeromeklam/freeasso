@@ -40,6 +40,11 @@ abstract class Session extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
+    protected static $PRP_SESS_TYPE = [
+        FFCST::PROPERTY_PRIVATE => 'sess_type',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+    ];
 
     /**
      * get properties
@@ -53,7 +58,8 @@ abstract class Session extends \FreeFW\Core\StorageModel
             'brk_id'        => self::$PRP_BRK_ID,
             'sess_name'     => self::$PRP_SESS_NAME,
             'sess_exercice' => self::$PRP_SESS_EXERCICE,
-            'sess_status'   => self::$PRP_SESS_STATUS
+            'sess_status'   => self::$PRP_SESS_STATUS,
+            'sess_type'     => self::$PRP_SESS_TYPE,
         ];
     }
 

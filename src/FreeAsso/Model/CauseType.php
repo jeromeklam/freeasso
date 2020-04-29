@@ -13,12 +13,38 @@ class CauseType extends \FreeAsso\Model\Base\CauseType implements
 {
 
     /**
+     * Constantes
+     * @var string
+     */
+    const FAMILY_NONE          = 'NONE';
+    const FAMILY_ANIMAL        = 'ANIMAL';
+    const FAMILY_OTHER         = 'OTHER';
+    const FAMILY_NATURE        = 'NATURE';
+    const FAMILY_ADMINISTRATIV = 'ADMINISTRATIV';
+
+    /**
      * Type de montant
      * @var string
      */
     const MNT_TYPE_OTHER   = 'OTHER';
     const MNT_TYPE_ANNUAL  = 'ANNUAL';
     const MNT_TYPE_MAXIMUM = 'MAXIMUM';
+
+    /**
+     * Donation types
+     * @var string
+     */
+    const DONATION_ALL     = 'ALL';
+    const DONATION_ONCE    = 'ONCE';
+    const DONATION_REGULAR = 'REGULAR';
+
+    /**
+     * Default donation duration
+     * @var string
+     */
+    const DURATION_1YEAR    = '1Y';
+    const DURATION_1MONTH   = '1M';
+    const DURATION_INFINITE = 'INFINITE';
 
     /**
      * Type de cause principal
@@ -39,33 +65,37 @@ class CauseType extends \FreeAsso\Model\Base\CauseType implements
      */
     public function init()
     {
-        $this->caut_id         = 0;
-        $this->brk_id          = 0;
-        $this->caut_name       = '';
-        $this->caut_receipt    = 0;
-        $this->caut_certificat = 0;
-        $this->caut_mnt_type   = self::MNT_TYPE_OTHER;
-        $this->caut_money      = 'EUR';
-        $this->caut_string_1   = 0;
-        $this->caut_string_2   = 0;
-        $this->caut_string_3   = 0;
-        $this->caut_string_4   = 0;
-        $this->caut_number_1   = 0;
-        $this->caut_number_2   = 0;
-        $this->caut_number_3   = 0;
-        $this->caut_number_4   = 0;
-        $this->caut_bool_1     = 0;
-        $this->caut_bool_2     = 0;
-        $this->caut_bool_3     = 0;
-        $this->caut_bool_4     = 0;
-        $this->caut_date_1     = 0;
-        $this->caut_date_2     = 0;
-        $this->caut_date_3     = 0;
-        $this->caut_date_4     = 0;
-        $this->caut_text_1     = 0;
-        $this->caut_text_2     = 0;
-        $this->caut_text_3     = 0;
-        $this->caut_text_4     = 0;
+        $this->caut_id               = 0;
+        $this->brk_id                = 0;
+        $this->caut_name             = '';
+        $this->caut_receipt          = 0;
+        $this->caut_certificat       = 0;
+        $this->caut_mnt_type         = self::MNT_TYPE_OTHER;
+        $this->caut_money            = 'EUR';
+        $this->caut_donation         = self::DONATION_ALL;
+        $this->caut_news             = true;
+        $this->caut_once_duration    = self::DURATION_1YEAR;
+        $this->caut_regular_duration = self::DURATION_1YEAR;
+        $this->caut_string_1         = 0;
+        $this->caut_string_2         = 0;
+        $this->caut_string_3         = 0;
+        $this->caut_string_4         = 0;
+        $this->caut_number_1         = 0;
+        $this->caut_number_2         = 0;
+        $this->caut_number_3         = 0;
+        $this->caut_number_4         = 0;
+        $this->caut_bool_1           = 0;
+        $this->caut_bool_2           = 0;
+        $this->caut_bool_3           = 0;
+        $this->caut_bool_4           = 0;
+        $this->caut_date_1           = 0;
+        $this->caut_date_2           = 0;
+        $this->caut_date_3           = 0;
+        $this->caut_date_4           = 0;
+        $this->caut_text_1           = 0;
+        $this->caut_text_2           = 0;
+        $this->caut_text_3           = 0;
+        $this->caut_text_4           = 0;
         return $this;
     }
 

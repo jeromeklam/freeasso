@@ -14,7 +14,7 @@ $donationRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['client', 'cause', 'payment_type', 'sponsorship']
+            'default' => ['client', 'cause', 'cause.cause_type', 'payment_type', 'sponsorship']
         ],
         'results' => [
             '200' => [
@@ -32,7 +32,7 @@ $donationRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['client', 'cause', 'payment_type', 'sponsorship']
+            'default' => ['client', 'cause', 'cause.cause_type', 'payment_type', 'sponsorship', 'session']
         ],
         'results' => [
             '200' => [
@@ -50,7 +50,7 @@ $donationRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['client', 'cause', 'payment_type', 'sponsorship']
+            'default' => ['client', 'cause', 'cause.cause_type', 'payment_type', 'sponsorship', 'session']
         ],
         'results' => [
             '200' => [
@@ -68,7 +68,7 @@ $donationRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['client', 'cause', 'payment_type', 'sponsorship']
+            'default' => ['client', 'cause', 'cause.cause_type', 'payment_type', 'sponsorship', 'session']
         ],
         'results' => [
             '201' => [
