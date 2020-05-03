@@ -34,6 +34,18 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     protected $site_name = null;
 
     /**
+     * site_from
+     * @var string
+     */
+    protected $site_from = null;
+
+    /**
+     * site_to
+     * @var string
+     */
+    protected $site_to = null;
+
+    /**
      * site_code
      * @var string
      */
@@ -88,7 +100,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     protected $parent_site_id = null;
 
     /**
-     * area
+     * site_area
      * @var string
      */
     protected $site_area = null;
@@ -100,7 +112,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     protected $site_position = null;
 
     /**
-     * plots
+     * site_plots
      * @var mixed
      */
     protected $site_plots = null;
@@ -148,6 +160,30 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     protected $site_string_4 = null;
 
     /**
+     * site_string_5
+     * @var string
+     */
+    protected $site_string_5 = null;
+
+    /**
+     * site_string_6
+     * @var string
+     */
+    protected $site_string_6 = null;
+
+    /**
+     * site_string_7
+     * @var string
+     */
+    protected $site_string_7 = null;
+
+    /**
+     * site_string_8
+     * @var string
+     */
+    protected $site_string_8 = null;
+
+    /**
      * site_number_1
      * @var string
      */
@@ -170,6 +206,18 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
      * @var string
      */
     protected $site_number_4 = null;
+
+    /**
+     * site_number_5
+     * @var string
+     */
+    protected $site_number_5 = null;
+
+    /**
+     * site_number_6
+     * @var string
+     */
+    protected $site_number_6 = null;
 
     /**
      * site_date_1
@@ -256,44 +304,20 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     protected $site_code_ex = null;
 
     /**
-     * site_code_desc
-     * @var string
+     * site_desc
+     * @var mixed
      */
     protected $site_desc = null;
 
     /**
-     * site_string_5
-     * @var string
-     */
-    protected $site_string_5 = null;
-
-    /**
-     * site_string_6
-     * @var string
-     */
-    protected $site_string_6 = null;
-
-    /**
-     * site_number_5
-     * @var number
-     */
-    protected $site_number_5 = null;
-
-    /**
-     * site_number_6
-     * @var number
-     */
-    protected $site_number_6 = null;
-
-    /**
      * site_conform
-     * @var bool
+     * @var int
      */
-    protected $site_conform = true;
+    protected $site_conform = null;
 
     /**
-     * site_conform
-     * @var string
+     * site_conform_text
+     * @var mixed
      */
     protected $site_conform_text = null;
 
@@ -390,6 +414,52 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     }
 
     /**
+     * Set site_from
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSiteFrom($p_value)
+    {
+        $this->site_from = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get site_from
+     *
+     * @return string
+     */
+    public function getSiteFrom()
+    {
+        return $this->site_from;
+    }
+
+    /**
+     * Set site_to
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSiteTo($p_value)
+    {
+        $this->site_to = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get site_to
+     *
+     * @return string
+     */
+    public function getSiteTo()
+    {
+        return $this->site_to;
+    }
+
+    /**
      * Set site_code
      *
      * @param string $p_value
@@ -401,7 +471,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
         $this->site_code = $p_value;
         return $this;
     }
-    
+
     /**
      * Get site_code
      *
@@ -873,6 +943,52 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     }
 
     /**
+     * Set site_string_7
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSiteString_7($p_value)
+    {
+        $this->site_string_7 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get site_string_7
+     *
+     * @return string
+     */
+    public function getSiteString_7()
+    {
+        return $this->site_string_7;
+    }
+
+    /**
+     * Set site_string_8
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSiteString_8($p_value)
+    {
+        $this->site_string_8 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get site_string_8
+     *
+     * @return string
+     */
+    public function getSiteString_8()
+    {
+        return $this->site_string_8;
+    }
+
+    /**
      * Set site_number_1
      *
      * @param string $p_value
@@ -1335,7 +1451,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Set site_desc
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Site
      */
@@ -1348,7 +1464,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Get site_desc
      *
-     * @return string
+     * @return mixed
      */
     public function getSiteDesc()
     {
@@ -1357,10 +1473,10 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
 
     /**
      * Set site_conform
-     * 
-     * @param boolean $p_value
-     * 
-     * @return \FreeAsso\Model\Base\Site
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Site
      */
     public function setSiteConform($p_value)
     {
@@ -1370,8 +1486,8 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
 
     /**
      * Get site_conform
-     * 
-     * @return boolean
+     *
+     * @return int
      */
     public function getSiteConform()
     {
@@ -1381,9 +1497,9 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Set site_conform_text
      *
-     * @param boolean $p_value
+     * @param mixed $p_value
      *
-     * @return \FreeAsso\Model\Base\Site
+     * @return \FreeAsso\Model\Site
      */
     public function setSiteConformText($p_value)
     {
@@ -1394,7 +1510,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Get site_conform_text
      *
-     * @return string
+     * @return mixed
      */
     public function getSiteConformText()
     {

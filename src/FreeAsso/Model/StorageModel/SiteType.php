@@ -55,6 +55,26 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
+    protected static $PRP_SITT_STRING_5 = [
+        FFCST::PROPERTY_PRIVATE => 'sitt_string_5',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+    ];
+    protected static $PRP_SITT_STRING_6 = [
+        FFCST::PROPERTY_PRIVATE => 'sitt_string_6',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+    ];
+    protected static $PRP_SITT_STRING_7 = [
+        FFCST::PROPERTY_PRIVATE => 'sitt_string_7',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+    ];
+    protected static $PRP_SITT_STRING_8 = [
+        FFCST::PROPERTY_PRIVATE => 'sitt_string_8',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+    ];
     protected static $PRP_SITT_NUMBER_1 = [
         FFCST::PROPERTY_PRIVATE => 'sitt_number_1',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
@@ -72,6 +92,16 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\Base
     ];
     protected static $PRP_SITT_NUMBER_4 = [
         FFCST::PROPERTY_PRIVATE => 'sitt_number_4',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+    ];
+    protected static $PRP_SITT_NUMBER_5 = [
+        FFCST::PROPERTY_PRIVATE => 'sitt_number_5',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+    ];
+    protected static $PRP_SITT_NUMBER_6 = [
+        FFCST::PROPERTY_PRIVATE => 'sitt_number_6',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
@@ -152,10 +182,16 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\Base
             'sitt_string_2' => self::$PRP_SITT_STRING_2,
             'sitt_string_3' => self::$PRP_SITT_STRING_3,
             'sitt_string_4' => self::$PRP_SITT_STRING_4,
+            'sitt_string_5' => self::$PRP_SITT_STRING_5,
+            'sitt_string_6' => self::$PRP_SITT_STRING_6,
+            'sitt_string_7' => self::$PRP_SITT_STRING_7,
+            'sitt_string_8' => self::$PRP_SITT_STRING_8,
             'sitt_number_1' => self::$PRP_SITT_NUMBER_1,
             'sitt_number_2' => self::$PRP_SITT_NUMBER_2,
             'sitt_number_3' => self::$PRP_SITT_NUMBER_3,
             'sitt_number_4' => self::$PRP_SITT_NUMBER_4,
+            'sitt_number_5' => self::$PRP_SITT_NUMBER_5,
+            'sitt_number_6' => self::$PRP_SITT_NUMBER_6,
             'sitt_date_1'   => self::$PRP_SITT_DATE_1,
             'sitt_date_2'   => self::$PRP_SITT_DATE_2,
             'sitt_date_3'   => self::$PRP_SITT_DATE_3,

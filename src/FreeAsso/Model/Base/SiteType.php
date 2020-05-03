@@ -58,6 +58,30 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     protected $sitt_string_4 = null;
 
     /**
+     * sitt_string_5
+     * @var int
+     */
+    protected $sitt_string_5 = null;
+
+    /**
+     * sitt_string_6
+     * @var int
+     */
+    protected $sitt_string_6 = null;
+
+    /**
+     * sitt_string_7
+     * @var int
+     */
+    protected $sitt_string_7 = null;
+
+    /**
+     * sitt_string_8
+     * @var int
+     */
+    protected $sitt_string_8 = null;
+
+    /**
      * sitt_number_1
      * @var int
      */
@@ -80,6 +104,18 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
      * @var int
      */
     protected $sitt_number_4 = null;
+
+    /**
+     * sitt_number_5
+     * @var int
+     */
+    protected $sitt_number_5 = null;
+
+    /**
+     * sitt_number_6
+     * @var int
+     */
+    protected $sitt_number_6 = null;
 
     /**
      * sitt_date_1
@@ -338,6 +374,98 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     }
 
     /**
+     * Set sitt_string_5
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\SiteType
+     */
+    public function setSittString_5($p_value)
+    {
+        $this->sitt_string_5 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get sitt_string_5
+     *
+     * @return int
+     */
+    public function getSittString_5()
+    {
+        return $this->sitt_string_5;
+    }
+
+    /**
+     * Set sitt_string_6
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\SiteType
+     */
+    public function setSittString_6($p_value)
+    {
+        $this->sitt_string_6 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get sitt_string_6
+     *
+     * @return int
+     */
+    public function getSittString_6()
+    {
+        return $this->sitt_string_6;
+    }
+
+    /**
+     * Set sitt_string_7
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\SiteType
+     */
+    public function setSittString_7($p_value)
+    {
+        $this->sitt_string_7 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get sitt_string_7
+     *
+     * @return int
+     */
+    public function getSittString_7()
+    {
+        return $this->sitt_string_7;
+    }
+
+    /**
+     * Set sitt_string_8
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\SiteType
+     */
+    public function setSittString_8($p_value)
+    {
+        $this->sitt_string_8 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get sitt_string_8
+     *
+     * @return int
+     */
+    public function getSittString_8()
+    {
+        return $this->sitt_string_8;
+    }
+
+    /**
      * Set sitt_number_1
      *
      * @param int $p_value
@@ -427,6 +555,52 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     public function getSittNumber_4()
     {
         return $this->sitt_number_4;
+    }
+
+    /**
+     * Set sitt_number_5
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\SiteType
+     */
+    public function setSittNumber_5($p_value)
+    {
+        $this->sitt_number_5 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get sitt_number_5
+     *
+     * @return int
+     */
+    public function getSittNumber_5()
+    {
+        return $this->sitt_number_5;
+    }
+
+    /**
+     * Set sitt_number_6
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\SiteType
+     */
+    public function setSittNumber_6($p_value)
+    {
+        $this->sitt_number_6 = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get sitt_number_6
+     *
+     * @return int
+     */
+    public function getSittNumber_6()
+    {
+        return $this->sitt_number_6;
     }
 
     /**

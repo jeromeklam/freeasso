@@ -158,6 +158,26 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
         FFCST::PROPERTY_OPTIONS => []
     ];
+    protected static $PRP_SITE_STRING_5 = [
+        FFCST::PROPERTY_PRIVATE => 'site_string_5',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_SITE_STRING_6 = [
+        FFCST::PROPERTY_PRIVATE => 'site_string_6',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_SITE_STRING_7 = [
+        FFCST::PROPERTY_PRIVATE => 'site_string_7',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_SITE_STRING_8 = [
+        FFCST::PROPERTY_PRIVATE => 'site_string_8',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
     protected static $PRP_SITE_NUMBER_1 = [
         FFCST::PROPERTY_PRIVATE => 'site_number_1',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
@@ -253,16 +273,6 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT_HTML,
         FFCST::PROPERTY_OPTIONS => []
     ];
-    protected static $PRP_SITE_STRING_5 = [
-        FFCST::PROPERTY_PRIVATE => 'site_string_5',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => []
-    ];
-    protected static $PRP_SITE_STRING_6 = [
-        FFCST::PROPERTY_PRIVATE => 'site_string_6',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => []
-    ];
     protected static $PRP_SITE_NUMBER_5 = [
         FFCST::PROPERTY_PRIVATE => 'site_number_5',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
@@ -315,6 +325,10 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
             'site_string_2'     => self::$PRP_SITE_STRING_2,
             'site_string_3'     => self::$PRP_SITE_STRING_3,
             'site_string_4'     => self::$PRP_SITE_STRING_4,
+            'site_string_5'     => self::$PRP_SITE_STRING_5,
+            'site_string_6'     => self::$PRP_SITE_STRING_6,
+            'site_string_7'     => self::$PRP_SITE_STRING_7,
+            'site_string_8'     => self::$PRP_SITE_STRING_8,
             'site_number_1'     => self::$PRP_SITE_NUMBER_1,
             'site_number_2'     => self::$PRP_SITE_NUMBER_2,
             'site_number_3'     => self::$PRP_SITE_NUMBER_3,
@@ -334,8 +348,6 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
             'site_coord'        => self::$PRP_SITE_COORD,
             'site_code_ex'      => self::$PRP_SITE_CODE_EX,
             'site_desc'         => self::$PRP_SITE_DESC,
-            'site_string_5'     => self::$PRP_SITE_STRING_5,
-            'site_string_6'     => self::$PRP_SITE_STRING_6,
             'site_number_5'     => self::$PRP_SITE_NUMBER_5,
             'site_number_6'     => self::$PRP_SITE_NUMBER_6,
             'site_conform'      => self::$PRP_SITE_CONFORM,

@@ -32,6 +32,10 @@ class SiteType extends \FreeAsso\Model\Base\SiteType implements
         $this->sitt_string_2 = 0;
         $this->sitt_string_3 = 0;
         $this->sitt_string_4 = 0;
+        $this->sitt_string_5 = 0;
+        $this->sitt_string_6 = 0;
+        $this->sitt_string_7 = 0;
+        $this->sitt_string_8 = 0;
         $this->sitt_bool_1   = 0;
         $this->sitt_bool_2   = 0;
         $this->sitt_bool_3   = 0;
@@ -48,6 +52,8 @@ class SiteType extends \FreeAsso\Model\Base\SiteType implements
         $this->sitt_number_2 = 0;
         $this->sitt_number_3 = 0;
         $this->sitt_number_4 = 0;
+        $this->sitt_number_5 = 0;
+        $this->sitt_number_6 = 0;
         return $this;
     }
     
