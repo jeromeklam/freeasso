@@ -362,4 +362,65 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
     {
         return 'site_name';
     }
+
+    /**
+     * Get uniq indexes
+     * 
+     * @return array[]
+     */
+    public static function getUniqIndexes()
+    {
+        return [
+            'name' => [
+                'fields' => 'site_name',
+                'exists' => '6690001',
+            ]
+        ];
+    }
+
+    /**
+     * Get One To many relationShips
+     *
+     * @return array
+     */
+    public function getRelationships()
+    {
+        return [
+            'sons' => [
+                'model'  => 'FreeAsso::Model::Site',
+                'field'  => 'parent_site_id',
+                'type'   => \FreeFW\Model\Query::JOIN_LEFT,
+                'remove' => 'check',
+                'exists' => '6680001',
+            ],
+            'medias' => [
+                'model'  => 'FreeAsso::Model::SiteMedia',
+                'field'  => 'site_id',
+                'type'   => \FreeFW\Model\Query::JOIN_LEFT,
+                'remove' => 'check',
+                'exists' => '6680002',
+            ],
+            'movements_from' => [
+                'model'  => 'FreeAsso::Model::Movement',
+                'field'  => 'move_from_site_id',
+                'type'   => \FreeFW\Model\Query::JOIN_LEFT,
+                'remove' => 'check',
+                'exists' => '6680003',
+            ],
+            'movements_to' => [
+                'model'  => 'FreeAsso::Model::Movement',
+                'field'  => 'move_to_site_id',
+                'type'   => \FreeFW\Model\Query::JOIN_LEFT,
+                'remove' => 'check',
+                'exists' => '6680004',
+            ],
+            'causes' => [
+                'model'  => 'FreeAsso::Model::Cause',
+                'field'  => 'site_id',
+                'type'   => \FreeFW\Model\Query::JOIN_LEFT,
+                'remove' => 'check',
+                'exists' => '6680005',
+            ]
+        ];
+    }
 }

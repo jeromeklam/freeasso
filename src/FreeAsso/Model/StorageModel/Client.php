@@ -307,6 +307,21 @@ abstract class Client extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => []
     ];
+    protected static $PRP_CLI_COORD = [
+        FFCST::PROPERTY_PRIVATE => 'cli_coord',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_CLI_SIREN = [
+        FFCST::PROPERTY_PRIVATE => 'cli_siren',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_CLI_SIRET = [
+        FFCST::PROPERTY_PRIVATE => 'cli_siret',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
 
     /**
      * get properties
@@ -365,7 +380,10 @@ abstract class Client extends \FreeFW\Core\StorageModel
             'cli_bool_3'        => self::$PRP_CLI_BOOL_3,
             'cli_bool_4'        => self::$PRP_CLI_BOOL_4,
             'cli_display_site'  => self::$PRP_CLI_DISPLAY_SITE,
-            'cli_send_news'     => self::$PRP_CLI_SEND_NEWS
+            'cli_send_news'     => self::$PRP_CLI_SEND_NEWS,
+            'cli_coord'         => self::$PRP_CLI_COORD,
+            'cli_siren'         => self::$PRP_CLI_SIREN,
+            'cli_siret'         => self::$PRP_CLI_SIRET,
         ];
     }
 
@@ -386,6 +404,6 @@ abstract class Client extends \FreeFW\Core\StorageModel
      */
     public static function getAutocompleteField()
     {
-        return 'cli_lastname';
+        return ['cli_lastname', 'cli_firstname', 'cli_email'];
     }
 }

@@ -13,6 +13,14 @@ class Client extends \FreeAsso\Model\Base\Client implements
 {
 
     /**
+     * Genres
+     * @var string
+     */
+    const GENDER_OTHER  = 'OTHER';
+    const GENDER_MISTER = 'MISTER';
+    const GENDER_MADAM  = 'MADAM';
+    
+    /**
      * Site
      * @var \FreeAsso\Model\ClientCategory
      */
@@ -55,14 +63,21 @@ class Client extends \FreeAsso\Model\Base\Client implements
      */
     public function init()
     {
+        $cntyId  = 0;
+        $country = \FreeFW\Model\Country::findFirst(['cnty_name' => 'France']);
+        if ($country) {
+            $cntyId = $country->getCntyId();
+        }
         $this->cli_id           = 0;
         $this->brk_id           = 0;
         $this->clic_id          = 0;
-        $this->clit_it          = '';
+        $this->clit_id          = 0;
         $this->cli_active       = true;
         $this->last_don_id      = null;
         $this->cli_display_site = true;
         $this->cli_send_news    = true;
+        $this->cli_gender       = self::GENDER_OTHER;
+        $this->cnty_id          = $cntyId;
         return $this;
     }
 

@@ -310,6 +310,24 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     protected $cli_send_news = null;
 
     /**
+     * cli_coord
+     * @var string
+     */
+    protected $cli_coord = null;
+
+    /**
+     * cli_siren
+     * @var string
+     */
+    protected $cli_siren = null;
+
+    /**
+     * cli_siret
+     * @var string
+     */
+    protected $cli_siret = null;
+
+    /**
      * Set cli_id
      *
      * @param int $p_value
@@ -1457,5 +1475,74 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     public function getCliSendNews()
     {
         return $this->cli_send_news;
+    }
+
+    /**
+     * Set cli_coord
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Client
+     */
+    public function setCliCoord($p_value)
+    {
+        $this->cli_coord = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get cli_coord
+     *
+     * @return string
+     */
+    public function getCliCoord()
+    {
+        return $this->cli_coord;
+    }
+
+    /**
+     * Set cli_siren
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Client
+     */
+    public function setCliSiren($p_value)
+    {
+        $this->cli_siren = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get cli_siren
+     *
+     * @return string
+     */
+    public function getCliSiren()
+    {
+        return $this->cli_siren;
+    }
+
+    /**
+     * Set cli_siret
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Client
+     */
+    public function setCliSiret($p_value)
+    {
+        $this->cli_siret = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get cli_siret
+     *
+     * @return string
+     */
+    public function getCliSiret()
+    {
+        return $this->cli_siret;
     }
 }
