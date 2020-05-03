@@ -31,9 +31,9 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_FK],
         FFCST::PROPERTY_FK      => ['site_type' =>
             [
-                'model' => 'FreeAsso::Model::SiteType',
-                'field' => 'sitt_id',
-                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+                FFCST::FOREIGN_MODEL => 'FreeAsso::Model::SiteType',
+                FFCST::FOREIGN_FIELD => 'sitt_id',
+                FFCST::FOREIGN_TYPE  => \FreeFW\Model\Query::JOIN_LEFT
             ]
         ]
     ];
@@ -78,9 +78,9 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
         FFCST::PROPERTY_FK      => ['owner' =>
             [
-                'model' => 'FreeAsso::Model::Client',
-                'field' => 'cli_id',
-                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+                FFCST::FOREIGN_MODEL => 'FreeAsso::Model::Client',
+                FFCST::FOREIGN_FIELD => 'cli_id',
+                FFCST::FOREIGN_TYPE  => \FreeFW\Model\Query::JOIN_LEFT
             ]
         ]
     ];
@@ -90,9 +90,9 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
         FFCST::PROPERTY_FK      => ['sanitary' =>
             [
-                'model' => 'FreeAsso::Model::Client',
-                'field' => 'cli_id',
-                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+                FFCST::FOREIGN_MODEL => 'FreeAsso::Model::Client',
+                FFCST::FOREIGN_FIELD => 'cli_id',
+                FFCST::FOREIGN_TYPE  => \FreeFW\Model\Query::JOIN_LEFT
             ]
         ]
     ];
@@ -102,9 +102,9 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
         FFCST::PROPERTY_FK      => ['parent_site' =>
             [
-                'model' => 'FreeAsso::Model::Site',
-                'field' => 'site_id',
-                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+                FFCST::FOREIGN_MODEL => 'FreeAsso::Model::Site',
+                FFCST::FOREIGN_FIELD => 'site_id',
+                FFCST::FOREIGN_TYPE  => \FreeFW\Model\Query::JOIN_LEFT
             ]
         ]
     ];
@@ -384,8 +384,8 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
     {
         return [
             'name' => [
-                'fields' => 'site_name',
-                'exists' => '6690001',
+                FFCST::INDEX_FIELDS => 'site_name',
+                FFCST::INDEX_EXISTS => '6690001',
             ]
         ];
     }
@@ -399,39 +399,39 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
     {
         return [
             'sons' => [
-                'model'  => 'FreeAsso::Model::Site',
-                'field'  => 'parent_site_id',
-                'type'   => \FreeFW\Model\Query::JOIN_LEFT,
-                'remove' => 'check',
-                'exists' => '6680001',
+                FFCST::REL_MODEL  => 'FreeAsso::Model::Site',
+                FFCST::REL_FIELD  => 'parent_site_id',
+                FFCST::REL_TYPE   => \FreeFW\Model\Query::JOIN_LEFT,
+                FFCST::REL_REMOVE => 'check',
+                FFCST::REL_EXISTS => '6680001',
             ],
             'medias' => [
-                'model'  => 'FreeAsso::Model::SiteMedia',
-                'field'  => 'site_id',
-                'type'   => \FreeFW\Model\Query::JOIN_LEFT,
-                'remove' => 'check',
-                'exists' => '6680002',
+                FFCST::REL_MODEL  => 'FreeAsso::Model::SiteMedia',
+                FFCST::REL_FIELD  => 'site_id',
+                FFCST::REL_TYPE   => \FreeFW\Model\Query::JOIN_LEFT,
+                FFCST::REL_REMOVE => 'check',
+                FFCST::REL_EXISTS => '6680002',
             ],
             'movements_from' => [
-                'model'  => 'FreeAsso::Model::Movement',
-                'field'  => 'move_from_site_id',
-                'type'   => \FreeFW\Model\Query::JOIN_LEFT,
-                'remove' => 'check',
-                'exists' => '6680003',
+                FFCST::REL_MODEL  => 'FreeAsso::Model::Movement',
+                FFCST::REL_FIELD  => 'move_from_site_id',
+                FFCST::REL_TYPE   => \FreeFW\Model\Query::JOIN_LEFT,
+                FFCST::REL_REMOVE => 'check',
+                FFCST::REL_EXISTS => '6680003',
             ],
             'movements_to' => [
-                'model'  => 'FreeAsso::Model::Movement',
-                'field'  => 'move_to_site_id',
-                'type'   => \FreeFW\Model\Query::JOIN_LEFT,
-                'remove' => 'check',
-                'exists' => '6680004',
+                FFCST::REL_MODEL  => 'FreeAsso::Model::Movement',
+                FFCST::REL_FIELD  => 'move_to_site_id',
+                FFCST::REL_TYPE   => \FreeFW\Model\Query::JOIN_LEFT,
+                FFCST::REL_REMOVE => 'check',
+                FFCST::REL_EXISTS => '6680004',
             ],
             'causes' => [
-                'model'  => 'FreeAsso::Model::Cause',
-                'field'  => 'site_id',
-                'type'   => \FreeFW\Model\Query::JOIN_LEFT,
-                'remove' => 'check',
-                'exists' => '6680005',
+                FFCST::REL_MODEL  => 'FreeAsso::Model::Cause',
+                FFCST::REL_FIELD  => 'site_id',
+                FFCST::REL_TYPE   => \FreeFW\Model\Query::JOIN_LEFT,
+                FFCST::REL_REMOVE => 'check',
+                FFCST::REL_EXISTS => '6680005',
             ]
         ];
     }
