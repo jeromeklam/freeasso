@@ -1,5 +1,4 @@
-<?php 
-
+<?php
 date_default_timezone_set('Europe/Paris');
 error_reporting(E_ALL);
 ini_set('log_errors', 1);
