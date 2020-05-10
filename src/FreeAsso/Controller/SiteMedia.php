@@ -10,11 +10,11 @@ class SiteMedia extends \FreeFW\Core\ApiMediaController
 {
 
     /**
-     * Get file content for download 
-     * 
+     * Get file content for download
+     *
      * @param \Psr\Http\Message\ServerRequestInterface $p_request
      * @param string                                   $p_id
-     * 
+     *
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function downloadOneBlob(\Psr\Http\Message\ServerRequestInterface $p_request, $p_id)
@@ -50,7 +50,7 @@ class SiteMedia extends \FreeFW\Core\ApiMediaController
             $SiteMedia = false;
             $typeMedia = $this->getMediaType($data->getTitle());
             if ($mySite) {
-                $blob      = $this->decode_chunk($data->getBlob());
+                $blob      = $data->getBlob();
                 $SiteMedia = \FreeFW\DI\DI::get('FreeAsso::Model::SiteMedia');
                 $SiteMedia
                     ->setSiteId($mySite->getSiteId())
@@ -60,9 +60,13 @@ class SiteMedia extends \FreeFW\Core\ApiMediaController
                     ->setSitmBlob($blob)
                     ->setSitmTitle($data->getTitle())
                 ;
-                if ($typeMedia === \FreeAsso\Model\SiteMedia::TYPE_PHOTO) {
-                    $thumb = \FreeFW\Tools\ImageResizer::createFromString($blob);
-                    $SiteMedia->setSitmShortBlob($thumb->resizeToBestFit(200, 200));
+                try {
+                    if ($typeMedia === \FreeAsso\Model\SiteMedia::TYPE_PHOTO) {
+                        $thumb = \FreeFW\Tools\ImageResizer::createFromString($blob);
+                        $SiteMedia->setSitmShortBlob($thumb->resizeToBestFit(200, 200));
+                    }
+                } catch (\Exception $ex) {
+                    // @todo
                 }
                 if (!$SiteMedia->create()) {
                     return $this->createResponse(409, $SiteMedia->getErrors());

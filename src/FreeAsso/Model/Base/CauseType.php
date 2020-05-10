@@ -40,6 +40,12 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     protected $caut_pattern = null;
 
     /**
+     * caut_mask
+     * @var string
+     */
+    protected $caut_mask = null;
+
+    /**
      * caut_receipt
      * @var string
      */
@@ -362,6 +368,29 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     public function getCautPattern()
     {
         return $this->caut_pattern;
+    }
+
+    /**
+     * Set caut_mask
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautMask($p_value)
+    {
+        $this->caut_mask = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_mask
+     *
+     * @return string
+     */
+    public function getCautMask()
+    {
+        return $this->caut_mask;
     }
 
     /**

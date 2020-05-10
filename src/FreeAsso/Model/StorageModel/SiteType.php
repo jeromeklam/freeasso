@@ -35,6 +35,11 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
         FFCST::PROPERTY_OPTIONS => []
     ];
+    protected static $PRP_SITT_MASK = [
+        FFCST::PROPERTY_PRIVATE => 'sitt_mask',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
     protected static $PRP_SITT_STRING_1 = [
         FFCST::PROPERTY_PRIVATE => 'sitt_string_1',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
@@ -178,6 +183,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\Base
             'brk_id'        => self::$PRP_BRK_ID,
             'sitt_name'     => self::$PRP_SITT_NAME,
             'sitt_pattern'  => self::$PRP_SITT_PATTERN,
+            'sitt_mask'     => self::$PRP_SITT_MASK,
             'sitt_string_1' => self::$PRP_SITT_STRING_1,
             'sitt_string_2' => self::$PRP_SITT_STRING_2,
             'sitt_string_3' => self::$PRP_SITT_STRING_3,

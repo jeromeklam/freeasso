@@ -34,6 +34,12 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     protected $sitt_pattern = null;
 
     /**
+     * sitt_mask
+     * @var string
+     */
+    protected $sitt_mask = null;
+
+    /**
      * sitt_string_1
      * @var int
      */
@@ -279,6 +285,29 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     public function getSittPattern()
     {
         return $this->sitt_pattern;
+    }
+
+    /**
+     * Set sitt_mask
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\SiteType
+     */
+    public function setSittMask($p_value)
+    {
+        $this->sitt_mask = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get sitt_mask
+     *
+     * @return string
+     */
+    public function getSittMask()
+    {
+        return $this->sitt_mask;
     }
 
     /**

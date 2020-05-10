@@ -60,9 +60,13 @@ class CauseMedia extends \FreeFW\Core\ApiMediaController
                     ->setCaumBlob($blob)
                     ->setCaumTitle($data->getTitle())
                 ;
-                if ($typeMedia === \FreeAsso\Model\CauseMedia::TYPE_PHOTO) {
-                    $thumb = \FreeFW\Tools\ImageResizer::createFromString($blob);
-                    $causeMedia->setCaumShortBlob($thumb->resizeToBestFit(200, 200));
+                try {
+                    if ($typeMedia === \FreeAsso\Model\CauseMedia::TYPE_PHOTO) {
+                        $thumb = \FreeFW\Tools\ImageResizer::createFromString($blob);
+                        $causeMedia->setCaumShortBlob($thumb->resizeToBestFit(200, 200));
+                    }
+                } catch (\Exception $ex) {
+                    // @todo
                 }
                 if (!$causeMedia->create()) {
                     return $this->createResponse(409, $causeMedia->getErrors());
