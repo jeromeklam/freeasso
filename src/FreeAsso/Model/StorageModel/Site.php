@@ -11,24 +11,30 @@ use \FreeFW\Constants as FFCST;
 abstract class Site extends \FreeAsso\Model\StorageModel\Base
 {
 
-/**
- * Field properties as static arrays
- * @var array
- */
+    /**
+     * Field properties as static arrays
+     * @var array
+     */
     protected static $PRP_SITE_ID = [
         FFCST::PROPERTY_PRIVATE => 'site_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_PK]
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_PK],
+        FFCST::PROPERTY_COMMENT => 'Identifiant du site',
+        FFCST::PROPERTY_SAMPLE  => 123,
     ];
     protected static $PRP_BRK_ID = [
         FFCST::PROPERTY_PRIVATE => 'brk_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_BROKER]
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_BROKER],
+        FFCST::PROPERTY_COMMENT => 'Identifiant du broker, pour restriction',
+        FFCST::PROPERTY_SAMPLE  => 123,
     ];
     protected static $PRP_SITT_ID = [
         FFCST::PROPERTY_PRIVATE => 'sitt_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_FK],
+        FFCST::PROPERTY_COMMENT => 'Identifiant du type de site',
+        FFCST::PROPERTY_SAMPLE  => 1,
         FFCST::PROPERTY_FK      => ['site_type' =>
             [
                 FFCST::FOREIGN_MODEL => 'FreeAsso::Model::SiteType',
@@ -40,42 +46,65 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_SITE_NAME = [
         FFCST::PROPERTY_PRIVATE => 'site_name',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
+        FFCST::PROPERTY_COMMENT => 'Nom du site',
+        FFCST::PROPERTY_SAMPLE  => 'Mon site',
+        FFCST::PROPERTY_MAX     => 80,
     ];
     protected static $PRP_SITE_CODE = [
         FFCST::PROPERTY_PRIVATE => 'site_code',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_COMMENT => 'Code identifiant court du site',
+        FFCST::PROPERTY_SAMPLE  => 'SITEA',
+        FFCST::PROPERTY_MAX     => 32,
     ];
     protected static $PRP_SITE_ADDRESS1 = [
         FFCST::PROPERTY_PRIVATE => 'site_address1',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_COMMENT => 'Première ligne d\'adresse',
+        FFCST::PROPERTY_SAMPLE  => '1 Rue Test',
+        FFCST::PROPERTY_MAX     => 80,
     ];
     protected static $PRP_SITE_ADDRESS2 = [
         FFCST::PROPERTY_PRIVATE => 'site_address2',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_COMMENT => 'Seconde ligne d\'adresse',
+        FFCST::PROPERTY_SAMPLE  => 'Batiment A',
+        FFCST::PROPERTY_MAX     => 80,
     ];
     protected static $PRP_SITE_ADDRESS3 = [
         FFCST::PROPERTY_PRIVATE => 'site_address3',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_COMMENT => 'Troisième ligne d\'adresse',
+        FFCST::PROPERTY_SAMPLE  => 'Cedex',
+        FFCST::PROPERTY_MAX     => 80,
     ];
     protected static $PRP_SITE_CP = [
         FFCST::PROPERTY_PRIVATE => 'site_cp',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_COMMENT => 'Code postal',
+        FFCST::PROPERTY_SAMPLE  => '99999',
+        FFCST::PROPERTY_MAX     => 20,
     ];
     protected static $PRP_SITE_TOWN = [
         FFCST::PROPERTY_PRIVATE => 'site_town',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_COMMENT => 'Ville',
+        FFCST::PROPERTY_SAMPLE  => 'Ma ville',
+        FFCST::PROPERTY_MAX     => 80,
     ];
     protected static $PRP_OWNER_CLI_ID = [
         FFCST::PROPERTY_PRIVATE => 'owner_cli_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_COMMENT => 'Identifiant du propriétaire',
+        FFCST::PROPERTY_SAMPLE  => 1,
         FFCST::PROPERTY_FK      => ['owner' =>
             [
                 FFCST::FOREIGN_MODEL => 'FreeAsso::Model::Client',
@@ -88,6 +117,8 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_PRIVATE => 'sanit_cli_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_COMMENT => 'Identifiant du vétérinaire',
+        FFCST::PROPERTY_SAMPLE  => 1,
         FFCST::PROPERTY_FK      => ['sanitary' =>
             [
                 FFCST::FOREIGN_MODEL => 'FreeAsso::Model::Client',
@@ -100,6 +131,8 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_PRIVATE => 'parent_site_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_COMMENT => 'Identifiant du site parent',
+        FFCST::PROPERTY_SAMPLE  => 1,
         FFCST::PROPERTY_FK      => ['parent_site' =>
             [
                 FFCST::FOREIGN_MODEL => 'FreeAsso::Model::Site',
@@ -111,72 +144,108 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_SITE_AREA = [
         FFCST::PROPERTY_PRIVATE => 'site_area',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_COMMENT => 'Superficie du site (m2)',
+        FFCST::PROPERTY_SAMPLE  => 100,
     ];
     protected static $PRP_SITE_POSITION = [
         FFCST::PROPERTY_PRIVATE => 'site_position',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_COMMENT => 'Ordre par rapport aux sites frères',
+        FFCST::PROPERTY_SAMPLE  => 1,
     ];
     protected static $PRP_SITE_PLOTS = [
         FFCST::PROPERTY_PRIVATE => 'site_plots',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_COMMENT => 'Description des parcelles au format json',
+        FFCST::PROPERTY_SAMPLE  => '[{"section:["A"],"number":["200","201"]},{"section:["B","C"],"number":["300"]}]',
     ];
     protected static $PRP_SITE_LEFT = [
         FFCST::PROPERTY_PRIVATE => 'site_left',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_COMMENT => 'Identifiant gauche (nested tree)',
+        FFCST::PROPERTY_SAMPLE  => 1,
     ];
     protected static $PRP_SITE_RIGHT = [
         FFCST::PROPERTY_PRIVATE => 'site_right',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_COMMENT => 'Identifiant droit (nested tree)',
+        FFCST::PROPERTY_SAMPLE  => 1,
     ];
     protected static $PRP_SITE_LEVEL = [
         FFCST::PROPERTY_PRIVATE => 'site_level',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_COMMENT => 'Profondeur (nested tree)',
+        FFCST::PROPERTY_SAMPLE  => 1,
     ];
     protected static $PRP_SITE_STRING_1 = [
         FFCST::PROPERTY_PRIVATE => 'site_string_1',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_COMMENT => 'Valeur variable chaine 1',
+        FFCST::PROPERTY_SAMPLE  => 'var1',
+        FFCST::PROPERTY_MAX     => 255,
     ];
     protected static $PRP_SITE_STRING_2 = [
         FFCST::PROPERTY_PRIVATE => 'site_string_2',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_COMMENT => 'Valeur variable chaine 2',
+        FFCST::PROPERTY_SAMPLE  => 'var2',
+        FFCST::PROPERTY_MAX     => 255,
     ];
     protected static $PRP_SITE_STRING_3 = [
         FFCST::PROPERTY_PRIVATE => 'site_string_3',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_COMMENT => 'Valeur variable chaine 3',
+        FFCST::PROPERTY_SAMPLE  => 'var3',
+        FFCST::PROPERTY_MAX     => 255,
     ];
     protected static $PRP_SITE_STRING_4 = [
         FFCST::PROPERTY_PRIVATE => 'site_string_4',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_COMMENT => 'Valeur variable chaine 4',
+        FFCST::PROPERTY_SAMPLE  => 'var4',
+        FFCST::PROPERTY_MAX     => 255,
     ];
     protected static $PRP_SITE_STRING_5 = [
         FFCST::PROPERTY_PRIVATE => 'site_string_5',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_COMMENT => 'Valeur variable chaine 5',
+        FFCST::PROPERTY_SAMPLE  => 'var5',
+        FFCST::PROPERTY_MAX     => 255,
     ];
     protected static $PRP_SITE_STRING_6 = [
         FFCST::PROPERTY_PRIVATE => 'site_string_6',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_COMMENT => 'Valeur variable chaine 6',
+        FFCST::PROPERTY_SAMPLE  => 'var6',
+        FFCST::PROPERTY_MAX     => 255,
     ];
     protected static $PRP_SITE_STRING_7 = [
         FFCST::PROPERTY_PRIVATE => 'site_string_7',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_COMMENT => 'Valeur variable chaine 7',
+        FFCST::PROPERTY_SAMPLE  => 'var7',
+        FFCST::PROPERTY_MAX     => 255,
     ];
     protected static $PRP_SITE_STRING_8 = [
         FFCST::PROPERTY_PRIVATE => 'site_string_8',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_COMMENT => 'Valeur variable chaine 8',
+        FFCST::PROPERTY_SAMPLE  => 'var8',
+        FFCST::PROPERTY_MAX     => 255,
     ];
     protected static $PRP_SITE_NUMBER_1 = [
         FFCST::PROPERTY_PRIVATE => 'site_number_1',
@@ -261,7 +330,9 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_SITE_COORD = [
         FFCST::PROPERTY_PRIVATE => 'site_coord',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_COMMENT => 'Les coordonnées GPS sous forme de json',
+        FFCST::PROPERTY_SAMPLE  => '{"lat": 48.7325755, "lon" : 7.3738603}',
     ];
     protected static $PRP_SITE_CODE_EX = [
         FFCST::PROPERTY_PRIVATE => 'site_code_ex',
@@ -271,7 +342,9 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_SITE_DESC = [
         FFCST::PROPERTY_PRIVATE => 'site_desc',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT_HTML,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_COMMENT => 'La description du site au format html',
+        FFCST::PROPERTY_SAMPLE  => '<p>Mon site préféré</p>',
     ];
     protected static $PRP_SITE_NUMBER_5 = [
         FFCST::PROPERTY_PRIVATE => 'site_number_5',
@@ -286,12 +359,16 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_SITE_CONFORM = [
         FFCST::PROPERTY_PRIVATE => 'site_conform',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_COMMENT => 'Indique si le site est conforme',
+        FFCST::PROPERTY_SAMPLE  => true
     ];
     protected static $PRP_SITE_CONFORM_TEXT = [
         FFCST::PROPERTY_PRIVATE => 'site_conform_text',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_COMMENT => 'Texte lié à la conformité',
+        FFCST::PROPERTY_SAMPLE  => 'Le site est conforme'
     ];
     
     /**
@@ -366,6 +443,14 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
     }
 
     /**
+     * Retourne une explication de la table
+     */
+    public static function getSourceComments() 
+    {
+        return 'Gestion d\'un site, qui permet de regrouper des causes dans un même lieu : région, île, pays, ...';
+    }
+
+    /**
      * Get autocomplete field
      *
      * @return string
@@ -399,11 +484,12 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
     {
         return [
             'sons' => [
-                FFCST::REL_MODEL  => 'FreeAsso::Model::Site',
-                FFCST::REL_FIELD  => 'parent_site_id',
-                FFCST::REL_TYPE   => \FreeFW\Model\Query::JOIN_LEFT,
-                FFCST::REL_REMOVE => 'check',
-                FFCST::REL_EXISTS => '6680001',
+                FFCST::REL_MODEL   => 'FreeAsso::Model::Site',
+                FFCST::REL_FIELD   => 'parent_site_id',
+                FFCST::REL_TYPE    => \FreeFW\Model\Query::JOIN_LEFT,
+                FFCST::REL_COMMENT => 'Texte lié à la conformité',
+                FFCST::REL_REMOVE  => 'check',
+                FFCST::REL_EXISTS  => '6680001',
             ],
             'medias' => [
                 FFCST::REL_MODEL  => 'FreeAsso::Model::SiteMedia',

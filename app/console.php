@@ -101,12 +101,14 @@ try {
     \FreeFW\DI\DI::registerDI('FreeFW', $myConfig, $myLogger);
     \FreeFW\DI\DI::registerDI('FreeAsso', $myConfig, $myLogger);
     \FreeFW\DI\DI::registerDI('FreeSSO', $myConfig, $myLogger);
+    \FreeFW\DI\DI::registerDI('FreePM', $myConfig, $myLogger);
     /**
      * On va chercher les routes des modules, ...
      */
     $freeFWCommands  = \FreeFW\Console\FreeFW::getCommands();
     $freeSSOCommands = \FreeSSO\Console\FreeFW::getCommands();
     $freeAssoCommands = \FreeAsso\Console\FreeFW::getCommands();
+    $freePMCommands = \FreePM\Console\FreeFW::getCommands();
     /**
      * GO...
      */
@@ -115,6 +117,7 @@ try {
         ->addCommands($freeAssoCommands)
         ->addCommands($freeSSOCommands)
         ->addCommands($freeFWCommands)
+        ->addCommands($freePMCommands)
     ;
     // GO
     $app->handle();

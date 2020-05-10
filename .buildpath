@@ -3,6 +3,7 @@
 	<buildpathentry combineaccessrules="false" kind="prj" path="/http-factory"/>
 	<buildpathentry combineaccessrules="false" kind="prj" path="/freefw"/>
 	<buildpathentry external="true" kind="lib" path="/Users/jeromeklam/GitHub/freefw"/>
+	<buildpathentry external="true" kind="lib" path="/Users/jeromeklam/GitHub/freepm"/>
 	<buildpathentry combineaccessrules="false" kind="prj" path="/log"/>
 	<buildpathentry combineaccessrules="false" kind="prj" path="/http-message"/>
 	<buildpathentry combineaccessrules="false" kind="prj" path="/freesso"/>

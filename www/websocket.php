@@ -88,17 +88,18 @@ try {
     \FreeFW\DI\DI::registerDI('FreeFW', $myConfig, $myLogger);
     \FreeFW\DI\DI::registerDI('FreeAsso', $myConfig, $myLogger);
     \FreeFW\DI\DI::registerDI('FreeSSO', $myConfig, $myLogger);
+    \FreeFW\DI\DI::registerDI('FreePM', $myConfig, $myLogger);
     /**
      * WebSocket
      * @var \React\EventLoop\LoopInterface $loo     */
     $loop    = \React\EventLoop\Factory::create();
     $storage = new \FreeAsso\Service\Wamp2StorageListener();
-    // 
+    //
     $context = new React\ZMQ\Context($loop);
     $pull = $context->getSocket(\ZMQ::SOCKET_PULL);
     $pull->bind('tcp://127.0.0.1:5555');
     $pull->on('message', array($storage, 'onEvent'));
-    
+
     $webSock   = new \React\Socket\Server('0.0.0.0:8080', $loop);
     $webServer = new \Ratchet\Server\IoServer(
         new \Ratchet\Http\HttpServer(

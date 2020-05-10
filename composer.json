@@ -17,6 +17,7 @@
         "localdev": {
             "jeromeklam/freefw": "../freefw",
             "jeromeklam/freesso": "../freesso",
+            "jeromeklam/freepm": "../freepm",
             "jeromeklam/freews": "../freews"
         }
     },
@@ -32,6 +33,7 @@
         "jeromeklam/freesso"                   : "*",
         "jeromeklam/freefw"                    : "*",
         "jeromeklam/freews"                    : "*",
+        "jeromeklam/freepm"                    : "*",
         "cboden/ratchet"                       : "^0.4.1",
         "php-amqplib/php-amqplib": "^2.11",
         "react/zmq": "^0.4.0"
