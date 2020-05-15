@@ -27,8 +27,10 @@ require_once __DIR__ . '/sickness.php';
 require_once __DIR__ . '/site_media.php';
 require_once __DIR__ . '/site_type.php';
 require_once __DIR__ . '/site.php';
+require_once __DIR__ . '/species.php';
 require_once __DIR__ . '/specific.php';
 require_once __DIR__ . '/sponsorship.php';
+require_once __DIR__ . '/subspecies.php';
 require_once __DIR__ . '/unit.php';
 
 $localRoutes = array_merge(
@@ -62,6 +64,8 @@ $localRoutes = array_merge(
     $siteRoutes,
     $specificRoutes,
     $sponsorshipRoutes,
-    $unitRoutes
+    $unitRoutes,
+    $routes_species,
+    $routes_subspecies
 );
 return $localRoutes;
