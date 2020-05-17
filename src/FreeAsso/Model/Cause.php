@@ -23,6 +23,12 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
     const FAMILY_ADMINISTRATIV = 'ADMINISTRATIV';
 
     /**
+     * Subspecies
+     * @var \FreeAsso\Model\Subspecies
+     */
+    protected $subspecies = null;
+
+    /**
      * Site
      * @var \FreeAsso\Model\Site
      */
@@ -93,10 +99,33 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
     }
 
     /**
+     * Set subspecies
+     *
+     * @param \FreeAsso\Model\Subspecies $p_subspecies
+     *
+     * @return \FreeAsso\Model\Cause
+     */
+    public function setSubspecies($p_subspecies)
+    {
+        $this->subspecies = $p_subspecies;
+        return $this;
+    }
+
+    /**
+     * Get subspecies
+     *
+     * @return \FreeAsso\Model\Subspecies
+     */
+    public function getSubspecies()
+    {
+        return $this->subspecies;
+    }
+
+    /**
      * Set site
-     * 
+     *
      * @param \FreeAsso\Model\Site $p_site
-     * 
+     *
      * @return \FreeAsso\Model\Cause
      */
     public function setSite($p_site)
@@ -107,7 +136,7 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
 
     /**
      * Get site
-     * 
+     *
      * @return \FreeAsso\Model\Site
      */
     public function getSite()
@@ -117,9 +146,9 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
 
     /**
      * Set Cause type
-     * 
+     *
      * @param \FreeAsso\Model\CauseType $p_cause_type
-     * 
+     *
      * @return \FreeAsso\Model\Cause
      */
     public function setCauseType($p_cause_type)
@@ -130,7 +159,7 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
 
     /**
      * Get cause type
-     * 
+     *
      * @return \FreeAsso\Model\CauseType
      */
     public function getCauseType()
@@ -143,9 +172,9 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
 
     /**
      * Set parent1
-     * 
+     *
      * @param \FreeAsso\Model\Cause $p_cause
-     * 
+     *
      * @return \FreeAsso\Model\Cause
      */
     public function setParent1($p_cause)
@@ -189,9 +218,9 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
 
     /**
      * Get origin
-     * 
+     *
      * @param \FreeAsso\Model\Client $p_client
-     * 
+     *
      * @return \FreeAsso\Model\Cause
      */
     public function setOrigin($p_client)
@@ -212,9 +241,9 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
 
     /**
      * Set raiser
-     * 
+     *
      * @param \FreeAsso\Model\Client $p_raiser
-     * 
+     *
      * @return \FreeAsso\Model\Cause
      */
     public function setRaiser($p_raiser)
@@ -225,7 +254,7 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
 
     /**
      * Get raiser
-     * 
+     *
      * @return \FreeAsso\Model\Client
      */
     public function getRaiser()
@@ -235,9 +264,9 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
 
     /**
      * Set default text
-     * 
+     *
      * @param \FreeAsso\Model\CauseMedia $p_media
-     * 
+     *
      * @return \FreeAsso\Model\Cause
      */
     public function setDefaultText($p_media)
@@ -268,7 +297,7 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
         $this->default_blob = $p_media;
         return $this;
     }
-    
+
     /**
      * get default blob
      *
@@ -281,7 +310,7 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
 
     /**
      * Update mnt and mnt_left
-     * 
+     *
      * @return boolean
      */
     public function updateMnt()
@@ -356,7 +385,7 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
                                         $mult = $mult - ($m2 - $m1);
                                     }
                                 } else {
-                                    // Ca commence à être louche de démarrer si tard.. 
+                                    // Ca commence à être louche de démarrer si tard..
                                     // Warning, peut-être erreur de saisie
                                     if (($y2 - $y1) == 1 ) {
                                         $mult = $mult - (12 - $m1 + $m2);
@@ -412,7 +441,7 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
         ;
         return $this->save();
     }
-    
+
     /**
      * Cause is active ?
      *

@@ -32,7 +32,7 @@ abstract class Subspecies extends \FreeFW\Core\StorageModel
     protected static $PRP_SPE_ID = [
         FFCST::PROPERTY_PRIVATE => 'spe_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_FK],
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
         FFCST::PROPERTY_COMMENT => 'L\'identifiant de l\'espèce',
         FFCST::PROPERTY_SAMPLE  => 123,
         FFCST::PROPERTY_FK      => ['species' =>

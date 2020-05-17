@@ -11,9 +11,9 @@ class Kalaweit
 
     /**
      * Découpage du détail français en blocs
-     * 
+     *
      * @param string $p_detail
-     * 
+     *
      * @return string[]
      */
     protected function getDetailsFrAsArray($p_detail)
@@ -133,7 +133,7 @@ class Kalaweit
         }
         return $parts;
     }
-    
+
     /**
      * Import data
      *
@@ -143,6 +143,8 @@ class Kalaweit
         \FreeFW\Console\Input\AbstractInput $p_input,
         \FreeFW\Console\Output\AbstractOutput $p_output
     ) {
+        ini_set('memory_limit', '8096M');
+        set_time_limit(3600);
         $p_output->write("Début de l'import", true);
         $provider = new \FreeFW\Storage\PDO\Mysql('mysql:host=mysql;dbname=kalaweit;charset=latin1;', 'super', 'YggDrasil');
         $sso      = \FreeFW\DI\DI::getShared('sso');
@@ -153,7 +155,7 @@ class Kalaweit
         if ($brokerId != '4') {
             die('Wrong brokerId !');
         }
-        
+
         /*
         $p_output->write("Import des Gibbons", true);
         try {
@@ -169,11 +171,11 @@ class Kalaweit
                 }
             }
         } catch (\Exception $ex) {
-            
+
         }
         die('End');
         */
-        
+
         /**
          * Langues
          */
@@ -197,6 +199,7 @@ class Kalaweit
         $query = $assoPdo->exec("DELETE FROM asso_receipt WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_cause WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_site WHERE brk_id = " . $brokerId);
+        $query = $assoPdo->exec("DELETE FROM asso_site_type WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_cause_type WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_cause_main_type WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_site_type WHERE brk_id = " . $brokerId);
@@ -206,10 +209,11 @@ class Kalaweit
         $query = $assoPdo->exec("DELETE FROM asso_receipt_type WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_session WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM asso_file WHERE brk_id = " . $brokerId);
+        $query = $assoPdo->exec("DELETE FROM asso_subspecies WHERE brk_id = " . $brokerId);
+        $query = $assoPdo->exec("DELETE FROM asso_species WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM crm_client WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM crm_client_category WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM crm_client_type WHERE brk_id = " . $brokerId);
-        $query = $assoPdo->exec("DELETE FROM core_email WHERE brk_id = " . $brokerId);
         /**
          * Paramètres de base
          */
@@ -218,20 +222,12 @@ class Kalaweit
         $myDataMotif = \FreeFW\DI\DI::get('FreeAsso::Model::Data');
         $myDataMotif
             ->setDataName("Motif d'arrêt")
+            ->setDataCode("MOTIFARRET")
             ->setDataType(\FreeAsso\Model\Data::TYPE_LIST)
             ->setDataContent('[{"value":"Mort", "label":"Mort"}, {"value":"Libéré", "label":"Libéré"}, {"value":"Autre", "label":"Autre"}]')
         ;
         if (!$myDataMotif->create()) {
             var_export($myDataMotif->getErrors());die;
-        }
-        // Année de naissance
-        $myDataDnai = \FreeFW\DI\DI::get('FreeAsso::Model::Data');
-        $myDataDnai
-            ->setDataName("Année de naissance")
-            ->setDataType(\FreeAsso\Model\Data::TYPE_NUMBER)
-        ;
-        if (!$myDataDnai->create()) {
-            var_export($myDataDnai->getErrors());die;
         }
         // Config 4
         $myCfgMotif = \FreeFW\DI\DI::get('FreeAsso::Model::Config');
@@ -241,15 +237,6 @@ class Kalaweit
         ;
         if (!$myCfgMotif->create()) {
             var_export($myCfgMotif->getErrors());die;
-        }
-        // Config 5
-        $myCfgDnai = \FreeFW\DI\DI::get('FreeAsso::Model::Config');
-        $myCfgDnai
-            ->setAcfgCode(\FreeAsso\Model\Config::CONFIG_CAU_NUMBER_1)
-            ->setAcfgValue($myDataDnai->getDataId())
-        ;
-        if (!$myCfgDnai->create()) {
-            var_export($myCfgDnai->getErrors());die;
         }
         // Site Ile
         $mySiteType = \FreeFW\DI\DI::get('FreeAsso::Model::SiteType');
@@ -322,34 +309,29 @@ class Kalaweit
             var_export($myCauseGibbon->getErrors());die;
         }
         $tabCausesGibbon['default'] = $myCauseGibbon->getCautId();
+        //
+        $mySpecies = \FreeFW\DI\DI::get('FreeAsso::Model::Species');
+        $mySpecies->setSpeName('Gibbon');
+        $mySpecies->create();
+        //
+        $tabSpecies = [];
         try {
             $query = $provider->prepare("Select * from especes_id");
             $query->execute();
             while ($row = $query->fetch(\PDO::FETCH_OBJ)) {
-                $myCauseGibbon = \FreeFW\DI\DI::get('FreeAsso::Model::CauseType');
+                $mySubspecies = \FreeFW\DI\DI::get('FreeAsso::Model::Subspecies');
                 $name = $row->Especes_nom_francais . ' (' . $row->Especes_nom_latin . ')';
                 $name = \FreeFW\Tools\Encoding::toUTF8($name);
                 $name = \FreeFW\Tools\Encoding::fixUTF8($name);
                 $name = \FreeFW\Tools\PBXString::clean($name);
-                $myCauseGibbon
-                    ->setCautName($name)
-                    ->setCautMntType(\FreeAsso\Model\CauseType::MNT_TYPE_ANNUAL)
-                    ->setCautMaxMnt(280)
-                    ->setCautMinMnt(0)
-                    ->setCautDonation(\FreeAsso\Model\CauseType::DONATION_ALL)
-                    ->setCautOnceDuration(\FreeAsso\Model\CauseType::DURATION_1YEAR)
-                    ->setCautRegularDuration(\FreeAsso\Model\CauseType::DURATION_1YEAR)
-                    ->setCautNews(true)
-                    ->setCautReceipt(1)
-                    ->setCautString_2(1)
-                    ->setCautString_3(1)
-                    ->setCautText_1(1)
-                    ->setCamtId($myGibbonCause->getCamtId())
+                $mySubspecies
+                    ->setSspeName($name)
+                    ->setSpeId($mySpecies->getSpeId())
                 ;
-                if (!$myCauseGibbon->create()) {
-                    var_export($myCauseGibbon->getErrors());die;
+                if (!$mySubspecies->create()) {
+                    var_export($mySubspecies->getErrors());die;
                 }
-                $tabCausesGibbon[$row->Especes_Id] = $myCauseGibbon->getCautId();
+                $tabSpecies[$row->Especes_Id] = $mySubspecies->getSspeId();
             }
         } catch (\PDOException $ex) {
             var_export($ex);die;
@@ -450,7 +432,7 @@ class Kalaweit
         if (!$myCauseKalaweit->create()) {
             var_export($myCauseKalaweit->getErrors());die;
         }
-        // Type de client 
+        // Type de client
         $myTypeMembre = \FreeFW\DI\DI::get('FreeAsso::Model::ClientType');
         $myTypeMembre
             ->setClitName('Membre')
@@ -649,7 +631,6 @@ class Kalaweit
                     $myCause->setCauName('Sans nom');
                 }
                 if (intval($row->Annee_naissance) > 0) {
-                    $myCause->setCauNumber_1(intval($row->Annee_naissance));
                     $myCause->setCauYear(intval($row->Annee_naissance));
                 }
                 $myCause->setSiteId($myIleAutre->getSiteId());
@@ -664,10 +645,10 @@ class Kalaweit
                 } else {
                     $myCause->setCauSex("M");
                 }
-                if (array_key_exists($row->Espece, $tabCausesGibbon)) {
-                    $myCause->setCautId($tabCausesGibbon[$row->Espece]);
+                if (array_key_exists($row->Espece, $tabSpecies)) {
+                    $myCause->setSspeId($tabSpecies[$row->Espece]);
                 } else {
-                    $myCause->setCautId($tabCausesGibbon['default']);
+                    $myCause->setSspeId($tabSpecies[1]);
                 }
                 if (strtolower($row->site) == 'oui') {
                     $myCause->setCauPublic(1);
@@ -943,7 +924,7 @@ class Kalaweit
         $tabAmis = [];
         $p_output->write("Import des Amis", true);
         try {
-            $query = $provider->prepare("Select * from les_amis");
+            $query = $provider->prepare("Select * from les_amis order by date_debut desc");
             $query->execute();
             while ($row = $query->fetch(\PDO::FETCH_OBJ)) {
                 $sponsors = [];
@@ -1062,6 +1043,7 @@ class Kalaweit
                     ->setDonoTs($row->prlv_ts)
                     ->setDonoYear($row->prlv_annee)
                     ->setDonoMonth($row->prlv_mois)
+                    ->setDonoDay(1)
                     ->setDonoStatus($row->prlv_status)
                     ->setDonoComments($comments)
                 ;
@@ -1080,7 +1062,7 @@ class Kalaweit
         $myReceiptType = \FreeFW\DI\DI::get('FreeAsso::Model::ReceiptType');
         $myReceiptType
             ->setRettName('Type adhésion')
-            ->setRettRegexp('ADH[[:number:]]')
+            ->setRettRegex('ADH[[:number:]]')
         ;
         if (!$myReceiptType->create()) {
             var_export($myReceiptType->getErrors());die;
@@ -1089,7 +1071,7 @@ class Kalaweit
         $myReceiptType = \FreeFW\DI\DI::get('FreeAsso::Model::ReceiptType');
         $myReceiptType
             ->setRettName('Type ami')
-            ->setRettRegexp('AM[[:number:]]')
+            ->setRettRegex('AM[[:number:]]')
         ;
         if (!$myReceiptType->create()) {
             var_export($myReceiptType->getErrors());die;
@@ -1098,7 +1080,7 @@ class Kalaweit
         $myReceiptType = \FreeFW\DI\DI::get('FreeAsso::Model::ReceiptType');
         $myReceiptType
             ->setRettName('Type don ponctuel')
-            ->setRettRegexp('D[[:number:]]')
+            ->setRettRegex('D[[:number:]]')
         ;
         if (!$myReceiptType->create()) {
             var_export($myReceiptType->getErrors());die;
@@ -1107,7 +1089,7 @@ class Kalaweit
         $myReceiptType = \FreeFW\DI\DI::get('FreeAsso::Model::ReceiptType');
         $myReceiptType
             ->setRettName('Type parrainage ponctuel')
-            ->setRettRegexp('P[[:number:]]')
+            ->setRettRegex('P[[:number:]]')
         ;
         if (!$myReceiptType->create()) {
             var_export($myReceiptType->getErrors());die;
@@ -1116,7 +1098,7 @@ class Kalaweit
         $myReceiptType = \FreeFW\DI\DI::get('FreeAsso::Model::ReceiptType');
         $myReceiptType
             ->setRettName('Type autre')
-            ->setRettRegexp('O[[:number:]]')
+            ->setRettRegex('O[[:number:]]')
         ;
         if (!$myReceiptType->create()) {
             var_export($myReceiptType->getErrors());die;
@@ -1125,7 +1107,7 @@ class Kalaweit
         $myReceiptType = \FreeFW\DI\DI::get('FreeAsso::Model::ReceiptType');
         $myReceiptType
             ->setRettName('Type manuel')
-            ->setRettRegexp('M[[:number:]]')
+            ->setRettRegex('M[[:number:]]')
         ;
         if (!$myReceiptType->create()) {
             var_export($myReceiptType->getErrors());die;
@@ -1499,7 +1481,7 @@ class Kalaweit
             var_export($ex);die;
         }
         /**
-         * 
+         *
          */
         $p_output->write("Fin de l'import", true);
     }

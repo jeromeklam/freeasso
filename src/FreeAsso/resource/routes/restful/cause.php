@@ -14,7 +14,7 @@ $causeRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['cause_type']
+            'default' => ['cause_type', 'subspecies']
         ],
         'results' => [
             '200' => [
@@ -31,7 +31,7 @@ $causeRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['cause_type', 'cause_type.cause_main_type', 'site', 'default_blob', 'parent1', 'parent2']
+            'default' => ['cause_type', 'cause_type.cause_main_type', 'site', 'default_blob', 'parent1', 'parent2', 'subspecies']
         ],
         'results' => [
             '200' => [
@@ -67,7 +67,7 @@ $causeRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['cause_type', 'cause_type.cause_main_type', 'site', 'parent1', 'parent2', 'origin', 'raiser', 'default_blob']
+            'default' => ['cause_type', 'cause_type.cause_main_type', 'site', 'parent1', 'parent2', 'origin', 'subspecies', 'raiser', 'default_blob']
         ],
         'results' => [
             '200' => [
@@ -85,7 +85,7 @@ $causeRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['cause_type', 'cause_type.cause_main_type', 'site', 'parent1', 'parent2', 'origin', 'raiser', ]
+            'default' => ['cause_type', 'cause_type.cause_main_type', 'site', 'parent1', 'parent2', 'origin', 'subspecies', 'raiser', ]
         ],
         'results' => [
             '200' => [
@@ -103,7 +103,7 @@ $causeRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['cause_type', 'cause_type.cause_main_type', 'site', 'parent1', 'parent2', 'origin', 'raiser']
+            'default' => ['cause_type', 'cause_type.cause_main_type', 'site', 'parent1', 'parent2', 'origin', 'subspecies', 'raiser']
         ],
         'results' => [
             '201' => [

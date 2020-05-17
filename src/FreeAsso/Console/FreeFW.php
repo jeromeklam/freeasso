@@ -18,8 +18,8 @@ class FreeFW
     {
         $commands = new \FreeFW\Console\CommandCollection();
         $paths    = [];
-        $paths[]  = __DIR__ . '/../resource/commands/v1/commands.php';
-        foreach ($paths as $idx => $onePath) 
+        $paths[]  = __DIR__ . '/../resource/commands/commands.php';
+        foreach ($paths as $idx => $onePath)
             if (is_file($onePath)) {{
                 $myCommands = @include($onePath);
                 if (is_array($myCommands)) {

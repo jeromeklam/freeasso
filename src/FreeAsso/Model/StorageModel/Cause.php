@@ -67,6 +67,18 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
+    protected static $PRP_SSPE_ID = [
+        FFCST::PROPERTY_PRIVATE => 'sspe_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['subspecies' =>
+            [
+                'model' => 'FreeAsso::Model::Subspecies',
+                'field' => 'sspe_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
     protected static $PRP_SITE_ID = [
         FFCST::PROPERTY_PRIVATE => 'site_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
@@ -309,6 +321,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
             'cau_to'         => self::$PRP_CAU_TO,
             'cau_public'     => self::$PRP_CAU_PUBLIC,
             'cau_available'  => self::$PRP_CAU_AVAILABLE,
+            'sspe_id'        => self::$PRP_SSPE_ID,
             'site_id'        => self::$PRP_SITE_ID,
             'orig_cli_id'    => self::$PRP_ORIG_CLI_ID,
             'rais_cli_id'    => self::$PRP_RAIS_CLI_ID,

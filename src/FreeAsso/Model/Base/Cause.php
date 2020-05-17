@@ -64,6 +64,12 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     protected $cau_available = null;
 
     /**
+     * sspe_id
+     * @var int
+     */
+    protected $sspe_id = null;
+
+    /**
      * site_id
      * @var int
      */
@@ -478,6 +484,29 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     public function getCauAvailable()
     {
         return $this->cau_available;
+    }
+
+    /**
+     * Set sspe_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Cause
+     */
+    public function setSspeId($p_value)
+    {
+        $this->sspe_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get sspe_id
+     *
+     * @return int
+     */
+    public function getSspeId()
+    {
+        return $this->sspe_id;
     }
 
     /**

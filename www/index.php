@@ -117,36 +117,46 @@ try {
     });
     // CRUD for notifications and cache clear
     if ($myQueue) {
+        // Were not async and transactions are global and transactions start-end is linear.
+        // @TODO : Send updates just on commit... or if not transaction on
+        // We can use a static tables of data befofe send... or an app member...
         $myEvents->bind(
             [
                 \FreeFW\Constants::EVENT_STORAGE_CREATE,
                 \FreeFW\Constants::EVENT_STORAGE_UPDATE,
                 \FreeFW\Constants::EVENT_STORAGE_DELETE,
+                \FreeFW\Constants::EVENT_STORAGE_BEGIN,
+                \FreeFW\Constants::EVENT_STORAGE_COMMIT,
+                \FreeFW\Constants::EVENT_STORAGE_ROLLBACK,
             ],
             function ($p_object) use ($app, $myQueue, $myQueueCfg) {
                 // Only Core Models
                 if ($p_object instanceof \FreeFW\Core\Model) {
                     // Only if requested
-                    if ($p_object->forwardStorageEvent()) {
-                        // First to RabbitMQ
-                        $properties = [
-                            'content_type' => 'application/json',
-                            'delivery_mode' => \PhpAmqpLib\Message\AMQPMessage::DELIVERY_MODE_PERSISTENT
-                        ];
-                        $channel = $myQueue->channel();
-                        // Exchange as fanout, only to connected consumers
-                        $channel->exchange_declare($myQueueCfg['name'], 'fanout', false, false, false);
-                        $msg = new \PhpAmqpLib\Message\AMQPMessage(
-                            serialize($p_object),
-                            $properties
-                        );
-                        $channel->basic_publish($msg, $myQueueCfg['name']);
-                        $channel->close();
-                        // And then send Event to webSocket...
-                        $context = new \ZMQContext();
-                        $socket = $context->getSocket(\ZMQ::SOCKET_PUSH, 'my event');
-                        $socket->connect("tcp://localhost:5555");
-                        $socket->send(serialize($p_object));
+                    try {
+                        if ($p_object->forwardStorageEvent()) {
+                            // First to RabbitMQ
+                            $properties = [
+                                'content_type' => 'application/json',
+                                'delivery_mode' => \PhpAmqpLib\Message\AMQPMessage::DELIVERY_MODE_PERSISTENT
+                            ];
+                            $channel = $myQueue->channel();
+                            // Exchange as fanout, only to connected consumers
+                            $channel->exchange_declare($myQueueCfg['name'], 'fanout', false, false, false);
+                            $msg = new \PhpAmqpLib\Message\AMQPMessage(
+                                serialize($p_object),
+                                $properties
+                            );
+                            $channel->basic_publish($msg, $myQueueCfg['name']);
+                            $channel->close();
+                            // And then send Event to webSocket...
+                            $context = new \ZMQContext();
+                            $socket = $context->getSocket(\ZMQ::SOCKET_PUSH, 'my event');
+                            $socket->connect("tcp://localhost:5555");
+                            $socket->send(serialize($p_object));
+                        }
+                    } catch (\Exception $ex) {
+                        // @todo...
                     }
                 }
             }
