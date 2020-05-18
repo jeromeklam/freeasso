@@ -423,7 +423,7 @@ class Kalaweit
         $myCauseKalaweit = \FreeFW\DI\DI::get('FreeAsso::Model::Cause');
         $myCauseKalaweit
             ->setCauName('Kalaweit')
-            ->setCautId($myCauseTDulan->getCautId())
+            ->setCautId($myCauseTKalaweit->getCautId())
             ->setSiteId($myIleBorneo->getSiteId())
             ->setCauDesc(null)
             ->setCauPublic(0)

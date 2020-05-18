@@ -130,35 +130,7 @@ try {
                 \FreeFW\Constants::EVENT_STORAGE_ROLLBACK,
             ],
             function ($p_object) use ($app, $myQueue, $myQueueCfg) {
-                // Only Core Models
-                if ($p_object instanceof \FreeFW\Core\Model) {
-                    // Only if requested
-                    try {
-                        if ($p_object->forwardStorageEvent()) {
-                            // First to RabbitMQ
-                            $properties = [
-                                'content_type' => 'application/json',
-                                'delivery_mode' => \PhpAmqpLib\Message\AMQPMessage::DELIVERY_MODE_PERSISTENT
-                            ];
-                            $channel = $myQueue->channel();
-                            // Exchange as fanout, only to connected consumers
-                            $channel->exchange_declare($myQueueCfg['name'], 'fanout', false, false, false);
-                            $msg = new \PhpAmqpLib\Message\AMQPMessage(
-                                serialize($p_object),
-                                $properties
-                            );
-                            $channel->basic_publish($msg, $myQueueCfg['name']);
-                            $channel->close();
-                            // And then send Event to webSocket...
-                            $context = new \ZMQContext();
-                            $socket = $context->getSocket(\ZMQ::SOCKET_PUSH, 'my event');
-                            $socket->connect("tcp://localhost:5555");
-                            $socket->send(serialize($p_object));
-                        }
-                    } catch (\Exception $ex) {
-                        // @todo...
-                    }
-                }
+                $app->listen($p_object, $myQueue, $myQueueCfg);
             }
         );
     }

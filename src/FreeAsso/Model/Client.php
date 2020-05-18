@@ -19,13 +19,13 @@ class Client extends \FreeAsso\Model\Base\Client implements
     const GENDER_OTHER  = 'OTHER';
     const GENDER_MISTER = 'MISTER';
     const GENDER_MADAM  = 'MADAM';
-    
+
     /**
      * Site
      * @var \FreeAsso\Model\ClientCategory
      */
     protected $client_category = null;
-    
+
     /**
      * Site
      * @var \FreeAsso\Model\ClientType
@@ -83,9 +83,9 @@ class Client extends \FreeAsso\Model\Base\Client implements
 
     /**
      * Set client category
-     * 
+     *
      * @param \FreeAsso\Model\ClientCategory $p_category
-     * 
+     *
      * @return \FreeAsso\Model\Client
      */
     public function setClientCategory($p_category)
@@ -96,7 +96,7 @@ class Client extends \FreeAsso\Model\Base\Client implements
 
     /**
      * Get client category
-     * 
+     *
      * @return \FreeAsso\Model\ClientCategory
      */
     public function getClientCategory()
@@ -106,9 +106,9 @@ class Client extends \FreeAsso\Model\Base\Client implements
 
     /**
      * Set client type
-     * 
+     *
      * @param \FreeAsso\Model\ClientType $p_type
-     * 
+     *
      * @return \FreeAsso\Model\Client
      */
     public function setClientType($p_type)
@@ -119,7 +119,7 @@ class Client extends \FreeAsso\Model\Base\Client implements
 
     /**
      * Get client type
-     * 
+     *
      * @return \FreeAsso\Model\ClientType
      */
     public function getClientType()
@@ -129,9 +129,9 @@ class Client extends \FreeAsso\Model\Base\Client implements
 
     /**
      * Set country
-     * 
+     *
      * @param \FreeFW\Model\Country $p_country
-     * 
+     *
      * @return \FreeAsso\Model\Client
      */
     public function setCountry($p_country)
@@ -152,9 +152,9 @@ class Client extends \FreeAsso\Model\Base\Client implements
 
     /**
      * Set lang
-     * 
+     *
      * @param \FreeFW\Model\Lang $p_lang
-     * 
+     *
      * @return \FreeAsso\Model\Client
      */
     public function setLang($p_lang)
@@ -165,7 +165,7 @@ class Client extends \FreeAsso\Model\Base\Client implements
 
     /**
      * Get lang
-     * 
+     *
      * @return \FreeFW\Model\Lang
      */
     public function getLang()
@@ -175,9 +175,9 @@ class Client extends \FreeAsso\Model\Base\Client implements
 
     /**
      * Set sponsor
-     * 
+     *
      * @param \FreeAsso\Model\Client $p_client
-     * 
+     *
      * @return \FreeAsso\Model\Client
      */
     public function setSponsor($p_client)
@@ -188,7 +188,7 @@ class Client extends \FreeAsso\Model\Base\Client implements
 
     /**
      * Get sponsor
-     * 
+     *
      * @return \FreeAsso\Model\Client
      */
     public function getSponsor()
@@ -198,30 +198,42 @@ class Client extends \FreeAsso\Model\Base\Client implements
 
     /**
      * Set last donation
-     * 
+     *
      * @param \FreeAsso\Model\Donation $p_donation
-     * 
+     *
      * @return \FreeAsso\Model\Client
      */
     public function setLastDonation($p_donation)
     {
         $this->last_donation = $p_donation;
+        if ($this->last_donation) {
+            $this->setLastDonId($this->last_donation->getDonId());
+        }
         return $this;
     }
 
     /**
      * Get last donation
      *
+     * @param boolean $p_force
+     *
      * @return \FreeAsso\Model\Donation
      */
-    public function getLastDonation()
+    public function getLastDonation($p_force = false)
     {
+        if ($this->last_donation === null || $p_force) {
+            if ($this->last_don_id > 0) {
+                $this->last_donation = \FreeAsso\Model\Donation::findFirst(['don_id' => $this->last_don_id]);
+            } else {
+                $this->last_donation = null;
+            }
+        }
         return $this->last_donation;
     }
 
     /**
      * Update last donation
-     * 
+     *
      * @return boolean
      */
     public function updateLastDonation()
@@ -252,7 +264,7 @@ class Client extends \FreeAsso\Model\Base\Client implements
 
     /**
      * Get fullname
-     * 
+     *
      * @return string
      */
     public function getFullname()
@@ -263,7 +275,7 @@ class Client extends \FreeAsso\Model\Base\Client implements
 
     /**
      * Client is active ?
-     * 
+     *
      * @param \DateTime $p_date
      *
      * @return string

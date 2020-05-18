@@ -12,6 +12,16 @@ class Donation extends \FreeAsso\Model\Base\Donation
 {
 
     /**
+     * Behaviour
+     */
+    use \FreeAsso\Behaviour\Cause;
+    use \FreeAsso\Behaviour\Client;
+    use \FreeAsso\Behaviour\DonationOrigin;
+    use \FreeAsso\Behaviour\PaymentType;
+    use \FreeAsso\Behaviour\Session;
+    use \FreeAsso\Behaviour\Sponsorship;
+
+    /**
      * STATUS
      * @var string
      */
@@ -19,42 +29,6 @@ class Donation extends \FreeAsso\Model\Base\Donation
     const STATUS_WAIT = 'WAIT';
     const STATUS_NEXT = 'NEXT';
     const STATUS_NOK  = 'NOK';
-
-    /**
-     * Client
-     * @var \FreeAsso\Model\Client
-     */
-    protected $client = null;
-
-    /**
-     * Cause
-     * @var \FreeAsso\Model\Cause
-     */
-    protected $cause = null;
-
-    /**
-     * Payment Type
-     * @var \FreeAsso\Model\PaymentType
-     */
-    protected $payment_type = null;
-
-    /**
-     * Sponsorship
-     * @var \FreeAsso\Model\Sponsorship
-     */
-    protected $sponsorship = null;
-
-    /**
-     * Origin
-     * @var \FreeAsso\Model\DonationOrigin
-     */
-    protected $origin = null;
-
-    /**
-     * Session
-     * @var \FreeAsso\Model\Session
-     */
-    protected $session = null;
 
     /**
      *
@@ -78,7 +52,7 @@ class Donation extends \FreeAsso\Model\Base\Donation
     }
 
     /**
-     * 
+     *
      */
     public function afterRead()
     {
@@ -99,140 +73,82 @@ class Donation extends \FreeAsso\Model\Base\Donation
     }
 
     /**
-     * Set client
-     * 
-     * @param \FreeAsso\Model\Client $p_client
-     * 
-     * @return \FreeAsso\Model\Donation
+     * Update client last donation
      */
-    public function setClient($p_client)
+    protected function updateClientLastDonation()
     {
-        $this->client = $p_client;
-        return $this;
+        $client = $this->getClient(true);
+        if ($client) {
+            $donation = $client->getLastDonation(true);
+            if ($donation && $donation->getDonRealTs() <= $this->getDonRealTs()) {
+                $client
+                    ->setLastDonation($this)
+                    ->save()
+                ;
+            }
+        }
     }
 
     /**
-     * Get client
      *
-     * @return \FreeAsso\Model\Client
+     * @return boolean
      */
-    public function getClient()
+    public function beforeRemove()
     {
-        return $this->client;
+        $client = $this->getClient(true);
+        if ($client) {
+            $lastDonation = $client->getLastDonation();
+            if ($lastDonation->getDonId() == $this->getDonId()) {
+                $model   = \FreeFW\DI\DI::get('FreeAsso::Model::Donation');
+                $query   = $model->getQuery();
+                $filters = [
+                    'don_id'     => [\FreeFW\Storage\Storage::COND_NOT_EQUAL => $this->getDonId()],
+                    'cli_id'     => $client->getCliId(),
+                    'don_status' => \FreeAsso\Model\Donation::STATUS_OK,
+                    'don_ts'     => [\FreeFW\Storage\Storage::COND_LOWER_EQUAL => \FreeFW\Tools\Date::getCurrentTimestamp()]
+                ];
+                $query
+                    ->addFromFilters($filters)
+                    ->setSort('-don_ts')
+                    ->setLimit(0, 1)
+                ;
+                if ($query->execute()) {
+                    $results = $query->getResult();
+                    if ($results) {
+                        foreach ($results as $row) {
+                            $client->setLastDonId($row->getDonId());
+                            return $client->save();
+                        }
+                    }
+                }
+            }
+        }
+        return true;
     }
 
     /**
-     * Set cause
-     * 
-     * @param \FreeAsso\Model\Cause $p_cause
-     * 
-     * @return \FreeAsso\Model\Donation
-     */
-    public function setCause($p_cause)
-    {
-        $this->cause = $p_cause;
-        return $this;
-    }
-
-    /**
-     * Get cause
-     * 
-     * @return \FreeAsso\Model\Cause
-     */
-    public function getCause()
-    {
-        return $this->cause;
-    }
-
-    /**
-     * Set payment type
+     * After create
      *
-     * @param \FreeAsso\Model\PaymentType $p_payment_type
-     *
-     * @return \FreeAsso\Model\Sponsorship
+     * @return boolean
      */
-    public function setPaymentType($p_payment_type)
+    public function afterCreate()
     {
-        $this->payment_type = $p_payment_type;
-        return $this;
+        // Update cause mnt
+        $cause = $this->getCause();
+        if ($cause) {
+
+        }
+        $this->updateClientLastDonation();
+        return true;
     }
 
     /**
-     * Get payment type
+     * After save
      *
-     * @return \FreeAsso\Model\PaymentType
+     * @return boolean
      */
-    public function getPaymentType()
+    public function afterSave()
     {
-        return $this->payment_type;
-    }
-
-    /**
-     * Set origin
-     *
-     * @param \FreeAsso\Model\DonationOrigin $p_origin
-     *
-     * @return \FreeAsso\Model\Donation
-     */
-    public function setOrigin($p_origin)
-    {
-        $this->origin = $p_origin;
-        return $this;
-    }
-
-    /**
-     * Get origin
-     *
-     * @return \FreeAsso\Model\DonationOrigin
-     */
-    public function getOrigin()
-    {
-        return $this->origin;
-    }
-
-    /**
-     * Set session
-     * 
-     * @param \FreeAsso\Model\Session $p_session
-     * 
-     * @return \FreeAsso\Model\Donation
-     */
-    public function setSession($p_session)
-    {
-        $this->session = $p_session;
-        return $this;
-    }
-
-    /**
-     * Get session
-     *
-     * @return \FreeAsso\Model\Session
-     */
-    public function getSession()
-    {
-        return $this->session;
-    }
-
-    /**
-     * Set sponsorship
-     * 
-     * @param \FreeAsso\Model\Sponsorship $p_value
-     * 
-     * @return \FreeAsso\Model\Donation
-     */
-    public function setSponsorship($p_value)
-    {
-        $this->sponsorship = $p_value;
-        return $this;
-    }
-
-    /**
-     * Get sponsorship
-     *
-     * @return \FreeAsso\Model\Sponsorship
-     */
-    public function getSponsorship()
-    {
-        return $this->sponsorship;
+        return true;
     }
 }

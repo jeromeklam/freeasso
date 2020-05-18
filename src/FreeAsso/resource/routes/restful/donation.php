@@ -32,7 +32,7 @@ $donationRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['client', 'cause', 'cause.cause_type', 'payment_type', 'sponsorship', 'session']
+            'default' => ['client', 'cause', 'cause.cause_type', 'payment_type', 'sponsorship', 'origin', 'session']
         ],
         'results' => [
             '200' => [
@@ -50,7 +50,7 @@ $donationRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['client', 'cause', 'cause.cause_type', 'payment_type', 'sponsorship', 'session']
+            'default' => ['client', 'client.last_donation', 'cause', 'cause.cause_type', 'payment_type', 'sponsorship', 'origin', 'session']
         ],
         'results' => [
             '200' => [
@@ -68,7 +68,7 @@ $donationRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['client', 'cause', 'cause.cause_type', 'payment_type', 'sponsorship', 'session']
+            'default' => ['client', 'client.last_donation', 'cause', 'cause.cause_type', 'payment_type', 'sponsorship', 'origin', 'session']
         ],
         'results' => [
             '201' => [
