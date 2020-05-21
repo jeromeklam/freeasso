@@ -28,6 +28,12 @@ abstract class CauseMainType extends \FreeAsso\Model\StorageModel\CauseMainType
     protected $camt_name = null;
 
     /**
+     * camt_family
+     * @var string
+     */
+    protected $camt_family = null;
+
+    /**
      * Set camt_id
      *
      * @param int $p_value
@@ -94,5 +100,28 @@ abstract class CauseMainType extends \FreeAsso\Model\StorageModel\CauseMainType
     public function getCamtName()
     {
         return $this->camt_name;
+    }
+
+    /**
+     * Set camt_family
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\CauseMainType
+     */
+    public function setCamtFamily($p_value)
+    {
+        $this->camt_family = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get camt_family
+     *
+     * @return string
+     */
+    public function getCamtFamily()
+    {
+        return $this->camt_family;
     }
 }

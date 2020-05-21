@@ -30,6 +30,13 @@ abstract class CauseMainType extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
+    protected static $PRP_CAMT_FAMILY = [
+        FFCST::PROPERTY_PRIVATE => 'camt_family',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_SELECT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
+        FFCST::PROPERTY_DEFAULT => 'NONE',
+        FFCST::PROPERTY_ENUM    => ['OTHER','NONE','ANIMAL','FOREST','NATURE','ADMINISTRATIV'],
+    ];
 
     /**
      * get properties
@@ -39,9 +46,10 @@ abstract class CauseMainType extends \FreeAsso\Model\StorageModel\Base
     public static function getProperties()
     {
         return [
-            'camt_id'   => self::$PRP_CAMT_ID,
-            'brk_id'    => self::$PRP_BRK_ID,
-            'camt_name' => self::$PRP_CAMT_NAME
+            'camt_id'     => self::$PRP_CAMT_ID,
+            'brk_id'      => self::$PRP_BRK_ID,
+            'camt_name'   => self::$PRP_CAMT_NAME,
+            'camt_family' => self::$PRP_CAMT_FAMILY,
         ];
     }
 

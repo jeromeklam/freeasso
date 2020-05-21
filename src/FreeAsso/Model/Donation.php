@@ -14,12 +14,12 @@ class Donation extends \FreeAsso\Model\Base\Donation
     /**
      * Behaviour
      */
-    use \FreeAsso\Behaviour\Cause;
-    use \FreeAsso\Behaviour\Client;
-    use \FreeAsso\Behaviour\DonationOrigin;
-    use \FreeAsso\Behaviour\PaymentType;
-    use \FreeAsso\Behaviour\Session;
-    use \FreeAsso\Behaviour\Sponsorship;
+    use \FreeAsso\Model\Behaviour\Cause;
+    use \FreeAsso\Model\Behaviour\Client;
+    use \FreeAsso\Model\Behaviour\DonationOrigin;
+    use \FreeAsso\Model\Behaviour\PaymentType;
+    use \FreeAsso\Model\Behaviour\Session;
+    use \FreeAsso\Model\Behaviour\Sponsorship;
 
     /**
      * STATUS
@@ -29,6 +29,12 @@ class Donation extends \FreeAsso\Model\Base\Donation
     const STATUS_WAIT = 'WAIT';
     const STATUS_NEXT = 'NEXT';
     const STATUS_NOK  = 'NOK';
+
+    /**
+     * Old donation
+     * @var \FreeAsso\Model\Donation
+     */
+    protected $old_donation = null;
 
     /**
      *
@@ -95,6 +101,7 @@ class Donation extends \FreeAsso\Model\Base\Donation
      */
     public function beforeRemove()
     {
+        $this->old_donation = \FreeAsso\Model\Donation::findFirst(['don_id' => $this->getDonId()]);
         $client = $this->getClient(true);
         if ($client) {
             $lastDonation = $client->getLastDonation();
@@ -127,18 +134,47 @@ class Donation extends \FreeAsso\Model\Base\Donation
     }
 
     /**
+     * After remove
+     *
+     * @return boolean
+     */
+    public function afterRemove()
+    {
+        // Update cause
+        $cause = $this->getCause();
+        if ($cause) {
+            return $cause->handleDonation(null, $this->old_donation);
+        }
+        return true;
+    }
+
+    /**
      * After create
      *
      * @return boolean
      */
     public function afterCreate()
     {
-        // Update cause mnt
+        // Update cause
         $cause = $this->getCause();
         if ($cause) {
-
+            if (!$cause->handleDonation($this, null)) {
+                return false;
+            }
         }
+        // Update client
         $this->updateClientLastDonation();
+        return true;
+    }
+
+    /**
+     * Before save
+     *
+     * @return boolean
+     */
+    public function beforeSave()
+    {
+        $this->old_donation = \FreeAsso\Model\Donation::findFirst(['don_id' => $this->getDonId()]);
         return true;
     }
 
@@ -149,6 +185,21 @@ class Donation extends \FreeAsso\Model\Base\Donation
      */
     public function afterSave()
     {
+        // Update cause
+        $cause = $this->getCause();
+        if ($cause) {
+            if (!$cause->handleDonation($this, $this->old_donation)) {
+                return false;
+            }
+        }
+        if ($this->old_donation->getCauId() !== $this->getCauId()) {
+            $cause = $this->old_donation->getCause();
+            if ($cause) {
+                if (!$cause->handleDonation($this, $this->old_donation)) {
+                    return false;
+                }
+            }
+        }
         return true;
     }
 }

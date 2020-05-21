@@ -1,5 +1,5 @@
 <?php
-namespace FreeAsso\Behaviour;
+namespace FreeAsso\Model\Behaviour;
 
 /**
  *
@@ -20,7 +20,7 @@ trait PaymentType
      *
      * @param \FreeAsso\Model\PaymentType $p_payment_type
      *
-     * @return \FreeAsso\Model\Sponsorship
+     * @return \FreeFW\Core\Model
      */
     public function setPaymentType($p_payment_type)
     {

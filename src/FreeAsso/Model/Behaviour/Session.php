@@ -1,5 +1,5 @@
 <?php
-namespace FreeAsso\Behaviour;
+namespace FreeAsso\Model\Behaviour;
 
 /**
  *
@@ -20,7 +20,7 @@ trait session
      *
      * @param \FreeAsso\Model\Session $p_session
      *
-     * @return \FreeAsso\Model\Donation
+     * @return \FreeFW\Core\Model
      */
     public function setSession($p_session)
     {

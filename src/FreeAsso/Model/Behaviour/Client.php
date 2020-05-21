@@ -1,5 +1,5 @@
 <?php
-namespace FreeAsso\Behaviour;
+namespace FreeAsso\Model\Behaviour;
 
 /**
  *
@@ -20,7 +20,7 @@ trait Client
      *
      * @param \FreeAsso\Model\Client $p_client
      *
-     * @return \FreeAsso\Model\Donation
+     * @return \FreeFW\Core\Model
      */
     public function setClient($p_client)
     {

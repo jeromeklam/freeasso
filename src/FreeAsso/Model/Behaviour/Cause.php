@@ -1,5 +1,5 @@
 <?php
-namespace FreeAsso\Behaviour;
+namespace FreeAsso\Model\Behaviour;
 
 /**
  *
@@ -20,7 +20,7 @@ trait Cause
      *
      * @param \FreeAsso\Model\Cause $p_cause
      *
-     * @return \FreeAsso\Model\Donation
+     * @return \FreeFW\Core\Model
      */
     public function setCause($p_cause)
     {

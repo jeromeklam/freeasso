@@ -13,6 +13,14 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
 {
 
     /**
+     * Behaviour
+     */
+    use \FreeAsso\Model\Behaviour\CauseType;
+    use \FreeAsso\Model\Behaviour\DonationOrigin;
+    use \FreeAsso\Model\Behaviour\Site;
+    use \FreeAsso\Model\Behaviour\Subspecies;
+
+    /**
      * Constantes
      * @var string
      */
@@ -21,30 +29,6 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
     const FAMILY_OTHER         = 'OTHER';
     const FAMILY_NATURE        = 'NATURE';
     const FAMILY_ADMINISTRATIV = 'ADMINISTRATIV';
-
-    /**
-     * Subspecies
-     * @var \FreeAsso\Model\Subspecies
-     */
-    protected $subspecies = null;
-
-    /**
-     * Site
-     * @var \FreeAsso\Model\Site
-     */
-    protected $site = null;
-
-    /**
-     * Type de cause
-     * @var \FreeAsso\Model\CauseType
-     */
-    protected $cause_type = null;
-
-    /**
-     * Origin
-     * @var \FreeAsso\Model\Client
-     */
-    protected $origin = null;
 
     /**
      * Raiser
@@ -99,78 +83,6 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
     }
 
     /**
-     * Set subspecies
-     *
-     * @param \FreeAsso\Model\Subspecies $p_subspecies
-     *
-     * @return \FreeAsso\Model\Cause
-     */
-    public function setSubspecies($p_subspecies)
-    {
-        $this->subspecies = $p_subspecies;
-        return $this;
-    }
-
-    /**
-     * Get subspecies
-     *
-     * @return \FreeAsso\Model\Subspecies
-     */
-    public function getSubspecies()
-    {
-        return $this->subspecies;
-    }
-
-    /**
-     * Set site
-     *
-     * @param \FreeAsso\Model\Site $p_site
-     *
-     * @return \FreeAsso\Model\Cause
-     */
-    public function setSite($p_site)
-    {
-        $this->site = $p_site;
-        return $this;
-    }
-
-    /**
-     * Get site
-     *
-     * @return \FreeAsso\Model\Site
-     */
-    public function getSite()
-    {
-        return $this->site;
-    }
-
-    /**
-     * Set Cause type
-     *
-     * @param \FreeAsso\Model\CauseType $p_cause_type
-     *
-     * @return \FreeAsso\Model\Cause
-     */
-    public function setCauseType($p_cause_type)
-    {
-        $this->cause_type = $p_cause_type;
-        return $this;
-    }
-
-    /**
-     * Get cause type
-     *
-     * @return \FreeAsso\Model\CauseType
-     */
-    public function getCauseType()
-    {
-        if ($this->cause_type === null) {
-            $this->cause_type = \FreeAsso\Model\CauseType::findFirst(['caut_id' => $this->getCautId()]);
-        }
-        return $this->cause_type;
-    }
-
-    /**
      * Set parent1
      *
      * @param \FreeAsso\Model\Cause $p_cause
@@ -214,29 +126,6 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
     public function getParent2()
     {
         return $this->parent2;
-    }
-
-    /**
-     * Get origin
-     *
-     * @param \FreeAsso\Model\Client $p_client
-     *
-     * @return \FreeAsso\Model\Cause
-     */
-    public function setOrigin($p_client)
-    {
-        $this->origin = $p_client;
-        return $this;
-    }
-
-    /**
-     * Get origin
-     *
-     * @return \FreeAsso\Model\Client
-     */
-    public function getOrigin()
-    {
-        return $this->origin;
     }
 
     /**
@@ -440,6 +329,21 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
             ->setCauMntLeft($left)
         ;
         return $this->save();
+    }
+
+    /**
+     * Handle donation CRUD
+     * Update Mnt, reaised, left, ...
+     *
+     * @param \FreeAsso\Model\Donation $p_added_donation
+     * @param \FreeAsso\Model\Donation $p_removed_donation
+     *
+     * @return boolean
+     */
+    public function handleDonation($p_added_donation = null, $p_removed_donation = null)
+    {
+        $this->updateMnt();
+        return true;
     }
 
     /**

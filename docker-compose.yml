@@ -12,6 +12,7 @@ services:
       - ../freefw/:/var/www/freefw/
       - ../freesso/:/var/www/freesso/
       - ../freews/:/var/www/freews/
+      - ../freeoffice/:/var/www/freeoffice/
       - ../freepm/:/var/www/freepm/
   apache:
     image: jeromeklam/u18_apache

@@ -1,5 +1,5 @@
 <?php
-namespace FreeAsso\Behaviour;
+namespace FreeAsso\Model\Behaviour;
 
 /**
  *
@@ -19,7 +19,7 @@ trait Sponsorship
      *
      * @param \FreeAsso\Model\Sponsorship $p_value
      *
-     * @return \FreeAsso\Model\Donation
+     * @return \FreeFW\Core\Model
      */
     public function setSponsorship($p_value)
     {

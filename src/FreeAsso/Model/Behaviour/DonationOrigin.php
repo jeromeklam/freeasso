@@ -1,5 +1,5 @@
 <?php
-namespace FreeAsso\Behaviour;
+namespace FreeAsso\Model\Behaviour;
 
 /**
  *
@@ -20,7 +20,7 @@ trait DonationOrigin
      *
      * @param \FreeAsso\Model\DonationOrigin $p_origin
      *
-     * @return \FreeAsso\Model\Donation
+     * @return \FreeFW\Core\Model
      */
     public function setOrigin($p_origin)
     {

@@ -82,7 +82,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_SITE_ID = [
         FFCST::PROPERTY_PRIVATE => 'site_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_FK],
         FFCST::PROPERTY_FK      => ['site' =>
             [
                 'model' => 'FreeAsso::Model::Site',
