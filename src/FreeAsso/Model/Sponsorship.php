@@ -12,7 +12,7 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
 {
 
     /**
-     * 
+     *
      * @var string
      */
     const PAYMENT_TYPE_MONTH = 'MONTH';
@@ -56,9 +56,9 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
 
     /**
      * Set cause
-     * 
+     *
      * @param \FreeAsso\Model\Cause $p_cause
-     * 
+     *
      * @return \FreeAsso\Model\Sponsorship
      */
     public function setCause($p_cause)
@@ -69,7 +69,7 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
 
     /**
      * Get cause
-     * 
+     *
      * @return \FreeAsso\Model\Cause
      */
     public function getCause()
@@ -79,9 +79,9 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
 
     /**
      * Set client
-     * 
+     *
      * @param \FreeAsso\Model\Client $p_client
-     * 
+     *
      * @return \FreeAsso\Model\Sponsorship
      */
     public function setClient($p_client)
@@ -102,9 +102,9 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
 
     /**
      * Set payment type
-     * 
+     *
      * @param \FreeAsso\Model\PaymentType $p_payment_type
-     * 
+     *
      * @return \FreeAsso\Model\Sponsorship
      */
     public function setPaymentType($p_payment_type)
@@ -115,14 +115,14 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
 
     /**
      * Get payment type
-     * 
+     *
      * @return \FreeAsso\Model\PaymentType
      */
     public function getPaymentType()
     {
         return $this->payment_type;
     }
-    
+
     /**
      * Get new donation
      *
@@ -133,7 +133,7 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
         if ($p_date === null) {
             $p_date = \FreeFW\Tools\Date::getServerDatetime();
         }
-        $askTs = $p_date;
+        $askTs = clone $p_date;
         $askTs->setDate($p_date->format('Y'), $p_date->format('m'), $this->getSpoFreqWhen());
         /**
          * Generate new donation
@@ -146,7 +146,7 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
             ->setSpoId($this->getSpoId())
             ->setPtypId($this->getPtypId())
             ->setDonDisplaySite($this->getSpoDisplaySite())
-            ->setDonStatus(\FreeAsso\Model\Donation::STATUS_WAIT)
+            ->setDonStatus(\FreeAsso\Model\Donation::STATUS_OK)
             ->setDonMoney($this->getSpoMoney())
             ->setDonMnt($this->getSpoMnt())
             ->setDonSponsors($this->getSpoSponsors())

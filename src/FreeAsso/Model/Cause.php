@@ -16,7 +16,6 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
      * Behaviour
      */
     use \FreeAsso\Model\Behaviour\CauseType;
-    use \FreeAsso\Model\Behaviour\DonationOrigin;
     use \FreeAsso\Model\Behaviour\Site;
     use \FreeAsso\Model\Behaviour\Subspecies;
 
@@ -59,6 +58,12 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
      * @var \FreeAsso\Model\CauseMedia
      */
     protected $default_blob = null;
+
+    /**
+     * Come from
+     * @var \FreeAsso\Model\Client
+     */
+    protected $origin = null;
 
     /**
      *
@@ -149,6 +154,29 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
     public function getRaiser()
     {
         return $this->raiser;
+    }
+
+    /**
+     * Set proprietary
+     *
+     * @param \FreeFW\Model\Client $p_client
+     *
+     * @return \FreeAsso\Model\Cause
+     */
+    public function setOrigin($p_client)
+    {
+        $this->origin =$p_client;
+        return $this;
+    }
+
+    /**
+     * Get proprietary
+     *
+     * @return \FreeAsso\Model\Client
+     */
+    public function getOrigin()
+    {
+        return $this->origin;
     }
 
     /**

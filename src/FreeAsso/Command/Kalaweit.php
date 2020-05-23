@@ -1235,11 +1235,15 @@ class Kalaweit
                         }
                     }
                 }
+                // @TODO grp_id
                 $myDonation = \FreeFW\DI\DI::get('FreeAsso::Model::Donation');
                 $myDonation
                     ->setDonStatus(\FreeAsso\Model\Donation::STATUS_NOK)
+                    ->setGrpId(3)
                     ->setDonMnt($row->montant)
                     ->setDonMoney('EUR')
+                    ->setDonMntInput($row->montant)
+                    ->setDonMoneyInput('EUR')
                     ->setDonDisplaySite(0)
                 ;
                 if (count($sponsors) > 0) {

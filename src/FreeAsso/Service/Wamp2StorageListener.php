@@ -8,7 +8,7 @@ use \Psr\Log\LoggerAwareInterface;
 use \Psr\Log\LoggerAwareTrait;
 
 /**
- * 
+ *
  * @author jeromeklam
  *
  */
@@ -21,16 +21,16 @@ class Wamp2StorageListener implements WampServerInterface, LoggerAwareInterface
     use LoggerAwareTrait;
 
     /**
-     * 
+     *
      * @var array
      */
     protected $subscribedTopics = array();
 
     /**
-     * 
+     *
      * @param ConnectionInterface $conn
      * @param Topic               $topic
-     * 
+     *
      * @return boolean
      */
     public function onSubscribe(ConnectionInterface $conn, $topic)
@@ -41,10 +41,10 @@ class Wamp2StorageListener implements WampServerInterface, LoggerAwareInterface
     }
 
     /**
-     * 
+     *
      * @param ConnectionInterface $conn
      * @param Topic               $topic
-     * 
+     *
      * @return boolean
      */
     public function onUnSubscribe(ConnectionInterface $conn, $topic)
@@ -57,7 +57,7 @@ class Wamp2StorageListener implements WampServerInterface, LoggerAwareInterface
     }
 
     /**
-     * 
+     *
      * @param ConnectionInterface $conn
      */
     public function onOpen(ConnectionInterface $conn)
@@ -66,7 +66,7 @@ class Wamp2StorageListener implements WampServerInterface, LoggerAwareInterface
     }
 
     /**
-     * 
+     *
      * @param ConnectionInterface $conn
      */
     public function onClose(ConnectionInterface $conn)
@@ -75,7 +75,7 @@ class Wamp2StorageListener implements WampServerInterface, LoggerAwareInterface
     }
 
     /**
-     * 
+     *
      * @param ConnectionInterface $conn
      * @param mixed               $id
      * @param Topic               $topic
@@ -87,7 +87,7 @@ class Wamp2StorageListener implements WampServerInterface, LoggerAwareInterface
     }
 
     /**
-     * 
+     *
      * @param ConnectionInterface $conn
      * @param Topic               $topic
      * @param mixed               $event
@@ -100,7 +100,7 @@ class Wamp2StorageListener implements WampServerInterface, LoggerAwareInterface
     }
 
     /**
-     * 
+     *
      * @param ConnectionInterface $conn
      * @param \Exception          $ex
      */
@@ -110,14 +110,14 @@ class Wamp2StorageListener implements WampServerInterface, LoggerAwareInterface
     }
 
     /**
-     * 
+     *
      * @param string $entry
      */
     public function onEvent($entry)
     {
         $this->logger->info('FreeAsso.Wamp2.onEvent');
         $this->logger->debug(print_r($entry, true));
-        $uri = 'fr.freeasso.lesecopattes.storage';
+        $uri = 'fr.freeasso.storage';
         if (array_key_exists($uri, $this->subscribedTopics)) {
             try {
                 $object = unserialize($entry);

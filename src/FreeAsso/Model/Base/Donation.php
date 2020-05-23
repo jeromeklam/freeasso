@@ -22,6 +22,12 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
     protected $brk_id = null;
 
     /**
+     * grp_id
+     * @var int
+     */
+    protected $grp_id = null;
+
+    /**
      * cli_id
      * @var int
      */
@@ -47,25 +53,25 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
 
     /**
      * don_ts
-     * @var string
+     * @var mixed
      */
     protected $don_ts = null;
 
     /**
      * don_ask_ts
-     * @var string
+     * @var mixed
      */
     protected $don_ask_ts = null;
 
     /**
      * don_real_ts
-     * @var string
+     * @var mixed
      */
     protected $don_real_ts = null;
 
     /**
      * don_end_ts
-     * @var string
+     * @var mixed
      */
     protected $don_end_ts = null;
 
@@ -77,7 +83,7 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
 
     /**
      * don_mnt
-     * @var string
+     * @var mixed
      */
     protected $don_mnt = null;
 
@@ -86,6 +92,18 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
      * @var string
      */
     protected $don_money = null;
+
+    /**
+     * don_mnt_input
+     * @var mixed
+     */
+    protected $don_mnt_input = null;
+
+    /**
+     * don_money_input
+     * @var string
+     */
+    protected $don_money_input = null;
 
     /**
      * ptyp_id
@@ -101,7 +119,7 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
 
     /**
      * don_dstat
-     * @var string
+     * @var mixed
      */
     protected $don_dstat = null;
 
@@ -125,7 +143,7 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
 
     /**
      * don_display_site
-     * @var int
+     * @var bool
      */
     protected $don_display_site = null;
 
@@ -185,6 +203,29 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
     public function getBrkId()
     {
         return $this->brk_id;
+    }
+
+    /**
+     * Set grp_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Donation
+     */
+    public function setGrpId($p_value)
+    {
+        $this->grp_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get grp_id
+     *
+     * @return int
+     */
+    public function getGrpId()
+    {
+        return $this->grp_id;
     }
 
     /**
@@ -282,7 +323,7 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
     /**
      * Set don_ts
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Donation
      */
@@ -295,7 +336,7 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
     /**
      * Get don_ts
      *
-     * @return string
+     * @return mixed
      */
     public function getDonTs()
     {
@@ -305,7 +346,7 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
     /**
      * Set don_ask_ts
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Donation
      */
@@ -318,7 +359,7 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
     /**
      * Get don_ask_ts
      *
-     * @return string
+     * @return mixed
      */
     public function getDonAskTs()
     {
@@ -328,7 +369,7 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
     /**
      * Set don_real_ts
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Donation
      */
@@ -341,7 +382,7 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
     /**
      * Get don_real_ts
      *
-     * @return string
+     * @return mixed
      */
     public function getDonRealTs()
     {
@@ -351,7 +392,7 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
     /**
      * Set don_end_ts
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Donation
      */
@@ -364,7 +405,7 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
     /**
      * Get don_end_ts
      *
-     * @return string
+     * @return mixed
      */
     public function getDonEndTs()
     {
@@ -397,7 +438,7 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
     /**
      * Set don_mnt
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Donation
      */
@@ -410,7 +451,7 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
     /**
      * Get don_mnt
      *
-     * @return string
+     * @return mixed
      */
     public function getDonMnt()
     {
@@ -438,6 +479,52 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
     public function getDonMoney()
     {
         return $this->don_money;
+    }
+
+    /**
+     * Set don_mnt_input
+     *
+     * @param mixed $p_value
+     *
+     * @return \FreeAsso\Model\Donation
+     */
+    public function setDonMntInput($p_value)
+    {
+        $this->don_mnt_input = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get don_mnt_input
+     *
+     * @return mixed
+     */
+    public function getDonMntInput()
+    {
+        return $this->don_mnt_input;
+    }
+
+    /**
+     * Set don_money_input
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Donation
+     */
+    public function setDonMoneyInput($p_value)
+    {
+        $this->don_money_input = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get don_money_input
+     *
+     * @return string
+     */
+    public function getDonMoneyInput()
+    {
+        return $this->don_money_input;
     }
 
     /**
@@ -489,7 +576,7 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
     /**
      * Set don_dstat
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Donation
      */
@@ -502,7 +589,7 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
     /**
      * Get don_dstat
      *
-     * @return string
+     * @return mixed
      */
     public function getDonDstat()
     {
@@ -581,7 +668,7 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
     /**
      * Set don_display_site
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\Donation
      */
@@ -594,7 +681,7 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
     /**
      * Get don_display_site
      *
-     * @return int
+     * @return bool
      */
     public function getDonDisplaySite()
     {

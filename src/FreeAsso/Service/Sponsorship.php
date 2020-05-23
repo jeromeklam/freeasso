@@ -2,7 +2,7 @@
 namespace FreeAsso\Service;
 
 /**
- * 
+ *
  * @author jeromeklam
  *
  */
@@ -13,7 +13,7 @@ class Sponsorship extends \FreeFW\Core\Service
      * generate debit for one day
      *
      * @param \Datetime $p_date
-     * 
+     *
      * @return boolean
      */
     public function generateOneDebit(\Datetime $p_date)
@@ -191,9 +191,9 @@ class Sponsorship extends \FreeFW\Core\Service
 
     /**
      * For each client, get last donation
-     * 
-     * @param array params 
-     * 
+     *
+     * @param array params
+     *
      * @return array
      */
     public function generateDebit($p_params = [])

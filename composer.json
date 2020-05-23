@@ -15,16 +15,15 @@
         "secure-http" : false,
         "bin-dir"     : "install",
         "localdev": {
-            "jeromeklam/freefw": "../freefw",
-            "jeromeklam/freesso": "../freesso",
-            "jeromeklam/freepm": "../freepm",
-            "jeromeklam/freeoffice": "../freeoffice",
-            "jeromeklam/freews": "../freews"
+            "jeromeklam/freefw"     : "../freefw",
+            "jeromeklam/freesso"    : "../freesso",
+            "jeromeklam/freepm"     : "../freepm",
+            "jeromeklam/freeoffice" : "../freeoffice",
+            "jeromeklam/freews"     : "../freews"
         }
     },
     "require" : {
         "php"                                  : ">=7.2",
-        "robmorgan/phinx"                      : "*",
         "phing/phing"                          : "*",
         "psr/log"                              : "*",
         "psr/cache"                            : "*",
@@ -38,7 +37,8 @@
         "jeromeklam/freeoffice"                : "*",
         "cboden/ratchet"                       : "^0.4.1",
         "php-amqplib/php-amqplib"              : "^2.11",
-        "react/zmq"                            : "^0.4.0"
+        "react/zmq"                            : "^0.4.0",
+        "robmorgan/phinx"                      : "^0.12.1"
     },
     "autoload" : {
         "psr-4" : {
@@ -46,8 +46,9 @@
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "*",
-        "squizlabs/php_codesniffer": "*",
-        "odan/phinx-migrations-generator": "*"
+        "phpunit/phpunit"                      : "*",
+        "squizlabs/php_codesniffer"            : "*",
+        "odan/phinx-migrations-generator"      : "^5.1",
+        "symfony/yaml"                         : "^5.0"
     }
 }

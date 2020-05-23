@@ -25,6 +25,11 @@ abstract class Donation extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_BROKER]
     ];
+    protected static $PRP_GRP_ID = [
+        FFCST::PROPERTY_PRIVATE => 'grp_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_GROUP]
+    ];
     protected static $PRP_CLI_ID = [
         FFCST::PROPERTY_PRIVATE => 'cli_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
@@ -98,6 +103,16 @@ abstract class Donation extends \FreeFW\Core\StorageModel
     ];
     protected static $PRP_DON_MONEY = [
         FFCST::PROPERTY_PRIVATE => 'don_money',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+    ];
+    protected static $PRP_DON_MNT_INPUT = [
+        FFCST::PROPERTY_PRIVATE => 'don_mnt_input',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DECIMAL,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+    ];
+    protected static $PRP_DON_MONEY_INPUT = [
+        FFCST::PROPERTY_PRIVATE => 'don_money_input',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
@@ -185,6 +200,7 @@ abstract class Donation extends \FreeFW\Core\StorageModel
         return [
             'don_id'           => self::$PRP_DON_ID,
             'brk_id'           => self::$PRP_BRK_ID,
+            'grp_id'           => self::$PRP_GRP_ID,
             'cli_id'           => self::$PRP_CLI_ID,
             'cau_id'           => self::$PRP_CAU_ID,
             'spo_id'           => self::$PRP_SPO_ID,
@@ -196,6 +212,8 @@ abstract class Donation extends \FreeFW\Core\StorageModel
             'don_status'       => self::$PRP_DON_STATUS,
             'don_mnt'          => self::$PRP_DON_MNT,
             'don_money'        => self::$PRP_DON_MONEY,
+            'don_mnt_input'    => self::$PRP_DON_MNT_INPUT,
+            'don_money_input'  => self::$PRP_DON_MONEY_INPUT,
             'ptyp_id'          => self::$PRP_PTYP_ID,
             'don_comment'      => self::$PRP_DON_COMMENT,
             'don_dstat'        => self::$PRP_DON_DSTAT,
