@@ -379,4 +379,57 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
     {
         return ['cau_code', 'cau_name'];
     }
+
+    /**
+     * Get One To many relationShips
+     *
+     * @return array
+     */
+    public function getRelationships()
+    {
+        return [
+            'movements' => [
+                FFCST::REL_MODEL   => 'FreeAsso::Model::CauseMovement',
+                FFCST::REL_FIELD   => 'cau_id',
+                FFCST::REL_TYPE    => \FreeFW\Model\Query::JOIN_LEFT,
+                FFCST::REL_COMMENT => 'Les mouvements de la cause',
+                FFCST::REL_REMOVE  => FFCST::REL_REMOVE_CHECK
+            ],
+            'donations' => [
+                FFCST::REL_MODEL   => 'FreeAsso::Model::Donation',
+                FFCST::REL_FIELD   => 'cau_id',
+                FFCST::REL_TYPE    => \FreeFW\Model\Query::JOIN_LEFT,
+                FFCST::REL_COMMENT => 'Les dons pour la cause',
+                FFCST::REL_REMOVE  => FFCST::REL_REMOVE_CHECK
+            ],
+            'medias' => [
+                FFCST::REL_MODEL   => 'FreeAsso::Model::CauseMedia',
+                FFCST::REL_FIELD   => 'cau_id',
+                FFCST::REL_TYPE    => \FreeFW\Model\Query::JOIN_LEFT,
+                FFCST::REL_COMMENT => 'Les médias de la cause',
+                FFCST::REL_REMOVE  => FFCST::REL_REMOVE_CASCADE
+            ],
+            'documents' => [
+                FFCST::REL_MODEL   => 'FreeAsso::Model::CauseMedia',
+                FFCST::REL_FIELD   => 'cau_id',
+                FFCST::REL_TYPE    => \FreeFW\Model\Query::JOIN_LEFT,
+                FFCST::REL_COMMENT => 'Les documents de la cause',
+                FFCST::REL_REMOVE  => FFCST::REL_REMOVE_CASCADE
+            ],
+            'growths' => [
+                FFCST::REL_MODEL   => 'FreeAsso::Model::CauseGrowth',
+                FFCST::REL_FIELD   => 'cau_id',
+                FFCST::REL_TYPE    => \FreeFW\Model\Query::JOIN_LEFT,
+                FFCST::REL_COMMENT => 'Les croissances de la cause',
+                FFCST::REL_REMOVE  => FFCST::REL_REMOVE_CASCADE
+            ],
+            'sicknesses' => [
+                FFCST::REL_MODEL   => 'FreeAsso::Model::CauseSickness',
+                FFCST::REL_FIELD   => 'cau_id',
+                FFCST::REL_TYPE    => \FreeFW\Model\Query::JOIN_LEFT,
+                FFCST::REL_COMMENT => 'Les maladies de la cause',
+                FFCST::REL_REMOVE  => FFCST::REL_REMOVE_CASCADE
+            ],
+        ];
+    }
 }

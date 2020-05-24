@@ -51,6 +51,20 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_SAMPLE  => 'Mon site',
         FFCST::PROPERTY_MAX     => 80,
     ];
+    protected static $PRP_SITE_FROM = [
+        FFCST::PROPERTY_PRIVATE => 'site_from',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_COMMENT => 'Début de validité',
+        FFCST::PROPERTY_SAMPLE  => '2020-04-01',
+    ];
+    protected static $PRP_SITE_TO = [
+        FFCST::PROPERTY_PRIVATE => 'site_to',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_COMMENT => 'Fin de validité',
+        FFCST::PROPERTY_SAMPLE  => '2020-04-01',
+    ];
     protected static $PRP_SITE_CODE = [
         FFCST::PROPERTY_PRIVATE => 'site_code',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
@@ -370,7 +384,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_COMMENT => 'Texte lié à la conformité',
         FFCST::PROPERTY_SAMPLE  => 'Le site est conforme'
     ];
-    
+
     /**
      * get properties
      *
@@ -383,6 +397,8 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
             'brk_id'            => self::$PRP_BRK_ID,
             'sitt_id'           => self::$PRP_SITT_ID,
             'site_name'         => self::$PRP_SITE_NAME,
+            'site_from'         => self::$PRP_SITE_FROM,
+            'site_to'           => self::$PRP_SITE_TO,
             'site_code'         => self::$PRP_SITE_CODE,
             'site_address1'     => self::$PRP_SITE_ADDRESS1,
             'site_address2'     => self::$PRP_SITE_ADDRESS2,
@@ -445,7 +461,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
     /**
      * Retourne une explication de la table
      */
-    public static function getSourceComments() 
+    public static function getSourceComments()
     {
         return 'Gestion d\'un site, qui permet de regrouper des causes dans un même lieu : région, île, pays, ...';
     }
@@ -462,7 +478,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
 
     /**
      * Get uniq indexes
-     * 
+     *
      * @return array[]
      */
     public static function getUniqIndexes()

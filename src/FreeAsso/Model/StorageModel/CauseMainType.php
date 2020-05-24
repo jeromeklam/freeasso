@@ -34,7 +34,7 @@ abstract class CauseMainType extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_PRIVATE => 'camt_family',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_SELECT,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
-        FFCST::PROPERTY_DEFAULT => 'NONE',
+        FFCST::PROPERTY_DEFAULT => 'ANIMAL',
         FFCST::PROPERTY_ENUM    => ['OTHER','NONE','ANIMAL','FOREST','NATURE','ADMINISTRATIV'],
     ];
 

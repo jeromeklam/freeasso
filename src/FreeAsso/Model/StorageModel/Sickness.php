@@ -84,4 +84,14 @@ abstract class Sickness extends \FreeFW\Core\StorageModel
     {
         return 'asso_sickness';
     }
+
+    /**
+     * Get autocomplete field
+     *
+     * @return string
+     */
+    public static function getAutocompleteField()
+    {
+        return ['sick_name', 'sick_desc'];
+    }
 }

@@ -5,6 +5,23 @@ $sicknessRoutes = [
      * Sickness
      * ########################################################################
      */
+    'freeasso.sickness.autocomplete' => [
+        'method'     => \FreeFW\Router\Route::METHOD_GET,
+        'model'      => 'FreeAsso::Model::Sickness',
+        'url'        => '/v1/asso/sickness/autocomplete/:search',
+        'controller' => 'FreeAsso::Controller::Sickness',
+        'function'   => 'autocomplete',
+        'auth'       => \FreeFW\Router\Route::AUTH_IN,
+        'middleware' => [],
+        'include'    => [
+            'default' => []
+        ],
+        'results' => [
+            '200' => [
+                'type'  => \FreeFW\Router\Route::RESULT_OBJECT
+            ]
+        ]
+    ],
     'freeasso.sickness.getall' => [
         'method'     => \FreeFW\Router\Route::METHOD_GET,
         'model'      => 'FreeAsso::Model::Sickness',

@@ -104,8 +104,10 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
     ];
     protected static $PRP_CAUT_FAMILY = [
         FFCST::PROPERTY_PRIVATE => 'caut_family',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_SELECT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
+        FFCST::PROPERTY_DEFAULT => 'ANIMAL',
+        FFCST::PROPERTY_ENUM    => ['OTHER','NONE','ANIMAL','FOREST','NATURE','ADMINISTRATIV'],
     ];
     protected static $PRP_CAUT_STRING_1 = [
         FFCST::PROPERTY_PRIVATE => 'caut_string_1',
