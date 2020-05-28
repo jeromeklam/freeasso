@@ -45,10 +45,11 @@ services:
     networks:
       - backend
     environment:
+      - LOCAL="true"
       - MYSQL_ROOT_PASSWORD=m0n1c4po
     volumes:
       - ./docker-db:/data
-      - ./docker-dumps:/data/dumps
+      - ./docker-dumps:/dumps
 networks:
   frontend:
   backend:

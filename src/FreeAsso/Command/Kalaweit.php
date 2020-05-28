@@ -146,7 +146,7 @@ class Kalaweit
         ini_set('memory_limit', '8096M');
         set_time_limit(3600);
         $p_output->write("Début de l'import", true);
-        $provider = new \FreeFW\Storage\PDO\Mysql('mysql:host=mysql;dbname=kalaweit;charset=latin1;', 'super', 'YggDrasil');
+        $provider = new \FreeFW\Storage\PDO\Mysql('mysql:host=mysql;dbname=kalaweitv1;charset=latin1;', 'super', 'YggDrasil');
         $sso      = \FreeFW\DI\DI::getShared('sso');
         $brokerId = $sso->getBrokerId();
         $p_output->write("Broker : " . $brokerId, true);
@@ -1140,6 +1140,19 @@ class Kalaweit
                     ;
                 } else {
                     echo 'Member not found : ' . $row->id_membre . ' !' . PHP_EOL;
+                    $myClient = \FreeFW\DI\DI::get('FreeAsso::Model::Client');
+                    $myClient
+                        ->setCliExternId($row->id_membre)
+                        ->setCliLastname('Membre ' . $row->id_membre)
+                        ->setClitId($myTypeMembre->getClitId())
+                        ->setClicId($tabClientCategory['default'])
+                        ->setCliCertificat(1)
+                    ;
+                    if (!$myClient->create()){
+                        var_export($myClient->getErrors());die;
+                    }
+                    $tabMembres[$row->id_membre] = $myClient;
+                    $myReceipt->setCliId($tabMembres[$row->id_membre]->getCliId());
                 }
                 $fullname = $row->nom_membre;
                 $fullname = \FreeFW\Tools\Encoding::toUTF8($fullname);
@@ -1217,12 +1230,13 @@ class Kalaweit
          * Import des dons
          */
         $tabSessions = [];
-        $tabEntrees = [];
+        $tabEntrees  = [];
         $p_output->write("Import des dons", true);
         try {
             $query = $provider->prepare("Select * from entrees order by id");
             $query->execute();
             while ($row = $query->fetch(\PDO::FETCH_OBJ)) {
+                echo '.';
                 $sponsors = [];
                 if ($row->invites != '') {
                     $list = explode(';##', $row->invites);
@@ -1400,6 +1414,7 @@ class Kalaweit
                     $queryCert = $provider->prepare("Select * from certificats where id_certificat = " . $row->id_certificat);
                     $queryCert->execute();
                     while ($rowCert = $queryCert->fetch(\PDO::FETCH_OBJ)) {
+                        echo '.';
                         $member = $tabMembres[$row->id_membre];
                         $fullname = $rowCert->nom;
                         $fullname = \FreeFW\Tools\Encoding::toUTF8($fullname);
@@ -1446,6 +1461,7 @@ class Kalaweit
                 $queryRecu = $provider->prepare("Select * from recus_fiscaux_entrees where id_entrees = " . $row->id);
                 $queryRecu->execute();
                 while ($rowRecu = $queryRecu->fetch(\PDO::FETCH_OBJ)) {
+                    echo '.';
                     if (array_key_exists($rowRecu->id_recus_fiscaux, $tabReceipts)) {
                         $myReceiptDonation = \FreeFW\DI\DI::get('FreeAsso::Model::ReceiptDonation');
                         $myReceiptDonation

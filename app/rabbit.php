@@ -12,6 +12,7 @@ if ($vdir == '') {
 define('APP_NAME', 'FREEASSO');
 define('API_SCHEMES', 'https');
 define('API_HOST', 'freeasso.fr');
+define('APP_HISTORY', true);
 
 $startTs = microtime(true);
 
@@ -64,6 +65,8 @@ try {
     } else {
         $myLogger = new \Psr\Log\NullLogger();
     }
+    // EventManager
+    $myEvents = \FreeFW\Listener\EventManager::getInstance();
     // La connexion DB
     $myStgCfg = $myConfig->get('storage');
     if (is_array($myStgCfg)) {
@@ -71,9 +74,10 @@ try {
             $storage = \FreeFW\Storage\StorageFactory::getFactory(
                 $stoCfg['dsn'],
                 $stoCfg['user'],
-                $stoCfg['paswd']
-                );
-            $storage->setLogger($myLogger);
+                $stoCfg['paswd'],
+                $myLogger,
+                $myEvents
+            );
             \FreeFW\DI\DI::setShared('Storage::' . $key, $storage);
         }
     } else {
@@ -103,14 +107,14 @@ try {
         $channel->exchange_declare($myQueueCfg['name'], 'fanout', false, false, false);
         list($queue_name, ,) = $channel->queue_declare("", false, false, true, false);
         $channel->queue_bind($queue_name, $myQueueCfg['name']);
-        
+
         echo " [*] Waiting for logs. To exit press CTRL+C\n";
-        
+
         $callback = function ($msg) use ($myListener) {
             $myListener->onStorage($msg);
         };
         $channel->basic_consume($queue_name, '', false, true, false, false, $callback);
-        
+
         while ($channel->is_consuming()) {
             $channel->wait();
         }

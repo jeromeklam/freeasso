@@ -155,6 +155,7 @@ class Donation extends \FreeAsso\Model\Base\Donation
      */
     public function afterCreate()
     {
+        return true;
         // Update cause
         $cause = $this->getCause();
         if ($cause) {
@@ -174,6 +175,7 @@ class Donation extends \FreeAsso\Model\Base\Donation
      */
     public function beforeSave()
     {
+        return true;
         $this->old_donation = \FreeAsso\Model\Donation::findFirst(['don_id' => $this->getDonId()]);
         return true;
     }
@@ -185,6 +187,7 @@ class Donation extends \FreeAsso\Model\Base\Donation
      */
     public function afterSave()
     {
+        return true;
         // Update cause
         $cause = $this->getCause();
         if ($cause) {

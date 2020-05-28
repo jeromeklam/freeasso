@@ -12,6 +12,7 @@ if ($vdir == '') {
 define('APP_NAME', 'FREEASSO');
 define('API_SCHEMES', 'https');
 define('API_HOST', 'freeasso.fr');
+define('APP_HISTORY', true);
 
 $startTs = microtime(true);
 
@@ -67,6 +68,8 @@ try {
     } else {
         $myLogger = new \Psr\Log\NullLogger();
     }
+    // EventManager
+    $myEvents = \FreeFW\Listener\EventManager::getInstance();
     // La connexion DB
     $myStgCfg = $myConfig->get('storage');
     if (is_array($myStgCfg)) {
@@ -74,9 +77,10 @@ try {
             $storage = \FreeFW\Storage\StorageFactory::getFactory(
                 $stoCfg['dsn'],
                 $stoCfg['user'],
-                $stoCfg['paswd']
-                );
-            $storage->setLogger($myLogger);
+                $stoCfg['paswd'],
+                $myLogger,
+                $myEvents
+            );
             \FreeFW\DI\DI::setShared('Storage::' . $key, $storage);
         }
     } else {

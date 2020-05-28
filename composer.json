@@ -24,7 +24,6 @@
     },
     "require" : {
         "php"                                  : ">=7.2",
-        "phing/phing"                          : "*",
         "psr/log"                              : "*",
         "psr/cache"                            : "*",
         "psr/http-message"                     : "*",
@@ -37,8 +36,7 @@
         "jeromeklam/freeoffice"                : "*",
         "cboden/ratchet"                       : "^0.4.1",
         "php-amqplib/php-amqplib"              : "^2.11",
-        "react/zmq"                            : "^0.4.0",
-        "robmorgan/phinx"                      : "^0.12.1"
+        "react/zmq"                            : "^0.4.0"
     },
     "autoload" : {
         "psr-4" : {
@@ -47,8 +45,7 @@
     },
     "require-dev": {
         "phpunit/phpunit"                      : "*",
-        "squizlabs/php_codesniffer"            : "*",
-        "odan/phinx-migrations-generator"      : "^5.1",
-        "symfony/yaml"                         : "^5.0"
+        "phing/phing"                          : "*",
+        "squizlabs/php_codesniffer"            : "*"
     }
 }

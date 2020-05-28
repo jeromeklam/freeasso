@@ -12,6 +12,7 @@ if ($vdir == '') {
 define('APP_NAME', 'FREEASSO');
 define('API_SCHEMES', 'https');
 define('API_HOST', 'freeasso.fr');
+define('APP_HISTORY', true);
 
 $startTs = microtime(true);
 
@@ -67,6 +68,8 @@ try {
     } else {
         $myLogger = new \Psr\Log\NullLogger();
     }
+    // EventManager
+    $myEvents = \FreeFW\Listener\EventManager::getInstance();
     // La connexion DB
     $myStgCfg = $myConfig->get('storage');
     if (is_array($myStgCfg)) {
@@ -74,9 +77,10 @@ try {
             $storage = \FreeFW\Storage\StorageFactory::getFactory(
                 $stoCfg['dsn'],
                 $stoCfg['user'],
-                $stoCfg['paswd']
+                $stoCfg['paswd'],
+                $myLogger,
+                $myEvents
             );
-            $storage->setLogger($myLogger);
             \FreeFW\DI\DI::setShared('Storage::' . $key, $storage);
         }
     } else {
@@ -84,8 +88,6 @@ try {
     }
     // Micro application
     $app = \FreeFW\Application\Console::getInstance($myConfig, $myLogger);
-    // EventManager
-    $myEvents = \FreeFW\Listener\EventManager::getInstance();
     $myEvents->bind(\FreeFW\Constants::EVENT_ROUTE_NOT_FOUND, function () {
         //@todo
         echo "Commande introuvable\n";

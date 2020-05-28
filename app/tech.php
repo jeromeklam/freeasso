@@ -12,7 +12,7 @@ if ($vdir == '') {
 define('APP_NAME', 'FREEASSO');
 define('API_SCHEMES', 'https');
 define('API_HOST', 'freeasso.fr');
-define('APP_HISTORY', true);
+define('APP_HISTORY', false);
 
 $startTs = microtime(true);
 
@@ -46,11 +46,6 @@ if (is_file(APP_ROOT . '/config/' . strtolower($server) . '.ini.php')) {
  * Go
  */
 try {
-    // Réponse aux "preflights", on sort direct.... c'est à gérer côté serveur web
-    if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
-        header('HTTP/1.1 200 OK');
-        exit(0);
-    }
     // Si pas de "prefligths" : Config
     if (is_file(APP_ROOT . '/config/' . strtolower($server) . '.config.php')) {
         $myConfig = \FreeFW\Application\Config::load(APP_ROOT . '/config/' . strtolower($server) . '.config.php');
@@ -73,19 +68,6 @@ try {
     } else {
         $myLogger = new \Psr\Log\NullLogger();
     }
-    // Queue
-    $myQueue    = false;
-    $myQueueCfg = $myConfig->get('queue');
-    if (is_array($myQueueCfg)) {
-        $myQueue = \PhpAmqpLib\Connection\AMQPStreamConnection::create_connection([
-            [
-                'host' => $myQueueCfg['host'],
-                'port' => $myQueueCfg['port'],
-                'user' => $myQueueCfg['user'],
-                'password' => $myQueueCfg['paswd']
-            ]
-        ]);
-    }
     // EventManager
     $myEvents = \FreeFW\Listener\EventManager::getInstance();
     // La connexion DB
@@ -105,68 +87,45 @@ try {
         throw new \FreeFW\Core\FreeFWException('No storage configuration found !');
     }
     // Micro application
-    $app = \FreeFW\Application\Application::getInstance($myConfig, $myLogger);
-    // 404
-    $myEvents->bind(\FreeFW\Constants::EVENT_ROUTE_NOT_FOUND, function () use ($app) {
-        // @todo
-        $app->sendHttpCode(404);
+    $app = \FreeFW\Application\Console::getInstance($myConfig, $myLogger);
+    $myEvents->bind(\FreeFW\Constants::EVENT_ROUTE_NOT_FOUND, function () {
+        //@todo
+        echo "Commande introuvable\n";
     });
-    // Render finished
     $myEvents->bind(\FreeFW\Constants::EVENT_AFTER_RENDER, function () use ($app, $startTs) {
         $endTs = microtime(true);
         $diff  = $endTs - $startTs;
         $app->getLogger()->info('Total execution time : ' . $diff);
     });
-    // CRUD for notifications and cache clear
-    if ($myQueue) {
-        // Were not async and transactions are global and transactions start-end is linear.
-        // @TODO : Send updates just on commit... or if not transaction on
-        // We can use a static tables of data befofe send... or an app member...
-        $myEvents->bind(
-            [
-                \FreeFW\Constants::EVENT_STORAGE_CREATE,
-                \FreeFW\Constants::EVENT_STORAGE_UPDATE,
-                \FreeFW\Constants::EVENT_STORAGE_DELETE,
-                \FreeFW\Constants::EVENT_STORAGE_BEGIN,
-                \FreeFW\Constants::EVENT_STORAGE_COMMIT,
-                \FreeFW\Constants::EVENT_STORAGE_ROLLBACK,
-            ],
-            function ($p_object) use ($app, $myQueue, $myQueueCfg) {
-                $app->listen($p_object, $myQueue, $myQueueCfg);
-            }
-        );
-    }
     /**
      * FreeAsso DI
      */
     \FreeFW\DI\DI::registerDI('FreeFW', $myConfig, $myLogger);
     \FreeFW\DI\DI::registerDI('FreeAsso', $myConfig, $myLogger);
     \FreeFW\DI\DI::registerDI('FreeSSO', $myConfig, $myLogger);
+    \FreeFW\DI\DI::registerDI('FreeOffice', $myConfig, $myLogger);
     \FreeFW\DI\DI::registerDI('FreePM', $myConfig, $myLogger);
     /**
      * On va chercher les routes des modules, ...
      */
-    $freeFWRoutes   = \FreeFW\Http\FreeFW::getRoutes();
-    $freeSSORoutes  = \FreeSSO\Http\FreeFW::getRoutes();
-    $freeAssoRoutes = \FreeAsso\Http\FreeFW::getRoutes();
-    $freePMRoutes   = \FreePM\Http\FreeFW::getRoutes();
+    $freeFWCommands     = \FreeFW\Console\FreeFW::getCommands();
+    $freeSSOCommands    = \FreeSSO\Console\FreeFW::getCommands();
+    $freeAssoCommands   = \FreeAsso\Console\FreeFW::getCommands();
+    $freeOfficeCommands = \FreeOffice\Console\FreeFW::getCommands();
+    $freePMCommands     = \FreePM\Console\FreeFW::getCommands();
     /**
      * GO...
      */
     $app
         ->setEventManager($myEvents)
-        ->addRoutes($freeAssoRoutes)
-        ->addRoutes($freeSSORoutes)
-        ->addRoutes($freeFWRoutes)
-        ->addRoutes($freePMRoutes)
+        ->addCommands($freeAssoCommands)
+        ->addCommands($freeSSOCommands)
+        ->addCommands($freeFWCommands)
+        ->addCommands($freeOfficeCommands)
+        ->addCommands($freePMCommands)
     ;
     // GO
     $app->handle();
-    // Finish
-    if ($myQueue) {
-        $myQueue->close();
-    }
 } catch (\Exception $ex) {
-    // @todo
-    //var_dump($ex);
+    echo $ex->getMessage() . "\n";
 }
