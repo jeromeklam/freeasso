@@ -131,8 +131,8 @@ try {
                 \FreeFW\Constants::EVENT_STORAGE_COMMIT,
                 \FreeFW\Constants::EVENT_STORAGE_ROLLBACK,
             ],
-            function ($p_object) use ($app, $myQueue, $myQueueCfg) {
-                $app->listen($p_object, $myQueue, $myQueueCfg);
+            function ($p_object, $p_event_name = null) use ($app, $myQueue, $myQueueCfg) {
+                $app->listen($p_object, $myQueue, $myQueueCfg, $p_event_name);
             }
         );
     }
