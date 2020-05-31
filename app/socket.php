@@ -23,9 +23,9 @@ require_once APP_SRC . '/bootstrap.php';
 /**
  * Recherche du fichier de configuration associée au serveur (virtualHost)
  */
-$server = 'freeasso-dev';
-if (isset($_SERVER['SERVER_NAME'])) {
-    $server = $_SERVER['SERVER_NAME'];
+$server = getenv('SERVER_NAME');
+if (!$server) {
+    $server = 'docker-dev';
 }
 
 /**
@@ -58,6 +58,7 @@ try {
         if (array_key_exists('file', $myLogCfg)) {
             if (array_key_exists('level', $myLogCfg)) {
                 $logFile  = $myLogCfg['file'];
+                $logFile = APP_LOG.'/socket.log';
                 $myLogger = new \FreeFW\Log\FileLogger($logFile, $myLogCfg['level'], false);
             } else {
                 throw new \InvalidArgumentException('Log level missing !');
@@ -92,29 +93,23 @@ try {
     \FreeFW\DI\DI::registerDI('FreeFW', $myConfig, $myLogger);
     \FreeFW\DI\DI::registerDI('FreeAsso', $myConfig, $myLogger);
     \FreeFW\DI\DI::registerDI('FreeSSO', $myConfig, $myLogger);
-    \FreeFW\DI\DI::registerDI('FreePM', $myConfig, $myLogger);
+    \FreeFW\DI\DI::registerDI('FreeFW', $myConfig, $myLogger);
     /**
      * WebSocket
      * @var \React\EventLoop\LoopInterface $loo     */
     $loop    = \React\EventLoop\Factory::create();
-    $storage = new \FreeAsso\Service\Wamp2StorageListener();
+    $storage = new \FreeAsso\Service\SimpleStorageListener();
+    $storage->setLogger($myLogger);
     //
     $context = new React\ZMQ\Context($loop);
     $pull = $context->getSocket(\ZMQ::SOCKET_PULL);
     $pull->bind('tcp://127.0.0.1:5555');
     $pull->on('message', array($storage, 'onEvent'));
-
-    $webSock   = new \React\Socket\Server('0.0.0.0:8080', $loop);
-    $webServer = new \Ratchet\Server\IoServer(
-        new \Ratchet\Http\HttpServer(
-            new \Ratchet\WebSocket\WsServer(
-                new \FreeWS\Wamp2\WampServer(
-                    $storage,
-                    $myLogger
-                )
-            )
-        ),
-        $webSock
+    //
+    $SimpleSock   = new \React\Socket\Server('0.0.0.0:9080', $loop);
+    $simpleServer = new \Ratchet\Server\IoServer(
+        $storage,
+        $SimpleSock
     );
     $loop->run();
 } catch (\Exception $ex) {

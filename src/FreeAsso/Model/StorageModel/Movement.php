@@ -278,6 +278,12 @@ abstract class Movement extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BLOB,
         FFCST::PROPERTY_OPTIONS => []
     ];
+    protected static $PRP_MOVE_TYPE = [
+        FFCST::PROPERTY_PRIVATE => 'move_type',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
+        FFCST::PROPERTY_DEFAULT => 'OTHER',
+    ];
 
     /**
      * get properties
@@ -333,7 +339,8 @@ abstract class Movement extends \FreeFW\Core\StorageModel
             'move_group_name_4'  => self::$PRP_MOVE_GROUP_NAME_4,
             'move_group_num_4'   => self::$PRP_MOVE_GROUP_NUM_4,
             'move_desc'          => self::$PRP_MOVE_DESC,
-            'move_blob'          => self::$PRP_MOVE_BLOB
+            'move_blob'          => self::$PRP_MOVE_BLOB,
+            'move_type'          => self::$PRP_MOVE_TYPE,
         ];
     }
 

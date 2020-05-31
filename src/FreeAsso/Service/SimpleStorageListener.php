@@ -8,7 +8,7 @@ use \Psr\Log\LoggerAwareTrait;
 use \FreeWS\Socket\Topic;
 
 /**
- * 
+ *
  * @author jeromeklam
  *
  */
@@ -51,13 +51,13 @@ class SimpleStorageListener implements MessageComponentInterface, LoggerAwareInt
     protected static $topicLookup = array();
 
     /**
-     * 
+     *
      * @var array
      */
     protected $subscribedTopics = array();
 
     /**
-     * 
+     *
      * @param ConnectionInterface $conn
      * @param \Exception          $ex
      */
@@ -67,17 +67,19 @@ class SimpleStorageListener implements MessageComponentInterface, LoggerAwareInt
     }
 
     /**
-     * 
+     *
      * @param ConnectionInterface $from
      * @param Topic               $topic
      */
     public function onSubscribe(ConnectionInterface $from, $topic)
     {
+        $this->logger->info('FreeAsso.Wamp2.onSubscribe');
+        $this->logger->debug(print_r($topic, true));
         $this->subscribedTopics[$topic->getUri()] = $topic;
     }
 
     /**
-     * 
+     *
      * @param ConnectionInterface $from
      * @param mixed               $msg
      */
@@ -89,6 +91,7 @@ class SimpleStorageListener implements MessageComponentInterface, LoggerAwareInt
         $errMessage = "Unknown error !";
         try {
             $json = json_decode($msg);
+            $this->logger->debug(print_r($json, true));
             while (true) {
                 $this->logger->debug(print_r($json, true));
                 if (!$json) {
@@ -151,7 +154,7 @@ class SimpleStorageListener implements MessageComponentInterface, LoggerAwareInt
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      * @see \Ratchet\ComponentInterface::onClose()
      */
@@ -161,7 +164,7 @@ class SimpleStorageListener implements MessageComponentInterface, LoggerAwareInt
     }
 
     /**
-     * 
+     *
      * {@inheritDoc}
      * @see \Ratchet\ComponentInterface::onOpen()
      */
@@ -209,7 +212,8 @@ class SimpleStorageListener implements MessageComponentInterface, LoggerAwareInt
     {
         $this->logger->info('FreeAsso.Wamp2.onEvent');
         $this->logger->debug(print_r($entry, true));
-        $uri = 'fr.jvsonline.gicbx';
+        $this->logger->debug(print_r($this->subscribedTopics, true));
+        $uri = 'fr.freeasso.storage';
         if (array_key_exists($uri, $this->subscribedTopics)) {
             try {
                 $object          = unserialize($entry);

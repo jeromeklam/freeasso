@@ -23,9 +23,9 @@ require_once APP_SRC . '/bootstrap.php';
 /**
  * Recherche du fichier de configuration associée au serveur (virtualHost)
  */
-$server = 'freeasso-dev';
-if (isset($_SERVER['SERVER_NAME'])) {
-    $server = $_SERVER['SERVER_NAME'];
+$server = getenv('SERVER_NAME');
+if (!$server) {
+    $server = 'docker-dev';
 }
 
 /**

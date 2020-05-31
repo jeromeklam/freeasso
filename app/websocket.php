@@ -23,9 +23,9 @@ require_once APP_SRC . '/bootstrap.php';
 /**
  * Recherche du fichier de configuration associée au serveur (virtualHost)
  */
-$server = 'freeasso-dev';
-if (isset($_SERVER['SERVER_NAME'])) {
-    $server = $_SERVER['SERVER_NAME'];
+$server = getenv('SERVER_NAME');
+if (!$server) {
+    $server = 'docker-dev';
 }
 
 /**
@@ -57,7 +57,8 @@ try {
     if (is_array($myLogCfg)) {
         if (array_key_exists('file', $myLogCfg)) {
             if (array_key_exists('level', $myLogCfg)) {
-                $logFile  = $myLogCfg['file'];
+                $logFile = $myLogCfg['file'];
+                $logFile = APP_LOG.'/websocket.log';
                 $myLogger = new \FreeFW\Log\FileLogger($logFile, $myLogCfg['level'], false);
             } else {
                 throw new \InvalidArgumentException('Log level missing !');
@@ -86,32 +87,36 @@ try {
     } else {
         throw new \FreeFW\Core\FreeFWException('No storage configuration found !');
     }
+    // Micro application
+    $app = \FreeFW\Application\WebSocket::getInstance($myConfig, $myLogger);
     /**
      * FreeAsso DI
      */
     \FreeFW\DI\DI::registerDI('FreeFW', $myConfig, $myLogger);
     \FreeFW\DI\DI::registerDI('FreeAsso', $myConfig, $myLogger);
     \FreeFW\DI\DI::registerDI('FreeSSO', $myConfig, $myLogger);
-    \FreeFW\DI\DI::registerDI('FreeFW', $myConfig, $myLogger);
+    \FreeFW\DI\DI::registerDI('FreePM', $myConfig, $myLogger);
     /**
-     * WebSocket
-     * @var \React\EventLoop\LoopInterface $loo     */
-    $loop    = \React\EventLoop\Factory::create();
-    $storage = new \FreeAsso\Service\SimpleStorageListener();
-    $storage->setLogger($myLogger);
-    //
-    $context = new React\ZMQ\Context($loop);
-    $pull = $context->getSocket(\ZMQ::SOCKET_PULL);
-    $pull->bind('tcp://127.0.0.1:5555');
-    $pull->on('message', array($storage, 'onEvent'));
-    //
-    $SimpleSock   = new \React\Socket\Server('0.0.0.0:8080', $loop);
-    $simpleServer = new \Ratchet\Server\IoServer(
-        $storage,
-        $SimpleSock
-    );
-    $loop->run();
+     * On va chercher les routes des modules, ...
+     */
+    $freeFWRoutes   = \FreeFW\Http\FreeFW::getRoutes();
+    $freeSSORoutes  = \FreeSSO\Http\FreeFW::getRoutes();
+    $freeAssoRoutes = \FreeAsso\Http\FreeFW::getRoutes();
+    $freePMRoutes   = \FreePM\Http\FreeFW::getRoutes();
+    /**
+     * GO...
+     */
+    $app
+        ->setEventManager($myEvents)
+        ->addRoutes($freeAssoRoutes)
+        ->addRoutes($freeSSORoutes)
+        ->addRoutes($freeFWRoutes)
+        ->addRoutes($freePMRoutes)
+    ;
+    /**
+     *
+     */
+    $app->handle();
 } catch (\Exception $ex) {
     var_export($ex);
-    die('dsfdsfsd');
 }

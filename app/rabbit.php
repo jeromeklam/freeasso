@@ -23,7 +23,10 @@ require_once APP_SRC . '/bootstrap.php';
 /**
  * Recherche du fichier de configuration associée au serveur (virtualHost)
  */
-$server = 'freeasso-dev';
+$server = getenv('SERVER_NAME');
+if (!$server) {
+    $server = 'docker-dev';
+}
 
 /**
  * Fichier de configuration
@@ -89,8 +92,6 @@ try {
     \FreeFW\DI\DI::registerDI('FreeFW', $myConfig, $myLogger);
     \FreeFW\DI\DI::registerDI('FreeAsso', $myConfig, $myLogger);
     \FreeFW\DI\DI::registerDI('FreeSSO', $myConfig, $myLogger);
-    // Listener
-    $myListener = new \FreeAsso\Service\StorageListener();
     // Queue
     $myQueue    = false;
     $myQueueCfg = $myConfig->get('queue');
@@ -110,8 +111,8 @@ try {
 
         echo " [*] Waiting for logs. To exit press CTRL+C\n";
 
-        $callback = function ($msg) use ($myListener) {
-            $myListener->onStorage($msg);
+        $callback = function ($msg) {
+            echo ' [x] Received ', $msg->body, "\n";
         };
         $channel->basic_consume($queue_name, '', false, true, false, false, $callback);
 

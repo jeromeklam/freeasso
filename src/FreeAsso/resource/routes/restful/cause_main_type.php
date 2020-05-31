@@ -25,6 +25,7 @@ $causeMainTypeRoutes = [
         'model'      => 'FreeAsso::Model::CauseMainType',
         'url'        => '/v1/asso/cause_main_type/:camt_id',
         'controller' => 'FreeAsso::Controller::CauseMainType',
+        'role'       => \FreeFW\Router\Route::ROLE_GET_ONE,
         'function'   => 'getOne',
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
