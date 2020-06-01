@@ -35,19 +35,19 @@ abstract class Sponsorship extends \FreeAsso\Model\StorageModel\Sponsorship
 
     /**
      * spo_from
-     * @var string
+     * @var mixed
      */
     protected $spo_from = null;
 
     /**
      * spo_to
-     * @var string
+     * @var mixed
      */
     protected $spo_to = null;
 
     /**
      * spo_mnt
-     * @var string
+     * @var mixed
      */
     protected $spo_mnt = null;
 
@@ -65,7 +65,7 @@ abstract class Sponsorship extends \FreeAsso\Model\StorageModel\Sponsorship
 
     /**
      * spo_freq_when
-     * @var string
+     * @var int
      */
     protected $spo_freq_when = null;
 
@@ -89,13 +89,13 @@ abstract class Sponsorship extends \FreeAsso\Model\StorageModel\Sponsorship
 
     /**
      * spo_display_site
-     * @var int
+     * @var bool
      */
     protected $spo_display_site = null;
 
     /**
      * spo_send_news
-     * @var int
+     * @var bool
      */
     protected $spo_send_news = null;
 
@@ -194,7 +194,7 @@ abstract class Sponsorship extends \FreeAsso\Model\StorageModel\Sponsorship
     /**
      * Set spo_from
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Sponsorship
      */
@@ -207,7 +207,7 @@ abstract class Sponsorship extends \FreeAsso\Model\StorageModel\Sponsorship
     /**
      * Get spo_from
      *
-     * @return string
+     * @return mixed
      */
     public function getSpoFrom()
     {
@@ -217,7 +217,7 @@ abstract class Sponsorship extends \FreeAsso\Model\StorageModel\Sponsorship
     /**
      * Set spo_to
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Sponsorship
      */
@@ -230,7 +230,7 @@ abstract class Sponsorship extends \FreeAsso\Model\StorageModel\Sponsorship
     /**
      * Get spo_to
      *
-     * @return string
+     * @return mixed
      */
     public function getSpoTo()
     {
@@ -240,7 +240,7 @@ abstract class Sponsorship extends \FreeAsso\Model\StorageModel\Sponsorship
     /**
      * Set spo_mnt
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Sponsorship
      */
@@ -253,7 +253,7 @@ abstract class Sponsorship extends \FreeAsso\Model\StorageModel\Sponsorship
     /**
      * Get spo_mnt
      *
-     * @return string
+     * @return mixed
      */
     public function getSpoMnt()
     {
@@ -309,7 +309,7 @@ abstract class Sponsorship extends \FreeAsso\Model\StorageModel\Sponsorship
     /**
      * Set spo_freq_when
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Sponsorship
      */
@@ -322,7 +322,7 @@ abstract class Sponsorship extends \FreeAsso\Model\StorageModel\Sponsorship
     /**
      * Get spo_freq_when
      *
-     * @return string
+     * @return int
      */
     public function getSpoFreqWhen()
     {
@@ -401,7 +401,7 @@ abstract class Sponsorship extends \FreeAsso\Model\StorageModel\Sponsorship
     /**
      * Set spo_display_site
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\Sponsorship
      */
@@ -414,7 +414,7 @@ abstract class Sponsorship extends \FreeAsso\Model\StorageModel\Sponsorship
     /**
      * Get spo_display_site
      *
-     * @return int
+     * @return bool
      */
     public function getSpoDisplaySite()
     {
@@ -424,7 +424,7 @@ abstract class Sponsorship extends \FreeAsso\Model\StorageModel\Sponsorship
     /**
      * Set spo_send_news
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\Sponsorship
      */
@@ -437,7 +437,7 @@ abstract class Sponsorship extends \FreeAsso\Model\StorageModel\Sponsorship
     /**
      * Get spo_send_news
      *
-     * @return int
+     * @return bool
      */
     public function getSpoSendNews()
     {
