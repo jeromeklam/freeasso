@@ -72,12 +72,14 @@ abstract class Movement extends \FreeFW\Core\StorageModel
     protected static $PRP_MOVE_FROM_EMPTY = [
         FFCST::PROPERTY_PRIVATE => 'move_from_empty',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_DEFAULT => true,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_MOVE_FROM_TYPE = [
         FFCST::PROPERTY_PRIVATE => 'move_from_type',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_DEFAULT => 'OTHER',
+        FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_MOVE_FROM_CLI_ID = [
         FFCST::PROPERTY_PRIVATE => 'move_from_cli_id',
@@ -94,27 +96,27 @@ abstract class Movement extends \FreeFW\Core\StorageModel
     protected static $PRP_MOVE_FROM_NUM = [
         FFCST::PROPERTY_PRIVATE => 'move_from_num',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_MOVE_FROM_NAME = [
         FFCST::PROPERTY_PRIVATE => 'move_from_name',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_MOVE_FROM_ADDRESS = [
         FFCST::PROPERTY_PRIVATE => 'move_from_address',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_MOVE_FROM_CP = [
         FFCST::PROPERTY_PRIVATE => 'move_from_cp',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_MOVE_FROM_TOWN = [
         FFCST::PROPERTY_PRIVATE => 'move_from_town',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_MOVE_FROM_NUMBER_1 = [
         FFCST::PROPERTY_PRIVATE => 'move_from_number_1',
@@ -154,12 +156,14 @@ abstract class Movement extends \FreeFW\Core\StorageModel
     protected static $PRP_MOVE_TO_EMPTY = [
         FFCST::PROPERTY_PRIVATE => 'move_to_empty',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_DEFAULT => true,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_MOVE_TO_TYPE = [
         FFCST::PROPERTY_PRIVATE => 'move_to_type',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_DEFAULT => 'OTHER',
+        FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_MOVE_TO_CLI_ID = [
         FFCST::PROPERTY_PRIVATE => 'move_to_cli_id',
@@ -176,27 +180,27 @@ abstract class Movement extends \FreeFW\Core\StorageModel
     protected static $PRP_MOVE_TO_NUM = [
         FFCST::PROPERTY_PRIVATE => 'move_to_num',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_MOVE_TO_NAME = [
         FFCST::PROPERTY_PRIVATE => 'move_to_name',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_MOVE_TO_ADDRESS = [
         FFCST::PROPERTY_PRIVATE => 'move_to_address',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_MOVE_TO_CP = [
         FFCST::PROPERTY_PRIVATE => 'move_to_cp',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_MOVE_TO_TOWN = [
         FFCST::PROPERTY_PRIVATE => 'move_to_town',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_MOVE_TO_NUMBER_1 = [
         FFCST::PROPERTY_PRIVATE => 'move_to_number_1',
@@ -352,5 +356,23 @@ abstract class Movement extends \FreeFW\Core\StorageModel
     public static function getSource()
     {
         return 'asso_movement';
+    }
+
+    /**
+     * Get One To many relationShips
+     *
+     * @return array
+     */
+    public function getRelationships()
+    {
+        return [
+            'causes' => [
+                FFCST::REL_MODEL   => 'FreeAsso::Model::Cause',
+                FFCST::REL_FIELD   => 'cau_id',
+                FFCST::REL_TYPE    => \FreeFW\Model\Query::JOIN_LEFT,
+                FFCST::REL_COMMENT => 'Les causes du mouvement',
+                FFCST::REL_REMOVE  => FFCST::REL_REMOVE_CASCADE
+            ]
+        ];
     }
 }

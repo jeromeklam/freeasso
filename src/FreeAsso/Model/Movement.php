@@ -36,53 +36,34 @@ class Movement extends \FreeAsso\Model\Base\Movement
     protected $to_client = null;
 
     /**
-     *
-     * {@inheritDoc}
-     * @see \FreeFW\Core\Model::init()
+     * Causes
+     * @var [\FreeAsso\Model\Cause]
      */
-    public function init()
-    {
-        $this->move_id            = 0;
-        $this->brk_id             = 0;
-        $this->move_from_cli_id   = null;
-        $this->move_to_cli_id     = null;
-        $this->move_from_site_id  = null;
-        $this->move_to_site_id    = null;
-        $this->move_from_empty    = true;
-        $this->move_to_empty      = true;
-        $this->move_from_number_1 = 0;
-        $this->move_from_number_2 = 0;
-        $this->move_from_number_3 = 0;
-        $this->move_from_number_4 = 0;
-        $this->move_from_number_5 = 0;
-        $this->move_from_number_6 = 0;
-        
-        return $this;
-    }
-    
+    protected $causes = [];
+
     /**
-     * Set cause
+     * Set causes
      *
-     * @param \FreeAsso\Model\Cause $p_cause
+     * @param [\FreeAsso\Model\Cause $p_cause]
      *
      * @return \FreeAsso\Model\CauseMedia
      */
-    public function setCause($p_cause)
+    public function setCauses($p_causes)
     {
-        $this->cause = $p_cause;
+        $this->causes = $p_causes;
         return $this;
     }
-    
+
     /**
-     * Get cause
+     * Get causes
      *
-     * @return \FreeAsso\Model\Cause
+     * @return [\FreeAsso\Model\Cause]
      */
-    public function getCause()
+    public function getCauses()
     {
-        return $this->cause;
+        return $this->causes;
     }
-    
+
     /**
      * Set from
      *
@@ -95,7 +76,7 @@ class Movement extends \FreeAsso\Model\Base\Movement
         $this->from_site = $p_site;
         return $this;
     }
-    
+
     /**
      * Get from
      *
@@ -105,7 +86,7 @@ class Movement extends \FreeAsso\Model\Base\Movement
     {
         return $this->from_site;
     }
-    
+
     /**
      * Set to
      *
@@ -118,7 +99,7 @@ class Movement extends \FreeAsso\Model\Base\Movement
         $this->to_site = $p_site;
         return $this;
     }
-    
+
     /**
      * Get to
      *
@@ -131,9 +112,9 @@ class Movement extends \FreeAsso\Model\Base\Movement
 
     /**
      * Set from client
-     * 
+     *
      * @param \FreeAsso\Model\Client $p_client
-     * 
+     *
      * @return \FreeAsso\Model\Movement
      */
     public function setFromClient($p_client)
@@ -144,7 +125,7 @@ class Movement extends \FreeAsso\Model\Base\Movement
 
     /**
      * Get from client
-     * 
+     *
      * @return \FreeAsso\Model\Client
      */
     public function getFromClient()
@@ -173,5 +154,15 @@ class Movement extends \FreeAsso\Model\Base\Movement
     public function getToClient()
     {
         return $this->to_client;
+    }
+
+    /**
+     * After create
+     *
+     * @return boolean
+     */
+    public function afterCreate()
+    {
+        return true;
     }
 }
