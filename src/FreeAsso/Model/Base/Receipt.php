@@ -41,25 +41,25 @@ abstract class Receipt extends \FreeAsso\Model\StorageModel\Receipt
 
     /**
      * rec_ts
-     * @var string
+     * @var mixed
      */
     protected $rec_ts = null;
 
     /**
      * rec_gen_ts
-     * @var string
+     * @var mixed
      */
     protected $rec_gen_ts = null;
 
     /**
      * rec_print_ts
-     * @var string
+     * @var mixed
      */
     protected $rec_print_ts = null;
 
     /**
      * rec_year
-     * @var string
+     * @var int
      */
     protected $rec_year = null;
 
@@ -71,7 +71,7 @@ abstract class Receipt extends \FreeAsso\Model\StorageModel\Receipt
 
     /**
      * rec_mnt
-     * @var string
+     * @var mixed
      */
     protected $rec_mnt = null;
 
@@ -271,7 +271,7 @@ abstract class Receipt extends \FreeAsso\Model\StorageModel\Receipt
     /**
      * Set rec_ts
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Receipt
      */
@@ -284,7 +284,7 @@ abstract class Receipt extends \FreeAsso\Model\StorageModel\Receipt
     /**
      * Get rec_ts
      *
-     * @return string
+     * @return mixed
      */
     public function getRecTs()
     {
@@ -294,7 +294,7 @@ abstract class Receipt extends \FreeAsso\Model\StorageModel\Receipt
     /**
      * Set rec_gen_ts
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Receipt
      */
@@ -307,7 +307,7 @@ abstract class Receipt extends \FreeAsso\Model\StorageModel\Receipt
     /**
      * Get rec_gen_ts
      *
-     * @return string
+     * @return mixed
      */
     public function getRecGenTs()
     {
@@ -317,7 +317,7 @@ abstract class Receipt extends \FreeAsso\Model\StorageModel\Receipt
     /**
      * Set rec_print_ts
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Receipt
      */
@@ -330,7 +330,7 @@ abstract class Receipt extends \FreeAsso\Model\StorageModel\Receipt
     /**
      * Get rec_print_ts
      *
-     * @return string
+     * @return mixed
      */
     public function getRecPrintTs()
     {
@@ -340,7 +340,7 @@ abstract class Receipt extends \FreeAsso\Model\StorageModel\Receipt
     /**
      * Set rec_year
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Receipt
      */
@@ -353,7 +353,7 @@ abstract class Receipt extends \FreeAsso\Model\StorageModel\Receipt
     /**
      * Get rec_year
      *
-     * @return string
+     * @return int
      */
     public function getRecYear()
     {
@@ -386,7 +386,7 @@ abstract class Receipt extends \FreeAsso\Model\StorageModel\Receipt
     /**
      * Set rec_mnt
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Receipt
      */
@@ -399,7 +399,7 @@ abstract class Receipt extends \FreeAsso\Model\StorageModel\Receipt
     /**
      * Get rec_mnt
      *
-     * @return string
+     * @return mixed
      */
     public function getRecMnt()
     {

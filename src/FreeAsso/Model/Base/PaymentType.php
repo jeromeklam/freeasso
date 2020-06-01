@@ -35,19 +35,19 @@ abstract class PaymentType extends \FreeAsso\Model\StorageModel\PaymentType
 
     /**
      * ptyp_receipt
-     * @var string
+     * @var bool
      */
     protected $ptyp_receipt = null;
 
     /**
      * ptyp_from
-     * @var string
+     * @var mixed
      */
     protected $ptyp_from = null;
 
     /**
      * ptyp_to
-     * @var string
+     * @var mixed
      */
     protected $ptyp_to = null;
 
@@ -146,7 +146,7 @@ abstract class PaymentType extends \FreeAsso\Model\StorageModel\PaymentType
     /**
      * Set ptyp_receipt
      *
-     * @param string $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\PaymentType
      */
@@ -159,7 +159,7 @@ abstract class PaymentType extends \FreeAsso\Model\StorageModel\PaymentType
     /**
      * Get ptyp_receipt
      *
-     * @return string
+     * @return bool
      */
     public function getPtypReceipt()
     {
@@ -169,7 +169,7 @@ abstract class PaymentType extends \FreeAsso\Model\StorageModel\PaymentType
     /**
      * Set ptyp_from
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\PaymentType
      */
@@ -182,7 +182,7 @@ abstract class PaymentType extends \FreeAsso\Model\StorageModel\PaymentType
     /**
      * Get ptyp_from
      *
-     * @return string
+     * @return mixed
      */
     public function getPtypFrom()
     {
@@ -192,7 +192,7 @@ abstract class PaymentType extends \FreeAsso\Model\StorageModel\PaymentType
     /**
      * Set ptyp_to
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\PaymentType
      */
@@ -205,7 +205,7 @@ abstract class PaymentType extends \FreeAsso\Model\StorageModel\PaymentType
     /**
      * Get ptyp_to
      *
-     * @return string
+     * @return mixed
      */
     public function getPtypTo()
     {

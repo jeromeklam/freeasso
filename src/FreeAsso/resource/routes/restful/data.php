@@ -1,80 +1,166 @@
 <?php
+use \FreeFW\Constants as FFCST;
+use \FreeFW\Router\Route as FFCSTRT;
+
+/**
+ * Routes for Data
+ *
+ * @author jeromeklam
+ */
 $dataRoutes = [
-    /**
-     * ########################################################################
-     * Datas
-     * ########################################################################
-     */
-    'freeasso.data.getall' => [
-        'method'     => \FreeFW\Router\Route::METHOD_GET,
-        'model'      => 'FreeAsso::Model::Data',
-        'url'        => '/v1/asso/data',
-        'controller' => 'FreeAsso::Controller::Data',
-        'function'   => 'getAll',
-        'auth'       => \FreeFW\Router\Route::AUTH_IN,
-        'middleware' => [],
-        'results' => [
+    'free_asso.data.autocomplete' => [
+        FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Data',
+        FFCSTRT::ROUTE_COMMENT    => 'Autocomplete.',
+        FFCSTRT::ROUTE_METHOD     => FFCSTRT::METHOD_GET,
+        FFCSTRT::ROUTE_MODEL      => 'FreeAsso::Model::Data',
+        FFCSTRT::ROUTE_URL        => '/v1/asso/data/autocomplete/:search',
+        FFCSTRT::ROUTE_CONTROLLER => 'FreeAsso::Controller::Data',
+        FFCSTRT::ROUTE_FUNCTION   => 'autocomplete',
+        FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_AUTOCOMPLETE,
+        FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
+        FFCSTRT::ROUTE_MIDDLEWARE => [],
+        FFCSTRT::ROUTE_INCLUDE    => [],
+        FFCSTRT::ROUTE_SCOPE      => [],
+        FFCSTRT::ROUTE_PARAMETERS => [
+            'search' => [
+                FFCSTRT::ROUTE_PARAMETER_ORIGIN   => FFCSTRT::ROUTE_PARAMETER_ORIGIN_PATH,
+                FFCSTRT::ROUTE_PARAMETER_TYPE     => FFCST::TYPE_STRING,
+                FFCSTRT::ROUTE_PARAMETER_REQUIRED => true,
+                FFCSTRT::ROUTE_PARAMETER_COMMENT  => 'Chaine de recherche'
+            ],
+        ],
+        FFCSTRT::ROUTE_RESULTS    => [
             '200' => [
-                'type'  => \FreeFW\Router\Route::RESULT_LIST,
-                'model' => 'FreeSso::Model::Data'
-            ]
+                FFCSTRT::ROUTE_RESULTS_TYPE    => FFCSTRT::RESULT_LIST,
+                FFCSTRT::ROUTE_RESULTS_MODEL   => 'FreeAsso::Model::Data',
+                FFCSTRT::ROUTE_RESULTS_COMMENT => 'Réponse ok',
+            ],
         ]
     ],
-    'freeasso.data.getone' => [
-        'method'     => \FreeFW\Router\Route::METHOD_GET,
-        'model'      => 'FreeAsso::Model::Data',
-        'url'        => '/v1/asso/data/:data_id',
-        'controller' => 'FreeAsso::Controller::Data',
-        'function'   => 'getOne',
-        'auth'       => \FreeFW\Router\Route::AUTH_IN,
-        'middleware' => [],
-        'results' => [
+    'free_asso.data.getall' => [
+        FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Data',
+        FFCSTRT::ROUTE_COMMENT    => 'Retourne une liste filtrée, triée et paginée.',
+        FFCSTRT::ROUTE_METHOD     => FFCSTRT::METHOD_GET,
+        FFCSTRT::ROUTE_MODEL      => 'FreeAsso::Model::Data',
+        FFCSTRT::ROUTE_URL        => '/v1/asso/data',
+        FFCSTRT::ROUTE_CONTROLLER => 'FreeAsso::Controller::Data',
+        FFCSTRT::ROUTE_FUNCTION   => 'getAll',
+        FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_GET_FILTERED,
+        FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
+        FFCSTRT::ROUTE_MIDDLEWARE => [],
+        FFCSTRT::ROUTE_INCLUDE    => [],
+        FFCSTRT::ROUTE_SCOPE      => [],
+        FFCSTRT::ROUTE_RESULTS    => [
             '200' => [
-                'type'  => \FreeFW\Router\Route::RESULT_OBJECT,
-                'model' => 'FreeSso::Model::Data'
-            ]
+                FFCSTRT::ROUTE_RESULTS_TYPE    => FFCSTRT::RESULT_LIST,
+                FFCSTRT::ROUTE_RESULTS_MODEL   => 'FreeAsso::Model::Data',
+                FFCSTRT::ROUTE_RESULTS_COMMENT => 'Réponse ok',
+            ],
         ]
     ],
-    'freeasso.data.createone' => [
-        'method'     => \FreeFW\Router\Route::METHOD_POST,
-        'model'      => 'FreeAsso::Model::Data',
-        'url'        => '/v1/asso/data',
-        'controller' => 'FreeAsso::Controller::Data',
-        'function'   => 'createOne',
-        'auth'       => \FreeFW\Router\Route::AUTH_IN,
-        'middleware' => [],
-        'results' => [
+    'free_asso.data.getone' => [
+        FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Data',
+        FFCSTRT::ROUTE_COMMENT    => 'Retourne un objet selon son identifiant',
+        FFCSTRT::ROUTE_METHOD     => FFCSTRT::METHOD_GET,
+        FFCSTRT::ROUTE_MODEL      => 'FreeAsso::Model::Data',
+        FFCSTRT::ROUTE_URL        => '/v1/asso/data/:data_id',
+        FFCSTRT::ROUTE_CONTROLLER => 'FreeAsso::Controller::Data',
+        FFCSTRT::ROUTE_FUNCTION   => 'getOne',
+        FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_GET_ONE,
+        FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
+        FFCSTRT::ROUTE_MIDDLEWARE => [],
+        FFCSTRT::ROUTE_INCLUDE    => [],
+        FFCSTRT::ROUTE_SCOPE      => [],
+        FFCSTRT::ROUTE_PARAMETERS => [
+            'data_id' => [
+                FFCSTRT::ROUTE_PARAMETER_ORIGIN   => FFCSTRT::ROUTE_PARAMETER_ORIGIN_PATH,
+                FFCSTRT::ROUTE_PARAMETER_TYPE     => FFCST::TYPE_BIGINT,
+                FFCSTRT::ROUTE_PARAMETER_REQUIRED => true,
+                FFCSTRT::ROUTE_PARAMETER_COMMENT  => 'Identifiant de l\'objet'
+            ],
+        ],
+        FFCSTRT::ROUTE_RESULTS    => [
+            '200' => [
+                FFCSTRT::ROUTE_RESULTS_TYPE    => FFCSTRT::RESULT_OBJECT,
+                FFCSTRT::ROUTE_RESULTS_MODEL   => 'FreeAsso::Model::Data',
+                FFCSTRT::ROUTE_RESULTS_COMMENT => 'Réponse ok',
+            ],
+        ]
+    ],
+    'free_asso.data.createone' => [
+        FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Data',
+        FFCSTRT::ROUTE_COMMENT    => 'Créé un objet',
+        FFCSTRT::ROUTE_METHOD     => FFCSTRT::METHOD_POST,
+        FFCSTRT::ROUTE_MODEL      => 'FreeAsso::Model::Data',
+        FFCSTRT::ROUTE_URL        => '/v1/asso/data',
+        FFCSTRT::ROUTE_CONTROLLER => 'FreeAsso::Controller::Data',
+        FFCSTRT::ROUTE_FUNCTION   => 'createOne',
+        FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_CREATE_ONE,
+        FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
+        FFCSTRT::ROUTE_MIDDLEWARE => [],
+        FFCSTRT::ROUTE_INCLUDE    => [],
+        FFCSTRT::ROUTE_SCOPE      => [],
+        FFCSTRT::ROUTE_RESULTS    => [
             '201' => [
-                'type'  => \FreeFW\Router\Route::RESULT_OBJECT,
-                'model' => 'FreeSso::Model::Data'
-            ]
+                FFCSTRT::ROUTE_RESULTS_TYPE    => FFCSTRT::RESULT_OBJECT,
+                FFCSTRT::ROUTE_RESULTS_MODEL   => 'FreeAsso::Model::Data',
+                FFCSTRT::ROUTE_RESULTS_COMMENT => 'Objet créé',
+            ],
         ]
     ],
-    'freeasso.data.updateone' => [
-        'method'     => \FreeFW\Router\Route::METHOD_PUT,
-        'model'      => 'FreeAsso::Model::Data',
-        'url'        => '/v1/asso/data/:data_id',
-        'controller' => 'FreeAsso::Controller::Data',
-        'function'   => 'updateOne',
-        'auth'       => \FreeFW\Router\Route::AUTH_IN,
-        'middleware' => [],
-        'results' => [
+    'free_asso.data.updateone' => [
+        FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Data',
+        FFCSTRT::ROUTE_COMMENT    => 'Modifie un objet',
+        FFCSTRT::ROUTE_METHOD     => FFCSTRT::METHOD_PUT,
+        FFCSTRT::ROUTE_MODEL      => 'FreeAsso::Model::Data',
+        FFCSTRT::ROUTE_URL        => '/v1/asso/data/:data_id',
+        FFCSTRT::ROUTE_CONTROLLER => 'FreeAsso::Controller::Data',
+        FFCSTRT::ROUTE_FUNCTION   => 'updateOne',
+        FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_UPDATE_ONE,
+        FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
+        FFCSTRT::ROUTE_MIDDLEWARE => [],
+        FFCSTRT::ROUTE_INCLUDE    => [],
+        FFCSTRT::ROUTE_SCOPE      => [],
+        FFCSTRT::ROUTE_PARAMETERS => [
+            'data_id' => [
+                FFCSTRT::ROUTE_PARAMETER_ORIGIN   => FFCSTRT::ROUTE_PARAMETER_ORIGIN_PATH,
+                FFCSTRT::ROUTE_PARAMETER_TYPE     => FFCST::TYPE_BIGINT,
+                FFCSTRT::ROUTE_PARAMETER_REQUIRED => true,
+                FFCSTRT::ROUTE_PARAMETER_COMMENT  => 'Identifiant de l\'objet'
+            ],
+        ],
+        FFCSTRT::ROUTE_RESULTS    => [
             '200' => [
-                'type'  => \FreeFW\Router\Route::RESULT_OBJECT,
-                'model' => 'FreeSso::Model::Data'
-            ]
+                FFCSTRT::ROUTE_RESULTS_TYPE    => FFCSTRT::RESULT_OBJECT,
+                FFCSTRT::ROUTE_RESULTS_MODEL   => 'FreeAsso::Model::Data',
+                FFCSTRT::ROUTE_RESULTS_COMMENT => 'Objet modifié',
+            ],
         ]
     ],
-    'freeasso.data.deleteone' => [
-        'method'     => \FreeFW\Router\Route::METHOD_DELETE,
-        'model'      => 'FreeAsso::Model::Data',
-        'url'        => '/v1/asso/data/:data_id',
-        'controller' => 'FreeAsso::Controller::Data',
-        'function'   => 'removeOne',
-        'auth'       => \FreeFW\Router\Route::AUTH_IN,
-        'middleware' => [],
-        'results' => [
+    'free_asso.data.removeone' => [
+        FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Data',
+        FFCSTRT::ROUTE_COMMENT    => 'Supprime un objet',
+        FFCSTRT::ROUTE_METHOD     => FFCSTRT::METHOD_DELETE,
+        FFCSTRT::ROUTE_MODEL      => 'FreeAsso::Model::Data',
+        FFCSTRT::ROUTE_URL        => '/v1/asso/data/:data_id',
+        FFCSTRT::ROUTE_CONTROLLER => 'FreeAsso::Controller::Data',
+        FFCSTRT::ROUTE_FUNCTION   => 'removeOne',
+        FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_DELETE_ONE,
+        FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
+        FFCSTRT::ROUTE_MIDDLEWARE => [],
+        FFCSTRT::ROUTE_INCLUDE    => [],
+        FFCSTRT::ROUTE_SCOPE      => [],
+        FFCSTRT::ROUTE_PARAMETERS => [
+            'data_id' => [
+                FFCSTRT::ROUTE_PARAMETER_ORIGIN   => FFCSTRT::ROUTE_PARAMETER_ORIGIN_PATH,
+                FFCSTRT::ROUTE_PARAMETER_TYPE     => FFCST::TYPE_BIGINT,
+                FFCSTRT::ROUTE_PARAMETER_REQUIRED => true,
+                FFCSTRT::ROUTE_PARAMETER_COMMENT  => 'Identifiant de l\'objet'
+            ],
+        ],
+        FFCSTRT::ROUTE_RESULTS    => [
             '204' => [
+                FFCSTRT::ROUTE_RESULTS_COMMENT => 'Objet supprimé',
             ]
         ]
     ],

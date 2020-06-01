@@ -29,19 +29,19 @@ abstract class CauseGrowth extends \FreeAsso\Model\StorageModel\CauseGrowth
 
     /**
      * grow_ts
-     * @var string
+     * @var mixed
      */
     protected $grow_ts = null;
 
     /**
      * grow_weight
-     * @var string
+     * @var mixed
      */
     protected $grow_weight = null;
 
     /**
      * grow_height
-     * @var string
+     * @var mixed
      */
     protected $grow_height = null;
 
@@ -117,7 +117,7 @@ abstract class CauseGrowth extends \FreeAsso\Model\StorageModel\CauseGrowth
     /**
      * Set grow_ts
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\CauseGrowth
      */
@@ -130,7 +130,7 @@ abstract class CauseGrowth extends \FreeAsso\Model\StorageModel\CauseGrowth
     /**
      * Get grow_ts
      *
-     * @return string
+     * @return mixed
      */
     public function getGrowTs()
     {
@@ -140,7 +140,7 @@ abstract class CauseGrowth extends \FreeAsso\Model\StorageModel\CauseGrowth
     /**
      * Set grow_weight
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\CauseGrowth
      */
@@ -153,7 +153,7 @@ abstract class CauseGrowth extends \FreeAsso\Model\StorageModel\CauseGrowth
     /**
      * Get grow_weight
      *
-     * @return string
+     * @return mixed
      */
     public function getGrowWeight()
     {
@@ -163,7 +163,7 @@ abstract class CauseGrowth extends \FreeAsso\Model\StorageModel\CauseGrowth
     /**
      * Set grow_height
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\CauseGrowth
      */
@@ -176,7 +176,7 @@ abstract class CauseGrowth extends \FreeAsso\Model\StorageModel\CauseGrowth
     /**
      * Get grow_height
      *
-     * @return string
+     * @return mixed
      */
     public function getGrowHeight()
     {

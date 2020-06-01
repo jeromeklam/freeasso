@@ -41,19 +41,19 @@ abstract class SiteMedia extends \FreeAsso\Model\StorageModel\SiteMedia
 
     /**
      * sitm_ts
-     * @var string
+     * @var mixed
      */
     protected $sitm_ts = null;
 
     /**
      * sitm_from
-     * @var string
+     * @var mixed
      */
     protected $sitm_from = null;
 
     /**
      * sitm_to
-     * @var string
+     * @var mixed
      */
     protected $sitm_to = null;
 
@@ -89,7 +89,7 @@ abstract class SiteMedia extends \FreeAsso\Model\StorageModel\SiteMedia
 
     /**
      * sitm_order
-     * @var string
+     * @var int
      */
     protected $sitm_order = null;
 
@@ -217,7 +217,7 @@ abstract class SiteMedia extends \FreeAsso\Model\StorageModel\SiteMedia
     /**
      * Set sitm_ts
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\SiteMedia
      */
@@ -230,7 +230,7 @@ abstract class SiteMedia extends \FreeAsso\Model\StorageModel\SiteMedia
     /**
      * Get sitm_ts
      *
-     * @return string
+     * @return mixed
      */
     public function getSitmTs()
     {
@@ -240,7 +240,7 @@ abstract class SiteMedia extends \FreeAsso\Model\StorageModel\SiteMedia
     /**
      * Set sitm_from
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\SiteMedia
      */
@@ -253,7 +253,7 @@ abstract class SiteMedia extends \FreeAsso\Model\StorageModel\SiteMedia
     /**
      * Get sitm_from
      *
-     * @return string
+     * @return mixed
      */
     public function getSitmFrom()
     {
@@ -263,7 +263,7 @@ abstract class SiteMedia extends \FreeAsso\Model\StorageModel\SiteMedia
     /**
      * Set sitm_to
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\SiteMedia
      */
@@ -276,7 +276,7 @@ abstract class SiteMedia extends \FreeAsso\Model\StorageModel\SiteMedia
     /**
      * Get sitm_to
      *
-     * @return string
+     * @return mixed
      */
     public function getSitmTo()
     {
@@ -401,7 +401,7 @@ abstract class SiteMedia extends \FreeAsso\Model\StorageModel\SiteMedia
     /**
      * Set sitm_order
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\SiteMedia
      */
@@ -414,7 +414,7 @@ abstract class SiteMedia extends \FreeAsso\Model\StorageModel\SiteMedia
     /**
      * Get sitm_order
      *
-     * @return string
+     * @return int
      */
     public function getSitmOrder()
     {

@@ -41,25 +41,25 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
 
     /**
      * cau_from
-     * @var string
+     * @var mixed
      */
     protected $cau_from = null;
 
     /**
      * cau_to
-     * @var string
+     * @var mixed
      */
     protected $cau_to = null;
 
     /**
      * cau_public
-     * @var string
+     * @var bool
      */
     protected $cau_public = null;
 
     /**
      * cau_available
-     * @var string
+     * @var bool
      */
     protected $cau_available = null;
 
@@ -89,13 +89,13 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
 
     /**
      * cau_mnt
-     * @var string
+     * @var mixed
      */
     protected $cau_mnt = null;
 
     /**
      * cau_mnt_left
-     * @var string
+     * @var mixed
      */
     protected $cau_mnt_left = null;
 
@@ -125,7 +125,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
 
     /**
      * cau_year
-     * @var string
+     * @var int
      */
     protected $cau_year = null;
 
@@ -155,49 +155,49 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
 
     /**
      * cau_number_1
-     * @var string
+     * @var int
      */
     protected $cau_number_1 = null;
 
     /**
      * cau_number_2
-     * @var string
+     * @var int
      */
     protected $cau_number_2 = null;
 
     /**
      * cau_number_3
-     * @var string
+     * @var int
      */
     protected $cau_number_3 = null;
 
     /**
      * cau_number_4
-     * @var string
+     * @var int
      */
     protected $cau_number_4 = null;
 
     /**
      * cau_date_1
-     * @var string
+     * @var mixed
      */
     protected $cau_date_1 = null;
 
     /**
      * cau_date_2
-     * @var string
+     * @var mixed
      */
     protected $cau_date_2 = null;
 
     /**
      * cau_date_3
-     * @var string
+     * @var mixed
      */
     protected $cau_date_3 = null;
 
     /**
      * cau_date_4
-     * @var string
+     * @var mixed
      */
     protected $cau_date_4 = null;
 
@@ -227,25 +227,25 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
 
     /**
      * cau_bool_1
-     * @var int
+     * @var bool
      */
     protected $cau_bool_1 = null;
 
     /**
      * cau_bool_2
-     * @var int
+     * @var bool
      */
     protected $cau_bool_2 = null;
 
     /**
      * cau_bool_3
-     * @var int
+     * @var bool
      */
     protected $cau_bool_3 = null;
 
     /**
      * cau_bool_4
-     * @var int
+     * @var bool
      */
     protected $cau_bool_4 = null;
 
@@ -397,7 +397,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Set cau_from
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Cause
      */
@@ -410,7 +410,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Get cau_from
      *
-     * @return string
+     * @return mixed
      */
     public function getCauFrom()
     {
@@ -420,7 +420,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Set cau_to
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Cause
      */
@@ -433,7 +433,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Get cau_to
      *
-     * @return string
+     * @return mixed
      */
     public function getCauTo()
     {
@@ -443,7 +443,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Set cau_public
      *
-     * @param string $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\Cause
      */
@@ -456,7 +456,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Get cau_public
      *
-     * @return string
+     * @return bool
      */
     public function getCauPublic()
     {
@@ -466,7 +466,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Set cau_available
      *
-     * @param string $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\Cause
      */
@@ -479,7 +479,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Get cau_available
      *
-     * @return string
+     * @return bool
      */
     public function getCauAvailable()
     {
@@ -581,7 +581,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Set cau_mnt
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Cause
      */
@@ -594,7 +594,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Get cau_mnt
      *
-     * @return string
+     * @return mixed
      */
     public function getCauMnt()
     {
@@ -604,7 +604,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Set cau_mnt_left
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Cause
      */
@@ -617,7 +617,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Get cau_mnt_left
      *
-     * @return string
+     * @return mixed
      */
     public function getCauMntLeft()
     {
@@ -719,7 +719,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Set cau_year
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Cause
      */
@@ -732,7 +732,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Get cau_year
      *
-     * @return string
+     * @return int
      */
     public function getCauYear()
     {
@@ -834,7 +834,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Set cau_number_1
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Cause
      */
@@ -847,7 +847,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Get cau_number_1
      *
-     * @return string
+     * @return int
      */
     public function getCauNumber_1()
     {
@@ -857,7 +857,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Set cau_number_2
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Cause
      */
@@ -870,7 +870,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Get cau_number_2
      *
-     * @return string
+     * @return int
      */
     public function getCauNumber_2()
     {
@@ -880,7 +880,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Set cau_number_3
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Cause
      */
@@ -893,7 +893,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Get cau_number_3
      *
-     * @return string
+     * @return int
      */
     public function getCauNumber_3()
     {
@@ -903,7 +903,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Set cau_number_4
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Cause
      */
@@ -916,7 +916,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Get cau_number_4
      *
-     * @return string
+     * @return int
      */
     public function getCauNumber_4()
     {
@@ -926,7 +926,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Set cau_date_1
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Cause
      */
@@ -939,7 +939,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Get cau_date_1
      *
-     * @return string
+     * @return mixed
      */
     public function getCauDate_1()
     {
@@ -949,7 +949,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Set cau_date_2
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Cause
      */
@@ -962,7 +962,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Get cau_date_2
      *
-     * @return string
+     * @return mixed
      */
     public function getCauDate_2()
     {
@@ -972,7 +972,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Set cau_date_3
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Cause
      */
@@ -985,7 +985,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Get cau_date_3
      *
-     * @return string
+     * @return mixed
      */
     public function getCauDate_3()
     {
@@ -995,7 +995,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Set cau_date_4
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Cause
      */
@@ -1008,7 +1008,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Get cau_date_4
      *
-     * @return string
+     * @return mixed
      */
     public function getCauDate_4()
     {
@@ -1110,7 +1110,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Set cau_bool_1
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\Cause
      */
@@ -1123,7 +1123,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Get cau_bool_1
      *
-     * @return int
+     * @return bool
      */
     public function getCauBool_1()
     {
@@ -1133,7 +1133,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Set cau_bool_2
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\Cause
      */
@@ -1146,7 +1146,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Get cau_bool_2
      *
-     * @return int
+     * @return bool
      */
     public function getCauBool_2()
     {
@@ -1156,7 +1156,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Set cau_bool_3
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\Cause
      */
@@ -1169,7 +1169,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Get cau_bool_3
      *
-     * @return int
+     * @return bool
      */
     public function getCauBool_3()
     {
@@ -1179,7 +1179,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Set cau_bool_4
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\Cause
      */
@@ -1192,7 +1192,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     /**
      * Get cau_bool_4
      *
-     * @return int
+     * @return bool
      */
     public function getCauBool_4()
     {

@@ -35,121 +35,121 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
 
     /**
      * clit_string_1
-     * @var int
+     * @var bool
      */
     protected $clit_string_1 = null;
 
     /**
      * clit_string_2
-     * @var int
+     * @var bool
      */
     protected $clit_string_2 = null;
 
     /**
      * clit_string_3
-     * @var int
+     * @var bool
      */
     protected $clit_string_3 = null;
 
     /**
      * clit_string_4
-     * @var int
+     * @var bool
      */
     protected $clit_string_4 = null;
 
     /**
      * clit_number_1
-     * @var int
+     * @var bool
      */
     protected $clit_number_1 = null;
 
     /**
      * clit_number_2
-     * @var int
+     * @var bool
      */
     protected $clit_number_2 = null;
 
     /**
      * clit_number_3
-     * @var int
+     * @var bool
      */
     protected $clit_number_3 = null;
 
     /**
      * clit_number_4
-     * @var int
+     * @var bool
      */
     protected $clit_number_4 = null;
 
     /**
      * clit_date_1
-     * @var int
+     * @var bool
      */
     protected $clit_date_1 = null;
 
     /**
      * clit_date_2
-     * @var int
+     * @var bool
      */
     protected $clit_date_2 = null;
 
     /**
      * clit_date_3
-     * @var int
+     * @var bool
      */
     protected $clit_date_3 = null;
 
     /**
      * clit_date_4
-     * @var int
+     * @var bool
      */
     protected $clit_date_4 = null;
 
     /**
      * clit_text_1
-     * @var int
+     * @var bool
      */
     protected $clit_text_1 = null;
 
     /**
      * clit_text_2
-     * @var int
+     * @var bool
      */
     protected $clit_text_2 = null;
 
     /**
      * clit_text_3
-     * @var int
+     * @var bool
      */
     protected $clit_text_3 = null;
 
     /**
      * clit_text_4
-     * @var int
+     * @var bool
      */
     protected $clit_text_4 = null;
 
     /**
      * clit_bool_1
-     * @var int
+     * @var bool
      */
     protected $clit_bool_1 = null;
 
     /**
      * clit_bool_2
-     * @var int
+     * @var bool
      */
     protected $clit_bool_2 = null;
 
     /**
      * clit_bool_3
-     * @var int
+     * @var bool
      */
     protected $clit_bool_3 = null;
 
     /**
      * clit_bool_4
-     * @var int
+     * @var bool
      */
     protected $clit_bool_4 = null;
 
@@ -248,7 +248,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Set clit_string_1
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\ClientType
      */
@@ -261,7 +261,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Get clit_string_1
      *
-     * @return int
+     * @return bool
      */
     public function getClitString_1()
     {
@@ -271,7 +271,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Set clit_string_2
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\ClientType
      */
@@ -284,7 +284,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Get clit_string_2
      *
-     * @return int
+     * @return bool
      */
     public function getClitString_2()
     {
@@ -294,7 +294,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Set clit_string_3
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\ClientType
      */
@@ -307,7 +307,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Get clit_string_3
      *
-     * @return int
+     * @return bool
      */
     public function getClitString_3()
     {
@@ -317,7 +317,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Set clit_string_4
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\ClientType
      */
@@ -330,7 +330,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Get clit_string_4
      *
-     * @return int
+     * @return bool
      */
     public function getClitString_4()
     {
@@ -340,7 +340,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Set clit_number_1
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\ClientType
      */
@@ -353,7 +353,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Get clit_number_1
      *
-     * @return int
+     * @return bool
      */
     public function getClitNumber_1()
     {
@@ -363,7 +363,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Set clit_number_2
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\ClientType
      */
@@ -376,7 +376,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Get clit_number_2
      *
-     * @return int
+     * @return bool
      */
     public function getClitNumber_2()
     {
@@ -386,7 +386,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Set clit_number_3
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\ClientType
      */
@@ -399,7 +399,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Get clit_number_3
      *
-     * @return int
+     * @return bool
      */
     public function getClitNumber_3()
     {
@@ -409,7 +409,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Set clit_number_4
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\ClientType
      */
@@ -422,7 +422,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Get clit_number_4
      *
-     * @return int
+     * @return bool
      */
     public function getClitNumber_4()
     {
@@ -432,7 +432,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Set clit_date_1
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\ClientType
      */
@@ -445,7 +445,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Get clit_date_1
      *
-     * @return int
+     * @return bool
      */
     public function getClitDate_1()
     {
@@ -455,7 +455,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Set clit_date_2
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\ClientType
      */
@@ -468,7 +468,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Get clit_date_2
      *
-     * @return int
+     * @return bool
      */
     public function getClitDate_2()
     {
@@ -478,7 +478,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Set clit_date_3
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\ClientType
      */
@@ -491,7 +491,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Get clit_date_3
      *
-     * @return int
+     * @return bool
      */
     public function getClitDate_3()
     {
@@ -501,7 +501,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Set clit_date_4
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\ClientType
      */
@@ -514,7 +514,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Get clit_date_4
      *
-     * @return int
+     * @return bool
      */
     public function getClitDate_4()
     {
@@ -524,7 +524,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Set clit_text_1
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\ClientType
      */
@@ -537,7 +537,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Get clit_text_1
      *
-     * @return int
+     * @return bool
      */
     public function getClitText_1()
     {
@@ -547,7 +547,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Set clit_text_2
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\ClientType
      */
@@ -560,7 +560,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Get clit_text_2
      *
-     * @return int
+     * @return bool
      */
     public function getClitText_2()
     {
@@ -570,7 +570,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Set clit_text_3
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\ClientType
      */
@@ -583,7 +583,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Get clit_text_3
      *
-     * @return int
+     * @return bool
      */
     public function getClitText_3()
     {
@@ -593,7 +593,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Set clit_text_4
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\ClientType
      */
@@ -606,7 +606,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Get clit_text_4
      *
-     * @return int
+     * @return bool
      */
     public function getClitText_4()
     {
@@ -616,7 +616,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Set clit_bool_1
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\ClientType
      */
@@ -629,7 +629,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Get clit_bool_1
      *
-     * @return int
+     * @return bool
      */
     public function getClitBool_1()
     {
@@ -639,7 +639,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Set clit_bool_2
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\ClientType
      */
@@ -652,7 +652,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Get clit_bool_2
      *
-     * @return int
+     * @return bool
      */
     public function getClitBool_2()
     {
@@ -662,7 +662,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Set clit_bool_3
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\ClientType
      */
@@ -675,7 +675,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Get clit_bool_3
      *
-     * @return int
+     * @return bool
      */
     public function getClitBool_3()
     {
@@ -685,7 +685,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Set clit_bool_4
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\ClientType
      */
@@ -698,7 +698,7 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     /**
      * Get clit_bool_4
      *
-     * @return int
+     * @return bool
      */
     public function getClitBool_4()
     {

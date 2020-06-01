@@ -35,7 +35,7 @@ abstract class Sickness extends \FreeAsso\Model\StorageModel\Sickness
 
     /**
      * sick_duration
-     * @var string
+     * @var int
      */
     protected $sick_duration = null;
 
@@ -47,13 +47,13 @@ abstract class Sickness extends \FreeAsso\Model\StorageModel\Sickness
 
     /**
      * sick_freq
-     * @var string
+     * @var int
      */
     protected $sick_freq = null;
 
     /**
      * sick_spread
-     * @var int
+     * @var bool
      */
     protected $sick_spread = null;
 
@@ -152,7 +152,7 @@ abstract class Sickness extends \FreeAsso\Model\StorageModel\Sickness
     /**
      * Set sick_duration
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Sickness
      */
@@ -165,7 +165,7 @@ abstract class Sickness extends \FreeAsso\Model\StorageModel\Sickness
     /**
      * Get sick_duration
      *
-     * @return string
+     * @return int
      */
     public function getSickDuration()
     {
@@ -198,7 +198,7 @@ abstract class Sickness extends \FreeAsso\Model\StorageModel\Sickness
     /**
      * Set sick_freq
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Sickness
      */
@@ -211,7 +211,7 @@ abstract class Sickness extends \FreeAsso\Model\StorageModel\Sickness
     /**
      * Get sick_freq
      *
-     * @return string
+     * @return int
      */
     public function getSickFreq()
     {
@@ -221,7 +221,7 @@ abstract class Sickness extends \FreeAsso\Model\StorageModel\Sickness
     /**
      * Set sick_spread
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\Sickness
      */
@@ -234,7 +234,7 @@ abstract class Sickness extends \FreeAsso\Model\StorageModel\Sickness
     /**
      * Get sick_spread
      *
-     * @return int
+     * @return bool
      */
     public function getSickSpread()
     {

@@ -41,19 +41,19 @@ abstract class CauseMovement extends \FreeAsso\Model\StorageModel\CauseMovement
 
     /**
      * camv_ts
-     * @var string
+     * @var mixed
      */
     protected $camv_ts = null;
 
     /**
      * camv_start
-     * @var string
+     * @var mixed
      */
     protected $camv_start = null;
 
     /**
      * camv_to
-     * @var string
+     * @var mixed
      */
     protected $camv_to = null;
 
@@ -193,7 +193,7 @@ abstract class CauseMovement extends \FreeAsso\Model\StorageModel\CauseMovement
     /**
      * Set camv_ts
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\CauseMovement
      */
@@ -206,7 +206,7 @@ abstract class CauseMovement extends \FreeAsso\Model\StorageModel\CauseMovement
     /**
      * Get camv_ts
      *
-     * @return string
+     * @return mixed
      */
     public function getCamvTs()
     {
@@ -216,7 +216,7 @@ abstract class CauseMovement extends \FreeAsso\Model\StorageModel\CauseMovement
     /**
      * Set camv_start
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\CauseMovement
      */
@@ -229,7 +229,7 @@ abstract class CauseMovement extends \FreeAsso\Model\StorageModel\CauseMovement
     /**
      * Get camv_start
      *
-     * @return string
+     * @return mixed
      */
     public function getCamvStart()
     {
@@ -239,7 +239,7 @@ abstract class CauseMovement extends \FreeAsso\Model\StorageModel\CauseMovement
     /**
      * Set camv_to
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\CauseMovement
      */
@@ -252,7 +252,7 @@ abstract class CauseMovement extends \FreeAsso\Model\StorageModel\CauseMovement
     /**
      * Get camv_to
      *
-     * @return string
+     * @return mixed
      */
     public function getCamvTo()
     {

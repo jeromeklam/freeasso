@@ -29,13 +29,13 @@ abstract class CauseLink extends \FreeAsso\Model\StorageModel\CauseLink
 
     /**
      * caul_from
-     * @var string
+     * @var mixed
      */
     protected $caul_from = null;
 
     /**
      * caul_to
-     * @var string
+     * @var mixed
      */
     protected $caul_to = null;
 
@@ -117,7 +117,7 @@ abstract class CauseLink extends \FreeAsso\Model\StorageModel\CauseLink
     /**
      * Set caul_from
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\CauseLink
      */
@@ -130,7 +130,7 @@ abstract class CauseLink extends \FreeAsso\Model\StorageModel\CauseLink
     /**
      * Get caul_from
      *
-     * @return string
+     * @return mixed
      */
     public function getCaulFrom()
     {
@@ -140,7 +140,7 @@ abstract class CauseLink extends \FreeAsso\Model\StorageModel\CauseLink
     /**
      * Set caul_to
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\CauseLink
      */
@@ -153,7 +153,7 @@ abstract class CauseLink extends \FreeAsso\Model\StorageModel\CauseLink
     /**
      * Get caul_to
      *
-     * @return string
+     * @return mixed
      */
     public function getCaulTo()
     {

@@ -41,19 +41,19 @@ abstract class CauseMedia extends \FreeAsso\Model\StorageModel\CauseMedia
 
     /**
      * caum_ts
-     * @var string
+     * @var mixed
      */
     protected $caum_ts = null;
 
     /**
      * caum_from
-     * @var string
+     * @var mixed
      */
     protected $caum_from = null;
 
     /**
      * caum_to
-     * @var string
+     * @var mixed
      */
     protected $caum_to = null;
 
@@ -89,7 +89,7 @@ abstract class CauseMedia extends \FreeAsso\Model\StorageModel\CauseMedia
 
     /**
      * caum_order
-     * @var string
+     * @var int
      */
     protected $caum_order = null;
 
@@ -101,7 +101,7 @@ abstract class CauseMedia extends \FreeAsso\Model\StorageModel\CauseMedia
 
     /**
      * caum_public
-     * @var string
+     * @var bool
      */
     protected $caum_public = null;
 
@@ -223,7 +223,7 @@ abstract class CauseMedia extends \FreeAsso\Model\StorageModel\CauseMedia
     /**
      * Set caum_ts
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\CauseMedia
      */
@@ -236,7 +236,7 @@ abstract class CauseMedia extends \FreeAsso\Model\StorageModel\CauseMedia
     /**
      * Get caum_ts
      *
-     * @return string
+     * @return mixed
      */
     public function getCaumTs()
     {
@@ -246,7 +246,7 @@ abstract class CauseMedia extends \FreeAsso\Model\StorageModel\CauseMedia
     /**
      * Set caum_from
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\CauseMedia
      */
@@ -259,7 +259,7 @@ abstract class CauseMedia extends \FreeAsso\Model\StorageModel\CauseMedia
     /**
      * Get caum_from
      *
-     * @return string
+     * @return mixed
      */
     public function getCaumFrom()
     {
@@ -269,7 +269,7 @@ abstract class CauseMedia extends \FreeAsso\Model\StorageModel\CauseMedia
     /**
      * Set caum_to
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\CauseMedia
      */
@@ -282,7 +282,7 @@ abstract class CauseMedia extends \FreeAsso\Model\StorageModel\CauseMedia
     /**
      * Get caum_to
      *
-     * @return string
+     * @return mixed
      */
     public function getCaumTo()
     {
@@ -407,7 +407,7 @@ abstract class CauseMedia extends \FreeAsso\Model\StorageModel\CauseMedia
     /**
      * Set caum_order
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\CauseMedia
      */
@@ -420,7 +420,7 @@ abstract class CauseMedia extends \FreeAsso\Model\StorageModel\CauseMedia
     /**
      * Get caum_order
      *
-     * @return string
+     * @return int
      */
     public function getCaumOrder()
     {
@@ -453,7 +453,7 @@ abstract class CauseMedia extends \FreeAsso\Model\StorageModel\CauseMedia
     /**
      * Set caum_public
      *
-     * @param string $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\CauseMedia
      */
@@ -466,7 +466,7 @@ abstract class CauseMedia extends \FreeAsso\Model\StorageModel\CauseMedia
     /**
      * Get caum_public
      *
-     * @return string
+     * @return bool
      */
     public function getCaumPublic()
     {

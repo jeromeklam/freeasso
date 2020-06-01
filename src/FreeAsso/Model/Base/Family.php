@@ -41,25 +41,25 @@ abstract class Family extends \FreeAsso\Model\StorageModel\Family
 
     /**
      * fam_position
-     * @var string
+     * @var int
      */
     protected $fam_position = null;
 
     /**
      * fam_left
-     * @var string
+     * @var int
      */
     protected $fam_left = null;
 
     /**
      * fam_right
-     * @var string
+     * @var int
      */
     protected $fam_right = null;
 
     /**
      * fam_level
-     * @var string
+     * @var int
      */
     protected $fam_level = null;
 
@@ -187,7 +187,7 @@ abstract class Family extends \FreeAsso\Model\StorageModel\Family
     /**
      * Set fam_position
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Family
      */
@@ -200,7 +200,7 @@ abstract class Family extends \FreeAsso\Model\StorageModel\Family
     /**
      * Get fam_position
      *
-     * @return string
+     * @return int
      */
     public function getFamPosition()
     {
@@ -210,7 +210,7 @@ abstract class Family extends \FreeAsso\Model\StorageModel\Family
     /**
      * Set fam_left
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Family
      */
@@ -223,7 +223,7 @@ abstract class Family extends \FreeAsso\Model\StorageModel\Family
     /**
      * Get fam_left
      *
-     * @return string
+     * @return int
      */
     public function getFamLeft()
     {
@@ -233,7 +233,7 @@ abstract class Family extends \FreeAsso\Model\StorageModel\Family
     /**
      * Set fam_right
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Family
      */
@@ -246,7 +246,7 @@ abstract class Family extends \FreeAsso\Model\StorageModel\Family
     /**
      * Get fam_right
      *
-     * @return string
+     * @return int
      */
     public function getFamRight()
     {
@@ -256,7 +256,7 @@ abstract class Family extends \FreeAsso\Model\StorageModel\Family
     /**
      * Set fam_level
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Family
      */
@@ -269,7 +269,7 @@ abstract class Family extends \FreeAsso\Model\StorageModel\Family
     /**
      * Get fam_level
      *
-     * @return string
+     * @return int
      */
     public function getFamLevel()
     {

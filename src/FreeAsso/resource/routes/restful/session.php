@@ -1,94 +1,167 @@
 <?php
+use \FreeFW\Constants as FFCST;
+use \FreeFW\Router\Route as FFCSTRT;
+
+/**
+ * Routes for Session
+ *
+ * @author jeromeklam
+ */
 $sessionRoutes = [
-    /**
-     * ########################################################################
-     * Session
-     * ########################################################################
-     */
-    'freeasso.session.getall' => [
-        'method'     => \FreeFW\Router\Route::METHOD_GET,
-        'model'      => 'FreeAsso::Model::Session',
-        'url'        => '/v1/asso/session',
-        'controller' => 'FreeAsso::Controller::Session',
-        'function'   => 'getAll',
-        'auth'       => \FreeFW\Router\Route::AUTH_IN,
-        'middleware' => [],
-        'include'    => [
-            'default' => []
+    'free_asso.session.autocomplete' => [
+        FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Session',
+        FFCSTRT::ROUTE_COMMENT    => 'Autocomplete.',
+        FFCSTRT::ROUTE_METHOD     => FFCSTRT::METHOD_GET,
+        FFCSTRT::ROUTE_MODEL      => 'FreeAsso::Model::Session',
+        FFCSTRT::ROUTE_URL        => '/v1/asso/session/autocomplete/:search',
+        FFCSTRT::ROUTE_CONTROLLER => 'FreeAsso::Controller::Session',
+        FFCSTRT::ROUTE_FUNCTION   => 'autocomplete',
+        FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_AUTOCOMPLETE,
+        FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
+        FFCSTRT::ROUTE_MIDDLEWARE => [],
+        FFCSTRT::ROUTE_INCLUDE    => [],
+        FFCSTRT::ROUTE_SCOPE      => [],
+        FFCSTRT::ROUTE_PARAMETERS => [
+            'search' => [
+                FFCSTRT::ROUTE_PARAMETER_ORIGIN   => FFCSTRT::ROUTE_PARAMETER_ORIGIN_PATH,
+                FFCSTRT::ROUTE_PARAMETER_TYPE     => FFCST::TYPE_STRING,
+                FFCSTRT::ROUTE_PARAMETER_REQUIRED => true,
+                FFCSTRT::ROUTE_PARAMETER_COMMENT  => 'Chaine de recherche'
+            ],
         ],
-        'results' => [
+        FFCSTRT::ROUTE_RESULTS    => [
             '200' => [
-                'type'  => \FreeFW\Router\Route::RESULT_LIST,
-                'model' => 'FreeSso::Model::Session'
-            ]
+                FFCSTRT::ROUTE_RESULTS_TYPE    => FFCSTRT::RESULT_LIST,
+                FFCSTRT::ROUTE_RESULTS_MODEL   => 'FreeAsso::Model::Session',
+                FFCSTRT::ROUTE_RESULTS_COMMENT => 'Réponse ok',
+            ],
         ]
     ],
-    'freeasso.session.getone' => [
-        'method'     => \FreeFW\Router\Route::METHOD_GET,
-        'model'      => 'FreeAsso::Model::Session',
-        'url'        => '/v1/asso/session/:sess_id',
-        'controller' => 'FreeAsso::Controller::Session',
-        'function'   => 'getOne',
-        'auth'       => \FreeFW\Router\Route::AUTH_IN,
-        'middleware' => [],
-        'include'    => [
-            'default' => []
-        ],
-        'results' => [
+    'free_asso.session.getall' => [
+        FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Session',
+        FFCSTRT::ROUTE_COMMENT    => 'Retourne une liste filtrée, triée et paginée.',
+        FFCSTRT::ROUTE_METHOD     => FFCSTRT::METHOD_GET,
+        FFCSTRT::ROUTE_MODEL      => 'FreeAsso::Model::Session',
+        FFCSTRT::ROUTE_URL        => '/v1/asso/session',
+        FFCSTRT::ROUTE_CONTROLLER => 'FreeAsso::Controller::Session',
+        FFCSTRT::ROUTE_FUNCTION   => 'getAll',
+        FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_GET_FILTERED,
+        FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
+        FFCSTRT::ROUTE_MIDDLEWARE => [],
+        FFCSTRT::ROUTE_INCLUDE    => [],
+        FFCSTRT::ROUTE_SCOPE      => [],
+        FFCSTRT::ROUTE_RESULTS    => [
             '200' => [
-                'type'  => \FreeFW\Router\Route::RESULT_OBJECT,
-                'model' => 'FreeSso::Model::Session'
-            ]
+                FFCSTRT::ROUTE_RESULTS_TYPE    => FFCSTRT::RESULT_LIST,
+                FFCSTRT::ROUTE_RESULTS_MODEL   => 'FreeAsso::Model::Session',
+                FFCSTRT::ROUTE_RESULTS_COMMENT => 'Réponse ok',
+            ],
         ]
     ],
-    'freeasso.session.updateone' => [
-        'method'     => \FreeFW\Router\Route::METHOD_PUT,
-        'model'      => 'FreeAsso::Model::Session',
-        'url'        => '/v1/asso/session/:sess_id',
-        'controller' => 'FreeAsso::Controller::Session',
-        'function'   => 'updateOne',
-        'auth'       => \FreeFW\Router\Route::AUTH_IN,
-        'middleware' => [],
-        'include'    => [
-            'default' => []
+    'free_asso.session.getone' => [
+        FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Session',
+        FFCSTRT::ROUTE_COMMENT    => 'Retourne un objet selon son identifiant',
+        FFCSTRT::ROUTE_METHOD     => FFCSTRT::METHOD_GET,
+        FFCSTRT::ROUTE_MODEL      => 'FreeAsso::Model::Session',
+        FFCSTRT::ROUTE_URL        => '/v1/asso/session/:sess_id',
+        FFCSTRT::ROUTE_CONTROLLER => 'FreeAsso::Controller::Session',
+        FFCSTRT::ROUTE_FUNCTION   => 'getOne',
+        FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_GET_ONE,
+        FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
+        FFCSTRT::ROUTE_MIDDLEWARE => [],
+        FFCSTRT::ROUTE_INCLUDE    => [],
+        FFCSTRT::ROUTE_SCOPE      => [],
+        FFCSTRT::ROUTE_PARAMETERS => [
+            'sess_id' => [
+                FFCSTRT::ROUTE_PARAMETER_ORIGIN   => FFCSTRT::ROUTE_PARAMETER_ORIGIN_PATH,
+                FFCSTRT::ROUTE_PARAMETER_TYPE     => FFCST::TYPE_BIGINT,
+                FFCSTRT::ROUTE_PARAMETER_REQUIRED => true,
+                FFCSTRT::ROUTE_PARAMETER_COMMENT  => 'Identifiant de l\'objet'
+            ],
         ],
-        'results' => [
+        FFCSTRT::ROUTE_RESULTS    => [
             '200' => [
-                'type'  => \FreeFW\Router\Route::RESULT_OBJECT,
-                'model' => 'FreeSso::Model::Session'
-            ]
+                FFCSTRT::ROUTE_RESULTS_TYPE    => FFCSTRT::RESULT_OBJECT,
+                FFCSTRT::ROUTE_RESULTS_MODEL   => 'FreeAsso::Model::Session',
+                FFCSTRT::ROUTE_RESULTS_COMMENT => 'Réponse ok',
+            ],
         ]
     ],
-    'freeasso.session.createone' => [
-        'method'     => \FreeFW\Router\Route::METHOD_POST,
-        'model'      => 'FreeAsso::Model::Session',
-        'url'        => '/v1/asso/session',
-        'controller' => 'FreeAsso::Controller::Session',
-        'function'   => 'createOne',
-        'auth'       => \FreeFW\Router\Route::AUTH_IN,
-        'middleware' => [],
-        'include'    => [
-            'default' => []
-        ],
-        'results' => [
+    'free_asso.session.createone' => [
+        FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Session',
+        FFCSTRT::ROUTE_COMMENT    => 'Créé un objet',
+        FFCSTRT::ROUTE_METHOD     => FFCSTRT::METHOD_POST,
+        FFCSTRT::ROUTE_MODEL      => 'FreeAsso::Model::Session',
+        FFCSTRT::ROUTE_URL        => '/v1/asso/session',
+        FFCSTRT::ROUTE_CONTROLLER => 'FreeAsso::Controller::Session',
+        FFCSTRT::ROUTE_FUNCTION   => 'createOne',
+        FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_CREATE_ONE,
+        FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
+        FFCSTRT::ROUTE_MIDDLEWARE => [],
+        FFCSTRT::ROUTE_INCLUDE    => [],
+        FFCSTRT::ROUTE_SCOPE      => [],
+        FFCSTRT::ROUTE_RESULTS    => [
             '201' => [
-                'type'  => \FreeFW\Router\Route::RESULT_OBJECT,
-                'model' => 'FreeSso::Model::Session'
-            ]
+                FFCSTRT::ROUTE_RESULTS_TYPE    => FFCSTRT::RESULT_OBJECT,
+                FFCSTRT::ROUTE_RESULTS_MODEL   => 'FreeAsso::Model::Session',
+                FFCSTRT::ROUTE_RESULTS_COMMENT => 'Objet créé',
+            ],
         ]
     ],
-    'freeasso.session.deleteone' => [
-        'method'     => \FreeFW\Router\Route::METHOD_DELETE,
-        'model'      => 'FreeAsso::Model::Session',
-        'url'        => '/v1/asso/session/:sess_id',
-        'controller' => 'FreeAsso::Controller::Session',
-        'function'   => 'removeOne',
-        'auth'       => \FreeFW\Router\Route::AUTH_IN,
-        'middleware' => [],
-        'results' => [
+    'free_asso.session.updateone' => [
+        FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Session',
+        FFCSTRT::ROUTE_COMMENT    => 'Modifie un objet',
+        FFCSTRT::ROUTE_METHOD     => FFCSTRT::METHOD_PUT,
+        FFCSTRT::ROUTE_MODEL      => 'FreeAsso::Model::Session',
+        FFCSTRT::ROUTE_URL        => '/v1/asso/session/:sess_id',
+        FFCSTRT::ROUTE_CONTROLLER => 'FreeAsso::Controller::Session',
+        FFCSTRT::ROUTE_FUNCTION   => 'updateOne',
+        FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_UPDATE_ONE,
+        FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
+        FFCSTRT::ROUTE_MIDDLEWARE => [],
+        FFCSTRT::ROUTE_INCLUDE    => [],
+        FFCSTRT::ROUTE_SCOPE      => [],
+        FFCSTRT::ROUTE_PARAMETERS => [
+            'sess_id' => [
+                FFCSTRT::ROUTE_PARAMETER_ORIGIN   => FFCSTRT::ROUTE_PARAMETER_ORIGIN_PATH,
+                FFCSTRT::ROUTE_PARAMETER_TYPE     => FFCST::TYPE_BIGINT,
+                FFCSTRT::ROUTE_PARAMETER_REQUIRED => true,
+                FFCSTRT::ROUTE_PARAMETER_COMMENT  => 'Identifiant de l\'objet'
+            ],
+        ],
+        FFCSTRT::ROUTE_RESULTS    => [
+            '200' => [
+                FFCSTRT::ROUTE_RESULTS_TYPE    => FFCSTRT::RESULT_OBJECT,
+                FFCSTRT::ROUTE_RESULTS_MODEL   => 'FreeAsso::Model::Session',
+                FFCSTRT::ROUTE_RESULTS_COMMENT => 'Objet modifié',
+            ],
+        ]
+    ],
+    'free_asso.session.removeone' => [
+        FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Session',
+        FFCSTRT::ROUTE_COMMENT    => 'Supprime un objet',
+        FFCSTRT::ROUTE_METHOD     => FFCSTRT::METHOD_DELETE,
+        FFCSTRT::ROUTE_MODEL      => 'FreeAsso::Model::Session',
+        FFCSTRT::ROUTE_URL        => '/v1/asso/session/:sess_id',
+        FFCSTRT::ROUTE_CONTROLLER => 'FreeAsso::Controller::Session',
+        FFCSTRT::ROUTE_FUNCTION   => 'removeOne',
+        FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_DELETE_ONE,
+        FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
+        FFCSTRT::ROUTE_MIDDLEWARE => [],
+        FFCSTRT::ROUTE_INCLUDE    => [],
+        FFCSTRT::ROUTE_SCOPE      => [],
+        FFCSTRT::ROUTE_PARAMETERS => [
+            'sess_id' => [
+                FFCSTRT::ROUTE_PARAMETER_ORIGIN   => FFCSTRT::ROUTE_PARAMETER_ORIGIN_PATH,
+                FFCSTRT::ROUTE_PARAMETER_TYPE     => FFCST::TYPE_BIGINT,
+                FFCSTRT::ROUTE_PARAMETER_REQUIRED => true,
+                FFCSTRT::ROUTE_PARAMETER_COMMENT  => 'Identifiant de l\'objet'
+            ],
+        ],
+        FFCSTRT::ROUTE_RESULTS    => [
             '204' => [
+                FFCSTRT::ROUTE_RESULTS_COMMENT => 'Objet supprimé',
             ]
         ]
     ],
 ];
-

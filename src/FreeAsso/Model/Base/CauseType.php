@@ -47,19 +47,19 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
 
     /**
      * caut_receipt
-     * @var string
+     * @var bool
      */
     protected $caut_receipt = null;
 
     /**
      * caut_max_mnt
-     * @var string
+     * @var int
      */
     protected $caut_max_mnt = null;
 
     /**
      * caut_min_mnt
-     * @var string
+     * @var int
      */
     protected $caut_min_mnt = null;
 
@@ -77,7 +77,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
 
     /**
      * caut_certificat
-     * @var string
+     * @var bool
      */
     protected $caut_certificat = null;
 
@@ -101,7 +101,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
 
     /**
      * caut_news
-     * @var string
+     * @var bool
      */
     protected $caut_news = null;
 
@@ -113,139 +113,139 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
 
     /**
      * caut_string_1
-     * @var int
+     * @var bool
      */
     protected $caut_string_1 = null;
 
     /**
      * caut_string_2
-     * @var int
+     * @var bool
      */
     protected $caut_string_2 = null;
 
     /**
      * caut_string_3
-     * @var int
+     * @var bool
      */
     protected $caut_string_3 = null;
 
     /**
      * caut_string_4
-     * @var int
+     * @var bool
      */
     protected $caut_string_4 = null;
 
     /**
      * caut_number_1
-     * @var int
+     * @var bool
      */
     protected $caut_number_1 = null;
 
     /**
      * caut_number_2
-     * @var int
+     * @var bool
      */
     protected $caut_number_2 = null;
 
     /**
      * caut_number_3
-     * @var int
+     * @var bool
      */
     protected $caut_number_3 = null;
 
     /**
      * caut_number_4
-     * @var int
+     * @var bool
      */
     protected $caut_number_4 = null;
 
     /**
      * caut_date_1
-     * @var int
+     * @var bool
      */
     protected $caut_date_1 = null;
 
     /**
      * caut_date_2
-     * @var int
+     * @var bool
      */
     protected $caut_date_2 = null;
 
     /**
      * caut_date_3
-     * @var int
+     * @var bool
      */
     protected $caut_date_3 = null;
 
     /**
      * caut_date_4
-     * @var int
+     * @var bool
      */
     protected $caut_date_4 = null;
 
     /**
      * caut_text_1
-     * @var int
+     * @var bool
      */
     protected $caut_text_1 = null;
 
     /**
      * caut_text_2
-     * @var int
+     * @var bool
      */
     protected $caut_text_2 = null;
 
     /**
      * caut_text_3
-     * @var int
+     * @var bool
      */
     protected $caut_text_3 = null;
 
     /**
      * caut_text_4
-     * @var int
+     * @var bool
      */
     protected $caut_text_4 = null;
 
     /**
      * caut_bool_1
-     * @var int
+     * @var bool
      */
     protected $caut_bool_1 = null;
 
     /**
      * caut_bool_2
-     * @var int
+     * @var bool
      */
     protected $caut_bool_2 = null;
 
     /**
      * caut_bool_3
-     * @var int
+     * @var bool
      */
     protected $caut_bool_3 = null;
 
     /**
      * caut_bool_4
-     * @var int
+     * @var bool
      */
     protected $caut_bool_4 = null;
 
     /**
      * caut_max_weight
-     * @var string
+     * @var mixed
      */
     protected $caut_max_weight = null;
 
     /**
      * caut_max_height
-     * @var string
+     * @var mixed
      */
     protected $caut_max_height = null;
 
     /**
      * caut_growth_freq
-     * @var string
+     * @var int
      */
     protected $caut_growth_freq = null;
 
@@ -396,7 +396,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Set caut_receipt
      *
-     * @param string $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\CauseType
      */
@@ -409,7 +409,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Get caut_receipt
      *
-     * @return string
+     * @return bool
      */
     public function getCautReceipt()
     {
@@ -419,7 +419,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Set caut_max_mnt
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\CauseType
      */
@@ -432,7 +432,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Get caut_max_mnt
      *
-     * @return string
+     * @return int
      */
     public function getCautMaxMnt()
     {
@@ -442,7 +442,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Set caut_min_mnt
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\CauseType
      */
@@ -455,7 +455,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Get caut_min_mnt
      *
-     * @return string
+     * @return int
      */
     public function getCautMinMnt()
     {
@@ -511,7 +511,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Set caut_certificat
      *
-     * @param string $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\CauseType
      */
@@ -524,7 +524,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Get caut_certificat
      *
-     * @return string
+     * @return bool
      */
     public function getCautCertificat()
     {
@@ -603,7 +603,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Set caut_news
      *
-     * @param string $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\CauseType
      */
@@ -616,7 +616,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Get caut_news
      *
-     * @return string
+     * @return bool
      */
     public function getCautNews()
     {
@@ -649,7 +649,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Set caut_string_1
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\CauseType
      */
@@ -662,7 +662,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Get caut_string_1
      *
-     * @return int
+     * @return bool
      */
     public function getCautString_1()
     {
@@ -672,7 +672,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Set caut_string_2
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\CauseType
      */
@@ -685,7 +685,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Get caut_string_2
      *
-     * @return int
+     * @return bool
      */
     public function getCautString_2()
     {
@@ -695,7 +695,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Set caut_string_3
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\CauseType
      */
@@ -708,7 +708,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Get caut_string_3
      *
-     * @return int
+     * @return bool
      */
     public function getCautString_3()
     {
@@ -718,7 +718,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Set caut_string_4
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\CauseType
      */
@@ -731,7 +731,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Get caut_string_4
      *
-     * @return int
+     * @return bool
      */
     public function getCautString_4()
     {
@@ -741,7 +741,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Set caut_number_1
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\CauseType
      */
@@ -754,7 +754,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Get caut_number_1
      *
-     * @return int
+     * @return bool
      */
     public function getCautNumber_1()
     {
@@ -764,7 +764,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Set caut_number_2
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\CauseType
      */
@@ -777,7 +777,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Get caut_number_2
      *
-     * @return int
+     * @return bool
      */
     public function getCautNumber_2()
     {
@@ -787,7 +787,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Set caut_number_3
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\CauseType
      */
@@ -800,7 +800,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Get caut_number_3
      *
-     * @return int
+     * @return bool
      */
     public function getCautNumber_3()
     {
@@ -810,7 +810,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Set caut_number_4
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\CauseType
      */
@@ -823,7 +823,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Get caut_number_4
      *
-     * @return int
+     * @return bool
      */
     public function getCautNumber_4()
     {
@@ -833,7 +833,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Set caut_date_1
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\CauseType
      */
@@ -846,7 +846,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Get caut_date_1
      *
-     * @return int
+     * @return bool
      */
     public function getCautDate_1()
     {
@@ -856,7 +856,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Set caut_date_2
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\CauseType
      */
@@ -869,7 +869,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Get caut_date_2
      *
-     * @return int
+     * @return bool
      */
     public function getCautDate_2()
     {
@@ -879,7 +879,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Set caut_date_3
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\CauseType
      */
@@ -892,7 +892,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Get caut_date_3
      *
-     * @return int
+     * @return bool
      */
     public function getCautDate_3()
     {
@@ -902,7 +902,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Set caut_date_4
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\CauseType
      */
@@ -915,7 +915,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Get caut_date_4
      *
-     * @return int
+     * @return bool
      */
     public function getCautDate_4()
     {
@@ -925,7 +925,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Set caut_text_1
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\CauseType
      */
@@ -938,7 +938,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Get caut_text_1
      *
-     * @return int
+     * @return bool
      */
     public function getCautText_1()
     {
@@ -948,7 +948,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Set caut_text_2
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\CauseType
      */
@@ -961,7 +961,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Get caut_text_2
      *
-     * @return int
+     * @return bool
      */
     public function getCautText_2()
     {
@@ -971,7 +971,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Set caut_text_3
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\CauseType
      */
@@ -984,7 +984,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Get caut_text_3
      *
-     * @return int
+     * @return bool
      */
     public function getCautText_3()
     {
@@ -994,7 +994,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Set caut_text_4
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\CauseType
      */
@@ -1007,7 +1007,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Get caut_text_4
      *
-     * @return int
+     * @return bool
      */
     public function getCautText_4()
     {
@@ -1017,7 +1017,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Set caut_bool_1
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\CauseType
      */
@@ -1030,7 +1030,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Get caut_bool_1
      *
-     * @return int
+     * @return bool
      */
     public function getCautBool_1()
     {
@@ -1040,7 +1040,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Set caut_bool_2
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\CauseType
      */
@@ -1053,7 +1053,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Get caut_bool_2
      *
-     * @return int
+     * @return bool
      */
     public function getCautBool_2()
     {
@@ -1063,7 +1063,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Set caut_bool_3
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\CauseType
      */
@@ -1076,7 +1076,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Get caut_bool_3
      *
-     * @return int
+     * @return bool
      */
     public function getCautBool_3()
     {
@@ -1086,7 +1086,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Set caut_bool_4
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\CauseType
      */
@@ -1099,7 +1099,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Get caut_bool_4
      *
-     * @return int
+     * @return bool
      */
     public function getCautBool_4()
     {
@@ -1109,7 +1109,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Set caut_max_weight
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\CauseType
      */
@@ -1122,7 +1122,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Get caut_max_weight
      *
-     * @return string
+     * @return mixed
      */
     public function getCautMaxWeight()
     {
@@ -1132,7 +1132,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Set caut_max_height
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\CauseType
      */
@@ -1145,7 +1145,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Get caut_max_height
      *
-     * @return string
+     * @return mixed
      */
     public function getCautMaxHeight()
     {
@@ -1155,7 +1155,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Set caut_growth_freq
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\CauseType
      */
@@ -1168,7 +1168,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     /**
      * Get caut_growth_freq
      *
-     * @return string
+     * @return int
      */
     public function getCautGrowthFreq()
     {

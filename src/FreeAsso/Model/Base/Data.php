@@ -41,13 +41,13 @@ abstract class Data extends \FreeAsso\Model\StorageModel\Data
 
     /**
      * data_from
-     * @var string
+     * @var mixed
      */
     protected $data_from = null;
 
     /**
      * data_to
-     * @var string
+     * @var mixed
      */
     protected $data_to = null;
 
@@ -175,7 +175,7 @@ abstract class Data extends \FreeAsso\Model\StorageModel\Data
     /**
      * Set data_from
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Data
      */
@@ -188,7 +188,7 @@ abstract class Data extends \FreeAsso\Model\StorageModel\Data
     /**
      * Get data_from
      *
-     * @return string
+     * @return mixed
      */
     public function getDataFrom()
     {
@@ -198,7 +198,7 @@ abstract class Data extends \FreeAsso\Model\StorageModel\Data
     /**
      * Set data_to
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Data
      */
@@ -211,7 +211,7 @@ abstract class Data extends \FreeAsso\Model\StorageModel\Data
     /**
      * Get data_to
      *
-     * @return string
+     * @return mixed
      */
     public function getDataTo()
     {

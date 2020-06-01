@@ -23,7 +23,7 @@ abstract class Certificate extends \FreeAsso\Model\StorageModel\Certificate
 
     /**
      * cert_ts
-     * @var string
+     * @var mixed
      */
     protected $cert_ts = null;
 
@@ -35,13 +35,13 @@ abstract class Certificate extends \FreeAsso\Model\StorageModel\Certificate
 
     /**
      * cert_gen_ts
-     * @var string
+     * @var mixed
      */
     protected $cert_gen_ts = null;
 
     /**
      * cert_print_ts
-     * @var string
+     * @var mixed
      */
     protected $cert_print_ts = null;
 
@@ -101,7 +101,7 @@ abstract class Certificate extends \FreeAsso\Model\StorageModel\Certificate
 
     /**
      * cert_input_mnt
-     * @var string
+     * @var mixed
      */
     protected $cert_input_mnt = null;
 
@@ -113,7 +113,7 @@ abstract class Certificate extends \FreeAsso\Model\StorageModel\Certificate
 
     /**
      * cert_output_mnt
-     * @var string
+     * @var mixed
      */
     protected $cert_output_mnt = null;
 
@@ -196,7 +196,7 @@ abstract class Certificate extends \FreeAsso\Model\StorageModel\Certificate
     /**
      * Set cert_ts
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Certificate
      */
@@ -209,7 +209,7 @@ abstract class Certificate extends \FreeAsso\Model\StorageModel\Certificate
     /**
      * Get cert_ts
      *
-     * @return string
+     * @return mixed
      */
     public function getCertTs()
     {
@@ -242,7 +242,7 @@ abstract class Certificate extends \FreeAsso\Model\StorageModel\Certificate
     /**
      * Set cert_gen_ts
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Certificate
      */
@@ -255,7 +255,7 @@ abstract class Certificate extends \FreeAsso\Model\StorageModel\Certificate
     /**
      * Get cert_gen_ts
      *
-     * @return string
+     * @return mixed
      */
     public function getCertGenTs()
     {
@@ -265,7 +265,7 @@ abstract class Certificate extends \FreeAsso\Model\StorageModel\Certificate
     /**
      * Set cert_print_ts
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Certificate
      */
@@ -278,7 +278,7 @@ abstract class Certificate extends \FreeAsso\Model\StorageModel\Certificate
     /**
      * Get cert_print_ts
      *
-     * @return string
+     * @return mixed
      */
     public function getCertPrintTs()
     {
@@ -495,7 +495,7 @@ abstract class Certificate extends \FreeAsso\Model\StorageModel\Certificate
     /**
      * Set cert_input_mnt
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Certificate
      */
@@ -508,7 +508,7 @@ abstract class Certificate extends \FreeAsso\Model\StorageModel\Certificate
     /**
      * Get cert_input_mnt
      *
-     * @return string
+     * @return mixed
      */
     public function getCertInputMnt()
     {
@@ -541,7 +541,7 @@ abstract class Certificate extends \FreeAsso\Model\StorageModel\Certificate
     /**
      * Set cert_output_mnt
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Certificate
      */
@@ -554,7 +554,7 @@ abstract class Certificate extends \FreeAsso\Model\StorageModel\Certificate
     /**
      * Get cert_output_mnt
      *
-     * @return string
+     * @return mixed
      */
     public function getCertOutputMnt()
     {

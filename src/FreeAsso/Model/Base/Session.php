@@ -29,7 +29,7 @@ abstract class Session extends \FreeAsso\Model\StorageModel\Session
 
     /**
      * sess_exercice
-     * @var string
+     * @var int
      */
     protected $sess_exercice = null;
 
@@ -117,7 +117,7 @@ abstract class Session extends \FreeAsso\Model\StorageModel\Session
     /**
      * Set sess_exercice
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Session
      */
@@ -130,7 +130,7 @@ abstract class Session extends \FreeAsso\Model\StorageModel\Session
     /**
      * Get sess_exercice
      *
-     * @return string
+     * @return int
      */
     public function getSessExercice()
     {

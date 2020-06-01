@@ -35,13 +35,13 @@ abstract class CauseSickness extends \FreeAsso\Model\StorageModel\CauseSickness
 
     /**
      * caus_from
-     * @var string
+     * @var mixed
      */
     protected $caus_from = null;
 
     /**
      * caus_to
-     * @var string
+     * @var mixed
      */
     protected $caus_to = null;
 
@@ -170,7 +170,7 @@ abstract class CauseSickness extends \FreeAsso\Model\StorageModel\CauseSickness
     /**
      * Set caus_from
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\CauseSickness
      */
@@ -183,7 +183,7 @@ abstract class CauseSickness extends \FreeAsso\Model\StorageModel\CauseSickness
     /**
      * Get caus_from
      *
-     * @return string
+     * @return mixed
      */
     public function getCausFrom()
     {
@@ -193,7 +193,7 @@ abstract class CauseSickness extends \FreeAsso\Model\StorageModel\CauseSickness
     /**
      * Set caus_to
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\CauseSickness
      */
@@ -206,7 +206,7 @@ abstract class CauseSickness extends \FreeAsso\Model\StorageModel\CauseSickness
     /**
      * Get caus_to
      *
-     * @return string
+     * @return mixed
      */
     public function getCausTo()
     {

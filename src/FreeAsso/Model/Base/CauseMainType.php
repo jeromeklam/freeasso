@@ -61,7 +61,7 @@ abstract class CauseMainType extends \FreeAsso\Model\StorageModel\CauseMainType
      *
      * @param int $p_value
      *
-     * @return \FreeAsso\Model\CauseType
+     * @return \FreeAsso\Model\CauseMainType
      */
     public function setBrkId($p_value)
     {

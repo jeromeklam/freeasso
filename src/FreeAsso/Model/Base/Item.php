@@ -41,13 +41,13 @@ abstract class Item extends \FreeAsso\Model\StorageModel\Item
 
     /**
      * item_from
-     * @var string
+     * @var mixed
      */
     protected $item_from = null;
 
     /**
      * item_to
-     * @var string
+     * @var mixed
      */
     protected $item_to = null;
 
@@ -83,43 +83,43 @@ abstract class Item extends \FreeAsso\Model\StorageModel\Item
 
     /**
      * item_weight
-     * @var string
+     * @var mixed
      */
     protected $item_weight = null;
 
     /**
      * item_width
-     * @var string
+     * @var mixed
      */
     protected $item_width = null;
 
     /**
      * item_height
-     * @var string
+     * @var mixed
      */
     protected $item_height = null;
 
     /**
      * item_depth
-     * @var string
+     * @var mixed
      */
     protected $item_depth = null;
 
     /**
      * item_dangerous
-     * @var int
+     * @var bool
      */
     protected $item_dangerous = null;
 
     /**
      * item_qte
-     * @var string
+     * @var mixed
      */
     protected $item_qte = null;
 
     /**
      * item_min_qte
-     * @var string
+     * @var mixed
      */
     protected $item_min_qte = null;
 
@@ -137,7 +137,7 @@ abstract class Item extends \FreeAsso\Model\StorageModel\Item
 
     /**
      * item_sto_qte
-     * @var string
+     * @var mixed
      */
     protected $item_sto_qte = null;
 
@@ -149,7 +149,7 @@ abstract class Item extends \FreeAsso\Model\StorageModel\Item
 
     /**
      * item_content_qte
-     * @var string
+     * @var mixed
      */
     protected $item_content_qte = null;
 
@@ -161,7 +161,7 @@ abstract class Item extends \FreeAsso\Model\StorageModel\Item
 
     /**
      * item_order
-     * @var string
+     * @var int
      */
     protected $item_order = null;
 
@@ -289,7 +289,7 @@ abstract class Item extends \FreeAsso\Model\StorageModel\Item
     /**
      * Set item_from
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Item
      */
@@ -302,7 +302,7 @@ abstract class Item extends \FreeAsso\Model\StorageModel\Item
     /**
      * Get item_from
      *
-     * @return string
+     * @return mixed
      */
     public function getItemFrom()
     {
@@ -312,7 +312,7 @@ abstract class Item extends \FreeAsso\Model\StorageModel\Item
     /**
      * Set item_to
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Item
      */
@@ -325,7 +325,7 @@ abstract class Item extends \FreeAsso\Model\StorageModel\Item
     /**
      * Get item_to
      *
-     * @return string
+     * @return mixed
      */
     public function getItemTo()
     {
@@ -450,7 +450,7 @@ abstract class Item extends \FreeAsso\Model\StorageModel\Item
     /**
      * Set item_weight
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Item
      */
@@ -463,7 +463,7 @@ abstract class Item extends \FreeAsso\Model\StorageModel\Item
     /**
      * Get item_weight
      *
-     * @return string
+     * @return mixed
      */
     public function getItemWeight()
     {
@@ -473,7 +473,7 @@ abstract class Item extends \FreeAsso\Model\StorageModel\Item
     /**
      * Set item_width
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Item
      */
@@ -486,7 +486,7 @@ abstract class Item extends \FreeAsso\Model\StorageModel\Item
     /**
      * Get item_width
      *
-     * @return string
+     * @return mixed
      */
     public function getItemWidth()
     {
@@ -496,7 +496,7 @@ abstract class Item extends \FreeAsso\Model\StorageModel\Item
     /**
      * Set item_height
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Item
      */
@@ -509,7 +509,7 @@ abstract class Item extends \FreeAsso\Model\StorageModel\Item
     /**
      * Get item_height
      *
-     * @return string
+     * @return mixed
      */
     public function getItemHeight()
     {
@@ -519,7 +519,7 @@ abstract class Item extends \FreeAsso\Model\StorageModel\Item
     /**
      * Set item_depth
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Item
      */
@@ -532,7 +532,7 @@ abstract class Item extends \FreeAsso\Model\StorageModel\Item
     /**
      * Get item_depth
      *
-     * @return string
+     * @return mixed
      */
     public function getItemDepth()
     {
@@ -542,7 +542,7 @@ abstract class Item extends \FreeAsso\Model\StorageModel\Item
     /**
      * Set item_dangerous
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\Item
      */
@@ -555,7 +555,7 @@ abstract class Item extends \FreeAsso\Model\StorageModel\Item
     /**
      * Get item_dangerous
      *
-     * @return int
+     * @return bool
      */
     public function getItemDangerous()
     {
@@ -565,7 +565,7 @@ abstract class Item extends \FreeAsso\Model\StorageModel\Item
     /**
      * Set item_qte
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Item
      */
@@ -578,7 +578,7 @@ abstract class Item extends \FreeAsso\Model\StorageModel\Item
     /**
      * Get item_qte
      *
-     * @return string
+     * @return mixed
      */
     public function getItemQte()
     {
@@ -588,7 +588,7 @@ abstract class Item extends \FreeAsso\Model\StorageModel\Item
     /**
      * Set item_min_qte
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Item
      */
@@ -601,7 +601,7 @@ abstract class Item extends \FreeAsso\Model\StorageModel\Item
     /**
      * Get item_min_qte
      *
-     * @return string
+     * @return mixed
      */
     public function getItemMinQte()
     {
@@ -657,7 +657,7 @@ abstract class Item extends \FreeAsso\Model\StorageModel\Item
     /**
      * Set item_sto_qte
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Item
      */
@@ -670,7 +670,7 @@ abstract class Item extends \FreeAsso\Model\StorageModel\Item
     /**
      * Get item_sto_qte
      *
-     * @return string
+     * @return mixed
      */
     public function getItemStoQte()
     {
@@ -703,7 +703,7 @@ abstract class Item extends \FreeAsso\Model\StorageModel\Item
     /**
      * Set item_content_qte
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Item
      */
@@ -716,7 +716,7 @@ abstract class Item extends \FreeAsso\Model\StorageModel\Item
     /**
      * Get item_content_qte
      *
-     * @return string
+     * @return mixed
      */
     public function getItemContentQte()
     {
@@ -749,7 +749,7 @@ abstract class Item extends \FreeAsso\Model\StorageModel\Item
     /**
      * Set item_order
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Item
      */
@@ -762,7 +762,7 @@ abstract class Item extends \FreeAsso\Model\StorageModel\Item
     /**
      * Get item_order
      *
-     * @return string
+     * @return int
      */
     public function getItemOrder()
     {

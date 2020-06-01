@@ -41,157 +41,157 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
 
     /**
      * sitt_string_1
-     * @var int
+     * @var bool
      */
     protected $sitt_string_1 = null;
 
     /**
      * sitt_string_2
-     * @var int
+     * @var bool
      */
     protected $sitt_string_2 = null;
 
     /**
      * sitt_string_3
-     * @var int
+     * @var bool
      */
     protected $sitt_string_3 = null;
 
     /**
      * sitt_string_4
-     * @var int
+     * @var bool
      */
     protected $sitt_string_4 = null;
 
     /**
      * sitt_string_5
-     * @var int
+     * @var bool
      */
     protected $sitt_string_5 = null;
 
     /**
      * sitt_string_6
-     * @var int
+     * @var bool
      */
     protected $sitt_string_6 = null;
 
     /**
      * sitt_string_7
-     * @var int
+     * @var bool
      */
     protected $sitt_string_7 = null;
 
     /**
      * sitt_string_8
-     * @var int
+     * @var bool
      */
     protected $sitt_string_8 = null;
 
     /**
      * sitt_number_1
-     * @var int
+     * @var bool
      */
     protected $sitt_number_1 = null;
 
     /**
      * sitt_number_2
-     * @var int
+     * @var bool
      */
     protected $sitt_number_2 = null;
 
     /**
      * sitt_number_3
-     * @var int
+     * @var bool
      */
     protected $sitt_number_3 = null;
 
     /**
      * sitt_number_4
-     * @var int
+     * @var bool
      */
     protected $sitt_number_4 = null;
 
     /**
      * sitt_number_5
-     * @var int
+     * @var bool
      */
     protected $sitt_number_5 = null;
 
     /**
      * sitt_number_6
-     * @var int
+     * @var bool
      */
     protected $sitt_number_6 = null;
 
     /**
      * sitt_date_1
-     * @var int
+     * @var bool
      */
     protected $sitt_date_1 = null;
 
     /**
      * sitt_date_2
-     * @var int
+     * @var bool
      */
     protected $sitt_date_2 = null;
 
     /**
      * sitt_date_3
-     * @var int
+     * @var bool
      */
     protected $sitt_date_3 = null;
 
     /**
      * sitt_date_4
-     * @var int
+     * @var bool
      */
     protected $sitt_date_4 = null;
 
     /**
      * sitt_text_1
-     * @var int
+     * @var bool
      */
     protected $sitt_text_1 = null;
 
     /**
      * sitt_text_2
-     * @var int
+     * @var bool
      */
     protected $sitt_text_2 = null;
 
     /**
      * sitt_text_3
-     * @var int
+     * @var bool
      */
     protected $sitt_text_3 = null;
 
     /**
      * sitt_text_4
-     * @var int
+     * @var bool
      */
     protected $sitt_text_4 = null;
 
     /**
      * sitt_bool_1
-     * @var int
+     * @var bool
      */
     protected $sitt_bool_1 = null;
 
     /**
      * sitt_bool_2
-     * @var int
+     * @var bool
      */
     protected $sitt_bool_2 = null;
 
     /**
      * sitt_bool_3
-     * @var int
+     * @var bool
      */
     protected $sitt_bool_3 = null;
 
     /**
      * sitt_bool_4
-     * @var int
+     * @var bool
      */
     protected $sitt_bool_4 = null;
 
@@ -313,7 +313,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Set sitt_string_1
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\SiteType
      */
@@ -326,7 +326,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Get sitt_string_1
      *
-     * @return int
+     * @return bool
      */
     public function getSittString_1()
     {
@@ -336,7 +336,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Set sitt_string_2
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\SiteType
      */
@@ -349,7 +349,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Get sitt_string_2
      *
-     * @return int
+     * @return bool
      */
     public function getSittString_2()
     {
@@ -359,7 +359,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Set sitt_string_3
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\SiteType
      */
@@ -372,7 +372,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Get sitt_string_3
      *
-     * @return int
+     * @return bool
      */
     public function getSittString_3()
     {
@@ -382,7 +382,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Set sitt_string_4
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\SiteType
      */
@@ -395,7 +395,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Get sitt_string_4
      *
-     * @return int
+     * @return bool
      */
     public function getSittString_4()
     {
@@ -405,7 +405,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Set sitt_string_5
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\SiteType
      */
@@ -418,7 +418,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Get sitt_string_5
      *
-     * @return int
+     * @return bool
      */
     public function getSittString_5()
     {
@@ -428,7 +428,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Set sitt_string_6
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\SiteType
      */
@@ -441,7 +441,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Get sitt_string_6
      *
-     * @return int
+     * @return bool
      */
     public function getSittString_6()
     {
@@ -451,7 +451,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Set sitt_string_7
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\SiteType
      */
@@ -464,7 +464,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Get sitt_string_7
      *
-     * @return int
+     * @return bool
      */
     public function getSittString_7()
     {
@@ -474,7 +474,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Set sitt_string_8
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\SiteType
      */
@@ -487,7 +487,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Get sitt_string_8
      *
-     * @return int
+     * @return bool
      */
     public function getSittString_8()
     {
@@ -497,7 +497,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Set sitt_number_1
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\SiteType
      */
@@ -510,7 +510,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Get sitt_number_1
      *
-     * @return int
+     * @return bool
      */
     public function getSittNumber_1()
     {
@@ -520,7 +520,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Set sitt_number_2
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\SiteType
      */
@@ -533,7 +533,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Get sitt_number_2
      *
-     * @return int
+     * @return bool
      */
     public function getSittNumber_2()
     {
@@ -543,7 +543,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Set sitt_number_3
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\SiteType
      */
@@ -556,7 +556,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Get sitt_number_3
      *
-     * @return int
+     * @return bool
      */
     public function getSittNumber_3()
     {
@@ -566,7 +566,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Set sitt_number_4
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\SiteType
      */
@@ -579,7 +579,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Get sitt_number_4
      *
-     * @return int
+     * @return bool
      */
     public function getSittNumber_4()
     {
@@ -589,7 +589,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Set sitt_number_5
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\SiteType
      */
@@ -602,7 +602,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Get sitt_number_5
      *
-     * @return int
+     * @return bool
      */
     public function getSittNumber_5()
     {
@@ -612,7 +612,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Set sitt_number_6
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\SiteType
      */
@@ -625,7 +625,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Get sitt_number_6
      *
-     * @return int
+     * @return bool
      */
     public function getSittNumber_6()
     {
@@ -635,7 +635,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Set sitt_date_1
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\SiteType
      */
@@ -648,7 +648,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Get sitt_date_1
      *
-     * @return int
+     * @return bool
      */
     public function getSittDate_1()
     {
@@ -658,7 +658,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Set sitt_date_2
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\SiteType
      */
@@ -671,7 +671,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Get sitt_date_2
      *
-     * @return int
+     * @return bool
      */
     public function getSittDate_2()
     {
@@ -681,7 +681,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Set sitt_date_3
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\SiteType
      */
@@ -694,7 +694,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Get sitt_date_3
      *
-     * @return int
+     * @return bool
      */
     public function getSittDate_3()
     {
@@ -704,7 +704,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Set sitt_date_4
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\SiteType
      */
@@ -717,7 +717,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Get sitt_date_4
      *
-     * @return int
+     * @return bool
      */
     public function getSittDate_4()
     {
@@ -727,7 +727,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Set sitt_text_1
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\SiteType
      */
@@ -740,7 +740,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Get sitt_text_1
      *
-     * @return int
+     * @return bool
      */
     public function getSittText_1()
     {
@@ -750,7 +750,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Set sitt_text_2
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\SiteType
      */
@@ -763,7 +763,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Get sitt_text_2
      *
-     * @return int
+     * @return bool
      */
     public function getSittText_2()
     {
@@ -773,7 +773,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Set sitt_text_3
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\SiteType
      */
@@ -786,7 +786,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Get sitt_text_3
      *
-     * @return int
+     * @return bool
      */
     public function getSittText_3()
     {
@@ -796,7 +796,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Set sitt_text_4
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\SiteType
      */
@@ -809,7 +809,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Get sitt_text_4
      *
-     * @return int
+     * @return bool
      */
     public function getSittText_4()
     {
@@ -819,7 +819,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Set sitt_bool_1
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\SiteType
      */
@@ -832,7 +832,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Get sitt_bool_1
      *
-     * @return int
+     * @return bool
      */
     public function getSittBool_1()
     {
@@ -842,7 +842,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Set sitt_bool_2
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\SiteType
      */
@@ -855,7 +855,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Get sitt_bool_2
      *
-     * @return int
+     * @return bool
      */
     public function getSittBool_2()
     {
@@ -865,7 +865,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Set sitt_bool_3
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\SiteType
      */
@@ -878,7 +878,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Get sitt_bool_3
      *
-     * @return int
+     * @return bool
      */
     public function getSittBool_3()
     {
@@ -888,7 +888,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Set sitt_bool_4
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\SiteType
      */
@@ -901,7 +901,7 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     /**
      * Get sitt_bool_4
      *
-     * @return int
+     * @return bool
      */
     public function getSittBool_4()
     {

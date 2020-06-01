@@ -53,13 +53,13 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
 
     /**
      * move_from
-     * @var string
+     * @var mixed
      */
     protected $move_from = null;
 
     /**
      * move_from_empty
-     * @var int
+     * @var bool
      */
     protected $move_from_empty = null;
 
@@ -107,49 +107,49 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
 
     /**
      * move_from_number_1
-     * @var string
+     * @var int
      */
     protected $move_from_number_1 = null;
 
     /**
      * move_from_number_2
-     * @var string
+     * @var int
      */
     protected $move_from_number_2 = null;
 
     /**
      * move_from_number_3
-     * @var string
+     * @var int
      */
     protected $move_from_number_3 = null;
 
     /**
      * move_from_number_4
-     * @var string
+     * @var int
      */
     protected $move_from_number_4 = null;
 
     /**
      * move_from_number_5
-     * @var string
+     * @var int
      */
     protected $move_from_number_5 = null;
 
     /**
      * move_from_number_6
-     * @var string
+     * @var int
      */
     protected $move_from_number_6 = null;
 
     /**
      * move_to
-     * @var string
+     * @var mixed
      */
     protected $move_to = null;
 
     /**
      * move_to_empty
-     * @var int
+     * @var bool
      */
     protected $move_to_empty = null;
 
@@ -197,37 +197,37 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
 
     /**
      * move_to_number_1
-     * @var string
+     * @var int
      */
     protected $move_to_number_1 = null;
 
     /**
      * move_to_number_2
-     * @var string
+     * @var int
      */
     protected $move_to_number_2 = null;
 
     /**
      * move_to_number_3
-     * @var string
+     * @var int
      */
     protected $move_to_number_3 = null;
 
     /**
      * move_to_number_4
-     * @var string
+     * @var int
      */
     protected $move_to_number_4 = null;
 
     /**
      * move_to_number_5
-     * @var string
+     * @var int
      */
     protected $move_to_number_5 = null;
 
     /**
      * move_to_number_6
-     * @var string
+     * @var int
      */
     protected $move_to_number_6 = null;
 
@@ -239,7 +239,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
 
     /**
      * move_group_num_1
-     * @var string
+     * @var int
      */
     protected $move_group_num_1 = null;
 
@@ -251,7 +251,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
 
     /**
      * move_group_num_2
-     * @var string
+     * @var int
      */
     protected $move_group_num_2 = null;
 
@@ -263,7 +263,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
 
     /**
      * move_group_num_3
-     * @var string
+     * @var int
      */
     protected $move_group_num_3 = null;
 
@@ -275,7 +275,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
 
     /**
      * move_group_num_4
-     * @var string
+     * @var int
      */
     protected $move_group_num_4 = null;
 
@@ -461,7 +461,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Set move_from
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Movement
      */
@@ -474,7 +474,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Get move_from
      *
-     * @return string
+     * @return mixed
      */
     public function getMoveFrom()
     {
@@ -484,7 +484,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Set move_from_empty
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\Movement
      */
@@ -497,7 +497,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Get move_from_empty
      *
-     * @return int
+     * @return bool
      */
     public function getMoveFromEmpty()
     {
@@ -668,7 +668,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Set move_from_number_1
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Movement
      */
@@ -681,7 +681,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Get move_from_number_1
      *
-     * @return string
+     * @return int
      */
     public function getMoveFromNumber_1()
     {
@@ -691,7 +691,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Set move_from_number_2
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Movement
      */
@@ -704,7 +704,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Get move_from_number_2
      *
-     * @return string
+     * @return int
      */
     public function getMoveFromNumber_2()
     {
@@ -714,7 +714,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Set move_from_number_3
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Movement
      */
@@ -727,7 +727,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Get move_from_number_3
      *
-     * @return string
+     * @return int
      */
     public function getMoveFromNumber_3()
     {
@@ -737,7 +737,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Set move_from_number_4
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Movement
      */
@@ -750,7 +750,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Get move_from_number_4
      *
-     * @return string
+     * @return int
      */
     public function getMoveFromNumber_4()
     {
@@ -760,7 +760,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Set move_from_number_5
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Movement
      */
@@ -773,7 +773,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Get move_from_number_5
      *
-     * @return string
+     * @return int
      */
     public function getMoveFromNumber_5()
     {
@@ -783,7 +783,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Set move_from_number_6
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Movement
      */
@@ -796,7 +796,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Get move_from_number_6
      *
-     * @return string
+     * @return int
      */
     public function getMoveFromNumber_6()
     {
@@ -806,7 +806,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Set move_to
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Movement
      */
@@ -819,7 +819,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Get move_to
      *
-     * @return string
+     * @return mixed
      */
     public function getMoveTo()
     {
@@ -829,7 +829,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Set move_to_empty
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\Movement
      */
@@ -842,7 +842,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Get move_to_empty
      *
-     * @return int
+     * @return bool
      */
     public function getMoveToEmpty()
     {
@@ -1013,7 +1013,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Set move_to_number_1
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Movement
      */
@@ -1026,7 +1026,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Get move_to_number_1
      *
-     * @return string
+     * @return int
      */
     public function getMoveToNumber_1()
     {
@@ -1036,7 +1036,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Set move_to_number_2
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Movement
      */
@@ -1049,7 +1049,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Get move_to_number_2
      *
-     * @return string
+     * @return int
      */
     public function getMoveToNumber_2()
     {
@@ -1059,7 +1059,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Set move_to_number_3
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Movement
      */
@@ -1072,7 +1072,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Get move_to_number_3
      *
-     * @return string
+     * @return int
      */
     public function getMoveToNumber_3()
     {
@@ -1082,7 +1082,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Set move_to_number_4
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Movement
      */
@@ -1095,7 +1095,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Get move_to_number_4
      *
-     * @return string
+     * @return int
      */
     public function getMoveToNumber_4()
     {
@@ -1105,7 +1105,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Set move_to_number_5
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Movement
      */
@@ -1118,7 +1118,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Get move_to_number_5
      *
-     * @return string
+     * @return int
      */
     public function getMoveToNumber_5()
     {
@@ -1128,7 +1128,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Set move_to_number_6
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Movement
      */
@@ -1141,7 +1141,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Get move_to_number_6
      *
-     * @return string
+     * @return int
      */
     public function getMoveToNumber_6()
     {
@@ -1174,7 +1174,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Set move_group_num_1
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Movement
      */
@@ -1187,7 +1187,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Get move_group_num_1
      *
-     * @return string
+     * @return int
      */
     public function getMoveGroupNum_1()
     {
@@ -1220,7 +1220,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Set move_group_num_2
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Movement
      */
@@ -1233,7 +1233,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Get move_group_num_2
      *
-     * @return string
+     * @return int
      */
     public function getMoveGroupNum_2()
     {
@@ -1266,7 +1266,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Set move_group_num_3
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Movement
      */
@@ -1279,7 +1279,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Get move_group_num_3
      *
-     * @return string
+     * @return int
      */
     public function getMoveGroupNum_3()
     {
@@ -1312,7 +1312,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Set move_group_num_4
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Movement
      */
@@ -1325,7 +1325,7 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     /**
      * Get move_group_num_4
      *
-     * @return string
+     * @return int
      */
     public function getMoveGroupNum_4()
     {

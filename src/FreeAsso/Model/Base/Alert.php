@@ -41,19 +41,19 @@ abstract class Alert extends \FreeAsso\Model\StorageModel\Alert
 
     /**
      * alert_from
-     * @var string
+     * @var mixed
      */
     protected $alert_from = null;
 
     /**
      * alert_to
-     * @var string
+     * @var mixed
      */
     protected $alert_to = null;
 
     /**
      * alert_ts
-     * @var string
+     * @var mixed
      */
     protected $alert_ts = null;
 
@@ -65,7 +65,7 @@ abstract class Alert extends \FreeAsso\Model\StorageModel\Alert
 
     /**
      * alert_activ
-     * @var int
+     * @var bool
      */
     protected $alert_activ = null;
 
@@ -193,7 +193,7 @@ abstract class Alert extends \FreeAsso\Model\StorageModel\Alert
     /**
      * Set alert_from
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Alert
      */
@@ -206,7 +206,7 @@ abstract class Alert extends \FreeAsso\Model\StorageModel\Alert
     /**
      * Get alert_from
      *
-     * @return string
+     * @return mixed
      */
     public function getAlertFrom()
     {
@@ -216,7 +216,7 @@ abstract class Alert extends \FreeAsso\Model\StorageModel\Alert
     /**
      * Set alert_to
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Alert
      */
@@ -229,7 +229,7 @@ abstract class Alert extends \FreeAsso\Model\StorageModel\Alert
     /**
      * Get alert_to
      *
-     * @return string
+     * @return mixed
      */
     public function getAlertTo()
     {
@@ -239,7 +239,7 @@ abstract class Alert extends \FreeAsso\Model\StorageModel\Alert
     /**
      * Set alert_ts
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Alert
      */
@@ -252,7 +252,7 @@ abstract class Alert extends \FreeAsso\Model\StorageModel\Alert
     /**
      * Get alert_ts
      *
-     * @return string
+     * @return mixed
      */
     public function getAlertTs()
     {
@@ -285,7 +285,7 @@ abstract class Alert extends \FreeAsso\Model\StorageModel\Alert
     /**
      * Set alert_activ
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\Alert
      */
@@ -298,7 +298,7 @@ abstract class Alert extends \FreeAsso\Model\StorageModel\Alert
     /**
      * Get alert_activ
      *
-     * @return int
+     * @return bool
      */
     public function getAlertActiv()
     {

@@ -1,106 +1,174 @@
 <?php
+use \FreeFW\Constants as FFCST;
+use \FreeFW\Router\Route as FFCSTRT;
+
+/**
+ * Routes for Client
+ *
+ * @author jeromeklam
+ */
 $clientRoutes = [
-    /**
-     * ########################################################################
-     * Client
-     * ########################################################################
-     */
-    'freeasso.client.autocomplete' => [
-        'method'     => \FreeFW\Router\Route::METHOD_GET,
-        'model'      => 'FreeAsso::Model::Client',
-        'url'        => '/v1/asso/client/autocomplete/:search',
-        'controller' => 'FreeAsso::Controller::Client',
-        'function'   => 'autocomplete',
-        'auth'       => \FreeFW\Router\Route::AUTH_IN,
-        'middleware' => [],
-        'results' => [
+    'free_asso.client.autocomplete' => [
+        FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Client',
+        FFCSTRT::ROUTE_COMMENT    => 'Autocomplete.',
+        FFCSTRT::ROUTE_METHOD     => FFCSTRT::METHOD_GET,
+        FFCSTRT::ROUTE_MODEL      => 'FreeAsso::Model::Client',
+        FFCSTRT::ROUTE_URL        => '/v1/asso/client/autocomplete/:search',
+        FFCSTRT::ROUTE_CONTROLLER => 'FreeAsso::Controller::Client',
+        FFCSTRT::ROUTE_FUNCTION   => 'autocomplete',
+        FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_AUTOCOMPLETE,
+        FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
+        FFCSTRT::ROUTE_MIDDLEWARE => [],
+        FFCSTRT::ROUTE_INCLUDE    => [],
+        FFCSTRT::ROUTE_SCOPE      => [],
+        FFCSTRT::ROUTE_PARAMETERS => [
+            'search' => [
+                FFCSTRT::ROUTE_PARAMETER_ORIGIN   => FFCSTRT::ROUTE_PARAMETER_ORIGIN_PATH,
+                FFCSTRT::ROUTE_PARAMETER_TYPE     => FFCST::TYPE_STRING,
+                FFCSTRT::ROUTE_PARAMETER_REQUIRED => true,
+                FFCSTRT::ROUTE_PARAMETER_COMMENT  => 'Chaine de recherche'
+            ],
+        ],
+        FFCSTRT::ROUTE_RESULTS    => [
             '200' => [
-                'type'  => \FreeFW\Router\Route::RESULT_OBJECT
-            ]
+                FFCSTRT::ROUTE_RESULTS_TYPE    => FFCSTRT::RESULT_LIST,
+                FFCSTRT::ROUTE_RESULTS_MODEL   => 'FreeAsso::Model::Client',
+                FFCSTRT::ROUTE_RESULTS_COMMENT => 'Réponse ok',
+            ],
         ]
     ],
-    'freeasso.client.getall' => [
-        'method'     => \FreeFW\Router\Route::METHOD_GET,
-        'model'      => 'FreeAsso::Model::Client',
-        'url'        => '/v1/asso/client',
-        'controller' => 'FreeAsso::Controller::Client',
-        'function'   => 'getAll',
-        'auth'       => \FreeFW\Router\Route::AUTH_IN,
-        'middleware' => [],
-        'include'    => [
-            'default' => ['lang', 'country', 'last_donation', 'client_category', 'client_type']
+    'free_asso.client.getall' => [
+        FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Client',
+        FFCSTRT::ROUTE_COMMENT    => 'Retourne une liste filtrée, triée et paginée.',
+        FFCSTRT::ROUTE_METHOD     => FFCSTRT::METHOD_GET,
+        FFCSTRT::ROUTE_MODEL      => 'FreeAsso::Model::Client',
+        FFCSTRT::ROUTE_URL        => '/v1/asso/client',
+        FFCSTRT::ROUTE_CONTROLLER => 'FreeAsso::Controller::Client',
+        FFCSTRT::ROUTE_FUNCTION   => 'getAll',
+        FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_GET_FILTERED,
+        FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
+        FFCSTRT::ROUTE_MIDDLEWARE => [],
+        FFCSTRT::ROUTE_INCLUDE    => [
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['lang', 'country', 'last_donation', 'client_category', 'client_type']
         ],
-        'results' => [
+        FFCSTRT::ROUTE_SCOPE      => [],
+        FFCSTRT::ROUTE_RESULTS    => [
             '200' => [
-                'type'  => \FreeFW\Router\Route::RESULT_LIST,
-                'model' => 'FreeSso::Model::Client'
-            ]
+                FFCSTRT::ROUTE_RESULTS_TYPE    => FFCSTRT::RESULT_LIST,
+                FFCSTRT::ROUTE_RESULTS_MODEL   => 'FreeAsso::Model::Client',
+                FFCSTRT::ROUTE_RESULTS_COMMENT => 'Réponse ok',
+            ],
         ]
     ],
-    'freeasso.client.getone' => [
-        'method'     => \FreeFW\Router\Route::METHOD_GET,
-        'model'      => 'FreeAsso::Model::Client',
-        'url'        => '/v1/asso/client/:cli_id',
-        'controller' => 'FreeAsso::Controller::Client',
-        'function'   => 'getOne',
-        'auth'       => \FreeFW\Router\Route::AUTH_IN,
-        'middleware' => [],
-        'include'    => [
-            'default' => ['client_category', 'client_type', 'country', 'lang', 'last_donation']
+    'free_asso.client.getone' => [
+        FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Client',
+        FFCSTRT::ROUTE_COMMENT    => 'Retourne un objet selon son identifiant',
+        FFCSTRT::ROUTE_METHOD     => FFCSTRT::METHOD_GET,
+        FFCSTRT::ROUTE_MODEL      => 'FreeAsso::Model::Client',
+        FFCSTRT::ROUTE_URL        => '/v1/asso/client/:cli_id',
+        FFCSTRT::ROUTE_CONTROLLER => 'FreeAsso::Controller::Client',
+        FFCSTRT::ROUTE_FUNCTION   => 'getOne',
+        FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_GET_ONE,
+        FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
+        FFCSTRT::ROUTE_MIDDLEWARE => [],
+        FFCSTRT::ROUTE_INCLUDE    => [
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['lang', 'country', 'last_donation', 'client_category', 'client_type']
         ],
-        'results' => [
+        FFCSTRT::ROUTE_SCOPE      => [],
+        FFCSTRT::ROUTE_PARAMETERS => [
+            'cli_id' => [
+                FFCSTRT::ROUTE_PARAMETER_ORIGIN   => FFCSTRT::ROUTE_PARAMETER_ORIGIN_PATH,
+                FFCSTRT::ROUTE_PARAMETER_TYPE     => FFCST::TYPE_BIGINT,
+                FFCSTRT::ROUTE_PARAMETER_REQUIRED => true,
+                FFCSTRT::ROUTE_PARAMETER_COMMENT  => 'Identifiant de l\'objet'
+            ],
+        ],
+        FFCSTRT::ROUTE_RESULTS    => [
             '200' => [
-                'type'  => \FreeFW\Router\Route::RESULT_OBJECT,
-                'model' => 'FreeSso::Model::Client'
-            ]
+                FFCSTRT::ROUTE_RESULTS_TYPE    => FFCSTRT::RESULT_OBJECT,
+                FFCSTRT::ROUTE_RESULTS_MODEL   => 'FreeAsso::Model::Client',
+                FFCSTRT::ROUTE_RESULTS_COMMENT => 'Réponse ok',
+            ],
         ]
     ],
-    'freeasso.client.updateone' => [
-        'method'     => \FreeFW\Router\Route::METHOD_PUT,
-        'model'      => 'FreeAsso::Model::Client',
-        'url'        => '/v1/asso/client/:cli_id',
-        'controller' => 'FreeAsso::Controller::Client',
-        'function'   => 'updateOne',
-        'auth'       => \FreeFW\Router\Route::AUTH_IN,
-        'middleware' => [],
-        'include'    => [
-            'default' => ['client_category', 'client_type', 'country', 'lang', 'last_donation']
+    'free_asso.client.createone' => [
+        FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Client',
+        FFCSTRT::ROUTE_COMMENT    => 'Créé un objet',
+        FFCSTRT::ROUTE_METHOD     => FFCSTRT::METHOD_POST,
+        FFCSTRT::ROUTE_MODEL      => 'FreeAsso::Model::Client',
+        FFCSTRT::ROUTE_URL        => '/v1/asso/client',
+        FFCSTRT::ROUTE_CONTROLLER => 'FreeAsso::Controller::Client',
+        FFCSTRT::ROUTE_FUNCTION   => 'createOne',
+        FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_CREATE_ONE,
+        FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
+        FFCSTRT::ROUTE_MIDDLEWARE => [],
+        FFCSTRT::ROUTE_INCLUDE    => [
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['lang', 'country', 'last_donation', 'client_category', 'client_type']
         ],
-        'results' => [
-            '200' => [
-                'type'  => \FreeFW\Router\Route::RESULT_OBJECT,
-                'model' => 'FreeSso::Model::Client'
-            ]
-        ]
-    ],
-    'freeasso.client.createone' => [
-        'method'     => \FreeFW\Router\Route::METHOD_POST,
-        'model'      => 'FreeAsso::Model::Client',
-        'url'        => '/v1/asso/client',
-        'controller' => 'FreeAsso::Controller::Client',
-        'function'   => 'createOne',
-        'auth'       => \FreeFW\Router\Route::AUTH_IN,
-        'middleware' => [],
-        'include'    => [
-            'default' => ['client_category', 'client_type', 'country', 'lang', 'last_donation']
-        ],
-        'results' => [
+        FFCSTRT::ROUTE_SCOPE      => [],
+        FFCSTRT::ROUTE_RESULTS    => [
             '201' => [
-                'type'  => \FreeFW\Router\Route::RESULT_OBJECT,
-                'model' => 'FreeSso::Model::Client'
-            ]
+                FFCSTRT::ROUTE_RESULTS_TYPE    => FFCSTRT::RESULT_OBJECT,
+                FFCSTRT::ROUTE_RESULTS_MODEL   => 'FreeAsso::Model::Client',
+                FFCSTRT::ROUTE_RESULTS_COMMENT => 'Objet créé',
+            ],
         ]
     ],
-    'freeasso.client.deleteone' => [
-        'method'     => \FreeFW\Router\Route::METHOD_DELETE,
-        'model'      => 'FreeAsso::Model::Client',
-        'url'        => '/v1/asso/client/:cli_id',
-        'controller' => 'FreeAsso::Controller::Client',
-        'function'   => 'removeOne',
-        'auth'       => \FreeFW\Router\Route::AUTH_IN,
-        'middleware' => [],
-        'results' => [
+    'free_asso.client.updateone' => [
+        FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Client',
+        FFCSTRT::ROUTE_COMMENT    => 'Modifie un objet',
+        FFCSTRT::ROUTE_METHOD     => FFCSTRT::METHOD_PUT,
+        FFCSTRT::ROUTE_MODEL      => 'FreeAsso::Model::Client',
+        FFCSTRT::ROUTE_URL        => '/v1/asso/client/:cli_id',
+        FFCSTRT::ROUTE_CONTROLLER => 'FreeAsso::Controller::Client',
+        FFCSTRT::ROUTE_FUNCTION   => 'updateOne',
+        FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_UPDATE_ONE,
+        FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
+        FFCSTRT::ROUTE_MIDDLEWARE => [],
+        FFCSTRT::ROUTE_INCLUDE    => [
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['lang', 'country', 'last_donation', 'client_category', 'client_type']
+        ],
+        FFCSTRT::ROUTE_SCOPE      => [],
+        FFCSTRT::ROUTE_PARAMETERS => [
+            'cli_id' => [
+                FFCSTRT::ROUTE_PARAMETER_ORIGIN   => FFCSTRT::ROUTE_PARAMETER_ORIGIN_PATH,
+                FFCSTRT::ROUTE_PARAMETER_TYPE     => FFCST::TYPE_BIGINT,
+                FFCSTRT::ROUTE_PARAMETER_REQUIRED => true,
+                FFCSTRT::ROUTE_PARAMETER_COMMENT  => 'Identifiant de l\'objet'
+            ],
+        ],
+        FFCSTRT::ROUTE_RESULTS    => [
+            '200' => [
+                FFCSTRT::ROUTE_RESULTS_TYPE    => FFCSTRT::RESULT_OBJECT,
+                FFCSTRT::ROUTE_RESULTS_MODEL   => 'FreeAsso::Model::Client',
+                FFCSTRT::ROUTE_RESULTS_COMMENT => 'Objet modifié',
+            ],
+        ]
+    ],
+    'free_asso.client.removeone' => [
+        FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Client',
+        FFCSTRT::ROUTE_COMMENT    => 'Supprime un objet',
+        FFCSTRT::ROUTE_METHOD     => FFCSTRT::METHOD_DELETE,
+        FFCSTRT::ROUTE_MODEL      => 'FreeAsso::Model::Client',
+        FFCSTRT::ROUTE_URL        => '/v1/asso/client/:cli_id',
+        FFCSTRT::ROUTE_CONTROLLER => 'FreeAsso::Controller::Client',
+        FFCSTRT::ROUTE_FUNCTION   => 'removeOne',
+        FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_DELETE_ONE,
+        FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
+        FFCSTRT::ROUTE_MIDDLEWARE => [],
+        FFCSTRT::ROUTE_INCLUDE    => [],
+        FFCSTRT::ROUTE_SCOPE      => [],
+        FFCSTRT::ROUTE_PARAMETERS => [
+            'cli_id' => [
+                FFCSTRT::ROUTE_PARAMETER_ORIGIN   => FFCSTRT::ROUTE_PARAMETER_ORIGIN_PATH,
+                FFCSTRT::ROUTE_PARAMETER_TYPE     => FFCST::TYPE_BIGINT,
+                FFCSTRT::ROUTE_PARAMETER_REQUIRED => true,
+                FFCSTRT::ROUTE_PARAMETER_COMMENT  => 'Identifiant de l\'objet'
+            ],
+        ],
+        FFCSTRT::ROUTE_RESULTS    => [
             '204' => [
+                FFCSTRT::ROUTE_RESULTS_COMMENT => 'Objet supprimé',
             ]
         ]
     ],

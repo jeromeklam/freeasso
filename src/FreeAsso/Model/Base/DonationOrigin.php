@@ -23,7 +23,7 @@ abstract class DonationOrigin extends \FreeAsso\Model\StorageModel\DonationOrigi
 
     /**
      * dono_ts
-     * @var string
+     * @var mixed
      */
     protected $dono_ts = null;
 
@@ -41,19 +41,19 @@ abstract class DonationOrigin extends \FreeAsso\Model\StorageModel\DonationOrigi
 
     /**
      * dono_year
-     * @var string
+     * @var int
      */
     protected $dono_year = null;
 
     /**
      * dono_month
-     * @var string
+     * @var int
      */
     protected $dono_month = null;
 
     /**
      * dono_day
-     * @var string
+     * @var int
      */
     protected $dono_day = null;
 
@@ -112,7 +112,7 @@ abstract class DonationOrigin extends \FreeAsso\Model\StorageModel\DonationOrigi
     /**
      * Set dono_ts
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\DonationOrigin
      */
@@ -125,7 +125,7 @@ abstract class DonationOrigin extends \FreeAsso\Model\StorageModel\DonationOrigi
     /**
      * Get dono_ts
      *
-     * @return string
+     * @return mixed
      */
     public function getDonoTs()
     {
@@ -181,7 +181,7 @@ abstract class DonationOrigin extends \FreeAsso\Model\StorageModel\DonationOrigi
     /**
      * Set dono_year
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\DonationOrigin
      */
@@ -194,7 +194,7 @@ abstract class DonationOrigin extends \FreeAsso\Model\StorageModel\DonationOrigi
     /**
      * Get dono_year
      *
-     * @return string
+     * @return int
      */
     public function getDonoYear()
     {
@@ -204,7 +204,7 @@ abstract class DonationOrigin extends \FreeAsso\Model\StorageModel\DonationOrigi
     /**
      * Set dono_month
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\DonationOrigin
      */
@@ -217,7 +217,7 @@ abstract class DonationOrigin extends \FreeAsso\Model\StorageModel\DonationOrigi
     /**
      * Get dono_month
      *
-     * @return string
+     * @return int
      */
     public function getDonoMonth()
     {
@@ -227,7 +227,7 @@ abstract class DonationOrigin extends \FreeAsso\Model\StorageModel\DonationOrigi
     /**
      * Set dono_day
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\DonationOrigin
      */
@@ -240,7 +240,7 @@ abstract class DonationOrigin extends \FreeAsso\Model\StorageModel\DonationOrigi
     /**
      * Get dono_day
      *
-     * @return string
+     * @return int
      */
     public function getDonoDay()
     {

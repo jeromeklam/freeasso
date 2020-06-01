@@ -35,13 +35,13 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
 
     /**
      * site_from
-     * @var string
+     * @var mixed
      */
     protected $site_from = null;
 
     /**
      * site_to
-     * @var string
+     * @var mixed
      */
     protected $site_to = null;
 
@@ -101,13 +101,13 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
 
     /**
      * site_area
-     * @var string
+     * @var int
      */
     protected $site_area = null;
 
     /**
      * site_position
-     * @var string
+     * @var int
      */
     protected $site_position = null;
 
@@ -185,61 +185,61 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
 
     /**
      * site_number_1
-     * @var string
+     * @var int
      */
     protected $site_number_1 = null;
 
     /**
      * site_number_2
-     * @var string
+     * @var int
      */
     protected $site_number_2 = null;
 
     /**
      * site_number_3
-     * @var string
+     * @var int
      */
     protected $site_number_3 = null;
 
     /**
      * site_number_4
-     * @var string
+     * @var int
      */
     protected $site_number_4 = null;
 
     /**
      * site_number_5
-     * @var string
+     * @var int
      */
     protected $site_number_5 = null;
 
     /**
      * site_number_6
-     * @var string
+     * @var int
      */
     protected $site_number_6 = null;
 
     /**
      * site_date_1
-     * @var string
+     * @var mixed
      */
     protected $site_date_1 = null;
 
     /**
      * site_date_2
-     * @var string
+     * @var mixed
      */
     protected $site_date_2 = null;
 
     /**
      * site_date_3
-     * @var string
+     * @var mixed
      */
     protected $site_date_3 = null;
 
     /**
      * site_date_4
-     * @var string
+     * @var mixed
      */
     protected $site_date_4 = null;
 
@@ -269,25 +269,25 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
 
     /**
      * site_bool_1
-     * @var int
+     * @var bool
      */
     protected $site_bool_1 = null;
 
     /**
      * site_bool_2
-     * @var int
+     * @var bool
      */
     protected $site_bool_2 = null;
 
     /**
      * site_bool_3
-     * @var int
+     * @var bool
      */
     protected $site_bool_3 = null;
 
     /**
      * site_bool_4
-     * @var int
+     * @var bool
      */
     protected $site_bool_4 = null;
 
@@ -311,7 +311,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
 
     /**
      * site_conform
-     * @var int
+     * @var bool
      */
     protected $site_conform = null;
 
@@ -416,7 +416,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Set site_from
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Site
      */
@@ -429,7 +429,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Get site_from
      *
-     * @return string
+     * @return mixed
      */
     public function getSiteFrom()
     {
@@ -439,7 +439,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Set site_to
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Site
      */
@@ -452,7 +452,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Get site_to
      *
-     * @return string
+     * @return mixed
      */
     public function getSiteTo()
     {
@@ -669,7 +669,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Set site_area
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Site
      */
@@ -682,7 +682,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Get site_area
      *
-     * @return string
+     * @return int
      */
     public function getSiteArea()
     {
@@ -692,7 +692,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Set site_position
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Site
      */
@@ -705,7 +705,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Get site_position
      *
-     * @return string
+     * @return int
      */
     public function getSitePosition()
     {
@@ -991,7 +991,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Set site_number_1
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Site
      */
@@ -1004,7 +1004,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Get site_number_1
      *
-     * @return string
+     * @return int
      */
     public function getSiteNumber_1()
     {
@@ -1014,7 +1014,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Set site_number_2
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Site
      */
@@ -1027,7 +1027,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Get site_number_2
      *
-     * @return string
+     * @return int
      */
     public function getSiteNumber_2()
     {
@@ -1037,7 +1037,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Set site_number_3
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Site
      */
@@ -1050,7 +1050,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Get site_number_3
      *
-     * @return string
+     * @return int
      */
     public function getSiteNumber_3()
     {
@@ -1060,7 +1060,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Set site_number_4
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Site
      */
@@ -1073,7 +1073,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Get site_number_4
      *
-     * @return string
+     * @return int
      */
     public function getSiteNumber_4()
     {
@@ -1083,7 +1083,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Set site_number_5
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Site
      */
@@ -1096,7 +1096,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Get site_number_5
      *
-     * @return string
+     * @return int
      */
     public function getSiteNumber_5()
     {
@@ -1106,7 +1106,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Set site_number_6
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Site
      */
@@ -1119,7 +1119,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Get site_number_6
      *
-     * @return string
+     * @return int
      */
     public function getSiteNumber_6()
     {
@@ -1129,7 +1129,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Set site_date_1
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Site
      */
@@ -1142,7 +1142,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Get site_date_1
      *
-     * @return string
+     * @return mixed
      */
     public function getSiteDate_1()
     {
@@ -1152,7 +1152,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Set site_date_2
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Site
      */
@@ -1165,7 +1165,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Get site_date_2
      *
-     * @return string
+     * @return mixed
      */
     public function getSiteDate_2()
     {
@@ -1175,7 +1175,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Set site_date_3
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Site
      */
@@ -1188,7 +1188,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Get site_date_3
      *
-     * @return string
+     * @return mixed
      */
     public function getSiteDate_3()
     {
@@ -1198,7 +1198,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Set site_date_4
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Site
      */
@@ -1211,7 +1211,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Get site_date_4
      *
-     * @return string
+     * @return mixed
      */
     public function getSiteDate_4()
     {
@@ -1313,7 +1313,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Set site_bool_1
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\Site
      */
@@ -1326,7 +1326,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Get site_bool_1
      *
-     * @return int
+     * @return bool
      */
     public function getSiteBool_1()
     {
@@ -1336,7 +1336,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Set site_bool_2
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\Site
      */
@@ -1349,7 +1349,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Get site_bool_2
      *
-     * @return int
+     * @return bool
      */
     public function getSiteBool_2()
     {
@@ -1359,7 +1359,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Set site_bool_3
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\Site
      */
@@ -1372,7 +1372,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Get site_bool_3
      *
-     * @return int
+     * @return bool
      */
     public function getSiteBool_3()
     {
@@ -1382,7 +1382,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Set site_bool_4
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\Site
      */
@@ -1395,7 +1395,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Get site_bool_4
      *
-     * @return int
+     * @return bool
      */
     public function getSiteBool_4()
     {
@@ -1474,7 +1474,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Set site_conform
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\Site
      */
@@ -1487,7 +1487,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     /**
      * Get site_conform
      *
-     * @return int
+     * @return bool
      */
     public function getSiteConform()
     {

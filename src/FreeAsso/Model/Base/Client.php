@@ -89,7 +89,7 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
 
     /**
      * cli_active
-     * @var string
+     * @var int
      */
     protected $cli_active = null;
 
@@ -149,13 +149,13 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
 
     /**
      * cli_receipt
-     * @var int
+     * @var bool
      */
     protected $cli_receipt = null;
 
     /**
      * cli_certificat
-     * @var int
+     * @var bool
      */
     protected $cli_certificat = null;
 
@@ -203,49 +203,49 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
 
     /**
      * cli_number_1
-     * @var string
+     * @var int
      */
     protected $cli_number_1 = null;
 
     /**
      * cli_number_2
-     * @var string
+     * @var int
      */
     protected $cli_number_2 = null;
 
     /**
      * cli_number_3
-     * @var string
+     * @var int
      */
     protected $cli_number_3 = null;
 
     /**
      * cli_number_4
-     * @var string
+     * @var int
      */
     protected $cli_number_4 = null;
 
     /**
      * cli_date_1
-     * @var string
+     * @var mixed
      */
     protected $cli_date_1 = null;
 
     /**
      * cli_date_2
-     * @var string
+     * @var mixed
      */
     protected $cli_date_2 = null;
 
     /**
      * cli_date_3
-     * @var string
+     * @var mixed
      */
     protected $cli_date_3 = null;
 
     /**
      * cli_date_4
-     * @var string
+     * @var mixed
      */
     protected $cli_date_4 = null;
 
@@ -275,37 +275,37 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
 
     /**
      * cli_bool_1
-     * @var int
+     * @var bool
      */
     protected $cli_bool_1 = null;
 
     /**
      * cli_bool_2
-     * @var int
+     * @var bool
      */
     protected $cli_bool_2 = null;
 
     /**
      * cli_bool_3
-     * @var int
+     * @var bool
      */
     protected $cli_bool_3 = null;
 
     /**
      * cli_bool_4
-     * @var int
+     * @var bool
      */
     protected $cli_bool_4 = null;
 
     /**
      * cli_display_site
-     * @var string
+     * @var bool
      */
     protected $cli_display_site = null;
 
     /**
      * cli_send_news
-     * @var string
+     * @var bool
      */
     protected $cli_send_news = null;
 
@@ -629,7 +629,7 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     /**
      * Set cli_active
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Client
      */
@@ -642,7 +642,7 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     /**
      * Get cli_active
      *
-     * @return string
+     * @return int
      */
     public function getCliActive()
     {
@@ -859,7 +859,7 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     /**
      * Set cli_receipt
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\Client
      */
@@ -872,7 +872,7 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     /**
      * Get cli_receipt
      *
-     * @return int
+     * @return bool
      */
     public function getCliReceipt()
     {
@@ -882,7 +882,7 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     /**
      * Set cli_certificat
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\Client
      */
@@ -895,7 +895,7 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     /**
      * Get cli_certificat
      *
-     * @return int
+     * @return bool
      */
     public function getCliCertificat()
     {
@@ -1066,7 +1066,7 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     /**
      * Set cli_number_1
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Client
      */
@@ -1079,7 +1079,7 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     /**
      * Get cli_number_1
      *
-     * @return string
+     * @return int
      */
     public function getCliNumber_1()
     {
@@ -1089,7 +1089,7 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     /**
      * Set cli_number_2
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Client
      */
@@ -1102,7 +1102,7 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     /**
      * Get cli_number_2
      *
-     * @return string
+     * @return int
      */
     public function getCliNumber_2()
     {
@@ -1112,7 +1112,7 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     /**
      * Set cli_number_3
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Client
      */
@@ -1125,7 +1125,7 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     /**
      * Get cli_number_3
      *
-     * @return string
+     * @return int
      */
     public function getCliNumber_3()
     {
@@ -1135,7 +1135,7 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     /**
      * Set cli_number_4
      *
-     * @param string $p_value
+     * @param int $p_value
      *
      * @return \FreeAsso\Model\Client
      */
@@ -1148,7 +1148,7 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     /**
      * Get cli_number_4
      *
-     * @return string
+     * @return int
      */
     public function getCliNumber_4()
     {
@@ -1158,7 +1158,7 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     /**
      * Set cli_date_1
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Client
      */
@@ -1171,7 +1171,7 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     /**
      * Get cli_date_1
      *
-     * @return string
+     * @return mixed
      */
     public function getCliDate_1()
     {
@@ -1181,7 +1181,7 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     /**
      * Set cli_date_2
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Client
      */
@@ -1194,7 +1194,7 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     /**
      * Get cli_date_2
      *
-     * @return string
+     * @return mixed
      */
     public function getCliDate_2()
     {
@@ -1204,7 +1204,7 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     /**
      * Set cli_date_3
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Client
      */
@@ -1217,7 +1217,7 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     /**
      * Get cli_date_3
      *
-     * @return string
+     * @return mixed
      */
     public function getCliDate_3()
     {
@@ -1227,7 +1227,7 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     /**
      * Set cli_date_4
      *
-     * @param string $p_value
+     * @param mixed $p_value
      *
      * @return \FreeAsso\Model\Client
      */
@@ -1240,7 +1240,7 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     /**
      * Get cli_date_4
      *
-     * @return string
+     * @return mixed
      */
     public function getCliDate_4()
     {
@@ -1342,7 +1342,7 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     /**
      * Set cli_bool_1
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\Client
      */
@@ -1355,7 +1355,7 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     /**
      * Get cli_bool_1
      *
-     * @return int
+     * @return bool
      */
     public function getCliBool_1()
     {
@@ -1365,7 +1365,7 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     /**
      * Set cli_bool_2
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\Client
      */
@@ -1378,7 +1378,7 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     /**
      * Get cli_bool_2
      *
-     * @return int
+     * @return bool
      */
     public function getCliBool_2()
     {
@@ -1388,7 +1388,7 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     /**
      * Set cli_bool_3
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\Client
      */
@@ -1401,7 +1401,7 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     /**
      * Get cli_bool_3
      *
-     * @return int
+     * @return bool
      */
     public function getCliBool_3()
     {
@@ -1411,7 +1411,7 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     /**
      * Set cli_bool_4
      *
-     * @param int $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\Client
      */
@@ -1424,7 +1424,7 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     /**
      * Get cli_bool_4
      *
-     * @return int
+     * @return bool
      */
     public function getCliBool_4()
     {
@@ -1434,7 +1434,7 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     /**
      * Set cli_display_site
      *
-     * @param string $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\Client
      */
@@ -1447,7 +1447,7 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     /**
      * Get cli_display_site
      *
-     * @return string
+     * @return bool
      */
     public function getCliDisplaySite()
     {
@@ -1457,7 +1457,7 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     /**
      * Set cli_send_news
      *
-     * @param string $p_value
+     * @param bool $p_value
      *
      * @return \FreeAsso\Model\Client
      */
@@ -1470,7 +1470,7 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     /**
      * Get cli_send_news
      *
-     * @return string
+     * @return bool
      */
     public function getCliSendNews()
     {
