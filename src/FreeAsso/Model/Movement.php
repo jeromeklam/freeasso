@@ -12,6 +12,15 @@ class Movement extends \FreeAsso\Model\Base\Movement
 {
 
     /**
+     * Types
+     * @var string
+     */
+    const TYPE_INPUT    = 'INPUT';
+    const TYPE_OUTPUT   = 'OUTPUT';
+    const TYPE_SIMPLE   = 'SIMPLE';
+    const TYPE_TRANSFER = 'TRANSFER';
+
+    /**
      * From site
      * @var \FreeAsso\Model\Site
      */
@@ -39,7 +48,7 @@ class Movement extends \FreeAsso\Model\Base\Movement
      * Causes
      * @var [\FreeAsso\Model\Cause]
      */
-    protected $causes = [];
+    protected $causes = null;
 
     /**
      * Set causes
@@ -61,6 +70,24 @@ class Movement extends \FreeAsso\Model\Base\Movement
      */
     public function getCauses()
     {
+        if ($this->causes === null) {
+            $this->causes = [];
+            /**
+             * @var \FreeFW\Model\Query $query
+             */
+            $model   = \FreeFW\DI\DI::get('FreeAsso::Model::Cause');
+            $query   = $model->getQuery();
+            $filters = [
+                'movement.move_id' => $this->getMoveId(),
+            ];
+            $query
+                ->addFromFilters($filters)
+                ->addRelations(['movements'])
+            ;
+            if ($query->execute()) {
+                $this->causes = $query->getResult();
+            }
+        }
         return $this->causes;
     }
 
@@ -163,6 +190,67 @@ class Movement extends \FreeAsso\Model\Base\Movement
      */
     public function afterCreate()
     {
+        foreach ($this->getCauses() as $oneCause) {
+            /**
+             * @var \FreeAsso\Model\Cause $cause
+             */
+            $cause = \FreeAsso\Model\Cause::findFirst(['cau_id' => $oneCause->getCauId()]);
+            if (!$cause) {
+                // @todo
+                $cause = \FreeFW\DI\DI::get('FreeAsso::Model::Cause');
+                $cause
+                    ->setCauFrom(\FreeFW\Tools\Date::getCurrentTimestamp())
+                    ->setSiteId($this->getModeFromSiteId())
+                    ->setCauPublic(true)
+                    ->setCauAvailable(true)
+                    ->setCauFamily(\FreeAsso\Model\Cause::FAMILY_ANIMAL)
+                ;
+                if (!$cause->create()) {
+                    $this->addErrors($cause->getErrors());
+                    return false;
+                }
+            }
+            /**
+             * @var \FreeAsso\Model\CauseMovement $causeMovement
+             */
+            $causeMovement = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMovement');
+            $causeMovement
+                ->setCamvSiteFromId($this->getMoveFromSiteId())
+                ->setCamvSiteToId($this->getMoveToSiteId())
+                ->setCauId($cause->getCauId())
+                ->setCamvTs(\FreeFW\Tools\Date::getCurrentTimestamp())
+                ->setCamvStart($this->getMoveFrom())
+                ->setCamvTo($this->getMoveTo())
+                ->setCamvStatus(\FreeAsso\Model\CauseMovement::STATUS_OK)
+                ->setMoveId($this->getMoveId())
+            ;
+            if (!$causeMovement->create()) {
+                $this->addErrors($causeMovement->getErrors());
+                return false;
+            } else {
+                switch ($this->getMoveType()) {
+                    case self::TYPE_INPUT:
+                        break;
+                    case self::TYPE_OUTPUT:
+                        $cause
+                            ->setCauTo(\FreeFW\Tools\Date::getCurrentTimestamp())
+                        ;
+                        if (!$cause->save()) {
+                            $this->addErrors($cause->getErrors());
+                            return false;
+                        }
+                    default:
+                        $cause
+                            ->setSiteId($this->getMoveToSiteId())
+                        ;
+                        if (!$cause->save()) {
+                            $this->addErrors($cause->getErrors());
+                            return false;
+                        }
+                        break;
+                }
+            }
+        }
         return true;
     }
 }

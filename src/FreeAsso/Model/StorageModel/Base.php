@@ -10,7 +10,7 @@ abstract class Base extends \FreeFW\Core\StorageModel
 {
 
     /**
-     * Add to queue ?
+     * Add to queue, websocket, ?
      *
      * @return boolean
      */
