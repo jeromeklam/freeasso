@@ -45,17 +45,64 @@ class Movement extends \FreeAsso\Model\Base\Movement
     protected $to_client = null;
 
     /**
+     * Movements
+     * @var [\FreeAsso\Model\CauseMovement]
+     */
+    protected $movements = null;
+
+    /**
      * Causes
      * @var [\FreeAsso\Model\Cause]
      */
     protected $causes = null;
 
     /**
+     * Set movements
+     *
+     * @param [\FreeAsso\Model\Cause $p_movements]
+     *
+     * @return \FreeAsso\Model\Movement
+     */
+    public function setMovements($p_movements)
+    {
+        $this->movements = $p_movements;
+        return $this;
+    }
+
+    /**
+     * Get movements
+     *
+     * @return [\FreeAsso\Model\CauseMovement]
+     */
+    public function getMovements()
+    {
+        if ($this->movements === null) {
+            $this->movements = [];
+            /**
+             * @var \FreeFW\Model\Query $query
+             */
+            $model   = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMovement');
+            $query   = $model->getQuery();
+            $filters = [
+                'move_id' => $this->getMoveId(),
+            ];
+            $query
+                ->addFromFilters($filters)
+                ->addRelations(['cause'])
+            ;
+            if ($query->execute()) {
+                $this->movements = $query->getResult();
+            }
+        }
+        return $this->movements;
+    }
+
+    /**
      * Set causes
      *
-     * @param [\FreeAsso\Model\Cause $p_cause]
+     * @param array $p_causes
      *
-     * @return \FreeAsso\Model\CauseMedia
+     * @return \FreeAsso\Model\Movement
      */
     public function setCauses($p_causes)
     {
@@ -78,7 +125,7 @@ class Movement extends \FreeAsso\Model\Base\Movement
             $model   = \FreeFW\DI\DI::get('FreeAsso::Model::Cause');
             $query   = $model->getQuery();
             $filters = [
-                'movement.move_id' => $this->getMoveId(),
+                'movements.move_id' => $this->getMoveId(),
             ];
             $query
                 ->addFromFilters($filters)
@@ -200,10 +247,14 @@ class Movement extends \FreeAsso\Model\Base\Movement
                 $cause = \FreeFW\DI\DI::get('FreeAsso::Model::Cause');
                 $cause
                     ->setCauFrom(\FreeFW\Tools\Date::getCurrentTimestamp())
-                    ->setSiteId($this->getModeFromSiteId())
+                    ->setSiteId($this->getMoveToSiteId())
                     ->setCauPublic(true)
                     ->setCauAvailable(true)
                     ->setCauFamily(\FreeAsso\Model\Cause::FAMILY_ANIMAL)
+                    ->setCauName($oneCause->getCauName())
+                    ->setCauCode($oneCause->getCauCode())
+                    ->setCautId($oneCause->getCautId())
+                    ->setCauSex($oneCause->getCauSex())
                 ;
                 if (!$cause->create()) {
                     $this->addErrors($cause->getErrors());
@@ -221,7 +272,7 @@ class Movement extends \FreeAsso\Model\Base\Movement
                 ->setCamvTs(\FreeFW\Tools\Date::getCurrentTimestamp())
                 ->setCamvStart($this->getMoveFrom())
                 ->setCamvTo($this->getMoveTo())
-                ->setCamvStatus(\FreeAsso\Model\CauseMovement::STATUS_OK)
+                ->setCamvStatus($this->getMoveStatus())
                 ->setMoveId($this->getMoveId())
             ;
             if (!$causeMovement->create()) {
@@ -230,6 +281,7 @@ class Movement extends \FreeAsso\Model\Base\Movement
             } else {
                 switch ($this->getMoveType()) {
                     case self::TYPE_INPUT:
+                        // L'animal a été créé, on n'a rien besoin de faire...
                         break;
                     case self::TYPE_OUTPUT:
                         $cause
@@ -240,12 +292,14 @@ class Movement extends \FreeAsso\Model\Base\Movement
                             return false;
                         }
                     default:
-                        $cause
-                            ->setSiteId($this->getMoveToSiteId())
-                        ;
-                        if (!$cause->save()) {
-                            $this->addErrors($cause->getErrors());
-                            return false;
+                        if ($this->getMoveStatus() === \FreeAsso\Model\CauseMovement::STATUS_OK) {
+                            $cause
+                                ->setSiteId($this->getMoveToSiteId())
+                            ;
+                            if (!$cause->save()) {
+                                $this->addErrors($cause->getErrors());
+                                return false;
+                            }
                         }
                         break;
                 }

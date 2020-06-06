@@ -50,10 +50,10 @@ class CauseMovement extends \FreeFW\Core\ApiController
 
     /**
      * Get pendings movements
-     * 
+     *
      * @param \Psr\Http\Message\ServerRequestInterface $p_request
-     * 
-     * @return \Psr\Http\Message\ResponseInterface 
+     *
+     * @return \Psr\Http\Message\ResponseInterface
      */
     public function getPendings(\Psr\Http\Message\ServerRequestInterface $p_request)
     {

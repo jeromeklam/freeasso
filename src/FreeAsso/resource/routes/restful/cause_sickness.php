@@ -8,6 +8,24 @@ use \FreeFW\Router\Route as FFCSTRT;
  * @author jeromeklam
  */
 $causeSicknessRoutes = [
+    'free_asso.cause_sickness.getpendings' => [
+        'method'     => \FreeFW\Router\Route::METHOD_GET,
+        'model'      => 'FreeAsso::Model::CauseSickness',
+        'url'        => '/v1/asso/cause_sickness/pendings',
+        'controller' => 'FreeAsso::Controller::CauseSickness',
+        'function'   => 'getPendings',
+        'auth'       => \FreeFW\Router\Route::AUTH_IN,
+        'middleware' => [],
+        'include'    => [
+            'default' => ['cause.site', 'sickness', 'sanitary']
+        ],
+        'results' => [
+            '200' => [
+                'type'  => \FreeFW\Router\Route::RESULT_LIST,
+                'model' => 'FreeSso::Model::CauseSickness'
+            ]
+        ]
+    ],
     'free_asso.cause_sickness.autocomplete' => [
         FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/CauseSickness',
         FFCSTRT::ROUTE_COMMENT    => 'Autocomplete.',
@@ -169,24 +187,6 @@ $causeSicknessRoutes = [
         FFCSTRT::ROUTE_RESULTS    => [
             '204' => [
                 FFCSTRT::ROUTE_RESULTS_COMMENT => 'Objet supprimé',
-            ]
-        ]
-    ],
-    'free_asso.cause_sickness.getpendings' => [
-        'method'     => \FreeFW\Router\Route::METHOD_GET,
-        'model'      => 'FreeAsso::Model::CauseSickness',
-        'url'        => '/v1/asso/cause_sickness/pendings',
-        'controller' => 'FreeAsso::Controller::CauseSickness',
-        'function'   => 'getPendings',
-        'auth'       => \FreeFW\Router\Route::AUTH_IN,
-        'middleware' => [],
-        'include'    => [
-            'default' => ['cause.site', 'sickness', 'sanitary']
-        ],
-        'results' => [
-            '200' => [
-                'type'  => \FreeFW\Router\Route::RESULT_LIST,
-                'model' => 'FreeSso::Model::CauseSickness'
             ]
         ]
     ],

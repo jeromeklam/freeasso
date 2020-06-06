@@ -52,17 +52,17 @@ abstract class Movement extends \FreeFW\Core\StorageModel
     protected static $PRP_MOVE_TR_NAME = [
         FFCST::PROPERTY_PRIVATE => 'move_tr_name',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_MOVE_TR_NUM = [
         FFCST::PROPERTY_PRIVATE => 'move_tr_num',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_MOVE_TR_NUM2 = [
         FFCST::PROPERTY_PRIVATE => 'move_tr_num2',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_MOVE_FROM = [
         FFCST::PROPERTY_PRIVATE => 'move_from',
@@ -288,6 +288,11 @@ abstract class Movement extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
         FFCST::PROPERTY_DEFAULT => 'OTHER',
     ];
+    protected static $PRP_MOVE_STATUS = [
+        FFCST::PROPERTY_PRIVATE => 'move_status',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+    ];
 
     /**
      * get properties
@@ -345,6 +350,7 @@ abstract class Movement extends \FreeFW\Core\StorageModel
             'move_desc'          => self::$PRP_MOVE_DESC,
             'move_blob'          => self::$PRP_MOVE_BLOB,
             'move_type'          => self::$PRP_MOVE_TYPE,
+            'move_status'        => self::$PRP_MOVE_STATUS,
         ];
     }
 
@@ -366,12 +372,18 @@ abstract class Movement extends \FreeFW\Core\StorageModel
     public function getRelationships()
     {
         return [
-            'causes' => [
-                FFCST::REL_MODEL   => 'FreeAsso::Model::Cause',
-                FFCST::REL_FIELD   => 'cau_id',
+            'movements' => [
+                FFCST::REL_MODEL   => 'FreeAsso::Model::CauseMovement',
+                FFCST::REL_FIELD   => 'move_id',
                 FFCST::REL_TYPE    => \FreeFW\Model\Query::JOIN_LEFT,
                 FFCST::REL_COMMENT => 'Les causes du mouvement',
                 FFCST::REL_REMOVE  => FFCST::REL_REMOVE_CASCADE
+            ],
+            'causes' => [
+                FFCST::REL_MODEL   => 'FreeAsso::Model::Cause',
+                FFCST::REL_FIELD   => 'cau_id',
+                FFCST::REL_TYPE    => \FreeFW\Model\Query::JOIN_NONE,
+                FFCST::REL_COMMENT => 'Technique pour la création',
             ]
         ];
     }

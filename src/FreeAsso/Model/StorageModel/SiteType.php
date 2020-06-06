@@ -170,6 +170,11 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
+    protected static $PRP_SITT_CODE = [
+        FFCST::PROPERTY_PRIVATE => 'sitt_code',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
 
     /**
      * get properties
@@ -209,7 +214,8 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\Base
             'sitt_bool_1'   => self::$PRP_SITT_BOOL_1,
             'sitt_bool_2'   => self::$PRP_SITT_BOOL_2,
             'sitt_bool_3'   => self::$PRP_SITT_BOOL_3,
-            'sitt_bool_4'   => self::$PRP_SITT_BOOL_4
+            'sitt_bool_4'   => self::$PRP_SITT_BOOL_4,
+            'sitt_code'     => self::$PRP_SITT_CODE,
         ];
     }
 

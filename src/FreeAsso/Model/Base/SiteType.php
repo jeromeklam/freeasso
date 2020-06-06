@@ -196,6 +196,12 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     protected $sitt_bool_4 = null;
 
     /**
+     * sitt_code
+     * @var string
+     */
+    protected $sitt_code = null;
+
+    /**
      * Set sitt_id
      *
      * @param int $p_value
@@ -906,5 +912,30 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\SiteType
     public function getSittBool_4()
     {
         return $this->sitt_bool_4;
+    }
+
+    /**
+     * Set code
+     *
+     * @param string $p_code
+     *
+     * @return \FreeAsso\Model\Base\SiteType
+     */
+    public function setSittCode($p_code)
+    {
+        $this->sitt_code = $p_code;
+        return $this;
+    }
+
+    /**
+     * Get code
+     *
+     * @param string $p_code
+     *
+     * @return string
+     */
+    public function getSittCode()
+    {
+        return $this->sitt_code;
     }
 }

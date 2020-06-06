@@ -8,6 +8,42 @@ use \FreeFW\Router\Route as FFCSTRT;
  * @author jeromeklam
  */
 $causeMovementRoutes = [
+    'free_asso.cause_movement.validate' => [
+        'method'     => \FreeFW\Router\Route::METHOD_PUT,
+        'model'      => 'FreeAsso::Model::CauseMovement',
+        'url'        => '/v1/asso/cause_movement/validate/:camv_id',
+        'controller' => 'FreeAsso::Controller::CauseMovement',
+        'function'   => 'validate',
+        'auth'       => \FreeFW\Router\Route::AUTH_IN,
+        'middleware' => [],
+        'include'    => [
+            'default' => ['cause', 'from_site', 'to_site', 'movement']
+        ],
+        'results' => [
+            '200' => [
+                'type'  => \FreeFW\Router\Route::RESULT_OBJECT,
+                'model' => 'FreeSso::Model::CauseMovement'
+            ]
+        ]
+    ],
+    'free_asso.cause_movement.getpendings' => [
+        'method'     => \FreeFW\Router\Route::METHOD_GET,
+        'model'      => 'FreeAsso::Model::CauseMovement',
+        'url'        => '/v1/asso/cause_movement/pendings',
+        'controller' => 'FreeAsso::Controller::CauseMovement',
+        'function'   => 'getPendings',
+        'auth'       => \FreeFW\Router\Route::AUTH_IN,
+        'middleware' => [],
+        'include'    => [
+            'default' => ['cause', 'from_site', 'to_site', 'movement']
+        ],
+        'results' => [
+            '200' => [
+                'type'  => \FreeFW\Router\Route::RESULT_LIST,
+                'model' => 'FreeSso::Model::CauseMovement'
+            ]
+        ]
+    ],
     'free_asso.cause_movement.autocomplete' => [
         FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/CauseMovement',
         FFCSTRT::ROUTE_COMMENT    => 'Autocomplete.',
@@ -169,42 +205,6 @@ $causeMovementRoutes = [
         FFCSTRT::ROUTE_RESULTS    => [
             '204' => [
                 FFCSTRT::ROUTE_RESULTS_COMMENT => 'Objet supprimé',
-            ]
-        ]
-    ],
-    'free_asso.cause_movement.validate' => [
-        'method'     => \FreeFW\Router\Route::METHOD_PUT,
-        'model'      => 'FreeAsso::Model::CauseMovement',
-        'url'        => '/v1/asso/cause_movement/validate/:camv_id',
-        'controller' => 'FreeAsso::Controller::CauseMovement',
-        'function'   => 'validate',
-        'auth'       => \FreeFW\Router\Route::AUTH_IN,
-        'middleware' => [],
-        'include'    => [
-            'default' => ['cause', 'from_site', 'to_site', 'movement']
-        ],
-        'results' => [
-            '200' => [
-                'type'  => \FreeFW\Router\Route::RESULT_OBJECT,
-                'model' => 'FreeSso::Model::CauseMovement'
-            ]
-        ]
-    ],
-    'free_asso.cause_movement.getpendings' => [
-        'method'     => \FreeFW\Router\Route::METHOD_GET,
-        'model'      => 'FreeAsso::Model::CauseMovement',
-        'url'        => '/v1/asso/cause_movement/pendings',
-        'controller' => 'FreeAsso::Controller::CauseMovement',
-        'function'   => 'getPendings',
-        'auth'       => \FreeFW\Router\Route::AUTH_IN,
-        'middleware' => [],
-        'include'    => [
-            'default' => ['cause', 'from_site', 'to_site', 'movement']
-        ],
-        'results' => [
-            '200' => [
-                'type'  => \FreeFW\Router\Route::RESULT_LIST,
-                'model' => 'FreeSso::Model::CauseMovement'
             ]
         ]
     ],

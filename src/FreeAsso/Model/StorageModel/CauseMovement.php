@@ -40,7 +40,7 @@ abstract class CauseMovement extends \FreeFW\Core\StorageModel
     protected static $PRP_CAMV_SITE_FROM_ID = [
         FFCST::PROPERTY_PRIVATE => 'camv_site_from_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_FK],
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
         FFCST::PROPERTY_FK      => ['from_site' =>
             [
                 'model' => 'FreeAsso::Model::Site',
@@ -52,7 +52,7 @@ abstract class CauseMovement extends \FreeFW\Core\StorageModel
     protected static $PRP_CAMV_SITE_TO_ID = [
         FFCST::PROPERTY_PRIVATE => 'camv_site_to_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_FK],
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
         FFCST::PROPERTY_FK      => ['to_site' =>
             [
                 'model' => 'FreeAsso::Model::Site',

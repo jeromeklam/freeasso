@@ -298,6 +298,12 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     protected $move_type = null;
 
     /**
+     * move_status
+     * @var string
+     */
+    protected $move_status = null;
+
+    /**
      * Set move_id
      *
      * @param int $p_value
@@ -1399,5 +1405,28 @@ abstract class Movement extends \FreeAsso\Model\StorageModel\Movement
     public function getMoveType()
     {
         return $this->move_type;
+    }
+
+    /**
+     * Set move_status
+     *
+     * @param string $p_status
+     *
+     * @return \FreeAsso\Model\Base\Movement
+     */
+    public function setMoveStatus($p_status)
+    {
+        $this->move_status = $p_status;
+        return $this;
+    }
+
+    /**
+     * Get move_status
+     *
+     * @return string
+     */
+    public function getMoveStatus()
+    {
+        return $this->move_status;
     }
 }
