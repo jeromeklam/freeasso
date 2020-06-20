@@ -49,7 +49,7 @@ $donationRoutes = [
         FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
         FFCSTRT::ROUTE_MIDDLEWARE => [],
         FFCSTRT::ROUTE_INCLUDE    => [
-            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['client', 'cause', 'cause.cause_type', 'payment_type', 'sponsorship']
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['client', 'cause', 'cause.cause_type', 'payment_type', 'sponsorship', 'certificate']
         ],
         FFCSTRT::ROUTE_SCOPE      => [],
         FFCSTRT::ROUTE_RESULTS    => [
@@ -72,7 +72,7 @@ $donationRoutes = [
         FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
         FFCSTRT::ROUTE_MIDDLEWARE => [],
         FFCSTRT::ROUTE_INCLUDE    => [
-            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['client', 'client.last_donation', 'cause', 'cause.cause_type', 'payment_type', 'sponsorship', 'origin', 'session']
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['client', 'client.last_donation', 'cause', 'cause.cause_type', 'payment_type', 'sponsorship', 'origin', 'session', 'certificate']
         ],
         FFCSTRT::ROUTE_SCOPE      => [],
         FFCSTRT::ROUTE_PARAMETERS => [
@@ -103,7 +103,7 @@ $donationRoutes = [
         FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
         FFCSTRT::ROUTE_MIDDLEWARE => [],
         FFCSTRT::ROUTE_INCLUDE    => [
-            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['client', 'client.last_donation', 'cause', 'cause.cause_type', 'payment_type', 'sponsorship', 'origin', 'session']
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['client', 'client.last_donation', 'cause', 'cause.cause_type', 'payment_type', 'sponsorship', 'origin', 'session', 'certificate']
         ],
         FFCSTRT::ROUTE_SCOPE      => [],
         FFCSTRT::ROUTE_RESULTS    => [
@@ -126,7 +126,7 @@ $donationRoutes = [
         FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
         FFCSTRT::ROUTE_MIDDLEWARE => [],
         FFCSTRT::ROUTE_INCLUDE    => [
-            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['client', 'client.last_donation', 'cause', 'cause.cause_type', 'payment_type', 'sponsorship', 'origin', 'session']
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['client', 'client.last_donation', 'cause', 'cause.cause_type', 'payment_type', 'sponsorship', 'origin', 'session', 'certificate']
         ],
         FFCSTRT::ROUTE_SCOPE      => [],
         FFCSTRT::ROUTE_PARAMETERS => [

@@ -15,6 +15,7 @@ class Donation extends \FreeAsso\Model\Base\Donation
      * Behaviour
      */
     use \FreeAsso\Model\Behaviour\Cause;
+    use \FreeAsso\Model\Behaviour\Certificate;
     use \FreeAsso\Model\Behaviour\Client;
     use \FreeAsso\Model\Behaviour\DonationOrigin;
     use \FreeAsso\Model\Behaviour\PaymentType;
