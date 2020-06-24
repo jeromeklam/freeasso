@@ -10,10 +10,34 @@ trait session
 {
 
     /**
+     * Session id
+     * @var number
+     */
+    protected $sess_id = null;
+
+    /**
      * Session
      * @var \FreeAsso\Model\Session
      */
     protected $session = null;
+
+    /**
+     * Set session id
+     *
+     * @param number $p_id
+     *
+     * @return \FreeAsso\Model\Behaviour\session
+     */
+    public function setSessId($p_id)
+    {
+        $this->sess_id = $p_id;
+        if ($this->session) {
+            if ($this->session->getSessId() != $p_id) {
+                $this->session = null;
+            }
+        }
+        return $this;
+    }
 
     /**
      * Set session
@@ -25,6 +49,11 @@ trait session
     public function setSession($p_session)
     {
         $this->session = $p_session;
+        if ($this->session) {
+            $this->setSessId($this->session->getSessId());
+        } else {
+            $this->setSessId(null);
+        }
         return $this;
     }
 

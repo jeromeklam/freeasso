@@ -63,7 +63,10 @@ class Donation extends \FreeAsso\Model\Base\Donation
      */
     public function afterRead()
     {
-        if ($this->don_id === 0) {
+        if ($this->isRawBehaviour()) {
+            return true;
+        }
+        if ($this->getSessId() <= 0) {
             $session = \FreeAsso\Model\Session::findFirst(
                 [
                     'sess_type'     => \FreeAsso\Model\Session::TYPE_STANDARD,
@@ -71,10 +74,7 @@ class Donation extends \FreeAsso\Model\Base\Donation
                 ]
             );
             if ($session) {
-                $this
-                    ->setSessId($session->getSessId())
-                    ->setSession($session)
-                ;
+                $this->setSession($session);
             }
         }
     }
@@ -107,7 +107,7 @@ class Donation extends \FreeAsso\Model\Base\Donation
         if ($client) {
             $lastDonation = $client->getLastDonation();
             if ($lastDonation->getDonId() == $this->getDonId()) {
-                $model   = \FreeFW\DI\DI::get('FreeAsso::Model::Donation');
+                $model   = new \FreeAsso\Model\Donation();
                 $query   = $model->getQuery();
                 $filters = [
                     'don_id'     => [\FreeFW\Storage\Storage::COND_NOT_EQUAL => $this->getDonId()],
@@ -141,10 +141,57 @@ class Donation extends \FreeAsso\Model\Base\Donation
      */
     public function afterRemove()
     {
+        if ($this->isRawBehaviour()) {
+            return true;
+        }
         // Update cause
         $cause = $this->getCause();
         if ($cause) {
             return $cause->handleDonation(null, $this->old_donation);
+        }
+        return true;
+    }
+
+    /**
+     *
+     * @return boolean
+     */
+    public function beforeCreate()
+    {
+        $cause  = $this->getCause();
+        $client = $this->getClient();
+        if ($cause->getCauseType()->getCautCertificat()) {
+            /**
+             * @var \FreeAsso\Model\Certificate $certificate
+             */
+            $certificate = $this->getCertificate();
+            if (!$certificate instanceof \FreeAsso\Model\Certificate) {
+                $certificate = new \FreeAsso\Model\Certificate();
+            }
+            if ($certificate->getCertFullname() == '') {
+                $certificate->setCertFullname($client->getFullname());
+            }
+            if ($certificate->getCertEmail() == '') {
+                $certificate->setCertEmail($client->getCliEmail());
+            }
+            $certificate
+                ->setCliId($client->getCliId())
+                ->setCertTs(\FreeFW\Tools\Date::getCurrentTimestamp())
+                ->setCertInputMnt($this->getDonMntInput())
+                ->setCertInputMoney($this->getDonMoneyInput())
+                ->setCertAddress1($client->getCliAddress1())
+                ->setCertAddress2($client->getCliAddress2())
+                ->setCertAddress3($client->getCliAddress3())
+                ->setCertCp($client->getCliCp())
+                ->setCertTown($client->getCliTown())
+                ->setCntyId($client->getCntyId())
+                ->setLangId($client->getLangId())
+            ;
+            if (!$certificate->create()) {
+                $this->addErrors($certificate->getErrors());
+                return false;
+            }
+            $this->setCertId($certificate->getCertId());
         }
         return true;
     }
@@ -156,9 +203,11 @@ class Donation extends \FreeAsso\Model\Base\Donation
      */
     public function afterCreate()
     {
-        return true;
+        if ($this->isRawBehaviour()) {
+            return true;
+        }
         // Update cause
-        $cause = $this->getCause();
+        $cause  = $this->getCause();
         if ($cause) {
             if (!$cause->handleDonation($this, null)) {
                 return false;
@@ -176,7 +225,9 @@ class Donation extends \FreeAsso\Model\Base\Donation
      */
     public function beforeSave()
     {
-        return true;
+        if ($this->isRawBehaviour()) {
+            return true;
+        }
         $this->old_donation = \FreeAsso\Model\Donation::findFirst(['don_id' => $this->getDonId()]);
         return true;
     }
@@ -188,7 +239,9 @@ class Donation extends \FreeAsso\Model\Base\Donation
      */
     public function afterSave()
     {
-        return true;
+        if ($this->isRawBehaviour()) {
+            return true;
+        }
         // Update cause
         $cause = $this->getCause();
         if ($cause) {
