@@ -303,6 +303,21 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
             ]
         ]
     ];
+    protected static $PRP_CAU_UNIT_UNIT = [
+        FFCST::PROPERTY_PRIVATE => 'cau_unit_unit',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_CAU_UNIT_MNT = [
+        FFCST::PROPERTY_PRIVATE => 'cau_unit_mnt',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_MONETARY,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_CAU_UNIT_BASE = [
+        FFCST::PROPERTY_PRIVATE => 'cau_unit_base',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DECIMAL,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
 
     /**
      * get properties
@@ -357,6 +372,9 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
             'parent2_cau_id' => self::$PRP_PARENT2_CAU_ID,
             'caum_text_id'   => self::$PRP_CAUM_TEXT_ID,
             'caum_blob_id'   => self::$PRP_CAUM_BLOB_ID,
+            'cau_unit_unit'  => self::$PRP_CAU_UNIT_UNIT,
+            'cau_unit_mnt'   => self::$PRP_CAU_UNIT_MNT,
+            'cau_unit_base'  => self::$PRP_CAU_UNIT_BASE,
         ];
     }
 

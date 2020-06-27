@@ -148,6 +148,24 @@ abstract class Certificate extends \FreeAsso\Model\StorageModel\Certificate
     protected $file_id = null;
 
     /**
+     * cert_unit_unit
+     * @var string
+     */
+    protected $cert_unit_unit = null;
+
+    /**
+     * cert_unit_mnt
+     * @var mixed
+     */
+    protected $cert_unit_mnt = null;
+
+    /**
+     * cert_unit_base
+     * @var mixed
+     */
+    protected $cert_unit_base = null;
+
+    /**
      * Set cert_id
      *
      * @param int $p_value
@@ -674,5 +692,74 @@ abstract class Certificate extends \FreeAsso\Model\StorageModel\Certificate
     public function getFileId()
     {
         return $this->file_id;
+    }
+
+    /**
+     * Set cert_unit_unit
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Certificate
+     */
+    public function setCertUnitUnit($p_value)
+    {
+        $this->cert_unit_unit = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get cert_unit_unit
+     *
+     * @return string
+     */
+    public function getCertUnitUnit()
+    {
+        return $this->cert_unit_unit;
+    }
+
+    /**
+     * Set cert_unit_mnt
+     *
+     * @param mixed $p_value
+     *
+     * @return \FreeAsso\Model\Certificate
+     */
+    public function setCertUnitMnt($p_value)
+    {
+        $this->cert_unit_mnt = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get cert_unit_mnt
+     *
+     * @return mixed
+     */
+    public function getCertUnitMnt()
+    {
+        return $this->cert_unit_mnt;
+    }
+
+    /**
+     * Set cert_unit_base
+     *
+     * @param mixed $p_value
+     *
+     * @return \FreeAsso\Model\Certificate
+     */
+    public function setCertUnitBase($p_value)
+    {
+        $this->cert_unit_base = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get cert_unit_base
+     *
+     * @return mixed
+     */
+    public function getCertUnitBase()
+    {
+        return $this->cert_unit_base;
     }
 }

@@ -2,6 +2,7 @@
 namespace FreeAsso\Model;
 
 use \FreeFW\Constants as FFCST;
+use FreeAsso\Controller\certificate;
 
 /**
  * Donation
@@ -175,10 +176,16 @@ class Donation extends \FreeAsso\Model\Base\Donation
                 $certificate->setCertEmail($client->getCliEmail());
             }
             $certificate
-                ->setCliId($client->getCliId())
+                ->setClient($client)
                 ->setCertTs(\FreeFW\Tools\Date::getCurrentTimestamp())
+                ->setCertGents(null)
+                ->setCertPrintTs(null)
                 ->setCertInputMnt($this->getDonMntInput())
                 ->setCertInputMoney($this->getDonMoneyInput())
+                ->setCertOutputMoney('IDR')
+                ->setCertUnitBase($cause->getCauUnitBase())
+                ->setCertUnitUnit($cause->getCauUnitUnit())
+                ->setCertUnitMnt($cause->getCauUnitMnt())
                 ->setCertAddress1($client->getCliAddress1())
                 ->setCertAddress2($client->getCliAddress2())
                 ->setCertAddress3($client->getCliAddress3())
@@ -187,9 +194,22 @@ class Donation extends \FreeAsso\Model\Base\Donation
                 ->setCntyId($client->getCntyId())
                 ->setLangId($client->getLangId())
             ;
+            $certificate->calculateFields();
             if (!$certificate->create()) {
                 $this->addErrors($certificate->getErrors());
                 return false;
+            }
+            $alert = new \FreeFW\Model\Alert();
+            $alert
+                ->setAlertObjectName('FreeAsso_Certificate')
+                ->setAlertObjectId($certificate->getCertId())
+                ->setAlertTs(\FreeFW\Tools\Date::getCurrentTimestamp())
+                ->setAlertFrom(\FreeFW\Tools\Date::getCurrentTimestamp())
+                ->setTodoAlert()
+                ->setAlertDoneAction(\FreeAsso\Constants::ACTION_CERTIFICATE_PRINT)
+            ;
+            if (!$alert->create()) {
+                $this->addErrors($alert->getErrors());
             }
             $this->setCertId($certificate->getCertId());
         }
@@ -229,7 +249,39 @@ class Donation extends \FreeAsso\Model\Base\Donation
             return true;
         }
         $this->old_donation = \FreeAsso\Model\Donation::findFirst(['don_id' => $this->getDonId()]);
-        return true;
+        if ($this->getCliId() != $this->old_donation->getCliId()) {
+            $this->addError(\FreeAsso\Constants::ERROR_DONATION_CANT_CHANGE_CLIENT, "Can't change client");
+        }
+        if ($this->getCauId() != $this->old_donation->getCauId()) {
+            $this->addError(\FreeAsso\Constants::ERROR_DONATION_CANT_CHANGE_CAUSE, "Can't change cause");
+        }
+        if (!$this->hasErrors()) {
+            if ($this->getDonMntInput() != $this->old_donation->getDonMntInput() ||
+                $this->getDonMoneyInput() != $this->old_donation->getDonMoneyInput()) {
+                $certificate = $this->getCertificate();
+                $certificate
+                    ->setCertInputMnt($this->getDonMntInput())
+                    ->setCertInputMoney($this->getDonMoneyInput())
+                    ->setCertGents(null)
+                    ->setCertPrintTs(null)
+                ;
+                $certificate->calculateFields();
+                if (!$certificate->save()) {
+                    $this->addErrors($certificate->getErrors());
+                }
+                $alert = new \FreeFW\Model\Alert();
+                $alert
+                    ->setAlertObjectName('FreeAsso_Certificate')
+                    ->setAlertObjectId($certificate->getCertId())
+                    ->setAlertTs(\FreeFW\Tools\Date::getCurrentTimestamp())
+                    ->setAlertFrom(\FreeFW\Tools\Date::getCurrentTimestamp())
+                    ->setTodoAlert()
+                    ->setAlertDoneAction(\FreeAsso\Constants::ACTION_CERTIFICATE_PRINT)
+                ;
+                $alert->create();
+            }
+        }
+        return $this->hasErrors();
     }
 
     /**

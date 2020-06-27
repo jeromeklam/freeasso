@@ -12,76 +12,30 @@ class Certificate extends \FreeAsso\Model\Base\Certificate
 {
 
     /**
-     * Country
-     * @var \FreeFW\Model\Country
+     * Bahaviours
      */
-    protected $country = null;
-
-    /**
-     * Langue
-     * @var \FreeFW\Model\Lang
-     */
-    protected $lang = null;
+    use \FreeFW\Model\Behaviour\Country;
+    use \FreeFW\Model\Behaviour\Lang;
+    use \FreeAsso\Model\Behaviour\Client;
 
     /**
      *
-     * {@inheritDoc}
-     * @see \FreeFW\Core\Model::init()
+     * @return boolean
      */
-    public function init()
+    public function calculateFields()
     {
-        $this->cert_id    = 0;
-        $this->cli_id     = 0;
-        $this->brk_id     = 0;
-        $this->file_id    = null;
-        $this->lang_id    = null;
-        $this->cnty_id    = null;
-        return $this;
-    }
-
-    /**
-     * Set country
-     *
-     * @param \FreeFW\Model\Country $p_country
-     *
-     * @return \FreeAsso\Model\Client
-     */
-    public function setCountry($p_country)
-    {
-        $this->country = $p_country;
-        return $this;
-    }
-
-    /**
-     * Get country
-     *
-     * @return \FreeFW\Model\Country
-     */
-    public function getCountry()
-    {
-        return $this->country;
-    }
-
-    /**
-     * Set lang
-     *
-     * @param \FreeFW\Model\Lang $p_lang
-     *
-     * @return \FreeAsso\Model\Client
-     */
-    public function setLang($p_lang)
-    {
-        $this->lang = $p_lang;
-        return $this;
-    }
-
-    /**
-     * Get lang
-     *
-     * @return \FreeFW\Model\Lang
-     */
-    public function getLang()
-    {
-        return $this->lang;
+        $mnt  = $this->getCertInputMnt();
+        $when = $this->getCertTs();
+        $rate = \FreeFW\Model\Rate::findBest($this->getCertInputMoney(),$this->getCertOutputMoney(), $when);
+        if ($rate) {
+            $newMnt = $mnt * $rate->getRateChange();
+            $this->setCertOutputMnt($newMnt);
+        }
+        $unitBase = $this->getCertUnitBase();
+        $unitMnt  = $this->getCertUnitMnt();
+        if ($unitBase && $unitMnt) {
+            $this->setCertData1(($mnt * $unitBase) / $unitMnt);
+        }
+        return true;
     }
 }

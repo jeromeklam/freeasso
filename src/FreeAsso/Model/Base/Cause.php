@@ -280,6 +280,24 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     protected $caum_blob_id = null;
 
     /**
+     * cau_unit_unit
+     * @var string
+     */
+    protected $cau_unit_unit = null;
+
+    /**
+     * cau_unit_mnt
+     * @var mixed
+     */
+    protected $cau_unit_mnt = null;
+
+    /**
+     * cau_unit_base
+     * @var mixed
+     */
+    protected $cau_unit_base = null;
+
+    /**
      * Set cau_id
      *
      * @param int $p_value
@@ -1312,5 +1330,74 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     public function getCaumBlobId()
     {
         return $this->caum_blob_id;
+    }
+
+    /**
+     * Set cau_unit_unit
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Cause
+     */
+    public function setCauUnitUnit($p_value)
+    {
+        $this->cau_unit_unit = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get cau_unit_unit
+     *
+     * @return string
+     */
+    public function getCauUnitUnit()
+    {
+        return $this->cau_unit_unit;
+    }
+
+    /**
+     * Set cau_unit_mnt
+     *
+     * @param mixed $p_value
+     *
+     * @return \FreeAsso\Model\Cause
+     */
+    public function setCauUnitMnt($p_value)
+    {
+        $this->cau_unit_mnt = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get cau_unit_mnt
+     *
+     * @return mixed
+     */
+    public function getCauUnitMnt()
+    {
+        return $this->cau_unit_mnt;
+    }
+
+    /**
+     * Set cau_unit_base
+     *
+     * @param mixed $p_value
+     *
+     * @return \FreeAsso\Model\Cause
+     */
+    public function setCauUnitBase($p_value)
+    {
+        $this->cau_unit_base = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get cau_unit_base
+     *
+     * @return mixed
+     */
+    public function getCauUnitBase()
+    {
+        return $this->cau_unit_base;
     }
 }

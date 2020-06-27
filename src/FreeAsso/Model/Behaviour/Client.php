@@ -10,10 +10,44 @@ trait Client
 {
 
     /**
+     * Id
+     * @var number
+     */
+    protected $cli_id = null;
+
+    /**
      * Client
      * @var \FreeAsso\Model\Client
      */
     protected $client = null;
+
+    /**
+     * Set client id
+     *
+     * @param number $p_id
+     *
+     * @return \FreeAsso\Model\Behaviour\Client
+     */
+    public function setCliId($p_id)
+    {
+        $this->cli_id = $p_id;
+        if ($this->client) {
+            if ($this->client->getCliId() != $this->cli_id) {
+                $this->client = null;
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Get client id
+     *
+     * @return number
+     */
+    public function getCliId()
+    {
+        return $this->cli_id;
+    }
 
     /**
      * Set client
@@ -25,6 +59,9 @@ trait Client
     public function setClient($p_client)
     {
         $this->client = $p_client;
+        if ($p_client) {
+            $this->cli_id = $p_client->getCliId();
+        }
         return $this;
     }
 

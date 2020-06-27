@@ -158,6 +158,21 @@ abstract class Certificate extends \FreeFW\Core\StorageModel
             ]
         ]
     ];
+    protected static $PRP_CERT_UNIT_UNIT = [
+        FFCST::PROPERTY_PRIVATE => 'cert_unit_unit',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_CERT_UNIT_MNT = [
+        FFCST::PROPERTY_PRIVATE => 'cert_unit_mnt',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_MONETARY,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_CERT_UNIT_BASE = [
+        FFCST::PROPERTY_PRIVATE => 'cert_unit_base',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DECIMAL,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
 
     /**
      * get properties
@@ -189,7 +204,10 @@ abstract class Certificate extends \FreeFW\Core\StorageModel
             'cert_comment'      => self::$PRP_CERT_COMMENT,
             'cert_data1'        => self::$PRP_CERT_DATA1,
             'cert_data2'        => self::$PRP_CERT_DATA2,
-            'file_id'           => self::$PRP_FILE_ID
+            'file_id'           => self::$PRP_FILE_ID,
+            'cert_unit_unit'    => self::$PRP_CERT_UNIT_UNIT,
+            'cert_unit_mnt'     => self::$PRP_CERT_UNIT_MNT,
+            'cert_unit_base'    => self::$PRP_CERT_UNIT_BASE,
         ];
     }
 
