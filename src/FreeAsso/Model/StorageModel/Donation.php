@@ -189,6 +189,12 @@ abstract class Donation extends \FreeFW\Core\StorageModel
             ]
         ]
     ];
+    protected static $PRP_DON_REAL_TS_YEAR = [
+        FFCST::PROPERTY_PRIVATE  => 'don_real_ts_year',
+        FFCST::PROPERTY_TYPE     => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_OPTIONS  => [FFCST::OPTION_FUNCTION],
+        FFCST::PROPERTY_FUNCTION => [\FreeFW\Storage\Storage::FUNCTION_YEAR => 'don_real_ts']
+    ];
 
     /**
      * get properties
@@ -222,7 +228,8 @@ abstract class Donation extends \FreeFW\Core\StorageModel
             'don_sponsors'     => self::$PRP_DON_SPONSORS,
             'don_display_site' => self::$PRP_DON_DISPLAY_SITE,
             'dono_id'          => self::$PRP_DONO_ID,
-            'sess_id'          => self::$PRP_SESS_ID
+            'sess_id'          => self::$PRP_SESS_ID,
+            'don_real_ts_year' => self::$PRP_DON_REAL_TS_YEAR,
         ];
     }
 

@@ -60,6 +60,22 @@ class Donation extends \FreeAsso\Model\Base\Donation
     }
 
     /**
+     * Get don_real_ts_year
+     *
+     * @return mixed
+     */
+    public function getDonRealTsYear()
+    {
+        if (!$this->don_real_ts_year) {
+            $date = \FreeFW\Tools\Date::mysqlToDatetime($this->getDonRealTs());
+            if ($date) {
+                $this->don_real_ts_year = intval($date->format('Y'));
+            }
+        }
+        return $this->don_real_ts_year;
+    }
+
+    /**
      *
      */
     public function afterRead()

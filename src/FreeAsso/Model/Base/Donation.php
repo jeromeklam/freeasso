@@ -160,6 +160,12 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
     protected $sess_id = null;
 
     /**
+     * Year
+     * @var number
+     */
+    protected $don_real_ts_year = null;
+
+    /**
      * Set don_id
      *
      * @param int $p_value
@@ -732,5 +738,28 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
     public function getSessId()
     {
         return $this->sess_id;
+    }
+
+    /**
+     * Set don_real_ts_year
+     *
+     * @param mixed $p_value
+     *
+     * @return \FreeAsso\Model\Donation
+     */
+    public function setDonRealTsYear($p_value)
+    {
+        $this->don_real_ts_year = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get don_real_ts_year
+     *
+     * @return mixed
+     */
+    public function getDonRealTsYear()
+    {
+        return $this->don_real_ts_year;
     }
 }

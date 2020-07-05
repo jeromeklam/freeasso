@@ -37,6 +37,27 @@ $donationRoutes = [
             ],
         ]
     ],
+    'free_asso.donation.getdonationyears' => [
+        FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Donation',
+        FFCSTRT::ROUTE_COMMENT    => 'Retourne une liste filtrée, triée et paginée.',
+        FFCSTRT::ROUTE_METHOD     => FFCSTRT::METHOD_GET,
+        FFCSTRT::ROUTE_MODEL      => 'FreeAsso::Model::Donation',
+        FFCSTRT::ROUTE_URL        => '/v1/asso/donation/years',
+        FFCSTRT::ROUTE_CONTROLLER => 'FreeAsso::Controller::Donation',
+        FFCSTRT::ROUTE_FUNCTION   => 'getDonationYears',
+        FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_GET_FILTERED,
+        FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
+        FFCSTRT::ROUTE_MIDDLEWARE => [],
+        FFCSTRT::ROUTE_INCLUDE    => [],
+        FFCSTRT::ROUTE_SCOPE      => [],
+        FFCSTRT::ROUTE_RESULTS    => [
+            '200' => [
+                FFCSTRT::ROUTE_RESULTS_TYPE    => FFCSTRT::RESULT_LIST,
+                FFCSTRT::ROUTE_RESULTS_MODEL   => 'FreeAsso::Model::Donation',
+                FFCSTRT::ROUTE_RESULTS_COMMENT => 'Réponse ok',
+            ],
+        ]
+    ],
     'free_asso.donation.getall' => [
         FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Donation',
         FFCSTRT::ROUTE_COMMENT    => 'Retourne une liste filtrée, triée et paginée.',
@@ -72,7 +93,7 @@ $donationRoutes = [
         FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
         FFCSTRT::ROUTE_MIDDLEWARE => [],
         FFCSTRT::ROUTE_INCLUDE    => [
-            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['client', 'client.last_donation', 'cause', 'cause.cause_type', 'payment_type', 'sponsorship', 'origin', 'session', 'certificate']
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['cause', 'cause.cause_type', 'client', 'client.last_donation', 'payment_type', 'sponsorship', 'origin', 'session', 'certificate']
         ],
         FFCSTRT::ROUTE_SCOPE      => [],
         FFCSTRT::ROUTE_PARAMETERS => [
