@@ -6,8 +6,8 @@ services:
       - frontend
       - backend
     ports:
-      - "8008:8080"
-      - "8009:9080"
+      - "8108:8080"
+      - "8109:9080"
     volumes:
       - ./:/var/www/html/
       - ../freefw/:/var/www/freefw/
@@ -28,21 +28,21 @@ services:
       - DOCUMENTROOT=www
       - SERVERNAME=freeasso.fr
     ports:
-      - "8080:80"
+      - "8180:80"
     volumes:
       - ./:/var/www/html/
       - ./docker-logs:/var/log/apache2
   rabbit:
     image: jeromeklam/u18_rabbitmq
     ports:
-      - "8072:5672"
-      - "8073:15672"
+      - "8172:5672"
+      - "8173:15672"
     networks:
       - backend
   mysql:
     image: jeromeklam/u18_mariadb
     ports:
-      - "8006:3306"
+      - "8106:3306"
     networks:
       - backend
     environment:
