@@ -17,7 +17,7 @@ $causeSicknessRoutes = [
         'auth'       => \FreeFW\Router\Route::AUTH_IN,
         'middleware' => [],
         'include'    => [
-            'default' => ['cause.site', 'sickness', 'sanitary']
+            'default' => ['cause', 'cause.site', 'sickness', 'sanitary']
         ],
         'results' => [
             '200' => [
@@ -67,7 +67,7 @@ $causeSicknessRoutes = [
         FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
         FFCSTRT::ROUTE_MIDDLEWARE => [],
         FFCSTRT::ROUTE_INCLUDE    => [
-            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['cause.site', 'sickness', 'sanitary']
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['cause', 'cause.site', 'sickness', 'sanitary']
         ],
         FFCSTRT::ROUTE_SCOPE      => [],
         FFCSTRT::ROUTE_RESULTS    => [
@@ -90,7 +90,7 @@ $causeSicknessRoutes = [
         FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
         FFCSTRT::ROUTE_MIDDLEWARE => [],
         FFCSTRT::ROUTE_INCLUDE    => [
-            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['cause.site', 'sickness', 'sanitary']
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['cause', 'cause.site', 'sickness', 'sanitary']
         ],
         FFCSTRT::ROUTE_SCOPE      => [],
         FFCSTRT::ROUTE_PARAMETERS => [
@@ -121,7 +121,7 @@ $causeSicknessRoutes = [
         FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
         FFCSTRT::ROUTE_MIDDLEWARE => [],
         FFCSTRT::ROUTE_INCLUDE    => [
-            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['cause.site', 'sickness', 'sanitary']
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['cause', 'cause.site', 'sickness', 'sanitary']
         ],
         FFCSTRT::ROUTE_SCOPE      => [],
         FFCSTRT::ROUTE_RESULTS    => [
@@ -144,7 +144,7 @@ $causeSicknessRoutes = [
         FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
         FFCSTRT::ROUTE_MIDDLEWARE => [],
         FFCSTRT::ROUTE_INCLUDE    => [
-            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['cause.site', 'sickness', 'sanitary']
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['cause', 'cause.site', 'sickness', 'sanitary']
         ],
         FFCSTRT::ROUTE_SCOPE      => [],
         FFCSTRT::ROUTE_PARAMETERS => [

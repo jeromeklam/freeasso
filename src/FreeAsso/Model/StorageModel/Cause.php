@@ -133,7 +133,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_CAU_CODE = [
         FFCST::PROPERTY_PRIVATE => 'cau_code',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_CAU_FAMILY = [
         FFCST::PROPERTY_PRIVATE => 'cau_family',

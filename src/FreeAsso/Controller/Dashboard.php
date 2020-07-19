@@ -8,7 +8,7 @@ namespace FreeAsso\Controller;
  */
 class Dashboard extends \FreeFW\Core\Controller
 {
-    
+
     /**
      * Statistiques
      *
@@ -35,7 +35,9 @@ class Dashboard extends \FreeFW\Core\Controller
             }
         }
         // Sites
-        $query   = 'SELECT COUNT(*) AS total FROM asso_site WHERE brk_id = ' . $sso->getBrokerId();
+        $query   = 'SELECT COUNT(*) AS total FROM asso_site ' .
+            ' WHERE brk_id = ' . $sso->getBrokerId() .
+            '   AND (asso_site.site_to IS NULL OR asso_site.site_to >= \'' . \FreeFW\Tools\Date::getCurrentTimestamp() . '\')';
         $pdo     = $storage->getProvider();
         $stm     = $pdo->prepare($query);
         $result  = $stm->execute();
@@ -45,7 +47,8 @@ class Dashboard extends \FreeFW\Core\Controller
             }
         }
         // Superficies
-        $query   = 'SELECT SUM(site_area) AS total FROM asso_site WHERE brk_id = ' . $sso->getBrokerId();
+        $query   = 'SELECT SUM(site_area) AS total FROM asso_site ' .
+                   ' WHERE brk_id = ' . $sso->getBrokerId() . ' AND site_area IS NOT NULL';
         $pdo     = $storage->getProvider();
         $stm     = $pdo->prepare($query);
         $result  = $stm->execute();
@@ -55,17 +58,22 @@ class Dashboard extends \FreeFW\Core\Controller
             }
         }
         // Clotures
-        $query   = 'SELECT SUM(site_number_1) AS total FROM asso_site WHERE brk_id = ' . $sso->getBrokerId();
+        $query   = 'SELECT SUM(site_number_6) AS total FROM asso_site ' .
+                   ' WHERE brk_id = ' . $sso->getBrokerId() . ' AND site_number_6 IS NOT NULL';
         $pdo     = $storage->getProvider();
         $stm     = $pdo->prepare($query);
         $result  = $stm->execute();
         if ($result) {
             while ($row = $stm->fetch(\PDO::FETCH_ASSOC)) {
-                $data['clot_site'] = $row['total'];
+                if ($row['total'] !== null) {
+                    $data['clot_site'] = $row['total'];
+                } else {
+                    $data['clot_site'] = '0';
+                }
             }
         }
         // Membres
-        $query   = 'SELECT COUNT(*) AS total ' . 
+        $query   = 'SELECT COUNT(*) AS total ' .
                    ' FROM crm_client LEFT JOIN crm_client_type ON crm_client_type.clit_id = crm_client.clit_id' .
                    ' INNER JOIN asso_sponsorship ON asso_sponsorship.cli_id = crm_client.cli_id' .
                    ' WHERE crm_client.brk_id = ' . $sso->getBrokerId() .
