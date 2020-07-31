@@ -82,7 +82,7 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
         $this->cau_mnt       = 0;
         $this->cau_mnt_left  = 0;
         $this->cau_money     = 'EUR';
-        $this->cau_family    = self::FAMILY_NONE;
+        $this->cau_family    = self::FAMILY_ANIMAL;
         $this->cau_year      = intval(date('Y'));
         return $this;
     }

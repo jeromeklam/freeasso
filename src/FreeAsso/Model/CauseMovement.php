@@ -199,4 +199,19 @@ class CauseMovement extends \FreeAsso\Model\Base\CauseMovement
         }
         return true;
     }
+
+    /**
+     * Before remove
+     *
+     * @return boolean
+     */
+    public function beforeRemove()
+    {
+        if ($this->getCamvStatus() === \FreeAsso\Model\CauseMovement::STATUS_ARCHIVE ||
+            $this->getCamvStatus() === \FreeAsso\Model\CauseMovement::STATUS_OK) {
+            $this->addError(\FreeAsso\Constants::ERROR_MOVEMENT_ARCHIVED, "Can't remove an archived movement !");
+            return false;
+        }
+        return true;
+    }
 }

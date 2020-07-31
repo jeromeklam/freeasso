@@ -36,7 +36,8 @@
         "jeromeklam/freeoffice"                : "*",
         "cboden/ratchet"                       : "^0.4.1",
         "php-amqplib/php-amqplib"              : "^2.11",
-        "react/zmq"                            : "^0.4.0"
+        "react/zmq"                            : "^0.4.0",
+        "phing/phing": "^2.16"
     },
     "autoload" : {
         "psr-4" : {
@@ -45,7 +46,6 @@
     },
     "require-dev": {
         "phpunit/phpunit"                      : "*",
-        "phing/phing"                          : "*",
         "squizlabs/php_codesniffer"            : "*"
     }
 }
