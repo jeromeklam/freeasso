@@ -292,7 +292,7 @@ class Movement extends \FreeAsso\Model\Base\Movement
                             return false;
                         }
                     default:
-                        if ($this->getMoveStatus() === \FreeAsso\Model\CauseMovement::STATUS_OK) {
+                        if ($this->getMoveStatus() === \FreeAsso\Model\CauseMovement::STATUS_OK || $this->getMoveStatus() === \FreeAsso\Model\CauseMovement::STATUS_ARCHIVE) {
                             $cause
                                 ->setSiteId($this->getMoveToSiteId())
                             ;

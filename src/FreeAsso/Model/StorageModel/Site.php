@@ -68,7 +68,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_SITE_CODE = [
         FFCST::PROPERTY_PRIVATE => 'site_code',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
         FFCST::PROPERTY_COMMENT => 'Code identifiant court du site',
         FFCST::PROPERTY_SAMPLE  => 'SITEA',
         FFCST::PROPERTY_MAX     => 32,
@@ -384,6 +384,11 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_COMMENT => 'Texte lié à la conformité',
         FFCST::PROPERTY_SAMPLE  => 'Le site est conforme'
     ];
+    protected static $PRP_SITE_COUNT_CAUSE = [
+        FFCST::PROPERTY_PRIVATE  => 'site_count_clause',
+        FFCST::PROPERTY_TYPE     => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_OPTIONS  => [FFCST::OPTION_LOCAL]
+    ];
 
     /**
      * get properties
@@ -445,6 +450,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
             'site_number_6'     => self::$PRP_SITE_NUMBER_6,
             'site_conform'      => self::$PRP_SITE_CONFORM,
             'site_conform_text' => self::$PRP_SITE_CONFORM_TEXT,
+            'site_count_cause'  => self::$PRP_SITE_COUNT_CAUSE,
         ];
     }
 

@@ -298,6 +298,12 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     protected $cau_unit_base = null;
 
     /**
+     * cau_waiting
+     * @var boolean
+     */
+    protected $cau_waiting = false;
+
+    /**
      * Set cau_id
      *
      * @param int $p_value
@@ -1399,5 +1405,28 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     public function getCauUnitBase()
     {
         return $this->cau_unit_base;
+    }
+
+    /**
+     * Set waiting
+     *
+     * @param boolean $p_waiting
+     *
+     * @return \FreeAsso\Model\Base\Cause
+     */
+    public function setCauWaiting($p_waiting)
+    {
+        $this->cau_waiting = $p_waiting;
+        return $this;
+    }
+
+    /**
+     * Get waiting
+     *
+     * @return boolean
+     */
+    public function getCauWaiting()
+    {
+        return $this->cau_waiting;
     }
 }

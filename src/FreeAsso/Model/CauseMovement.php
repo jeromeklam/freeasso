@@ -15,9 +15,10 @@ class CauseMovement extends \FreeAsso\Model\Base\CauseMovement
      * Status
      * @var string
      */
-    const STATUS_OK   = 'OK';
-    const STATUS_WAIT = 'WAIT';
-    const STATUS_KO   = 'KO';
+    const STATUS_OK      = 'OK';
+    const STATUS_WAIT    = 'WAIT';
+    const STATUS_KO      = 'KO';
+    const STATUS_ARCHIVE = 'ARCHIVE';
 
     /**
      * Cause
@@ -54,7 +55,7 @@ class CauseMovement extends \FreeAsso\Model\Base\CauseMovement
         $this->brk_id            = 0;
         $this->camv_site_from_id = null;
         $this->camv_site_to_id   = null;
-        $this->camv_status       = self::STATUS_OK;
+        $this->camv_status       = self::STATUS_WAIT;
         $this->move_id           = null;
         return $this;
     }
@@ -84,9 +85,9 @@ class CauseMovement extends \FreeAsso\Model\Base\CauseMovement
 
     /**
      * Set from
-     * 
+     *
      * @param \FreeAsso\Model\Site $p_site
-     * 
+     *
      * @return \FreeAsso\Model\CauseMovement
      */
     public function setFromSite($p_site)
@@ -97,7 +98,7 @@ class CauseMovement extends \FreeAsso\Model\Base\CauseMovement
 
     /**
      * Get from
-     * 
+     *
      * @return \FreeAsso\Model\Site
      */
     public function getFromSite()
@@ -107,9 +108,9 @@ class CauseMovement extends \FreeAsso\Model\Base\CauseMovement
 
     /**
      * Set to
-     * 
+     *
      * @param \FreeAsso\Model\Site $p_site
-     * 
+     *
      * @return \FreeAsso\Model\CauseMovement
      */
     public function setToSite($p_site)
@@ -130,9 +131,9 @@ class CauseMovement extends \FreeAsso\Model\Base\CauseMovement
 
     /**
      * Set movement
-     * 
+     *
      * @param \FreeAsso\Model\Movement $p_movement
-     * 
+     *
      * @return \FreeAsso\Model\CauseMovement
      */
     public function setMovement($p_movement)
@@ -143,7 +144,7 @@ class CauseMovement extends \FreeAsso\Model\Base\CauseMovement
 
     /**
      * Get movement
-     * 
+     *
      * @return \FreeAsso\Model\Movement
      */
     public function getMovement()
@@ -190,7 +191,10 @@ class CauseMovement extends \FreeAsso\Model\Base\CauseMovement
                 );
                 $this->cause->setSite($site);
                 $this->cause->setSiteId($site->getSiteId());
-                return $this->cause->save();
+                if (!$this->cause->save()) {
+                    $this->addErrors($this->cause->getErrors());
+                    return false;
+                }
             }
         }
         return true;

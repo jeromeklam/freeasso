@@ -37,6 +37,12 @@ class Site extends \FreeAsso\Model\Base\Site  implements
     protected $parent_site = null;
 
     /**
+     * Count cause
+     * @var number
+     */
+    protected $site_count_cause = null;
+
+    /**
      *
      * {@inheritDoc}
      * @see \FreeFW\Core\Model::init()
@@ -58,9 +64,9 @@ class Site extends \FreeAsso\Model\Base\Site  implements
 
     /**
      * Set site type
-     * 
+     *
      * @param \FreeAsso\Model\SiteType $p_site_type
-     * 
+     *
      * @return \FreeAsso\Model\Site
      */
     public function setSiteType($p_site_type)
@@ -71,7 +77,7 @@ class Site extends \FreeAsso\Model\Base\Site  implements
 
     /**
      * Get site type
-     * 
+     *
      * @return \FreeAsso\Model\SiteType
      */
     public function getSiteType()
@@ -81,12 +87,12 @@ class Site extends \FreeAsso\Model\Base\Site  implements
 
     /**
      * Set owner
-     * 
+     *
      * @param \FreeAsso\Model\Client $p_owner
-     * 
+     *
      * @return \FreeAsso\Model\Site
      */
-    public function setOwner($p_owner) 
+    public function setOwner($p_owner)
     {
         $this->owner = $p_owner;
         return $this;
@@ -94,7 +100,7 @@ class Site extends \FreeAsso\Model\Base\Site  implements
 
     /**
      * Get Owner
-     * 
+     *
      * @return \FreeAsso\Model\Client
      */
     public function getOwner()
@@ -104,9 +110,9 @@ class Site extends \FreeAsso\Model\Base\Site  implements
 
     /**
      * Set sanitary
-     * 
+     *
      * @param \FreeAsso\Model\Client $p_sanitary
-     * 
+     *
      * @return \FreeAsso\Model\Site
      */
     public function setSanitary($p_sanitary)
@@ -117,7 +123,7 @@ class Site extends \FreeAsso\Model\Base\Site  implements
 
     /**
      * Get sanitary
-     * 
+     *
      * @return \FreeAsso\Model\Client
      */
     public function getSanitary()
@@ -127,9 +133,9 @@ class Site extends \FreeAsso\Model\Base\Site  implements
 
     /**
      * Set parent site
-     * 
+     *
      * @param \FreeAsso\Model\Site $p_site
-     * 
+     *
      * @return \FreeAsso\Model\Site
      */
     public function setParentSite($p_site)
@@ -140,11 +146,47 @@ class Site extends \FreeAsso\Model\Base\Site  implements
 
     /**
      * Get parent site
-     * 
+     *
      * @return \FreeAsso\Model\Site
      */
     public function getParentSite()
     {
         return $this->parent_site;
+    }
+
+    /**
+     * Get site count cause
+     *
+     * @return number
+     */
+    public function getSiteCountCause()
+    {
+        if ($this->site_count_cause === null) {
+            $this->site_count_cause = 0;
+            $query = \FreeAsso\Model\Cause::getQuery();
+            $query
+                ->setType(\FreeFW\Model\Query::QUERY_COUNT)
+                ->addFromFilters(['site_id' => $this->getSiteId()])
+            ;
+            if ($query->execute()) {
+                foreach ($query->getResult() as $row) {
+                    $this->site_count_cause = $row->MONTOT;
+                }
+            }
+        }
+        return $this->site_count_cause;
+    }
+
+    /**
+     * Set count cause
+     *
+     * @param number $p_count
+     *
+     * @return \FreeAsso\Model\Site
+     */
+    public function setSiteCountCause($p_count)
+    {
+        $this->site_count_cause = $p_count;
+        return $this;
     }
 }

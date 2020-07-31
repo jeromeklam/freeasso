@@ -52,42 +52,50 @@ abstract class Client extends \FreeFW\Core\StorageModel
     protected static $PRP_CLI_GENDER = [
         FFCST::PROPERTY_PRIVATE => 'cli_gender',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_MAX     => 10,
     ];
     protected static $PRP_CLI_FIRSTNAME = [
         FFCST::PROPERTY_PRIVATE => 'cli_firstname',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_MAX     => 80,
     ];
     protected static $PRP_CLI_LASTNAME = [
         FFCST::PROPERTY_PRIVATE => 'cli_lastname',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
+        FFCST::PROPERTY_MAX     => 80,
     ];
     protected static $PRP_CLI_ADDRESS1 = [
         FFCST::PROPERTY_PRIVATE => 'cli_address1',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_MAX     => 80,
     ];
     protected static $PRP_CLI_ADDRESS2 = [
         FFCST::PROPERTY_PRIVATE => 'cli_address2',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_MAX     => 80,
     ];
     protected static $PRP_CLI_ADDRESS3 = [
         FFCST::PROPERTY_PRIVATE => 'cli_address3',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_MAX     => 80,
     ];
     protected static $PRP_CLI_CP = [
         FFCST::PROPERTY_PRIVATE => 'cli_cp',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_MAX     => 20,
     ];
     protected static $PRP_CLI_TOWN = [
         FFCST::PROPERTY_PRIVATE => 'cli_town',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_MAX     => 80,
     ];
     protected static $PRP_CNTY_ID = [
         FFCST::PROPERTY_PRIVATE => 'cnty_id',
@@ -131,12 +139,14 @@ abstract class Client extends \FreeFW\Core\StorageModel
     protected static $PRP_CLI_PHONE_HOME = [
         FFCST::PROPERTY_PRIVATE => 'cli_phone_home',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_MAX     => 80,
     ];
     protected static $PRP_CLI_PHONE_GSM = [
         FFCST::PROPERTY_PRIVATE => 'cli_phone_gsm',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_MAX     => 80,
     ];
     protected static $PRP_CLI_DESC = [
         FFCST::PROPERTY_PRIVATE => 'cli_desc',
@@ -146,17 +156,20 @@ abstract class Client extends \FreeFW\Core\StorageModel
     protected static $PRP_CLI_EMAIL = [
         FFCST::PROPERTY_PRIVATE => 'cli_email',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_MAX     => 255,
     ];
     protected static $PRP_CLI_EMAIL_2 = [
         FFCST::PROPERTY_PRIVATE => 'cli_email_2',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_MAX     => 255,
     ];
     protected static $PRP_CLI_EMAIL_REFUSED = [
         FFCST::PROPERTY_PRIVATE => 'cli_email_refused',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_MAX     => 255,
     ];
     protected static $PRP_CLI_RECEIPT = [
         FFCST::PROPERTY_PRIVATE => 'cli_receipt',
@@ -171,7 +184,8 @@ abstract class Client extends \FreeFW\Core\StorageModel
     protected static $PRP_CLI_EXTERN_ID = [
         FFCST::PROPERTY_PRIVATE => 'cli_extern_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_MAX     => 20,
     ];
     protected static $PRP_CLI_SPONSOR_ID = [
         FFCST::PROPERTY_PRIVATE => 'cli_sponsor_id',
@@ -405,5 +419,30 @@ abstract class Client extends \FreeFW\Core\StorageModel
     public static function getAutocompleteField()
     {
         return ['cli_lastname', 'cli_firstname', 'cli_email'];
+    }
+
+    /**
+     * Get One To many relationShips
+     *
+     * @return array
+     */
+    public function getRelationships()
+    {
+        return [
+            'donations' => [
+                FFCST::REL_MODEL   => 'FreeAsso::Model::Donation',
+                FFCST::REL_FIELD   => 'cli_id',
+                FFCST::REL_TYPE    => \FreeFW\Model\Query::JOIN_LEFT,
+                FFCST::REL_COMMENT => 'Les dons du client',
+                FFCST::REL_REMOVE  => FFCST::REL_REMOVE_CHECK
+            ],
+            'sponsorships' => [
+                FFCST::REL_MODEL   => 'FreeAsso::Model::Sponsorship',
+                FFCST::REL_FIELD   => 'cli_id',
+                FFCST::REL_TYPE    => \FreeFW\Model\Query::JOIN_LEFT,
+                FFCST::REL_COMMENT => 'Les parrainages du client',
+                FFCST::REL_REMOVE  => FFCST::REL_REMOVE_CHECK
+            ]
+        ];
     }
 }
