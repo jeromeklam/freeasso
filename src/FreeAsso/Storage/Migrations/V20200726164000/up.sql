@@ -1,1 +1,1 @@
-ALTER TABLE `asso_CAUSE` ADD COLUMN `cau_waiting` tinyint(1) DEFAULT 0;
+ALTER TABLE `asso_cause` ADD COLUMN `cau_waiting` tinyint(1) DEFAULT 0;
