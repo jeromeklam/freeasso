@@ -27,3 +27,7 @@ docker-compose.yml
 docker-compose.yml.sample
 swagger.php
 test.php
+build.xml
+build.xml.jk
+.project.properties
+composer.phar
