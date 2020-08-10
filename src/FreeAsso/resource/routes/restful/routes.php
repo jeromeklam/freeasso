@@ -13,6 +13,7 @@ require_once __DIR__ . '/client_category.php';
 require_once __DIR__ . '/client_type.php';
 require_once __DIR__ . '/client.php';
 require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/contract.php';
 require_once __DIR__ . '/dashboard.php';
 require_once __DIR__ . '/data.php';
 require_once __DIR__ . '/donation.php';
@@ -48,6 +49,7 @@ $localRoutes = array_merge(
     $clientTypeRoutes,
     $clientRoutes,
     $configRoutes,
+    $routes_contract,
     $dashboardRoutes,
     $dataRoutes,
     $donationRoutes,

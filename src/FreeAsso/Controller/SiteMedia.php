@@ -10,6 +10,40 @@ class SiteMedia extends \FreeFW\Core\ApiMediaController
 {
 
     /**
+     * Mie à jour de la description
+     *
+     * @param \Psr\Http\Message\ServerRequestInterface $p_request
+     * @param number $p_id
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function updateOneDesc(\Psr\Http\Message\ServerRequestInterface $p_request, $p_id)
+    {
+        $this->logger->debug('FreeAsso.Site.updateOneDesc.start');
+        $myMedia = \FreeAsso\Model\SiteMedia::findFirst(['sitm_id' => $p_id]);
+        if ($myMedia) {
+            $apiParams = $p_request->getAttribute('api_params', false);
+            if ($apiParams->hasData()) {
+                /**
+                 * @var \FreeAsso\Model\SiteMediaBlob $data
+                 */
+                $data = $apiParams->getData();
+                $myMedia->setSitmDesc($data->getDesc());
+                if (!$myMedia->save()) {
+                    return $this->createErrorResponse(\FreeFW\Constants::ERROR_NOT_UPDATE, $myMedia);
+                }
+                $this->logger->debug('FreeAsso.Site.updateOneDesc.end');
+                return $this->createSuccessOkResponse($myMedia);
+            } else {
+                $this->logger->debug('FreeAsso.Site.updateOneDesc.409');
+                return $this->createResponse(409);
+            }
+        }
+        $this->logger->debug('FreeAsso.Site.updateOneDesc.404');
+        return $this->createErrorResponse(\FreeFW\Constants::ERROR_NOT_FOUND);
+    }
+
+    /**
      * Get file content for download
      *
      * @param \Psr\Http\Message\ServerRequestInterface $p_request

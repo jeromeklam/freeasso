@@ -30,6 +30,11 @@ abstract class CauseMediaBlob extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
         FFCST::PROPERTY_OPTIONS => []
     ];
+    protected static $PRP_DESC = [
+        FFCST::PROPERTY_PRIVATE => 'desc',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
 
     /**
      * get properties
@@ -41,7 +46,8 @@ abstract class CauseMediaBlob extends \FreeFW\Core\StorageModel
         return [
             'cau_id' => self::$PRP_CAU_ID,
             'blob'   => self::$PRP_BLOB,
-            'title'  => self::$PRP_TITLE
+            'title'  => self::$PRP_TITLE,
+            'desc'   => self::$PRP_DESC,
         ];
     }
 

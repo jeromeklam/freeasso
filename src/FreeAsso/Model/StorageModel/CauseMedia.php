@@ -106,6 +106,11 @@ abstract class CauseMedia extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
+    protected static $PRP_CAUM_DESC = [
+        FFCST::PROPERTY_PRIVATE => 'caum_desc',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
 
     /**
      * get properties
@@ -130,6 +135,7 @@ abstract class CauseMedia extends \FreeFW\Core\StorageModel
             'caum_order'      => self::$PRP_CAUM_ORDER,
             'caum_title'      => self::$PRP_CAUM_TITLE,
             'caum_public'     => self::$PRP_CAUM_PULIC,
+            'caum_desc'       => self::$PRP_CAUM_DESC,
         ];
     }
 

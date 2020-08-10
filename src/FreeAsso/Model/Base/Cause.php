@@ -299,9 +299,21 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
 
     /**
      * cau_waiting
-     * @var boolean
+     * @var bool
      */
-    protected $cau_waiting = false;
+    protected $cau_waiting = null;
+
+    /**
+     * cau_conform
+     * @var bool
+     */
+    protected $cau_conform = null;
+
+    /**
+     * cau_conform_text
+     * @var mixed
+     */
+    protected $cau_conform_text = null;
 
     /**
      * Set cau_id
@@ -1408,25 +1420,71 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     }
 
     /**
-     * Set waiting
+     * Set cau_waiting
      *
-     * @param boolean $p_waiting
+     * @param bool $p_value
      *
-     * @return \FreeAsso\Model\Base\Cause
+     * @return \FreeAsso\Model\Cause
      */
-    public function setCauWaiting($p_waiting)
+    public function setCauWaiting($p_value)
     {
-        $this->cau_waiting = $p_waiting;
+        $this->cau_waiting = $p_value;
         return $this;
     }
 
     /**
-     * Get waiting
+     * Get cau_waiting
      *
-     * @return boolean
+     * @return bool
      */
     public function getCauWaiting()
     {
         return $this->cau_waiting;
+    }
+
+    /**
+     * Set cau_conform
+     *
+     * @param bool $p_value
+     *
+     * @return \FreeAsso\Model\Cause
+     */
+    public function setCauConform($p_value)
+    {
+        $this->cau_conform = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get cau_conform
+     *
+     * @return bool
+     */
+    public function getCauConform()
+    {
+        return $this->cau_conform;
+    }
+
+    /**
+     * Set cau_conform_text
+     *
+     * @param mixed $p_value
+     *
+     * @return \FreeAsso\Model\Cause
+     */
+    public function setCauConformText($p_value)
+    {
+        $this->cau_conform_text = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get cau_conform_text
+     *
+     * @return mixed
+     */
+    public function getCauConformText()
+    {
+        return $this->cau_conform_text;
     }
 }

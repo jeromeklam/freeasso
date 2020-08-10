@@ -10,6 +10,40 @@ class CauseMedia extends \FreeFW\Core\ApiMediaController
 {
 
     /**
+     * Mie à jour de la description
+     *
+     * @param \Psr\Http\Message\ServerRequestInterface $p_request
+     * @param number $p_id
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function updateOneDesc(\Psr\Http\Message\ServerRequestInterface $p_request, $p_id)
+    {
+        $this->logger->debug('FreeAsso.Cause.updateOneDesc.start');
+        $myMedia = \FreeAsso\Model\CauseMedia::findFirst(['caum_id' => $p_id]);
+        if ($myMedia) {
+            $apiParams = $p_request->getAttribute('api_params', false);
+            if ($apiParams->hasData()) {
+                /**
+                 * @var \FreeAsso\Model\CauseMediaBlob $data
+                 */
+                $data = $apiParams->getData();
+                $myMedia->setCaumDesc($data->getDesc());
+                if (!$myMedia->save()) {
+                    return $this->createErrorResponse(\FreeFW\Constants::ERROR_NOT_UPDATE, $myMedia);
+                }
+                $this->logger->debug('FreeAsso.Cause.updateOneDesc.end');
+                return $this->createSuccessOkResponse($myMedia);
+            } else {
+                $this->logger->debug('FreeAsso.Cause.updateOneDesc.409');
+                return $this->createResponse(409);
+            }
+        }
+        $this->logger->debug('FreeAsso.Cause.updateOneDesc.404');
+        return $this->createErrorResponse(\FreeFW\Constants::ERROR_NOT_FOUND);
+    }
+
+    /**
      * Get file content for download
      *
      * @param \Psr\Http\Message\ServerRequestInterface $p_request
@@ -19,11 +53,14 @@ class CauseMedia extends \FreeFW\Core\ApiMediaController
      */
     public function downloadOneBlob(\Psr\Http\Message\ServerRequestInterface $p_request, $p_id)
     {
+        $this->logger->debug('FreeAsso.Cause.downloadOneBlob.start');
         $myMedia = \FreeAsso\Model\CauseMedia::findFirst(['caum_id' => $p_id]);
         if ($myMedia) {
+            $this->logger->debug('FreeAsso.Cause.downloadOneBlob.end');
             return $this->createMimeTypeResponse($myMedia->getCaumTitle(), $myMedia->getCaumBlob());
         }
-        return $this->createResponse(409);
+        $this->logger->debug('FreeAsso.Cause.downloadOneBlob.404');
+        return $this->createErrorResponse(\FreeFW\Constants::ERROR_NOT_FOUND);
     }
 
     /**
@@ -69,9 +106,11 @@ class CauseMedia extends \FreeFW\Core\ApiMediaController
                     // @todo
                 }
                 if (!$causeMedia->create()) {
+                    $this->logger->debug('FreeAsso.Cause.createOneBlob.409');
                     return $this->createResponse(409, $causeMedia);
                 }
             } else {
+                $this->logger->debug('FreeAsso.Cause.createOneBlob.409s');
                 return $this->createResponse(409);
             }
             $this->logger->debug('FreeAsso.Cause.createOneBlob.end');

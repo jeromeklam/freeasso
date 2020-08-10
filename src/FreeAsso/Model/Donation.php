@@ -297,7 +297,7 @@ class Donation extends \FreeAsso\Model\Base\Donation
                 $alert->create();
             }
         }
-        return $this->hasErrors();
+        return !$this->hasErrors();
     }
 
     /**

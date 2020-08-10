@@ -106,6 +106,12 @@ abstract class CauseMedia extends \FreeAsso\Model\StorageModel\CauseMedia
     protected $caum_public = null;
 
     /**
+     * caum_desc
+     * @var mixed
+     */
+    protected $caum_desc = null;
+
+    /**
      * Set caum_id
      *
      * @param int $p_value
@@ -471,5 +477,28 @@ abstract class CauseMedia extends \FreeAsso\Model\StorageModel\CauseMedia
     public function getCaumPublic()
     {
         return $this->caum_public;
+    }
+
+    /**
+     * Set caum_desc
+     *
+     * @param mixed $p_value
+     *
+     * @return \FreeAsso\Model\CauseMedia
+     */
+    public function setCaumDesc($p_value)
+    {
+        $this->caum_desc = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caum_desc
+     *
+     * @return mixed
+     */
+    public function getCaumDesc()
+    {
+        return $this->caum_desc;
     }
 }

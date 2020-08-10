@@ -1,0 +1,1 @@
+ALTER TABLE `asso_cause_sickness` MODIFY `caus_care` VARCHAR(32) DEFAULT NULL;

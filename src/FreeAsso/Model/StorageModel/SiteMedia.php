@@ -113,6 +113,11 @@ abstract class SiteMedia extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
         FFCST::PROPERTY_OPTIONS => []
     ];
+    protected static $PRP_SITM_DESC = [
+        FFCST::PROPERTY_PRIVATE => 'sitm_desc',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
 
     /**
      * get properties
@@ -136,7 +141,8 @@ abstract class SiteMedia extends \FreeFW\Core\StorageModel
             'sitm_short_blob' => self::$PRP_SITM_SHORT_BLOB,
             'lang_id'         => self::$PRP_LANG_ID,
             'sitm_order'      => self::$PRP_SITM_ORDER,
-            'sitm_title'      => self::$PRP_SITM_TITLE
+            'sitm_title'      => self::$PRP_SITM_TITLE,
+            'sitm_desc'       => self::$PRP_SITM_DESC
         ];
     }
 

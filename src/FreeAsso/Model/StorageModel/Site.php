@@ -384,6 +384,14 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_COMMENT => 'Texte lié à la conformité',
         FFCST::PROPERTY_SAMPLE  => 'Le site est conforme'
     ];
+    protected static $PRP_SITE_EXTERN = [
+        FFCST::PROPERTY_PRIVATE => 'site_extern',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_COMMENT => 'Site externe',
+        FFCST::PROPERTY_DEFAULT => false,
+        FFCST::PROPERTY_SAMPLE  => false
+    ];
     protected static $PRP_SITE_COUNT_CAUSE = [
         FFCST::PROPERTY_PRIVATE  => 'site_count_clause',
         FFCST::PROPERTY_TYPE     => FFCST::TYPE_INTEGER,
@@ -451,6 +459,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
             'site_conform'      => self::$PRP_SITE_CONFORM,
             'site_conform_text' => self::$PRP_SITE_CONFORM_TEXT,
             'site_count_cause'  => self::$PRP_SITE_COUNT_CAUSE,
+            'site_extern'       => self::$PRP_SITE_EXTERN
         ];
     }
 

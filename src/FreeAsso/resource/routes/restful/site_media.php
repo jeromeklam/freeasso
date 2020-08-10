@@ -8,6 +8,37 @@ use \FreeFW\Router\Route as FFCSTRT;
  * @author jeromeklam
  */
 $siteMediaRoutes = [
+    'free_asso.site_media.updateonedesc' => [
+        FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/SiteMedia',
+        FFCSTRT::ROUTE_COMMENT    => 'Modifie un objet',
+        FFCSTRT::ROUTE_METHOD     => FFCSTRT::METHOD_PUT,
+        FFCSTRT::ROUTE_MODEL      => 'FreeAsso::Model::SiteMedia',
+        FFCSTRT::ROUTE_URL        => '/v1/asso/site_media/description/:sitm_id',
+        FFCSTRT::ROUTE_CONTROLLER => 'FreeAsso::Controller::SiteMedia',
+        FFCSTRT::ROUTE_FUNCTION   => 'updateOneDesc',
+        FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_UPDATE_ONE,
+        FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
+        FFCSTRT::ROUTE_MIDDLEWARE => [],
+        FFCSTRT::ROUTE_INCLUDE    => [
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['site', 'lang']
+        ],
+        FFCSTRT::ROUTE_SCOPE      => [],
+        FFCSTRT::ROUTE_PARAMETERS => [
+            'sitm_id' => [
+                FFCSTRT::ROUTE_PARAMETER_ORIGIN   => FFCSTRT::ROUTE_PARAMETER_ORIGIN_PATH,
+                FFCSTRT::ROUTE_PARAMETER_TYPE     => FFCST::TYPE_BIGINT,
+                FFCSTRT::ROUTE_PARAMETER_REQUIRED => true,
+                FFCSTRT::ROUTE_PARAMETER_COMMENT  => 'Identifiant de l\'objet'
+            ],
+        ],
+        FFCSTRT::ROUTE_RESULTS    => [
+            '200' => [
+                FFCSTRT::ROUTE_RESULTS_TYPE    => FFCSTRT::RESULT_OBJECT,
+                FFCSTRT::ROUTE_RESULTS_MODEL   => 'FreeAsso::Model::SiteMedia',
+                FFCSTRT::ROUTE_RESULTS_COMMENT => 'Objet modifié',
+            ],
+        ]
+    ],
     'free_asso.site_media.autocomplete' => [
         FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/SiteMedia',
         FFCSTRT::ROUTE_COMMENT    => 'Autocomplete.',

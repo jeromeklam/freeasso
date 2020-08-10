@@ -28,6 +28,12 @@ abstract class CauseMediaBlob extends \FreeAsso\Model\StorageModel\CauseMediaBlo
     protected $title = null;
 
     /**
+     * desc
+     * @var string
+     */
+    protected $desc = null;
+
+    /**
      * Set cau_id
      *
      * @param int $p_value
@@ -75,9 +81,9 @@ abstract class CauseMediaBlob extends \FreeAsso\Model\StorageModel\CauseMediaBlo
 
     /**
      * Set title
-     * 
+     *
      * @param string $p_title
-     * 
+     *
      * @return \FreeAsso\Model\CauseMediaBlob
      */
     public function setTitle($p_title)
@@ -88,11 +94,34 @@ abstract class CauseMediaBlob extends \FreeAsso\Model\StorageModel\CauseMediaBlo
 
     /**
      * Get title
-     * 
+     *
      * @return string
      */
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * Set desc
+     *
+     * @param string $p_title
+     *
+     * @return \FreeAsso\Model\CauseMediaBlob
+     */
+    public function setDesc($p_desc)
+    {
+        $this->desc = $p_desc;
+        return $this;
+    }
+
+    /**
+     * Get desc
+     *
+     * @return string
+     */
+    public function getDesc()
+    {
+        return $this->desc;
     }
 }

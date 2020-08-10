@@ -28,6 +28,12 @@ abstract class SiteMediaBlob extends \FreeAsso\Model\StorageModel\SiteMediaBlob
     protected $title = null;
 
     /**
+     * desc
+     * @var string
+     */
+    protected $desc = null;
+
+    /**
      * Set site_id
      *
      * @param int $p_value
@@ -78,7 +84,7 @@ abstract class SiteMediaBlob extends \FreeAsso\Model\StorageModel\SiteMediaBlob
      *
      * @param string $p_title
      *
-     * @return \FreeAsso\Model\CauseMediaBlob
+     * @return \FreeAsso\Model\SiteMediaBlob
      */
     public function setTitle($p_title)
     {
@@ -94,5 +100,28 @@ abstract class SiteMediaBlob extends \FreeAsso\Model\StorageModel\SiteMediaBlob
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * Set desc
+     *
+     * @param string $p_desc
+     *
+     * @return \FreeAsso\Model\SiteMediaBlob
+     */
+    public function setDesc($p_desc)
+    {
+        $this->desc = $p_desc;
+        return $this;
+    }
+
+    /**
+     * Get desc
+     *
+     * @return string
+     */
+    public function getDesc()
+    {
+        return $this->desc;
     }
 }

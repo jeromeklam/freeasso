@@ -100,6 +100,12 @@ abstract class SiteMedia extends \FreeAsso\Model\StorageModel\SiteMedia
     protected $sitm_title = null;
 
     /**
+     * sitm_desc
+     * @var mixed
+     */
+    protected $sitm_desc = null;
+
+    /**
      * Set sitm_id
      *
      * @param int $p_value
@@ -442,5 +448,28 @@ abstract class SiteMedia extends \FreeAsso\Model\StorageModel\SiteMedia
     public function getSitmTitle()
     {
         return $this->sitm_title;
+    }
+
+    /**
+     * Set sitm_desc
+     *
+     * @param mixed $p_value
+     *
+     * @return \FreeAsso\Model\SiteMedia
+     */
+    public function setSitmDesc($p_value)
+    {
+        $this->sitm_desc = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get sitm_desc
+     *
+     * @return mixed
+     */
+    public function getSitmDesc()
+    {
+        return $this->sitm_desc;
     }
 }

@@ -30,6 +30,11 @@ abstract class SiteMediaBlob extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
         FFCST::PROPERTY_OPTIONS => []
     ];
+    protected static $PRP_DESC= [
+        FFCST::PROPERTY_PRIVATE => 'desc',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
 
     /**
      * get properties
@@ -42,6 +47,7 @@ abstract class SiteMediaBlob extends \FreeFW\Core\StorageModel
             'site_id' => self::$PRP_SITE_ID,
             'blob'    => self::$PRP_BLOB,
             'title'   => self::$PRP_TITLE,
+            'desc'    => self::$PRP_DESC,
         ];
     }
 
