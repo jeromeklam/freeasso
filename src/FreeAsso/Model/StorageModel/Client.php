@@ -53,6 +53,7 @@ abstract class Client extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_PRIVATE => 'cli_gender',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
         FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_DEFAULT => 'MISTER',
         FFCST::PROPERTY_MAX     => 10,
     ];
     protected static $PRP_CLI_FIRSTNAME = [
@@ -101,6 +102,7 @@ abstract class Client extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_PRIVATE => 'cnty_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_COUNTRY,
         FFCST::PROPERTY_FK      => ['country' =>
             [
                 'model' => 'FreeFW::Model::Country',
@@ -112,7 +114,8 @@ abstract class Client extends \FreeFW\Core\StorageModel
     protected static $PRP_CLI_ACTIVE = [
         FFCST::PROPERTY_PRIVATE => 'cli_active',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
+        FFCST::PROPERTY_DEFAULT => true,
     ];
     protected static $PRP_LANG_ID = [
         FFCST::PROPERTY_PRIVATE => 'lang_id',
@@ -174,11 +177,13 @@ abstract class Client extends \FreeFW\Core\StorageModel
     protected static $PRP_CLI_RECEIPT = [
         FFCST::PROPERTY_PRIVATE => 'cli_receipt',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_DEFAULT => true,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CLI_CERTIFICAT = [
         FFCST::PROPERTY_PRIVATE => 'cli_certificat',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_DEFAULT => true,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CLI_EXTERN_ID = [
@@ -314,12 +319,14 @@ abstract class Client extends \FreeFW\Core\StorageModel
     protected static $PRP_CLI_DISPLAY_SITE = [
         FFCST::PROPERTY_PRIVATE => 'cli_display_site',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_DEFAULT => true,
     ];
     protected static $PRP_CLI_SEND_NEWS = [
         FFCST::PROPERTY_PRIVATE => 'cli_send_news',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_DEFAULT => true,
     ];
     protected static $PRP_CLI_COORD = [
         FFCST::PROPERTY_PRIVATE => 'cli_coord',

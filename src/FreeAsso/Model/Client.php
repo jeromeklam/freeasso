@@ -57,31 +57,6 @@ class Client extends \FreeAsso\Model\Base\Client implements
     protected $last_donation = null;
 
     /**
-     *
-     * {@inheritDoc}
-     * @see \FreeFW\Core\Model::init()
-     */
-    public function init()
-    {
-        $cntyId  = 0;
-        $country = \FreeFW\Model\Country::findFirst(['cnty_name' => 'France']);
-        if ($country) {
-            $cntyId = $country->getCntyId();
-        }
-        $this->cli_id           = 0;
-        $this->brk_id           = 0;
-        $this->clic_id          = 0;
-        $this->clit_id          = 0;
-        $this->cli_active       = true;
-        $this->last_don_id      = null;
-        $this->cli_display_site = true;
-        $this->cli_send_news    = true;
-        $this->cli_gender       = self::GENDER_OTHER;
-        $this->cnty_id          = $cntyId;
-        return $this;
-    }
-
-    /**
      * Set client category
      *
      * @param \FreeAsso\Model\ClientCategory $p_category
