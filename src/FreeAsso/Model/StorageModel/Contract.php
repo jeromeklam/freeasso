@@ -43,9 +43,9 @@ abstract class Contract extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_FK],
         FFCST::PROPERTY_COMMENT => '',
         FFCST::PROPERTY_SAMPLE  => 123,
-        FFCST::PROPERTY_FK      => ['site_id' => 
+        FFCST::PROPERTY_FK      => ['site' => 
             [
-                FFCST::FOREIGN_MODEL => 'NS::Model::ModelName',
+                FFCST::FOREIGN_MODEL => 'FreeAsso::Model::Site',
                 FFCST::FOREIGN_FIELD => 'site_id',
                 FFCST::FOREIGN_TYPE  => \FreeFW\Model\Query::JOIN_LEFT,
             ]
@@ -133,9 +133,9 @@ abstract class Contract extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
         FFCST::PROPERTY_COMMENT => '',
         FFCST::PROPERTY_SAMPLE  => 123,
-        FFCST::PROPERTY_FK      => ['cnty_id' => 
+        FFCST::PROPERTY_FK      => ['country' => 
             [
-                FFCST::FOREIGN_MODEL => 'NS::Model::ModelName',
+                FFCST::FOREIGN_MODEL => 'FreeFW::Model::Country',
                 FFCST::FOREIGN_FIELD => 'cnty_id',
                 FFCST::FOREIGN_TYPE  => \FreeFW\Model\Query::JOIN_LEFT,
             ]
@@ -147,10 +147,10 @@ abstract class Contract extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
         FFCST::PROPERTY_COMMENT => '',
         FFCST::PROPERTY_SAMPLE  => 123,
-        FFCST::PROPERTY_FK      => ['ctx1_cli_id' => 
+        FFCST::PROPERTY_FK      => ['contact1' => 
             [
-                FFCST::FOREIGN_MODEL => 'NS::Model::ModelName',
-                FFCST::FOREIGN_FIELD => 'ctx1_cli_id',
+                FFCST::FOREIGN_MODEL => 'FreeAsso::Model::Client',
+                FFCST::FOREIGN_FIELD => 'cli_id',
                 FFCST::FOREIGN_TYPE  => \FreeFW\Model\Query::JOIN_LEFT,
             ]
         ],
@@ -161,10 +161,10 @@ abstract class Contract extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
         FFCST::PROPERTY_COMMENT => '',
         FFCST::PROPERTY_SAMPLE  => 123,
-        FFCST::PROPERTY_FK      => ['ctx2_cli_id' => 
+        FFCST::PROPERTY_FK      => ['contact2' => 
             [
-                FFCST::FOREIGN_MODEL => 'NS::Model::ModelName',
-                FFCST::FOREIGN_FIELD => 'ctx2_cli_id',
+                FFCST::FOREIGN_MODEL => 'FreeAsso::Model::Client',
+                FFCST::FOREIGN_FIELD => 'cli_id',
                 FFCST::FOREIGN_TYPE  => \FreeFW\Model\Query::JOIN_LEFT,
             ]
         ],
