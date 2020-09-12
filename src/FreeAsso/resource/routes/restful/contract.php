@@ -48,7 +48,9 @@ $routes_contract = [
         FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_GET_FILTERED,
         FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
         FFCSTRT::ROUTE_MIDDLEWARE => [],
-        FFCSTRT::ROUTE_INCLUDE    => [],
+        FFCSTRT::ROUTE_INCLUDE    => [
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['site'],
+        ],
         FFCSTRT::ROUTE_SCOPE      => [],
         FFCSTRT::ROUTE_RESULTS    => [
             '200' => [

@@ -10,4 +10,9 @@ use \FreeFW\Constants as FFCST;
  */
 class Contract extends \FreeAsso\Model\Base\Contract
 {
+
+    /**
+     * Comportement
+     */
+    use \FreeAsso\Model\Behaviour\Site;
 }

@@ -228,4 +228,19 @@ abstract class SiteType extends \FreeAsso\Model\StorageModel\Base
     {
         return 'asso_site_type';
     }
+
+    /**
+     * Get uniq indexes
+     *
+     * @return array[]
+     */
+    public static function getUniqIndexes()
+    {
+        return [
+            'name' => [
+                FFCST::INDEX_FIELDS => 'sitt_name',
+                FFCST::INDEX_EXISTS => \FreeFW\Constants::ERROR_UNIQINDEX,
+            ]
+        ];
+    }
 }
