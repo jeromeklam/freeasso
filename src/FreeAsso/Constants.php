@@ -14,6 +14,16 @@ class Constants
     const ERROR_DONATION_CANT_CHANGE_CLIENT   = 5220001;
     const ERROR_DONATION_CANT_CHANGE_CAUSE    = 5220002;
     const ERROR_MOVEMENT_ARCHIVED             = 5220003;
+    const ERROR_CONTRACT_CODE_EXISTS          = 5220004;
+    const ERROR_MOVEMENT_STATUS               = 5220005;
+
+    const ERROR_SITE_REL_SON                  = 6680001;
+    const ERROR_SITE_REL_MEDIA                = 6680002;
+    const ERROR_SITE_REL_FROM                 = 6680003;
+    const ERROR_SITE_REL_TO                   = 6680004;
+    const ERROR_SITE_REL_CAUSE                = 6680005;
+
+    const ERROR_SITE_UNIQ_NAME                = 6690001;
 
     /**
      * Actions

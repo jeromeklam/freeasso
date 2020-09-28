@@ -15,4 +15,39 @@ class Contract extends \FreeAsso\Model\Base\Contract
      * Comportement
      */
     use \FreeAsso\Model\Behaviour\Site;
+    use \FreeAsso\Model\Behaviour\Contact1;
+    use \FreeAsso\Model\Behaviour\Contact2;
+
+    /**
+     * Retourne le dernier numéro disponible pour une année
+     *
+     * @param number $p_year
+     *
+     * @return number
+     */
+    public function getLastNn($p_year)
+    {
+        $nn = 0;
+        $list = \FreeAsso\Model\Contract::find(
+            ['ct_code' => [\FreeFW\Storage\Storage::COND_BEGIN_WITH => $p_year]]
+        );
+        foreach ($list as $contract) {
+            $parts = explode('.', $contract->getCtCode());
+            if (count($parts) > 1 && intval($parts[1]) > $nn) {
+                $nn = intval($parts[1]);
+            }
+        }
+        return $nn;
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see \FreeFW\Core\Model::init()
+     */
+    public function init()
+    {
+        $year = date('Y');
+        $this->setCtCode($year . '.' . str_pad($this->getLastNn($year) + 1, 3, '0', STR_PAD_LEFT));
+        return $this;
+    }
 }

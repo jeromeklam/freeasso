@@ -112,6 +112,12 @@ abstract class Contract extends \FreeAsso\Model\StorageModel\Contract
     protected $ctx2_cli_id = null;
 
     /**
+     * ct_next_bill
+     * @var string
+     */
+    protected $ct_next_bill = null;
+
+    /**
      * Set ct_id
      *
      * @param int $p_value
@@ -500,5 +506,28 @@ abstract class Contract extends \FreeAsso\Model\StorageModel\Contract
     public function getCtx2CliId()
     {
         return $this->ctx2_cli_id;
+    }
+
+    /**
+     * Set ct_next_bill
+     *
+     * @param mixed $p_value
+     *
+     * @return \FreeAsso\Model\Contract
+     */
+    public function setCtNextBill($p_value)
+    {
+        $this->ct_next_bill = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get ct_next_bill
+     *
+     * @return mixed
+     */
+    public function getCtNextBill()
+    {
+        return $this->ct_next_bill;
     }
 }

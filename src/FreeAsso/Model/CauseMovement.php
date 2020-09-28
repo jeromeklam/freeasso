@@ -12,6 +12,12 @@ class CauseMovement extends \FreeAsso\Model\Base\CauseMovement
 {
 
     /**
+     * Comportement
+     */
+    use \FreeAsso\Model\Behaviour\Cause;
+    use \FreeAsso\Model\Behaviour\Movement;
+
+    /**
      * Status
      * @var string
      */
@@ -19,12 +25,6 @@ class CauseMovement extends \FreeAsso\Model\Base\CauseMovement
     const STATUS_WAIT    = 'WAIT';
     const STATUS_KO      = 'KO';
     const STATUS_ARCHIVE = 'ARCHIVE';
-
-    /**
-     * Cause
-     * @var \FreeAsso\Model\Cause
-     */
-    protected $cause = null;
 
     /**
      * From
@@ -37,12 +37,6 @@ class CauseMovement extends \FreeAsso\Model\Base\CauseMovement
      * @var \FreeAsso\Model\Site
      */
     protected $to_site = null;
-
-    /**
-     * Movement
-     * @var \FreeAsso\Model\Movement
-     */
-    protected $movement = null;
 
     /**
      *
@@ -61,29 +55,6 @@ class CauseMovement extends \FreeAsso\Model\Base\CauseMovement
     }
 
     /**
-     * Set cause
-     *
-     * @param \FreeAsso\Model\Cause $p_cause
-     *
-     * @return \FreeAsso\Model\CauseMedia
-     */
-    public function setCause($p_cause)
-    {
-        $this->cause = $p_cause;
-        return $this;
-    }
-
-    /**
-     * Get cause
-     *
-     * @return \FreeAsso\Model\Cause
-     */
-    public function getCause()
-    {
-        return $this->cause;
-    }
-
-    /**
      * Set from
      *
      * @param \FreeAsso\Model\Site $p_site
@@ -92,7 +63,13 @@ class CauseMovement extends \FreeAsso\Model\Base\CauseMovement
      */
     public function setFromSite($p_site)
     {
-        $this->from_site = $p_site;
+        if ($p_site) {
+            $this->from_site         = $p_site;
+            $this->camv_site_from_id = $this->from_site->getSiteId();
+        } else {
+            $this->from_site         = null;
+            $this->camv_site_from_id = null;
+        }
         return $this;
     }
 
@@ -103,6 +80,11 @@ class CauseMovement extends \FreeAsso\Model\Base\CauseMovement
      */
     public function getFromSite()
     {
+        if ($this->from_site === null) {
+            if ($this->getCamvSiteFromId() > 0) {
+                $this->from_site = \FreeAsso\Model\Site::findFirst(['site_id' => $this->getCamvSiteFromId()]);
+            }
+        }
         return $this->from_site;
     }
 
@@ -115,7 +97,13 @@ class CauseMovement extends \FreeAsso\Model\Base\CauseMovement
      */
     public function setToSite($p_site)
     {
-        $this->to_site = $p_site;
+        if ($p_site) {
+            $this->to_site         = $p_site;
+            $this->camv_site_to_id = $p_site->getSiteId();
+        } else {
+            $this->to_site         = null;
+            $this->camv_site_to_id = null;
+        }
         return $this;
     }
 
@@ -126,30 +114,12 @@ class CauseMovement extends \FreeAsso\Model\Base\CauseMovement
      */
     public function getToSite()
     {
+        if ($this->to_site === null) {
+            if ($this->getCamvSiteToId() > 0) {
+                $this->to_site = \FreeAsso\Model\Site::findFirst(['site_id' => $this->getCamvSiteToId()]);
+            }
+        }
         return $this->to_site;
-    }
-
-    /**
-     * Set movement
-     *
-     * @param \FreeAsso\Model\Movement $p_movement
-     *
-     * @return \FreeAsso\Model\CauseMovement
-     */
-    public function setMovement($p_movement)
-    {
-        $this->movement = $p_movement;
-        return $this;
-    }
-
-    /**
-     * Get movement
-     *
-     * @return \FreeAsso\Model\Movement
-     */
-    public function getMovement()
-    {
-        return $this->movement;
     }
 
     /**
@@ -191,9 +161,49 @@ class CauseMovement extends \FreeAsso\Model\Base\CauseMovement
                 );
                 $this->cause->setSite($site);
                 $this->cause->setSiteId($site->getSiteId());
+                if ($site->getSiteExtern()) {
+                    if (!$this->cause->getCauTo()) {
+                        $this->cause
+                            ->setCauTo($this->getCamvTo())
+                            ->setCauString_3('Mouvement')
+                        ;
+                    }
+                }
                 if (!$this->cause->save()) {
                     $this->addErrors($this->cause->getErrors());
                     return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Après l'enregistrement
+     *
+     * @return boolean
+     */
+    public function afterSave()
+    {
+        if (in_array($this->getCamvStatus(), [self::STATUS_OK, self::STATUS_ARCHIVE])) {
+            $mySite = $this->getToSite();
+            $myCause = $this->getCause();
+            if ($mySite && $myCause) {
+                if ($myCause->getSiteId() != $mySite->getSiteId()) {
+                    $myCause->setSite($mySite);
+                    $myCause->setSiteId($mySite->getSiteId());
+                    if ($mySite->getSiteExtern()) {
+                        if (!$myCause->getCauTo()) {
+                            $myCause
+                                ->setCauTo($this->getCamvTo())
+                                ->setCauString_3('Mouvement')
+                            ;
+                        }
+                    }
+                    if (!$myCause->save()) {
+                        $this->addErrors($myCause->getErrors());
+                        return false;
+                    }
                 }
             }
         }

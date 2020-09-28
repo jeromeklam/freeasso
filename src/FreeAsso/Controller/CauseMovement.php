@@ -1,6 +1,8 @@
 <?php
 namespace FreeAsso\Controller;
 
+use \FreeFW\Constants as FFCST;
+
 /**
  * Model controller
  *
@@ -33,16 +35,11 @@ class CauseMovement extends \FreeFW\Core\ApiController
             $myCause = \FreeAsso\Model\Cause::findFirst(['cau_id' => $myMovement->getCauId()]);
             if ($myCause) {
                 $myMovement->setCamvStatus(self::STATUS_OK);
-                $myMovement->save();
-                $mySite = \FreeAsso\Model\Site::findFirst(['site_id' => $myMovement->getCamvSiteToId()]);
-                if ($mySite) {
-                    $myCause->setSite($mySite);
-                    $myCause->setSiteId($myMovement->getCamvSiteToId());
-                    if ($myCause->save()) {
-                        $data = $this->getModelById($apiParams, $myMovement, $myMovement->getApiId());
-                        return $this->createResponse(200, $data);
-                    }
+                if (!$myMovement->save()) {
+                    return $this->createErrorResponse(FFCST::ERROR_NOT_UPDATE, $myMovement);
                 }
+                $data = $this->getModelById($apiParams, $myMovement, $myMovement->getApiId());
+                return $this->createResponse(200, $data);
             }
         }
         return $this->createResponse(409);

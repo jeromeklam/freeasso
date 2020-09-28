@@ -6,5 +6,6 @@ namespace FreeAsso\Controller;
  *
  * @author jeromeklam
  */
-class Alert extends \FreeFW\Core\ApiController {
+class Alert extends \FreeFW\Core\ApiController
+{
 }

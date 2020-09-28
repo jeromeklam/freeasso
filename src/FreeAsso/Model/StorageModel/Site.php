@@ -389,7 +389,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [],
         FFCST::PROPERTY_COMMENT => 'Site externe',
-        FFCST::PROPERTY_DEFAULT => false,
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_FALSE,
         FFCST::PROPERTY_SAMPLE  => false
     ];
     protected static $PRP_SITE_COUNT_CAUSE = [
@@ -501,7 +501,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
         return [
             'name' => [
                 FFCST::INDEX_FIELDS => 'site_name',
-                FFCST::INDEX_EXISTS => '6690001',
+                FFCST::INDEX_EXISTS => \FreeAsso\Constants::ERROR_SITE_UNIQ_NAME,
             ]
         ];
     }
@@ -519,36 +519,36 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
                 FFCST::REL_FIELD   => 'parent_site_id',
                 FFCST::REL_TYPE    => \FreeFW\Model\Query::JOIN_LEFT,
                 FFCST::REL_COMMENT => 'Texte lié à la conformité',
-                FFCST::REL_REMOVE  => 'check',
-                FFCST::REL_EXISTS  => '6680001',
+                FFCST::REL_REMOVE  => FFCST::REL_REMOVE_CHECK,
+                FFCST::REL_EXISTS  => \FreeAsso\Constants::ERROR_SITE_REL_SON,
             ],
             'medias' => [
                 FFCST::REL_MODEL  => 'FreeAsso::Model::SiteMedia',
                 FFCST::REL_FIELD  => 'site_id',
                 FFCST::REL_TYPE   => \FreeFW\Model\Query::JOIN_LEFT,
-                FFCST::REL_REMOVE => 'check',
-                FFCST::REL_EXISTS => '6680002',
+                FFCST::REL_REMOVE => FFCST::REL_REMOVE_CHECK,
+                FFCST::REL_EXISTS => \FreeAsso\Constants::ERROR_SITE_REL_MEDIA,
             ],
             'movements_from' => [
                 FFCST::REL_MODEL  => 'FreeAsso::Model::Movement',
                 FFCST::REL_FIELD  => 'move_from_site_id',
                 FFCST::REL_TYPE   => \FreeFW\Model\Query::JOIN_LEFT,
-                FFCST::REL_REMOVE => 'check',
-                FFCST::REL_EXISTS => '6680003',
+                FFCST::REL_REMOVE => FFCST::REL_REMOVE_CHECK,
+                FFCST::REL_EXISTS => \FreeAsso\Constants::ERROR_SITE_REL_FROM,
             ],
             'movements_to' => [
                 FFCST::REL_MODEL  => 'FreeAsso::Model::Movement',
                 FFCST::REL_FIELD  => 'move_to_site_id',
                 FFCST::REL_TYPE   => \FreeFW\Model\Query::JOIN_LEFT,
-                FFCST::REL_REMOVE => 'check',
-                FFCST::REL_EXISTS => '6680004',
+                FFCST::REL_REMOVE => FFCST::REL_REMOVE_CHECK,
+                FFCST::REL_EXISTS => \FreeAsso\Constants::ERROR_SITE_REL_TO,
             ],
             'causes' => [
                 FFCST::REL_MODEL  => 'FreeAsso::Model::Cause',
                 FFCST::REL_FIELD  => 'site_id',
                 FFCST::REL_TYPE   => \FreeFW\Model\Query::JOIN_LEFT,
-                FFCST::REL_REMOVE => 'check',
-                FFCST::REL_EXISTS => '6680005',
+                FFCST::REL_REMOVE => FFCST::REL_REMOVE_CHECK,
+                FFCST::REL_EXISTS => \FreeAsso\Constants::ERROR_SITE_REL_CAUSE,
             ]
         ];
     }

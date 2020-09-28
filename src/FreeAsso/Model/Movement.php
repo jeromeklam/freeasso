@@ -21,6 +21,15 @@ class Movement extends \FreeAsso\Model\Base\Movement
     const TYPE_TRANSFER = 'TRANSFER';
 
     /**
+     * Status
+     * @var string
+     */
+    const STATUS_OK      = 'OK';
+    const STATUS_WAIT    = 'WAIT';
+    const STATUS_KO      = 'KO';
+    const STATUS_ARCHIVE = 'ARCHIVE';
+
+    /**
      * From site
      * @var \FreeAsso\Model\Site
      */
@@ -55,6 +64,12 @@ class Movement extends \FreeAsso\Model\Base\Movement
      * @var [\FreeAsso\Model\Cause]
      */
     protected $causes = null;
+
+    /**
+     * Old movement
+     * @var \FreeAsso\Model\Movement
+     */
+    protected $old_movement = null;
 
     /**
      * Set movements
@@ -302,6 +317,52 @@ class Movement extends \FreeAsso\Model\Base\Movement
                             }
                         }
                         break;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Avant la modificartion
+     *
+     * @return boolean
+     */
+    public function beforeSave()
+    {
+        $this->old_movement = \FreeAsso\Model\Movement::findFirst(['move_id' => $this->getMoveId()]);
+        if (!$this->old_movement) {
+            $this->addError(412, 'Movement not found');
+            return false;
+        }
+        if ($this->old_movement->getMoveStatus() != self::STATUS_WAIT) {
+            if ($this->getMoveStatus() != $this->old_movement->getMoveStatus()) {
+                $this->addError(412, 'Can\'t modify status', \FreeAsso\Constants::ERROR_MOVEMENT_STATUS, 'move_status');
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Après l'enregistrement
+     *
+     * @return boolean
+     */
+    public function afterSave()
+    {
+        if ($this->getMoveStatus() != $this->old_movement->getMoveStatus()) {
+            $causeMovements = $this->getMovements();
+            /**
+             * @var \FreeAsso\Model\CauseMovement $oneCauseMovement
+             */
+            foreach ($causeMovements as $oneCauseMovement) {
+                if ($oneCauseMovement->getCamvStatus() == \FreeAsso\Model\CauseMovement::STATUS_WAIT) {
+                    $oneCauseMovement->setCamvStatus($this->getMoveStatus());
+                    if (!$oneCauseMovement->save()) {
+                        $this->addErrors($oneCauseMovement->getErrors());
+                        return false;
+                    }
                 }
             }
         }

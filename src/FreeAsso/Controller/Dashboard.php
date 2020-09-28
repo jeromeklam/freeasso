@@ -21,6 +21,18 @@ class Dashboard extends \FreeFW\Core\Controller
         $data    = [];
         $sso     = \FreeFW\DI\DI::getShared('sso');
         $storage = \FreeFW\DI\DI::getShared('Storage::default');
+        // Contrats
+        $query   = 'SELECT COUNT(*) AS total FROM asso_contract' .
+                   ' WHERE asso_contract.brk_id = ' . $sso->getBrokerId() .
+                   '   AND (asso_contract.ct_to IS NULL OR asso_contract.ct_to >= \'' . \FreeFW\Tools\Date::getCurrentTimestamp() . '\')';
+        $pdo     = $storage->getProvider();
+        $stm     = $pdo->prepare($query);
+        $result  = $stm->execute();
+        if ($result) {
+            while ($row = $stm->fetch(\PDO::FETCH_ASSOC)) {
+                $data['total_contract'] = $row['total'];
+            }
+        }
         // Causes
         $query   = 'SELECT COUNT(*) AS total FROM asso_cause' .
                    ' WHERE asso_cause.brk_id = ' . $sso->getBrokerId() .

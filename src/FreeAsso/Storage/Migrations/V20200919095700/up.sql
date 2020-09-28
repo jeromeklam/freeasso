@@ -1,0 +1,1 @@
+ALTER TABLE `asso_contract` ADD COLUMN ct_next_bill timestamp NULL DEFAULT NULL COMMENT 'Date de prochaine facturation';

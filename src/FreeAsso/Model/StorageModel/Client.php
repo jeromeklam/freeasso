@@ -115,7 +115,7 @@ abstract class Client extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_PRIVATE => 'cli_active',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
-        FFCST::PROPERTY_DEFAULT => true,
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_TRUE,
     ];
     protected static $PRP_LANG_ID = [
         FFCST::PROPERTY_PRIVATE => 'lang_id',
@@ -177,13 +177,13 @@ abstract class Client extends \FreeFW\Core\StorageModel
     protected static $PRP_CLI_RECEIPT = [
         FFCST::PROPERTY_PRIVATE => 'cli_receipt',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
-        FFCST::PROPERTY_DEFAULT => true,
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_TRUE,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CLI_CERTIFICAT = [
         FFCST::PROPERTY_PRIVATE => 'cli_certificat',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
-        FFCST::PROPERTY_DEFAULT => true,
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_TRUE,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CLI_EXTERN_ID = [
@@ -320,13 +320,13 @@ abstract class Client extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_PRIVATE => 'cli_display_site',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [],
-        FFCST::PROPERTY_DEFAULT => true,
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_TRUE,
     ];
     protected static $PRP_CLI_SEND_NEWS = [
         FFCST::PROPERTY_PRIVATE => 'cli_send_news',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [],
-        FFCST::PROPERTY_DEFAULT => true,
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_TRUE,
     ];
     protected static $PRP_CLI_COORD = [
         FFCST::PROPERTY_PRIVATE => 'cli_coord',
@@ -441,13 +441,28 @@ abstract class Client extends \FreeFW\Core\StorageModel
                 FFCST::REL_FIELD   => 'cli_id',
                 FFCST::REL_TYPE    => \FreeFW\Model\Query::JOIN_LEFT,
                 FFCST::REL_COMMENT => 'Les dons du client',
-                FFCST::REL_REMOVE  => FFCST::REL_REMOVE_CHECK
+                FFCST::REL_REMOVE  => FFCST::REL_REMOVE_CHECK,
+                FFCST::REL_EXISTS => '6680005',
             ],
             'sponsorships' => [
                 FFCST::REL_MODEL   => 'FreeAsso::Model::Sponsorship',
                 FFCST::REL_FIELD   => 'cli_id',
                 FFCST::REL_TYPE    => \FreeFW\Model\Query::JOIN_LEFT,
                 FFCST::REL_COMMENT => 'Les parrainages du client',
+                FFCST::REL_REMOVE  => FFCST::REL_REMOVE_CHECK
+            ],
+            'contact1' => [
+                FFCST::REL_MODEL   => 'FreeAsso::Model::Contract',
+                FFCST::REL_FIELD   => 'ctx1_cli_id',
+                FFCST::REL_TYPE    => \FreeFW\Model\Query::JOIN_LEFT,
+                FFCST::REL_COMMENT => 'Contact 1 du contrat',
+                FFCST::REL_REMOVE  => FFCST::REL_REMOVE_CHECK
+            ],
+            'contact2' => [
+                FFCST::REL_MODEL   => 'FreeAsso::Model::Contract',
+                FFCST::REL_FIELD   => 'ctx2_cli_id',
+                FFCST::REL_TYPE    => \FreeFW\Model\Query::JOIN_LEFT,
+                FFCST::REL_COMMENT => 'Contact 2 du contrat',
                 FFCST::REL_REMOVE  => FFCST::REL_REMOVE_CHECK
             ]
         ];

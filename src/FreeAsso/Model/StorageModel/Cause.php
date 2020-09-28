@@ -60,12 +60,14 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_CAU_PUBLIC = [
         FFCST::PROPERTY_PRIVATE => 'cau_public',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_TRUE,
     ];
     protected static $PRP_CAU_AVAILABLE = [
         FFCST::PROPERTY_PRIVATE => 'cau_available',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_TRUE,
     ];
     protected static $PRP_SSPE_ID = [
         FFCST::PROPERTY_PRIVATE => 'sspe_id',
@@ -128,6 +130,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_CAU_MONEY = [
         FFCST::PROPERTY_PRIVATE => 'cau_money',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_DEFAULT => 'EUR',
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CAU_CODE = [
@@ -137,8 +140,10 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
     ];
     protected static $PRP_CAU_FAMILY = [
         FFCST::PROPERTY_PRIVATE => 'cau_family',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_SELECT,
+        FFCST::PROPERTY_ENUM    => ['OTHER','NONE','ANIMAL','FOREST'],
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
+        FFCST::PROPERTY_DEFAULT => 'ANIMAL',
     ];
     protected static $PRP_CAU_STRING_1 = [
         FFCST::PROPERTY_PRIVATE => 'cau_string_1',
@@ -247,12 +252,15 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
     ];
     protected static $PRP_CAU_SEX = [
         FFCST::PROPERTY_PRIVATE => 'cau_sex',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_SELECT,
+        FFCST::PROPERTY_ENUM    => ['M','F','OTHER'],
+        FFCST::PROPERTY_DEFAULT => 'OTHER',
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CAU_YEAR = [
         FFCST::PROPERTY_PRIVATE => 'cau_year',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_CURRENT_YEAR,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_PARENT1_CAU_ID = [
@@ -322,13 +330,13 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_PRIVATE => 'cau_waiting',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [],
-        FFCST::PROPERTY_DEFAULT => false,
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_FALSE,
     ];
     protected static $PRP_CAU_CONFORM = [
         FFCST::PROPERTY_PRIVATE => 'cau_conform',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [],
-        FFCST::PROPERTY_DEFAULT => true,
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_TRUE,
         FFCST::PROPERTY_COMMENT => 'Indique si la cause est conforme',
         FFCST::PROPERTY_SAMPLE  => true
     ];

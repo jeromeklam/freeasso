@@ -4,19 +4,19 @@ namespace FreeAsso\Model\StorageModel;
 use \FreeFW\Constants as FFCST;
 
 /**
- * SiteMediaBlob
+ * ContractMediaBlob
  *
  * @author jeromeklam
  */
-abstract class SiteMediaBlob extends \FreeFW\Core\StorageModel
+abstract class ContractMediaBlob extends \FreeFW\Core\StorageModel
 {
 
 /**
  * Field properties as static arrays
  * @var array
  */
-    protected static $PRP_SITE_ID = [
-        FFCST::PROPERTY_PRIVATE => 'site_id',
+    protected static $PRP_CT_ID = [
+        FFCST::PROPERTY_PRIVATE => 'ct_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
@@ -44,10 +44,10 @@ abstract class SiteMediaBlob extends \FreeFW\Core\StorageModel
     public static function getProperties()
     {
         return [
-            'site_id' => self::$PRP_SITE_ID,
-            'blob'    => self::$PRP_BLOB,
-            'title'   => self::$PRP_TITLE,
-            'desc'    => self::$PRP_DESC,
+            'ct_id' => self::$PRP_CT_ID,
+            'blob'  => self::$PRP_BLOB,
+            'title' => self::$PRP_TITLE,
+            'desc'  => self::$PRP_DESC,
         ];
     }
 
@@ -58,6 +58,6 @@ abstract class SiteMediaBlob extends \FreeFW\Core\StorageModel
      */
     public static function getSource()
     {
-        return 'asso_site_media_blob';
+        return 'asso_contract_media_blob';
     }
 }

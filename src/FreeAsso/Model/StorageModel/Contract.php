@@ -43,7 +43,7 @@ abstract class Contract extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_FK],
         FFCST::PROPERTY_COMMENT => '',
         FFCST::PROPERTY_SAMPLE  => 123,
-        FFCST::PROPERTY_FK      => ['site' => 
+        FFCST::PROPERTY_FK      => ['site' =>
             [
                 FFCST::FOREIGN_MODEL => 'FreeAsso::Model::Site',
                 FFCST::FOREIGN_FIELD => 'site_id',
@@ -133,7 +133,7 @@ abstract class Contract extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
         FFCST::PROPERTY_COMMENT => '',
         FFCST::PROPERTY_SAMPLE  => 123,
-        FFCST::PROPERTY_FK      => ['country' => 
+        FFCST::PROPERTY_FK      => ['country' =>
             [
                 FFCST::FOREIGN_MODEL => 'FreeFW::Model::Country',
                 FFCST::FOREIGN_FIELD => 'cnty_id',
@@ -147,7 +147,7 @@ abstract class Contract extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
         FFCST::PROPERTY_COMMENT => '',
         FFCST::PROPERTY_SAMPLE  => 123,
-        FFCST::PROPERTY_FK      => ['contact1' => 
+        FFCST::PROPERTY_FK      => ['contact1' =>
             [
                 FFCST::FOREIGN_MODEL => 'FreeAsso::Model::Client',
                 FFCST::FOREIGN_FIELD => 'cli_id',
@@ -161,13 +161,20 @@ abstract class Contract extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
         FFCST::PROPERTY_COMMENT => '',
         FFCST::PROPERTY_SAMPLE  => 123,
-        FFCST::PROPERTY_FK      => ['contact2' => 
+        FFCST::PROPERTY_FK      => ['contact2' =>
             [
                 FFCST::FOREIGN_MODEL => 'FreeAsso::Model::Client',
                 FFCST::FOREIGN_FIELD => 'cli_id',
                 FFCST::FOREIGN_TYPE  => \FreeFW\Model\Query::JOIN_LEFT,
             ]
         ],
+    ];
+    protected static $PRP_CT_NEXT_BILL = [
+        FFCST::PROPERTY_PRIVATE => 'ct_next_bill',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_COMMENT => 'Prochaine date de facturation',
+        FFCST::PROPERTY_SAMPLE  => '',
     ];
 
     /**
@@ -194,7 +201,8 @@ abstract class Contract extends \FreeFW\Core\StorageModel
             'ct_town'           => self::$PRP_CT_TOWN,
             'cnty_id'           => self::$PRP_CNTY_ID,
             'ctx1_cli_id'       => self::$PRP_CTX1_CLI_ID,
-            'ctx2_cli_id'       => self::$PRP_CTX2_CLI_ID
+            'ctx2_cli_id'       => self::$PRP_CTX2_CLI_ID,
+            'ct_next_bill'      => self::$PRP_CT_NEXT_BILL,
         ];
     }
 
@@ -215,7 +223,7 @@ abstract class Contract extends \FreeFW\Core\StorageModel
      */
     public static function getSourceComments()
     {
-        return '';
+        return 'Contrats';
     }
 
     /**
@@ -225,6 +233,39 @@ abstract class Contract extends \FreeFW\Core\StorageModel
      */
     public static function getAutocompleteField()
     {
-        return '';
+        return 'ct_code';
+    }
+
+    /**
+     * Get uniq indexes
+     *
+     * @return array[]
+     */
+    public static function getUniqIndexes()
+    {
+        return [
+            'code' => [
+                FFCST::INDEX_FIELDS => 'ct_code',
+                FFCST::INDEX_EXISTS => \FreeAsso\Constants::ERROR_CONTRACT_CODE_EXISTS,
+            ]
+        ];
+    }
+
+    /**
+     * Get One To many relationShips
+     *
+     * @return array
+     */
+    public function getRelationships()
+    {
+        return [
+            'documents' => [
+                FFCST::REL_MODEL   => 'FreeAsso::Model::ContractMedia',
+                FFCST::REL_FIELD   => 'ct_id',
+                FFCST::REL_TYPE    => \FreeFW\Model\Query::JOIN_LEFT,
+                FFCST::REL_COMMENT => 'Les documents du contrat',
+                FFCST::REL_REMOVE  => FFCST::REL_REMOVE_CHECK
+            ]
+        ];
     }
 }

@@ -72,7 +72,7 @@ abstract class Movement extends \FreeFW\Core\StorageModel
     protected static $PRP_MOVE_FROM_EMPTY = [
         FFCST::PROPERTY_PRIVATE => 'move_from_empty',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
-        FFCST::PROPERTY_DEFAULT => true,
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_TRUE,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_MOVE_FROM_TYPE = [
@@ -156,7 +156,7 @@ abstract class Movement extends \FreeFW\Core\StorageModel
     protected static $PRP_MOVE_TO_EMPTY = [
         FFCST::PROPERTY_PRIVATE => 'move_to_empty',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
-        FFCST::PROPERTY_DEFAULT => true,
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_TRUE,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_MOVE_TO_TYPE = [
