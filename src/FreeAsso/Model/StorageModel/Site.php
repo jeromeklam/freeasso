@@ -374,6 +374,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_PRIVATE => 'site_conform',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_TRUE,
         FFCST::PROPERTY_COMMENT => 'Indique si le site est conforme',
         FFCST::PROPERTY_SAMPLE  => true
     ];

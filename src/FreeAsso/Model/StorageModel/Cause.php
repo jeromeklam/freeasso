@@ -18,16 +18,19 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_CAU_ID = [
         FFCST::PROPERTY_PRIVATE => 'cau_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_COMMENT => 'Identifiant de la cause',
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_PK]
     ];
     protected static $PRP_BRK_ID = [
         FFCST::PROPERTY_PRIVATE => 'brk_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_COMMENT => 'Restriction broker',
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_BROKER]
     ];
     protected static $PRP_CAUT_ID = [
         FFCST::PROPERTY_PRIVATE => 'caut_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_COMMENT => 'Le type de cause',
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_FK],
         FFCST::PROPERTY_FK      => ['cause_type' =>
             [
@@ -40,38 +43,45 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_CAU_NAME = [
         FFCST::PROPERTY_PRIVATE => 'cau_name',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_COMMENT => 'Le nom de la cause',
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CAU_DESC = [
         FFCST::PROPERTY_PRIVATE => 'cau_desc',
+        FFCST::PROPERTY_COMMENT => 'La description de la cause',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CAU_FROM = [
         FFCST::PROPERTY_PRIVATE => 'cau_from',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
+        FFCST::PROPERTY_COMMENT => 'Date de début de validité',
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CAU_TO = [
         FFCST::PROPERTY_PRIVATE => 'cau_to',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
+        FFCST::PROPERTY_COMMENT => 'Date de fin de validité',
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CAU_PUBLIC = [
         FFCST::PROPERTY_PRIVATE => 'cau_public',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_COMMENT => 'Cause publique ?',
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
         FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_TRUE,
     ];
     protected static $PRP_CAU_AVAILABLE = [
         FFCST::PROPERTY_PRIVATE => 'cau_available',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_COMMENT => 'La cause est disponible',
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
         FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_TRUE,
     ];
     protected static $PRP_SSPE_ID = [
         FFCST::PROPERTY_PRIVATE => 'sspe_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_COMMENT => 'L\'espèce',
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
         FFCST::PROPERTY_FK      => ['subspecies' =>
             [
@@ -84,6 +94,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_SITE_ID = [
         FFCST::PROPERTY_PRIVATE => 'site_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_COMMENT => 'Le site de rattachement',
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_FK],
         FFCST::PROPERTY_FK      => ['site' =>
             [
@@ -96,6 +107,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_ORIG_CLI_ID = [
         FFCST::PROPERTY_PRIVATE => 'orig_cli_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_COMMENT => 'Proviens de',
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
         FFCST::PROPERTY_FK      => ['origin' =>
             [
@@ -108,6 +120,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_RAIS_CLI_ID = [
         FFCST::PROPERTY_PRIVATE => 'rais_cli_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_COMMENT => 'Eleveur',
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
         FFCST::PROPERTY_FK      => ['raiser' =>
             [
@@ -120,27 +133,32 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_CAU_MNT = [
         FFCST::PROPERTY_PRIVATE => 'cau_mnt',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DECIMAL,
+        FFCST::PROPERTY_COMMENT => 'Montant récolté',
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CAU_MNT_LEFT = [
         FFCST::PROPERTY_PRIVATE => 'cau_mnt_left',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DECIMAL,
+        FFCST::PROPERTY_COMMENT => 'Montant restant',
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CAU_MONEY = [
         FFCST::PROPERTY_PRIVATE => 'cau_money',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_COMMENT => 'Monnaie',
         FFCST::PROPERTY_DEFAULT => 'EUR',
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CAU_CODE = [
         FFCST::PROPERTY_PRIVATE => 'cau_code',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_COMMENT => 'Le code identifiant',
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_CAU_FAMILY = [
         FFCST::PROPERTY_PRIVATE => 'cau_family',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_SELECT,
+        FFCST::PROPERTY_COMMENT => 'La famille de la cause',
         FFCST::PROPERTY_ENUM    => ['OTHER','NONE','ANIMAL','FOREST'],
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
         FFCST::PROPERTY_DEFAULT => 'ANIMAL',

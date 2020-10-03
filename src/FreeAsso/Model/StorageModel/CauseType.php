@@ -55,6 +55,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_CAUT_RECEIPT = [
         FFCST::PROPERTY_PRIVATE => 'caut_receipt',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_FALSE,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_CAUT_MAX_MNT = [
@@ -70,6 +71,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_CAUT_MONEY = [
         FFCST::PROPERTY_PRIVATE => 'caut_money',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_DEFAULT => 'EUR',
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_CAUT_MNT_TYPE = [
@@ -80,6 +82,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_CAUT_CERTIFICAT = [
         FFCST::PROPERTY_PRIVATE => 'caut_certificat',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_FALSE,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_CAUT_DONATION = [
@@ -100,6 +103,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_CAUT_NEWS = [
         FFCST::PROPERTY_PRIVATE => 'caut_news',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_FALSE,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_CAUT_FAMILY = [

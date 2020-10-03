@@ -74,6 +74,7 @@ abstract class Donation extends \FreeFW\Core\StorageModel
     protected static $PRP_DON_TS = [
         FFCST::PROPERTY_PRIVATE => 'don_ts',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_NOW,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_DON_ASK_TS = [
@@ -104,6 +105,7 @@ abstract class Donation extends \FreeFW\Core\StorageModel
     protected static $PRP_DON_MONEY = [
         FFCST::PROPERTY_PRIVATE => 'don_money',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_DEFAULT => 'EUR',
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_DON_MNT_INPUT = [

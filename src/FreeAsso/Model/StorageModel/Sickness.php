@@ -53,6 +53,7 @@ abstract class Sickness extends \FreeFW\Core\StorageModel
     protected static $PRP_SICK_SPREAD = [
         FFCST::PROPERTY_PRIVATE => 'sick_spread',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_FALSE,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
 

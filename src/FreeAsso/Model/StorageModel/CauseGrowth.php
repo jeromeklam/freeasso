@@ -40,6 +40,7 @@ abstract class CauseGrowth extends \FreeFW\Core\StorageModel
     protected static $PRP_GROW_TS = [
         FFCST::PROPERTY_PRIVATE => 'grow_ts',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_NOW,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_GROW_WEIGHT = [

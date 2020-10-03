@@ -59,6 +59,7 @@ abstract class CauseMedia extends \FreeFW\Core\StorageModel
     protected static $PRP_CAUM_TS = [
         FFCST::PROPERTY_PRIVATE => 'caum_ts',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIME,
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_NOW,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CAUM_FROM = [
@@ -104,6 +105,7 @@ abstract class CauseMedia extends \FreeFW\Core\StorageModel
     protected static $PRP_CAUM_PULIC = [
         FFCST::PROPERTY_PRIVATE => 'caum_public',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_TRUE,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_CAUM_DESC = [

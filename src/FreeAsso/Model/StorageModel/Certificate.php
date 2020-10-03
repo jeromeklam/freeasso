@@ -119,6 +119,7 @@ abstract class Certificate extends \FreeFW\Core\StorageModel
     protected static $PRP_CERT_INPUT_MONEY = [
         FFCST::PROPERTY_PRIVATE => 'cert_input_money',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_DEFAULT => 'EUR',
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CERT_OUTPUT_MNT = [
@@ -129,6 +130,7 @@ abstract class Certificate extends \FreeFW\Core\StorageModel
     protected static $PRP_CERT_OUTPUT_MONEY = [
         FFCST::PROPERTY_PRIVATE => 'cert_output_money',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_DEFAULT => 'EUR',
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CERT_COMMENT = [

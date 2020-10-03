@@ -38,6 +38,7 @@ abstract class PaymentType extends \FreeFW\Core\StorageModel
     protected static $PRP_PTYP_RECEIPT = [
         FFCST::PROPERTY_PRIVATE => 'ptyp_receipt',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_FALSE,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_PTYP_FROM = [
