@@ -271,7 +271,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_CAU_SEX = [
         FFCST::PROPERTY_PRIVATE => 'cau_sex',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_SELECT,
-        FFCST::PROPERTY_ENUM    => ['M','F','OTHER'],
+        FFCST::PROPERTY_ENUM    => ['M','F','C','OTHER'],
         FFCST::PROPERTY_DEFAULT => 'OTHER',
         FFCST::PROPERTY_OPTIONS => []
     ];
