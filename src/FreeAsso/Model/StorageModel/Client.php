@@ -343,6 +343,27 @@ abstract class Client extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
         FFCST::PROPERTY_OPTIONS => []
     ];
+    protected static $PRP_PARENT_CLI_ID = [
+        FFCST::PROPERTY_PRIVATE => 'parent_cli_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_COMMENT => '',
+        FFCST::PROPERTY_SAMPLE  => 123,
+        FFCST::PROPERTY_FK      => ['parent' =>
+            [
+                FFCST::FOREIGN_MODEL => 'FreeAsso::Model::Client',
+                FFCST::FOREIGN_FIELD => 'cli_id',
+                FFCST::FOREIGN_TYPE  => \FreeFW\Model\Query::JOIN_LEFT,
+            ]
+        ],
+    ];
+    protected static $PRP_CLI_SANIT = [
+        FFCST::PROPERTY_PRIVATE => 'cli_sanit',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_COMMENT => 'Vétérinaire sanitaire',
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_FALSE,
+    ];
 
     /**
      * get properties
@@ -405,6 +426,8 @@ abstract class Client extends \FreeFW\Core\StorageModel
             'cli_coord'         => self::$PRP_CLI_COORD,
             'cli_siren'         => self::$PRP_CLI_SIREN,
             'cli_siret'         => self::$PRP_CLI_SIRET,
+            'parent_cli_id'     => self::$PRP_PARENT_CLI_ID,
+            'cli_sanit'         => self::$PRP_CLI_SANIT,
         ];
     }
 

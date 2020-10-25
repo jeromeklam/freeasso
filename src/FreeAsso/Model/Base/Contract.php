@@ -118,6 +118,12 @@ abstract class Contract extends \FreeAsso\Model\StorageModel\Contract
     protected $ct_next_bill = null;
 
     /**
+     * ct_subcontractor
+     * @var boolean
+     */
+    protected $ct_subcontractor = null;
+
+    /**
      * Set ct_id
      *
      * @param int $p_value
@@ -529,5 +535,28 @@ abstract class Contract extends \FreeAsso\Model\StorageModel\Contract
     public function getCtNextBill()
     {
         return $this->ct_next_bill;
+    }
+
+    /**
+     * Sous-traitant ?
+     *
+     * @param boolean $p_value
+     *
+     * @return \FreeAsso\Model\Base\Contract
+     */
+    public function setCtSubcontractor($p_value)
+    {
+        $this->ct_subcontractor = $p_value;
+        return $this;
+    }
+
+    /**
+     * Sous traitant ?
+     *
+     * @return boolean
+     */
+    public function getCtSubcontractor()
+    {
+        return $this->ct_subcontractor;
     }
 }

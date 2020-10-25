@@ -176,6 +176,14 @@ abstract class Contract extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_COMMENT => 'Prochaine date de facturation',
         FFCST::PROPERTY_SAMPLE  => '',
     ];
+    protected static $PRP_CT_SUBCONTRACTOR = [
+        FFCST::PROPERTY_PRIVATE => 'ct_subcontractor',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_COMMENT => 'Sous traitant',
+        FFCST::PROPERTY_SAMPLE  => '',
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_FALSE
+    ];
 
     /**
      * get properties
@@ -203,6 +211,7 @@ abstract class Contract extends \FreeFW\Core\StorageModel
             'ctx1_cli_id'       => self::$PRP_CTX1_CLI_ID,
             'ctx2_cli_id'       => self::$PRP_CTX2_CLI_ID,
             'ct_next_bill'      => self::$PRP_CT_NEXT_BILL,
+            'ct_subcontractor'  => self::$PRP_CT_SUBCONTRACTOR
         ];
     }
 

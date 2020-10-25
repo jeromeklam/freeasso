@@ -99,7 +99,10 @@ class ContractMedia extends \FreeFW\Core\ApiMediaController
                 try {
                     if ($typeMedia === \FreeAsso\Model\ContractMedia::TYPE_PHOTO) {
                         $thumb = \FreeFW\Tools\ImageResizer::createFromString($blob);
-                        $ContractMedia->setCtmShortBlob($thumb->resizeToBestFit(100, 100));
+                        $image = $thumb->resizeToBestFit(100, 100);
+                        if ($image) {
+                            $ContractMedia->setCtmShortBlob((string)$image);
+                        }
                     }
                 } catch (\Exception $ex) {
                     // @todo

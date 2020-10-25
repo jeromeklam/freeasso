@@ -41,10 +41,11 @@ class Contract extends \FreeAsso\Model\Base\Contract
     }
 
     /**
-     * {@inheritDoc}
-     * @see \FreeFW\Core\Model::init()
+     * Spécifique pour préparer la création
+     *
+     * @return \FreeAsso\Model\Contract
      */
-    public function init()
+    public function initCreate()
     {
         $year = date('Y');
         $this->setCtCode($year . '.' . str_pad($this->getLastNn($year) + 1, 3, '0', STR_PAD_LEFT));

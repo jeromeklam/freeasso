@@ -328,6 +328,18 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     protected $cli_siret = null;
 
     /**
+     * Parent client
+     * @var \FreeAsso\Model\Client
+     */
+    protected $parent_cli_id = null;
+
+    /**
+     * Vétérinaire snitaire
+     * @var boolean
+     */
+    protected $cli_sanit = false;
+
+    /**
      * Set cli_id
      *
      * @param int $p_value
@@ -1544,5 +1556,51 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     public function getCliSiret()
     {
         return $this->cli_siret;
+    }
+
+    /**
+     * Set parent id
+     *
+     * @param number $p_value
+     *
+     * 7@return \FreeAsso\Model\Base\Client
+     */
+    public function setParentCliId($p_value)
+    {
+        $this->parent_cli_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get parent Id
+     *
+     * @return number
+     */
+    public function getParentCliId()
+    {
+        return $this->parent_cli_id;
+    }
+
+    /**
+     * Set cli_sanit
+     *
+     * @param boolean $p_value
+     *
+     * @return \FreeAsso\Model\Base\Client
+     */
+    public function setCliSanit($p_value)
+    {
+        $this->cli_sanit = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get cli_sanit
+     *
+     * @return boolean
+     */
+    public function getCliSanit()
+    {
+        return $this->cli_sanit;
     }
 }

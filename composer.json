@@ -37,7 +37,8 @@
         "cboden/ratchet"                       : "^0.4.1",
         "php-amqplib/php-amqplib"              : "^2.11",
         "react/zmq"                            : "^0.4.0",
-        "phing/phing": "^2.16"
+        "phing/phing"                          : "^2.16",
+        "zumba/json-serializer"                : "^3.0"
     },
     "autoload" : {
         "psr-4" : {

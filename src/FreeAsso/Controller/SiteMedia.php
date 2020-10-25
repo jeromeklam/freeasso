@@ -97,7 +97,10 @@ class SiteMedia extends \FreeFW\Core\ApiMediaController
                 try {
                     if ($typeMedia === \FreeAsso\Model\SiteMedia::TYPE_PHOTO) {
                         $thumb = \FreeFW\Tools\ImageResizer::createFromString($blob);
-                        $SiteMedia->setSitmShortBlob($thumb->resizeToBestFit(100, 100));
+                        $image = $thumb->resizeToBestFit(100, 100);
+                        if ($image) {
+                            $SiteMedia->setSitmShortBlob((string)$image);
+                        }
                     }
                 } catch (\Exception $ex) {
                     // @todo

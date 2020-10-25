@@ -57,6 +57,12 @@ class Client extends \FreeAsso\Model\Base\Client implements
     protected $last_donation = null;
 
     /**
+     * Parent
+     * @var \FreeAsso\Model\Client
+     */
+    protected $parent = null;
+
+    /**
      * Set client category
      *
      * @param \FreeAsso\Model\ClientCategory $p_category
@@ -261,5 +267,68 @@ class Client extends \FreeAsso\Model\Base\Client implements
             $p_date = \FreeFW\Tools\Date::getServerDatetime();
         }
         return $this->getCliActive();
+    }
+
+    /**
+     * Set parent client id
+     *
+     * @param number $p_id
+     *
+     * @return \FreeAsso\Model\Behaviour\Client
+     */
+    public function setParentCliId($p_id)
+    {
+        $this->parent_cli_id = $p_id;
+        if ($this->parent) {
+            if ($this->parent->getCliId() != $this->parent_cli_id) {
+                $this->parent = null;
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Get parent client id
+     *
+     * @return number
+     */
+    public function getParentCliId()
+    {
+        return $this->parent_cli_id;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \FreeAsso\Model\Client $p_client
+     *
+     * @return \FreeFW\Core\Model
+     */
+    public function setParent($p_client)
+    {
+        $this->parent = $p_client;
+        if ($p_client) {
+            $this->parent_cli_id = $p_client->getCliId();
+        }
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @param boolean $p_force
+     *
+     * @return \FreeAsso\Model\Client
+     */
+    public function getParent($p_force = false)
+    {
+        if ($this->parent === null || $p_force) {
+            if ($this->parent_cli_id > 0) {
+                $this->parent = \FreeAsso\Model\Client::findFirst(['cli_id' => $this->parent_cli_id]);
+            } else {
+                $this->parent = null;
+            }
+        }
+        return $this->parent;
     }
 }
