@@ -13,6 +13,12 @@ class Client extends \FreeAsso\Model\Base\Client implements
 {
 
     /**
+     * Behaviour
+     */
+    use \FreeAsso\Model\Behaviour\ClientCategory;
+    use \FreeAsso\Model\Behaviour\ClientType;
+
+    /**
      * Genres
      * @var string
      */
@@ -60,53 +66,7 @@ class Client extends \FreeAsso\Model\Base\Client implements
      * Parent
      * @var \FreeAsso\Model\Client
      */
-    protected $parent = null;
-
-    /**
-     * Set client category
-     *
-     * @param \FreeAsso\Model\ClientCategory $p_category
-     *
-     * @return \FreeAsso\Model\Client
-     */
-    public function setClientCategory($p_category)
-    {
-        $this->client_category = $p_category;
-        return $this;
-    }
-
-    /**
-     * Get client category
-     *
-     * @return \FreeAsso\Model\ClientCategory
-     */
-    public function getClientCategory()
-    {
-        return $this->client_category;
-    }
-
-    /**
-     * Set client type
-     *
-     * @param \FreeAsso\Model\ClientType $p_type
-     *
-     * @return \FreeAsso\Model\Client
-     */
-    public function setClientType($p_type)
-    {
-        $this->client_type = $p_type;
-        return $this;
-    }
-
-    /**
-     * Get client type
-     *
-     * @return \FreeAsso\Model\ClientType
-     */
-    public function getClientType()
-    {
-        return $this->client_type;
-    }
+    protected $parent_client = null;
 
     /**
      * Set country
@@ -279,9 +239,9 @@ class Client extends \FreeAsso\Model\Base\Client implements
     public function setParentCliId($p_id)
     {
         $this->parent_cli_id = $p_id;
-        if ($this->parent) {
-            if ($this->parent->getCliId() != $this->parent_cli_id) {
-                $this->parent = null;
+        if ($this->parent_client) {
+            if ($this->parent_client->getCliId() != $this->parent_cli_id) {
+                $this->parent_client = null;
             }
         }
         return $this;
@@ -304,9 +264,9 @@ class Client extends \FreeAsso\Model\Base\Client implements
      *
      * @return \FreeFW\Core\Model
      */
-    public function setParent($p_client)
+    public function setParentClient($p_client)
     {
-        $this->parent = $p_client;
+        $this->parent_client = $p_client;
         if ($p_client) {
             $this->parent_cli_id = $p_client->getCliId();
         }
@@ -320,15 +280,15 @@ class Client extends \FreeAsso\Model\Base\Client implements
      *
      * @return \FreeAsso\Model\Client
      */
-    public function getParent($p_force = false)
+    public function getParentClient($p_force = false)
     {
-        if ($this->parent === null || $p_force) {
+        if ($this->parent_client === null || $p_force) {
             if ($this->parent_cli_id > 0) {
-                $this->parent = \FreeAsso\Model\Client::findFirst(['cli_id' => $this->parent_cli_id]);
+                $this->parent_client = \FreeAsso\Model\Client::findFirst(['cli_id' => $this->parent_cli_id]);
             } else {
-                $this->parent = null;
+                $this->parent_client = null;
             }
         }
-        return $this->parent;
+        return $this->parent_client;
     }
 }

@@ -349,7 +349,7 @@ abstract class Client extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
         FFCST::PROPERTY_COMMENT => '',
         FFCST::PROPERTY_SAMPLE  => 123,
-        FFCST::PROPERTY_FK      => ['parent' =>
+        FFCST::PROPERTY_FK      => ['parent_client' =>
             [
                 FFCST::FOREIGN_MODEL => 'FreeAsso::Model::Client',
                 FFCST::FOREIGN_FIELD => 'cli_id',
