@@ -142,14 +142,16 @@ try {
     \FreeFW\DI\DI::registerDI('FreeFW', $myConfig, $myLogger);
     \FreeFW\DI\DI::registerDI('FreeAsso', $myConfig, $myLogger);
     \FreeFW\DI\DI::registerDI('FreeSSO', $myConfig, $myLogger);
+    \FreeFW\DI\DI::registerDI('FreeOffice', $myConfig, $myLogger);
     \FreeFW\DI\DI::registerDI('FreePM', $myConfig, $myLogger);
     /**
      * On va chercher les routes des modules, ...
      */
-    $freeFWRoutes   = \FreeFW\Http\FreeFW::getRoutes();
-    $freeSSORoutes  = \FreeSSO\Http\FreeFW::getRoutes();
-    $freeAssoRoutes = \FreeAsso\Http\FreeFW::getRoutes();
-    $freePMRoutes   = \FreePM\Http\FreeFW::getRoutes();
+    $freeFWRoutes     = \FreeFW\Http\FreeFW::getRoutes();
+    $freeSSORoutes    = \FreeSSO\Http\FreeFW::getRoutes();
+    $freeAssoRoutes   = \FreeAsso\Http\FreeFW::getRoutes();
+    $freeOfficeRoutes = \FreeOffice\Http\FreeFW::getRoutes();
+    $freePMRoutes     = \FreePM\Http\FreeFW::getRoutes();
     /**
      * GO...
      */
@@ -158,6 +160,7 @@ try {
         ->addRoutes($freeAssoRoutes)
         ->addRoutes($freeSSORoutes)
         ->addRoutes($freeFWRoutes)
+        ->addRoutes($freeOfficeRoutes)
         ->addRoutes($freePMRoutes)
     ;
     // GO
