@@ -12,15 +12,6 @@ abstract class CauseMedia extends \FreeFW\Core\StorageModel
 {
 
     /**
-     * Type de media
-     * @var string
-     */
-    const TYPE_PHOTO = 'PHOTO';
-    const TYPE_HTML  = 'HTML';
-    const TYPE_NEWS  = 'NEWS';
-    const TYPE_OTHER = 'OTHER';
-
-    /**
      * Field properties as static arrays
      * @var array
      */
@@ -95,6 +86,7 @@ abstract class CauseMedia extends \FreeFW\Core\StorageModel
     protected static $PRP_CAUM_ORDER = [
         FFCST::PROPERTY_PRIVATE => 'caum_order',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_DEFAULT => 1,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CAUM_TITLE = [
@@ -112,6 +104,18 @@ abstract class CauseMedia extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_PRIVATE => 'caum_desc',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
         FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_GRP_ID = [
+        FFCST::PROPERTY_PRIVATE => 'grp_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['group' =>
+            [
+                'model' => 'FreeSSO::Model::Group',
+                'field' => 'grp_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
     ];
 
     /**
@@ -138,6 +142,7 @@ abstract class CauseMedia extends \FreeFW\Core\StorageModel
             'caum_title'      => self::$PRP_CAUM_TITLE,
             'caum_public'     => self::$PRP_CAUM_PULIC,
             'caum_desc'       => self::$PRP_CAUM_DESC,
+            'grp_id'          => self::$PRP_GRP_ID,
         ];
     }
 

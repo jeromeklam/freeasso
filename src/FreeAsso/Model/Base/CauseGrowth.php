@@ -46,6 +46,12 @@ abstract class CauseGrowth extends \FreeAsso\Model\StorageModel\CauseGrowth
     protected $grow_height = null;
 
     /**
+     * grp_id
+     * @var int
+     */
+    protected $grp_id = null;
+
+    /**
      * Set grow_id
      *
      * @param int $p_value
@@ -181,5 +187,28 @@ abstract class CauseGrowth extends \FreeAsso\Model\StorageModel\CauseGrowth
     public function getGrowHeight()
     {
         return $this->grow_height;
+    }
+
+    /**
+     * Set grp_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Base\Cause
+     */
+    public function setGrpId($p_value)
+    {
+        $this->grp_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get grp_id
+     *
+     * @return int
+     */
+    public function getGrpId()
+    {
+        return $this->grp_id;
     }
 }

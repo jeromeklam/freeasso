@@ -13,10 +13,10 @@ class Site extends \FreeAsso\Model\Base\Site  implements
 {
 
     /**
-     * Type de site
-     * @var \FreeAsso\Model\SiteType
+     * behaviour
      */
-    protected $site_type = null;
+    use \FreeAsso\Model\Behaviour\SiteType;
+    use \FreeSSO\Model\Behaviour\Group;
 
     /**
      * Owner
@@ -41,49 +41,6 @@ class Site extends \FreeAsso\Model\Base\Site  implements
      * @var number
      */
     protected $site_count_cause = null;
-
-    /**
-     *
-     * {@inheritDoc}
-     * @see \FreeFW\Core\Model::init()
-     */
-    public function init()
-    {
-        $this->site_id        = 0;
-        $this->brk_id         = 0;
-        $this->sitt_id        = null;
-        $this->site_name      = '';
-        $this->parent_site_id = null;
-        $this->site_left      = 0;
-        $this->site_right     = 0;
-        $this->site_position  = 0;
-        $this->site_level     = 1;
-        $this->site_conform   = true;
-        return $this;
-    }
-
-    /**
-     * Set site type
-     *
-     * @param \FreeAsso\Model\SiteType $p_site_type
-     *
-     * @return \FreeAsso\Model\Site
-     */
-    public function setSiteType($p_site_type)
-    {
-        $this->site_type = $p_site_type;
-        return $this;
-    }
-
-    /**
-     * Get site type
-     *
-     * @return \FreeAsso\Model\SiteType
-     */
-    public function getSiteType()
-    {
-        return $this->site_type;
-    }
 
     /**
      * Set owner

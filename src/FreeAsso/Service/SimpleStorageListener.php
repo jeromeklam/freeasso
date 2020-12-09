@@ -6,13 +6,15 @@ use \Ratchet\MessageComponentInterface;
 use \Psr\Log\LoggerAwareInterface;
 use \Psr\Log\LoggerAwareTrait;
 use \FreeWS\Socket\Topic;
+use \FreeFW\Interfaces\ConfigAwareTraitInterface;
+use \FreeFW\Behaviour\ConfigAwareTrait;
 
 /**
  *
  * @author jeromeklam
  *
  */
-class SimpleStorageListener implements MessageComponentInterface, LoggerAwareInterface
+class SimpleStorageListener implements MessageComponentInterface, LoggerAwareInterface, ConfigAwareTraitInterface
 {
 
     /**
@@ -44,6 +46,7 @@ class SimpleStorageListener implements MessageComponentInterface, LoggerAwareInt
      * Behaviour
      */
     use LoggerAwareTrait;
+    use ConfigAwareTrait;
 
     /**
      * @var array

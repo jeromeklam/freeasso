@@ -53,6 +53,18 @@ abstract class CauseGrowth extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DECIMAL,
         FFCST::PROPERTY_OPTIONS => []
     ];
+    protected static $PRP_GRP_ID = [
+        FFCST::PROPERTY_PRIVATE => 'grp_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['group' =>
+            [
+                'model' => 'FreeSSO::Model::Group',
+                'field' => 'grp_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
 
     /**
      * get properties
@@ -67,7 +79,8 @@ abstract class CauseGrowth extends \FreeFW\Core\StorageModel
             'cau_id'      => self::$PRP_CAU_ID,
             'grow_ts'     => self::$PRP_GROW_TS,
             'grow_weight' => self::$PRP_GROW_WEIGHT,
-            'grow_height' => self::$PRP_GROW_HEIGHT
+            'grow_height' => self::$PRP_GROW_HEIGHT,
+            'grp_id'      => self::$PRP_GRP_ID,
         ];
     }
 

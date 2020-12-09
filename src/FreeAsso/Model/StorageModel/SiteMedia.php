@@ -118,6 +118,18 @@ abstract class SiteMedia extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
         FFCST::PROPERTY_OPTIONS => []
     ];
+    protected static $PRP_GRP_ID = [
+        FFCST::PROPERTY_PRIVATE => 'grp_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['group' =>
+            [
+                'model' => 'FreeSSO::Model::Group',
+                'field' => 'grp_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
 
     /**
      * get properties
@@ -142,7 +154,8 @@ abstract class SiteMedia extends \FreeFW\Core\StorageModel
             'lang_id'         => self::$PRP_LANG_ID,
             'sitm_order'      => self::$PRP_SITM_ORDER,
             'sitm_title'      => self::$PRP_SITM_TITLE,
-            'sitm_desc'       => self::$PRP_SITM_DESC
+            'sitm_desc'       => self::$PRP_SITM_DESC,
+            'grp_id'          => self::$PRP_GRP_ID
         ];
     }
 

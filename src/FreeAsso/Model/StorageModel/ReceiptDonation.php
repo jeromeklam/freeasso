@@ -67,6 +67,7 @@ abstract class ReceiptDonation extends \FreeFW\Core\StorageModel
     protected static $PRP_RDO_MONEY = [
         FFCST::PROPERTY_PRIVATE => 'rdo_money',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_DEFAULT => 'EUR',
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_PTYP_ID = [
@@ -77,6 +78,18 @@ abstract class ReceiptDonation extends \FreeFW\Core\StorageModel
             [
                 'model' => 'FreeAsso::Model::PaymentType',
                 'field' => 'ptyp_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
+    protected static $PRP_GRP_ID = [
+        FFCST::PROPERTY_PRIVATE => 'grp_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['group' =>
+            [
+                'model' => 'FreeSSO::Model::Group',
+                'field' => 'grp_id',
                 'type'  => \FreeFW\Model\Query::JOIN_LEFT
             ]
         ]
@@ -98,7 +111,8 @@ abstract class ReceiptDonation extends \FreeFW\Core\StorageModel
             'rdo_ts'    => self::$PRP_RDO_TS,
             'rdo_mnt'   => self::$PRP_RDO_MNT,
             'rdo_money' => self::$PRP_RDO_MONEY,
-            'ptyp_id'   => self::$PRP_PTYP_ID
+            'ptyp_id'   => self::$PRP_PTYP_ID,
+            'grp_id'    => self::$PRP_GRP_ID
         ];
     }
 

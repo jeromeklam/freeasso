@@ -106,6 +106,12 @@ abstract class SiteMedia extends \FreeAsso\Model\StorageModel\SiteMedia
     protected $sitm_desc = null;
 
     /**
+     * grp_id
+     * @var int
+     */
+    protected $grp_id = null;
+
+    /**
      * Set sitm_id
      *
      * @param int $p_value
@@ -471,5 +477,28 @@ abstract class SiteMedia extends \FreeAsso\Model\StorageModel\SiteMedia
     public function getSitmDesc()
     {
         return $this->sitm_desc;
+    }
+
+    /**
+     * Set grp_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Base\Cause
+     */
+    public function setGrpId($p_value)
+    {
+        $this->grp_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get grp_id
+     *
+     * @return int
+     */
+    public function getGrpId()
+    {
+        return $this->grp_id;
     }
 }

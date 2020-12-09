@@ -153,6 +153,18 @@ abstract class ContractMedia extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_COMMENT => '',
         FFCST::PROPERTY_SAMPLE  => '',
     ];
+    protected static $PRP_GRP_ID = [
+        FFCST::PROPERTY_PRIVATE => 'grp_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['group' =>
+            [
+                'model' => 'FreeSSO::Model::Group',
+                'field' => 'grp_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
 
     /**
      * get properties
@@ -178,7 +190,8 @@ abstract class ContractMedia extends \FreeFW\Core\StorageModel
             'ctm_order'      => self::$PRP_CTM_ORDER,
             'ctm_title'      => self::$PRP_CTM_TITLE,
             'ctm_public'     => self::$PRP_CTM_PUBLIC,
-            'ctm_desc'       => self::$PRP_CTM_DESC
+            'ctm_desc'       => self::$PRP_CTM_DESC,
+            'grp_id'         => self::$PRP_GRP_ID
         ];
     }
 

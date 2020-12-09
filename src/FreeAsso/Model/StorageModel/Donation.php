@@ -28,7 +28,14 @@ abstract class Donation extends \FreeFW\Core\StorageModel
     protected static $PRP_GRP_ID = [
         FFCST::PROPERTY_PRIVATE => 'grp_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_GROUP]
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['group' =>
+            [
+                'model' => 'FreeSSO::Model::Group',
+                'field' => 'grp_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
     ];
     protected static $PRP_CLI_ID = [
         FFCST::PROPERTY_PRIVATE => 'cli_id',
@@ -94,7 +101,9 @@ abstract class Donation extends \FreeFW\Core\StorageModel
     ];
     protected static $PRP_DON_STATUS = [
         FFCST::PROPERTY_PRIVATE => 'don_status',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_SELECT,
+        FFCST::PROPERTY_ENUM    => ['WAIT','OK','NOK','NEXT'],
+        FFCST::PROPERTY_DEFAULT => 'OK',
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_DON_MNT = [
@@ -116,6 +125,7 @@ abstract class Donation extends \FreeFW\Core\StorageModel
     protected static $PRP_DON_MONEY_INPUT = [
         FFCST::PROPERTY_PRIVATE => 'don_money_input',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_DEFAULT => 'EUR',
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_PTYP_ID = [
@@ -165,6 +175,7 @@ abstract class Donation extends \FreeFW\Core\StorageModel
     protected static $PRP_DON_DISPLAY_SITE = [
         FFCST::PROPERTY_PRIVATE => 'don_display_site',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_TRUE,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_DONO_ID = [

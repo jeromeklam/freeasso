@@ -91,6 +91,18 @@ abstract class CauseSickness extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
         FFCST::PROPERTY_OPTIONS => []
     ];
+    protected static $PRP_GRP_ID = [
+        FFCST::PROPERTY_PRIVATE => 'grp_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['group' =>
+            [
+                'model' => 'FreeSSO::Model::Group',
+                'field' => 'grp_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
 
     /**
      * get properties
@@ -110,7 +122,8 @@ abstract class CauseSickness extends \FreeFW\Core\StorageModel
             'caus_desc'      => self::$PRP_CAUS_DESC,
             'caus_where'     => self::$PRP_CAUS_WHERE,
             'caus_care'      => self::$PRP_CAUS_CARE,
-            'caus_care_desc' => self::$PRP_CAUS_CARE_DESC
+            'caus_care_desc' => self::$PRP_CAUS_CARE_DESC,
+            'grp_id'         => self::$PRP_GRP_ID
         ];
     }
 

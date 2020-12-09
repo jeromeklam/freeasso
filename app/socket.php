@@ -100,6 +100,7 @@ try {
     $loop    = \React\EventLoop\Factory::create();
     $storage = new \FreeAsso\Service\SimpleStorageListener();
     $storage->setLogger($myLogger);
+    $storage->setAppConfig($myConfig);
     //
     $context = new React\ZMQ\Context($loop);
     $pull = $context->getSocket(\ZMQ::SOCKET_PULL);

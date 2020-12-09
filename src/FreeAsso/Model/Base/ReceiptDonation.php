@@ -64,6 +64,12 @@ abstract class ReceiptDonation extends \FreeAsso\Model\StorageModel\ReceiptDonat
     protected $ptyp_id = null;
 
     /**
+     * grp_id
+     * @var int
+     */
+    protected $grp_id = null;
+
+    /**
      * Set rdo_id
      *
      * @param int $p_value
@@ -268,5 +274,28 @@ abstract class ReceiptDonation extends \FreeAsso\Model\StorageModel\ReceiptDonat
     public function getPtypId()
     {
         return $this->ptyp_id;
+    }
+
+    /**
+     * Set grp_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Base\Cause
+     */
+    public function setGrpId($p_value)
+    {
+        $this->grp_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get grp_id
+     *
+     * @return int
+     */
+    public function getGrpId()
+    {
+        return $this->grp_id;
     }
 }

@@ -57,6 +57,7 @@ abstract class Receipt extends \FreeFW\Core\StorageModel
     protected static $PRP_REC_TS = [
         FFCST::PROPERTY_PRIVATE => 'rec_ts',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_NOW,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_REC_GEN_TS = [
@@ -87,6 +88,7 @@ abstract class Receipt extends \FreeFW\Core\StorageModel
     protected static $PRP_REC_MONEY = [
         FFCST::PROPERTY_PRIVATE => 'rec_money',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_DEFAULT => 'EUR',
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_REC_FULLNAME = [
@@ -150,7 +152,9 @@ abstract class Receipt extends \FreeFW\Core\StorageModel
     ];
     protected static $PRP_REC_SEND_METHOD = [
         FFCST::PROPERTY_PRIVATE => 'rec_send_method',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_SELECT,
+        FFCST::PROPERTY_ENUM    => ['EMAIL','MANUAL','UNKNOWN'],
+        FFCST::PROPERTY_DEFAULT => 'EMAIL',
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_REC_MNT_LETTER = [
@@ -166,6 +170,18 @@ abstract class Receipt extends \FreeFW\Core\StorageModel
             [
                 'model' => 'FreeAsso::Model::File',
                 'field' => 'file_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
+    protected static $PRP_GRP_ID = [
+        FFCST::PROPERTY_PRIVATE => 'grp_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['group' =>
+            [
+                'model' => 'FreeSSO::Model::Group',
+                'field' => 'grp_id',
                 'type'  => \FreeFW\Model\Query::JOIN_LEFT
             ]
         ]
@@ -202,7 +218,8 @@ abstract class Receipt extends \FreeFW\Core\StorageModel
             'rec_email'       => self::$PRP_REC_EMAIL,
             'rec_send_method' => self::$PRP_REC_SEND_METHOD,
             'rec_mnt_letter'  => self::$PRP_REC_MNT_LETTER,
-            'file_id'         => self::$PRP_FILE_ID
+            'file_id'         => self::$PRP_FILE_ID,
+            'grp_id'          => self::$PRP_GRP_ID
         ];
     }
 

@@ -328,6 +328,12 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     protected $site_extern = null;
 
     /**
+     * grp_id
+     * @var int
+     */
+    protected $grp_id = null;
+
+    /**
      * Set site_id
      *
      * @param int $p_value
@@ -1544,5 +1550,28 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Site
     public function getSiteExtern()
     {
         return $this->site_extern;
+    }
+
+    /**
+     * Set grp_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Base\Cause
+     */
+    public function setGrpId($p_value)
+    {
+        $this->grp_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get grp_id
+     *
+     * @return int
+     */
+    public function getGrpId()
+    {
+        return $this->grp_id;
     }
 }

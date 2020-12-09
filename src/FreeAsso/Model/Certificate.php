@@ -17,6 +17,7 @@ class Certificate extends \FreeAsso\Model\Base\Certificate
     use \FreeFW\Model\Behaviour\Country;
     use \FreeFW\Model\Behaviour\Lang;
     use \FreeAsso\Model\Behaviour\Client;
+    use \FreeSSO\Model\Behaviour\Group;
 
     /**
      *

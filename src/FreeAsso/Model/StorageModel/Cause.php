@@ -49,7 +49,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_CAU_DESC = [
         FFCST::PROPERTY_PRIVATE => 'cau_desc',
         FFCST::PROPERTY_COMMENT => 'La description de la cause',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_HTML,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CAU_FROM = [
@@ -365,6 +365,18 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_COMMENT => 'Texte lié à la conformité',
         FFCST::PROPERTY_SAMPLE  => 'La cause est conforme'
     ];
+    protected static $PRP_GRP_ID = [
+        FFCST::PROPERTY_PRIVATE => 'grp_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['group' =>
+            [
+                'model' => 'FreeSSO::Model::Group',
+                'field' => 'grp_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
 
     /**
      * get properties
@@ -425,6 +437,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
             'cau_waiting'      => self::$PRP_CAU_WAITING,
             'cau_conform'      => self::$PRP_CAU_CONFORM,
             'cau_conform_text' => self::$PRP_CAU_CONFORM_TEXT,
+            'grp_id'           => self::$PRP_GRP_ID,
         ];
     }
 

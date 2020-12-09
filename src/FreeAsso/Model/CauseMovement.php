@@ -16,6 +16,7 @@ class CauseMovement extends \FreeAsso\Model\Base\CauseMovement
      */
     use \FreeAsso\Model\Behaviour\Cause;
     use \FreeAsso\Model\Behaviour\Movement;
+    use \FreeSSO\Model\Behaviour\Group;
 
     /**
      * Status
@@ -45,12 +46,7 @@ class CauseMovement extends \FreeAsso\Model\Base\CauseMovement
      */
     public function init()
     {
-        $this->camv_id           = 0;
-        $this->brk_id            = 0;
-        $this->camv_site_from_id = null;
-        $this->camv_site_to_id   = null;
-        $this->camv_status       = self::STATUS_WAIT;
-        $this->move_id           = null;
+        $this->camv_status = self::STATUS_WAIT;
         return $this;
     }
 

@@ -30,6 +30,11 @@ class Movement extends \FreeAsso\Model\Base\Movement
     const STATUS_ARCHIVE = 'ARCHIVE';
 
     /**
+     * Behaviour
+     */
+    use \FreeSSO\Model\Behaviour\Group;
+
+    /**
      * From site
      * @var \FreeAsso\Model\Site
      */

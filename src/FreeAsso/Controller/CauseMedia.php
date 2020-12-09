@@ -1,6 +1,8 @@
 <?php
 namespace FreeAsso\Controller;
 
+use \FreeFW\Constants as FFCST;
+
 /**
  * Model controller
  *

@@ -17,6 +17,9 @@ class Client extends \FreeAsso\Model\Base\Client implements
      */
     use \FreeAsso\Model\Behaviour\ClientCategory;
     use \FreeAsso\Model\Behaviour\ClientType;
+    use \FreeAsso\Model\Behaviour\Client;
+    use \FreeFW\Model\Behaviour\Country;
+    use \FreeFW\Model\Behaviour\Lang;
 
     /**
      * Genres
@@ -28,27 +31,9 @@ class Client extends \FreeAsso\Model\Base\Client implements
 
     /**
      * Site
-     * @var \FreeAsso\Model\ClientCategory
-     */
-    protected $client_category = null;
-
-    /**
-     * Site
      * @var \FreeAsso\Model\ClientType
      */
     protected $client_type = null;
-
-    /**
-     * Country
-     * @var \FreeFW\Model\Country
-     */
-    protected $country = null;
-
-    /**
-     * Langue
-     * @var \FreeFW\Model\Lang
-     */
-    protected $lang = null;
 
     /**
      * Sponsor
@@ -67,52 +52,6 @@ class Client extends \FreeAsso\Model\Base\Client implements
      * @var \FreeAsso\Model\Client
      */
     protected $parent_client = null;
-
-    /**
-     * Set country
-     *
-     * @param \FreeFW\Model\Country $p_country
-     *
-     * @return \FreeAsso\Model\Client
-     */
-    public function setCountry($p_country)
-    {
-        $this->country = $p_country;
-        return $this;
-    }
-
-    /**
-     * Get country
-     *
-     * @return \FreeFW\Model\Country
-     */
-    public function getCountry()
-    {
-        return $this->country;
-    }
-
-    /**
-     * Set lang
-     *
-     * @param \FreeFW\Model\Lang $p_lang
-     *
-     * @return \FreeAsso\Model\Client
-     */
-    public function setLang($p_lang)
-    {
-        $this->lang = $p_lang;
-        return $this;
-    }
-
-    /**
-     * Get lang
-     *
-     * @return \FreeFW\Model\Lang
-     */
-    public function getLang()
-    {
-        return $this->lang;
-    }
 
     /**
      * Set sponsor

@@ -16,6 +16,12 @@ abstract class CauseMediaLang extends \FreeAsso\Model\StorageModel\CauseMediaLan
     protected $caml_id = null;
 
     /**
+     * brk_id
+     * @var int
+     */
+    protected $brk_id = null;
+
+    /**
      * caum_id
      * @var int
      */
@@ -46,6 +52,12 @@ abstract class CauseMediaLang extends \FreeAsso\Model\StorageModel\CauseMediaLan
     protected $caml_text = null;
 
     /**
+     * grp_id
+     * @var int
+     */
+    protected $grp_id = null;
+
+    /**
      * Set caml_id
      *
      * @param int $p_value
@@ -66,6 +78,29 @@ abstract class CauseMediaLang extends \FreeAsso\Model\StorageModel\CauseMediaLan
     public function getCamlId()
     {
         return $this->caml_id;
+    }
+
+    /**
+     * Set brk_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\CauseMedia
+     */
+    public function setBrkId($p_value)
+    {
+        $this->brk_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get brk_id
+     *
+     * @return int
+     */
+    public function getBrkId()
+    {
+        return $this->brk_id;
     }
 
     /**
@@ -181,5 +216,28 @@ abstract class CauseMediaLang extends \FreeAsso\Model\StorageModel\CauseMediaLan
     public function getCamlText()
     {
         return $this->caml_text;
+    }
+
+    /**
+     * Set grp_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Base\Cause
+     */
+    public function setGrpId($p_value)
+    {
+        $this->grp_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get grp_id
+     *
+     * @return int
+     */
+    public function getGrpId()
+    {
+        return $this->grp_id;
     }
 }

@@ -28,6 +28,7 @@ abstract class DonationOrigin extends \FreeFW\Core\StorageModel
     protected static $PRP_DONO_TS = [
         FFCST::PROPERTY_PRIVATE => 'dono_ts',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_NOW,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_DONO_ORIGIN = [
@@ -57,8 +58,22 @@ abstract class DonationOrigin extends \FreeFW\Core\StorageModel
     ];
     protected static $PRP_DONO_STATUS = [
         FFCST::PROPERTY_PRIVATE => 'dono_status',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_SELECT,
+        FFCST::PROPERTY_ENUM    => ['OK','PENDING','ERROR'],
+        FFCST::PROPERTY_DEFAULT => 'PENDING',
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+    ];
+    protected static $PRP_GRP_ID = [
+        FFCST::PROPERTY_PRIVATE => 'grp_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['group' =>
+            [
+                'model' => 'FreeSSO::Model::Group',
+                'field' => 'grp_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
     ];
 
     /**
@@ -77,7 +92,8 @@ abstract class DonationOrigin extends \FreeFW\Core\StorageModel
             'dono_year'     => self::$PRP_DONO_YEAR,
             'dono_month'    => self::$PRP_DONO_MONTH,
             'dono_day'      => self::$PRP_DONO_DAY,
-            'dono_status'   => self::$PRP_DONO_STATUS
+            'dono_status'   => self::$PRP_DONO_STATUS,
+            'grp_id'        => self::$PRP_GRP_ID
         ];
     }
 

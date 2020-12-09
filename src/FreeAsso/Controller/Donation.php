@@ -10,6 +10,11 @@ class Donation extends \FreeFW\Core\ApiController
 {
 
     /**
+     * Comportement
+     */
+    use \FreeAsso\Controller\Behaviour\Group;
+
+    /**
      * Get all year
      *
      * @param \Psr\Http\Message\ServerRequestInterface $p_request
@@ -25,6 +30,9 @@ class Donation extends \FreeFW\Core\ApiController
             throw new \FreeFW\Core\FreeFWStorageException(
                 sprintf('No default model for route !')
             );
+        }
+        if (method_exists($this, 'adaptApiParams')) {
+            $apiParams = $this->adaptApiParams($apiParams, 'getDonationYears');
         }
         $default = $p_request->default_model;
         $model = \FreeFW\DI\DI::get($default);

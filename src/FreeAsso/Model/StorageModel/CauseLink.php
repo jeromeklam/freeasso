@@ -45,6 +45,18 @@ abstract class CauseLink extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
         FFCST::PROPERTY_OPTIONS => []
     ];
+    protected static $PRP_GRP_ID = [
+        FFCST::PROPERTY_PRIVATE => 'grp_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['group' =>
+            [
+                'model' => 'FreeSSO::Model::Group',
+                'field' => 'grp_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
 
     /**
      * get properties
@@ -59,7 +71,8 @@ abstract class CauseLink extends \FreeAsso\Model\StorageModel\Base
             'to_cau_id'   => self::$PRP_TO_CAU_ID,
             'caul_from'   => self::$PRP_CAUL_FROM,
             'caul_to'     => self::$PRP_CAUL_TO,
-            'cault_id'    => self::$PRP_CAULT_ID
+            'cault_id'    => self::$PRP_CAULT_ID,
+            'grp_id'      => self::$PRP_GRP_ID
         ];
     }
 

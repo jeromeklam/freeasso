@@ -154,6 +154,12 @@ abstract class Receipt extends \FreeAsso\Model\StorageModel\Receipt
     protected $file_id = null;
 
     /**
+     * grp_id
+     * @var int
+     */
+    protected $grp_id = null;
+
+    /**
      * Set rec_id
      *
      * @param int $p_value
@@ -703,5 +709,28 @@ abstract class Receipt extends \FreeAsso\Model\StorageModel\Receipt
     public function getFileId()
     {
         return $this->file_id;
+    }
+
+    /**
+     * Set grp_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Base\Cause
+     */
+    public function setGrpId($p_value)
+    {
+        $this->grp_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get grp_id
+     *
+     * @return int
+     */
+    public function getGrpId()
+    {
+        return $this->grp_id;
     }
 }

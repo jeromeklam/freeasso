@@ -10,4 +10,9 @@ use \FreeFW\Constants as FFCST;
  */
 class File extends \FreeAsso\Model\Base\File
 {
+
+    /**
+     * Behaviour
+     */
+    use \FreeSSO\Model\Behaviour\Group;
 }

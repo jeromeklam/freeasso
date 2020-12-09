@@ -340,6 +340,12 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     protected $cli_sanit = false;
 
     /**
+     * grp_id
+     * @var int
+     */
+    protected $grp_id = null;
+
+    /**
      * Set cli_id
      *
      * @param int $p_value
@@ -1602,5 +1608,28 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     public function getCliSanit()
     {
         return $this->cli_sanit;
+    }
+
+    /**
+     * Set grp_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Base\Cause
+     */
+    public function setGrpId($p_value)
+    {
+        $this->grp_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get grp_id
+     *
+     * @return int
+     */
+    public function getGrpId()
+    {
+        return $this->grp_id;
     }
 }

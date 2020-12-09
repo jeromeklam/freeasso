@@ -20,14 +20,17 @@ class DonationOrigin extends \FreeAsso\Model\Base\DonationOrigin
     const STATUS_ERROR   = 'ERROR';
 
     /**
+     * Behaviour;
+     */
+    use \FreeSSO\Model\Behaviour\Group;
+
+    /**
      *
      * {@inheritDoc}
      * @see \FreeFW\Core\Model::init()
      */
     public function init()
     {
-        $this->dono_id     = 0;
-        $this->brk_id      = 0;
         $this->dono_status = self::STATUS_PENDING;
         return $this;
     }

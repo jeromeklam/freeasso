@@ -18,6 +18,7 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
     use \FreeAsso\Model\Behaviour\CauseType;
     use \FreeAsso\Model\Behaviour\Site;
     use \FreeAsso\Model\Behaviour\Subspecies;
+    use \FreeSSO\Model\Behaviour\Group;
 
     /**
      * Constantes
@@ -72,16 +73,6 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
      */
     public function init()
     {
-        $this->cau_id        = 0;
-        $this->brk_id        = 0;
-        $this->caut_id       = 0;
-        $this->cau_name      = '';
-        $this->cau_code      = '';
-        $this->cau_public    = 1;
-        $this->cau_available = 1;
-        $this->cau_mnt       = 0;
-        $this->cau_mnt_left  = 0;
-        $this->cau_money     = 'EUR';
         $this->cau_family    = self::FAMILY_ANIMAL;
         $this->cau_year      = intval(date('Y'));
         return $this;
@@ -392,5 +383,46 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
             return false;
         }
         return true;
+    }
+
+    /**
+     * Specific fields for editions, ...
+     *
+     * @return \StdClass
+     */
+    public function getSpecificEditionFields($p_tmp_dir = '/tmp/', $p_keep_binary = true)
+    {
+        $fields  = [];
+        $picture = 0;
+        $medias  = \FreeAsso\Model\CauseMedia::find(['cau_id' => $this->getCauId()]);
+        foreach ($medias as $oneMedia) {
+            switch ($oneMedia->getCaumType()) {
+                case \FreeAsso\Model\CauseMedia::TYPE_HTML:
+                    break;
+                case \FreeAsso\Model\CauseMedia::TYPE_NEWS:
+                    break;
+                case \FreeAsso\Model\CauseMedia::TYPE_PHOTO:
+                    if ($oneMedia->getCaumBlob() !== null && $p_keep_binary) {
+                        $picture++;
+                        $name = 'cau_picture_' . $picture;
+                        $fields[$name] = $p_tmp_dir . 'edi_' . uniqid(true) . '_' . $picture . '.png';
+                        file_put_contents($fields[$name], $oneMedia->getCaumBlob());
+                        $name = 'cau_picture_rect_' . $picture;
+                        $fields[$name] = $p_tmp_dir . 'edi_' . uniqid(true) . '_rect_' . $picture . '.png';
+                        $image = \Gregwar\Image\Image::fromData($oneMedia->getCaumBlob());
+                        $image->zoomCrop(200, 200, 0x000000, 'center', 'center');
+                        $image->save($fields[$name]);
+                    }
+                    break;
+            }
+        }
+        if ($p_keep_binary) {
+            file_put_contents($p_tmp_dir . 'empty.png', base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='));
+            for ($i=$picture+1; $i<=5; $i++) {
+                $name = 'cau_picture_' . $i;
+                $fields[$name] = $p_tmp_dir . 'empty.png';
+            }
+        }
+        return $fields;
     }
 }

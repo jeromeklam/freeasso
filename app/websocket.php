@@ -80,7 +80,8 @@ try {
                 $stoCfg['user'],
                 $stoCfg['paswd'],
                 $myLogger,
-                $myEvents
+                $myEvents,
+                $myConfig
             );
             \FreeFW\DI\DI::setShared('Storage::' . $key, $storage);
         }

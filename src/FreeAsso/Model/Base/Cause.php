@@ -316,6 +316,12 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     protected $cau_conform_text = null;
 
     /**
+     * grp_id
+     * @var int
+     */
+    protected $grp_id = null;
+
+    /**
      * Set cau_id
      *
      * @param int $p_value
@@ -1486,5 +1492,28 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     public function getCauConformText()
     {
         return $this->cau_conform_text;
+    }
+
+    /**
+     * Set grp_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Base\Cause
+     */
+    public function setGrpId($p_value)
+    {
+        $this->grp_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get grp_id
+     *
+     * @return int
+     */
+    public function getGrpId()
+    {
+        return $this->grp_id;
     }
 }

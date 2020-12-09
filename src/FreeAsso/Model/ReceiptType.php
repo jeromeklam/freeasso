@@ -10,4 +10,9 @@ use \FreeFW\Constants as FFCST;
  */
 class ReceiptType extends \FreeAsso\Model\Base\ReceiptType
 {
+
+    /**
+     * Behaviour
+     */
+    use \FreeSSO\Model\Behaviour\Group;
 }

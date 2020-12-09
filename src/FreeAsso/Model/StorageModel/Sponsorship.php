@@ -111,6 +111,18 @@ abstract class Sponsorship extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => []
     ];
+    protected static $PRP_GRP_ID = [
+        FFCST::PROPERTY_PRIVATE => 'grp_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['group' =>
+            [
+                'model' => 'FreeSSO::Model::Group',
+                'field' => 'grp_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
 
     /**
      * get properties
@@ -134,7 +146,8 @@ abstract class Sponsorship extends \FreeFW\Core\StorageModel
             'ptyp_id'          => self::$PRP_PTYP_ID,
             'spo_sponsors'     => self::$PRP_SPO_SPONSORS,
             'spo_display_site' => self::$PRP_SPO_DISPLAY_SITE,
-            'spo_send_news'    => self::$PRP_SPO_SEND_NEWS
+            'spo_send_news'    => self::$PRP_SPO_SEND_NEWS,
+            'grp_id'           => self::$PRP_GRP_ID
         ];
     }
 

@@ -40,6 +40,18 @@ abstract class ReceiptType extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
         FFCST::PROPERTY_OPTIONS => []
     ];
+    protected static $PRP_GRP_ID = [
+        FFCST::PROPERTY_PRIVATE => 'grp_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['group' =>
+            [
+                'model' => 'FreeSSO::Model::Group',
+                'field' => 'grp_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
 
     /**
      * get properties
@@ -53,7 +65,8 @@ abstract class ReceiptType extends \FreeFW\Core\StorageModel
             'brk_id'           => self::$PRP_BRK_ID,
             'rett_name'        => self::$PRP_RETT_NAME,
             'rett_last_number' => self::$PRP_RETT_LAST_NUMBER,
-            'rett_regex'       => self::$PRP_RETT_REGEX
+            'rett_regex'       => self::$PRP_RETT_REGEX,
+            'grp_id'           => self::$PRP_GRP_ID
         ];
     }
 

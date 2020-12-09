@@ -398,6 +398,18 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_TYPE     => FFCST::TYPE_INTEGER,
         FFCST::PROPERTY_OPTIONS  => [FFCST::OPTION_LOCAL]
     ];
+    protected static $PRP_GRP_ID = [
+        FFCST::PROPERTY_PRIVATE => 'grp_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['group' =>
+            [
+                'model' => 'FreeSSO::Model::Group',
+                'field' => 'grp_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
 
     /**
      * get properties
@@ -460,7 +472,8 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
             'site_conform'      => self::$PRP_SITE_CONFORM,
             'site_conform_text' => self::$PRP_SITE_CONFORM_TEXT,
             'site_count_cause'  => self::$PRP_SITE_COUNT_CAUSE,
-            'site_extern'       => self::$PRP_SITE_EXTERN
+            'site_extern'       => self::$PRP_SITE_EXTERN,
+            'grp_id'            => self::$PRP_GRP_ID
         ];
     }
 

@@ -22,6 +22,7 @@ class Donation extends \FreeAsso\Model\Base\Donation
     use \FreeAsso\Model\Behaviour\PaymentType;
     use \FreeAsso\Model\Behaviour\Session;
     use \FreeAsso\Model\Behaviour\Sponsorship;
+    use \FreeSSO\Model\Behaviour\Group;
 
     /**
      * STATUS
