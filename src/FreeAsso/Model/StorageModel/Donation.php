@@ -40,7 +40,7 @@ abstract class Donation extends \FreeFW\Core\StorageModel
     protected static $PRP_CLI_ID = [
         FFCST::PROPERTY_PRIVATE => 'cli_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_FK],
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED,FFCST::OPTION_FK],
         FFCST::PROPERTY_FK      => ['client' =>
             [
                 'model' => 'FreeAsso::Model::Client',
@@ -52,7 +52,7 @@ abstract class Donation extends \FreeFW\Core\StorageModel
     protected static $PRP_CAU_ID = [
         FFCST::PROPERTY_PRIVATE => 'cau_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED,FFCST::OPTION_FK],
         FFCST::PROPERTY_FK      => ['cause' =>
             [
                 'model' => 'FreeAsso::Model::Cause',

@@ -37,8 +37,12 @@
         "cboden/ratchet"                       : "^0.4.1",
         "php-amqplib/php-amqplib"              : "^2.11",
         "react/zmq"                            : "^0.4.0",
-        "phing/phing"                          : "^2.16",
         "zumba/json-serializer"                : "^3.0"
+    },
+    "require-dev" : {
+        "phpunit/phpunit"                 : "*",
+        "squizlabs/php_codesniffer"       : "*",
+        "phing/phing"                     : "*"
     },
     "autoload" : {
         "psr-4" : {

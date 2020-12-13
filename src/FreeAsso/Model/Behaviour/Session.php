@@ -6,7 +6,7 @@ namespace FreeAsso\Model\Behaviour;
  * @author jeromeklam
  *
  */
-trait session
+trait Session
 {
 
     /**

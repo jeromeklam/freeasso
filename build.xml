@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="jeromeklam/freeasso" default="help" basedir=".">
+<project name="freeasso" default="help" basedir=".">
 
     <!--  all properties are in build.properties -->
     <property file="project.properties" />
@@ -24,6 +24,22 @@
             <arg value="--optimize-autoloader" />
             <arg value="--no-dev" />
         </composer>
+    </target>
+
+    <!--
+        Composer
+    -->
+    <target name="composer-beta">
+        <composer command="install" composer="${composer.bin}">
+            <arg value="--optimize-autoloader" />
+        </composer>
+    </target>
+    
+    <!--
+        Composer
+    -->
+    <target name="bower">
+        <exec command="bower install" />
     </target>
 
     <!--
@@ -156,7 +172,7 @@
     <!--
         Préparation du déploiement : composer, ...
     -->
-    <target name="prepare-deploy">
+    <target name="prepare-deploy" depends="composer, bower">
         <delete dir="${project.dist}"/>
         <mkdir dir="${project.dist}" mode="0775" />
         <echo message="${commit}" file="${project.basedir}/revision" />
@@ -167,16 +183,110 @@
     </target>
 
     <!--
+        Préparation du déploiement : composer, ...
+    -->
+    <target name="prepare-beta" depends="composer-beta, bower">
+        <delete dir="${project.dist}"/>
+        <mkdir dir="${project.dist}" mode="0775" />
+        <echo message="${commit}" file="${project.basedir}/revision" />
+        <filesync excludeFile=".deployignore"
+                  sourcedir="${project.basedir}/"
+                  options="-LurpKz"
+                  destinationdir="${project.dist}" />
+    </target>
+                    
+    <!--
         Création du fichier tgz à partir du répertoire dist
     -->
     <target name="create-tgz">
-        <mkdir dir="${project.deploy}" mode="0775" />
-        <tar destfile="${project.deploy}/${project.short}-latest.tar.gz" basedir="${project.dist}" compression="gzip"/>
-        <copy file="${project.basedir}/install/install.sh" tofile="${project.deploy}/install-latest.sh" overwrite="true"/>
-        <exec command="md5sum ${project.short}-latest.tar.gz > ${project.short}-latest.tar.gz.checksum" dir="${project.deploy}" />
-        <exec command="md5sum install-latest.sh > install-latest.sh.checksum" dir="${project.deploy}" />
+        <tar destfile="${project.deploy}/${project.short}-${GITTAG}.tar.gz" basedir="${project.dist}" compression="gzip"/>
+        <copy file="${project.basedir}/install/install.sh" tofile="${project.deploy}/install-${GITTAG}.sh" overwrite="true"/>
+        <exec command="md5sum ${project.short}-${GITTAG}.tar.gz > ${project.short}-${GITTAG}.tar.gz.checksum" dir="${project.deploy}" />
+        <exec command="md5sum install-${GITTAG}.sh > install-${GITTAG}.sh.checksum" dir="${project.deploy}" />
     </target>
 
+    <!--
+        Création du fichier tgz à partir du répertoire dist
+    -->
+    <target name="create-beta">
+        <delete dir="${project.basedir}/target"/>
+        <mkdir dir="${project.basedir}/target" mode="0775" />
+        <tar destfile="${project.basedir}/target/${project.short}-beta.tar.gz" basedir="${project.dist}" compression="gzip"/>
+        <copy file="${project.basedir}/install/install.sh" tofile="${project.basedir}/target/install-beta.sh" overwrite="true"/>
+        <exec command="md5sum ${project.short}-beta.tar.gz > ${project.short}-beta.tar.gz.checksum" dir="${project.basedir}/target" />
+        <exec command="md5sum install-latest.sh > install-beta.sh.checksum" dir="${project.basedir}/target" />
+    </target>
+            
+    <!--
+        Lancement du déploiement en preprod
+    -->
+    <target name="execute-deploy-preprod">
+        <echo message="creating folders" />
+        <ssh username="${deploy.user}" pubkeyfile="${deploy.pubkeyfile}" privkeyfile="${deploy.prvkeyfile}"
+             host="${deploy.host-pp}" command="mkdir -p ${deploy.basedir-pp}" />
+        <ssh username="${deploy.user}" pubkeyfile="${deploy.pubkeyfile}" privkeyfile="${deploy.prvkeyfile}"
+             host="${deploy.host-pp}" command="mkdir -p ${deploy.basedir-pp}/${project.short}" />
+        <ssh username="${deploy.user}" pubkeyfile="${deploy.pubkeyfile}" privkeyfile="${deploy.prvkeyfile}"
+             host="${deploy.host-pp}" command="chmod -R g+w ${deploy.basedir-pp}/${project.short}" />
+        <echo message="copy files" />
+        <scp username="${deploy.user}" pubkeyfile="${deploy.pubkeyfile}" privkeyfile="${deploy.prvkeyfile}"
+             host="${deploy.host-pp}" todir="${deploy.basedir-pp}/${project.short}">
+            <fileset dir="${project.deploy}">
+                <include name="*-${GITTAG}.*" />
+            </fileset>
+        </scp>
+        <ssh username="${deploy.user}" pubkeyfile="${deploy.pubkeyfile}" privkeyfile="${deploy.prvkeyfile}"
+             host="${deploy.host-pp}" command="chmod -R 775 ${deploy.basedir-pp}/${project.short}/install-${GITTAG}.sh" />
+        <echo message="running install script : ${deploy.basedir-pp}/${project.short}/install-${GITTAG}.sh ${project.short}-${GITTAG}" />
+        <ssh username="${deploy.user}" pubkeyfile="${deploy.pubkeyfile}" privkeyfile="${deploy.prvkeyfile}"
+             host="${deploy.host-pp}" command="cd ${deploy.basedir-pp}/${project.short}; ./install-${GITTAG}.sh ${project.short}-${GITTAG}" />
+        <ssh username="${deploy.user}" pubkeyfile="${deploy.pubkeyfile}" privkeyfile="${deploy.prvkeyfile}"
+             host="${deploy.host-pp}" command="chmod -R g+w ${deploy.basedir-pp}/${project.short}" />
+        <echo message="that's all folks..." />
+    </target>
+
+    <!--
+        Copie vers la staging
+    -->
+    <target name="host-copy-staging">
+        <echo message="copy to ${host}" />
+        <ssh username="${deploy.user}" pubkeyfile="${deploy.pubkeyfile}" privkeyfile="${deploy.prvkeyfile}"
+             host="${host}" command="mkdir -p ${deploy.basedir}" />
+        <ssh username="${deploy.user}" pubkeyfile="${deploy.pubkeyfile}" privkeyfile="${deploy.prvkeyfile}"
+             host="${host}" command="mkdir -p ${deploy.basedir}/${project.short}" />
+        <ssh username="${deploy.user}" pubkeyfile="${deploy.pubkeyfile}" privkeyfile="${deploy.prvkeyfile}"
+             host="${host}" command="chmod -R g+w ${deploy.basedir}/${project.short}" />
+        <echo message="copy files" />
+        <scp username="${deploy.user}" pubkeyfile="${deploy.pubkeyfile}" privkeyfile="${deploy.prvkeyfile}"
+             host="${host}" todir="${deploy.basedir}/${project.short}">
+            <fileset dir="${project.deploy}">
+                <include name="*-${GITTAG}.*" />
+            </fileset>
+        </scp>
+        <ssh username="${deploy.user}" pubkeyfile="${deploy.pubkeyfile}" privkeyfile="${deploy.prvkeyfile}"
+             host="${host}" command="chmod -R 775 ${deploy.basedir}/${project.short}/install-${GITTAG}.sh" />
+    </target>
+
+    <!--
+        Installation en staging
+    -->
+    <target name="host-install-staging">
+        <echo message="running install script on ${host} : ${deploy.basedir}/${project.short}/install-${GITTAG}.sh ${project.short}-${GITTAG}" />
+        <ssh username="${deploy.user}" pubkeyfile="${deploy.pubkeyfile}" privkeyfile="${deploy.prvkeyfile}"
+             host="${host}" command="cd ${deploy.basedir}/${project.short}; ./install-${GITTAG}.sh ${project.short}-${GITTAG}" />
+        <ssh username="${deploy.user}" pubkeyfile="${deploy.pubkeyfile}" privkeyfile="${deploy.prvkeyfile}"
+             host="${host}" command="chmod -R g+w ${deploy.basedir}/${project.short}" />
+    </target>
+
+    <!--
+        Lancement du déploiement en staging
+    -->
+    <target name="execute-deploy-staging">
+        <foreach list="${deploy.staging}" param="host" target="host-copy-staging" />
+        <foreach list="${deploy.staging}" param="host" target="host-install-staging" />
+        <echo message="that's all folks..." />
+    </target>
+    
     <!--
         Copie vers la production
     -->
@@ -208,10 +318,6 @@
              host="${host}" command="cd ${deploy.basedir}/${project.short}; ./install-${GITTAG}.sh ${project.short}-${GITTAG}" />
         <ssh username="${deploy.user}" pubkeyfile="${deploy.pubkeyfile}" privkeyfile="${deploy.prvkeyfile}"
              host="${host}" command="chmod -R g+w ${deploy.basedir}/${project.short}" />
-        <ssh username="${deploy.user}" pubkeyfile="${deploy.pubkeyfile}" privkeyfile="${deploy.prvkeyfile}"
-             host="${host}" command="touch ${deploy.restart}/fpm.restart" />
-        <ssh username="${deploy.user}" pubkeyfile="${deploy.pubkeyfile}" privkeyfile="${deploy.prvkeyfile}"
-             host="${host}" command="touch ${deploy.restart}/apache.restart" />
     </target>
 
     <!--
@@ -222,7 +328,7 @@
         <foreach list="${deploy.hosts}" param="host" target="host-install-production" />
         <echo message="that's all folks..." />
     </target>
-	
+    
     <!--
         Préparation
     -->

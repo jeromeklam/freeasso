@@ -6,6 +6,6 @@ namespace FreeAsso\Controller;
  *
  * @author jeromeklam
  */
-class certificate extends \FreeFW\Core\ApiController
+class Certificate extends \FreeFW\Core\ApiController
 {
 }
