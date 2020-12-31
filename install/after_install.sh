@@ -42,5 +42,5 @@ case $# in
 esac
 
 cd $1
-php app/console.php install::run 2>$1/log/install.log >$1/log/install.log
+php app/tech.php database::migrate 2>$1/log/install.log >$1/log/install.log
 exit $?

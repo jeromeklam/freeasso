@@ -52,7 +52,7 @@ handleFiles ()
  ici=`pwd`
  basepath=`echo ${ici} | sed -e 's=/=\\\/=g'`
  release=`echo $1 | sed -e 's=/=\\\/=g'`
- for line in `cat $1/install/install.txt`; do
+ for line in `cat $1/install/$cmdFile`; do
      type=`echo $line | cut -d "|" -f1`
      arg1=`echo $line | cut -d "|" -f2`
      arg2=`echo $line | cut -d "|" -f3`
@@ -99,9 +99,12 @@ cleanUp ()
 # MAIN
 #--------------------------------------------------------------------------------------
 ici=`pwd`
+cmdFile='install.txt'
 info "Vérification des paramètres..."
 case $# in
    1) ;;
+   2) cmdFile=$2
+      ;;
    *) exitProgramm 3 "Le nombre de paramètre est incorrect !"
       ;;
 esac
@@ -150,7 +153,7 @@ if [ $? -ne 0 ]; then
     exitProgramm 4 "Erreur lors de l'extraction de l'archive !"
 fi
 cd $ici
-info "Gestion du fichier install.txt..."
+info "Gestion du fichier $cmdFile..."
 handleFiles ./releases/release-$crt
 info "Nettoyage..."
 rm -f $1.tar 2>/dev/null >/dev/null

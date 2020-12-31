@@ -6,6 +6,7 @@
 .project
 .settings
 .bowerrc
+/config
 /data
 /datas
 /build

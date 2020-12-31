@@ -1,0 +1,2 @@
+MKDIR|RELEASE/log|755
+LN|/etc/freeasso/kalaweit-dev|RELEASE/config
