@@ -31,3 +31,4 @@ build.xml
 build.xml.jk
 .project.properties
 composer.phar
+/vendor/*/*/vendor
