@@ -1,22 +1,22 @@
 version: "3.2"
 services:
   php:
-    image: jeromeklam/u18_php
+    image: dok1.jvsonline.fr/u20-php
     networks:
       - frontend
       - backend
     ports:
       - "8108:8080"
-      - "8109:9080"
     volumes:
       - ./:/var/www/html/
+      - ~/.ssh/:/user.ssh
       - ../freefw/:/var/www/freefw/
-      - ../freesso/:/var/www/freesso/
-      - ../freews/:/var/www/freews/
-      - ../freeoffice/:/var/www/freeoffice/
       - ../freepm/:/var/www/freepm/
+      - ../freesso/:/var/www/freesso/
+      - ../freeoffice/:/var/www/freeoffice/
+      - ../freews/:/var/www/freews/
   apache:
-    image: jeromeklam/u18_apache
+    image: dok1.jvsonline.fr/u20-apache
     depends_on:
       - php
       - mysql
@@ -26,31 +26,37 @@ services:
       - backend
     environment:
       - DOCUMENTROOT=www
-      - SERVERNAME=freeasso.fr
+      - SERVERNAME=omegaweb.jvsonline.fr
     ports:
       - "8180:80"
     volumes:
       - ./:/var/www/html/
       - ./docker-logs:/var/log/apache2
+  mailhog:
+    image: dok1.jvsonline.fr/u20-mailhog
+    ports:
+      - "8225:8025"
+    networks:
+      - backend
   rabbit:
-    image: jeromeklam/u18_rabbitmq
+    image: dok1.jvsonline.fr/u20-rabbitmq
     ports:
       - "8172:5672"
       - "8173:15672"
     networks:
       - backend
   mysql:
-    image: jeromeklam/u18_mariadb
+    image: dok1.jvsonline.fr/u20-mariadb
     ports:
       - "8106:3306"
     networks:
       - backend
     environment:
-      - LOCAL="true"
+      - LOCAL=true
       - MYSQL_ROOT_PASSWORD=m0n1c4po
     volumes:
       - ./docker-db:/data
-      - ./docker-dumps:/dumps
+      - ./docker-dumps:/data/dumps
 networks:
   frontend:
   backend:
