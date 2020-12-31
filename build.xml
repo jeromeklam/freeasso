@@ -222,7 +222,7 @@
     <target name="host-install-generic">
         <echo message="running install script on ${host} : ${deploy.basedir}/${deploy.appfolder}/install-${deploy.version}.sh ${project.short}-${deploy.version}" />
         <ssh username="${deploy.user}" pubkeyfile="${deploy.pubkeyfile}" privkeyfile="${deploy.prvkeyfile}"
-             host="${host}" command="cd ${deploy.basedir}/${deploy.appfolder}; ./install-${deploy.version}.sh ${project.short}-${deploy.version} ${deploy.appfolder}" />
+             host="${host}" command="cd ${deploy.basedir}/${deploy.appfolder}; ./install-${deploy.version}.sh ${project.short}-${deploy.version} ${deploy.appfolder}.txt" />
         <ssh username="${deploy.user}" pubkeyfile="${deploy.pubkeyfile}" privkeyfile="${deploy.prvkeyfile}"
              host="${host}" command="chmod -R g+w ${deploy.basedir}/${deploy.appfolder}" />
     </target>
