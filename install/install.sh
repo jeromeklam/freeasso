@@ -186,6 +186,7 @@ info "Gestion du script après installation..."
 handleAfter ./releases/release-$crt
 cd $ici
 chmod -R 775 ./releases 2>/dev/null >/dev/null
+rm -rf ./install 2>/dev/null >/dev/null
 rm -f ./install-*.sh 2>/dev/null >/dev/null
 rm -f ./*.checksum 2>/dev/null >/dev/null
 info ""

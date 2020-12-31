@@ -15,7 +15,6 @@
 /docker-db
 /docker-logs
 /docker-dumps
-/install
 /log
 /target
 /test
