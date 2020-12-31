@@ -266,9 +266,4 @@
     -->
     <target name="doc" description="Génère la documentation du code" depends="phpdoc" />
 
-    <!--
-        Déploiement
-    -->
-    <target name="deploy" description="Déploie l'application sur l'environnment donné" depends="prepare-deploy" />
-
 </project>
