@@ -186,6 +186,8 @@
         Création du fichier tgz à partir du répertoire dist
     -->
     <target name="create-tgz-generic">
+        <delete dir="${project.deploy}"/>
+        <mkdir dir="${project.deploy}" mode="0775" />
         <tar destfile="${project.deploy}/${project.short}-${deploy.version}.tar.gz" basedir="${project.dist}" compression="gzip"/>
         <copy file="${project.basedir}/install/install.sh" tofile="${project.deploy}/install-${deploy.version}.sh" overwrite="true"/>
         <exec command="md5sum ${project.short}-${deploy.version}.tar.gz > ${project.short}-${deploy.version}.tar.gz.checksum" dir="${project.deploy}" />
