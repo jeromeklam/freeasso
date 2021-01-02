@@ -204,27 +204,29 @@
         <ssh username="${deploy.user}" pubkeyfile="${deploy.pubkeyfile}" privkeyfile="${deploy.prvkeyfile}"
              host="${host}" command="mkdir -p ${deploy.basedir}/${deploy.appfolder}" />
         <ssh username="${deploy.user}" pubkeyfile="${deploy.pubkeyfile}" privkeyfile="${deploy.prvkeyfile}"
+             host="${host}" command="mkdir -p ${deploy.basedir}/${deploy.appfolder}/back" />
+        <ssh username="${deploy.user}" pubkeyfile="${deploy.pubkeyfile}" privkeyfile="${deploy.prvkeyfile}"
              host="${host}" command="chmod -R g+w ${deploy.basedir}/${deploy.appfolder}" />
         <echo message="copy files" />
         <scp username="${deploy.user}" pubkeyfile="${deploy.pubkeyfile}" privkeyfile="${deploy.prvkeyfile}"
-             host="${host}" todir="${deploy.basedir}/${deploy.appfolder}">
+             host="${host}" todir="${deploy.basedir}/${deploy.appfolder}/back">
             <fileset dir="${project.deploy}">
                 <include name="*-${deploy.version}.*" />
             </fileset>
         </scp>
         <ssh username="${deploy.user}" pubkeyfile="${deploy.pubkeyfile}" privkeyfile="${deploy.prvkeyfile}"
-             host="${host}" command="chmod -R 775 ${deploy.basedir}/${deploy.appfolder}/install-${deploy.version}.sh" />
+             host="${host}" command="chmod -R 775 ${deploy.basedir}/${deploy.appfolder}/back/install-${deploy.version}.sh" />
     </target>
 
     <!--
         Installation générique
     -->
     <target name="host-install-generic">
-        <echo message="running install script on ${host} : ${deploy.basedir}/${deploy.appfolder}/install-${deploy.version}.sh ${project.short}-${deploy.version}" />
+        <echo message="running install script on ${host} : ${deploy.basedir}/${deploy.appfolder}/back/install-${deploy.version}.sh ${project.short}-${deploy.version}" />
         <ssh username="${deploy.user}" pubkeyfile="${deploy.pubkeyfile}" privkeyfile="${deploy.prvkeyfile}"
-             host="${host}" command="cd ${deploy.basedir}/${deploy.appfolder}; ./install-${deploy.version}.sh ${project.short}-${deploy.version} ${deploy.appfolder}.txt" />
+             host="${host}" command="cd ${deploy.basedir}/${deploy.appfolder}/back; ./install-${deploy.version}.sh ${project.short}-${deploy.version} ${deploy.appfolder}.txt" />
         <ssh username="${deploy.user}" pubkeyfile="${deploy.pubkeyfile}" privkeyfile="${deploy.prvkeyfile}"
-             host="${host}" command="chmod -R g+w ${deploy.basedir}/${deploy.appfolder}" />
+             host="${host}" command="chmod -R g+w ${deploy.basedir}/${deploy.appfolder}/back" />
     </target>
 
     <!--
