@@ -222,6 +222,7 @@ class Kalaweit
         $myDataMotif = \FreeFW\DI\DI::get('FreeAsso::Model::Data');
         $myDataMotif->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
         $myDataMotif
+            ->setDataId(3)
             ->setDataName("Motif d'arrêt")
             ->setDataCode("MOTIFARRET")
             ->setDataType(\FreeAsso\Model\Data::TYPE_LIST)
@@ -239,6 +240,19 @@ class Kalaweit
         ;
         if (!$myCfgMotif->create()) {
             var_export($myCfgMotif->getErrors());die;
+        }
+        // Motif d'arrêt d'une cause
+        $myDataHectares = \FreeFW\DI\DI::get('FreeAsso::Model::Data');
+        $myDataHectares->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
+        $myDataHectares
+            ->setDataId(4)
+            ->setDataName("Hectares de forêt")
+            ->setDataCode("HECTARES")
+            ->setDataType(\FreeAsso\Model\Data::TYPE_NUMBER)
+            ->setDataContent(1306)
+        ;
+        if (!$myDataHectares->create()) {
+            var_export($myDataHectares->getErrors());die;
         }
         // Site Ile
         $mySiteType = \FreeFW\DI\DI::get('FreeAsso::Model::SiteType');

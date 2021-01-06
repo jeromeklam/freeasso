@@ -86,11 +86,13 @@ class Dashboard extends \FreeFW\Core\Controller
         }
         // Membres
         $query   = 'SELECT COUNT(*) AS total ' .
-                   ' FROM crm_client LEFT JOIN crm_client_type ON crm_client_type.clit_id = crm_client.clit_id' .
-                   ' INNER JOIN asso_sponsorship ON asso_sponsorship.cli_id = crm_client.cli_id' .
-                   ' WHERE crm_client.brk_id = ' . $sso->getBrokerId() .
-                   ' AND (asso_sponsorship.spo_to is null OR asso_sponsorship.spo_to >= \'' . \FreeFW\Tools\Date::getCurrentTimestamp() . '\')'
-                   ;
+                   ' FROM ( ' .
+                   '     SELECT DISTINCT crm_client.cli_id FROM crm_client' .
+                   '     LEFT JOIN crm_client_type ON crm_client_type.clit_id = crm_client.clit_id' .
+                   '     INNER JOIN asso_sponsorship ON asso_sponsorship.cli_id = crm_client.cli_id' .
+                   '     WHERE crm_client.brk_id = ' . $sso->getBrokerId() .
+                   '     AND (asso_sponsorship.spo_to is null OR asso_sponsorship.spo_to >= \'' . \FreeFW\Tools\Date::getCurrentTimestamp() . '\')' .
+                   ' ) AS tmp';
         $pdo     = $storage->getProvider();
         $stm     = $pdo->prepare($query);
         $result  = $stm->execute();

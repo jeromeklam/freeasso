@@ -121,6 +121,7 @@ abstract class Client extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_PRIVATE => 'lang_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_LANG,
         FFCST::PROPERTY_FK      => ['lang' =>
             [
                 'model' => 'FreeFW::Model::Lang',
