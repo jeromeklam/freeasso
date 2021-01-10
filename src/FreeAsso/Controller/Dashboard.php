@@ -84,7 +84,7 @@ class Dashboard extends \FreeFW\Core\Controller
                 }
             }
         }
-        // Membres
+        // Membres amis
         $query   = 'SELECT COUNT(*) AS total ' .
                    ' FROM ( ' .
                    '     SELECT DISTINCT crm_client.cli_id FROM crm_client' .
@@ -98,21 +98,13 @@ class Dashboard extends \FreeFW\Core\Controller
         $result  = $stm->execute();
         if ($result) {
             while ($row = $stm->fetch(\PDO::FETCH_ASSOC)) {
-                $data['friends'] = $row['total'];
+                $data['total_friends'] = $row['total'];
             }
         }
-        // Dons
-        $query   = 'SELECT SUM(don_mnt) AS total FROM asso_donation ' .
-                   ' WHERE brk_id = ' . $sso->getBrokerId() .
-                   ' AND don_ts >= \'' . date("Y") . '-01-01\' AND don_ts <= \'' . date("Y") . '-12-31\'' .
-                   ' AND don_status = \'OK\'';
-        $pdo     = $storage->getProvider();
-        $stm     = $pdo->prepare($query);
-        $result  = $stm->execute();
-        if ($result) {
-            while ($row = $stm->fetch(\PDO::FETCH_ASSOC)) {
-                $data['donations'] = $row['total'];
-            }
+        // Datas
+        $datas = \FreeAsso\Model\Data::find();
+        foreach ($datas as $oneData) {
+            $data[strtolower($oneData->getDataCode())] = $oneData->getDataContent();
         }
         //
         return $this->createResponse(200, serialize($data));

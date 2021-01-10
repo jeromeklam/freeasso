@@ -659,6 +659,7 @@ class Kalaweit
                 $myCause
                     ->setCauName($name)
                     ->setCautId($myCauseGibbon->getCautId())
+                    ->setCauFamily(\FreeAsso\Model\Cause::FAMILY_ANIMAL)
                     ->setCauDesc($desc)
                     ->setCauPublic(0)
                     ->setCauAvailable(0)
