@@ -217,7 +217,7 @@ class SimpleStorageListener implements MessageComponentInterface, LoggerAwareInt
         $this->logger->debug(print_r($entry, true));
         $this->logger->debug(print_r($this->subscribedTopics, true));
         $uri = 'fr.freeasso.storage';
-        if (array_key_exists($uri, $this->subscribedTopics)) {
+        if (isset($this->subscribedTopics[$uri])) {
             try {
                 $object          = unserialize($entry);
                 $topic           = $this->subscribedTopics[$uri];
