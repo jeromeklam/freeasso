@@ -25,6 +25,11 @@ trait CauseMedia
     public function setCauseMedia($p_cause_media)
     {
         $this->cause_media = $p_cause_media;
+        if ($this->cause_media instanceof \FreeAsso\Model\CauseMedia) {
+            $this->caum_id = $this->cause_media->getCaumId();
+        } else {
+            $this->caum_id = null;
+        }
         return $this;
     }
 

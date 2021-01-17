@@ -116,7 +116,7 @@ try {
     $myEvents->bind(\FreeFW\Constants::EVENT_AFTER_RENDER, function () use ($app, $startTs) {
         $endTs = microtime(true);
         $diff  = $endTs - $startTs;
-        $app->getLogger()->info('Total execution time : ' . $diff);
+        $app->getLogger()->info('Index.execution.time : ' . $diff);
     });
     // CRUD for notifications and cache clear
     if ($myQueue) {
@@ -173,4 +173,5 @@ try {
 } catch (\Exception $ex) {
     // @todo
     //var_dump($ex);
+    header($_SERVER['SERVER_PROTOCOL'] . ' 500 ' . $ex->getMessage(), true, 500);
 }

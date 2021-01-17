@@ -28,12 +28,12 @@ abstract class Session extends \FreeFW\Core\StorageModel
     protected static $PRP_SESS_NAME = [
         FFCST::PROPERTY_PRIVATE => 'sess_name',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_SESS_EXERCICE = [
         FFCST::PROPERTY_PRIVATE => 'sess_exercice',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_SESS_STATUS = [
         FFCST::PROPERTY_PRIVATE => 'sess_status',
@@ -71,5 +71,20 @@ abstract class Session extends \FreeFW\Core\StorageModel
     public static function getSource()
     {
         return 'asso_session';
+    }
+
+    /**
+     * Composed index
+     *
+     * @return string[][]|number[][]
+     */
+    public static function getUniqIndexes()
+    {
+        return [
+            'name' => [
+                FFCST::INDEX_FIELDS => ['brk_id', 'sess_name'],
+                FFCST::INDEX_EXISTS => \FreeAsso\Constants::ERROR_SESSION_NAME_EXISTS
+            ]
+        ];
     }
 }

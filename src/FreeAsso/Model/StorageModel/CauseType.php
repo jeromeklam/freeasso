@@ -305,4 +305,19 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
     {
         return 'caut_name';
     }
+
+    /**
+     * Composed index
+     *
+     * @return string[][]|number[][]
+     */
+    public static function getUniqIndexes()
+    {
+        return [
+            'name' => [
+                FFCST::INDEX_FIELDS => ['brk_id', 'caut_name'],
+                FFCST::INDEX_EXISTS => \FreeAsso\Constants::ERROR_CAUSE_TYPE_NAME_EXISTS
+            ],
+        ];
+    }
 }

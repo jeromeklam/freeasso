@@ -60,4 +60,19 @@ abstract class ClientCategory extends \FreeAsso\Model\StorageModel\Base
     {
         return 'crm_client_category';
     }
+
+    /**
+     * Composed index
+     *
+     * @return string[][]|number[][]
+     */
+    public static function getUniqIndexes()
+    {
+        return [
+            'name' => [
+                FFCST::INDEX_FIELDS => ['brk_id', 'clic_name'],
+                FFCST::INDEX_EXISTS => \FreeAsso\Constants::ERROR_CLIENT_CATEGORY_NAME_EXISTS
+            ],
+        ];
+    }
 }

@@ -59,6 +59,18 @@ abstract class Subspecies extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_MAX     => 255,
         FFCST::PROPERTY_SAMPLE  => '',
     ];
+    protected static $PRP_SSPE_FROM = [
+        FFCST::PROPERTY_PRIVATE => 'sspe_from',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_COMMENT => 'La date de début de validité',
+    ];
+    protected static $PRP_SSPE_TO = [
+        FFCST::PROPERTY_PRIVATE => 'sspe_to',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_COMMENT => 'La date de fin de validité',
+    ];
 
     /**
      * get properties
@@ -72,7 +84,9 @@ abstract class Subspecies extends \FreeFW\Core\StorageModel
             'brk_id'          => self::$PRP_BRK_ID,
             'spe_id'          => self::$PRP_SPE_ID,
             'sspe_name'       => self::$PRP_SSPE_NAME,
-            'sspe_scientific' => self::$PRP_SSPE_SCIENTIFIC
+            'sspe_scientific' => self::$PRP_SSPE_SCIENTIFIC,
+            'sspe_from'       => self::$PRP_SSPE_FROM,
+            'sspe_to'         => self::$PRP_SSPE_TO,
         ];
     }
 
@@ -104,5 +118,24 @@ abstract class Subspecies extends \FreeFW\Core\StorageModel
     public static function getAutocompleteField()
     {
         return ['sspe_name', 'sspe_scientific'];
+    }
+
+    /**
+     * Composed index
+     *
+     * @return string[][]|number[][]
+     */
+    public static function getUniqIndexes()
+    {
+        return [
+            'name' => [
+                FFCST::INDEX_FIELDS => ['brk_id', 'sspe_name'],
+                FFCST::INDEX_EXISTS => \FreeAsso\Constants::ERROR_SUBSPECIES_NAME_EXISTS
+            ],
+            'code' => [
+                FFCST::INDEX_FIELDS => ['brk_id', 'sspe_scientific'],
+                FFCST::INDEX_EXISTS => \FreeAsso\Constants::ERROR_SUBSPECIES_SCIENTIFIC_EXISTS
+            ]
+        ];
     }
 }

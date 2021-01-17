@@ -33,7 +33,7 @@ abstract class PaymentType extends \FreeFW\Core\StorageModel
     protected static $PRP_PTYP_NAME = [
         FFCST::PROPERTY_PRIVATE => 'ptyp_name',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_PTYP_RECEIPT = [
         FFCST::PROPERTY_PRIVATE => 'ptyp_receipt',
@@ -43,12 +43,12 @@ abstract class PaymentType extends \FreeFW\Core\StorageModel
     ];
     protected static $PRP_PTYP_FROM = [
         FFCST::PROPERTY_PRIVATE => 'ptyp_from',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIME,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_PTYP_TO = [
         FFCST::PROPERTY_PRIVATE => 'ptyp_to',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIME,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
         FFCST::PROPERTY_OPTIONS => []
     ];
 
@@ -78,5 +78,20 @@ abstract class PaymentType extends \FreeFW\Core\StorageModel
     public static function getSource()
     {
         return 'asso_payment_type';
+    }
+
+    /**
+     * Composed index
+     *
+     * @return string[][]|number[][]
+     */
+    public static function getUniqIndexes()
+    {
+        return [
+            'name' => [
+                FFCST::INDEX_FIELDS => ['brk_id', 'ptyp_name'],
+                FFCST::INDEX_EXISTS => \FreeAsso\Constants::ERROR_PAYMENT_TYPE_NAME_EXISTS
+            ],
+        ];
     }
 }

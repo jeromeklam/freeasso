@@ -40,6 +40,18 @@ abstract class Subspecies extends \FreeAsso\Model\StorageModel\Subspecies
     protected $sspe_scientific = null;
 
     /**
+     * sspe_from
+     * @var string
+     */
+    protected $sspe_from = null;
+
+    /**
+     * sspe_to
+     * @var string
+     */
+    protected $sspe_to = null;
+
+    /**
      * Set sspe_id
      *
      * @param int $p_value
@@ -152,5 +164,51 @@ abstract class Subspecies extends \FreeAsso\Model\StorageModel\Subspecies
     public function getSspeScientific()
     {
         return $this->sspe_scientific;
+    }
+
+    /**
+     * Set from
+     *
+     * @param string $p_from
+     *
+     * @return \FreeAsso\Model\Base\Subspecies
+     */
+    public function setSspeFrom($p_from)
+    {
+        $this->sspe_from = $p_from;
+        return $this;
+    }
+
+    /**
+     * Get from
+     *
+     * @return string
+     */
+    public function getSspeFrom()
+    {
+        return $this->sspe_from;
+    }
+
+    /**
+     * Set to
+     *
+     * @param string $p_to
+     *
+     * @return \FreeAsso\Model\Base\Subspecies
+     */
+    public function setSspeTo($p_to)
+    {
+        $this->sspe_to = $p_to;
+        return $this;
+    }
+
+    /**
+     * Get to
+     *
+     * @return string
+     */
+    public function getSspeTo()
+    {
+        return $this->sspe_to;
     }
 }

@@ -180,4 +180,19 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\Base
     {
         return 'crm_client_type';
     }
+
+    /**
+     * Composed index
+     *
+     * @return string[][]|number[][]
+     */
+    public static function getUniqIndexes()
+    {
+        return [
+            'name' => [
+                FFCST::INDEX_FIELDS => ['brk_id', 'clit_name'],
+                FFCST::INDEX_EXISTS => \FreeAsso\Constants::ERROR_CLIENT_TYPE_NAME_EXISTS
+            ],
+        ];
+    }
 }

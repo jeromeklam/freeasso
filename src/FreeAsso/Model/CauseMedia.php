@@ -87,6 +87,24 @@ class CauseMedia extends \FreeAsso\Model\Base\CauseMedia
     }
 
     /**
+     * After create
+     *
+     * @return boolean
+     */
+    public function afterCreate()
+    {
+        foreach ($this->getVersions() as $idx => $oneVersion) {
+            $oneVersion->setCamlId(0);
+            $oneVersion->setCauseMedia($this);
+            if (!$oneVersion->create()) {
+                $this->addErrors($oneVersion->getErrors());
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
      * Before save
      *
      * @return boolean
@@ -131,10 +149,33 @@ class CauseMedia extends \FreeAsso\Model\Base\CauseMedia
             }
         }
         foreach ($versions as $newVersion) {
-            if (intval($newVersion->getCamlId()) == 0) {
+            if (intval($newVersion->getCamlId()) <= 0) {
+                $newVersion->setCamlId(null);
                 $newVersion->setCaumId($this->getCaumId());
                 if (!$newVersion->create()) {
                     $this->addErrors($newVersion->getErrors());
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Before remove
+     *
+     * @return boolean
+     */
+    public function beforeRemove()
+    {
+        $model  = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMediaLang');
+        $query  = $model->getQuery();
+        $query->addFromFilters(['caum_id' => $this->getCaumId()]);
+        if ($query->execute()) {
+            $mLang = $query->getResult();
+            foreach ($mLang as $oneMLang) {
+                if (!$oneMLang->remove()) {
+                    $this->addErrors($oneMLang->getErrors());
                     return false;
                 }
             }

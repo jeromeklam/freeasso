@@ -62,4 +62,19 @@ abstract class CauseMainType extends \FreeAsso\Model\StorageModel\Base
     {
         return 'asso_cause_main_type';
     }
+
+    /**
+     * Composed index
+     *
+     * @return string[][]|number[][]
+     */
+    public static function getUniqIndexes()
+    {
+        return [
+            'name' => [
+                FFCST::INDEX_FIELDS => ['brk_id', 'camt_name'],
+                FFCST::INDEX_EXISTS => \FreeAsso\Constants::ERROR_CAUSE_MAIN_TYPE_NAME_EXISTS
+            ],
+        ];
+    }
 }
