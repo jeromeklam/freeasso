@@ -2,6 +2,7 @@
 namespace FreeAsso\Model;
 
 use \FreeFW\Constants as FFCST;
+use FreeFW\Tools\Number;
 
 /**
  * Cause
@@ -65,6 +66,12 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
      * @var \FreeAsso\Model\Client
      */
     protected $origin = null;
+
+    /**
+     * Montant récolté
+     * @var Number
+     */
+    protected $cau_mnt_raised = null;
 
     /**
      *
@@ -424,5 +431,14 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
             }
         }
         return $fields;
+    }
+
+    /**
+     *
+     * @return mixed
+     */
+    public function getCauMntRaised()
+    {
+        return $this->cau_mnt;
     }
 }

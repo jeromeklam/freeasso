@@ -377,6 +377,12 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
             ]
         ]
     ];
+    protected static $PRP_CAU_MNT_RAISED = [
+        FFCST::PROPERTY_PRIVATE => 'cau_mnt_raised',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_MONETARY,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_LOCAL],
+        FFCST::PROPERTY_COMMENT => 'Montant récolté',
+    ];
 
     /**
      * get properties
@@ -438,6 +444,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
             'cau_conform'      => self::$PRP_CAU_CONFORM,
             'cau_conform_text' => self::$PRP_CAU_CONFORM_TEXT,
             'grp_id'           => self::$PRP_GRP_ID,
+            'cau_mnt_raised'   => self::$PRP_CAU_MNT_RAISED,
         ];
     }
 

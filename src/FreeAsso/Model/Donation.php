@@ -276,26 +276,28 @@ class Donation extends \FreeAsso\Model\Base\Donation
             if ($this->getDonMntInput() != $this->old_donation->getDonMntInput() ||
                 $this->getDonMoneyInput() != $this->old_donation->getDonMoneyInput()) {
                 $certificate = $this->getCertificate();
-                $certificate
-                    ->setCertInputMnt($this->getDonMntInput())
-                    ->setCertInputMoney($this->getDonMoneyInput())
-                    ->setCertGents(null)
-                    ->setCertPrintTs(null)
-                ;
-                $certificate->calculateFields();
-                if (!$certificate->save()) {
-                    $this->addErrors($certificate->getErrors());
+                if ($certificate) {
+                    $certificate
+                        ->setCertInputMnt($this->getDonMntInput())
+                        ->setCertInputMoney($this->getDonMoneyInput())
+                        ->setCertGents(null)
+                        ->setCertPrintTs(null)
+                    ;
+                    $certificate->calculateFields();
+                    if (!$certificate->save()) {
+                        $this->addErrors($certificate->getErrors());
+                    }
+                    $alert = new \FreeFW\Model\Alert();
+                    $alert
+                        ->setAlertObjectName('FreeAsso_Certificate')
+                        ->setAlertObjectId($certificate->getCertId())
+                        ->setAlertTs(\FreeFW\Tools\Date::getCurrentTimestamp())
+                        ->setAlertFrom(\FreeFW\Tools\Date::getCurrentTimestamp())
+                        ->setTodoAlert()
+                        ->setAlertDoneAction(\FreeAsso\Constants::ACTION_CERTIFICATE_PRINT)
+                    ;
+                    $alert->create();
                 }
-                $alert = new \FreeFW\Model\Alert();
-                $alert
-                    ->setAlertObjectName('FreeAsso_Certificate')
-                    ->setAlertObjectId($certificate->getCertId())
-                    ->setAlertTs(\FreeFW\Tools\Date::getCurrentTimestamp())
-                    ->setAlertFrom(\FreeFW\Tools\Date::getCurrentTimestamp())
-                    ->setTodoAlert()
-                    ->setAlertDoneAction(\FreeAsso\Constants::ACTION_CERTIFICATE_PRINT)
-                ;
-                $alert->create();
             }
         }
         return !$this->hasErrors();

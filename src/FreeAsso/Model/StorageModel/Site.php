@@ -394,7 +394,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_SAMPLE  => false
     ];
     protected static $PRP_SITE_COUNT_CAUSE = [
-        FFCST::PROPERTY_PRIVATE  => 'site_count_clause',
+        FFCST::PROPERTY_PRIVATE  => 'site_count_cause',
         FFCST::PROPERTY_TYPE     => FFCST::TYPE_INTEGER,
         FFCST::PROPERTY_OPTIONS  => [FFCST::OPTION_LOCAL]
     ];
