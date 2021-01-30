@@ -125,6 +125,7 @@ abstract class Receipt extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_PRIVATE => 'cnty_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_COUNTRY,
         FFCST::PROPERTY_FK      => ['country' =>
             [
                 'model' => 'FreeFW::Model::Country',

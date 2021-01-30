@@ -90,4 +90,19 @@ abstract class Species extends \FreeFW\Core\StorageModel
     {
         return ['spe_name', 'spe_scientific'];
     }
+
+    /**
+     * Composed index
+     *
+     * @return string[][]|number[][]
+     */
+    public static function getUniqIndexes()
+    {
+        return [
+            'name' => [
+                FFCST::INDEX_FIELDS => ['brk_id', 'spe_name'],
+                FFCST::INDEX_EXISTS => \FreeAsso\Constants::ERROR_SPECIES_NAME_EXISTS
+            ]
+        ];
+    }
 }
