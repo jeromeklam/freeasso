@@ -152,7 +152,7 @@ class Sponsorship extends \FreeFW\Core\Service
                         // @todo
                         $report .= ' **ERROR** ';
                         $errors .= print_r($donation->getErrors(), true) . PHP_EOL;
-                        $this->logger->error(sprintf($donation->getErrors(), true));
+                        $this->logger->error(print_r($donation->getErrors(), true));
                     }
                     $report .= '</li>';
                 }
@@ -182,7 +182,7 @@ class Sponsorship extends \FreeFW\Core\Service
                         ->setNotifText($errors)
                     ;
                     $notification->create();
-                    $this->logger->error(sprintf($notification->getErrors(), true));
+                    $this->logger->error(print_r($notification->getErrors(), true));
                 }
             }
         }

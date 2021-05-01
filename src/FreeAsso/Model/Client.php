@@ -149,6 +149,28 @@ class Client extends \FreeAsso\Model\Base\Client implements
      */
     public function getFullname()
     {
+        return $this->getCliFullname();
+    }
+
+    /**
+     * Dummy setter
+     *
+     * @param mixed $p_value
+     *
+     * @return \FreeAsso\Model\Client
+     */
+    public function setCliFullname($p_value)
+    {
+        return $this;
+    }
+
+    /**
+     * Get full name
+     *
+     * @return string
+     */
+    public function getCliFullname()
+    {
         $name = trim($this->getCliFirstname()) . ' ' . trim($this->getCliLastname());
         return trim($name);
     }
@@ -229,5 +251,31 @@ class Client extends \FreeAsso\Model\Base\Client implements
             }
         }
         return $this->parent_client;
+    }
+
+    /**
+     * After create
+     *
+     * @return boolean
+     */
+    public function afterCreate()
+    {
+        if ($this->getCliEmail() != '') {
+            $editionService = \FreeFW\DI\DI::get('FreeFW::Service::Edition');
+            $fileName       = $editionService->printEdition(3, $this->getLangId(), $this);
+
+            $emailService = \FreeFW\DI\DI::get('FreeFW::Service::Email');
+            $message      = $emailService->getEmailAsMessage(
+                'NEW_CLIENT',
+                $this->getLangId(),
+                $this
+            );
+            $message->addDest($this->getCliEmail());
+            if (!$message->create()) {
+                $this->setErrors($message->getErrors());
+                return false;
+            }
+        }
+        return true;
     }
 }

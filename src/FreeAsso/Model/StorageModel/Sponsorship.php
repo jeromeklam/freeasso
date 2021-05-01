@@ -71,8 +71,10 @@ abstract class Sponsorship extends \FreeFW\Core\StorageModel
     ];
     protected static $PRP_SPO_FREQ = [
         FFCST::PROPERTY_PRIVATE => 'spo_freq',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_SELECT,
+        FFCST::PROPERTY_ENUM    => ['MONTH','YEAR','OTHER'],
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
+        FFCST::PROPERTY_DEFAULT => 'MONTH',
     ];
     protected static $PRP_SPO_FREQ_WHEN = [
         FFCST::PROPERTY_PRIVATE => 'spo_freq_when',
@@ -104,17 +106,19 @@ abstract class Sponsorship extends \FreeFW\Core\StorageModel
     protected static $PRP_SPO_DISPLAY_SITE = [
         FFCST::PROPERTY_PRIVATE => 'spo_display_site',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_DEFAULT => false,
     ];
     protected static $PRP_SPO_SEND_NEWS = [
         FFCST::PROPERTY_PRIVATE => 'spo_send_news',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_DEFAULT => false,
     ];
     protected static $PRP_GRP_ID = [
         FFCST::PROPERTY_PRIVATE => 'grp_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK,FFCST::OPTION_GROUP_RESTRICTED],
         FFCST::PROPERTY_FK      => ['group' =>
             [
                 'model' => 'FreeSSO::Model::Group',
@@ -122,6 +126,17 @@ abstract class Sponsorship extends \FreeFW\Core\StorageModel
                 'type'  => \FreeFW\Model\Query::JOIN_LEFT
             ]
         ]
+    ];
+    protected static $PRP_SPO_MNT_INPUT = [
+        FFCST::PROPERTY_PRIVATE => 'spo_mnt_input',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DECIMAL,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+    ];
+    protected static $PRP_SPO_MONEY_INPUT = [
+        FFCST::PROPERTY_PRIVATE => 'spo_money_input',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_DEFAULT => 'EUR',
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
 
     /**
@@ -147,7 +162,9 @@ abstract class Sponsorship extends \FreeFW\Core\StorageModel
             'spo_sponsors'     => self::$PRP_SPO_SPONSORS,
             'spo_display_site' => self::$PRP_SPO_DISPLAY_SITE,
             'spo_send_news'    => self::$PRP_SPO_SEND_NEWS,
-            'grp_id'           => self::$PRP_GRP_ID
+            'grp_id'           => self::$PRP_GRP_ID,
+            'spo_mnt_input'    => self::$PRP_SPO_MNT_INPUT,
+            'spo_money_input'  => self::$PRP_SPO_MONEY_INPUT
         ];
     }
 

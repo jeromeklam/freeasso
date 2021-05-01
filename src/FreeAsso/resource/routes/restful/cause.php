@@ -192,4 +192,33 @@ $causeRoutes = [
             ]
         ]
     ],
+    'free_asso.cause.printone' => [
+        FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Cause',
+        FFCSTRT::ROUTE_COMMENT    => 'Imprime la cause',
+        FFCSTRT::ROUTE_METHOD     => FFCSTRT::METHOD_POST,
+        FFCSTRT::ROUTE_MODEL      => 'FreeAsso::Model::Cause',
+        FFCSTRT::ROUTE_URL        => '/v1/asso/cause/print/:cau_id',
+        FFCSTRT::ROUTE_CONTROLLER => 'FreeAsso::Controller::Cause',
+        FFCSTRT::ROUTE_FUNCTION   => 'printOne',
+        FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_PRINT_ONE,
+        FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
+        FFCSTRT::ROUTE_INCLUDE    => [
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['cause_type','subspecies','site']
+        ],
+        FFCSTRT::ROUTE_SCOPE      => [],
+        FFCSTRT::ROUTE_PARAMETERS => [
+            'cau_id' => [
+                FFCSTRT::ROUTE_PARAMETER_ORIGIN   => FFCSTRT::ROUTE_PARAMETER_ORIGIN_PATH,
+                FFCSTRT::ROUTE_PARAMETER_TYPE     => FFCST::TYPE_BIGINT,
+                FFCSTRT::ROUTE_PARAMETER_REQUIRED => true,
+                FFCSTRT::ROUTE_PARAMETER_COMMENT  => 'Identifiant de la cause'
+            ],
+        ],
+        FFCSTRT::ROUTE_RESULTS    => [
+            '200' => [
+                FFCSTRT::ROUTE_RESULTS_TYPE    => FFCSTRT::RESULT_BLOB,
+                FFCSTRT::ROUTE_RESULTS_COMMENT => 'Une cause',
+            ],
+        ]
+    ],
 ];

@@ -100,18 +100,28 @@ class Donation extends \FreeAsso\Model\Base\Donation
     /**
      * Update client last donation
      */
-    protected function updateClientLastDonation()
+    protected function updateAfterDbAction()
     {
         $client = $this->getClient(true);
         if ($client) {
-            $donation = $client->getLastDonation(true);
-            if ($donation && $donation->getDonRealTs() <= $this->getDonRealTs()) {
-                $client
-                    ->setLastDonation($this)
-                    ->save()
-                ;
+            return $client->updateLastDonation();
+        }
+        // Update cause
+        $cause  = $this->getCause();
+        if ($cause) {
+            if (!$cause->handleDonation($this, null)) {
+                return false;
             }
         }
+        if ($this->old_donation && $this->old_donation->getCauId() !== $this->getCauId()) {
+            $cause = $this->old_donation->getCause();
+            if ($cause) {
+                if (!$cause->handleDonation($this, $this->old_donation)) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     /**
@@ -124,7 +134,7 @@ class Donation extends \FreeAsso\Model\Base\Donation
         $client = $this->getClient(true);
         if ($client) {
             $lastDonation = $client->getLastDonation();
-            if ($lastDonation->getDonId() == $this->getDonId()) {
+            if ($lastDonation && $lastDonation->getDonId() == $this->getDonId()) {
                 $model   = new \FreeAsso\Model\Donation();
                 $query   = $model->getQuery();
                 $filters = [
@@ -167,6 +177,7 @@ class Donation extends \FreeAsso\Model\Base\Donation
         if ($cause) {
             return $cause->handleDonation(null, $this->old_donation);
         }
+        $this->updateAfterDbAction();
         return true;
     }
 
@@ -222,6 +233,7 @@ class Donation extends \FreeAsso\Model\Base\Donation
                 ->setAlertObjectId($certificate->getCertId())
                 ->setAlertTs(\FreeFW\Tools\Date::getCurrentTimestamp())
                 ->setAlertFrom(\FreeFW\Tools\Date::getCurrentTimestamp())
+                ->setAlertTitle('Certificat ' . $client->getCliLastname() . ' ' . $cause->getCauName())
                 ->setTodoAlert()
                 ->setAlertDoneAction(\FreeAsso\Constants::ACTION_CERTIFICATE_PRINT)
             ;
@@ -243,15 +255,23 @@ class Donation extends \FreeAsso\Model\Base\Donation
         if ($this->isRawBehaviour()) {
             return true;
         }
-        // Update cause
-        $cause  = $this->getCause();
-        if ($cause) {
-            if (!$cause->handleDonation($this, null)) {
+        // Update datas
+        $this->updateAfterDbAction();
+        //
+        $member = $this->getClient();
+        if ($member->getCliEmail() != '') {
+            $emailService = \FreeFW\DI\DI::get('FreeFW::Service::Email');
+            $message      = $emailService->getEmailAsMessage(
+                'NEW_DONATION',
+                $member->getLangId(),
+                $member
+            );
+            $message->addDest($member->getCliEmail());
+            if (!$message->create()) {
+                $this->setErrors($message->getErrors());
                 return false;
             }
         }
-        // Update client
-        $this->updateClientLastDonation();
         return true;
     }
 
@@ -313,21 +333,7 @@ class Donation extends \FreeAsso\Model\Base\Donation
         if ($this->isRawBehaviour()) {
             return true;
         }
-        // Update cause
-        $cause = $this->getCause();
-        if ($cause) {
-            if (!$cause->handleDonation($this, $this->old_donation)) {
-                return false;
-            }
-        }
-        if ($this->old_donation->getCauId() !== $this->getCauId()) {
-            $cause = $this->old_donation->getCause();
-            if ($cause) {
-                if (!$cause->handleDonation($this, $this->old_donation)) {
-                    return false;
-                }
-            }
-        }
+        $this->updateAfterDbAction();
         return true;
     }
 }

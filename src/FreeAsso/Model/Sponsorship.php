@@ -45,6 +45,7 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
          */
         $donation = \FreeFW\DI\DI::get('FreeAsso::Model::Donation');
         $donation
+            ->setGroup($this->getGroup())
             ->setCauId($this->getCauId())
             ->setCliId($this->getCliId())
             ->setSpoId($this->getSpoId())
@@ -58,6 +59,8 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
             ->setDonAskTs(\FreeFW\Tools\Date::datetimeToMysql($askTs))
             ->setDonRealTs(\FreeFW\Tools\Date::datetimeToMysql($askTs))
             ->setDonEndTs(\FreeFW\Tools\Date::datetimeToMysql($askTs->add(new \DateInterval('P1Y'))))
+            ->setDonMntInput($this->getSpoMntInput())
+            ->setDonMoneyInput($this->getSpoMoneyInput())
         ;
         return $donation;
     }

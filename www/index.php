@@ -152,7 +152,6 @@ try {
     $freeSSORoutes    = \FreeSSO\Http\FreeFW::getRoutes();
     $freeAssoRoutes   = \FreeAsso\Http\FreeFW::getRoutes();
     $freeOfficeRoutes = \FreeOffice\Http\FreeFW::getRoutes();
-    $freePMRoutes     = \FreePM\Http\FreeFW::getRoutes();
     /**
      * GO...
      */
@@ -162,7 +161,6 @@ try {
         ->addRoutes($freeSSORoutes)
         ->addRoutes($freeFWRoutes)
         ->addRoutes($freeOfficeRoutes)
-        ->addRoutes($freePMRoutes)
     ;
     // GO
     $app->handle();

@@ -164,4 +164,33 @@ $certificateRoutes = [
             ]
         ]
     ],
+    'free_asso.certificate.printone' => [
+        FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Certificate',
+        FFCSTRT::ROUTE_COMMENT    => 'Imprime le certificat',
+        FFCSTRT::ROUTE_METHOD     => FFCSTRT::METHOD_POST,
+        FFCSTRT::ROUTE_MODEL      => 'FreeAsso::Model::Certificate',
+        FFCSTRT::ROUTE_URL        => '/v1/asso/certificate/print/:cert_id',
+        FFCSTRT::ROUTE_CONTROLLER => 'FreeAsso::Controller::Certificate',
+        FFCSTRT::ROUTE_FUNCTION   => 'printOne',
+        FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_PRINT_ONE,
+        FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
+        FFCSTRT::ROUTE_INCLUDE    => [
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['cause','client']
+        ],
+        FFCSTRT::ROUTE_SCOPE      => [],
+        FFCSTRT::ROUTE_PARAMETERS => [
+            'cert_id' => [
+                FFCSTRT::ROUTE_PARAMETER_ORIGIN   => FFCSTRT::ROUTE_PARAMETER_ORIGIN_PATH,
+                FFCSTRT::ROUTE_PARAMETER_TYPE     => FFCST::TYPE_BIGINT,
+                FFCSTRT::ROUTE_PARAMETER_REQUIRED => true,
+                FFCSTRT::ROUTE_PARAMETER_COMMENT  => 'Identifiant du sertificat'
+            ],
+        ],
+        FFCSTRT::ROUTE_RESULTS    => [
+            '200' => [
+                FFCSTRT::ROUTE_RESULTS_TYPE    => FFCSTRT::RESULT_BLOB,
+                FFCSTRT::ROUTE_RESULTS_COMMENT => 'Un certificat',
+            ],
+        ]
+    ],
 ];

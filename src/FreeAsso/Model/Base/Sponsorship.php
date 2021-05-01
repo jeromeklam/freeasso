@@ -106,6 +106,18 @@ abstract class Sponsorship extends \FreeAsso\Model\StorageModel\Sponsorship
     protected $grp_id = null;
 
     /**
+     * spo_mnt_input
+     * @var mixed
+     */
+    protected $spo_mnt_input = null;
+
+    /**
+     * spo_money_input
+     * @var string
+     */
+    protected $spo_money_input = null;
+
+    /**
      * Set spo_id
      *
      * @param int $p_value
@@ -471,5 +483,51 @@ abstract class Sponsorship extends \FreeAsso\Model\StorageModel\Sponsorship
     public function getGrpId()
     {
         return $this->grp_id;
+    }
+
+    /**
+     * Set spo_mnt_input
+     *
+     * @param mixed $p_value
+     *
+     * @return \FreeAsso\Model\Sponsorship
+     */
+    public function setSpoMntInput($p_value)
+    {
+        $this->spo_mnt_input = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get spo_mnt
+     *
+     * @return mixed
+     */
+    public function getSpoMntInput()
+    {
+        return $this->spo_mnt_input;
+    }
+
+    /**
+     * Set spo_money_input
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Sponsorship
+     */
+    public function setSpoMoneyInput($p_value)
+    {
+        $this->spo_money_input = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get spo_money_input
+     *
+     * @return string
+     */
+    public function getSpoMoneyInput()
+    {
+        return $this->spo_money_input;
     }
 }

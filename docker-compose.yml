@@ -1,7 +1,7 @@
 version: "3.2"
 services:
   php:
-    image: dok1.jvsonline.fr/u20-php
+    image: jeromeklam/u20_php
     networks:
       - frontend
       - backend
@@ -11,16 +11,14 @@ services:
       - ./:/var/www/html/
       - ~/.ssh/:/user.ssh
       - ../freefw/:/var/www/freefw/
-      - ../freepm/:/var/www/freepm/
       - ../freesso/:/var/www/freesso/
       - ../freeoffice/:/var/www/freeoffice/
       - ../freews/:/var/www/freews/
   apache:
-    image: dok1.jvsonline.fr/u20-apache
+    image: jeromeklam/u20_apache
     depends_on:
       - php
       - mysql
-      - rabbit
     networks:
       - frontend
       - backend
@@ -33,20 +31,13 @@ services:
       - ./:/var/www/html/
       - ./docker-logs:/var/log/apache2
   mailhog:
-    image: dok1.jvsonline.fr/u20-mailhog
+    image: jeromeklam/u20_mailhog
     ports:
       - "8225:8025"
     networks:
       - backend
-  rabbit:
-    image: dok1.jvsonline.fr/u20-rabbitmq
-    ports:
-      - "8172:5672"
-      - "8173:15672"
-    networks:
-      - backend
   mysql:
-    image: dok1.jvsonline.fr/u20-mariadb
+    image: jeromeklam/u20_mariadb
     ports:
       - "8106:3306"
     networks:

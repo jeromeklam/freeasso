@@ -377,6 +377,13 @@ abstract class Client extends \FreeFW\Core\StorageModel
             ]
         ]
     ];
+    protected static $PRP_CLI_FULLNAME = [
+        FFCST::PROPERTY_PRIVATE => 'cli_fullname',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_LOCAL],
+        FFCST::PROPERTY_COMMENT => 'Nom complet',
+        FFCST::PROPERTY_DEFAULT => '',
+    ];
 
     /**
      * get properties
@@ -441,7 +448,8 @@ abstract class Client extends \FreeFW\Core\StorageModel
             'cli_siret'         => self::$PRP_CLI_SIRET,
             'parent_cli_id'     => self::$PRP_PARENT_CLI_ID,
             'cli_sanit'         => self::$PRP_CLI_SANIT,
-            'grp_id'            => self::$PRP_GRP_ID
+            'grp_id'            => self::$PRP_GRP_ID,
+            'cli_fullname'      => self::$PRP_CLI_FULLNAME,
         ];
     }
 

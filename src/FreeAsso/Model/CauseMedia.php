@@ -93,12 +93,15 @@ class CauseMedia extends \FreeAsso\Model\Base\CauseMedia
      */
     public function afterCreate()
     {
-        foreach ($this->getVersions() as $idx => $oneVersion) {
-            $oneVersion->setCamlId(0);
-            $oneVersion->setCauseMedia($this);
-            if (!$oneVersion->create()) {
-                $this->addErrors($oneVersion->getErrors());
-                return false;
+        $versions = $this->getVersions();
+        if ($versions) {
+            foreach ($this->getVersions() as $idx => $oneVersion) {
+                $oneVersion->setCamlId(0);
+                $oneVersion->setCauseMedia($this);
+                if (!$oneVersion->create()) {
+                    $this->addErrors($oneVersion->getErrors());
+                    return false;
+                }
             }
         }
         return true;
