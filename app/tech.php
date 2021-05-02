@@ -68,6 +68,19 @@ try {
     } else {
         $myLogger = new \Psr\Log\NullLogger();
     }
+    // Queue
+    $myQueue    = false;
+    $myQueueCfg = $myConfig->get('queue');
+    if (is_array($myQueueCfg)) {
+        $myQueue = \PhpAmqpLib\Connection\AMQPStreamConnection::create_connection([
+            [
+                'host' => $myQueueCfg['host'],
+                'port' => $myQueueCfg['port'],
+                'user' => $myQueueCfg['user'],
+                'password' => $myQueueCfg['paswd']
+            ]
+        ]);
+    }
     // EventManager
     $myEvents = \FreeFW\Listener\EventManager::getInstance();
     // La connexion DB
@@ -98,6 +111,23 @@ try {
         $diff  = $endTs - $startTs;
         $app->getLogger()->info('Total execution time : ' . $diff);
     });
+    // CRUD for notifications and cache clear
+    // Were not async and transactions are global and transactions start-end is linear.
+    // @TODO : Send updates just on commit... or if not transaction on
+    // We can use a static tables of data befofe send... or an app member...
+    $myEvents->bind(
+        [
+            \FreeFW\Constants::EVENT_STORAGE_CREATE,
+            \FreeFW\Constants::EVENT_STORAGE_UPDATE,
+            \FreeFW\Constants::EVENT_STORAGE_DELETE,
+            \FreeFW\Constants::EVENT_STORAGE_BEGIN,
+            \FreeFW\Constants::EVENT_STORAGE_COMMIT,
+            \FreeFW\Constants::EVENT_STORAGE_ROLLBACK,
+        ],
+        function ($p_object, $p_event_name = null) use ($app, $myQueue, $myQueueCfg) {
+            $app->listen($p_object, $myQueue, $myQueueCfg, $p_event_name);
+        }
+    );
     /**
      * FreeAsso DI
      */
@@ -125,6 +155,10 @@ try {
     ;
     // GO
     $app->handle();
+    // Finish
+    if ($myQueue) {
+        $myQueue->close();
+    }
 } catch (\Exception $ex) {
     echo $ex->getMessage() . "\n";
 }

@@ -119,24 +119,22 @@ try {
         $app->getLogger()->info('Index.execution.time : ' . $diff);
     });
     // CRUD for notifications and cache clear
-    if ($myQueue) {
-        // Were not async and transactions are global and transactions start-end is linear.
-        // @TODO : Send updates just on commit... or if not transaction on
-        // We can use a static tables of data befofe send... or an app member...
-        $myEvents->bind(
-            [
-                \FreeFW\Constants::EVENT_STORAGE_CREATE,
-                \FreeFW\Constants::EVENT_STORAGE_UPDATE,
-                \FreeFW\Constants::EVENT_STORAGE_DELETE,
-                \FreeFW\Constants::EVENT_STORAGE_BEGIN,
-                \FreeFW\Constants::EVENT_STORAGE_COMMIT,
-                \FreeFW\Constants::EVENT_STORAGE_ROLLBACK,
-            ],
-            function ($p_object, $p_event_name = null) use ($app, $myQueue, $myQueueCfg) {
-                $app->listen($p_object, $myQueue, $myQueueCfg, $p_event_name);
-            }
-        );
-    }
+    // Were not async and transactions are global and transactions start-end is linear.
+    // @TODO : Send updates just on commit... or if not transaction on
+    // We can use a static tables of data befofe send... or an app member...
+    $myEvents->bind(
+        [
+            \FreeFW\Constants::EVENT_STORAGE_CREATE,
+            \FreeFW\Constants::EVENT_STORAGE_UPDATE,
+            \FreeFW\Constants::EVENT_STORAGE_DELETE,
+            \FreeFW\Constants::EVENT_STORAGE_BEGIN,
+            \FreeFW\Constants::EVENT_STORAGE_COMMIT,
+            \FreeFW\Constants::EVENT_STORAGE_ROLLBACK,
+        ],
+        function ($p_object, $p_event_name = null) use ($app, $myQueue, $myQueueCfg) {
+            $app->listen($p_object, $myQueue, $myQueueCfg, $p_event_name);
+        }
+    );
     /**
      * FreeAsso DI
      */

@@ -16,3 +16,4 @@ phinx.yml
 /target
 /dist
 /cache
+/ged

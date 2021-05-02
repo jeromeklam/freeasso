@@ -118,28 +118,11 @@ class Client extends \FreeAsso\Model\Base\Client implements
      */
     public function updateLastDonation()
     {
-        $model   = \FreeFW\DI\DI::get('FreeAsso::Model::Donation');
-        $query   = $model->getQuery();
-        $filters = [
-            'cli_id'     => $this->getCliId(),
-            'don_status' => \FreeAsso\Model\Donation::STATUS_OK,
-            'don_ts'     => [\FreeFW\Storage\Storage::COND_LOWER_EQUAL => \FreeFW\Tools\Date::getCurrentTimestamp()]
-        ];
-        $query
-            ->addFromFilters($filters)
-            ->setSort('-don_ts')
-            ->setLimit(0, 1)
-        ;
-        if ($query->execute()) {
-            $results = $query->getResult();
-            if ($results) {
-                foreach ($results as $row) {
-                    $this->setLastDonId($row->getDonId());
-                    return $this->save();
-                }
-            }
+        $clientService = \FreeFW\DI\DI::get('FreeAsso::Service::Client');
+        if ($clientService->updateLastDonation($this)) {
+            return $this->save();
         }
-        return true;
+        return false;
     }
 
     /**
@@ -260,22 +243,6 @@ class Client extends \FreeAsso\Model\Base\Client implements
      */
     public function afterCreate()
     {
-        if ($this->getCliEmail() != '') {
-            $editionService = \FreeFW\DI\DI::get('FreeFW::Service::Edition');
-            $fileName       = $editionService->printEdition(3, $this->getLangId(), $this);
-
-            $emailService = \FreeFW\DI\DI::get('FreeFW::Service::Email');
-            $message      = $emailService->getEmailAsMessage(
-                'NEW_CLIENT',
-                $this->getLangId(),
-                $this
-            );
-            $message->addDest($this->getCliEmail());
-            if (!$message->create()) {
-                $this->setErrors($message->getErrors());
-                return false;
-            }
-        }
         return true;
     }
 }
