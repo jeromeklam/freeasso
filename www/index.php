@@ -142,7 +142,6 @@ try {
     \FreeFW\DI\DI::registerDI('FreeAsso', $myConfig, $myLogger);
     \FreeFW\DI\DI::registerDI('FreeSSO', $myConfig, $myLogger);
     \FreeFW\DI\DI::registerDI('FreeOffice', $myConfig, $myLogger);
-    \FreeFW\DI\DI::registerDI('FreePM', $myConfig, $myLogger);
     /**
      * On va chercher les routes des modules, ...
      */

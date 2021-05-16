@@ -104,7 +104,10 @@ class Donation extends \FreeAsso\Model\Base\Donation
     {
         $client = $this->getClient(true);
         if ($client) {
-            return $client->updateLastDonation();
+            if (!$client->updateLastDonation()) {
+                $this->addErrors($client->getErrors());
+                return false;
+            }
         }
         // Update cause
         $cause  = $this->getCause();
@@ -177,8 +180,7 @@ class Donation extends \FreeAsso\Model\Base\Donation
         if ($cause) {
             return $cause->handleDonation(null, $this->old_donation);
         }
-        $this->updateAfterDbAction();
-        return true;
+        return $this->updateAfterDbAction();
     }
 
     /**
@@ -188,6 +190,7 @@ class Donation extends \FreeAsso\Model\Base\Donation
     public function beforeCreate()
     {
         $cause  = $this->getCause();
+        //var_dump($this->cause);die;
         $client = $this->getClient();
         if ($cause->getCauseType()->getCautCertificat()) {
             /**
@@ -252,11 +255,10 @@ class Donation extends \FreeAsso\Model\Base\Donation
      */
     public function afterCreate()
     {
-        if ($this->isRawBehaviour()) {
-            return true;
-        }
         // Update datas
-        $this->updateAfterDbAction();
+        if (!$this->updateAfterDbAction()) {
+            return false;
+        }
         //
         $member = $this->getClient();
         if ($member->getCliEmail() != '') {
@@ -282,9 +284,6 @@ class Donation extends \FreeAsso\Model\Base\Donation
      */
     public function beforeSave()
     {
-        if ($this->isRawBehaviour()) {
-            return true;
-        }
         $this->old_donation = \FreeAsso\Model\Donation::findFirst(['don_id' => $this->getDonId()]);
         if ($this->getCliId() != $this->old_donation->getCliId()) {
             $this->addError(\FreeAsso\Constants::ERROR_DONATION_CANT_CHANGE_CLIENT, "Can't change client");

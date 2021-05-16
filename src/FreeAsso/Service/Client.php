@@ -94,8 +94,20 @@ class Client extends \FreeFW\Core\Service
                     ->setMsgPj1Name('carte_membre.pdf')
                 ;
                 return $message->create();
+            } else {
+                // Add notofication for manual send...
+                $notification = new \FreeFW\Model\Notification();
+                $notification
+                    ->setNotifType(\FreeFW\Model\Notification::TYPE_INFORMATION)
+                    ->setNotifObjectName('FreeAsso_Client')
+                    ->setNotifObjectId($p_client->getCliId())
+                    ->setNotifSubject('Nouveau membre sans email')
+                    ->setNotifCode('CLIENT_WITHOUT_EMAIL')
+                    ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp())
+                ;
+                $notification->create();
             }
-            return false;
+            return true;
         }
         return true;
     }

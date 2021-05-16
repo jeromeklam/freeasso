@@ -256,8 +256,7 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
      */
     public function handleDonation($p_added_donation = null, $p_removed_donation = null)
     {
-        $this->updateMnt();
-        return true;
+        return $this->updateMnt();
     }
 
     /**

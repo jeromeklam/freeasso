@@ -28,7 +28,8 @@ abstract class Donation extends \FreeFW\Core\StorageModel
     protected static $PRP_GRP_ID = [
         FFCST::PROPERTY_PRIVATE => 'grp_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK, FFCST::OPTION_GROUP_RESTRICTED],
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED,FFCST::OPTION_GROUP],
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_CURRENT_GROUP,
         FFCST::PROPERTY_FK      => ['group' =>
             [
                 'model' => 'FreeSSO::Model::Group',
