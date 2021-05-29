@@ -172,4 +172,30 @@ $siteRoutes = [
             ]
         ]
     ],
+    'free_asso.site.printone' => [
+        FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Site',
+        FFCSTRT::ROUTE_COMMENT    => 'Edition du site correspondant à l\'identifiant',
+        FFCSTRT::ROUTE_METHOD     => FFCSTRT::METHOD_POST,
+        FFCSTRT::ROUTE_MODEL      => 'FreeAsso::Model::Site',
+        FFCSTRT::ROUTE_URL        => '/v1/asso/site/print/:site_id',
+        FFCSTRT::ROUTE_CONTROLLER => 'FreeAsso::Controller::Site',
+        FFCSTRT::ROUTE_FUNCTION   => 'printOne',
+        FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_PRINT_ONE,
+        FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
+        FFCSTRT::ROUTE_SCOPE      => [],
+        FFCSTRT::ROUTE_PARAMETERS => [
+            'site_id' => [
+                FFCSTRT::ROUTE_PARAMETER_ORIGIN   => FFCSTRT::ROUTE_PARAMETER_ORIGIN_PATH,
+                FFCSTRT::ROUTE_PARAMETER_TYPE     => FFCST::TYPE_BIGINT,
+                FFCSTRT::ROUTE_PARAMETER_REQUIRED => true,
+                FFCSTRT::ROUTE_PARAMETER_COMMENT  => 'Identifiant du site'
+            ],
+        ],
+        FFCSTRT::ROUTE_RESULTS    => [
+            '200' => [
+                FFCSTRT::ROUTE_RESULTS_TYPE    => FFCSTRT::RESULT_BLOB,
+                FFCSTRT::ROUTE_RESULTS_COMMENT => 'Un site',
+            ],
+        ]
+    ],
 ];

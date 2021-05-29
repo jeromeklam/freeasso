@@ -384,6 +384,13 @@ abstract class Client extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_COMMENT => 'Nom complet',
         FFCST::PROPERTY_DEFAULT => '',
     ];
+    protected static $PRP_CLI_SOCIAL_REASON = [
+        FFCST::PROPERTY_PRIVATE => 'cli_social_reason',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_COMMENT => 'Raison social',
+        FFCST::PROPERTY_DEFAULT => '',
+    ];
 
     /**
      * get properties
@@ -450,6 +457,7 @@ abstract class Client extends \FreeFW\Core\StorageModel
             'cli_sanit'         => self::$PRP_CLI_SANIT,
             'grp_id'            => self::$PRP_GRP_ID,
             'cli_fullname'      => self::$PRP_CLI_FULLNAME,
+            'cli_social_reason' => self::$PRP_CLI_SOCIAL_REASON
         ];
     }
 
@@ -509,6 +517,21 @@ abstract class Client extends \FreeFW\Core\StorageModel
                 FFCST::REL_TYPE    => \FreeFW\Model\Query::JOIN_LEFT,
                 FFCST::REL_COMMENT => 'Contact 2 du contrat',
                 FFCST::REL_REMOVE  => FFCST::REL_REMOVE_CHECK
+            ]
+        ];
+    }
+
+    /**
+     * Get uniq indexes
+     *
+     * @return array[]
+     */
+    public static function getUniqIndexes()
+    {
+        return [
+            'name' => [
+                FFCST::INDEX_FIELDS => 'cli_lastname',
+                FFCST::INDEX_EXISTS => \FreeAsso\Constants::ERROR_CLIENT_NAME_EXISTS
             ]
         ];
     }
