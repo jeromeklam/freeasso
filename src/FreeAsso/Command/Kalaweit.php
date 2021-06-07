@@ -143,10 +143,10 @@ class Kalaweit
         \FreeFW\Console\Input\AbstractInput $p_input,
         \FreeFW\Console\Output\AbstractOutput $p_output
     ) {
-        ini_set('memory_limit', '8096M');
+        ini_set('memory_limit', '16096M');
         set_time_limit(3600);
         $p_output->write("Début de l'import", true);
-        $provider = new \FreeFW\Storage\PDO\Mysql('mysql:host=mysql;dbname=kalaweitv1;charset=latin1;', 'super', 'YggDrasil');
+        $provider = new \FreeFW\Storage\PDO\Mysql('mysql:host=mysql;dbname=kalaweitv1;charset=latin1;', 'root', 'm0n1c4po');
         $sso      = \FreeFW\DI\DI::getShared('sso');
         $brokerId = $sso->getBrokerId();
         $p_output->write("Broker : " . $brokerId, true);
@@ -241,7 +241,7 @@ class Kalaweit
         if (!$myCfgMotif->create()) {
             var_export($myCfgMotif->getErrors());die;
         }
-        // Motif d'arrêt d'une cause
+        // Hectares
         $myDataHectares = \FreeFW\DI\DI::get('FreeAsso::Model::Data');
         $myDataHectares->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
         $myDataHectares
@@ -249,10 +249,23 @@ class Kalaweit
             ->setDataName("Hectares de forêt")
             ->setDataCode("HECTARES")
             ->setDataType(\FreeAsso\Model\Data::TYPE_NUMBER)
-            ->setDataContent(1306)
+            ->setDataContent(1000)
         ;
         if (!$myDataHectares->create()) {
             var_export($myDataHectares->getErrors());die;
+        }
+        // Animaux
+        $myDataAnimals = \FreeFW\DI\DI::get('FreeAsso::Model::Data');
+        $myDataAnimals->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
+        $myDataAnimals
+            ->setDataId(5)
+            ->setDataName("Animaux protégés")
+            ->setDataCode("ANIMALS")
+            ->setDataType(\FreeAsso\Model\Data::TYPE_NUMBER)
+            ->setDataContent(1000)
+        ;
+        if (!$myDataAnimals->create()) {
+            var_export($myDataAnimals->getErrors());die;
         }
         // Site Ile
         $mySiteType = \FreeFW\DI\DI::get('FreeAsso::Model::SiteType');
@@ -296,35 +309,48 @@ class Kalaweit
         // Grandes causes
         $myGibbonCause = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMainType');
         $myGibbonCause->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
-        $myGibbonCause->setCamtName('Animaux');
+        $myGibbonCause
+            ->setCamtName('Animaux')
+            ->setCamtFamily(\FreeAsso\Model\CauseMainType::FAMILY_ANIMAL)
+        ;
         $myGibbonCause->create();
         $myForestCause = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMainType');
         $myForestCause->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
-        $myForestCause->setCamtName('Forêt');
+        $myForestCause
+            ->setCamtName('Forêt')
+            ->setCamtFamily(\FreeAsso\Model\CauseMainType::FAMILY_NATURE)
+        ;
         $myForestCause->create();
         $myReserveCause = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMainType');
         $myReserveCause->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
-        $myReserveCause->setCamtName('Réserve');
+        $myReserveCause
+            ->setCamtName('Réserve')
+            ->setCamtFamily(\FreeAsso\Model\CauseMainType::FAMILY_NATURE)
+        ;
         $myReserveCause->create();
         $myKalaweitCause = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMainType');
         $myKalaweitCause->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
-        $myKalaweitCause->setCamtName('Kalaweit');
+        $myKalaweitCause
+            ->setCamtName('Kalaweit')
+            ->setCamtFamily(\FreeAsso\Model\CauseMainType::FAMILY_ADMINISTRATIV)
+        ;
         $myKalaweitCause->create();
         // Causes Gibbon
         $tabCausesGibbon = [];
         $myCauseGibbon = \FreeFW\DI\DI::get('FreeAsso::Model::CauseType');
         $myCauseGibbon->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
         $myCauseGibbon
-            ->setCautName('Gibbon')
+            ->setCautName('Gibbons')
             ->setCautMntType(\FreeAsso\Model\CauseType::MNT_TYPE_ANNUAL)
             ->setCautMaxMnt(280)
             ->setCautMinMnt(0)
+            ->setCautMoney('EUR')
             ->setCautFamily(\FreeAsso\Model\CauseType::FAMILY_ANIMAL)
             ->setCautDonation(\FreeAsso\Model\CauseType::DONATION_ALL)
             ->setCautOnceDuration(\FreeAsso\Model\CauseType::DURATION_1YEAR)
             ->setCautRegularDuration(\FreeAsso\Model\CauseType::DURATION_1YEAR)
             ->setCautNews(true)
-            ->setCautReceipt(1)
+            ->setCautReceipt(true)
             ->setCautString_2(1)
             ->setCautString_3(1)
             ->setCautText_1(1)
@@ -351,8 +377,14 @@ class Kalaweit
                 $name = \FreeFW\Tools\Encoding::toUTF8($name);
                 $name = \FreeFW\Tools\Encoding::fixUTF8($name);
                 $name = \FreeFW\Tools\PBXString::clean($name);
+                $parts = explode(' (', $name);
+                $scientific = '';
+                if (count($parts) > 1) {
+                    $scientific = trim(str_replace(')', '', $parts[1]));
+                }
                 $mySubspecies
                     ->setSspeName($name)
+                    ->setSspeScientific($scientific)
                     ->setSpeId($mySpecies->getSpeId())
                 ;
                 if (!$mySubspecies->create()) {
@@ -367,12 +399,13 @@ class Kalaweit
         $myCauseTForet = \FreeFW\DI\DI::get('FreeAsso::Model::CauseType');
         $myCauseTForet->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
         $myCauseTForet
-            ->setCautName('Forêt')
+            ->setCautName('Réserves')
             ->setCautMntType(\FreeAsso\Model\CauseType::MNT_TYPE_MAXIMUM)
-            ->setCautMaxMnt(1000000)
+            ->setCautMaxMnt(0)
             ->setCautMinMnt(0)
-            ->setCautReceipt(1)
-            ->setCautCertificat(1)
+            ->setCautReceipt(true)
+            ->setCautCertificat(true)
+            ->setCautMoney('EUR')
             ->setCautFamily(\FreeAsso\Model\CauseType::FAMILY_NATURE)
             ->setCautDonation(\FreeAsso\Model\CauseType::DONATION_ALL)
             ->setCautOnceDuration(\FreeAsso\Model\CauseType::DURATION_INFINITE)
@@ -391,42 +424,28 @@ class Kalaweit
             ->setCautId($myCauseTForet->getCautId())
             ->setSiteId($myIleBorneo->getSiteId())
             ->setCauDesc(null)
-            ->setCauPublic(0)
-            ->setCauAvailable(1)
+            ->setCauPublic(false)
+            ->setCauAvailable(true)
+            ->setCauUnitUnit('m2')
+            ->setCauUnitBase(100)
+            ->setCauUnitMnt(13.5)
         ;
         if (!$myCauseForet->create()) {
             var_export($myCauseForet->getErrors());die;
         }
         // Cause Dulan
-        $myCauseTDulan = \FreeFW\DI\DI::get('FreeAsso::Model::CauseType');
-        $myCauseTDulan->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
-        $myCauseTDulan
-            ->setCautName('Dulan')
-            ->setCautMntType(\FreeAsso\Model\CauseType::MNT_TYPE_MAXIMUM)
-            ->setCautMaxMnt(1000000)
-            ->setCautFamily(\FreeAsso\Model\CauseType::FAMILY_NATURE)
-            ->setCautDonation(\FreeAsso\Model\CauseType::DONATION_ALL)
-            ->setCautOnceDuration(\FreeAsso\Model\CauseType::DURATION_INFINITE)
-            ->setCautRegularDuration(\FreeAsso\Model\CauseType::DURATION_INFINITE)
-            ->setCautNews(false)
-            ->setCautMinMnt(0)
-            ->setCautReceipt(1)
-            ->setCautCertificat(1)
-            ->setCautText_1(1)
-            ->setCamtId($myReserveCause->getCamtId())
-        ;
-        if (!$myCauseTDulan->create()) {
-            var_export($myCauseTDulan->getErrors());die;
-        }
         $myCauseDulan = \FreeFW\DI\DI::get('FreeAsso::Model::Cause');
         $myCauseDulan->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
         $myCauseDulan
             ->setCauName('Dulan')
-            ->setCautId($myCauseTDulan->getCautId())
+            ->setCautId($myCauseTForet->getCautId())
             ->setSiteId($myIleBorneo->getSiteId())
             ->setCauDesc(null)
-            ->setCauPublic(0)
-            ->setCauAvailable(1)
+            ->setCauPublic(false)
+            ->setCauAvailable(true)
+            ->setCauUnitUnit('m2')
+            ->setCauUnitBase(100)
+            ->setCauUnitMnt(9)
         ;
         if (!$myCauseDulan->create()) {
             var_export($myCauseDulan->getErrors());die;
@@ -437,8 +456,9 @@ class Kalaweit
         $myCauseTKalaweit
             ->setCautName('Kalaweit')
             ->setCautMntType(\FreeAsso\Model\CauseType::MNT_TYPE_MAXIMUM)
-            ->setCautMaxMnt(1000000)
+            ->setCautMaxMnt(0)
             ->setCautMinMnt(0)
+            ->setCautMoney('EUR')
             ->setCautFamily(\FreeAsso\Model\CauseType::FAMILY_ADMINISTRATIV)
             ->setCautDonation(\FreeAsso\Model\CauseType::DONATION_ALL)
             ->setCautOnceDuration(\FreeAsso\Model\CauseType::DURATION_INFINITE)
@@ -459,8 +479,8 @@ class Kalaweit
             ->setCautId($myCauseTKalaweit->getCautId())
             ->setSiteId($myIleBorneo->getSiteId())
             ->setCauDesc(null)
-            ->setCauPublic(0)
-            ->setCauAvailable(1)
+            ->setCauPublic(false)
+            ->setCauAvailable(true)
         ;
         if (!$myCauseKalaweit->create()) {
             var_export($myCauseKalaweit->getErrors());die;
@@ -535,10 +555,10 @@ class Kalaweit
                     ->setPtypName($lib)
                     ->setPtypReceipt(1)
                 ;
-                if (!$myTP->create()) {
+                if (!$myTP->create(false, true)) {
                     var_export($myTP->getErrors());die;
                 }
-                $tabTypePay[$row->Type_reglement_Id] = $myTP->getPtypId();
+                $tabTypePay[intval($row->Type_reglement_Id)] = $myTP->getPtypId();
             }
             //
             $myTP = \FreeFW\DI\DI::get('FreeAsso::Model::PaymentType');
@@ -619,12 +639,14 @@ class Kalaweit
                 $name = \FreeFW\Tools\Encoding::fixUTF8($name);
                 $name = \FreeFW\Tools\PBXString::clean($name);
                 $myClientCategory = \FreeFW\DI\DI::get('FreeAsso::Model::ClientCategory');
-                $myClientCategory->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
                 if ($name == '') {
                     continue;
                 }
-                $myClientCategory->setClicName($name);
-                if (!$myClientCategory->create()) {
+                $myClientCategory
+                    ->setClicCode(strtoupper(substr($name, 0, 20)))
+                    ->setClicName($name)
+                ;
+                if (!$myClientCategory->create(false, true)) {
                     var_export($myClientCategory->getErrors());die;
                 }
                 $tabClientCategory[$row->id_type] = $myClientCategory->getClicId();
@@ -657,6 +679,7 @@ class Kalaweit
                 $myCause = \FreeFW\DI\DI::get('FreeAsso::Model::Cause');
                 $myCause->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
                 $myCause
+                    ->setCauId($row->Numero_gibbon)
                     ->setCauName($name)
                     ->setCautId($myCauseGibbon->getCautId())
                     ->setCauFamily(\FreeAsso\Model\Cause::FAMILY_ANIMAL)
@@ -688,10 +711,10 @@ class Kalaweit
                     $myCause->setSspeId($tabSpecies[1]);
                 }
                 if (strtolower($row->site) == 'oui') {
-                    $myCause->setCauPublic(1);
+                    $myCause->setCauPublic(true);
                 }
                 if (strtolower($row->adoption) == 'oui') {
-                    $myCause->setCauAvailable(1);
+                    $myCause->setCauAvailable(true);
                 }
                 $keep = true;
                 if (strtolower($row->Gibbon_libere) == 'oui') {
@@ -713,7 +736,7 @@ class Kalaweit
                         $myCause->setCauTo(\FreeFW\Tools\Date::getCurrentTimestamp());
                     }
                 }
-                if (!$myCause->create()) {
+                if (!$myCause->create(false, true)) {
                     var_export($myCause->getErrors());die;
                 }
                 // Gestion des medias
@@ -721,6 +744,7 @@ class Kalaweit
                 if ($row->Photo1 != '') {
                     $file = APP_ROOT . '/datas/kalaweit/adoption/' . $row->Photo1;
                     if (is_file($file)) {
+                        $parts        = pathinfo($file);
                         $photo        = file_get_contents($file);
                         $thumb        = new \FreeFW\Tools\ImageResizer($file);
                         $myCauseMedia = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMedia');
@@ -728,15 +752,16 @@ class Kalaweit
                             ->setCaumType(\FreeAsso\Model\CauseMedia::TYPE_PHOTO)
                             ->setCauId($myCause->getCauId())
                             ->setCaumCode('PHOTO1')
+                            ->setCaumTitle(str_replace(' ', '', strtolower($myCause->getCauName())) . '_1.' . strtolower($parts['extension']))
                             ->setCaumTs(\FreeFW\Tools\Date::getCurrentTimestamp())
                             ->setCaumBlob(file_get_contents($file))
                             ->setCaumShortBlob($thumb->resizeToBestFit(200, 200))
                         ;
-                        if (!$myCauseMedia->create()) {
+                        if (!$myCauseMedia->create(false, true)) {
                             var_export($myCauseMedia);
                         } else {
                             $myCause->setCaumBlobId($myCauseMedia->getCaumId());
-                            $myCause->save();
+                            $myCause->save(false, true);
                             $blob = true;
                         }
                     } else {
@@ -753,16 +778,17 @@ class Kalaweit
                             ->setCaumType(\FreeAsso\Model\CauseMedia::TYPE_PHOTO)
                             ->setCauId($myCause->getCauId())
                             ->setCaumCode('PHOTO2')
+                            ->setCaumTitle(str_replace(' ', '', strtolower($myCause->getCauName())) . '_2.' . strtolower($parts['extension']))
                             ->setCaumTs(\FreeFW\Tools\Date::getCurrentTimestamp())
                             ->setCaumBlob($photo)
                             ->setCaumShortBlob($thumb->resizeToBestFit(200, 200))
                         ;
-                        if (!$myCauseMedia->create()) {
+                        if (!$myCauseMedia->create(false, true)) {
                             var_export($myCauseMedia);
                         } else {
                             if (!$blob) {
                                 $myCause->setCaumBlobId($myCauseMedia->getCaumId());
-                                $myCause->save();
+                                $myCause->save(false, true);
                                 $blob = true;
                             }
                         }
@@ -784,7 +810,7 @@ class Kalaweit
                                 $desc = '<p>' . $desc . '</p>';
                             }
                             $myCause->setCauDesc($desc);
-                            $myCause->save();
+                            $myCause->save(false, true);
                         }
                         $order++;
                         $myCauseMedia = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMedia');
@@ -796,7 +822,7 @@ class Kalaweit
                             ->setCaumTitle($keys[$idx])
                             ->setCaumOrder($order)
                         ;
-                        if (!$myCauseMedia->create()) {
+                        if (!$myCauseMedia->create(false, true)) {
                             var_export($myCauseMedia);
                         }
                         if (array_key_exists($keys[$idx], $partsFR)) {
@@ -811,7 +837,7 @@ class Kalaweit
                                 ->setCamlSubject($partsFR[$keys[$idx]]['subject'])
                                 ->setCamlText($desc)
                             ;
-                            if (!$myCauseMediaLang->create()) {
+                            if (!$myCauseMediaLang->create(false, true)) {
                                 var_export($myCauseMediaLang);die;
                             }
                         }
@@ -827,7 +853,7 @@ class Kalaweit
                                 ->setCamlSubject($partsEN[$keys[$idx]]['subject'])
                                 ->setCamlText($desc)
                             ;
-                            if (!$myCauseMediaLang->create()) {
+                            if (!$myCauseMediaLang->create(false, true)) {
                                 var_export($myCauseMediaLang);die;
                             }
                         }
@@ -875,12 +901,18 @@ class Kalaweit
                         $email = $row->old_email;
                     }
                 }
+                $cp = $row->code_postal;
+                if (!is_numeric($cp) && is_numeric($ville)) {
+                    $cp = $ville;
+                    $ville = $row->code_postal;
+                }
                 $myClient
+                    ->setCliId($row->id)
                     ->setCliExternId($row->id)
                     ->setCliFirstname($pren)
                     ->setCliLastname($name)
                     ->setClitId($myTypeMembre->getClitId())
-                    ->setCliCp($row->code_postal)
+                    ->setCliCp($cp)
                     ->setCliTown($ville)
                     ->setCliPhoneHome($row->tel1)
                     ->setCliPhoneGsm($row->tel2)
@@ -938,7 +970,8 @@ class Kalaweit
                 } else {
                     $myClient->setLangId($tabLangues['default']);
                 }
-                if (!$myClient->create()) {
+                if (!$myClient->create(false, true)) {
+                    var_export($myClient->__toArray());
                     var_export($myClient->getErrors());die;
                 }
                 if (intval($row->parraine_par) > 0) {
@@ -950,7 +983,7 @@ class Kalaweit
                 $myUpdate = $tabMembres[$new];
                 if (array_key_exists($old, $tabMembres)) {
                     $myUpdate->setCliSponsorId($tabMembres[$old]->getCliId());
-                    $myUpdate->save();
+                    $myUpdate->save(false, true);
                 }
             }
         } catch (\PDOException $ex) {
@@ -980,14 +1013,14 @@ class Kalaweit
                 $from = \FreeFW\Tools\Date::mysqlToDatetime($row->date_debut);
                 $to   = \FreeFW\Tools\Date::mysqlToDatetime($row->date_fin);
                 if ($from) {
-                    if (intval($from->format('Y')) <= 2020) {
+                    if (intval($from->format('Y')) <= 2030) {
                         $from = \FreeFW\Tools\Date::datetimeToMysql($from);
                     } else {
                         $from = null;
                     }
                 }
                 if ($to) {
-                    if (intval($to->format('Y')) <= 2020) {
+                    if (intval($to->format('Y')) <= 2030) {
                         if (intval($to->format('Y')) > 1980) {
                             $to = \FreeFW\Tools\Date::datetimeToMysql($to);
                         } else {
@@ -1004,6 +1037,8 @@ class Kalaweit
                     ->setSpoFreq(\FreeAsso\Model\Sponsorship::PAYMENT_TYPE_MONTH)
                     ->setSpoMnt($row->montant)
                     ->setSpoMoney('EUR')
+                    ->setSpoMoneyInput('EUR')
+                    ->setSpoMntInput($row->montant)
                     ->setSpoFrom($from)
                     ->setSpoTo($to)
                 ;
@@ -1026,7 +1061,7 @@ class Kalaweit
                             ->setCauAvailable(0)
                             ->setSiteId($myIleAutre->getSiteId())
                         ;
-                        if (!$myCause->create()) {
+                        if (!$myCause->create(false, true)) {
                             var_export($myCause->getErrors());die;
                         }
                         $tabGibbons[$row->id_gibbon] = $myCause;
@@ -1036,11 +1071,13 @@ class Kalaweit
                     $mySponsorship->setCauId($myCauseKalaweit->getCauId());
                 }
                 if (intval($row->Type_reglement_Id) > 0) {
-                    if (array_key_exists($row->Type_reglement_Id, $tabTypePay)) {
-                        $mySponsorship->setPtypId($tabTypePay[$row->Type_reglement_Id]);
+                    if (array_key_exists(intval($row->Type_reglement_Id), $tabTypePay)) {
+                        $mySponsorship->setPtypId($tabTypePay[intval($row->Type_reglement_Id)]);
                     } else {
                         echo 'Pb type de règlement ' . $row->id_ligne_amis . ' !' . PHP_EOL;
                     }
+                } else {
+                    $myDonation->setPtypId($tabTypePay[7]);
                 }
                 if (array_key_exists($row->id_membre, $tabMembres)) {
                     $mySponsorship->setCliId($tabMembres[$row->id_membre]->getCliId());
@@ -1055,13 +1092,13 @@ class Kalaweit
                         ->setClicId($tabClientCategory['default'])
                         ->setCliCertificat(1)
                     ;
-                    if (!$myClient->create()){
+                    if (!$myClient->create(false, true)){
                         var_export($myClient->getErrors());die;
                     }
                     $tabMembres[$row->id_membre] = $myClient;
                     $mySponsorship->setCliId($tabMembres[$row->id_membre]->getCliId());
                 }
-                if (!$mySponsorship->create()) {
+                if (!$mySponsorship->create(false, true)) {
                     var_export($mySponsorship->getErrors());die;
                 }
                 $tabAmis[$row->id_ligne_amis] = $mySponsorship;
@@ -1088,7 +1125,7 @@ class Kalaweit
                     ->setDonoStatus($row->prlv_status)
                     ->setDonoComments($comments)
                 ;
-                if (!$myDonationOrigin->create()) {
+                if (!$myDonationOrigin->create(false, true)) {
                     var_export($myDonationOrigin->getErrors());die;
                 }
                 $tabDonationOrigins[$row->prlv_id] = $myDonationOrigin;
@@ -1150,7 +1187,7 @@ class Kalaweit
             ->setRettName('Type manuel')
             ->setRettRegex('M[[:number:]]')
         ;
-        if (!$myReceiptType->create()) {
+        if (!$myReceiptType->create(false, true)) {
             var_export($myReceiptType->getErrors());die;
         }
         $tabTypesRecus['M'] = $myReceiptType;
@@ -1191,7 +1228,7 @@ class Kalaweit
                         ->setClicId($tabClientCategory['default'])
                         ->setCliCertificat(1)
                     ;
-                    if (!$myClient->create()){
+                    if (!$myClient->create(false, true)){
                         var_export($myClient->getErrors());die;
                     }
                     $tabMembres[$row->id_membre] = $myClient;
@@ -1261,7 +1298,7 @@ class Kalaweit
                 } else {
                     $myReceipt->setRecMntLetter($row->montant_lettre_en);
                 }
-                if (!$myReceipt->create()) {
+                if (!$myReceipt->create(false, true)) {
                     var_export($myReceipt->getErrors());die;
                 }
                 $tabReceipts[$row->id_recus_fiscaux] = $myReceipt->getRecId();
@@ -1310,10 +1347,10 @@ class Kalaweit
                     $myDonation->setDonSponsors(null);
                 }
                 $ts = \FreeFW\Tools\Date::mysqlToDatetime($row->date_entree);
-                $year = 2020;
+                $year = 2021;
                 if ($ts) {
                     $year = $ts->format('Y');
-                    if (intval($ts->format('Y')) <= 2020) {
+                    if (intval($ts->format('Y')) <= 2030) {
                         $ts = \FreeFW\Tools\Date::datetimeToMysql($ts);
                     } else {
                         var_export('Erreur ts !');
@@ -1330,10 +1367,10 @@ class Kalaweit
                         ->setSessExercice($year)
                         ->setSessStatus('CLOSED')
                     ;
-                    if ($year == '2020') {
+                    if ($year == '2021') {
                         $mySession->setSessStatus('OPEN');
                     }
-                    if (!$mySession->create()) {
+                    if (!$mySession->create(false, true)) {
                         var_export($mySession->getErrors());die;
                     }
                     $tabSessions[$year] = $mySession;
@@ -1386,7 +1423,7 @@ class Kalaweit
                             ->setCauAvailable(0)
                             ->setSiteId($myIleAutre->getSiteId())
                         ;
-                        if (!$myCause->create()) {
+                        if (!$myCause->create(false, true)) {
                             var_export($myCause->getErrors());die;
                         }
                         $tabGibbons[$row->id_adoption] = $myCause;
@@ -1402,12 +1439,14 @@ class Kalaweit
                         $myDonation->setCauId($myCauseDulan->getCauId());
                     }
                 }
-                if (intval($row->id_methode_paiement) >= 0) {
-                    if (array_key_exists($row->id_methode_paiement, $tabTypePay)) {
-                        $myDonation->setPtypId($tabTypePay[$row->id_methode_paiement]);
+                if (intval($row->id_methode_paiement) > 0) {
+                    if (array_key_exists(intval($row->id_methode_paiement), $tabTypePay)) {
+                        $myDonation->setPtypId($tabTypePay[intval($row->id_methode_paiement)]);
                     } else {
                         var_export('Pb type de règlement ' . $row->id_methode_paiement . ' !');
                     }
+                } else {
+                    $myDonation->setPtypId($tabTypePay[7]);
                 }
                 switch (intval($row->origine)) {
                     case 2:
@@ -1433,7 +1472,7 @@ class Kalaweit
                         ->setClicId($tabClientCategory['default'])
                         ->setCliCertificat(1)
                     ;
-                    if (!$myClient->create()){
+                    if (!$myClient->create(false, true)){
                         var_export($myClient->getErrors());die;
                     }
                     $tabMembres[$row->id_membre] = $myClient;
@@ -1450,7 +1489,7 @@ class Kalaweit
                         continue;
                     }
                 }
-                if (!$myDonation->create()) {
+                if (!$myDonation->create(false, true)) {
                     var_export($row);
                     var_export($myDonation->getErrors());die;
                 }
@@ -1484,6 +1523,7 @@ class Kalaweit
                             ->setCertOutputMnt($rowCert->montant_roupies)
                             ->setCertOutputMoney('IDR')
                             ->setCertData1($rowCert->surface_calcul)
+                            ->setCauId($myDonation->getCauId())
                         ;
                         if ($rowCert->date_send != '') {
                             $myCertificate->setCertPrintTs($rowCert->date_send);
@@ -1494,12 +1534,12 @@ class Kalaweit
                         if ($rowCert->date_calcul != '') {
                             $myCertificate->setCertTs($rowCert->date_calcul);
                         }
-                        if (!$myCertificate->create()) {
+                        if (!$myCertificate->create(false, true)) {
                             var_export($rowCert);
                             var_export($myCertificate->getErrors());die;
                         }
                         $myDonation->setCertId($myCertificate->getCertId());
-                        if (!$myDonation->save()) {
+                        if (!$myDonation->save(false, true)) {
                             var_export($myDonation->getErrors());die;
                         }
                         break;
@@ -1537,7 +1577,7 @@ class Kalaweit
                             }
                         }
                         $myReceiptDonation->setRdoDesc($desc);
-                        if (!$myReceiptDonation->create()) {
+                        if (!$myReceiptDonation->create(false, true)) {
                             var_export($myReceiptDonation->getErrors());die;
                         }
                     } else {

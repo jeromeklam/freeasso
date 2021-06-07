@@ -44,6 +44,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_PRIVATE => 'cau_name',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
         FFCST::PROPERTY_COMMENT => 'Le nom de la cause',
+        FFCST::PROPERTY_MERGE   => 'Nom',
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CAU_DESC = [

@@ -116,7 +116,6 @@ try {
     $freeSSOCommands = \FreeSSO\Console\FreeFW::getCommands();
     $freeAssoCommands = \FreeAsso\Console\FreeFW::getCommands();
     $freeOfficeCommands = \FreeOffice\Console\FreeFW::getCommands();
-    $freePMCommands = \FreePM\Console\FreeFW::getCommands();
     /**
      * GO...
      */
@@ -126,7 +125,6 @@ try {
         ->addCommands($freeSSOCommands)
         ->addCommands($freeFWCommands)
         ->addCommands($freeOfficeCommands)
-        ->addCommands($freePMCommands)
     ;
     // GO
     $app->handle();

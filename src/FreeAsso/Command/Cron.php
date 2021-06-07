@@ -42,7 +42,7 @@ class Cron
         $brokerId = $sso->getBrokerId();
         $p_output->write("Broker : " . $brokerId, true);
         $causeService = \FreeFW\DI\DI::get('FreeAsso::Service::Cause');
-        $causeService->updateMnts();
+        $causeService->updateAll();
         $p_output->write("Fin de la mise à jour", true);
     }
 }

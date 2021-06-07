@@ -11,16 +11,14 @@ use \FreeFW\Constants as FFCST;
 class CauseMainType extends \FreeAsso\Model\Base\CauseMainType implements
     \FreeFW\Interfaces\ApiResponseInterface
 {
+
     /**
-     *
-     * {@inheritDoc}
-     * @see \FreeFW\Core\Model::init()
+     * Constants for family
+     * @var string
      */
-    public function init()
-    {
-        $this->camt_id   = 0;
-        $this->brk_id    = 0;
-        $this->camt_name = '';
-        return $this;
-    }
+    const FAMILY_OTHER         = 'OTHER';
+    const FAMILY_NONE          = 'NONE';
+    const FAMILY_ANIMAL        = 'ANIMAL';
+    const FAMILY_NATURE        = 'NATURE';
+    const FAMILY_ADMINISTRATIV = 'ADMINISTRATIV';
 }

@@ -242,7 +242,8 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
     {
         $causeService = \FreeFW\DI\DI::get('FreeAsso::Service::Cause');
         $causeService->updateMnt($this);
-        return $this->save();
+        $result = $this->save(true, true);
+        return $result;
     }
 
     /**
@@ -256,7 +257,11 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
      */
     public function handleDonation($p_added_donation = null, $p_removed_donation = null)
     {
-        return $this->updateMnt();
+        $causeType = $this->getCauseType();
+        if ($causeType && $causeType->getCautMntType() === \FreeAsso\Model\CauseType::MNT_TYPE_ANNUAL) {
+            return $this->updateMnt();
+        }
+        return true;
     }
 
     /**
@@ -299,13 +304,27 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
                     if ($oneMedia->getCaumBlob() !== null && $p_keep_binary) {
                         $picture++;
                         $name = 'cau_picture_' . $picture;
-                        $fields[$name] = $p_tmp_dir . 'edi_' . uniqid(true) . '_' . $picture . '.png';
-                        file_put_contents($fields[$name], $oneMedia->getCaumBlob());
+                        $fields[$name] = [
+                            'name'    => $name,
+                            'type'    => \FreeFW\Constants::TYPE_IMAGE,
+                            'title'   => 'Image ' . $picture,
+                            'content' => $p_tmp_dir . 'edi_' . uniqid(true) . '_' . $picture . '.png'
+                        ];
+                        file_put_contents($fields[$name]['content'], $oneMedia->getCaumBlob());
                         $name = 'cau_picture_rect_' . $picture;
-                        $fields[$name] = $p_tmp_dir . 'edi_' . uniqid(true) . '_rect_' . $picture . '.png';
-                        $image = \Gregwar\Image\Image::fromData($oneMedia->getCaumBlob());
-                        $image->zoomCrop(200, 200, 0x000000, 'center', 'center');
-                        $image->save($fields[$name]);
+                        $fields[$name] = [
+                            'name'    => $name,
+                            'type'    => \FreeFW\Constants::TYPE_IMAGE,
+                            'title'   => 'Image R. ' . $picture,
+                            'content' => $p_tmp_dir . 'edi_' . uniqid(true) . '_rect_' . $picture . '.png'
+                        ];
+                        try {
+                            $image = \Gregwar\Image\Image::fromData($oneMedia->getCaumBlob());
+                            $image->zoomCrop(200, 200, 0x000000, 'center', 'center');
+                            $image->save($fields[$name]['content']);
+                        } catch (\Exception $ex) {
+
+                        }
                     }
                     break;
             }
@@ -314,10 +333,48 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
             file_put_contents($p_tmp_dir . 'empty.png', base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='));
             for ($i=$picture+1; $i<=5; $i++) {
                 $name = 'cau_picture_' . $i;
-                $fields[$name] = $p_tmp_dir . 'empty.png';
+                $fields[$name] = [
+                    'name'    => $name,
+                    'title'   => 'Image ' . $i,
+                    'type'    => \FreeFW\Constants::TYPE_IMAGE,
+                    'content' => $p_tmp_dir . 'empty.png'
+                ];
             }
         }
         return $fields;
+    }
+
+    /**
+     * Before merge
+     *
+     * @param \FreeFW\Model\MergeModel $p_datas
+     * @param string                   $p_block
+     *
+     * @return \FreeFW\Model\MergeModel
+     */
+    public function beforeMerge($p_datas, $p_block)
+    {
+        $medias = \FreeAsso\Model\CauseMedia::find(['cau_id' => $this->getCauId()]);
+        $news   = [];
+        foreach ($medias as $oneMedia) {
+            if ($oneMedia->getCaumType() == \FreeAsso\Model\CauseMedia::TYPE_HTML ||
+                $oneMedia->getCaumType() == \FreeAsso\Model\CauseMedia::TYPE_NEWS) {
+                $mediaLang = \FreeAsso\Model\CauseMediaLang::findFirst(
+                    [
+                        'caum_id' => $oneMedia->getCaumId(),
+                        'lang_id' => 368,
+                    ]
+                );
+                if ($mediaLang) {
+                    $datas  = $mediaLang->__toArray();
+                    $datas['caml_text_brut'] = \FreeFW\Tools\PBXString::htmlToText($datas['caml_text']);
+                    $news[] = $datas;
+                }
+            }
+        }
+        $p_datas->addBlock($p_block . '_news', true);
+        $p_datas->addData($news, $p_block . '_news', true);
+        return $p_datas;
     }
 
     /**
@@ -327,5 +384,14 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
     public function getCauMntRaised()
     {
         return $this->cau_mnt;
+    }
+
+    public function beforeRemove()
+    {
+        $this
+            ->setCaumBlobId(null)
+            ->setCaumTextId(null)
+        ;
+        return $this->save(false, true);
     }
 }

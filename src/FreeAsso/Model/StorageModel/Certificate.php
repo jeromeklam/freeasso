@@ -29,6 +29,7 @@ abstract class Certificate extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_PRIVATE => 'cert_ts',
         FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_NOW,
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_NOW,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CLI_ID = [
@@ -155,7 +156,7 @@ abstract class Certificate extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
         FFCST::PROPERTY_FK      => ['file' =>
             [
-                'model' => 'FreeAsso::Model::File',
+                'model' => 'FreeFW::Model::File',
                 'field' => 'file_id',
                 'type'  => \FreeFW\Model\Query::JOIN_LEFT
             ]
@@ -180,10 +181,23 @@ abstract class Certificate extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_PRIVATE => 'grp_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK,FFCST::OPTION_GROUP],
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_CURRENT_GROUP,
         FFCST::PROPERTY_FK      => ['group' =>
             [
                 'model' => 'FreeSSO::Model::Group',
                 'field' => 'grp_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
+    protected static $PRP_CAU_ID = [
+        FFCST::PROPERTY_PRIVATE => 'cau_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED,FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['cause' =>
+            [
+                'model' => 'FreeAsso::Model::Cause',
+                'field' => 'cau_id',
                 'type'  => \FreeFW\Model\Query::JOIN_LEFT
             ]
         ]
@@ -223,7 +237,8 @@ abstract class Certificate extends \FreeFW\Core\StorageModel
             'cert_unit_unit'    => self::$PRP_CERT_UNIT_UNIT,
             'cert_unit_mnt'     => self::$PRP_CERT_UNIT_MNT,
             'cert_unit_base'    => self::$PRP_CERT_UNIT_BASE,
-            'grp_id'            => self::$PRP_GRP_ID
+            'grp_id'            => self::$PRP_GRP_ID,
+            'cau_id'            => self::$PRP_CAU_ID
         ];
     }
 

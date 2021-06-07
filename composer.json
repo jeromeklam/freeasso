@@ -37,7 +37,9 @@
         "react/zmq"                            : "^0.4.0",
         "zumba/json-serializer"                : "^3.0",
         "gregwar/image"                        : "^2.0",
-        "html2text/html2text"                  : "^4.3"
+        "html2text/html2text"                  : "^4.3",
+        "box/spout"                            : "^3.3",
+        "phpoffice/phpspreadsheet"             : "^1.18"
     },
     "require-dev" : {
         "phpunit/phpunit"                 : "*",

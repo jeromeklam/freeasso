@@ -16,7 +16,9 @@ class Certificate extends \FreeAsso\Model\Base\Certificate
      */
     use \FreeFW\Model\Behaviour\Country;
     use \FreeFW\Model\Behaviour\Lang;
+    use \FreeFW\Model\Behaviour\File;
     use \FreeAsso\Model\Behaviour\Client;
+    use \FreeAsso\Model\Behaviour\Cause;
     use \FreeSSO\Model\Behaviour\Group;
 
     /**
@@ -38,5 +40,57 @@ class Certificate extends \FreeAsso\Model\Base\Certificate
             $this->setCertData1(($mnt * $unitBase) / $unitMnt);
         }
         return true;
+    }
+
+    /**
+     *
+     */
+    public function generate()
+    {
+        $cause = $this->getCause();
+        if ($cause) {
+            $causeType = $cause->getCauseType();
+            if ($causeType) {
+                $ediId = $causeType->getCautCertEdiId();
+                if ($ediId) {
+                    $editionService = \FreeFW\DI\DI::get('FreeFW::Service::Edition');
+                    $datas = $editionService->printEdition(
+                        $ediId,
+                        $this->getLangId(),
+                        $this
+                    );
+                    if (isset($datas['filename']) && is_file($datas['filename'])) {
+                        if ($this->getFileId()) {
+                            $file = \FreeFW\Model\File::findFirst(['file_id' => $this->getFileId()]);
+                        } else {
+                            $file = new \FreeFW\Model\File();
+                        }
+                        $file
+                            ->setFileObjectName('FreeAsso_Certificate')
+                            ->setFileObjectId($this->getCertId())
+                            ->setFileName('certificat.pdf')
+                            ->setFileType('PDF')
+                            ->setFileBlob(file_get_contents($datas['filename']))
+                        ;
+                        if ($file->getFileId()) {
+                            if (!$file->save()) {
+                                $this->setErrors($file->getErrors());
+                                return false;
+                            }
+                            return true;
+                        } else {
+                            if ($file->create()) {
+                                $this->setFileId($file->getFileId());
+                                return $this->save(true, true);
+                            } else {
+                                $this->setErrors($file->getErrors());
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
 }

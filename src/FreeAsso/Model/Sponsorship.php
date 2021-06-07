@@ -28,6 +28,17 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
     use \FreeSSO\Model\Behaviour\Group;
 
     /**
+     *
+     * {@inheritDoc}
+     * @see \FreeFW\Core\Model::init()
+     */
+    public function init()
+    {
+        $this->spo_freq_when = date('d');
+        return $this;
+    }
+
+    /**
      * Get new donation
      *
      * @return \FreeFW\Interfaces\DependencyInjectorInterface
@@ -63,5 +74,80 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
             ->setDonMoneyInput($this->getSpoMoneyInput())
         ;
         return $donation;
+    }
+
+    /**
+     *
+     * {@inheritDoc}
+     * @see \FreeFW\Core\Model::validate()
+     */
+    protected function validate()
+    {
+        if (in_array($this->getSpoFreq(), [self::PAYMENT_TYPE_MONTH, self::PAYMENT_TYPE_YEAR])) {
+            if (intval($this->getSpoFreqWhen()) <= 0) {
+                $this->addError(
+                    FFCST::ERROR_REQUIRED,
+                    sprintf('%s field is required !', 'spo_freq_when'),
+                    \FreeFW\Core\Error::TYPE_PRECONDITION,
+                    'spo_freq_when'
+                );
+            }
+        }
+        if (in_array($this->getSpoFreq(), [self::PAYMENT_TYPE_YEAR])) {
+            if (intval($this->getSpoFreqWhenCpl()) <= 0) {
+                $this->addError(
+                    FFCST::ERROR_REQUIRED,
+                    sprintf('%s field is required !', 'spo_freq_when_cpl'),
+                    \FreeFW\Core\Error::TYPE_PRECONDITION,
+                    'spo_freq_when_cpl'
+                );
+            }
+        }
+        return $this;
+    }
+
+    /**
+     *
+     * @return boolean
+     */
+    public function afterCreate()
+    {
+        $from = \FreeFW\Tools\Date::mysqlToDatetime($this->getSpoFrom());
+        $now  = \FreeFW\Tools\Date::getServerDatetime();
+        // Si le parrainage a déjà commencé on génère le(s) don(s).
+        if ($from <= $now) {
+            if ($this->getSpoFreq() == self::PAYMENT_TYPE_MONTH) {
+                $dFrom = $from->format('d');
+                $mFrom = $from->format('m');
+                $yFrom = $from->format('Y');
+                $dNow  = $now->format('d');
+                $mNow  = $now->format('m');
+                $yNow  = $now->format('Y');
+                while ($yFrom < $yNow || ($yFrom == $yNow && $mFrom < $mNow) || ($yFrom == $yNow && $mFrom == $mNow && $dFrom <= $dNow)) {
+                    $addDonation = false;
+                    if ($yFrom < $yNow || ($yFrom == $yNow && $mFrom < $mNow)) {
+                        $addDonation = true;
+                    } else {
+                        if ($dFrom <= $this->getSpoFreqWhen() && $this->getSpoFreqWhen() <= $dNow) {
+                            $addDonation = true;
+                        }
+                    }
+                    if ($addDonation) {
+                        $date = new \DateTime();
+                        $date->setDate($yFrom, $mFrom, $this->getSpoFreqWhen());
+                        $donation = $this->getNewDonation($date);
+                        if (!$donation->create()) {
+                            return false;
+                        }
+                    }
+                    $mFrom = $mFrom + 1;
+                    if ($mFrom > 12) {
+                        $mFrom = 1;
+                        $yFrom = $yFrom + 1;
+                    }
+                }
+            }
+        }
+        return true;
     }
 }

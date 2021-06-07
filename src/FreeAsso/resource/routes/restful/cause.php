@@ -74,7 +74,7 @@ $causeRoutes = [
         FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
         FFCSTRT::ROUTE_MIDDLEWARE => [],
         FFCSTRT::ROUTE_INCLUDE    => [
-            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['cause_type', 'cause_type.cause_main_type', 'site', 'parent1', 'parent2', 'origin', 'subspecies', 'raiser']
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['cause_type', 'cause_type.cause_main_type', 'site', 'default_blob', 'parent1', 'parent2', 'origin', 'subspecies', 'raiser']
         ],
         FFCSTRT::ROUTE_SCOPE      => [],
         FFCSTRT::ROUTE_PARAMETERS => [
@@ -218,6 +218,27 @@ $causeRoutes = [
             '200' => [
                 FFCSTRT::ROUTE_RESULTS_TYPE    => FFCSTRT::RESULT_BLOB,
                 FFCSTRT::ROUTE_RESULTS_COMMENT => 'Une cause',
+            ],
+        ]
+    ],
+    'free_asso.cause.export' => [
+        FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Cause',
+        FFCSTRT::ROUTE_COMMENT    => 'Exporte les causes',
+        FFCSTRT::ROUTE_METHOD     => FFCSTRT::METHOD_POST,
+        FFCSTRT::ROUTE_MODEL      => 'FreeAsso::Model::Cause',
+        FFCSTRT::ROUTE_URL        => '/v1/asso/cause/export',
+        FFCSTRT::ROUTE_CONTROLLER => 'FreeAsso::Controller::Cause',
+        FFCSTRT::ROUTE_FUNCTION   => 'export',
+        FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_EXPORT,
+        FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
+        FFCSTRT::ROUTE_INCLUDE    => [
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['cause_type', 'cause_type.cause_main_type', 'site', 'default_blob', 'parent1', 'parent2', 'subspecies']
+        ],
+        FFCSTRT::ROUTE_SCOPE      => [],
+        FFCSTRT::ROUTE_RESULTS    => [
+            '200' => [
+                FFCSTRT::ROUTE_RESULTS_TYPE    => FFCSTRT::RESULT_BLOB,
+                FFCSTRT::ROUTE_RESULTS_COMMENT => 'Export des causes',
             ],
         ]
     ],

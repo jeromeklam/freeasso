@@ -172,6 +172,12 @@ abstract class Certificate extends \FreeAsso\Model\StorageModel\Certificate
     protected $grp_id = null;
 
     /**
+     * cau_id
+     * @var int
+     */
+    protected $cau_id = null;
+
+    /**
      * Set cert_id
      *
      * @param int $p_value
@@ -790,5 +796,28 @@ abstract class Certificate extends \FreeAsso\Model\StorageModel\Certificate
     public function getGrpId()
     {
         return $this->grp_id;
+    }
+
+    /**
+     * Set cau_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Donation
+     */
+    public function setCauId($p_value)
+    {
+        $this->cau_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get cau_id
+     *
+     * @return int
+     */
+    public function getCauId()
+    {
+        return $this->cau_id;
     }
 }

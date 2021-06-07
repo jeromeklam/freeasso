@@ -256,6 +256,24 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     protected $caut_growth_graph = null;
 
     /**
+     * caut_rec_edi_id
+     * @var int
+     */
+    protected $caut_rec_edi_id = null;
+
+    /**
+     * caut_cert_edi_id
+     * @var int
+     */
+    protected $caut_cert_edi_id = null;
+
+    /**
+     * caut_ident_edi_id
+     * @var int
+     */
+    protected $caut_ident_edi_id = null;
+
+    /**
      * Set caut_id
      *
      * @param int $p_value
@@ -1196,5 +1214,74 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     public function getCautGrowthGraph()
     {
         return $this->caut_growth_graph;
+    }
+
+    /**
+     * Set caut_rec_edi_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Base\CauseType
+     */
+    public function setCautRecEdiid($p_value)
+    {
+        $this->caut_rec_edi_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_rec_edi_id
+     *
+     * @return int
+     */
+    public function getCautRecEdiId()
+    {
+        return $this->caut_rec_edi_id;
+    }
+
+    /**
+     * Set caut_cert_edi_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Base\CauseType
+     */
+    public function setCautCertEdiid($p_value)
+    {
+        $this->caut_cert_edi_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_cert_edi_id
+     *
+     * @return int
+     */
+    public function getCautCertEdiId()
+    {
+        return $this->caut_cert_edi_id;
+    }
+
+    /**
+     * Set caut_ident_edi_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Base\CauseType
+     */
+    public function setCautIdentEdiid($p_value)
+    {
+        $this->caut_ident_edi_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_ident_edi_id
+     *
+     * @return int
+     */
+    public function getCautIdentEdiId()
+    {
+        return $this->caut_ident_edi_id;
     }
 }

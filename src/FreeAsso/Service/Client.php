@@ -30,11 +30,13 @@ class Client extends \FreeFW\Core\Service
      */
     public function updateLastDonation(\FreeAsso\Model\Client &$p_client)
     {
-        $query   = \FreeAsso\Model\Donation::getQuery();
+        $query = \FreeAsso\Model\Donation::getQuery();
         $filters = [
-            'cli_id'     => $p_client->getCliId(),
+            'cli_id' => $p_client->getCliId(),
             'don_status' => \FreeAsso\Model\Donation::STATUS_OK,
-            'don_ts'     => [\FreeFW\Storage\Storage::COND_LOWER_EQUAL => \FreeFW\Tools\Date::getCurrentTimestamp()]
+            'don_ts' => [
+                \FreeFW\Storage\Storage::COND_LOWER_EQUAL => \FreeFW\Tools\Date::getCurrentTimestamp()
+            ]
         ];
         $query
             ->addFromFilters($filters)
@@ -62,52 +64,52 @@ class Client extends \FreeFW\Core\Service
      *
      * @return boolean
      */
-    public function newMember($p_client, $p_event_name, array $p_params = [])
+    public function notification($p_client, $p_event_name, array $p_params = [])
     {
-        if ($p_event_name === \FreeFW\Constants::EVENT_STORAGE_CREATE) {
-            if ($p_client->getCliEmail() != '') {
-                $filename = '';
-                try {
-                    if (is_array($p_params) && isset($p_params['ediId'])) {
-                        $editionService = \FreeFW\DI\DI::get('FreeFW::Service::Edition');
-                        $fileName       = $editionService->printEdition($p_params['ediId'], $p_client->getLangId(), $p_client);
-                    }
-                } catch (\Exception $ex) {
-                    // @todo
-                }
-                $emailService = \FreeFW\DI\DI::get('FreeFW::Service::Email');
-                $emailCode    = 'NEW_CLIENT';
-                if (is_array($p_params) && isset($p_params['emailCode'])) {
-                    $emailCode = $p_params['emailCode'];
-                }
-                /**
-                 * @var \FreeFW\Model\Message $message
-                 */
-                $message      = $emailService->getEmailAsMessage(
-                    $emailCode,
-                    $p_client->getLangId(),
-                    $p_client
-                );
+        if ($p_client->getCliEmail() != '') {
+            $emailService = \FreeFW\DI\DI::get('FreeFW::Service::Email');
+            $filters = [
+                'email_code' => 'CLIENT'
+            ];
+            if (is_array($p_params) && isset($p_params['email_id'])) {
+                $filters = [
+                    'email_id' => $p_params['email_id']
+                ];
+            }
+            /**
+             *
+             * @var \FreeFW\Model\Message $message
+             */
+            $message = $emailService->getEmailAsMessage($filters, $p_client->getLangId(), $p_client);
+            if ($message) {
                 $message
                     ->addDest($p_client->getCliEmail())
-                    ->setMsgPj1($fileName)
-                    ->setMsgPj1Name('carte_membre.pdf')
                 ;
+                if (is_array($p_params) && isset($p_params['edi1_id'])) {
+                    $editionService = \FreeFW\DI\DI::get('FreeFW::Service::Edition');
+                    $datas = $editionService->printEdition(
+                        $p_params['edi1_id'],
+                        $p_client->getLangId(),
+                        $p_client
+                    );
+                    if (isset($datas['filename']) && is_file($datas['filename'])) {
+                        $message->addAttachment($datas['filename'], $datas['name']);
+                    }
+                }
                 return $message->create();
-            } else {
-                // Add notofication for manual send...
-                $notification = new \FreeFW\Model\Notification();
-                $notification
-                    ->setNotifType(\FreeFW\Model\Notification::TYPE_INFORMATION)
-                    ->setNotifObjectName('FreeAsso_Client')
-                    ->setNotifObjectId($p_client->getCliId())
-                    ->setNotifSubject('Nouveau membre sans email')
-                    ->setNotifCode('CLIENT_WITHOUT_EMAIL')
-                    ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp())
-                ;
-                $notification->create();
             }
-            return true;
+        } else {
+            // Add notofication for manual send...
+            $notification = new \FreeFW\Model\Notification();
+            $notification
+                ->setNotifType(\FreeFW\Model\Notification::TYPE_INFORMATION)
+                ->setNotifObjectName('FreeAsso_Client')
+                ->setNotifObjectId($p_client->getCliId())
+                ->setNotifSubject('Nouveau membre sans email')
+                ->setNotifCode('CLIENT_WITHOUT_EMAIL')
+                ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp())
+            ;
+            return $notification->create();
         }
         return true;
     }

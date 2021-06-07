@@ -52,7 +52,8 @@ abstract class Sponsorship extends \FreeFW\Core\StorageModel
     protected static $PRP_SPO_FROM = [
         FFCST::PROPERTY_PRIVATE => 'spo_from',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_NOW
     ];
     protected static $PRP_SPO_TO = [
         FFCST::PROPERTY_PRIVATE => 'spo_to',
@@ -107,13 +108,13 @@ abstract class Sponsorship extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_PRIVATE => 'spo_display_site',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [],
-        FFCST::PROPERTY_DEFAULT => false,
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_TRUE,
     ];
     protected static $PRP_SPO_SEND_NEWS = [
         FFCST::PROPERTY_PRIVATE => 'spo_send_news',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [],
-        FFCST::PROPERTY_DEFAULT => false,
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_TRUE,
     ];
     protected static $PRP_GRP_ID = [
         FFCST::PROPERTY_PRIVATE => 'grp_id',
@@ -138,6 +139,11 @@ abstract class Sponsorship extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_DEFAULT => 'EUR',
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
+    protected static $PRP_SPO_FREQ_WHEN_CPL = [
+        FFCST::PROPERTY_PRIVATE => 'spo_freq_when_cpl',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
 
     /**
      * get properties
@@ -147,24 +153,25 @@ abstract class Sponsorship extends \FreeFW\Core\StorageModel
     public static function getProperties()
     {
         return [
-            'spo_id'           => self::$PRP_SPO_ID,
-            'brk_id'           => self::$PRP_BRK_ID,
-            'cau_id'           => self::$PRP_CAU_ID,
-            'cli_id'           => self::$PRP_CLI_ID,
-            'spo_from'         => self::$PRP_SPO_FROM,
-            'spo_to'           => self::$PRP_SPO_TO,
-            'spo_mnt'          => self::$PRP_SPO_MNT,
-            'spo_money'        => self::$PRP_SPO_MONEY,
-            'spo_freq'         => self::$PRP_SPO_FREQ,
-            'spo_freq_when'    => self::$PRP_SPO_FREQ_WHEN,
-            'spo_freq_detail'  => self::$PRP_SPO_FREQ_DETAIL,
-            'ptyp_id'          => self::$PRP_PTYP_ID,
-            'spo_sponsors'     => self::$PRP_SPO_SPONSORS,
-            'spo_display_site' => self::$PRP_SPO_DISPLAY_SITE,
-            'spo_send_news'    => self::$PRP_SPO_SEND_NEWS,
-            'grp_id'           => self::$PRP_GRP_ID,
-            'spo_mnt_input'    => self::$PRP_SPO_MNT_INPUT,
-            'spo_money_input'  => self::$PRP_SPO_MONEY_INPUT
+            'spo_id'            => self::$PRP_SPO_ID,
+            'brk_id'            => self::$PRP_BRK_ID,
+            'cau_id'            => self::$PRP_CAU_ID,
+            'cli_id'            => self::$PRP_CLI_ID,
+            'spo_from'          => self::$PRP_SPO_FROM,
+            'spo_to'            => self::$PRP_SPO_TO,
+            'spo_mnt'           => self::$PRP_SPO_MNT,
+            'spo_money'         => self::$PRP_SPO_MONEY,
+            'spo_freq'          => self::$PRP_SPO_FREQ,
+            'spo_freq_when'     => self::$PRP_SPO_FREQ_WHEN,
+            'spo_freq_detail'   => self::$PRP_SPO_FREQ_DETAIL,
+            'ptyp_id'           => self::$PRP_PTYP_ID,
+            'spo_sponsors'      => self::$PRP_SPO_SPONSORS,
+            'spo_display_site'  => self::$PRP_SPO_DISPLAY_SITE,
+            'spo_send_news'     => self::$PRP_SPO_SEND_NEWS,
+            'grp_id'            => self::$PRP_GRP_ID,
+            'spo_mnt_input'     => self::$PRP_SPO_MNT_INPUT,
+            'spo_money_input'   => self::$PRP_SPO_MONEY_INPUT,
+            'spo_freq_when_cpl' => self::$PRP_SPO_FREQ_WHEN_CPL,
         ];
     }
 

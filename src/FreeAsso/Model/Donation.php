@@ -124,6 +124,17 @@ class Donation extends \FreeAsso\Model\Base\Donation
                 }
             }
         }
+        // Certificate ??
+        if ($this->getCertId() > 0) {
+            $certificate = \FreeAsso\Model\Certificate::findFirst(['cert_id' => $this->getCertId()]);
+            if ($certificate) {
+                if (!$certificate->generate()) {
+                    $this->setErrors($certificate->getErrors());
+                    return false;
+                }
+            }
+        }
+        //
         return true;
     }
 
@@ -172,6 +183,15 @@ class Donation extends \FreeAsso\Model\Base\Donation
      */
     public function afterRemove()
     {
+        if ($this->getCertId() > 0) {
+            $certificate = \FreeAsso\Model\Certificate::findFirst(['cert_id' => $this->getCertId()]);
+            if ($certificate) {
+                if (!$certificate->remove()) {
+                    $this->addErrors($certificate->getErrors());
+                    return false;
+                }
+            }
+        }
         if ($this->isRawBehaviour()) {
             return true;
         }
@@ -224,24 +244,12 @@ class Donation extends \FreeAsso\Model\Base\Donation
                 ->setCertTown($client->getCliTown())
                 ->setCntyId($client->getCntyId())
                 ->setLangId($client->getLangId())
+                ->setCauId($this->getCauId())
             ;
             $certificate->calculateFields();
             if (!$certificate->create()) {
                 $this->addErrors($certificate->getErrors());
                 return false;
-            }
-            $alert = new \FreeFW\Model\Alert();
-            $alert
-                ->setAlertObjectName('FreeAsso_Certificate')
-                ->setAlertObjectId($certificate->getCertId())
-                ->setAlertTs(\FreeFW\Tools\Date::getCurrentTimestamp())
-                ->setAlertFrom(\FreeFW\Tools\Date::getCurrentTimestamp())
-                ->setAlertTitle('Certificat ' . $client->getCliLastname() . ' ' . $cause->getCauName())
-                ->setTodoAlert()
-                ->setAlertDoneAction(\FreeAsso\Constants::ACTION_CERTIFICATE_PRINT)
-            ;
-            if (!$alert->create()) {
-                $this->addErrors($alert->getErrors());
             }
             $this->setCertId($certificate->getCertId());
         }
@@ -258,21 +266,6 @@ class Donation extends \FreeAsso\Model\Base\Donation
         // Update datas
         if (!$this->updateAfterDbAction()) {
             return false;
-        }
-        //
-        $member = $this->getClient();
-        if ($member->getCliEmail() != '') {
-            $emailService = \FreeFW\DI\DI::get('FreeFW::Service::Email');
-            $message      = $emailService->getEmailAsMessage(
-                'NEW_DONATION',
-                $member->getLangId(),
-                $member
-            );
-            $message->addDest($member->getCliEmail());
-            if (!$message->create()) {
-                $this->setErrors($message->getErrors());
-                return false;
-            }
         }
         return true;
     }

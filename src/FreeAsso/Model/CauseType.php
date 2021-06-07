@@ -59,6 +59,24 @@ class CauseType extends \FreeAsso\Model\Base\CauseType implements
     protected $count_cause = false;
 
     /**
+     * Receipt edition
+     * @var \FreeFW\Model\Edition
+     */
+    protected $receipt_edition = null;
+
+    /**
+     * Certificate edition
+     * @var \FreeFW\Model\Edition
+     */
+    protected $certificate_edition = null;
+
+    /**
+     * Identity edition
+     * @var \FreeFW\Model\Edition
+     */
+    protected $identity_edition = null;
+
+    /**
      *
      * {@inheritDoc}
      * @see \FreeFW\Core\Model::init()
@@ -124,9 +142,9 @@ class CauseType extends \FreeAsso\Model\Base\CauseType implements
 
     /**
      * Set cause count
-     * 
+     *
      * @param number $p_count
-     * 
+     *
      * @return \FreeAsso\Model\CauseType
      */
     public function setCountCause($p_count)
@@ -137,7 +155,7 @@ class CauseType extends \FreeAsso\Model\Base\CauseType implements
 
     /**
      * Count causes
-     * 
+     *
      * @return number
      */
     public function getCountCause()
@@ -146,5 +164,188 @@ class CauseType extends \FreeAsso\Model\Base\CauseType implements
             \FreeAsso\Model\Cause::count([]);
         }
         return $this->count_cause;
+    }
+
+    /**
+     * Set caut_rec_edi_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Base\CauseType
+     */
+    public function setCautRecEdiid($p_value)
+    {
+        $this->caut_rec_edi_id = $p_value;
+        if ($this->receipt_edition && $this->receipt_edition->getEdiId() !== $this->caut_rec_edi_id) {
+            $this->receipt_edition = null;
+        }
+        return $this;
+    }
+
+    /**
+     * Get caut_rec_edi_id
+     *
+     * @return int
+     */
+    public function getCautRecEdiId()
+    {
+        return $this->caut_rec_edi_id;
+    }
+
+    /**
+     * Set receipt_edition
+     *
+     * @param \FreeFW\Model\Edition $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setReceiptEdition($p_value)
+    {
+        $this->receipt_edition = $p_value;
+        if ($this->receipt_edition) {
+            $this->caut_rec_edi_id = $this->receipt_edition->getEdiId();
+        }
+        return $this;
+    }
+
+    /**
+     * Get receipt_edition
+     *
+     * @param boolean $p_force
+     *
+     * @return \FreeFW\Model\Edition
+     */
+    public function getReceiptEdition($p_force = false)
+    {
+        if ($this->receipt_edition === null || $p_force) {
+            if ($this->caut_rec_edi_id > 0) {
+                $this->receipt_edition = \FreeFW\Model\Edition::findFirst(['edi_id' => $this->caut_rec_edi_id]);
+            } else {
+                $this->receipt_edition = null;
+            }
+        }
+        return $this->receipt_edition;
+    }
+
+    /**
+     * Set caut_cert_edi_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Base\CauseType
+     */
+    public function setCautCertEdiid($p_value)
+    {
+        $this->caut_cert_edi_id = $p_value;
+        if ($this->certificate_edition && $this->certificate_edition->getEdiId() !== $this->caut_rec_edi_id) {
+            $this->certificate_edition = null;
+        }
+        return $this;
+    }
+
+    /**
+     * Get caut_cert_edi_id
+     *
+     * @return int
+     */
+    public function getCautCertEdiId()
+    {
+        return $this->caut_cert_edi_id;
+    }
+
+    /**
+     * Set certificate_edition
+     *
+     * @param \FreeFW\Model\Edition $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCertificateEdition($p_value)
+    {
+        $this->certificate_edition = $p_value;
+        if ($this->certificate_edition) {
+            $this->caut_cert_edi_id = $this->certificate_edition->getEdiId();
+        }
+        return $this;
+    }
+
+    /**
+     * Get certificate_edition
+     *
+     * @param boolean $p_force
+     *
+     * @return \FreeFW\Model\Edition
+     */
+    public function getCertificateEdition($p_force = false)
+    {
+        if ($this->certificate_edition === null || $p_force) {
+            if ($this->caut_cert_edi_id > 0) {
+                $this->certificate_edition = \FreeFW\Model\Edition::findFirst(['edi_id' => $this->caut_cert_edi_id]);
+            } else {
+                $this->certificate_edition = null;
+            }
+        }
+        return $this->certificate_edition;
+    }
+
+    /**
+     * Set caut_ident_edi_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Base\CauseType
+     */
+    public function setCautIdentEdiid($p_value)
+    {
+        $this->caut_ident_edi_id = $p_value;
+        if ($this->identity_edition && $this->identity_edition->getEdiId() !== $this->caut_ident_edi_id) {
+            $this->identity_edition = null;
+        }
+        return $this;
+    }
+
+    /**
+     * Get caut_ident_edi_id
+     *
+     * @return int
+     */
+    public function getCautIdentEdiId()
+    {
+        return $this->caut_ident_edi_id;
+    }
+
+    /**
+     * Set identity_edition
+     *
+     * @param \FreeFW\Model\Edition $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setIdentityEdition($p_value)
+    {
+        $this->identity_edition = $p_value;
+        if ($this->identity_edition) {
+            $this->caut_ident_edi_id = $this->identity_edition->getEdiId();
+        }
+        return $this;
+    }
+
+    /**
+     * Get identity_edition
+     *
+     * @param boolean $p_force
+     *
+     * @return \FreeFW\Model\Edition
+     */
+    public function getIdentityEdition($p_force = false)
+    {
+        if ($this->identity_edition === null || $p_force) {
+            if ($this->caut_ident_edi_id > 0) {
+                $this->identity_edition = \FreeFW\Model\Edition::findFirst(['edi_id' => $this->caut_ident_edi_id]);
+            } else {
+                $this->identity_edition = null;
+            }
+        }
+        return $this->identity_edition;
     }
 }

@@ -60,12 +60,12 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
     ];
     protected static $PRP_CAUT_MAX_MNT = [
         FFCST::PROPERTY_PRIVATE => 'caut_max_mnt',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_MONETARY,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CAUT_MIN_MNT = [
         FFCST::PROPERTY_PRIVATE => 'caut_min_mnt',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_MONETARY,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CAUT_MONEY = [
@@ -233,6 +233,42 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
         FFCST::PROPERTY_OPTIONS => []
     ];
+    protected static $PRP_CAUT_REC_EDI_ID = [
+        FFCST::PROPERTY_PRIVATE => 'caut_rec_edi_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['receipt_edition' =>
+            [
+                'model' => 'FreeFW::Model::Edition',
+                'field' => 'edi_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
+    protected static $PRP_CAUT_CERT_EDI_ID = [
+        FFCST::PROPERTY_PRIVATE => 'caut_cert_edi_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['certificate_edition' =>
+            [
+                'model' => 'FreeFW::Model::Edition',
+                'field' => 'edi_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
+    protected static $PRP_CAUT_IDENT_EDI_ID = [
+        FFCST::PROPERTY_PRIVATE => 'caut_ident_edi_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['identity_edition' =>
+            [
+                'model' => 'FreeFW::Model::Edition',
+                'field' => 'edi_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
 
     /**
      * get properties
@@ -283,6 +319,9 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
             'caut_max_height'       => self::$PRP_CAUT_MAX_HEIGHT,
             'caut_growth_freq'      => self::$PRP_CAUT_GROWTH_FREQ,
             'caut_growth_graph'     => self::$PRP_CAUT_GROWTH_GRAPH,
+            'caut_rec_edi_id'       => self::$PRP_CAUT_REC_EDI_ID,
+            'caut_cert_edi_id'      => self::$PRP_CAUT_CERT_EDI_ID,
+            'caut_ident_edi_id'     => self::$PRP_CAUT_IDENT_EDI_ID,
         ];
     }
 
