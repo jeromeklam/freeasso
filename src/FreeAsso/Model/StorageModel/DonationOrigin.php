@@ -106,4 +106,14 @@ abstract class DonationOrigin extends \FreeFW\Core\StorageModel
     {
         return 'asso_donation_origin';
     }
+
+    /**
+     * Get autocomplete field
+     *
+     * @return string
+     */
+    public static function getAutocompleteField()
+    {
+        return ['dono_year', 'dono_month', 'dono_day'];
+    }
 }

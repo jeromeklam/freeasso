@@ -80,7 +80,10 @@ class Certificate extends \FreeAsso\Model\Base\Certificate
                             return true;
                         } else {
                             if ($file->create()) {
-                                $this->setFileId($file->getFileId());
+                                $this
+                                    ->setFileId($file->getFileId())
+                                    ->setCertGenTs(\FreeFW\Tools\Date::getCurrentTimestamp())
+                                ;
                                 return $this->save(true, true);
                             } else {
                                 $this->setErrors($file->getErrors());
