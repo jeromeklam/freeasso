@@ -10,6 +10,87 @@ class Sponsorship extends \FreeFW\Core\Service
 {
 
     /**
+     * Send notification
+     *
+     * @param \FreeAsso\Model\Donation $p_sponsorship
+     * @param string                   $p_event_name
+     * @param \FreeFW\Model\Automate   $p_automate
+     *
+     * @return boolean
+     */
+    public function notification($p_sponsorship, $p_event_name, \FreeFW\Model\Automate $p_automate)
+    {
+        $client = $p_sponsorship->getClient();
+        if ($client->getCliEmail() != '') {
+            $emailService = \FreeFW\DI\DI::get('FreeFW::Service::Email');
+            $filters = [
+                'email_code' => 'SPONSORSHIP'
+            ];
+            if (is_array($p_params) && isset($p_params['email_id'])) {
+                $filters = [
+                    'email_id' => $p_params['email_id']
+                ];
+            }
+            /**
+             *
+             * @var \FreeFW\Model\Message $message
+             */
+            $message = $emailService->getEmailAsMessage($filters, $client->getLangId(), $p_sponsorship);
+            if ($message) {
+                $message
+                    ->addDest($client->getCliEmail())
+                ;
+                if (is_array($p_params) && isset($p_params['edi1_id'])) {
+                    $editionService = \FreeFW\DI\DI::get('FreeFW::Service::Edition');
+                    $datas = $editionService->printEdition(
+                        $p_params['edi1_id'],
+                        $client->getLangId(),
+                        $p_sponsorship
+                    );
+                    if (isset($datas['filename']) && is_file($datas['filename'])) {
+                        $message->addAttachment($datas['filename'], $datas['name']);
+                    }
+                }
+                if (is_array($p_params) && isset($p_params['send_identity']) && $p_params['send_identity'] == true) {
+                    $cause = $p_sponsorship->getCause();
+                    if ($cause) {
+                        $causeType = $cause->getCauseType();
+                        $ediId = $causeType->getCautIdentEdiId();
+                        if ($ediId > 0) {
+                            $editionService = \FreeFW\DI\DI::get('FreeFW::Service::Edition');
+                            $datas = $editionService->printEdition(
+                                $ediId,
+                                $client->getLangId(),
+                                $cause
+                            );
+                            if (isset($datas['filename']) && is_file($datas['filename'])) {
+                                $message->addAttachment($datas['filename'], $cause->getCauName() . '.pdf');
+                            }
+                        }
+                    }
+                }
+                return $message->create();
+            }
+        } else {
+            $cause = $p_sponsorship->getCause();
+            $alert = new \FreeFW\Model\Alert();
+            $alert
+                ->setAlertObjectName('FreeAsso_Sponsorship')
+                ->setAlertObjectId($p_sponsorship->getSpoId())
+                ->setAlertTs(\FreeFW\Tools\Date::getCurrentTimestamp())
+                ->setAlertFrom(\FreeFW\Tools\Date::getCurrentTimestamp())
+                ->setAlertTitle('Ami : ' . $certificate->getCertFullname() . ' ' . $cause->getCauName())
+                ->setTodoAlert()
+            ;
+            if (!$alert->create()) {
+                $this->addErrors($alert->getErrors());
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
      * generate debit for one day
      *
      * @param \Datetime $p_date

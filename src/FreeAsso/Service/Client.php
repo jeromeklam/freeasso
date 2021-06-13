@@ -60,11 +60,11 @@ class Client extends \FreeFW\Core\Service
      *
      * @param \FreeAsso\Model\Client $p_client
      * @param string                 $p_event_name
-     * @param array                  $p_params
+     * @param \FreeFW\Model\Automate $p_automate
      *
      * @return boolean
      */
-    public function notification($p_client, $p_event_name, array $p_params = [])
+    public function notification($p_client, $p_event_name, \FreeFW\Model\Automate $p_automate)
     {
         if ($p_client->getCliEmail() != '') {
             $emailService = \FreeFW\DI\DI::get('FreeFW::Service::Email');

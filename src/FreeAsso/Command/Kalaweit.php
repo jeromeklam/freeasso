@@ -755,7 +755,7 @@ class Kalaweit
                             ->setCaumTitle(str_replace(' ', '', strtolower($myCause->getCauName())) . '_1.' . strtolower($parts['extension']))
                             ->setCaumTs(\FreeFW\Tools\Date::getCurrentTimestamp())
                             ->setCaumBlob(file_get_contents($file))
-                            ->setCaumShortBlob($thumb->resizeToBestFit(200, 200))
+                            ->setCaumShortBlob($thumb->resizeToBestFit(150, 150))
                         ;
                         if (!$myCauseMedia->create(false, true)) {
                             var_export($myCauseMedia);
@@ -781,7 +781,7 @@ class Kalaweit
                             ->setCaumTitle(str_replace(' ', '', strtolower($myCause->getCauName())) . '_2.' . strtolower($parts['extension']))
                             ->setCaumTs(\FreeFW\Tools\Date::getCurrentTimestamp())
                             ->setCaumBlob($photo)
-                            ->setCaumShortBlob($thumb->resizeToBestFit(200, 200))
+                            ->setCaumShortBlob($thumb->resizeToBestFit(150, 150))
                         ;
                         if (!$myCauseMedia->create(false, true)) {
                             var_export($myCauseMedia);

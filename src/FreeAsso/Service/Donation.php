@@ -14,11 +14,11 @@ class Donation extends \FreeFW\Core\Service
      *
      * @param \FreeAsso\Model\Donation $p_donation
      * @param string                   $p_event_name
-     * @param array                    $p_params
+     * @param \FreeFW\Model\Automate   $p_automate
      *
      * @return boolean
      */
-    public function notification($p_donation, $p_event_name, array $p_params = [])
+    public function notification($p_donation, $p_event_name, \FreeFW\Model\Automate $p_automate)
     {
         $client = $p_donation->getClient();
         if ($client->getCliEmail() != '') {

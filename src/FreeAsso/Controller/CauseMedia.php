@@ -147,7 +147,7 @@ class CauseMedia extends \FreeFW\Core\ApiMediaController
                 try {
                     if ($typeMedia === \FreeAsso\Model\CauseMedia::TYPE_PHOTO) {
                         $thumb = \FreeFW\Tools\ImageResizer::createFromString($blob);
-                        $image = $thumb->resizeToBestFit(200, 200);
+                        $image = $thumb->resizeToBestFit(150, 150);
                         if ($image) {
                             $causeMedia->setCaumShortBlob((string)$image);
                         }
