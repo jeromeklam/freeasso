@@ -38,6 +38,7 @@ class Constants
     const ERROR_SICKNESS_NAME_EXISTS          = 6690013;
     const ERROR_CAUSE_NAME_EXISTS             = 6690014;
     const ERROR_SITE_CODE_EXISTS              = 6690015;
+    const ERROR_CAUSE_CODE_EXISTS             = 6690016;
 
     /**
      * Actions
