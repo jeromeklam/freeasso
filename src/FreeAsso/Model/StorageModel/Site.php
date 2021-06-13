@@ -68,7 +68,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_SITE_CODE = [
         FFCST::PROPERTY_PRIVATE => 'site_code',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
         FFCST::PROPERTY_COMMENT => 'Code identifiant court du site',
         FFCST::PROPERTY_SAMPLE  => 'SITEA',
         FFCST::PROPERTY_MAX     => 32,
