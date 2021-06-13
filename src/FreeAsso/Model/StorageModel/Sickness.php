@@ -95,4 +95,19 @@ abstract class Sickness extends \FreeFW\Core\StorageModel
     {
         return ['sick_name', 'sick_desc'];
     }
+
+    /**
+     * Get uniq indexes
+     *
+     * @return array[]
+     */
+    public static function getUniqIndexes()
+    {
+        return [
+            'name' => [
+                FFCST::INDEX_FIELDS => 'sick_name',
+                FFCST::INDEX_EXISTS => \FreeAsso\Constants::ERROR_SICKNESS_NAME_EXISTS
+            ]
+        ];
+    }
 }

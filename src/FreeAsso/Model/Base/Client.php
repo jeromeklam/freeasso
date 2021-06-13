@@ -1632,4 +1632,27 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     {
         return $this->grp_id;
     }
+
+    /**
+     * Set cli_social_reason
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\Client
+     */
+    public function setCliSocialReason($p_value)
+    {
+        $this->cli_social_reason = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get cli_social_reason
+     *
+     * @return string
+     */
+    public function getCliSocialReason()
+    {
+        return $this->cli_social_reason;
+    }
 }

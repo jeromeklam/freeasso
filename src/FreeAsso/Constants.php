@@ -34,6 +34,8 @@ class Constants
     const ERROR_CAUSE_TYPE_NAME_EXISTS        = 6690009;
     const ERROR_CAUSE_MAIN_TYPE_NAME_EXISTS   = 6690010;
     const ERROR_SPECIES_NAME_EXISTS           = 6690011;
+    const ERROR_CLIENT_NAME_EXISTS            = 6690012;
+    const ERROR_SICKNESS_NAME_EXISTS          = 6690013;
 
     /**
      * Actions
