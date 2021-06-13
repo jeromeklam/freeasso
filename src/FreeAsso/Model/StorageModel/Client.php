@@ -530,7 +530,7 @@ abstract class Client extends \FreeFW\Core\StorageModel
     {
         return [
             'name' => [
-                FFCST::INDEX_FIELDS => 'cli_lastname',
+                FFCST::INDEX_FIELDS => ['cli_lastname', 'cli_firstname', 'cli_town'],
                 FFCST::INDEX_EXISTS => \FreeAsso\Constants::ERROR_CLIENT_NAME_EXISTS
             ]
         ];

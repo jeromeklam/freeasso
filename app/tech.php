@@ -29,6 +29,11 @@ if (!$server) {
 }
 
 /**
+ * Standard config
+ */
+$config = include_once APP_ROOT . '/app/config.php';
+
+/**
  * Fichier de configuration
  */
 if (is_file(APP_ROOT . '/config/' . strtolower($server) . '.ini.php')) {
@@ -116,16 +121,19 @@ try {
     // @TODO : Send updates just on commit... or if not transaction on
     // We can use a static tables of data befofe send... or an app member...
     $myEvents->bind(
-        [
-            \FreeFW\Constants::EVENT_STORAGE_CREATE,
-            \FreeFW\Constants::EVENT_STORAGE_UPDATE,
-            \FreeFW\Constants::EVENT_STORAGE_DELETE,
-            \FreeFW\Constants::EVENT_STORAGE_BEGIN,
-            \FreeFW\Constants::EVENT_STORAGE_COMMIT,
-            \FreeFW\Constants::EVENT_STORAGE_ROLLBACK,
-        ],
+        array_merge(
+            [
+                \FreeFW\Constants::EVENT_STORAGE_CREATE,
+                \FreeFW\Constants::EVENT_STORAGE_UPDATE,
+                \FreeFW\Constants::EVENT_STORAGE_DELETE,
+                \FreeFW\Constants::EVENT_STORAGE_BEGIN,
+                \FreeFW\Constants::EVENT_STORAGE_COMMIT,
+                \FreeFW\Constants::EVENT_STORAGE_ROLLBACK,
+            ],
+            $config['event']
+        ),
         function ($p_object, $p_event_name = null) use ($app, $myQueue, $myQueueCfg) {
-            //$app->listen($p_object, $myQueue, $myQueueCfg, $p_event_name);
+            $app->listen($p_object, $myQueue, $myQueueCfg, $p_event_name);
         }
     );
     /**
@@ -134,8 +142,7 @@ try {
     \FreeFW\DI\DI::registerDI('FreeFW', $myConfig, $myLogger);
     \FreeFW\DI\DI::registerDI('FreeAsso', $myConfig, $myLogger);
     \FreeFW\DI\DI::registerDI('FreeSSO', $myConfig, $myLogger);
-    //\FreeFW\DI\DI::registerDI('FreeOffice', $myConfig, $myLogger);
-    \FreeFW\DI\DI::registerDI('FreePM', $myConfig, $myLogger);
+    \FreeFW\DI\DI::registerDI('FreeOffice', $myConfig, $myLogger);
     /**
      * On va chercher les routes des modules, ...
      */

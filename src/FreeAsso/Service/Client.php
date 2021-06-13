@@ -68,12 +68,17 @@ class Client extends \FreeFW\Core\Service
     {
         if ($p_client->getCliEmail() != '') {
             $emailService = \FreeFW\DI\DI::get('FreeFW::Service::Email');
-            $filters = [
-                'email_code' => 'CLIENT'
-            ];
-            if (is_array($p_params) && isset($p_params['email_id'])) {
+            $emailId = $p_automate->getEmailId();
+            if (!$emailId) {
+                $emailId = $p_automate->getAutoParam('email_id', 0);
+            }
+            if ($emailId) {
                 $filters = [
-                    'email_id' => $p_params['email_id']
+                    'email_id' => $emailId
+                ];
+            } else {
+                $filters = [
+                    'email_code' => 'CLIENT'
                 ];
             }
             /**
@@ -85,10 +90,11 @@ class Client extends \FreeFW\Core\Service
                 $message
                     ->addDest($p_client->getCliEmail())
                 ;
-                if (is_array($p_params) && isset($p_params['edi1_id'])) {
+                $edi1Id = $p_automate->getAutoParam('edi1_id', 0);
+                if ($edi1Id) {
                     $editionService = \FreeFW\DI\DI::get('FreeFW::Service::Edition');
                     $datas = $editionService->printEdition(
-                        $p_params['edi1_id'],
+                        $edi1Id,
                         $p_client->getLangId(),
                         $p_client
                     );

@@ -23,12 +23,17 @@ class Sponsorship extends \FreeFW\Core\Service
         $client = $p_sponsorship->getClient();
         if ($client->getCliEmail() != '') {
             $emailService = \FreeFW\DI\DI::get('FreeFW::Service::Email');
-            $filters = [
-                'email_code' => 'SPONSORSHIP'
-            ];
-            if (is_array($p_params) && isset($p_params['email_id'])) {
+            $emailId = $p_automate->getEmailId();
+            if (!$emailId) {
+                $emailId = $p_automate->getAutoParam('email_id', 0);
+            }
+            if ($emailId) {
                 $filters = [
-                    'email_id' => $p_params['email_id']
+                    'email_id' => $emailId
+                ];
+            } else {
+                $filters = [
+                    'email_code' => 'DONATION'
                 ];
             }
             /**
@@ -40,10 +45,11 @@ class Sponsorship extends \FreeFW\Core\Service
                 $message
                     ->addDest($client->getCliEmail())
                 ;
-                if (is_array($p_params) && isset($p_params['edi1_id'])) {
+                $edi1Id = $p_automate->getAutoParam('edi1_id', 0);
+                    if ($edi1Id) {
                     $editionService = \FreeFW\DI\DI::get('FreeFW::Service::Edition');
                     $datas = $editionService->printEdition(
-                        $p_params['edi1_id'],
+                        $edi1Id,
                         $client->getLangId(),
                         $p_sponsorship
                     );
@@ -51,7 +57,8 @@ class Sponsorship extends \FreeFW\Core\Service
                         $message->addAttachment($datas['filename'], $datas['name']);
                     }
                 }
-                if (is_array($p_params) && isset($p_params['send_identity']) && $p_params['send_identity'] == true) {
+                $sendIdentity = $p_automate->getAutoParam('send_identity', false);
+                if ($sendIdentity) {
                     $cause = $p_sponsorship->getCause();
                     if ($cause) {
                         $causeType = $cause->getCauseType();
@@ -79,7 +86,7 @@ class Sponsorship extends \FreeFW\Core\Service
                 ->setAlertObjectId($p_sponsorship->getSpoId())
                 ->setAlertTs(\FreeFW\Tools\Date::getCurrentTimestamp())
                 ->setAlertFrom(\FreeFW\Tools\Date::getCurrentTimestamp())
-                ->setAlertTitle('Ami : ' . $certificate->getCertFullname() . ' ' . $cause->getCauName())
+                ->setAlertTitle('Ami : ' . $client->getFullname() . ' ' . $cause->getCauName())
                 ->setTodoAlert()
             ;
             if (!$alert->create()) {

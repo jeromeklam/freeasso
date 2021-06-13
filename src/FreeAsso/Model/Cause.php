@@ -16,6 +16,7 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
     /**
      * Behaviour
      */
+    use \FreeFW\Behaviour\EventManagerAwareTrait;
     use \FreeAsso\Model\Behaviour\CauseType;
     use \FreeAsso\Model\Behaviour\Site;
     use \FreeAsso\Model\Behaviour\Subspecies;
@@ -72,6 +73,12 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
      * @var Number
      */
     protected $cau_mnt_raised = null;
+
+    /**
+     * Previous to
+     * @var string
+     */
+    protected $previous_to = null;
 
     /**
      *
@@ -386,8 +393,41 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
         return $this->cau_mnt;
     }
 
+    /**
+     * Before save
+     *
+     * @return boolean
+     */
+    public function beforeSave()
+    {
+        if ($this->getCauTo()) {
+            $old = \FreeAsso\Model\Cause::findFirst(['cau_id' => $this->getCauId()]);
+            $this->previous_to = $old->getCauTo();
+        }
+        return true;
+    }
+
+    /**
+     * After save
+     *
+     * @return boolean
+     */
+    public function afterSave()
+    {
+        if (!$this->previous_to && $this->previous_to == '' && $this->getCauTo()) {
+            $this->forwardRawEvent(\FreeAsso\Constants::EVENT_END_CAUSE, $this);
+        }
+        return true;
+    }
+
+    /**
+     * Before remove
+     *
+     * @return boolean
+     */
     public function beforeRemove()
     {
+        $this->previous_to = $this->getCauTo();
         $this
             ->setCaumBlobId(null)
             ->setCaumTextId(null)

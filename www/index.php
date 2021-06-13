@@ -29,6 +29,11 @@ if (isset($_SERVER['SERVER_NAME'])) {
 }
 
 /**
+ * Standard config
+ */
+$config = include_once APP_ROOT . '/app/config.php';
+
+/**
  * Fichier de configuration
  */
 if (is_file(APP_ROOT . '/config/' . strtolower($server) . '.ini.php')) {
@@ -106,7 +111,7 @@ try {
         throw new \FreeFW\Core\FreeFWException('No storage configuration found !');
     }
     // Micro application
-    $app = \FreeFW\Application\Application::getInstance($myConfig, $myLogger);
+    $app = \FreeFW\Application\Application::getInstance($myConfig, $myLogger, $config['middleware']);
     // 404
     $myEvents->bind(\FreeFW\Constants::EVENT_ROUTE_NOT_FOUND, function () use ($app) {
         // @todo
@@ -123,14 +128,17 @@ try {
     // @TODO : Send updates just on commit... or if not transaction on
     // We can use a static tables of data befofe send... or an app member...
     $myEvents->bind(
-        [
-            \FreeFW\Constants::EVENT_STORAGE_CREATE,
-            \FreeFW\Constants::EVENT_STORAGE_UPDATE,
-            \FreeFW\Constants::EVENT_STORAGE_DELETE,
-            \FreeFW\Constants::EVENT_STORAGE_BEGIN,
-            \FreeFW\Constants::EVENT_STORAGE_COMMIT,
-            \FreeFW\Constants::EVENT_STORAGE_ROLLBACK,
-        ],
+        array_merge(
+            [
+                \FreeFW\Constants::EVENT_STORAGE_CREATE,
+                \FreeFW\Constants::EVENT_STORAGE_UPDATE,
+                \FreeFW\Constants::EVENT_STORAGE_DELETE,
+                \FreeFW\Constants::EVENT_STORAGE_BEGIN,
+                \FreeFW\Constants::EVENT_STORAGE_COMMIT,
+                \FreeFW\Constants::EVENT_STORAGE_ROLLBACK,
+            ],
+            $config['event']
+        ),
         function ($p_object, $p_event_name = null) use ($app, $myQueue, $myQueueCfg) {
             $app->listen($p_object, $myQueue, $myQueueCfg, $p_event_name);
         }

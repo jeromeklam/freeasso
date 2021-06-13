@@ -36,10 +36,18 @@ class Constants
     const ERROR_SPECIES_NAME_EXISTS           = 6690011;
     const ERROR_CLIENT_NAME_EXISTS            = 6690012;
     const ERROR_SICKNESS_NAME_EXISTS          = 6690013;
+    const ERROR_CAUSE_NAME_EXISTS             = 6690014;
+    const ERROR_SITE_CODE_EXISTS              = 6690015;
 
     /**
      * Actions
      * @var string
      */
     const ACTION_CERTIFICATE_PRINT = 'FreeAsso_Certificate.print';
+
+    /**
+     * Specific events
+     * @var string
+     */
+    const EVENT_END_CAUSE = 'end_cause';
 }

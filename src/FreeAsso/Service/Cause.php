@@ -10,6 +10,93 @@ class Cause extends \FreeFW\Core\Service
 {
 
     /**
+     * Send email to membre for cause update
+     *
+     * @param \FreeAsso\Model\Client $p_cause
+     * @param string                 $p_event_name
+     * @param \FreeFW\Model\Automate $p_automate
+     *
+     * @return boolean
+     */
+    public function notification($p_cause, $p_event_name, \FreeFW\Model\Automate $p_automate)
+    {
+        $emailService = \FreeFW\DI\DI::get('FreeFW::Service::Email');
+        $emailId = $p_automate->getEmailId();
+        if (!$emailId) {
+            $emailId = $p_automate->getAutoParam('email_id', 0);
+        }
+        if ($emailId) {
+            $filters = [
+                'email_id' => $emailId
+            ];
+        } else {
+            $filters = [
+                'email_code' => 'CLIENT'
+            ];
+        }
+        $model   = \FreeFW\DI\DI::get('FreeAsso::Model::Donation');
+        $query   = $model->getQuery();
+        $quifils = [
+            'cau_id'     => $p_cause->getCauId(),
+            'don_status' => \FreeAsso\Model\Donation::STATUS_OK,
+            'don_end_ts' => [\FreeFW\Storage\Storage::COND_GREATER_EQUAL => \FreeFW\Tools\Date::getCurrentTimestamp()]
+        ];
+        $query
+            ->addFromFilters($quifils)
+        ;
+        $clients = [];
+        if ($query->execute()) {
+            $results = $query->getResult();
+            if ($results) {
+                foreach ($results as $row) {
+                    $client = $row->getClient();
+                    $clients[$client->getCliId()] = $client;
+                }
+            }
+        }
+        foreach ($clients as $client) {
+            if ($client->getCliEmail() != '') {
+                /**
+                 *
+                 * @var \FreeFW\Model\Message $message
+                 */
+                $message = $emailService->getEmailAsMessage($filters, $client->getLangId(), $client);
+                if ($message) {
+                    $message
+                        ->addDest($client->getCliEmail())
+                    ;
+                    $edi1Id = $p_automate->getAutoParam('edi1_id', 0);
+                    if ($edi1Id) {
+                        $editionService = \FreeFW\DI\DI::get('FreeFW::Service::Edition');
+                        $datas = $editionService->printEdition(
+                            $edi1Id,
+                            $client->getLangId(),
+                            $client
+                        );
+                        if (isset($datas['filename']) && is_file($datas['filename'])) {
+                            $message->addAttachment($datas['filename'], $datas['name']);
+                        }
+                    }
+                    $message->create();
+                }
+            } else {
+                // Add notofication for manual send...
+                $notification = new \FreeFW\Model\Notification();
+                $notification
+                    ->setNotifType(\FreeFW\Model\Notification::TYPE_INFORMATION)
+                    ->setNotifObjectName('FreeAsso_Client')
+                    ->setNotifObjectId($client->getCliId())
+                    ->setNotifSubject('Fin bénéficiaire ' . $p_cause->getCauName())
+                    ->setNotifCode('END_CAUSE')
+                    ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp())
+                ;
+                $notification->create();
+            }
+        }
+        return true;
+    }
+
+    /**
      * For each cause, update mnts
      *
      * @return void
