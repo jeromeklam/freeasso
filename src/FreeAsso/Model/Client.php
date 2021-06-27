@@ -20,6 +20,7 @@ class Client extends \FreeAsso\Model\Base\Client implements
     use \FreeAsso\Model\Behaviour\Client;
     use \FreeFW\Model\Behaviour\Country;
     use \FreeFW\Model\Behaviour\Lang;
+    use \FreeSSO\Model\Behaviour\Group;
 
     /**
      * Genres
@@ -244,5 +245,30 @@ class Client extends \FreeAsso\Model\Base\Client implements
     public function afterCreate()
     {
         return true;
+    }
+
+    /**
+     * Set preferred name
+     *
+     * @param string $p_name
+     *
+     * @return \FreeAsso\Model\Client
+     */
+    public function setCliName($p_name)
+    {
+        return $this;
+    }
+
+    /**
+     * Get preferred name
+     *
+     * @return string
+     */
+    public function getCliName()
+    {
+        if ($this->getCliFirstname() != '') {
+            return $this->getCliFirstname();
+        }
+        return $this->getCliLastname();
     }
 }

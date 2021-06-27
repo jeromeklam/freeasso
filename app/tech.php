@@ -133,7 +133,7 @@ try {
             $config['event']
         ),
         function ($p_object, $p_event_name = null) use ($app, $myQueue, $myQueueCfg) {
-            $app->listen($p_object, $myQueue, $myQueueCfg, $p_event_name);
+            $app->listen($p_object, $myQueue, $myQueueCfg, $p_event_name, false);
         }
     );
     /**

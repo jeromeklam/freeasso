@@ -104,7 +104,7 @@ class Cause extends \FreeFW\Core\Service
     public function updateAll()
     {
         $query = \FreeAsso\Model\Cause::getQuery();
-        //$query->addFromFilters(['cau_id' => 707]);
+        //$query->addFromFilters(['cau_id' => 680]);
         $query->execute([], 'updateMnt');
     }
 
@@ -123,12 +123,18 @@ class Cause extends \FreeFW\Core\Service
             $left  = 0;
             $to    = $p_cause->getCauTo();
             if ($type && $to == '') {
-                // Tous les dons déjà enregistrés
+                /**
+                 * Tous les dons ponctuels déjà enregistrés
+                 * Les dons réhuliers seront gérés à part.
+                 * On ne prend que ceux qui sont "payés"
+                 */
+
                 $model   = \FreeFW\DI\DI::get('FreeAsso::Model::Donation');
                 $query   = $model->getQuery();
                 $filters = [
                     'cau_id'     => $p_cause->getCauId(),
-                    'don_status' => \FreeAsso\Model\Donation::STATUS_OK
+                    'don_status' => \FreeAsso\Model\Donation::STATUS_OK,
+                    'spo_id'     => null
                 ];
                 if ($type->getCautMntType() == \FreeAsso\Model\CauseType::MNT_TYPE_ANNUAL) {
                     $filters['don_end_ts'] = [\FreeFW\Storage\Storage::COND_GREATER_EQUAL => \FreeFW\Tools\Date::getCurrentTimestamp()];
@@ -145,7 +151,9 @@ class Cause extends \FreeFW\Core\Service
                         }
                     }
                 }
-                // Tous les dons réguliers à venir : parrainages
+                /**
+                 * Tous les dons réguliers à venir : parrainages
+                 */
                 $model   = \FreeFW\DI\DI::get('FreeAsso::Model::Sponsorship');
                 $query   = $model->getQuery();
                 $filters = [
@@ -163,7 +171,7 @@ class Cause extends \FreeFW\Core\Service
                             $y1   = $now->format('Y');
                             $m1   = $now->format('m');
                             $d1   = $now->format('d');
-                            // Encore actyif ??
+                            // Encore actif ??
                             if ($to != '') {
                                 // date déjà passée ??
                                 $end = \FreeFW\Tools\Date::mysqlToDatetime($to);

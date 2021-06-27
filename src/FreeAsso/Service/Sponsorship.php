@@ -86,7 +86,7 @@ class Sponsorship extends \FreeFW\Core\Service
                 ->setAlertObjectId($p_sponsorship->getSpoId())
                 ->setAlertTs(\FreeFW\Tools\Date::getCurrentTimestamp())
                 ->setAlertFrom(\FreeFW\Tools\Date::getCurrentTimestamp())
-                ->setAlertTitle('Ami : ' . $client->getFullname() . ' ' . $cause->getCauName())
+                ->setAlertTitle('Nouvel ami sans email : ' . $client->getFullname() . ' ' . $cause->getCauName())
                 ->setTodoAlert()
             ;
             if (!$alert->create()) {

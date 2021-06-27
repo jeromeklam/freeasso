@@ -8,4 +8,8 @@ namespace FreeAsso\Controller;
  */
 class Receipt extends \FreeFW\Core\ApiController
 {
+    /**
+     * Comportement
+     */
+    use \FreeAsso\Controller\Behaviour\Group;
 }

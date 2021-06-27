@@ -346,6 +346,12 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     protected $grp_id = null;
 
     /**
+     * Client name
+     * @var string
+     */
+    protected $cli_name = null;
+
+    /**
      * Set cli_id
      *
      * @param int $p_value

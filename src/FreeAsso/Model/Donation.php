@@ -171,6 +171,8 @@ class Donation extends \FreeAsso\Model\Base\Donation
                         }
                     }
                 }
+                $client->setLastDonId(null);
+                return $client->save();
             }
         }
         return true;

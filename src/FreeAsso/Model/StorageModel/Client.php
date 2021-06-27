@@ -368,6 +368,7 @@ abstract class Client extends \FreeFW\Core\StorageModel
     protected static $PRP_GRP_ID = [
         FFCST::PROPERTY_PRIVATE => 'grp_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_CURRENT_GROUP,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
         FFCST::PROPERTY_FK      => ['group' =>
             [
@@ -382,6 +383,13 @@ abstract class Client extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_LOCAL],
         FFCST::PROPERTY_COMMENT => 'Nom complet',
+        FFCST::PROPERTY_DEFAULT => '',
+    ];
+    protected static $PRP_CLI_NAME = [
+        FFCST::PROPERTY_PRIVATE => 'cli_name',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_LOCAL],
+        FFCST::PROPERTY_COMMENT => 'Pprénom, sinon nom',
         FFCST::PROPERTY_DEFAULT => '',
     ];
     protected static $PRP_CLI_SOCIAL_REASON = [
@@ -457,7 +465,8 @@ abstract class Client extends \FreeFW\Core\StorageModel
             'cli_sanit'         => self::$PRP_CLI_SANIT,
             'grp_id'            => self::$PRP_GRP_ID,
             'cli_fullname'      => self::$PRP_CLI_FULLNAME,
-            'cli_social_reason' => self::$PRP_CLI_SOCIAL_REASON
+            'cli_social_reason' => self::$PRP_CLI_SOCIAL_REASON,
+            'cli_name'          => self::$PRP_CLI_NAME
         ];
     }
 

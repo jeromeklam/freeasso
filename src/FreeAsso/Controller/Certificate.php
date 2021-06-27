@@ -12,6 +12,11 @@ class Certificate extends \FreeFW\Core\ApiController
 {
 
     /**
+     * Comportement
+     */
+    use \FreeAsso\Controller\Behaviour\Group;
+
+    /**
      * Print one by id
      *
      * @param \Psr\Http\Message\ServerRequestInterface $p_request

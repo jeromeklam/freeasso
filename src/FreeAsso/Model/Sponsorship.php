@@ -22,10 +22,17 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
     /**
      * Comportement
      */
+    use \FreeFW\Behaviour\EventManagerAwareTrait;
     use \FreeAsso\Model\Behaviour\Cause;
     use \FreeAsso\Model\Behaviour\Client;
     use \FreeAsso\Model\Behaviour\PaymentType;
     use \FreeSSO\Model\Behaviour\Group;
+
+    /**
+     * Previous to
+     * @var string
+     */
+    protected $previous_to = null;
 
     /**
      *
@@ -147,6 +154,33 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
                     }
                 }
             }
+        }
+        return true;
+    }
+
+    /**
+     * Before save
+     *
+     * @return boolean
+     */
+    public function beforeSave()
+    {
+        if ($this->getSpoTo()) {
+            $old = \FreeAsso\Model\Sponsorship::findFirst(['spo_id' => $this->getSpoId()]);
+            $this->previous_to = $old->getSpoTo();
+        }
+        return true;
+    }
+
+    /**
+     * After save
+     *
+     * @return boolean
+     */
+    public function afterSave()
+    {
+        if (!$this->previous_to && $this->previous_to == '' && $this->getSpoTo()) {
+            $this->forwardRawEvent(\FreeAsso\Constants::EVENT_END_SPONSORSHIP, $this);
         }
         return true;
     }

@@ -12,7 +12,8 @@ $config = [
         'FreeFW::Middleware::RouteHandler'
     ],
     'event' => [
-        \FreeAsso\Constants::EVENT_END_CAUSE
+        \FreeAsso\Constants::EVENT_END_CAUSE,
+        \FreeAsso\Constants::EVENT_END_SPONSORSHIP
     ]
 ];
 
