@@ -111,7 +111,7 @@ class Client extends \FreeFW\Core\Service
                 ->setNotifType(\FreeFW\Model\Notification::TYPE_INFORMATION)
                 ->setNotifObjectName('FreeAsso_Client')
                 ->setNotifObjectId($p_client->getCliId())
-                ->setNotifSubject('Nouveau membre sans email')
+                ->setNotifSubject('Nouveau membre sans email : ' . $p_client->getFullname())
                 ->setNotifCode('CLIENT_WITHOUT_EMAIL')
                 ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp())
             ;

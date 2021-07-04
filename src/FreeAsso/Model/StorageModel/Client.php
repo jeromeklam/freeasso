@@ -399,6 +399,13 @@ abstract class Client extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_COMMENT => 'Raison social',
         FFCST::PROPERTY_DEFAULT => '',
     ];
+    protected static $PRP_CLI_VOLUNTEER = [
+        FFCST::PROPERTY_PRIVATE => 'cli_volunteer',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_COMMENT => 'Bénévole',
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_FALSE,
+    ];
 
     /**
      * get properties
@@ -466,7 +473,8 @@ abstract class Client extends \FreeFW\Core\StorageModel
             'grp_id'            => self::$PRP_GRP_ID,
             'cli_fullname'      => self::$PRP_CLI_FULLNAME,
             'cli_social_reason' => self::$PRP_CLI_SOCIAL_REASON,
-            'cli_name'          => self::$PRP_CLI_NAME
+            'cli_name'          => self::$PRP_CLI_NAME,
+            'cli_volunteer'     => self::$PRP_CLI_VOLUNTEER
         ];
     }
 

@@ -8,6 +8,7 @@ $config = [
         'FreeFW::Middleware::IgnoreMethod',
         'FreeSSO::Middleware::Broker',
         'FreeFW::Middleware::AuthNegociator',
+        'FreeFW::Middleware::Scope',
         'FreeFW::Middleware::ApiNegociator',
         'FreeFW::Middleware::RouteHandler'
     ],

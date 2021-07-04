@@ -89,32 +89,28 @@ class Donation extends \FreeFW\Core\Service
                         $filename = $bDir . '/certificat_' . uniqid(true) . '.pdf';
                         file_put_contents($filename, $file->getFileBlob());
                         $message->addAttachment($filename, 'certificat.pdf');
+                        $certificate->setCertPrintTs(\FreeFW\Tools\Date::getCurrentTimestamp());
+                        return $certificate->save();
                     }
                 }
                 if (!$message->create()) {
                     return false;
                 }
-                $certificate->setCertPrintTs(\FreeFW\Tools\Date::getCurrentTimestamp());
-                return $certificate->save();
             }
         } else {
             $certificate = $p_donation->getCertificate();
             if ($certificate) {
                 $cause = $p_donation->getCause();
-                $alert = new \FreeFW\Model\Alert();
-                $alert
-                    ->setAlertObjectName('FreeAsso_Certificate')
-                    ->setAlertObjectId($certificate->getCertId())
-                    ->setAlertTs(\FreeFW\Tools\Date::getCurrentTimestamp())
-                    ->setAlertFrom(\FreeFW\Tools\Date::getCurrentTimestamp())
-                    ->setAlertTitle('Certificat ' . $certificate->getCertFullname() . ' ' . $cause->getCauName())
-                    ->setTodoAlert()
-                    ->setAlertDoneAction(\FreeAsso\Constants::ACTION_CERTIFICATE_PRINT)
+                $notification = new \FreeFW\Model\Notification();
+                $notification
+                    ->setNotifType(\FreeFW\Model\Notification::TYPE_INFORMATION)
+                    ->setNotifObjectName('FreeAsso_Certificate')
+                    ->setNotifObjectId($certificate->getCertId())
+                    ->setNotifSubject('Nouveau certificat sans email : ' . $certificate->getCertFullname() . ' ' . $cause->getCauName())
+                    ->setNotifCode('CERTIFICATE_WITHOUT_EMAIL')
+                    ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp())
                 ;
-                if (!$alert->create()) {
-                    $this->addErrors($alert->getErrors());
-                    return false;
-                }
+                return $notification->create();
             }
         }
         return true;

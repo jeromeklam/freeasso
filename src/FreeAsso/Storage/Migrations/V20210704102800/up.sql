@@ -1,0 +1,1 @@
+ALTER TABLE `crm_client` ADD COLUMN `cli_volunteer` tinyint(1) NOT NULL DEFAULT 0;
