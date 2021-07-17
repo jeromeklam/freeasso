@@ -201,4 +201,25 @@ $clientRoutes = [
             ],
         ]
     ],
+    'free_asso.client.export' => [
+        FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Client',
+        FFCSTRT::ROUTE_COMMENT    => 'Exporte les clients',
+        FFCSTRT::ROUTE_METHOD     => FFCSTRT::METHOD_POST,
+        FFCSTRT::ROUTE_MODEL      => 'FreeAsso::Model::Client',
+        FFCSTRT::ROUTE_URL        => '/v1/asso/client/export',
+        FFCSTRT::ROUTE_CONTROLLER => 'FreeAsso::Controller::Client',
+        FFCSTRT::ROUTE_FUNCTION   => 'export',
+        FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_EXPORT,
+        FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
+        FFCSTRT::ROUTE_INCLUDE    => [
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['cli_type', 'default_blob']
+        ],
+        FFCSTRT::ROUTE_SCOPE      => [],
+        FFCSTRT::ROUTE_RESULTS    => [
+            '200' => [
+                FFCSTRT::ROUTE_RESULTS_TYPE    => FFCSTRT::RESULT_BLOB,
+                FFCSTRT::ROUTE_RESULTS_COMMENT => 'Export des clients',
+            ],
+        ]
+    ],
 ];
