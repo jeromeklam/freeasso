@@ -60,7 +60,7 @@ class Cause extends \FreeFW\Core\Service
                  *
                  * @var \FreeFW\Model\Message $message
                  */
-                $message = $emailService->getEmailAsMessage($filters, $client->getLangId(), $client);
+                $message = $emailService->getEmailAsMessage($filters, $client->getLangId(), [$client, $p_cause]);
                 if ($message) {
                     $message
                         ->addDest($client->getCliEmail())

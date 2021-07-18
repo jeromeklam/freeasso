@@ -174,7 +174,7 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
     /**
      * Set proprietary
      *
-     * @param \FreeFW\Model\Client $p_client
+     * @param \FreeAsso\Model\Client $p_client
      *
      * @return \FreeAsso\Model\Cause
      */
