@@ -1,0 +1,3 @@
+MKDIR|RELEASE/cache|755
+MKDIR|RELEASE/log|755
+LN|/etc/freeasso/lesecopattes|RELEASE/config
