@@ -90,7 +90,7 @@ class Donation extends \FreeFW\Core\Service
                         file_put_contents($filename, $file->getFileBlob());
                         $message->addAttachment($filename, 'certificat.pdf');
                         $certificate->setCertPrintTs(\FreeFW\Tools\Date::getCurrentTimestamp());
-                        return $certificate->save();
+                        $certificate->save();
                     }
                 }
                 if (!$message->create()) {

@@ -90,18 +90,6 @@ class Client extends \FreeFW\Core\Service
                 $message
                     ->addDest($p_client->getCliEmail())
                 ;
-                $edi1Id = $p_automate->getAutoParam('edi1_id', 0);
-                if ($edi1Id) {
-                    $editionService = \FreeFW\DI\DI::get('FreeFW::Service::Edition');
-                    $datas = $editionService->printEdition(
-                        $edi1Id,
-                        $p_client->getLangId(),
-                        $p_client
-                    );
-                    if (isset($datas['filename']) && is_file($datas['filename'])) {
-                        $message->addAttachment($datas['filename'], $datas['name']);
-                    }
-                }
                 return $message->create();
             }
         } else {
