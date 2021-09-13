@@ -556,7 +556,7 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
                 FFCST::REL_MODEL  => 'FreeAsso::Model::SiteMedia',
                 FFCST::REL_FIELD  => 'site_id',
                 FFCST::REL_TYPE   => \FreeFW\Model\Query::JOIN_LEFT,
-                FFCST::REL_REMOVE => FFCST::REL_REMOVE_CHECK,
+                FFCST::REL_REMOVE  => FFCST::REL_REMOVE_CASCADE,
                 FFCST::REL_EXISTS => \FreeAsso\Constants::ERROR_SITE_REL_MEDIA,
             ],
             'movements_from' => [
