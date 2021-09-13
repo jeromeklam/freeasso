@@ -45,18 +45,6 @@ class Sponsorship extends \FreeFW\Core\Service
                 $message
                     ->addDest($client->getCliEmail())
                 ;
-                $edi1Id = $p_automate->getAutoParam('edi1_id', 0);
-                    if ($edi1Id) {
-                    $editionService = \FreeFW\DI\DI::get('FreeFW::Service::Edition');
-                    $datas = $editionService->printEdition(
-                        $edi1Id,
-                        $client->getLangId(),
-                        $p_sponsorship
-                    );
-                    if (isset($datas['filename']) && is_file($datas['filename'])) {
-                        $message->addAttachment($datas['filename'], $datas['name']);
-                    }
-                }
                 $sendIdentity = $p_automate->getAutoParam('send_identity', false);
                 if ($sendIdentity) {
                     $cause = $p_sponsorship->getCause();
