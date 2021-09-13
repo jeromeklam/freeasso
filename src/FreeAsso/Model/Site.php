@@ -123,7 +123,10 @@ class Site extends \FreeAsso\Model\Base\Site  implements
             $query = \FreeAsso\Model\Cause::getQuery();
             $query
                 ->setType(\FreeFW\Model\Query::QUERY_COUNT)
-                ->addFromFilters(['site_id' => $this->getSiteId()])
+                ->addFromFilters([
+                    'site_id' => $this->getSiteId(),
+                    'cau_to' => null,
+                ])
             ;
             if ($query->execute()) {
                 foreach ($query->getResult() as $row) {
