@@ -8,6 +8,42 @@ use \FreeFW\Router\Route as FFCSTRT;
  * @author jeromeklam
  */
 $movementRoutes = [
+    'free_asso.movement.validate' => [
+        'method'     => \FreeFW\Router\Route::METHOD_PUT,
+        'model'      => 'FreeAsso::Model::Movement',
+        'url'        => '/v1/asso/movement/validate/:move_id',
+        'controller' => 'FreeAsso::Controller::Movement',
+        'function'   => 'validate',
+        'auth'       => \FreeFW\Router\Route::AUTH_IN,
+        'middleware' => [],
+        'include'    => [
+            'default' => ['from_site', 'to_site']
+        ],
+        'results' => [
+            '200' => [
+                'type'  => \FreeFW\Router\Route::RESULT_OBJECT,
+                'model' => 'FreeSso::Model::Movement'
+            ]
+        ]
+    ],
+    'free_asso.movement.getpendings' => [
+        'method'     => \FreeFW\Router\Route::METHOD_GET,
+        'model'      => 'FreeAsso::Model::Movement',
+        'url'        => '/v1/asso/movement/pendings',
+        'controller' => 'FreeAsso::Controller::Movement',
+        'function'   => 'getPendings',
+        'auth'       => \FreeFW\Router\Route::AUTH_IN,
+        'middleware' => [],
+        'include'    => [
+            'default' => ['from_site', 'to_site']
+        ],
+        'results' => [
+            '200' => [
+                'type'  => \FreeFW\Router\Route::RESULT_LIST,
+                'model' => 'FreeSso::Model::Movement'
+            ]
+        ]
+    ],
     'free_asso.movement.autocomplete' => [
         FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Movement',
         FFCSTRT::ROUTE_COMMENT    => 'Autocomplete.',
