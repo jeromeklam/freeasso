@@ -1,6 +1,8 @@
 <?php
 namespace FreeAsso\Controller;
 
+use \FreeFW\Constants as FFCST;
+
 /**
  * Model controller
  *
@@ -70,14 +72,14 @@ class Movement extends \FreeFW\Core\ApiController
             if ($causeMovements) {
                 $myMovement->startTransaction();
                 foreach ($causeMovements as $causeMovement) {
-                    $causeMovement->setCamvStatus(self::STATUS_OK);
+                    $causeMovement->setCamvStatus(\FreeAsso\Model\Movement::STATUS_OK);
                     if (!$causeMovement->save()) {
                         $ret = false;
                         break;
                     }
                 }
                 if ($ret) {
-                    $myMovement->setMoveStatus(self::STATUS_OK);
+                    $myMovement->setMoveStatus(\FreeAsso\Model\Movement::STATUS_OK);
                     $ret = $myMovement->save();
                 }
                 if (!$ret) {

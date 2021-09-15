@@ -10,15 +10,6 @@ use \FreeFW\Constants as FFCST;
  */
 class CauseMovement extends \FreeFW\Core\ApiController
 {
-
-    /**
-     * Status
-     * @var string
-     */
-    const STATUS_WAIT = 'WAIT';
-    const STATUS_OK   = 'OK';
-    const STATUS_KO   = 'KO';
-
     /**
      * Get file content for download
      *
@@ -34,7 +25,7 @@ class CauseMovement extends \FreeFW\Core\ApiController
         if ($myMovement) {
             $myCause = \FreeAsso\Model\Cause::findFirst(['cau_id' => $myMovement->getCauId()]);
             if ($myCause) {
-                $myMovement->setCamvStatus(self::STATUS_OK);
+                $myMovement->setCamvStatus(\FreeAsso\Model\Movement::STATUS_OK);
                 if (!$myMovement->save()) {
                     return $this->createErrorResponse(FFCST::ERROR_NOT_UPDATE, $myMovement);
                 }
