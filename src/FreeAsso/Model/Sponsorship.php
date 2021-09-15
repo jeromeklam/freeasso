@@ -121,38 +121,15 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
     {
         $from = \FreeFW\Tools\Date::mysqlToDatetime($this->getSpoFrom());
         $now  = \FreeFW\Tools\Date::getServerDatetime();
-        // Si le parrainage a déjà commencé on génère le(s) don(s).
-        if ($from <= $now) {
-            if ($this->getSpoFreq() == self::PAYMENT_TYPE_MONTH) {
-                $dFrom = $from->format('d');
-                $mFrom = $from->format('m');
-                $yFrom = $from->format('Y');
-                $dNow  = $now->format('d');
-                $mNow  = $now->format('m');
-                $yNow  = $now->format('Y');
-                while ($yFrom < $yNow || ($yFrom == $yNow && $mFrom < $mNow) || ($yFrom == $yNow && $mFrom == $mNow && $dFrom <= $dNow)) {
-                    $addDonation = false;
-                    if ($yFrom < $yNow || ($yFrom == $yNow && $mFrom < $mNow)) {
-                        $addDonation = true;
-                    } else {
-                        if ($dFrom <= $this->getSpoFreqWhen() && $this->getSpoFreqWhen() <= $dNow) {
-                            $addDonation = true;
-                        }
-                    }
-                    if ($addDonation) {
-                        $date = new \DateTime();
-                        $date->setDate($yFrom, $mFrom, $this->getSpoFreqWhen());
-                        $donation = $this->getNewDonation($date);
-                        if (!$donation->create()) {
-                            return false;
-                        }
-                    }
-                    $mFrom = $mFrom + 1;
-                    if ($mFrom > 12) {
-                        $mFrom = 1;
-                        $yFrom = $yFrom + 1;
-                    }
-                }
+        // On ajoute le premier paiement
+        if ($this->getSpoAddFirst()) {
+            if ($from < $now) {
+                $donation = $this->getNewDonation($from);
+            } else {
+                $donation = $this->getNewDonation($now);
+            }
+            if (!$donation->create()) {
+                return false;
             }
         }
         return true;

@@ -94,7 +94,7 @@ class Sponsorship extends \FreeFW\Core\Service
     {
         $year   = intval($p_date->format('Y'));
         $month  = intval($p_date->format('m'));
-        $day    = intval($p_date->format('d'));
+        $day    = intval(1);
         $errors = false;
         /**
          * @var \FreeAsso\Model\Sponsorship $sponsorship
@@ -104,16 +104,15 @@ class Sponsorship extends \FreeFW\Core\Service
          * @var \FreeFW\Model\Query $query
          */
         $dStart = $p_date;
+        $dStart->setTime(0, 0, 0, 0);
         $dEnd   = $p_date;
-        $dStart->setTime(0, 0, 1, 0);
-        $dEnd->setTime(23, 59, 59, 0);
-        $query = $sponsorship->getQuery();
+        $dEnd->add(new \DateInterval('P1M'));
+        $query  = $sponsorship->getQuery();
         $query
             ->addFromFilters(
                 [
                     'spo_from' => [\FreeFW\Storage\Storage::COND_LOWER_EQUAL => \FreeFW\Tools\Date::datetimeToMysql($dStart)],
                     'spo_to' => [\FreeFW\Storage\Storage::COND_GREATER_EQUAL_OR_NULL => \FreeFW\Tools\Date::datetimeToMysql($dEnd)],
-                    'spo_freq_when' => $day,
                     'spo_freq' => \FreeAsso\Model\Sponsorship::PAYMENT_TYPE_MONTH
                 ]
             )
@@ -273,18 +272,24 @@ class Sponsorship extends \FreeFW\Core\Service
     public function generateDebit($p_params = [])
     {
         $this->logger->debug('Sponsorship.generateDebit.START');
+        /**
+         *
+         * @var \DateTime  $lastOk
+         */
         $lastOk = \FreeFW\Tools\Date::getServerDatetime();
+        $now    = \FreeFW\Tools\Date::getServerDatetime();
         if (array_key_exists('last', $p_params)) {
             $lastOk = \FreeFW\Tools\Date::mysqlToDatetime($p_params['last']);
         }
-        $now = \FreeFW\Tools\Date::getServerDatetime();
+        $year   = intval($lastOk->format('Y'));
+        $month  = intval($lastOk->format('m'));
+        $nYear  = intval($now->format('Y'));
+        $nMonth = intval($now->format('m'));
         // Force same time...
-        $now->setTime(23, 59, 59, 0);
-        $lastOk->setTime(23, 59, 59, 0);
-        while ($lastOk < $now) {
-            $lastOk->add(new \DateInterval('P1D'));
+        while (($month < $nMonth && $year === $nYear) || $year < $nYear) {
+            $lastOk->add(new \DateInterval('P1M'));
             $this->logger->debug('Generating ' . \FreeFW\Tools\Date::datetimeToMysql($lastOk) . '...');
-            $this->generateOneDebit($lastOk);
+            $this->generateOneDebit(clone $lastOk);
         }
         $this->logger->debug('Start from ' . \FreeFW\Tools\Date::datetimeToMysql($lastOk) . ' excluded');
         $p_params['last'] = \FreeFW\Tools\Date::getCurrentTimestamp();

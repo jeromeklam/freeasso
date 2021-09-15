@@ -145,6 +145,12 @@ abstract class Sponsorship extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
         FFCST::PROPERTY_OPTIONS => []
     ];
+    protected static $PRP_SPO_ADD_FIRST = [
+        FFCST::PROPERTY_PRIVATE => 'spo_add_first',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_LOCAL],
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_TRUE,
+    ];
 
     /**
      * get properties
@@ -173,6 +179,7 @@ abstract class Sponsorship extends \FreeFW\Core\StorageModel
             'spo_mnt_input'     => self::$PRP_SPO_MNT_INPUT,
             'spo_money_input'   => self::$PRP_SPO_MONEY_INPUT,
             'spo_freq_when_cpl' => self::$PRP_SPO_FREQ_WHEN_CPL,
+            'spo_add_first'     => self::$PRP_SPO_ADD_FIRST,
         ];
     }
 

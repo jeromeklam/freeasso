@@ -12,7 +12,7 @@ if ($vdir == '') {
 define('APP_NAME', 'FREEASSO');
 define('API_SCHEMES', 'https');
 define('API_HOST', 'freeasso.fr');
-define('APP_HISTORY', false);
+define('APP_HISTORY', true);
 
 $startTs = microtime(true);
 

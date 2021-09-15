@@ -124,6 +124,12 @@ abstract class Sponsorship extends \FreeAsso\Model\StorageModel\Sponsorship
     protected $spo_freq_when_cpl = null;
 
     /**
+     * spo_add_first
+     * @var boolean
+     */
+    protected $spo_add_first = true;
+
+    /**
      * Set spo_id
      *
      * @param int $p_value
@@ -558,5 +564,28 @@ abstract class Sponsorship extends \FreeAsso\Model\StorageModel\Sponsorship
     public function getSpoFreqWhenCpl()
     {
         return $this->spo_freq_when_cpl;
+    }
+
+    /**
+     * Set spo_add_first
+     *
+     * @param boolean $p_value
+     *
+     * @return \FreeAsso\Model\Base\Sponsorship
+     */
+    public function setSpoAddFirst($p_value)
+    {
+        $this->spo_add_first = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get spo_add_first
+     *
+     * @return boolean
+     */
+    public function getSpoAddFirst()
+    {
+        return $this->spo_add_first;
     }
 }
