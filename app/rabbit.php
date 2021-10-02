@@ -13,6 +13,7 @@ define('APP_NAME', 'FREEASSO');
 define('API_SCHEMES', 'https');
 define('API_HOST', 'freeasso.fr');
 define('APP_HISTORY', true);
+define('APP_SYSTEM', false);
 
 $startTs = microtime(true);
 

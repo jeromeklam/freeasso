@@ -146,7 +146,7 @@ class Kalaweit
         ini_set('memory_limit', '16096M');
         set_time_limit(3600);
         $p_output->write("Début de l'import", true);
-        $provider = new \FreeFW\Storage\PDO\Mysql('mysql:host=mysql;dbname=kalaweitv1;charset=latin1;', 'root', 'm0n1c4po');
+        $provider = new \FreeFW\Storage\PDO\Mysql('mysql:host=mysql;dbname=kalaweitv1;charset=latin1;', 'super', 'YggDrasil');
         $sso      = \FreeFW\DI\DI::getShared('sso');
         $brokerId = $sso->getBrokerId();
         $p_output->write("Broker : " . $brokerId, true);
@@ -214,6 +214,14 @@ class Kalaweit
         $query = $assoPdo->exec("DELETE FROM crm_client WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM crm_client_category WHERE brk_id = " . $brokerId);
         $query = $assoPdo->exec("DELETE FROM crm_client_type WHERE brk_id = " . $brokerId);
+        $query = $assoPdo->exec("DELETE FROM sys_alert");
+        $query = $assoPdo->exec("DELETE FROM sys_file");
+        $query = $assoPdo->exec("DELETE FROM sys_history");
+        $query = $assoPdo->exec("DELETE FROM sys_message");
+        $query = $assoPdo->exec("DELETE FROM sys_inbox");
+        $query = $assoPdo->exec("DELETE FROM sys_jobqueue_histo");
+        $query = $assoPdo->exec("DELETE FROM sys_message");
+        $query = $assoPdo->exec("DELETE FROM sys_notification");
         /**
          * Paramètres de base
          */
@@ -871,6 +879,7 @@ class Kalaweit
          */
         $tabMembres = [];
         $updates    = [];
+        $duplicate  = [];
         $p_output->write("Import des Membres", true);
         try {
             $query = $provider->prepare("Select * from membres order by id");
@@ -906,6 +915,13 @@ class Kalaweit
                     $cp = $ville;
                     $ville = $row->code_postal;
                 }
+                $md5 = md5(strtoupper(\FreeFW\Tools\PBXString::withoutAccent($name . '@' . $pren . '@' . $ville)));
+                if (array_key_exists($md5, $duplicate)) {
+                    var_dump($name . '@' . $pren . '@' . $ville);
+                    $tabMembres[$row->id] = $tabMembres[$duplicate[$md5]];
+                    continue;
+                }
+                $duplicate[$md5] = $row->id;
                 $myClient
                     ->setCliId($row->id)
                     ->setCliExternId($row->id)
@@ -1041,6 +1057,7 @@ class Kalaweit
                     ->setSpoMntInput($row->montant)
                     ->setSpoFrom($from)
                     ->setSpoTo($to)
+                    ->setGrpId(15)
                 ;
                 if (count($sponsors) > 0) {
                     $mySponsorship->setSpoSponsors('[' . implode(',', $sponsors) . ']');
@@ -1122,6 +1139,7 @@ class Kalaweit
                     ->setDonoYear($row->prlv_annee)
                     ->setDonoMonth($row->prlv_mois)
                     ->setDonoDay(1)
+                    ->setGrpId(15)
                     ->setDonoStatus($row->prlv_status)
                     ->setDonoComments($comments)
                 ;
@@ -1285,6 +1303,7 @@ class Kalaweit
                     ->setRecPrintTs($row->date_emission)
                     ->setRecMoney('EUR')
                     ->setRecMode('AUTO')
+                    ->setGrpId(15)
                     ->setRecSendMethod('MANUAL')
                     ->setRecYear($row->annee)
                     ->setRecNumber($row->numero)
@@ -1292,6 +1311,16 @@ class Kalaweit
                 ;
                 if (intval($row->email_membre) > 0) {
                     $myReceipt->setRecSendMethod('EMAIL');
+                } else {
+                    $sqlMail = "SELECT * FROM pawbx_emails WHERE mail_object = 'RECEIPT' AND mail_object_id = " + $row_id;
+                    $queryM = $provider->prepare($sqlMail);
+                    $queryM->execute();
+                    while ($rowM = $queryM->fetch(\PDO::FETCH_OBJ)) {
+                        if ($rowM->mail_status == 'SENT') {
+                            $myReceipt->setRecSendMethod('EMAIL');
+                            break;
+                        }
+                    }
                 }
                 if ($row->id_langue_parle == '1' || $row->id_langue_parle == '0') {
                     $myReceipt->setRecMntLetter($row->montant_lettre_fr);
@@ -1334,7 +1363,7 @@ class Kalaweit
                 $myDonation->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
                 $myDonation
                     ->setDonStatus(\FreeAsso\Model\Donation::STATUS_NOK)
-                    ->setGrpId(3)
+                    ->setGrpId(15)
                     ->setDonMnt($row->montant)
                     ->setDonMoney('EUR')
                     ->setDonMntInput($row->montant)
@@ -1513,6 +1542,7 @@ class Kalaweit
                             ->setCertFullname($fullname)
                             ->setCertEmail($rowCert->email)
                             ->setCntyId($member->getCntyId())
+                            ->setGrpId(15)
                             ->setCertAddress1($member->getCliAddress1())
                             ->setCertAddress2($member->getCliAddress2())
                             ->setCertAddress3($member->getCliAddress3())

@@ -16,6 +16,9 @@ class Client extends \FreeFW\Core\Service
      */
     public function updateAll()
     {
+        /**
+         * @var \FreeAsso\Model\Client $model
+         */
         $model = \FreeFW\DI\DI::get('FreeAsso::Model::Client');
         $query = $model->getQuery();
         $query->execute([], 'updateLastDonation');
@@ -67,6 +70,9 @@ class Client extends \FreeFW\Core\Service
     public function notification($p_client, $p_event_name, \FreeFW\Model\Automate $p_automate)
     {
         if ($p_client->getCliEmail() != '') {
+            /**
+             * @var \FreeFW\Service\Email
+             */
             $emailService = \FreeFW\DI\DI::get('FreeFW::Service::Email');
             $emailId = $p_automate->getEmailId();
             if (!$emailId) {

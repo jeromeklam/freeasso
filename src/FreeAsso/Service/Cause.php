@@ -1,4 +1,5 @@
 <?php
+
 namespace FreeAsso\Service;
 
 /**
@@ -20,6 +21,9 @@ class Cause extends \FreeFW\Core\Service
      */
     public function notification($p_cause, $p_event_name, \FreeFW\Model\Automate $p_automate)
     {
+        /**
+         * @var \FreeFW\Service\Email $emailService
+         */
         $emailService = \FreeFW\DI\DI::get('FreeFW::Service::Email');
         $emailId = $p_automate->getEmailId();
         if (!$emailId) {
@@ -34,6 +38,9 @@ class Cause extends \FreeFW\Core\Service
                 'email_code' => 'CLIENT'
             ];
         }
+        /**
+         * @var \FreeAsso\Model\Donation $model
+         */
         $model   = \FreeFW\DI\DI::get('FreeAsso::Model::Donation');
         $query   = $model->getQuery();
         $quifils = [
@@ -42,8 +49,7 @@ class Cause extends \FreeFW\Core\Service
             'don_end_ts' => [\FreeFW\Storage\Storage::COND_GREATER_EQUAL => \FreeFW\Tools\Date::getCurrentTimestamp()]
         ];
         $query
-            ->addFromFilters($quifils)
-        ;
+            ->addFromFilters($quifils);
         $clients = [];
         if ($query->execute()) {
             $results = $query->getResult();
@@ -63,10 +69,12 @@ class Cause extends \FreeFW\Core\Service
                 $message = $emailService->getEmailAsMessage($filters, $client->getLangId(), [$client, $p_cause]);
                 if ($message) {
                     $message
-                        ->addDest($client->getCliEmail())
-                    ;
+                        ->addDest($client->getCliEmail());
                     $edi1Id = $p_automate->getAutoParam('edi1_id', 0);
                     if ($edi1Id) {
+                        /**
+                         * @var \FreeFW\Service\Edition $editionService
+                         */
                         $editionService = \FreeFW\DI\DI::get('FreeFW::Service::Edition');
                         $datas = $editionService->printEdition(
                             $edi1Id,
@@ -88,8 +96,7 @@ class Cause extends \FreeFW\Core\Service
                     ->setNotifObjectId($client->getCliId())
                     ->setNotifSubject('Fin bénéficiaire ' . $p_cause->getCauName())
                     ->setNotifCode('END_CAUSE')
-                    ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp())
-                ;
+                    ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp());
                 $notification->create();
             }
         }
@@ -127,8 +134,8 @@ class Cause extends \FreeFW\Core\Service
                  * Tous les dons ponctuels déjà enregistrés
                  * Les dons réhuliers seront gérés à part.
                  * On ne prend que ceux qui sont "payés"
+                 * @var \FreeAsso\Model\Donation $model
                  */
-
                 $model   = \FreeFW\DI\DI::get('FreeAsso::Model::Donation');
                 $query   = $model->getQuery();
                 $filters = [
@@ -140,8 +147,7 @@ class Cause extends \FreeFW\Core\Service
                     $filters['don_end_ts'] = [\FreeFW\Storage\Storage::COND_GREATER_EQUAL => \FreeFW\Tools\Date::getCurrentTimestamp()];
                 }
                 $query
-                    ->addFromFilters($filters)
-                ;
+                    ->addFromFilters($filters);
                 if ($query->execute()) {
                     $results = $query->getResult();
                     if ($results) {
@@ -153,6 +159,7 @@ class Cause extends \FreeFW\Core\Service
                 }
                 /**
                  * Tous les dons réguliers à venir : parrainages
+                 * @var \FreeAsso\Model\Sponsorship $model
                  */
                 $model   = \FreeFW\DI\DI::get('FreeAsso::Model::Sponsorship');
                 $query   = $model->getQuery();
@@ -165,6 +172,9 @@ class Cause extends \FreeFW\Core\Service
                     if ($results) {
                         foreach ($results as $row) {
                             $mnt  = \FreeFW\Tools\Monetary::convert($row->getSpoMnt(), $row->getSpoMoney(), $type->getCautMoney());
+                            /**
+                             * @var \Datetime $now
+                             */
                             $now  = \FreeFW\Tools\Date::getServerDatetime();
                             $from = \FreeFW\Tools\Date::mysqlToDatetime($row->getSpoFrom());
                             $to   = $row->getSpoTo();
@@ -189,21 +199,21 @@ class Cause extends \FreeFW\Core\Service
                                     $d2   = $end->format('d');
                                     if (($y2 - $y1) == 0) {
                                         if (($m2 - $m1) == 0) {
-                                            if ($row->getSpoFreqWhen() > $d1 ) {
+                                            if ($row->getSpoFreqWhen() > $d1) {
                                                 $mult = 1;
                                             } else {
                                                 $mult = 0;
                                             }
                                         } else {
                                             $mult = $m2 - $m1;
-                                            if ($row->getSpoFreqWhen() <= $d2 ) {
+                                            if ($row->getSpoFreqWhen() <= $d2) {
                                                 $mult = $mult - 1;
                                             }
                                         }
                                     } else {
                                         if (($y2 - $y1) == 1) {
-                                            $mult = (12 - ($m1-1)) + $m2;
-                                            if ($row->getSpoFreqWhen() <= $d2 ) {
+                                            $mult = (12 - ($m1 - 1)) + $m2;
+                                            if ($row->getSpoFreqWhen() <= $d2) {
                                                 $mult = $mult - 1;
                                             }
                                         }
@@ -257,8 +267,7 @@ class Cause extends \FreeFW\Core\Service
             }
             $p_cause
                 ->setCauMnt($total)
-                ->setCauMntLeft($left)
-            ;
+                ->setCauMntLeft($left);
             return true;
         }
         return false;

@@ -22,6 +22,7 @@ require_once __DIR__ . '/family.php';
 require_once __DIR__ . '/item.php';
 require_once __DIR__ . '/movement.php';
 require_once __DIR__ . '/payment_type.php';
+require_once __DIR__ . '/receipt_type.php';
 require_once __DIR__ . '/receipt.php';
 require_once __DIR__ . '/session.php';
 require_once __DIR__ . '/sickness.php';
@@ -58,6 +59,7 @@ $localRoutes = array_merge(
     $itemRoutes,
     $movementRoutes,
     $paymentTypeRoutes,
+    $receiptTypeRoutes,
     $receiptRoutes,
     $sessionRoutes,
     $sicknessRoutes,

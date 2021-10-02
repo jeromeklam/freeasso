@@ -50,9 +50,5 @@
         "psr-4" : {
             "FreeAsso\\" : "src/FreeAsso/"
         }
-    },
-    "require-dev": {
-        "phpunit/phpunit"                      : "*",
-        "squizlabs/php_codesniffer"            : "*"
     }
 }

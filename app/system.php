@@ -13,7 +13,7 @@ define('APP_NAME', 'FREEASSO');
 define('API_SCHEMES', 'https');
 define('API_HOST', 'freeasso.fr');
 define('APP_HISTORY', true);
-define('APP_SYSTEM', false);
+define('APP_SYSTEM', true);
 
 $startTs = microtime(true);
 
@@ -28,6 +28,11 @@ $server = getenv('SERVER_NAME');
 if (!$server) {
     $server = 'docker-dev';
 }
+
+/**
+ * Standard config
+ */
+$config = include_once APP_ROOT . '/app/config.php';
 
 /**
  * Fichier de configuration
@@ -47,7 +52,7 @@ if (is_file(APP_ROOT . '/config/' . strtolower($server) . '.ini.php')) {
  * Go
  */
 try {
-    // Config
+    // Si pas de "prefligths" : Config
     if (is_file(APP_ROOT . '/config/' . strtolower($server) . '.config.php')) {
         $myConfig = \FreeFW\Application\Config::load(APP_ROOT . '/config/' . strtolower($server) . '.config.php');
     } else {
@@ -59,8 +64,7 @@ try {
         if (array_key_exists('file', $myLogCfg)) {
             if (array_key_exists('level', $myLogCfg)) {
                 $logFile  = $myLogCfg['file'];
-                $logFile = APP_LOG.'/socket.log';
-                $myLogger = new \FreeFW\Log\FileLogger($logFile, $myLogCfg['level'], false);
+                $myLogger = new \FreeFW\Log\FileLogger($logFile, $myLogCfg['level']);
             } else {
                 throw new \InvalidArgumentException('Log level missing !');
             }
@@ -69,6 +73,19 @@ try {
         }
     } else {
         $myLogger = new \Psr\Log\NullLogger();
+    }
+    // Queue
+    $myQueue    = false;
+    $myQueueCfg = $myConfig->get('queue');
+    if (is_array($myQueueCfg)) {
+        $myQueue = \PhpAmqpLib\Connection\AMQPStreamConnection::create_connection([
+            [
+                'host' => $myQueueCfg['host'],
+                'port' => $myQueueCfg['port'],
+                'user' => $myQueueCfg['user'],
+                'password' => $myQueueCfg['paswd']
+            ]
+        ]);
     }
     // EventManager
     $myEvents = \FreeFW\Listener\EventManager::getInstance();
@@ -81,40 +98,55 @@ try {
                 $stoCfg['user'],
                 $stoCfg['paswd'],
                 $myLogger,
-                $myEvents
+                $myEvents,
+                $myConfig
             );
             \FreeFW\DI\DI::setShared('Storage::' . $key, $storage);
         }
     } else {
         throw new \FreeFW\Core\FreeFWException('No storage configuration found !');
     }
+    // Micro application
+    $app = \FreeFW\Application\Console::getInstance($myConfig, $myLogger);
+    $myEvents->bind(\FreeFW\Constants::EVENT_ROUTE_NOT_FOUND, function () {
+        //@todo
+        echo "Commande introuvable\n";
+    });
+    $myEvents->bind(\FreeFW\Constants::EVENT_AFTER_RENDER, function () use ($app, $startTs) {
+        $endTs = microtime(true);
+        $diff  = $endTs - $startTs;
+        $app->getLogger()->info('Total execution time : ' . $diff);
+    });
     /**
      * FreeAsso DI
      */
     \FreeFW\DI\DI::registerDI('FreeFW', $myConfig, $myLogger);
     \FreeFW\DI\DI::registerDI('FreeAsso', $myConfig, $myLogger);
     \FreeFW\DI\DI::registerDI('FreeSSO', $myConfig, $myLogger);
-    \FreeFW\DI\DI::registerDI('FreeFW', $myConfig, $myLogger);
+    \FreeFW\DI\DI::registerDI('FreeOffice', $myConfig, $myLogger);
     /**
-     * WebSocket
-     * @var \React\EventLoop\LoopInterface $loo     */
-    $loop    = \React\EventLoop\Factory::create();
-    $storage = new \FreeAsso\Service\SimpleStorageListener();
-    $storage->setLogger($myLogger);
-    $storage->setAppConfig($myConfig);
-    //
-    $context = new React\ZMQ\Context($loop);
-    $pull = $context->getSocket(\ZMQ::SOCKET_PULL);
-    $pull->bind('tcp://127.0.0.1:5555');
-    $pull->on('message', array($storage, 'onEvent'));
-    //
-    $SimpleSock   = new \React\Socket\Server('0.0.0.0:9080', $loop);
-    $simpleServer = new \Ratchet\Server\IoServer(
-        $storage,
-        $SimpleSock
-    );
-    $loop->run();
+     * On va chercher les routes des modules, ...
+     */
+    $freeFWCommands     = \FreeFW\Console\FreeFW::getCommands();
+    $freeSSOCommands    = \FreeSSO\Console\FreeFW::getCommands();
+    $freeAssoCommands   = \FreeAsso\Console\FreeFW::getCommands();
+    $freeOfficeCommands = \FreeOffice\Console\FreeFW::getCommands();
+    /**
+     * GO...
+     */
+    $app
+        ->setEventManager($myEvents)
+        ->addCommands($freeAssoCommands)
+        ->addCommands($freeSSOCommands)
+        ->addCommands($freeFWCommands)
+        ->addCommands($freeOfficeCommands)
+    ;
+    // GO
+    $app->handle();
+    // Finish
+    if ($myQueue) {
+        $myQueue->close();
+    }
 } catch (\Exception $ex) {
-    var_export($ex);
-    die('dsfdsfsd');
+    echo $ex->getMessage() . "\n";
 }

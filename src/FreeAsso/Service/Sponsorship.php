@@ -1,4 +1,5 @@
 <?php
+
 namespace FreeAsso\Service;
 
 /**
@@ -22,6 +23,9 @@ class Sponsorship extends \FreeFW\Core\Service
     {
         $client = $p_sponsorship->getClient();
         if ($client->getCliEmail() != '') {
+            /**
+             * @var \FreeFW\Service\Email $emailService
+             */
             $emailService = \FreeFW\DI\DI::get('FreeFW::Service::Email');
             $emailId = $p_automate->getEmailId();
             if (!$emailId) {
@@ -43,8 +47,7 @@ class Sponsorship extends \FreeFW\Core\Service
             $message = $emailService->getEmailAsMessage($filters, $client->getLangId(), $p_sponsorship);
             if ($message) {
                 $message
-                    ->addDest($client->getCliEmail())
-                ;
+                    ->addDest($client->getCliEmail());
                 $sendIdentity = $p_automate->getAutoParam('send_identity', false);
                 if ($sendIdentity) {
                     $cause = $p_sponsorship->getCause();
@@ -52,6 +55,9 @@ class Sponsorship extends \FreeFW\Core\Service
                         $causeType = $cause->getCauseType();
                         $ediId = $causeType->getCautIdentEdiId();
                         if ($ediId > 0) {
+                            /**
+                             * @var \FreeFW\Service\Edition $editionService
+                             */
                             $editionService = \FreeFW\DI\DI::get('FreeFW::Service::Edition');
                             $datas = $editionService->printEdition(
                                 $ediId,
@@ -76,8 +82,7 @@ class Sponsorship extends \FreeFW\Core\Service
                 ->setNotifObjectId($p_sponsorship->getSpoId())
                 ->setNotifSubject('Nouvel ami sans email : ' . $client->getFullname() . ' ' . $cause->getCauName())
                 ->setNotifCode('SPONSORSHIP_WITHOUT_EMAIL')
-                ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp())
-            ;
+                ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp());
             return $notification->create();
         }
         return true;
@@ -117,7 +122,7 @@ class Sponsorship extends \FreeFW\Core\Service
                 ]
             )
             ->addRelations(['client', 'cause'])
-        ;
+            ->setSort('cli_firstname,cli_lastname');
         if ($query->execute()) {
             /**
              * @var \FreeFW\Model\ResultSet $results
@@ -143,8 +148,7 @@ class Sponsorship extends \FreeFW\Core\Service
                     ->setDonoMonth($month)
                     ->setDonoYear($year)
                     ->setDonoStatus(\FreeAsso\Model\DonationOrigin::STATUS_PENDING)
-                    ->setDonoTs(\FreeFW\Tools\Date::getCurrentTimestamp())
-                ;
+                    ->setDonoTs(\FreeFW\Tools\Date::getCurrentTimestamp());
                 $report = '<ul>';
                 if (!$donOrig->create()) {
                     return false;
@@ -152,8 +156,7 @@ class Sponsorship extends \FreeFW\Core\Service
                 if (!$session) {
                     $donOrig
                         ->setDonoStatus(\FreeAsso\Model\DonationOrigin::STATUS_ERROR)
-                        ->save()
-                    ;
+                        ->save();
                     /**
                      * Add notification
                      * @var \FreeFW\Model\Notification $notification
@@ -165,8 +168,7 @@ class Sponsorship extends \FreeFW\Core\Service
                         ->setNotifObjectId($donOrig->getDonoId())
                         ->setNotifSubject('Error generating donations !')
                         ->setNotifCode('DONATION_GENERATION_NO_SESSION')
-                        ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp())
-                    ;
+                        ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp());
                     $notification->create();
                     return false;
                 }
@@ -179,8 +181,7 @@ class Sponsorship extends \FreeFW\Core\Service
                     $donation
                         ->setDonoId($donOrig->getDonoId())
                         ->setSessId($session->getSessId())
-                        ->setDonStatus(\FreeAsso\Model\Donation::STATUS_OK)
-                    ;
+                        ->setDonStatus(\FreeAsso\Model\Donation::STATUS_OK);
                     $report .= '<li>';
                     $client = $sponsorship->getClient();
                     $report .= $client->getFullname();
@@ -196,8 +197,7 @@ class Sponsorship extends \FreeFW\Core\Service
                             ->setNotifObjectId($client->getCliId())
                             ->setNotifSubject('Active sponsorship on a disabled member !')
                             ->setNotifCode('DONATION_ON_DISABLED_MEMBER')
-                            ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp())
-                        ;
+                            ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp());
                         $notification->create();
                     }
                     $report .= ' ' . $donation->getDonMnt() . ' ' . $donation->getDonMoney();
@@ -216,8 +216,7 @@ class Sponsorship extends \FreeFW\Core\Service
                                 ->setNotifObjectId($cause->getCauId())
                                 ->setNotifSubject('Active sponsorship on a disabled cause !')
                                 ->setNotifCode('DONATION_ON_DISABLED_CAUSE')
-                                ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp())
-                            ;
+                                ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp());
                             $notification->create();
                         }
                     }
@@ -237,8 +236,7 @@ class Sponsorship extends \FreeFW\Core\Service
                 }
                 $donOrig
                     ->setDonoComments($report)
-                    ->save()
-                ;
+                    ->save();
                 if ($errors) {
                     /**
                      * Add notification
@@ -252,8 +250,7 @@ class Sponsorship extends \FreeFW\Core\Service
                         ->setNotifSubject('Error generating donations !')
                         ->setNotifCode('DONATION_GENERATION_ERROR')
                         ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp())
-                        ->setNotifText($errors)
-                    ;
+                        ->setNotifText($errors);
                     $notification->create();
                     $this->logger->error(print_r($notification->getErrors(), true));
                 }
@@ -273,10 +270,12 @@ class Sponsorship extends \FreeFW\Core\Service
     {
         $this->logger->debug('Sponsorship.generateDebit.START');
         /**
-         *
          * @var \DateTime  $lastOk
          */
         $lastOk = \FreeFW\Tools\Date::getServerDatetime();
+        /**
+         * @var \DateTime  $now
+         */
         $now    = \FreeFW\Tools\Date::getServerDatetime();
         if (array_key_exists('last', $p_params)) {
             $lastOk = \FreeFW\Tools\Date::mysqlToDatetime($p_params['last']);

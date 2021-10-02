@@ -1,4 +1,5 @@
 <?php
+
 namespace FreeAsso\Service;
 
 use \Ratchet\ConnectionInterface;
