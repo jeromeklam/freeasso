@@ -8,6 +8,7 @@
 /docker-logs
 /docker-dumps
 /docker-db
+/install/ph*
 /log/*.log*
 /tmp
 /datas
