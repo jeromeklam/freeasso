@@ -119,6 +119,9 @@ class Client extends \FreeAsso\Model\Base\Client implements
      */
     public function updateLastDonation()
     {
+        /**
+         * @var \FreeAsso\Service\Client $clientService
+         */
         $clientService = \FreeFW\DI\DI::get('FreeAsso::Service::Client');
         if ($clientService->updateLastDonation($this)) {
             return $this->save();

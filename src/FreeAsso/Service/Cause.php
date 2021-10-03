@@ -265,10 +265,12 @@ class Cause extends \FreeFW\Core\Service
                     $left = 0;
                 }
             }
-            $p_cause
-                ->setCauMnt($total)
-                ->setCauMntLeft($left);
-            return true;
+            if ($p_cause->getCauMnt() != $total || $p_cause->getCauMntLeft() != $left) {
+                $p_cause
+                    ->setCauMnt($total)
+                    ->setCauMntLeft($left);
+                return true;
+            }
         }
         return false;
     }

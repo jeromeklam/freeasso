@@ -50,8 +50,11 @@ class Client extends \FreeFW\Core\Service
             $results = $query->getResult();
             if ($results) {
                 foreach ($results as $row) {
-                    $p_client->setLastDonId($row->getDonId());
-                    return true;
+                    if ($p_client->getLastDonId() != $row->getDonId()) {
+                        $p_client->setLastDonId($row->getDonId());
+                        return true;
+                    }
+                    break;
                 }
             }
         }

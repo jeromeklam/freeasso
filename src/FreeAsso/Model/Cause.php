@@ -247,9 +247,14 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
      */
     public function updateMnt()
     {
+        /**
+         * @var \FreeAsso\Service\Cause $causeService
+         */
         $causeService = \FreeFW\DI\DI::get('FreeAsso::Service::Cause');
-        $causeService->updateMnt($this);
-        $result = $this->save(true, true);
+        $result = false;
+        if ($causeService->updateMnt($this)) {
+            $result = $this->save(true, true);
+        }
         return $result;
     }
 

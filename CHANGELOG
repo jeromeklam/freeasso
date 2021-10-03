@@ -1,3 +1,12 @@
+# 1.4.1 : 03/10/2021
+
+* Cause
+    * UpdateAll : Mise à jour uniquement si les montants ne sont pas bons
+* Client
+    * UpdateAll : Mise à jour uniquement si le dernier don n'est pas le bon    
+* FW
+    * HAWK: On peut passer un token user par app.
+
 # 1.4.0 : 03/10/2021
 
 * Kalaweit : Production
