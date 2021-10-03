@@ -439,4 +439,84 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
         ;
         return $this->save(false, true);
     }
+
+    /**
+     * Get full text
+     *
+     * @return string
+     */
+    public function getFulltext()
+    {
+        $text  = '';
+        $lang  = \FreeFW\DI\DI::getShared('lang');
+        if (!$lang) {
+            $lang = 'fr';
+        } else {
+            $lang = \strtolower($lang);
+        }
+        $query = \FreeAsso\Model\CauseMediaLang::getQuery();
+        $query
+            ->addFromFilters(
+                [
+                    'cause_media.cau_id'    => $this->getCauId(),
+                    'cause_media.caum_code' => \FreeAsso\Model\CauseMedia::TYPE_NEWS,
+                    'lang.lang_code'        => $lang,
+                ]
+            )
+            ->addRelations(['cause_media', 'lang'])
+            ->setSort('-cause_media.caum_order')
+        ;
+        if ($query->execute()) {
+            /**
+             * @var \FreeFW\Model\ResultSet $results
+             */
+            $results = $query->getResult();
+            if ($results->count() > 0) {
+                foreach ($results as $oneMedia) {
+                    $text .= '<p class="text-title">' . $oneMedia->getCamlSubject() . '</p>';
+                    $text .= '<div class="text-content">' . $oneMedia->getCamlText() . '</div>';
+                }
+            }
+        }
+        return $text;
+    }
+
+    /**
+     * Get vignettes
+     *
+     * @return string
+     */
+    public function getVignettes()
+    {
+        $conf  = \FreeFW\DI\DI::getShared('config');
+        $ged   = $conf->get('ged:dir', '');
+        $path  = [];
+        $query = \FreeAsso\Model\CauseMedia::getQuery();
+        $query
+            ->addFromFilters(
+                [
+                    'cau_id'    => $this->getCauId(),
+                    'caum_type' => \FreeAsso\Model\CauseMedia::TYPE_PHOTO,
+                ]
+            )
+            ->setSort('-caum_order')
+        ;
+        if ($query->execute()) {
+            /**
+             * @var \FreeFW\Model\ResultSet $results
+             */
+            $results = $query->getResult();
+            if ($results->count() > 0) {
+                foreach ($results as $oneMedia) {
+                    $file   = '/images/photos/gibbon_' . $oneMedia->getCaumId() . '.jpg';
+                    $path[] = $file;
+                    if (!is_file($ged . '/public' . $file)) {
+                        \FreeFW\Tools\Dir::mkpath($ged . '/public/images/photos/');
+                        file_put_contents($ged . '/public' . $file, $oneMedia->getCaumBlob());
+                    }
+                }
+            }
+        }
+        return $path;
+    }
 }
