@@ -367,23 +367,44 @@
     </target>
 
     <!--
-        Déploiement en beta / dev
+        Déploiement Kalaweit en beta / dev
     -->
-    <target name="prepare-beta">
+    <target name="prepare-kalaweit-beta">
         <phingcall target="prepare-generic">
         </phingcall>
     </target>
-    <target name="create-beta">
+    <target name="create-kalaweit-beta">
         <phingcall target="create-tgz-generic">
             <property name="deploy.appfolder" value="kalaweit-dev" />
             <property name="deploy.version" value="beta" />
         </phingcall>
     </target>
-    <target name="execute-deploy-beta-kalaweit">
+    <target name="execute-deploy-kalaweit-beta">
         <property name="deploy.appfolder" value="kalaweit-dev" />
         <property name="deploy.version" value="beta" />
         <foreach list="${deploy.hosts-beta}" param="host" target="host-copy-generic" />
         <foreach list="${deploy.hosts-beta}" param="host" target="host-install-generic" />
+        <echo message="that's all folks..." />
+    </target>
+
+    <!--
+        Déploiement Kalaweit en production
+    -->
+    <target name="prepare-kalaweit-prod">
+        <phingcall target="prepare-generic">
+        </phingcall>
+    </target>
+    <target name="create-kalaweit-prod">
+        <phingcall target="create-tgz-generic">
+            <property name="deploy.appfolder" value="kalaweit-prod" />
+            <property name="deploy.version" value="prod" />
+        </phingcall>
+    </target>
+    <target name="execute-deploy-kalaweit-prod">
+        <property name="deploy.appfolder" value="kalaweit-prod" />
+        <property name="deploy.version" value="prod" />
+        <foreach list="${deploy.hosts}" param="host" target="host-copy-generic" />
+        <foreach list="${deploy.hosts}" param="host" target="host-install-generic" />
         <echo message="that's all folks..." />
     </target>
 
