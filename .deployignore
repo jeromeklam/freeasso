@@ -15,6 +15,7 @@
 /docker-db
 /docker-logs
 /docker-dumps
+/install/ph*
 /log
 /target
 /test
