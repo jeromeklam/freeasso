@@ -1215,7 +1215,7 @@ class Kalaweit
             $query = $provider->prepare("Select * from recus_fiscaux order by id_recus_fiscaux");
             $query->execute();
             while ($row = $query->fetch(\PDO::FETCH_OBJ)) {
-                $myReceipt = \FreeFW\DI\DI::get('FreeAsso::Model::Receipt');
+                $myReceipt = new \FreeAsso\Model\Receipt();
                 $myReceipt->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
                 $myReceipt->setRettId($tabTypesRecus['O']->getRettId());
                 if (strpos($row->numero, 'ADH') !== false) {
@@ -1329,6 +1329,30 @@ class Kalaweit
                 }
                 if (!$myReceipt->create(false, true)) {
                     var_export($myReceipt->getErrors());die;
+                }
+                // pdf...
+                $pdfName = APP_ROOT . 'data/glusterfs/shared/Documents/recus/' . $row->annee;
+                if (is_dir($pdfName)) {
+                    $pdfName .= '/recu_' . $row->annee . '_' . $row->id_membre . '_' . $row->id_type . '.pdf';
+                    if (is_file($pdfName)) {
+                        $file = new \FreeFW\Model\File();
+                        $file
+                            ->setFileName('recu_' . $row->annee . '_' . $row->id_membre . '_' . $row->id_type . '.pdf')
+                            ->setGrpId(15)
+                            ->setUserId(1)
+                            ->setFileType(\FreeFW\Model\File::TYPE_PDF)
+                            ->setFileBlob(file_get_contents($pdfName))
+                            ->setFileObjectName('FreeAsso_Receipt')
+                            ->setFileObjectId($myReceipt->getRecId())
+                        ;
+                        if (!$file->create(false)) {
+                            var_export($file->getErrors());die;
+                        }
+                        $myReceipt->setFileId($file->getFileId());
+                        if (!$myReceipt->save(false)) {
+                            var_export($myReceipt->getErrors());die;
+                        }
+                    }
                 }
                 $tabReceipts[$row->id_recus_fiscaux] = $myReceipt->getRecId();
             }
@@ -1571,6 +1595,30 @@ class Kalaweit
                         $myDonation->setCertId($myCertificate->getCertId());
                         if (!$myDonation->save(false, true)) {
                             var_export($myDonation->getErrors());die;
+                        }
+                        // pdf...
+                        $pdfName = APP_ROOT . 'data/glusterfs/shared/Documents/certificats/';
+                        if (is_dir($pdfName)) {
+                            $pdfName .= '/certificat_' . $row->id_certificat . '.pdf';
+                            if (is_file($pdfName)) {
+                                $file = new \FreeFW\Model\File();
+                                $file
+                                    ->setFileName('certificat_' . $row->id_certificat . '.pdf')
+                                    ->setGrpId(15)
+                                    ->setUserId(1)
+                                    ->setFileType(\FreeFW\Model\File::TYPE_PDF)
+                                    ->setFileBlob(file_get_contents($pdfName))
+                                    ->setFileObjectName('FreeAsso_Certificate')
+                                    ->setFileObjectId($myCertificate->getCertId())
+                                ;
+                                if (!$file->create(false)) {
+                                    var_export($file->getErrors());die;
+                                }
+                                $myCertificate->setFileId($file->getFileId());
+                                if (!$myCertificate->save(false)) {
+                                    var_export($myCertificate->getErrors());die;
+                                }
+                            }
                         }
                         break;
                     }
