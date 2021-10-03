@@ -1,3 +1,4 @@
 MKDIR|RELEASE/cache|755
 MKDIR|RELEASE/log|755
 LN|/etc/freeasso/kalaweit|RELEASE/config
+LN|/shared/data/kalaweit/prod/ged|RELEASE/ged
