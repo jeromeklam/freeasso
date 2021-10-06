@@ -16,6 +16,8 @@ class Constants
     const ERROR_MOVEMENT_ARCHIVED             = 5220003;
     const ERROR_CONTRACT_CODE_EXISTS          = 5220004;
     const ERROR_MOVEMENT_STATUS               = 5220005;
+    const ERROR_DONATION_UPDATEDB             = 5220006;
+    const ERROR_CAUSE_UPDATEMNT               = 5220007;
 
     const ERROR_SITE_REL_SON                  = 6680001;
     const ERROR_SITE_REL_MEDIA                = 6680002;

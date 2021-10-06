@@ -251,9 +251,11 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
          * @var \FreeAsso\Service\Cause $causeService
          */
         $causeService = \FreeFW\DI\DI::get('FreeAsso::Service::Cause');
-        $result = false;
+        $result = true;
         if ($causeService->updateMnt($this)) {
             $result = $this->save(true, true);
+        } else {
+            $this->addError(\FreeAsso\Constants::ERROR_CAUSE_UPDATEMNT, "Erreur de mise à jour des monstants sur le bénéficiaire !");
         }
         return $result;
     }
@@ -342,9 +344,16 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
             }
         }
         if ($p_keep_binary) {
-            file_put_contents($p_tmp_dir . 'empty.png', base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='));
+            @file_put_contents($p_tmp_dir . 'empty.png', base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='));
             for ($i=$picture+1; $i<=5; $i++) {
                 $name = 'cau_picture_' . $i;
+                $fields[$name] = [
+                    'name'    => $name,
+                    'title'   => 'Image ' . $i,
+                    'type'    => \FreeFW\Constants::TYPE_IMAGE,
+                    'content' => $p_tmp_dir . 'empty.png'
+                ];
+                $name = 'cau_picture_rect_' . $i;
                 $fields[$name] = [
                     'name'    => $name,
                     'title'   => 'Image ' . $i,

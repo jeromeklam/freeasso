@@ -192,4 +192,14 @@ abstract class Sponsorship extends \FreeFW\Core\StorageModel
     {
         return 'asso_sponsorship';
     }
+
+    /**
+     * Get default includes for merge datas
+     *
+     * @return array
+     */
+    public static function getDefaultMergeIncludes()
+    {
+        return ['cause', 'client'];
+    }
 }

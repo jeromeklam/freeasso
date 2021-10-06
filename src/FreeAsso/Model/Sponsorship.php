@@ -129,6 +129,7 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
                 $donation = $this->getNewDonation($now);
             }
             if (!$donation->create()) {
+                $this->addErrors($donation->getErrors());
                 return false;
             }
         }

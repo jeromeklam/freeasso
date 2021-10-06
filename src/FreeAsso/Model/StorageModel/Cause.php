@@ -532,4 +532,14 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
             ],
         ];
     }
+
+    /**
+     * Get default includes for merge datas
+     *
+     * @return array
+     */
+    public static function getDefaultMergeIncludes()
+    {
+        return ['subspecies', 'site'];
+    }
 }

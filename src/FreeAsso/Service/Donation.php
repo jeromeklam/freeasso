@@ -91,10 +91,7 @@ class Donation extends \FreeFW\Core\Service
                     if ($file) {
                         $cfg  = $this->getAppConfig();
                         $dir  = $cfg->get('ged:dir');
-                        if (!is_dir($dir)) {
-                            $dir = '/tmp/';
-                        }
-                        $bDir = rtrim(\FreeFW\Tools\Dir::mkpath($dir), '/');
+                        $bDir = rtrim(\FreeFW\Tools\Dir::mkStdFolder($dir), '/');
                         $filename = $bDir . '/certificat_' . uniqid(true) . '.pdf';
                         file_put_contents($filename, $file->getFileBlob());
                         $message->addAttachment($filename, 'certificat.pdf');
@@ -140,11 +137,29 @@ class Donation extends \FreeFW\Core\Service
          * @var \FreeFW\Model\Query $query
          */
         $dStart = clone ($p_start);
-        if ($p_mode == '1M') {
-            $dStart->add(new \DateInterval('P1M'));
-            $emailC = 'END_DONATION_1M';
-        } else {
-            $emailC = 'END_DONATION_1D';
+        switch ($p_mode) {
+            case '1M':
+                $dStart->add(new \DateInterval('P1M'));
+                $dStart->setTime(0, 0, 0, 0);
+                $dEnd = clone ($dStart);
+                $dEnd->add(new \DateInterval('P1D'));
+                $emailC = 'END_DONATION_1M';
+                break;
+            case '1D':
+                $emailC = 'END_DONATION_1D';
+                $dStart->setTime(0, 0, 0, 0);
+                $dEnd = clone ($dStart);
+                $dEnd->add(new \DateInterval('P1D'));
+                break;
+            case 'END':
+                $emailC = 'END_DONATION';
+                $dStart->setTime(0, 0, 0, 0);
+                $dEnd = clone ($dStart);
+                $dEnd->add(new \DateInterval('P1D'));
+                break;
+            default: // ??
+                return "Unknown code : " . $p_mode;
+                break;
         }
         $dStart->setTime(0, 0, 0, 0);
         $dEnd = clone ($dStart);
@@ -157,11 +172,12 @@ class Donation extends \FreeFW\Core\Service
                         \FreeFW\Tools\Date::datetimeToMysql($dStart),
                         \FreeFW\Tools\Date::datetimeToMysql($dEnd)
                     ]],
-                    'cau_id'     => [\FreeFW\Storage\Storage::COND_NOT_EMPTY],
-                    'spo_id'     => [\FreeFW\Storage\Storage::COND_EMPTY],
+                    'cau_id'                         => [\FreeFW\Storage\Storage::COND_NOT_EMPTY],
+                    'spo_id'                         => [\FreeFW\Storage\Storage::COND_EMPTY],
+                    'cause.cause_type.caut_mnt_type' => \FreeAsso\Model\CauseType::MNT_TYPE_ANNUAL,
                 ]
             )
-            ->addRelations(['client', 'cause'])
+            ->addRelations(['client', 'cause', 'cause.cause_type'])
             ->setSort('client.cli_firstname,client.cli_lastname');
         if ($query->execute()) {
             /**
@@ -197,17 +213,21 @@ class Donation extends \FreeFW\Core\Service
                     }
                     $addN = true;
                     $mail = trim($client->getCliEmail());
-                    if (\FreeFW\Tools\Email::verify($mail)) {
+                    if ($mail !== '') { //\FreeFW\Tools\Email::verify($mail)) {
                         // Send mail to client...
                         $filters = [
                             'email_code' => $emailC
                         ];
+                        //var_dump($donation->getMergeData());die;
                         $message = $emailService->getEmailAsMessage($filters, $client->getLangId(), $donation);
                         if ($message) {
                             $message
-                                ->addDest($client->getCliEmail());
+                                ->addDest($client->getCliEmail())
+                            ;
                             if ($message->create()) {
                                 $addN = false;
+                            } else {
+                                var_dump($message->getErrors());die;
                             }
                         }
                     }
@@ -247,15 +267,21 @@ class Donation extends \FreeFW\Core\Service
         $this->logger->debug('Donation.reviveAdoptions.START');
         /**
          *
-         * @var \DateTime  $lastOk
+         * @var \DateTime $lastOk
          */
         $lastOk = \FreeFW\Tools\Date::getServerDatetime();
+        /**
+         * @var \DateTime $now
+         */
         $now    = \FreeFW\Tools\Date::getServerDatetime();
         if (array_key_exists('last', $p_params)) {
             $lastOk = \FreeFW\Tools\Date::mysqlToDatetime($p_params['last']);
         }
+        $lastOk->setTime(0, 0, 0, 0);
+        $now->setTime(0, 0, 0, 0);
         // Force same time...
         while ($lastOk < $now) {
+            $result = $this->reviveAdoption(clone $lastOk, 'END');
             $lastOk->add(new \DateInterval('P1D'));
             $this->logger->debug('Generating ' . \FreeFW\Tools\Date::datetimeToMysql($lastOk) . '...');
             $result = $this->reviveAdoption(clone $lastOk, '1D');

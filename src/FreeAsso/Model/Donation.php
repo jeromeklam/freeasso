@@ -113,6 +113,8 @@ class Donation extends \FreeAsso\Model\Base\Donation
         $cause  = $this->getCause();
         if ($cause) {
             if (!$cause->handleDonation($this, null)) {
+                $this->addErrors($cause->getErrors());
+                $this->addError(\FreeAsso\Constants::ERROR_DONATION_UPDATEDB, "Erreur de mise à jour du bénéficiare");
                 return false;
             }
         }
@@ -120,6 +122,7 @@ class Donation extends \FreeAsso\Model\Base\Donation
             $cause = $this->old_donation->getCause();
             if ($cause) {
                 if (!$cause->handleDonation($this, $this->old_donation)) {
+                    $this->addError(\FreeAsso\Constants::ERROR_DONATION_UPDATEDB, "Erreur de mise à jour du bénéficiare (2)");
                     return false;
                 }
             }
@@ -267,6 +270,7 @@ class Donation extends \FreeAsso\Model\Base\Donation
     {
         // Update datas
         if (!$this->updateAfterDbAction()) {
+            $this->addError(\FreeAsso\Constants::ERROR_DONATION_UPDATEDB, "Erreur updateDb");
             return false;
         }
         return true;

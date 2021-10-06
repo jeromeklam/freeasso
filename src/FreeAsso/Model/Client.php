@@ -274,4 +274,66 @@ class Client extends \FreeAsso\Model\Base\Client implements
         }
         return $this->getCliLastname();
     }
+
+    /**
+     * Return first sponsorship
+     *
+     * @return \FreeAsso\Model\Sponsorship | false
+     */
+    public function getFirstSponsor()
+    {
+        $now   = \FreeFW\Tools\Date::getCurrentTimestamp();
+        /**
+         * @var \FreeFW\Model\Query $query
+         */
+        return \FreeAsso\Model\Sponsorship::findFirst(
+            [
+                'cli_id'   => $this->getCliId(),
+                'spo_to'   => [ \FreeFW\Storage\Storage::COND_GREATER_EQUAL_OR_NULL => $now ],
+                'spo_from' => [ \FreeFW\Storage\Storage::COND_LOWER_EQUAL_OR_NULL => $now ],
+            ],
+            [
+                'spo_from' => \FreeFW\Storage\Storage::SORT_DESC
+            ]
+        );
+    }
+
+    /**
+     * Specific fields
+     *
+     * @return array
+     */
+    public function getSpecificEditionFields()
+    {
+        $fields  = [];
+        $sponsor = $this->getFirstSponsor();
+        if ($sponsor) {
+            $fields[] = [
+                'name'    => 'is_sponsor',
+                'type'    => 'boolean',
+                'title'   => 'sponsor',
+                'content' => 1,
+            ];
+            $fields[] = [
+                'name'    => 'spo_from',
+                'type'    => 'date',
+                'title'   => 'spo_from',
+                'content' => \FreeFW\Tools\Date::mysqlToddmmyyyy($sponsor->getSpoFrom(), false, false),
+            ];
+        } else {
+            $fields[] = [
+                'name'    => 'is_sponsor',
+                'type'    => 'boolean',
+                'title'   => 'sponsor',
+                'content' => 0,
+            ];
+            $fields[] = [
+                'name'    => 'spo_from',
+                'type'    => 'date',
+                'title'   => 'spo_from',
+                'content' => null,
+            ];
+        }
+        return $fields;
+    }
 }

@@ -1,3 +1,10 @@
+# 1.4.3 : 06/10/2021
+
+* Général
+    * Ajout de la méthode getDefaultMergeIncludes sur les modèles
+    * Bug de génération des certificats
+    * FreeFW 1.6.3
+
 # 1.4.2 : 03/10/2021
 
 * Cause

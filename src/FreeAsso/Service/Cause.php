@@ -46,10 +46,11 @@ class Cause extends \FreeFW\Core\Service
         $quifils = [
             'cau_id'     => $p_cause->getCauId(),
             'don_status' => \FreeAsso\Model\Donation::STATUS_OK,
-            'don_end_ts' => [\FreeFW\Storage\Storage::COND_GREATER_EQUAL => \FreeFW\Tools\Date::getCurrentTimestamp()]
+            'don_end_ts' => [\FreeFW\Storage\Storage::COND_GREATER_EQUAL_OR_NULL => \FreeFW\Tools\Date::getCurrentTimestamp()]
         ];
         $query
-            ->addFromFilters($quifils);
+            ->addFromFilters($quifils)
+        ;
         $clients = [];
         if ($query->execute()) {
             $results = $query->getResult();

@@ -570,4 +570,14 @@ abstract class Client extends \FreeFW\Core\StorageModel
             ]
         ];
     }
+
+    /**
+     * Get default includes for merge datas
+     *
+     * @return array
+     */
+    public static function getDefaultMergeIncludes()
+    {
+        return ['country'];
+    }
 }

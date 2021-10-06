@@ -47,7 +47,8 @@ class Sponsorship extends \FreeFW\Core\Service
             $message = $emailService->getEmailAsMessage($filters, $client->getLangId(), $p_sponsorship);
             if ($message) {
                 $message
-                    ->addDest($client->getCliEmail());
+                    ->addDest($client->getCliEmail())
+                ;
                 $sendIdentity = $p_automate->getAutoParam('send_identity', false);
                 if ($sendIdentity) {
                     $cause = $p_sponsorship->getCause();

@@ -256,4 +256,14 @@ abstract class Donation extends \FreeFW\Core\StorageModel
     {
         return 'asso_donation';
     }
+
+    /**
+     * Get default includes for merge datas
+     *
+     * @return array
+     */
+    public static function getDefaultMergeIncludes()
+    {
+        return ['cause', 'client'];
+    }
 }
