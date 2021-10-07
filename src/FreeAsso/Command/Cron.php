@@ -23,7 +23,7 @@ class Cron
         $brokerId = $sso->getBrokerId();
         $p_output->write("Broker : " . $brokerId, true);
         $clientService = \FreeFW\DI\DI::get('FreeAsso::Service::Client');
-        $clientService->updateLastDonations();
+        $clientService->updateAll();
         $p_output->write("Fin de la mise à jour", true);
     }
 
