@@ -518,11 +518,21 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
             if ($results->count() > 0) {
                 foreach ($results as $oneMedia) {
                     $file   = '/images/photos/gibbon_' . $oneMedia->getCaumId() . '.jpg';
-                    $path[] = $file;
                     if (!is_file($ged . '/public' . $file)) {
                         \FreeFW\Tools\Dir::mkpath($ged . '/public/images/photos/');
                         file_put_contents($ged . '/public' . $file, $oneMedia->getCaumBlob());
                     }
+                    $file   = '/images/vignettes/gibbon_' . $oneMedia->getCaumId() . '.jpg';
+                    if (!is_file($ged . '/public' . $file)) {
+                        \FreeFW\Tools\Dir::mkpath($ged . '/public/images/vignettes/');
+                        /**
+                         * @var \FreeFW\Tools\ImageResizer $crop
+                         */
+                        $crop = \FreeFW\Tools\ImageResizer::createFromString($oneMedia->getCaumBlob());
+                        $crop->resizeToBestFit(200, 200);
+                        $crop->save($ged . '/public' . $file);
+                    }
+                    $path[] = 'gibbon_' . $oneMedia->getCaumId() . '.jpg';
                 }
             }
         }
