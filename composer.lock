@@ -1294,16 +1294,16 @@
         },
         {
             "name": "jeromeklam/freefw",
-            "version": "1.6.5",
+            "version": "1.6.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jeromeklam/freefw.git",
-                "reference": "e455fc4604061ecc31974d1a9152080b3105139b"
+                "reference": "12b486fe8f359416f8eed210b0699ab16162ee66"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jeromeklam/freefw/zipball/e455fc4604061ecc31974d1a9152080b3105139b",
-                "reference": "e455fc4604061ecc31974d1a9152080b3105139b",
+                "url": "https://api.github.com/repos/jeromeklam/freefw/zipball/12b486fe8f359416f8eed210b0699ab16162ee66",
+                "reference": "12b486fe8f359416f8eed210b0699ab16162ee66",
                 "shasum": ""
             },
             "require": {
@@ -1365,9 +1365,9 @@
             ],
             "support": {
                 "issues": "https://github.com/jeromeklam/freefw/issues",
-                "source": "https://github.com/jeromeklam/freefw/tree/1.6.5"
+                "source": "https://github.com/jeromeklam/freefw/tree/1.6.6"
             },
-            "time": "2021-10-10T08:22:33+00:00"
+            "time": "2021-10-10T16:10:41+00:00"
         },
         {
             "name": "jeromeklam/freeoffice",
