@@ -491,6 +491,37 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
     }
 
     /**
+     * Liste des sponsors
+     * 
+     * @return array
+     */
+    public function getSponsors()
+    {
+        $sponsors = [];
+        /**
+         * @var \FreeAsso\Service\Cause $causeService
+         */
+        $causeService = \FreeFW\DI\DI::get('FreeAsso::Service::Cause');
+        $data  = $causeService->getSponsors($this->getCauId());
+        $added = [];
+        /**
+         * @var \FreeAsso\Model\Sponsor $oneSponsor
+         */
+        foreach ($data as $oneSponsor) {
+            $sponsor = [
+                'name'  => $oneSponsor->getSponName(),
+                'email' => $oneSponsor->getSponEmail()
+            ];
+            $key = md5(json_encode($sponsor));
+            if ($oneSponsor->getSponSite() && !in_array($key, $added)) {
+                $sponsors[] = $sponsor;
+                $added[]    = $key;
+            }
+        }
+        return $sponsors;
+    }
+
+    /**
      * Get vignettes
      *
      * @return string
