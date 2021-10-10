@@ -248,13 +248,23 @@ abstract class Donation extends \FreeFW\Core\StorageModel
     }
 
     /**
-     * Set object source
+     * Get object source
      *
      * @return string
      */
     public static function getSource()
     {
         return 'asso_donation';
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public static function getSourceTitle()
+    {
+        return 'Dons';
     }
 
     /**
