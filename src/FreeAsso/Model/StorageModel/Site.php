@@ -506,6 +506,14 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
     /**
      * Retourne une explication de la table
      */
+    public static function getSourceTitle()
+    {
+        return 'Site';
+    }
+
+    /**
+     * Retourne une explication de la table
+     */
     public static function getSourceComments()
     {
         return 'Gestion d\'un site, qui permet de regrouper des causes dans un même lieu : région, île, pays, ...';

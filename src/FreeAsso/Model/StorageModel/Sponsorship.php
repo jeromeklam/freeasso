@@ -202,4 +202,22 @@ abstract class Sponsorship extends \FreeFW\Core\StorageModel
     {
         return ['cause', 'client'];
     }
+
+        /**
+     * Get One To many relationShips
+     *
+     * @return array
+     */
+    public function getRelationships()
+    {
+        return [
+            'donations' => [
+                FFCST::REL_MODEL   => 'FreeAsso::Model::Donation',
+                FFCST::REL_FIELD   => 'spo_id',
+                FFCST::REL_TYPE    => \FreeFW\Model\Query::JOIN_LEFT,
+                FFCST::REL_COMMENT => 'Les dons pour le parrainage',
+                FFCST::REL_REMOVE  => FFCST::REL_REMOVE_CHECK
+            ],
+        ];
+    }
 }

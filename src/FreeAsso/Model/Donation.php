@@ -217,7 +217,10 @@ class Donation extends \FreeAsso\Model\Base\Donation
         $cause  = $this->getCause();
         //var_dump($this->cause);die;
         $client = $this->getClient();
-        if ($cause->getCauseType()->getCautCertificat()) {
+        /**
+         * Pas de génération de certificat pour un don régulier, fait à part...
+         */
+        if ($cause->getCauseType()->getCautCertificat() && $this->getSpoId() <= 0) {
             /**
              * @var \FreeAsso\Model\Certificate $certificate
              */
