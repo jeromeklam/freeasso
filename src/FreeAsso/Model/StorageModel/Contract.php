@@ -243,6 +243,16 @@ abstract class Contract extends \FreeFW\Core\StorageModel
      *
      * @return string
      */
+    public static function getSourceTitle()
+    {
+        return 'Contrats';
+    }
+
+    /**
+     * Get object short description
+     *
+     * @return string
+     */
     public static function getSourceComments()
     {
         return 'Contrats';

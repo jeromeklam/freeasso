@@ -74,6 +74,7 @@ class Movement extends \FreeFW\Core\ApiController
                 foreach ($causeMovements as $causeMovement) {
                     $causeMovement->setCamvStatus(\FreeAsso\Model\Movement::STATUS_OK);
                     if (!$causeMovement->save()) {
+                        $myMovement->addErrors($causeMovement->getErrors());
                         $ret = false;
                         break;
                     }

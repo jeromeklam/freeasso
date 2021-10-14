@@ -542,4 +542,14 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
     {
         return ['subspecies', 'site'];
     }
+
+    /**
+     * Get short title
+     *
+     * @return array
+     */
+    public static function getSourceTitle()
+    {
+        return 'Cause';
+    }
 }

@@ -580,4 +580,14 @@ abstract class Client extends \FreeFW\Core\StorageModel
     {
         return ['country'];
     }
+
+    /**
+     * Get short name
+     *
+     * @return array
+     */
+    public static function getSourceTitle()
+    {
+        return 'Personne';
+    }
 }
