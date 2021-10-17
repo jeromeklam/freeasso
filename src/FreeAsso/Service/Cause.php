@@ -49,8 +49,7 @@ class Cause extends \FreeFW\Core\Service
             'don_end_ts' => [\FreeFW\Storage\Storage::COND_GREATER_EQUAL_OR_NULL => \FreeFW\Tools\Date::getCurrentTimestamp()]
         ];
         $query
-            ->addFromFilters($quifils)
-        ;
+            ->addFromFilters($quifils);
         $clients = [];
         if ($query->execute()) {
             $results = $query->getResult();
@@ -95,7 +94,7 @@ class Cause extends \FreeFW\Core\Service
                     ->setNotifType(\FreeFW\Model\Notification::TYPE_INFORMATION)
                     ->setNotifObjectName('FreeAsso_Client')
                     ->setNotifObjectId($client->getCliId())
-                    ->setNotifSubject('Fin bénéficiaire ' . $p_cause->getCauName())
+                    ->setNotifSubject($p_automate->getAutoName() . ' : ' . $p_cause->getCauName())
                     ->setNotifCode('END_CAUSE')
                     ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp());
                 $notification->create();
@@ -114,6 +113,86 @@ class Cause extends \FreeFW\Core\Service
         $query = \FreeAsso\Model\Cause::getQuery();
         //$query->addFromFilters(['cau_id' => 680]);
         $query->execute([], 'updateMnt');
+    }
+
+    /**
+     * Update media
+     *
+     * @return void
+     */
+    public function updateAllMedia()
+    {
+        $query = \FreeAsso\Model\Cause::getQuery();
+        if ($query->execute()) {
+            $results = $query->getResult();
+            /**
+             * @var \FreeAsso\Model\Cause $oneCause
+             */
+            foreach ($results as $oneCause) {
+                $queryMedia = \FreeAsso\Model\CauseMedia::getQuery();
+                $queryMedia->addFromFilters(
+                    [
+                        'cau_id' => $oneCause->getCauId(),
+                        'caum_code' => 'NEWS'
+                    ]
+                );
+                if ($queryMedia->execute()) {
+                    $medias = $queryMedia->getResult();
+                    $saved  = null;
+                    $tab    = [];
+                    /**
+                     * @var \FreeAsso\Model\CauseMedia $oneMedia
+                     */
+                    foreach ($medias as $oneMedia) {
+                        if (strtoupper($oneMedia->getCaumTitle()) == 'PRESENTATION') {
+                            $saved = $oneMedia;
+                        } else {
+                            $parts = explode('-', $oneMedia->getCaumTitle());
+                            $year  = intval($parts[0]);
+                            $month = 0;
+                            $num   = $year * 100;
+                            if (count($parts) > 1) {
+                                $month = intval($parts[1]);
+                            }
+                            $month++;
+                            $num += $month;
+                            $tab[$num] = [
+                                'caum_id'    => $oneMedia->getCaumId(),
+                                'caum_order' => $oneMedia->getCaumOrder(),
+                                'caum_title' => $oneMedia->getCaumTitle(),
+                                'caum_date'  => $year . '-' . $month . '-01',
+                            ];
+                        }
+                    }
+                    if ($saved) {
+                        $tab[0] = [
+                            'caum_id'    => $saved->getCaumId(),
+                            'caum_order' => $saved->getCaumOrder(),
+                            'caum_title' => $saved->getCaumTitle(),
+                            'caum_date'  => null,
+                        ];
+                    }
+                    ksort($tab);
+                    $num = 0;
+                    $date = null;
+                    foreach ($tab as $key => $value) {
+                        echo $key . PHP_EOL;
+                        $num++;
+                        /**
+                         * @var \FreeAsso\Model\CauseMedia $oneMedia
+                         */
+                        $oneCauseMedia = \FreeAsso\Model\CauseMedia::findFirst(['caum_id' => $value['caum_id']]);
+                        $oneCauseMedia->setCaumOrder($num);
+                        $oneCauseMedia->save(false, true);
+                        if ($value['caum_date']) {
+                            $date = $value['caum_date'];
+                        }
+                    }
+                    $oneCause->setCauLastNews($date);
+                    $oneCause->save(false, true);
+                }
+            }
+        }
     }
 
     /**
@@ -297,8 +376,7 @@ class Cause extends \FreeFW\Core\Service
                     'spo_id'      => \FreeFW\Storage\Storage::COND_EMPTY
                 ]
             )
-            ->addRelations(['client'])
-        ;
+            ->addRelations(['client']);
         if ($query->execute()) {
             $results = $query->getResult();
             foreach ($results as $donation) {
@@ -313,8 +391,7 @@ class Cause extends \FreeFW\Core\Service
                     ->setSponSite($donation->getDonDisplaySite())
                     ->setSponNews(false)
                     ->setCliId($donation->getCliId())
-                    ->setSponDonator(true)
-                ;
+                    ->setSponDonator(true);
                 $data->add($sponsor);
                 $sponsors = json_decode($donation->getDonSponsors(), true);
                 if (is_array($sponsors)) {
@@ -340,8 +417,7 @@ class Cause extends \FreeFW\Core\Service
                             ->setSponSite($site)
                             ->setSponNews($news)
                             ->setCliId($donation->getCliId())
-                            ->setSponDonator(false)
-                        ;
+                            ->setSponDonator(false);
                         $data->add($sponsor2);
                     }
                 }
@@ -359,8 +435,7 @@ class Cause extends \FreeFW\Core\Service
                     'spo_to'   => [\FreeFW\Storage\Storage::COND_GREATER_EQUAL_OR_NULL => \FreeFW\Tools\Date::getCurrentTimestamp()]
                 ]
             )
-            ->addRelations(['client'])
-        ;
+            ->addRelations(['client']);
         if ($query->execute()) {
             $results = $query->getResult();
             foreach ($results as $sponsorship) {
@@ -375,8 +450,7 @@ class Cause extends \FreeFW\Core\Service
                     ->setSponSite($sponsorship->getSpoDisplaySite())
                     ->setSponNews($sponsorship->getSpoSendNews())
                     ->setCliId($sponsorship->getCliId())
-                    ->setSponDonator(true)
-                ;
+                    ->setSponDonator(true);
                 $data->add($sponsor);
                 $sponsors = json_decode($sponsorship->getSpoSponsors(), true);
                 if (is_array($sponsors)) {
@@ -402,8 +476,7 @@ class Cause extends \FreeFW\Core\Service
                             ->setSponSite($site)
                             ->setSponNews($news)
                             ->setCliId($sponsorship->getCliId())
-                            ->setSponDonator(false)
-                        ;
+                            ->setSponDonator(false);
                         $data->add($sponsor2);
                     }
                 }

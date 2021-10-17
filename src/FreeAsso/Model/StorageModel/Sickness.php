@@ -87,6 +87,16 @@ abstract class Sickness extends \FreeFW\Core\StorageModel
     }
 
     /**
+     * Set object source
+     *
+     * @return string
+     */
+    public static function getSourceTitle()
+    {
+        return 'Maladie';
+    }
+
+    /**
      * Get autocomplete field
      *
      * @return string

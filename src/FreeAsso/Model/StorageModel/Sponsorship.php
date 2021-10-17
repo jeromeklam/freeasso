@@ -194,6 +194,16 @@ abstract class Sponsorship extends \FreeFW\Core\StorageModel
     }
 
     /**
+     * Get object short name
+     *
+     * @return string
+     */
+    public static function getSourceTitle()
+    {
+        return 'Parrainage';
+    }
+
+    /**
      * Get default includes for merge datas
      *
      * @return array

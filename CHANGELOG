@@ -1,3 +1,12 @@
+# 1.5.0 : 17/10/2021
+
+* Causes
+    * Date de dernires nouvelles et date de la dernière photo
+    * Cron de mise à jour de la date (version)
+* Notifications
+    * Utilisation du libellé de l'automate pour ls notifications 
+* FreeFW 1.6.9
+
 # 1.4.8 : 14/10/2021
 
 * Movement

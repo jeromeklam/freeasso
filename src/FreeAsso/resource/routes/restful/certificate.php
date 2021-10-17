@@ -48,7 +48,9 @@ $certificateRoutes = [
         FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_GET_FILTERED,
         FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
         FFCSTRT::ROUTE_MIDDLEWARE => [],
-        FFCSTRT::ROUTE_INCLUDE    => [],
+        FFCSTRT::ROUTE_INCLUDE    => [
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['cause', 'cause.cause_type']
+        ],
         FFCSTRT::ROUTE_SCOPE      => [],
         FFCSTRT::ROUTE_RESULTS    => [
             '200' => [
@@ -69,7 +71,9 @@ $certificateRoutes = [
         FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_GET_ONE,
         FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
         FFCSTRT::ROUTE_MIDDLEWARE => [],
-        FFCSTRT::ROUTE_INCLUDE    => [],
+        FFCSTRT::ROUTE_INCLUDE    => [
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['cause', 'cause.cause_type']
+        ],
         FFCSTRT::ROUTE_SCOPE      => [],
         FFCSTRT::ROUTE_PARAMETERS => [
             'cert_id' => [
@@ -98,7 +102,9 @@ $certificateRoutes = [
         FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_CREATE_ONE,
         FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
         FFCSTRT::ROUTE_MIDDLEWARE => [],
-        FFCSTRT::ROUTE_INCLUDE    => [],
+        FFCSTRT::ROUTE_INCLUDE    => [
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['cause', 'cause.cause_type']
+        ],
         FFCSTRT::ROUTE_SCOPE      => [],
         FFCSTRT::ROUTE_RESULTS    => [
             '201' => [
@@ -119,7 +125,9 @@ $certificateRoutes = [
         FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_UPDATE_ONE,
         FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
         FFCSTRT::ROUTE_MIDDLEWARE => [],
-        FFCSTRT::ROUTE_INCLUDE    => [],
+        FFCSTRT::ROUTE_INCLUDE    => [
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['cause', 'cause.cause_type']
+        ],
         FFCSTRT::ROUTE_SCOPE      => [],
         FFCSTRT::ROUTE_PARAMETERS => [
             'cert_id' => [
@@ -175,7 +183,7 @@ $certificateRoutes = [
         FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_PRINT_ONE,
         FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
         FFCSTRT::ROUTE_INCLUDE    => [
-            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['cause','client']
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['cause', 'client']
         ],
         FFCSTRT::ROUTE_SCOPE      => [],
         FFCSTRT::ROUTE_PARAMETERS => [

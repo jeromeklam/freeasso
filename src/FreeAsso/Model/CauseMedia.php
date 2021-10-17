@@ -1,4 +1,5 @@
 <?php
+
 namespace FreeAsso\Model;
 
 use \FreeFW\Constants as FFCST;
@@ -51,8 +52,7 @@ class CauseMedia extends \FreeAsso\Model\Base\CauseMedia
             $query  = $model->getQuery();
             $query
                 ->addFromFilters(['caum_id' => $this->getCaumId()])
-                ->addRelations(['lang'])
-            ;
+                ->addRelations(['lang']);
             if ($query->execute()) {
                 $versions = $query->getResult();
             }
@@ -87,6 +87,28 @@ class CauseMedia extends \FreeAsso\Model\Base\CauseMedia
     }
 
     /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function beforeCreate()
+    {
+        $this->setCaumOrder(0);
+        $query = \FreeAsso\Model\CauseMedia::getQuery();
+        $query->addFromFilters(['cau_id' => $this->getCauId()]);
+        if ($query-> execute()) {
+            $results = $query->getResult();
+            foreach ($results as $oneCauseMedia) {
+                if ($oneCauseMedia->getCaumOrder() > $this->getCaumOrder()) {
+                    $this->setCaumOrder($oneCauseMedia->getCaumOrder());
+                }
+            }
+        }
+        $this->setCaumOrder($this->getCaumOrder() + 1);
+        return true;
+    }
+
+    /**
      * After create
      *
      * @return boolean
@@ -103,6 +125,14 @@ class CauseMedia extends \FreeAsso\Model\Base\CauseMedia
                     return false;
                 }
             }
+        }
+        if ($this->getCaumCode() == 'NEWS') {
+            /**
+             * @var \FreeAsso\Model\Cause $cause
+             */
+            $cause = \FreeAsso\Model\Cause::findFirst(['cau_id' => $this->getCauId()]);
+            $cause->setCauLastNews(\FreeFW\Tools\Date::getCurrentTimestamp());
+            return $cause->save(true, true);
         }
         return true;
     }
@@ -171,8 +201,39 @@ class CauseMedia extends \FreeAsso\Model\Base\CauseMedia
      */
     public function beforeRemove()
     {
-        $model  = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMediaLang');
-        $query  = $model->getQuery();
+        /**
+         * Cas particulier des photos, la dernière est liée sur la table asso_cause, donc à gérer
+         */
+        $query = \FreeAsso\Model\Cause::getQuery();
+        $query->addFromFilters(['caum_blob_id' => $this->getCaumId()]);
+        if ($query->execute()) {
+            $causes = $query->getResult();
+            /**
+             * @var \FreeAsso\Model\Cause $oneCause
+             */
+            foreach ($causes as $oneCause) {
+                $newId = null;
+                $query2 = \FreeAsso\Model\CauseMedia::getQuery();
+                $query2->addFromFilters(
+                    [
+                        'cau_id'    => $oneCause->getCauId(),
+                        'caum_id'   => [\FreeFW\Storage\Storage::COND_NOT_EQUAL => $this->getCaumId()],
+                        'caum_type' => \FreeAsso\Model\CauseMedia::TYPE_PHOTO,
+                    ]
+                );
+                if ($query2->execute()) {
+                    $otherMedias = $query2->getResult();
+                    foreach ($otherMedias as $oneCauseMedia) {
+                        $newId = $oneCauseMedia->getCaumId();
+                        break;
+                    }
+                }
+                $oneCause->setCaumBlobId($newId);
+                $oneCause->save();
+                break;
+            }
+        }
+        $query  = \FreeAsso\Model\CauseMediaLang::getQuery();
         $query->addFromFilters(['caum_id' => $this->getCaumId()]);
         if ($query->execute()) {
             $mLang = $query->getResult();

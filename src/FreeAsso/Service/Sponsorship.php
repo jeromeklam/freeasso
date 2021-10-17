@@ -75,15 +75,16 @@ class Sponsorship extends \FreeFW\Core\Service
             }
         } else {
             $cause = $p_sponsorship->getCause();
-            // Add notofication for manual send...
+            // Add notification for manual send...
             $notification = new \FreeFW\Model\Notification();
             $notification
                 ->setNotifType(\FreeFW\Model\Notification::TYPE_INFORMATION)
                 ->setNotifObjectName('FreeAsso_Sponsorship')
                 ->setNotifObjectId($p_sponsorship->getSpoId())
-                ->setNotifSubject('Nouvel ami sans email : ' . $client->getFullname() . ' ' . $cause->getCauName())
+                ->setNotifSubject($p_automate->getAutoName() . ' : ' . $client->getFullname() . ' ' . $cause->getCauName())
                 ->setNotifCode('SPONSORSHIP_WITHOUT_EMAIL')
-                ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp());
+                ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp())
+            ;
             return $notification->create();
         }
         return true;

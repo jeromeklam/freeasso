@@ -112,7 +112,7 @@ class Donation extends \FreeFW\Core\Service
                     ->setNotifType(\FreeFW\Model\Notification::TYPE_INFORMATION)
                     ->setNotifObjectName('FreeAsso_Certificate')
                     ->setNotifObjectId($certificate->getCertId())
-                    ->setNotifSubject('Nouveau certificat sans email : ' . $certificate->getCertFullname() . ' ' . $cause->getCauName())
+                    ->setNotifSubject($p_automate->getAutoName() . ' : ' . $certificate->getCertFullname() . ' ' . $cause->getCauName())
                     ->setNotifCode('CERTIFICATE_WITHOUT_EMAIL')
                     ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp());
                 return $notification->create();

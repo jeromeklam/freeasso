@@ -1,4 +1,5 @@
 <?php
+
 namespace FreeAsso\Command;
 
 /**
@@ -32,17 +33,40 @@ class Cron
      *
      * @param \FreeFW\Console\Input\AbstractInput $p_input
      * @param \FreeFW\Console\Output\AbstractOutput $p_output
+     * 
+     * @return void
      */
     public function updateCause(
         \FreeFW\Console\Input\AbstractInput $p_input,
         \FreeFW\Console\Output\AbstractOutput $p_output
-        ) {
+    ) {
         $p_output->write("Début de la mise à jour", true);
         $sso      = \FreeFW\DI\DI::getShared('sso');
         $brokerId = $sso->getBrokerId();
         $p_output->write("Broker : " . $brokerId, true);
         $causeService = \FreeFW\DI\DI::get('FreeAsso::Service::Cause');
         $causeService->updateAll();
+        $p_output->write("Fin de la mise à jour", true);
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param \FreeFW\Console\Input\AbstractInput $p_input
+     * @param \FreeFW\Console\Output\AbstractOutput $p_output
+     * 
+     * @return void
+     */
+    public function updateCauseMedia(
+        \FreeFW\Console\Input\AbstractInput $p_input,
+        \FreeFW\Console\Output\AbstractOutput $p_output
+    ) {
+        $p_output->write("Début de la mise à jour", true);
+        $sso      = \FreeFW\DI\DI::getShared('sso');
+        $brokerId = $sso->getBrokerId();
+        $p_output->write("Broker : " . $brokerId, true);
+        $causeService = \FreeFW\DI\DI::get('FreeAsso::Service::Cause');
+        $causeService->updateAllMedia();
         $p_output->write("Fin de la mise à jour", true);
     }
 }

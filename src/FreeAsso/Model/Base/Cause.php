@@ -322,6 +322,18 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     protected $grp_id = null;
 
     /**
+     * cau_last_news
+     * @var mixed
+     */
+    protected $cau_last_news = null;
+
+    /**
+     * cau_last_photo
+     * @var mixed
+     */
+    protected $cau_last_photo = null;
+
+    /**
      * Set cau_id
      *
      * @param int $p_value
@@ -1515,5 +1527,51 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     public function getGrpId()
     {
         return $this->grp_id;
+    }
+
+    /**
+     * Set cau_last_news
+     *
+     * @param mixed $p_value
+     *
+     * @return \FreeAsso\Model\Cause
+     */
+    public function setCauLastNews($p_value)
+    {
+        $this->cau_last_news = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get cau_last_news
+     *
+     * @return mixed
+     */
+    public function getCauLastNews()
+    {
+        return $this->cau_last_news;
+    }
+
+    /**
+     * Set cau_last_photo
+     *
+     * @param mixed $p_value
+     *
+     * @return \FreeAsso\Model\Cause
+     */
+    public function setCauLastPhoto($p_value)
+    {
+        $this->cau_last_photo = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get cau_last_photo
+     *
+     * @return mixed
+     */
+    public function getCauLastPhoto()
+    {
+        return $this->cau_last_photo;
     }
 }

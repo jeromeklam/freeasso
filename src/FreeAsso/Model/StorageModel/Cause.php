@@ -395,6 +395,20 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_LOCAL],
         FFCST::PROPERTY_COMMENT => 'Montant récolté',
     ];
+    protected static $PRP_CAU_LAST_NEWS = [
+        FFCST::PROPERTY_PRIVATE => 'cau_last_news',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
+        FFCST::PROPERTY_COMMENT => 'Date de la dernière news',
+        FFCST::PROPERTY_MERGE   => 'News',
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_CAU_LAST_PHOTO = [
+        FFCST::PROPERTY_PRIVATE => 'cau_last_photo',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
+        FFCST::PROPERTY_COMMENT => 'Date de la dernière photo',
+        FFCST::PROPERTY_MERGE   => 'Photo',
+        FFCST::PROPERTY_OPTIONS => []
+    ];
 
     /**
      * get properties
@@ -457,6 +471,8 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
             'cau_conform_text' => self::$PRP_CAU_CONFORM_TEXT,
             'grp_id'           => self::$PRP_GRP_ID,
             'cau_mnt_raised'   => self::$PRP_CAU_MNT_RAISED,
+            'cau_last_news'    => self::$PRP_CAU_LAST_NEWS,
+            'cau_last_photo'   => self::$PRP_CAU_LAST_PHOTO,
         ];
     }
 

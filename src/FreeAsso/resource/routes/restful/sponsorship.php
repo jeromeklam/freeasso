@@ -49,7 +49,7 @@ $sponsorshipRoutes = [
         FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
         FFCSTRT::ROUTE_MIDDLEWARE => [],
         FFCSTRT::ROUTE_INCLUDE    => [
-            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['client', 'cause', 'payment_type']
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['client', 'cause', 'cause.cause_type', 'payment_type']
         ],
         FFCSTRT::ROUTE_SCOPE      => [],
         FFCSTRT::ROUTE_RESULTS    => [
@@ -72,7 +72,7 @@ $sponsorshipRoutes = [
         FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
         FFCSTRT::ROUTE_MIDDLEWARE => [],
         FFCSTRT::ROUTE_INCLUDE    => [
-            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['client', 'cause', 'payment_type']
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['client', 'cause', 'cause.cause_type', 'payment_type']
         ],
         FFCSTRT::ROUTE_SCOPE      => [],
         FFCSTRT::ROUTE_PARAMETERS => [
@@ -103,7 +103,7 @@ $sponsorshipRoutes = [
         FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
         FFCSTRT::ROUTE_MIDDLEWARE => [],
         FFCSTRT::ROUTE_INCLUDE    => [
-            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['client', 'cause', 'payment_type']
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['client', 'cause', 'cause.cause_type', 'payment_type']
         ],
         FFCSTRT::ROUTE_SCOPE      => [],
         FFCSTRT::ROUTE_RESULTS    => [
@@ -126,7 +126,7 @@ $sponsorshipRoutes = [
         FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
         FFCSTRT::ROUTE_MIDDLEWARE => [],
         FFCSTRT::ROUTE_INCLUDE    => [
-            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['client', 'cause', 'payment_type']
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['client', 'cause', 'cause.cause_type', 'payment_type']
         ],
         FFCSTRT::ROUTE_SCOPE      => [],
         FFCSTRT::ROUTE_PARAMETERS => [
