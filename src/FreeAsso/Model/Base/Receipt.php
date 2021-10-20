@@ -160,6 +160,12 @@ abstract class Receipt extends \FreeAsso\Model\StorageModel\Receipt
     protected $grp_id = null;
 
     /**
+     * rec_manual
+     * @var bool
+     */
+    protected $rec_manual;
+
+    /**
      * Set rec_id
      *
      * @param int $p_value
@@ -732,5 +738,28 @@ abstract class Receipt extends \FreeAsso\Model\StorageModel\Receipt
     public function getGrpId()
     {
         return $this->grp_id;
+    }
+
+    /**
+     * Set rec_manual
+     *
+     * @param bool $p_value
+     *
+     * @return \FreeAsso\Model\Donation
+     */
+    public function setRecManual($p_value)
+    {
+        $this->rec_manual = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get rec_manual
+     *
+     * @return bool
+     */
+    public function getRecManual()
+    {
+        return $this->rec_manual;
     }
 }

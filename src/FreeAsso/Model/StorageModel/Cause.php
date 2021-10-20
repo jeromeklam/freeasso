@@ -356,6 +356,11 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DECIMAL,
         FFCST::PROPERTY_OPTIONS => []
     ];
+    protected static $PRP_CAU_UNIT_MONEY = [
+        FFCST::PROPERTY_PRIVATE => 'cau_unit_money',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
     protected static $PRP_CAU_WAITING = [
         FFCST::PROPERTY_PRIVATE => 'cau_waiting',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
@@ -466,6 +471,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
             'cau_unit_unit'    => self::$PRP_CAU_UNIT_UNIT,
             'cau_unit_mnt'     => self::$PRP_CAU_UNIT_MNT,
             'cau_unit_base'    => self::$PRP_CAU_UNIT_BASE,
+            'cau_unit_money'   => self::$PRP_CAU_UNIT_MONEY,
             'cau_waiting'      => self::$PRP_CAU_WAITING,
             'cau_conform'      => self::$PRP_CAU_CONFORM,
             'cau_conform_text' => self::$PRP_CAU_CONFORM_TEXT,

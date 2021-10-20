@@ -47,12 +47,21 @@ class Certificate extends \FreeAsso\Model\Base\Certificate
      */
     public function generate()
     {
+        /**
+         * @var \FreeAsso\Model\Cause
+         */
         $cause = $this->getCause();
         if ($cause) {
+            /**
+             * @var \FreeAsso\Model\CauseType
+             */
             $causeType = $cause->getCauseType();
             if ($causeType) {
                 $ediId = $causeType->getCautCertEdiId();
                 if ($ediId) {
+                    /**
+                     * @var \FreeFW\Service\Edition
+                     */
                     $editionService = \FreeFW\DI\DI::get('FreeFW::Service::Edition');
                     $datas = $editionService->printEdition(
                         $ediId,
@@ -60,6 +69,9 @@ class Certificate extends \FreeAsso\Model\Base\Certificate
                         $this
                     );
                     if (isset($datas['filename']) && is_file($datas['filename'])) {
+                        /**
+                         * @var \FreeFW\Model\File $file
+                         */
                         if ($this->getFileId()) {
                             $file = \FreeFW\Model\File::findFirst(['file_id' => $this->getFileId()]);
                         } else {
@@ -84,7 +96,7 @@ class Certificate extends \FreeAsso\Model\Base\Certificate
                                     ->setFileId($file->getFileId())
                                     ->setCertGenTs(\FreeFW\Tools\Date::getCurrentTimestamp())
                                 ;
-                                return $this->save(true, true);
+                                return $this->save(true, false);
                             } else {
                                 $this->setErrors($file->getErrors());
                                 return false;

@@ -47,7 +47,10 @@ class Donation extends \FreeFW\Core\Service
             $message = $emailService->getEmailAsMessage($filters, $client->getLangId(), $p_donation);
             if ($message) {
                 $message
-                    ->addDest($client->getCliEmail());
+                    ->addDest($client->getCliEmail())
+                    ->setDestId($client->getCliId())
+                    ->setGrpId($p_donation->getGrpId())
+                ;
                 $edi1Id = $p_automate->getAutoParam('edi1_id', 0);
                 if ($edi1Id) {
                     /**
@@ -223,6 +226,8 @@ class Donation extends \FreeFW\Core\Service
                         if ($message) {
                             $message
                                 ->addDest($client->getCliEmail())
+                                ->setDestId($client->getCliId())
+                                ->setGrpId($donation->getGrpId())
                             ;
                             if ($message->create()) {
                                 $addN = false;

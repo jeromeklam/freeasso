@@ -461,7 +461,7 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
         if (!$lang) {
             $lang = 'fr';
         } else {
-            $lang = \strtolower($lang);
+            $lang = \strtolower(substr($lang, 0, 2));
         }
         $query = \FreeAsso\Model\CauseMediaLang::getQuery();
         $query

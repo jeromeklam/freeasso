@@ -18,7 +18,10 @@ class Constants
     const ERROR_MOVEMENT_STATUS               = 5220005;
     const ERROR_DONATION_UPDATEDB             = 5220006;
     const ERROR_CAUSE_UPDATEMNT               = 5220007;
-
+    const ERROR_MOVEMENT_FROM_MISSING         = 5220008;
+    const ERROR_MOVEMENT_TO_MISSING           = 5220009;
+    const ERROR_CERTIFICATE_GENERATE          = 5220010;
+    
     const ERROR_SITE_REL_SON                  = 6680001;
     const ERROR_SITE_REL_MEDIA                = 6680002;
     const ERROR_SITE_REL_FROM                 = 6680003;

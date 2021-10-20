@@ -1,4 +1,5 @@
 <?php
+
 namespace FreeAsso\Controller;
 
 use \FreeFW\Constants as FFCST;
@@ -17,13 +18,58 @@ class Certificate extends \FreeFW\Core\ApiController
     use \FreeAsso\Controller\Behaviour\Group;
 
     /**
+     * Renew edition
+     *
+     * @param \Psr\Http\Message\ServerRequestInterface $p_request
+     */
+    public function generateOne(\Psr\Http\Message\ServerRequestInterface $p_request, $p_id = null)
+    {
+        $this->logger->debug('FreeAsso.CertificateController.generateOne.start');
+        /**
+         * @var \FreeAsso\Model\Certificate $certificate
+         */
+        $certificate = \FreeAsso\Model\Certificate::findFirst(['cert_id' => $p_id]);
+        if ($certificate) {
+            if (!$certificate->generate()) {
+                $this->logger->debug('FreeAsso.CertificateController.getOne.error');
+                return $this->createErrorResponse(\FreeAsso\Constants::ERROR_CERTIFICATE_GENERATE, null);
+            }
+            return $this->createSuccessOkResponse($certificate);
+        } else {
+            $this->logger->debug('FreeAsso.CertificateController.getOne.end');
+            return $this->createErrorResponse(\FreeFW\Constants::ERROR_NOT_FOUND, null);
+        }
+        $this->logger->debug('FreeAsso.CertificateController.generateOne.end');
+    }
+
+    /**
+     * Send by email
+     *
+     * @param \Psr\Http\Message\ServerRequestInterface $p_request
+     */
+    public function sendOne(\Psr\Http\Message\ServerRequestInterface $p_request, $p_id = null)
+    {
+        $this->logger->debug('FreeAsso.CertificateController.sendOne.start');
+        /**
+         * @var \FreeAsso\Model\Certificate $certificate
+         */
+        $certificate = \FreeAsso\Model\Certificate::findFirst(['cert_id' => $p_id]);
+        if ($certificate) {
+        } else {
+            $this->logger->debug('FreeAsso.CertificateController.getOne.end');
+            return $this->createErrorResponse(\FreeFW\Constants::ERROR_NOT_FOUND, null);
+        }
+        $this->logger->debug('FreeAsso.CertificateController.sendOne.end');
+    }
+
+    /**
      * Print one by id
      *
      * @param \Psr\Http\Message\ServerRequestInterface $p_request
      */
     public function printOne(\Psr\Http\Message\ServerRequestInterface $p_request, $p_id = null)
     {
-        $this->logger->debug('FreeFW.ApiController.getOne.start');
+        $this->logger->debug('FreeAsso.CertificateController.getOne.start');
         /**
          * @var \FreeFW\Http\ApiParams $apiParams
          */
@@ -31,7 +77,7 @@ class Certificate extends \FreeFW\Core\ApiController
         if (!isset($p_request->default_model)) {
             throw new \FreeFW\Core\FreeFWStorageException(
                 sprintf('No default model for route !')
-                );
+            );
         }
         if (method_exists($this, 'adaptApiParams')) {
             $apiParams = $this->adaptApiParams($apiParams, 'getOne');
@@ -61,8 +107,7 @@ class Certificate extends \FreeFW\Core\ApiController
                 ->addConditions($filters)
                 ->addConditions($apiParams->getFilters())
                 ->addRelations($apiParams->getInclude())
-                ->setLimit(0, 1)
-            ;
+                ->setLimit(0, 1);
             $data = new \FreeFW\Model\ResultSet();
             if ($query->execute()) {
                 $data = $query->getResult();
@@ -77,7 +122,7 @@ class Certificate extends \FreeFW\Core\ApiController
                 if ($file) {
                     $model->setCertPrintTs(\FreeFW\Tools\Date::getCurrentTimestamp());
                     $model->save();
-                    $this->logger->info('FreeFW.ApiController.printOne.end');
+                    $this->logger->info('FreeAsso.CertificateController.printOne.end');
                     return $this->createMimeTypeResponse('certificat.pdf', $file->getFileBlob());
                 } else {
                     $data = null;
@@ -91,7 +136,7 @@ class Certificate extends \FreeFW\Core\ApiController
             $data = null;
             $code = FFCST::ERROR_ID_IS_MANDATORY; // 409
         }
-        $this->logger->info('FreeFW.ApiController.printOne.end');
+        $this->logger->info('FreeAsso.CertificateController.printOne.end');
         return $this->createErrorResponse($code);
     }
 }

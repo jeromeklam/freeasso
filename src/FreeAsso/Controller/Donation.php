@@ -1,4 +1,5 @@
 <?php
+
 namespace FreeAsso\Controller;
 
 /**
@@ -13,6 +14,35 @@ class Donation extends \FreeFW\Core\ApiController
      * Comportement
      */
     use \FreeAsso\Controller\Behaviour\Group;
+
+    /**
+     * Send by email
+     *
+     * @param \Psr\Http\Message\ServerRequestInterface $p_request
+     */
+    public function sendOne(\Psr\Http\Message\ServerRequestInterface $p_request, $p_id = null)
+    {
+        $this->logger->debug('FreeAsso.DonationController.sendOne.start');
+        /**
+         * @var \FreeAsso\Model\Donation $donation
+         */
+        $donation = \FreeAsso\Model\Donation::findFirst(['don_id' => $p_id]);
+        if ($donation) {
+            $automate = \FreeFW\Model\Automate::findFirst(
+                [
+                    'auto_object_name' => 'FreeAsso_Donation', 
+                    'auto_events'      => \FreeFW\Constants::EVENT_STORAGE_CREATE
+                ]
+            );
+            if ($automate) {
+                if ($automate->run($donation, \FreeFW\Constants::EVENT_STORAGE_CREATE)) {
+                    return $this->createSuccessOkResponse($donation);
+                }
+            }
+        }
+        $this->logger->debug('FreeAsso.DonationController.sendOne.end');
+        return $this->createErrorResponse(\FreeFW\Constants::ERROR_NOT_FOUND, null);
+    }
 
     /**
      * Get all year
@@ -46,16 +76,14 @@ class Donation extends \FreeFW\Core\ApiController
             ->addConditions($apiParams->getFilters())
             ->addRelations($apiParams->getInclude())
             ->setLimit($apiParams->getStart(), $apiParams->getlength())
-            ->setSort($apiParams->getSort())
-        ;
+            ->setSort($apiParams->getSort());
         $data = new \FreeFW\Model\ResultSet();
         if ($query->execute()) {
-            foreach($query->getResult() as $oneResult) {
+            foreach ($query->getResult() as $oneResult) {
                 $oneDY = new \FreeAsso\Model\DonationYear();
                 $oneDY
                     ->setDonyId($oneResult->getDonRealTsYear())
-                    ->setDonRealTsYear($oneResult->getDonRealTsYear())
-                ;
+                    ->setDonRealTsYear($oneResult->getDonRealTsYear());
                 $data->add($oneDY);
             }
         }

@@ -388,4 +388,23 @@ class Movement extends \FreeAsso\Model\Base\Movement
         }
         return true;
     }
+
+    /**
+     * Can validate ??
+     *
+     * @return boolean
+     */
+    public function canValidate()
+    {
+        $valid = true;
+        if (!$this->getMoveFromSiteId()) {
+            $this->addError(\FreeAsso\Constants::ERROR_MOVEMENT_FROM_MISSING, 'Le site de départ est manquant');
+            $valid = false;
+        }
+        if (!$this->getMoveToSiteId()) {
+            $this->addError(\FreeAsso\Constants::ERROR_MOVEMENT_TO_MISSING, 'Le site d\'arrivée est manquant');
+            $valid = false;
+        }
+        return $valid;
+    }
 }

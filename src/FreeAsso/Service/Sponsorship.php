@@ -48,6 +48,8 @@ class Sponsorship extends \FreeFW\Core\Service
             if ($message) {
                 $message
                     ->addDest($client->getCliEmail())
+                    ->setDestId($client->getCliId())
+                    ->setGrpId($p_sponsorship->getGrpId())
                 ;
                 $sendIdentity = $p_automate->getAutoParam('send_identity', false);
                 if ($sendIdentity) {

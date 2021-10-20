@@ -49,6 +49,16 @@ $localCommands = [
         'command'    => 'cause::updatemedia',
         'controller' => 'FreeAsso::Command::Cron',
         'function'   => 'updateCauseMedia'
+    ],
+    /**
+     * ########################################################################
+     * Mise à jour des messages
+     * ########################################################################
+     */
+    'freeasso.cron.updatemessages' => [
+        'command'    => 'client::updatemessages',
+        'controller' => 'FreeAsso::Command::Cron',
+        'function'   => 'updateMessages'
     ]
 ];
 

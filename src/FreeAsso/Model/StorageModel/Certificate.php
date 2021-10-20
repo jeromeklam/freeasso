@@ -41,7 +41,7 @@ abstract class Certificate extends \FreeFW\Core\StorageModel
     protected static $PRP_CLI_ID = [
         FFCST::PROPERTY_PRIVATE => 'cli_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK,FFCST::OPTION_REQUIRED],
         FFCST::PROPERTY_TITLE   => 'Donateur',
         FFCST::PROPERTY_COMMENT => 'Donateur',
         FFCST::PROPERTY_FK      => ['client' =>
@@ -112,6 +112,7 @@ abstract class Certificate extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_PRIVATE => 'lang_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_LANG,
         FFCST::PROPERTY_TITLE   => 'Langue',
         FFCST::PROPERTY_COMMENT => 'Langue',
         FFCST::PROPERTY_FK      => ['lang' =>
@@ -126,6 +127,7 @@ abstract class Certificate extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_PRIVATE => 'cnty_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_COUNTRY,
         FFCST::PROPERTY_TITLE   => 'Pays',
         FFCST::PROPERTY_COMMENT => 'Pays',
         FFCST::PROPERTY_FK      => ['country' =>
@@ -258,6 +260,14 @@ abstract class Certificate extends \FreeFW\Core\StorageModel
             ]
         ]
     ];
+    protected static $PRP_CERT_MANUAL = [
+        FFCST::PROPERTY_PRIVATE => 'cert_manual',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_FALSE,
+        FFCST::PROPERTY_TITLE   => 'Manuel',
+        FFCST::PROPERTY_COMMENT => 'Manuel',
+    ];
 
     /**
      * get properties
@@ -294,7 +304,8 @@ abstract class Certificate extends \FreeFW\Core\StorageModel
             'cert_unit_mnt'     => self::$PRP_CERT_UNIT_MNT,
             'cert_unit_base'    => self::$PRP_CERT_UNIT_BASE,
             'grp_id'            => self::$PRP_GRP_ID,
-            'cau_id'            => self::$PRP_CAU_ID
+            'cau_id'            => self::$PRP_CAU_ID,
+            'cert_manual'       => self::$PRP_CERT_MANUAL,
         ];
     }
 

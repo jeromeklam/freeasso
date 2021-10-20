@@ -69,7 +69,9 @@ class Cause extends \FreeFW\Core\Service
                 $message = $emailService->getEmailAsMessage($filters, $client->getLangId(), [$client, $p_cause]);
                 if ($message) {
                     $message
-                        ->addDest($client->getCliEmail());
+                        ->addDest($client->getCliEmail())
+                        ->setDestId($client->getCliId())
+                    ;
                     $edi1Id = $p_automate->getAutoParam('edi1_id', 0);
                     if ($edi1Id) {
                         /**

@@ -1,3 +1,17 @@
+# 1.6.0 : 20/10/2021
+
+* API
+    * Hack Gibbons pour le site de Kalaweit 
+* Certificats
+    * Le donateur est obligatoire 
+    * Ajout d'un flag manuel
+    * Route pour regénérer un sertificat
+* Dons
+    * Option pour envoyer à nouveau l'email 
+* Recus
+    * Ajout d'un flag manuel
+* FreeFW : 1.7.0
+
 # 1.5.0 : 17/10/2021
 
 * Causes

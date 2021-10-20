@@ -238,6 +238,14 @@ abstract class Receipt extends \FreeFW\Core\StorageModel
             ]
         ]
     ];
+    protected static $PRP_REC_MANUAL = [
+        FFCST::PROPERTY_PRIVATE => 'rec_manual',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_FALSE,
+        FFCST::PROPERTY_TITLE   => 'Manuel',
+        FFCST::PROPERTY_COMMENT => 'Manuel',
+    ];
 
     /**
      * get properties
@@ -271,7 +279,8 @@ abstract class Receipt extends \FreeFW\Core\StorageModel
             'rec_send_method' => self::$PRP_REC_SEND_METHOD,
             'rec_mnt_letter'  => self::$PRP_REC_MNT_LETTER,
             'file_id'         => self::$PRP_FILE_ID,
-            'grp_id'          => self::$PRP_GRP_ID
+            'grp_id'          => self::$PRP_GRP_ID,
+            'rec_manual'      => self::$PRP_REC_MANUAL,
         ];
     }
 

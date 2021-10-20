@@ -68,28 +68,32 @@ class Movement extends \FreeFW\Core\ApiController
         $apiParams  = $p_request->getAttribute('api_params', false);
         $myMovement = \FreeAsso\Model\Movement::findFirst(['move_id' => $p_id]);
         if ($myMovement) {
-            $causeMovements = \FreeAsso\Model\CauseMovement::find(['move_id' => $myMovement->getMoveId()]);
-            if ($causeMovements) {
-                $myMovement->startTransaction();
-                foreach ($causeMovements as $causeMovement) {
-                    $causeMovement->setCamvStatus(\FreeAsso\Model\Movement::STATUS_OK);
-                    if (!$causeMovement->save()) {
-                        $myMovement->addErrors($causeMovement->getErrors());
-                        $ret = false;
-                        break;
+            if ($myMovement->canValidate()) {
+                $causeMovements = \FreeAsso\Model\CauseMovement::find(['move_id' => $myMovement->getMoveId()]);
+                if ($causeMovements) {
+                    $myMovement->startTransaction();
+                    foreach ($causeMovements as $causeMovement) {
+                        $causeMovement->setCamvStatus(\FreeAsso\Model\Movement::STATUS_OK);
+                        if (!$causeMovement->save()) {
+                            $myMovement->addErrors($causeMovement->getErrors());
+                            $ret = false;
+                            break;
+                        }
                     }
+                    if ($ret) {
+                        $myMovement->setMoveStatus(\FreeAsso\Model\Movement::STATUS_OK);
+                        $ret = $myMovement->save();
+                    }
+                    if (!$ret) {
+                        $myMovement->rollbackTransaction();
+                        return $this->createErrorResponse(FFCST::ERROR_NOT_UPDATE, $myMovement);
+                    }
+                    $myMovement->commitTransaction();
+                    $data = $this->getModelById($apiParams, $myMovement, $myMovement->getApiId());
+                    return $this->createResponse(200, $data);
                 }
-                if ($ret) {
-                    $myMovement->setMoveStatus(\FreeAsso\Model\Movement::STATUS_OK);
-                    $ret = $myMovement->save();
-                }
-                if (!$ret) {
-                    $myMovement->rollbackTransaction();
-                    return $this->createErrorResponse(FFCST::ERROR_NOT_UPDATE, $myMovement);
-                }
-                $myMovement->commitTransaction();
-                $data = $this->getModelById($apiParams, $myMovement, $myMovement->getApiId());
-                return $this->createResponse(200, $data);
+            } else {
+                return $this->createErrorResponse(FFCST::ERROR_NOT_UPDATE, $myMovement);
             }
         }
         return $this->createResponse(409);

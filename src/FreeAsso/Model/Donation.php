@@ -236,12 +236,13 @@ class Donation extends \FreeAsso\Model\Base\Donation
             }
             $certificate
                 ->setClient($client)
+                ->setCertManual(false)
                 ->setCertTs(\FreeFW\Tools\Date::getCurrentTimestamp())
                 ->setCertGents(null)
                 ->setCertPrintTs(null)
                 ->setCertInputMnt($this->getDonMntInput())
                 ->setCertInputMoney($this->getDonMoneyInput())
-                ->setCertOutputMoney('IDR')
+                ->setCertOutputMoney($cause->getCauUnitMoney())
                 ->setCertUnitBase($cause->getCauUnitBase())
                 ->setCertUnitUnit($cause->getCauUnitUnit())
                 ->setCertUnitMnt($cause->getCauUnitMnt())

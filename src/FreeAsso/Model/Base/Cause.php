@@ -298,6 +298,12 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     protected $cau_unit_base = null;
 
     /**
+     * cau_unit_money
+     * @var mixed
+     */
+    protected $cau_unit_money = null;
+
+    /**
      * cau_waiting
      * @var bool
      */
@@ -1435,6 +1441,29 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Cause
     public function getCauUnitBase()
     {
         return $this->cau_unit_base;
+    }
+
+    /**
+     * Set cau_unit_money
+     *
+     * @param mixed $p_value
+     *
+     * @return \FreeAsso\Model\Cause
+     */
+    public function setCauUnitMoney($p_value)
+    {
+        $this->cau_unit_money = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get cau_unit_money
+     *
+     * @return mixed
+     */
+    public function getCauUnitMoney()
+    {
+        return $this->cau_unit_money;
     }
 
     /**

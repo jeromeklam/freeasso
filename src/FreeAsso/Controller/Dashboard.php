@@ -105,6 +105,10 @@ class Dashboard extends \FreeFW\Core\Controller
         $datas = \FreeAsso\Model\Data::find();
         foreach ($datas as $oneData) {
             $data[strtolower($oneData->getDataCode())] = $oneData->getDataContent();
+            /** Hack pb site Kalaweit */
+            if ($oneData->getDataCode() == 'ANIMAUXPROTEGES') {
+                $data['gibbons'] = $oneData->getDataContent();
+            }
         }
         //
         return $this->createResponse(200, serialize($data));

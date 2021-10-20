@@ -178,6 +178,12 @@ abstract class Certificate extends \FreeAsso\Model\StorageModel\Certificate
     protected $cau_id = null;
 
     /**
+     * cert_manual
+     * @var bool
+     */
+    protected $cert_manual = null;
+
+    /**
      * Set cert_id
      *
      * @param int $p_value
@@ -819,5 +825,28 @@ abstract class Certificate extends \FreeAsso\Model\StorageModel\Certificate
     public function getCauId()
     {
         return $this->cau_id;
+    }
+
+    /**
+     * Set cert_manual
+     *
+     * @param bool $p_value
+     *
+     * @return \FreeAsso\Model\Donation
+     */
+    public function setCertManual($p_value)
+    {
+        $this->cert_manual = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get cert_manual
+     *
+     * @return bool
+     */
+    public function getCertManual()
+    {
+        return $this->cert_manual;
     }
 }

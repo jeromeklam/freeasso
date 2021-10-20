@@ -98,6 +98,7 @@ class Client extends \FreeFW\Core\Service
             if ($message) {
                 $message
                     ->addDest($p_client->getCliEmail())
+                    ->setDestId($p_client->getCliId())
                 ;
                 return $message->create();
             }
