@@ -107,7 +107,7 @@ class Dashboard extends \FreeFW\Core\Controller
             $data[strtolower($oneData->getDataCode())] = $oneData->getDataContent();
             /** Hack pb site Kalaweit */
             if ($oneData->getDataCode() == 'ANIMAUXPROTEGES') {
-                $data['gibbons'] = $oneData->getDataContent();
+                $data['total_cause'] = $oneData->getDataContent();
             }
         }
         //
