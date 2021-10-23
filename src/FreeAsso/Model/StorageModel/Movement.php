@@ -28,7 +28,7 @@ abstract class Movement extends \FreeFW\Core\StorageModel
     protected static $PRP_MOVE_FROM_SITE_ID = [
         FFCST::PROPERTY_PRIVATE => 'move_from_site_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_FK],
         FFCST::PROPERTY_FK      => ['from_site' =>
             [
                 'model' => 'FreeAsso::Model::Site',
@@ -40,7 +40,7 @@ abstract class Movement extends \FreeFW\Core\StorageModel
     protected static $PRP_MOVE_TO_SITE_ID = [
         FFCST::PROPERTY_PRIVATE => 'move_to_site_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_FK],
         FFCST::PROPERTY_FK      => ['to_site' =>
             [
                 'model' => 'FreeAsso::Model::Site',
