@@ -1,3 +1,10 @@
+# 1.7.0 : 24/10/2021
+
+* Causes
+    * Calcul des monstants même si la cause est "terminée"
+* Email & Messages
+    * Gestion BCC  
+
 # 1.6.1 : 20/10/2021
 
 * API

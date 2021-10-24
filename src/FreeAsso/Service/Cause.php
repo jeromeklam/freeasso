@@ -210,8 +210,7 @@ class Cause extends \FreeFW\Core\Service
             $type  = $p_cause->getCauseType();
             $total = 0;
             $left  = 0;
-            $to    = $p_cause->getCauTo();
-            if ($type && $to == '') {
+            if ($type) {
                 /**
                  * Tous les dons ponctuels déjà enregistrés
                  * Les dons réhuliers seront gérés à part.
@@ -229,7 +228,8 @@ class Cause extends \FreeFW\Core\Service
                     $filters['don_end_ts'] = [\FreeFW\Storage\Storage::COND_GREATER_EQUAL => \FreeFW\Tools\Date::getCurrentTimestamp()];
                 }
                 $query
-                    ->addFromFilters($filters);
+                    ->addFromFilters($filters)
+                ;
                 if ($query->execute()) {
                     $results = $query->getResult();
                     if ($results) {
