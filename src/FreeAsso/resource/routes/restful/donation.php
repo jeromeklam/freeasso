@@ -224,4 +224,54 @@ $donationRoutes = [
             ]
         ]
     ],
+    'free_asso.donation.printone' => [
+        FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Donation',
+        FFCSTRT::ROUTE_COMMENT    => 'Imprime le paiement',
+        FFCSTRT::ROUTE_METHOD     => FFCSTRT::METHOD_POST,
+        FFCSTRT::ROUTE_MODEL      => 'FreeAsso::Model::Donation',
+        FFCSTRT::ROUTE_URL        => '/v1/asso/donation/print/:cau_id',
+        FFCSTRT::ROUTE_CONTROLLER => 'FreeAsso::Controller::Donation',
+        FFCSTRT::ROUTE_FUNCTION   => 'printOne',
+        FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_PRINT_ONE,
+        FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
+        FFCSTRT::ROUTE_INCLUDE    => [
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['client_type','client_category','last_donation']
+        ],
+        FFCSTRT::ROUTE_SCOPE      => [],
+        FFCSTRT::ROUTE_PARAMETERS => [
+            'cli_id' => [
+                FFCSTRT::ROUTE_PARAMETER_ORIGIN   => FFCSTRT::ROUTE_PARAMETER_ORIGIN_PATH,
+                FFCSTRT::ROUTE_PARAMETER_TYPE     => FFCST::TYPE_BIGINT,
+                FFCSTRT::ROUTE_PARAMETER_REQUIRED => true,
+                FFCSTRT::ROUTE_PARAMETER_COMMENT  => 'Identifiant du paiement'
+            ],
+        ],
+        FFCSTRT::ROUTE_RESULTS    => [
+            '200' => [
+                FFCSTRT::ROUTE_RESULTS_TYPE    => FFCSTRT::RESULT_BLOB,
+                FFCSTRT::ROUTE_RESULTS_COMMENT => 'Un paiement',
+            ],
+        ]
+    ],
+    'free_asso.donation.export' => [
+        FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Donation',
+        FFCSTRT::ROUTE_COMMENT    => 'Exporte les paiement',
+        FFCSTRT::ROUTE_METHOD     => FFCSTRT::METHOD_POST,
+        FFCSTRT::ROUTE_MODEL      => 'FreeAsso::Model::Donation',
+        FFCSTRT::ROUTE_URL        => '/v1/asso/donation/export',
+        FFCSTRT::ROUTE_CONTROLLER => 'FreeAsso::Controller::Donation',
+        FFCSTRT::ROUTE_FUNCTION   => 'export',
+        FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_EXPORT,
+        FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
+        FFCSTRT::ROUTE_INCLUDE    => [
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['cli_type', 'client_category', 'country', 'lang', 'last_donation']
+        ],
+        FFCSTRT::ROUTE_SCOPE      => [],
+        FFCSTRT::ROUTE_RESULTS    => [
+            '200' => [
+                FFCSTRT::ROUTE_RESULTS_TYPE    => FFCSTRT::RESULT_BLOB,
+                FFCSTRT::ROUTE_RESULTS_COMMENT => 'Export des paiement',
+            ],
+        ]
+    ],
 ];

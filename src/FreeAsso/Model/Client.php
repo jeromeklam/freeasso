@@ -336,4 +336,46 @@ class Client extends \FreeAsso\Model\Base\Client implements
         }
         return $fields;
     }
+
+    /**
+     * Send Email
+     *
+     * @param [type] $p_email
+     * 
+     * @return void
+     */
+    public function sendEmail($p_email)
+    {
+        if ($this->getCliEmail() != '') {
+            $filters = [
+                'email_id' => $p_email->getEmailId()
+            ];
+            $emailService = \FreeFW\DI\DI::get('FreeFW::Service::Email');
+            /**
+             *
+             * @var \FreeFW\Model\Message $message
+             */
+            $message = $emailService->getEmailAsMessage($filters, $this->getLangId(), $this);
+            if ($message) {
+                $message
+                    ->addDest($this->getCliEmail())
+                    ->setDestId($this->getCliId())
+                ;
+                return $message->create();
+            }
+        } else {
+            // Add notofication for manual send...
+            $notification = new \FreeFW\Model\Notification();
+            $notification
+                ->setNotifType(\FreeFW\Model\Notification::TYPE_INFORMATION)
+                ->setNotifObjectName('FreeAsso_Client')
+                ->setNotifObjectId($this->getCliId())
+                ->setNotifSubject($p_email->getEmailSubject() . ' : ' . $this->getFullname())
+                ->setNotifCode('CLIENT_WITHOUT_EMAIL')
+                ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp())
+            ;
+            return $notification->create();
+        }
+        return true;
+    }
 }
