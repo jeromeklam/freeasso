@@ -132,7 +132,7 @@ class Donation extends \FreeAsso\Model\Base\Donation
             $certificate = \FreeAsso\Model\Certificate::findFirst(['cert_id' => $this->getCertId()]);
             if ($certificate) {
                 if (!$certificate->generate()) {
-                    $this->setErrors($certificate->getErrors());
+                    $this->addErrors($certificate->getErrors());
                     return false;
                 }
             }
@@ -215,7 +215,6 @@ class Donation extends \FreeAsso\Model\Base\Donation
     public function beforeCreate()
     {
         $cause  = $this->getCause();
-        //var_dump($this->cause);die;
         $client = $this->getClient();
         /**
          * Pas de génération de certificat pour un don régulier, fait à part...
@@ -274,7 +273,7 @@ class Donation extends \FreeAsso\Model\Base\Donation
     {
         // Update datas
         if (!$this->updateAfterDbAction()) {
-            $this->addError(\FreeAsso\Constants::ERROR_DONATION_UPDATEDB, "Erreur updateDb");
+            $this->addError(\FreeAsso\Constants::ERROR_DONATION_UPDATEDB, "Erreur updateDb " . $this->getDonId());
             return false;
         }
         return true;

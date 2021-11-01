@@ -114,7 +114,7 @@ class Sponsorship extends \FreeFW\Core\Service
          */
         $dStart = $p_date;
         $dStart->setTime(0, 0, 0, 0);
-        $dEnd   = $p_date;
+        $dEnd   = clone $p_date;
         $dEnd->add(new \DateInterval('P1M'));
         $query  = $sponsorship->getQuery();
         $query
@@ -126,7 +126,9 @@ class Sponsorship extends \FreeFW\Core\Service
                 ]
             )
             ->addRelations(['client', 'cause'])
-            ->setSort('cli_firstname,cli_lastname');
+            ->setSort('client.cli_firstname,client.cli_lastname')
+        ;
+        $this->logger->debug('Sponsorship.generateOneDebit.before.query');
         if ($query->execute()) {
             /**
              * @var \FreeFW\Model\ResultSet $results
@@ -185,7 +187,10 @@ class Sponsorship extends \FreeFW\Core\Service
                     $donation
                         ->setDonoId($donOrig->getDonoId())
                         ->setSessId($session->getSessId())
-                        ->setDonStatus(\FreeAsso\Model\Donation::STATUS_OK);
+                        ->setDonStatus(\FreeAsso\Model\Donation::STATUS_OK)
+                    ;
+                    // No automates here...
+                    $donation->turnAutomateOff();
                     $report .= '<li>';
                     $client = $sponsorship->getClient();
                     $report .= $client->getFullname();
@@ -240,7 +245,8 @@ class Sponsorship extends \FreeFW\Core\Service
                 }
                 $donOrig
                     ->setDonoComments($report)
-                    ->save();
+                    ->save()
+                ;
                 if ($errors) {
                     /**
                      * Add notification
@@ -293,6 +299,8 @@ class Sponsorship extends \FreeFW\Core\Service
             $lastOk->add(new \DateInterval('P1M'));
             $this->logger->debug('Generating ' . \FreeFW\Tools\Date::datetimeToMysql($lastOk) . '...');
             $this->generateOneDebit(clone $lastOk);
+            $year  = intval($lastOk->format('Y'));
+            $month = intval($lastOk->format('m'));
         }
         $this->logger->debug('Start from ' . \FreeFW\Tools\Date::datetimeToMysql($lastOk) . ' excluded');
         $p_params['last'] = \FreeFW\Tools\Date::getCurrentTimestamp();

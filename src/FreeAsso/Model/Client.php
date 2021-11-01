@@ -126,7 +126,7 @@ class Client extends \FreeAsso\Model\Base\Client implements
         if ($clientService->updateLastDonation($this)) {
             return $this->save();
         }
-        return false;
+        return true;
     }
 
     /**

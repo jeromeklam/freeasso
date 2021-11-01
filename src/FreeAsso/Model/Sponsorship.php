@@ -56,7 +56,9 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
             $p_date = \FreeFW\Tools\Date::getServerDatetime();
         }
         $askTs = clone $p_date;
-        $askTs->setDate($p_date->format('Y'), $p_date->format('m'), $this->getSpoFreqWhen());
+        $askTs->setDate($p_date->format('Y'), $p_date->format('m'), 10);
+        $realTs = clone $p_date;
+        $realTs->setDate($p_date->format('Y'), $p_date->format('m'), 10); //$this->getSpoFreqWhen());
         /**
          * Generate new donation
          * @var \FreeAsso\Model\Donation $donation
@@ -75,7 +77,7 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
             ->setDonSponsors($this->getSpoSponsors())
             ->setDonTs(\FreeFW\Tools\Date::getCurrentTimestamp())
             ->setDonAskTs(\FreeFW\Tools\Date::datetimeToMysql($askTs))
-            ->setDonRealTs(\FreeFW\Tools\Date::datetimeToMysql($askTs))
+            ->setDonRealTs(\FreeFW\Tools\Date::datetimeToMysql($realTs))
             ->setDonEndTs(\FreeFW\Tools\Date::datetimeToMysql($askTs->add(new \DateInterval('P1Y'))))
             ->setDonMntInput($this->getSpoMntInput())
             ->setDonMoneyInput($this->getSpoMoneyInput())
@@ -120,9 +122,15 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
     public function afterCreate()
     {
         $from = \FreeFW\Tools\Date::mysqlToDatetime($this->getSpoFrom());
+        /**
+         * @var \DateTime $now
+         */
         $now  = \FreeFW\Tools\Date::getServerDatetime();
         // On ajoute le premier paiement
         if ($this->getSpoAddFirst()) {
+            /**
+             * @var \FreeAsso\Model\Donation $donation
+             */
             if ($from < $now) {
                 $donation = $this->getNewDonation($from);
             } else {
