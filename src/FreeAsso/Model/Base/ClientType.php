@@ -154,6 +154,27 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\ClientType
     protected $clit_bool_4 = null;
 
     /**
+     * Add email id
+     *
+     * @var int
+     */
+    protected $clit_add_email_id = null;
+
+    /**
+     * Update email id
+     *
+     * @var int
+     */
+    protected $clit_update_email_id = null;
+
+    /**
+     * End email id
+     *
+     * @var int
+     */
+    protected $clit_end_email_id = null;
+
+    /**
      * Set clit_id
      *
      * @param int $p_value

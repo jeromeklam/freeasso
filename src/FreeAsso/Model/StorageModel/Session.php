@@ -45,6 +45,16 @@ abstract class Session extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
+    protected static $PRP_SESS_YEAR = [
+        FFCST::PROPERTY_PRIVATE => 'sess_year',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_SESS_MONTH = [
+        FFCST::PROPERTY_PRIVATE => 'sess_month',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
 
     /**
      * get properties
@@ -60,6 +70,8 @@ abstract class Session extends \FreeFW\Core\StorageModel
             'sess_exercice' => self::$PRP_SESS_EXERCICE,
             'sess_status'   => self::$PRP_SESS_STATUS,
             'sess_type'     => self::$PRP_SESS_TYPE,
+            'sess_year'     => self::$PRP_SESS_YEAR,
+            'sess_month'    => self::$PRP_SESS_MONTH,
         ];
     }
 

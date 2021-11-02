@@ -46,6 +46,18 @@ abstract class Session extends \FreeAsso\Model\StorageModel\Session
     protected $sess_type = null;
 
     /**
+     * sess_year
+     * @var int
+     */
+    protected $sess_year = null;
+    
+    /**
+     * sess_month
+     * @var int
+     */
+    protected $sess_month = null;
+
+    /**
      * Set sess_id
      *
      * @param int $p_value
@@ -181,5 +193,51 @@ abstract class Session extends \FreeAsso\Model\StorageModel\Session
     public function getSessType()
     {
         return $this->sess_type;
+    }
+
+    /**
+     * Set sess_year
+     *
+     * @param int $p_value
+     * 
+     * @return \FreeAsso\Model\Session
+     */
+    public function setSessYear($p_value)
+    {
+        $this->sess_year = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get sess_year
+     *
+     * @return int
+     */
+    public function getSessYear()
+    {
+        return $this->sess_year;
+    }
+
+    /**
+     * Set sess_month
+     *
+     * @param int $p_value
+     * 
+     * @return \FreeAsso\Model\Session
+     */
+    public function setSessMonth($p_value)
+    {
+        $this->sess_month = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get sess_month
+     *
+     * @return int
+     */
+    public function getSessMonth()
+    {
+        return $this->sess_month;
     }
 }

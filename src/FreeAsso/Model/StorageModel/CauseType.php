@@ -269,6 +269,126 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
             ]
         ]
     ];
+    protected static $PRP_CAUT_ADD_EMAIL_ID = [
+        FFCST::PROPERTY_PRIVATE => 'caut_add_email_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['add_email' =>
+            [
+                'model' => 'FreeFW::Model::Email',
+                'field' => 'email_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
+    protected static $PRP_CAUT_UPDATE_EMAIL_ID = [
+        FFCST::PROPERTY_PRIVATE => 'caut_update_email_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['update_email' =>
+            [
+                'model' => 'FreeFW::Model::Email',
+                'field' => 'email_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
+    protected static $PRP_CAUT_END_EMAIL_ID = [
+        FFCST::PROPERTY_PRIVATE => 'caut_end_email_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['end_email' =>
+            [
+                'model' => 'FreeFW::Model::Email',
+                'field' => 'email_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
+    protected static $PRP_CAUT_SPO_ADD_EMAIL_ID = [
+        FFCST::PROPERTY_PRIVATE => 'caut_spo_add_email_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['sponsorship_add_email' =>
+            [
+                'model' => 'FreeFW::Model::Email',
+                'field' => 'email_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
+    protected static $PRP_CAUT_SPO_UPDATE_EMAIL_ID = [
+        FFCST::PROPERTY_PRIVATE => 'caut_spo_update_email_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['sponsorship_update_email' =>
+            [
+                'model' => 'FreeFW::Model::Email',
+                'field' => 'email_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
+    protected static $PRP_CAUT_SPO_END_EMAIL_ID = [
+        FFCST::PROPERTY_PRIVATE => 'caut_spo_end_email_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['sponsorship_end_email' =>
+            [
+                'model' => 'FreeFW::Model::Email',
+                'field' => 'email_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
+    protected static $PRP_CAUT_DON_ADD_EMAIL_ID = [
+        FFCST::PROPERTY_PRIVATE => 'caut_don_add_email_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['donation_add_email' =>
+            [
+                'model' => 'FreeFW::Model::Email',
+                'field' => 'email_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
+    protected static $PRP_CAUT_DON_UPDATE_EMAIL_ID = [
+        FFCST::PROPERTY_PRIVATE => 'caut_don_update_email_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['donation_update_email' =>
+            [
+                'model' => 'FreeFW::Model::Email',
+                'field' => 'email_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
+    protected static $PRP_CAUT_DON_END_EMAIL_ID = [
+        FFCST::PROPERTY_PRIVATE => 'caut_don_end_email_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['donation_end_email' =>
+            [
+                'model' => 'FreeFW::Model::Email',
+                'field' => 'email_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
+    protected static $PRP_CAUT_DON_GENERATE_EMAIL_ID = [
+        FFCST::PROPERTY_PRIVATE => 'caut_don_generate_email_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['donation_generate_email' =>
+            [
+                'model' => 'FreeFW::Model::Email',
+                'field' => 'email_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
 
     /**
      * get properties
@@ -278,50 +398,60 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
     public static function getProperties()
     {
         return [
-            'caut_id'               => self::$PRP_CAUT_ID,
-            'brk_id'                => self::$PRP_BRK_ID,
-            'camt_id'               => self::$PRP_CAMT_ID,
-            'caut_name'             => self::$PRP_CAUT_NAME,
-            'caut_pattern'          => self::$PRP_CAUT_PATTERN,
-            'caut_mask'             => self::$PRP_CAUT_MASK,
-            'caut_receipt'          => self::$PRP_CAUT_RECEIPT,
-            'caut_max_mnt'          => self::$PRP_CAUT_MAX_MNT,
-            'caut_min_mnt'          => self::$PRP_CAUT_MIN_MNT,
-            'caut_mnt_type'         => self::$PRP_CAUT_MNT_TYPE,
-            'caut_money'            => self::$PRP_CAUT_MONEY,
-            'caut_certificat'       => self::$PRP_CAUT_CERTIFICAT,
-            'caut_donation'         => self::$PRP_CAUT_DONATION,
-            'caut_once_duration'    => self::$PRP_CAUT_ONCE_DURATION,
-            'caut_regular_duration' => self::$PRP_CAUT_REGULAR_DURATION,
-            'caut_news'             => self::$PRP_CAUT_NEWS,
-            'caut_family'           => self::$PRP_CAUT_FAMILY,
-            'caut_string_1'         => self::$PRP_CAUT_STRING_1,
-            'caut_string_2'         => self::$PRP_CAUT_STRING_2,
-            'caut_string_3'         => self::$PRP_CAUT_STRING_3,
-            'caut_string_4'         => self::$PRP_CAUT_STRING_4,
-            'caut_number_1'         => self::$PRP_CAUT_NUMBER_1,
-            'caut_number_2'         => self::$PRP_CAUT_NUMBER_2,
-            'caut_number_3'         => self::$PRP_CAUT_NUMBER_3,
-            'caut_number_4'         => self::$PRP_CAUT_NUMBER_4,
-            'caut_date_1'           => self::$PRP_CAUT_DATE_1,
-            'caut_date_2'           => self::$PRP_CAUT_DATE_2,
-            'caut_date_3'           => self::$PRP_CAUT_DATE_3,
-            'caut_date_4'           => self::$PRP_CAUT_DATE_4,
-            'caut_text_1'           => self::$PRP_CAUT_TEXT_1,
-            'caut_text_2'           => self::$PRP_CAUT_TEXT_2,
-            'caut_text_3'           => self::$PRP_CAUT_TEXT_3,
-            'caut_text_4'           => self::$PRP_CAUT_TEXT_4,
-            'caut_bool_1'           => self::$PRP_CAUT_BOOL_1,
-            'caut_bool_2'           => self::$PRP_CAUT_BOOL_2,
-            'caut_bool_3'           => self::$PRP_CAUT_BOOL_3,
-            'caut_bool_4'           => self::$PRP_CAUT_BOOL_4,
-            'caut_max_weight'       => self::$PRP_CAUT_MAX_WEIGHT,
-            'caut_max_height'       => self::$PRP_CAUT_MAX_HEIGHT,
-            'caut_growth_freq'      => self::$PRP_CAUT_GROWTH_FREQ,
-            'caut_growth_graph'     => self::$PRP_CAUT_GROWTH_GRAPH,
-            'caut_rec_edi_id'       => self::$PRP_CAUT_REC_EDI_ID,
-            'caut_cert_edi_id'      => self::$PRP_CAUT_CERT_EDI_ID,
-            'caut_ident_edi_id'     => self::$PRP_CAUT_IDENT_EDI_ID,
+            'caut_id'                    => self::$PRP_CAUT_ID,
+            'brk_id'                     => self::$PRP_BRK_ID,
+            'camt_id'                    => self::$PRP_CAMT_ID,
+            'caut_name'                  => self::$PRP_CAUT_NAME,
+            'caut_pattern'               => self::$PRP_CAUT_PATTERN,
+            'caut_mask'                  => self::$PRP_CAUT_MASK,
+            'caut_receipt'               => self::$PRP_CAUT_RECEIPT,
+            'caut_max_mnt'               => self::$PRP_CAUT_MAX_MNT,
+            'caut_min_mnt'               => self::$PRP_CAUT_MIN_MNT,
+            'caut_mnt_type'              => self::$PRP_CAUT_MNT_TYPE,
+            'caut_money'                 => self::$PRP_CAUT_MONEY,
+            'caut_certificat'            => self::$PRP_CAUT_CERTIFICAT,
+            'caut_donation'              => self::$PRP_CAUT_DONATION,
+            'caut_once_duration'         => self::$PRP_CAUT_ONCE_DURATION,
+            'caut_regular_duration'      => self::$PRP_CAUT_REGULAR_DURATION,
+            'caut_news'                  => self::$PRP_CAUT_NEWS,
+            'caut_family'                => self::$PRP_CAUT_FAMILY,
+            'caut_string_1'              => self::$PRP_CAUT_STRING_1,
+            'caut_string_2'              => self::$PRP_CAUT_STRING_2,
+            'caut_string_3'              => self::$PRP_CAUT_STRING_3,
+            'caut_string_4'              => self::$PRP_CAUT_STRING_4,
+            'caut_number_1'              => self::$PRP_CAUT_NUMBER_1,
+            'caut_number_2'              => self::$PRP_CAUT_NUMBER_2,
+            'caut_number_3'              => self::$PRP_CAUT_NUMBER_3,
+            'caut_number_4'              => self::$PRP_CAUT_NUMBER_4,
+            'caut_date_1'                => self::$PRP_CAUT_DATE_1,
+            'caut_date_2'                => self::$PRP_CAUT_DATE_2,
+            'caut_date_3'                => self::$PRP_CAUT_DATE_3,
+            'caut_date_4'                => self::$PRP_CAUT_DATE_4,
+            'caut_text_1'                => self::$PRP_CAUT_TEXT_1,
+            'caut_text_2'                => self::$PRP_CAUT_TEXT_2,
+            'caut_text_3'                => self::$PRP_CAUT_TEXT_3,
+            'caut_text_4'                => self::$PRP_CAUT_TEXT_4,
+            'caut_bool_1'                => self::$PRP_CAUT_BOOL_1,
+            'caut_bool_2'                => self::$PRP_CAUT_BOOL_2,
+            'caut_bool_3'                => self::$PRP_CAUT_BOOL_3,
+            'caut_bool_4'                => self::$PRP_CAUT_BOOL_4,
+            'caut_max_weight'            => self::$PRP_CAUT_MAX_WEIGHT,
+            'caut_max_height'            => self::$PRP_CAUT_MAX_HEIGHT,
+            'caut_growth_freq'           => self::$PRP_CAUT_GROWTH_FREQ,
+            'caut_growth_graph'          => self::$PRP_CAUT_GROWTH_GRAPH,
+            'caut_rec_edi_id'            => self::$PRP_CAUT_REC_EDI_ID,
+            'caut_cert_edi_id'           => self::$PRP_CAUT_CERT_EDI_ID,
+            'caut_ident_edi_id'          => self::$PRP_CAUT_IDENT_EDI_ID,
+            'caut_add_email_id'          => self::$PRP_CAUT_ADD_EMAIL_ID,
+            'caut_update_email_id'       => self::$PRP_CAUT_UPDATE_EMAIL_ID,
+            'caut_end_email_id'          => self::$PRP_CAUT_END_EMAIL_ID,
+            'caut_spo_add_email_id'      => self::$PRP_CAUT_SPO_ADD_EMAIL_ID,
+            'caut_spo_update_email_id'   => self::$PRP_CAUT_SPO_UPDATE_EMAIL_ID,
+            'caut_spo_end_email_id'      => self::$PRP_CAUT_SPO_END_EMAIL_ID,
+            'caut_don_add_email_id'      => self::$PRP_CAUT_DON_ADD_EMAIL_ID,
+            'caut_don_update_email_id'   => self::$PRP_CAUT_DON_UPDATE_EMAIL_ID,
+            'caut_don_end_email_id'      => self::$PRP_CAUT_DON_END_EMAIL_ID,
+            'caut_don_generate_email_id' => self::$PRP_CAUT_DON_GENERATE_EMAIL_ID,
         ];
     }
 

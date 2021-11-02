@@ -274,6 +274,66 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     protected $caut_ident_edi_id = null;
 
     /**
+     * caut_add_email_id
+     * @var int
+     */
+    protected $caut_add_email_id = null;
+
+    /**
+     * caut_update_email_id
+     * @var int
+     */
+    protected $caut_update_email_id = null;
+
+    /**
+     * caut_end_email_id
+     * @var int
+     */
+    protected $caut_end_email_id = null;
+
+    /**
+     * caut_spo_add_email_id
+     * @var int
+     */
+    protected $caut_spo_add_email_id = null;
+
+    /**
+     * caut_spo_update_email_id
+     * @var int
+     */
+    protected $caut_spo_update_email_id = null;
+
+    /**
+     * caut_spo_end_email_id
+     * @var int
+     */
+    protected $caut_spo_end_email_id = null;
+
+    /**
+     * caut_don_add_email_id
+     * @var int
+     */
+    protected $caut_don_add_email_id = null;
+
+    /**
+     * caut_don_update_email_id
+     * @var int
+     */
+    protected $caut_don_update_email_id = null;
+
+    /**
+     * caut_don_end_email_id
+     * @var int
+     */
+    protected $caut_don_end_email_id = null;
+
+    /**
+     * caut_don_generate_email_id
+     * @var int
+     */
+    protected $caut_don_generate_email_id = null;
+
+    /**
      * Set caut_id
      *
      * @param int $p_value

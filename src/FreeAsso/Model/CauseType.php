@@ -77,6 +77,66 @@ class CauseType extends \FreeAsso\Model\Base\CauseType implements
     protected $identity_edition = null;
 
     /**
+     * Add email
+     * @var \FreeFW\Model\Email
+     */
+    protected $add_email = null;
+
+    /**
+     * Update email
+     * @var \FreeFW\Model\Email
+     */
+    protected $update_email = null;
+
+    /**
+     * End email
+     * @var \FreeFW\Model\Email
+     */
+    protected $end_email = null;
+
+    /**
+     * Add sponsorship email
+     * @var \FreeFW\Model\Email
+     */
+    protected $sponsorship_add_email = null;
+
+    /**
+     * Update sponsorship email
+     * @var \FreeFW\Model\Email
+     */
+    protected $sponsorship_update_email = null;
+
+    /**
+     * End sponsorship email
+     * @var \FreeFW\Model\Email
+     */
+    protected $sponsorship_end_email = null;
+
+    /**
+     * Add donation email
+     * @var \FreeFW\Model\Email
+     */
+    protected $donation_add_email = null;
+
+    /**
+     * Update donation email
+     * @var \FreeFW\Model\Email
+     */
+    protected $donation_update_email = null;
+
+    /**
+     * End donation email
+     * @var \FreeFW\Model\Email
+     */
+    protected $donation_end_email = null;
+
+    /**
+     * Generation donation email
+     * @var \FreeFW\Model\Email
+     */
+    protected $donation_generate_email = null;
+
+    /**
      *
      * {@inheritDoc}
      * @see \FreeFW\Core\Model::init()
@@ -347,5 +407,595 @@ class CauseType extends \FreeAsso\Model\Base\CauseType implements
             }
         }
         return $this->identity_edition;
+    }
+
+    /**
+     * Set add email id
+     * 
+     * @param int $p_id
+     * 
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautAddEmailId($p_id)
+    {
+        $this->caut_add_email_id = $p_id;
+        if ($this->add_email) {
+            if ($this->add_email->getEmailId() !== $this->caut_add_email_id) {
+                $this->add_email = null;
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * get caut_add_email_id
+     *
+     * @return int
+     */
+    public function getCautAddEmailId()
+    {
+        return $this->caut_add_email_id;
+    }
+
+    /**
+     * Set add_email
+     *
+     * @param \FreeFW\Model\Email $p_email
+     * 
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setAddEmail($p_email)
+    {
+        $this->add_email = $p_email;
+        if ($this->add_email) {
+            $this->caut_add_email_id = $this->add_email->getEmailId();
+        } else {
+            $this->caut_add_email_id = null;
+        }
+        return $this;
+    }
+
+    /**
+     * Get add_email
+     *
+     * @return \FreeFW\Model\Email
+     */
+    public function getAddEmail()
+    {
+        if (!$this->add_email && $this->caut_add_email_id) {
+            $this->add_email = \FreeFW\Model\Email::findFirst(['email_id' => $this->caut_add_email_id]);
+        }
+        return $this->add_email;
+    }
+
+    /**
+     * Set update email id
+     * 
+     * @param int $p_id
+     * 
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautUpdateEmailId($p_id)
+    {
+        $this->caut_update_email_id = $p_id;
+        if ($this->update_email) {
+            if ($this->update_email->getEmailId() !== $this->caut_update_email_id) {
+                $this->update_email = null;
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * get caut_update_email_id
+     *
+     * @return int
+     */
+    public function getCautUpdateEmailId()
+    {
+        return $this->caut_update_email_id;
+    }
+
+    /**
+     * Set update_email
+     *
+     * @param \FreeFW\Model\Email $p_email
+     * 
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setUpdateEmail($p_email)
+    {
+        $this->update_email = $p_email;
+        if ($this->update_email) {
+            $this->caut_update_email_id = $this->update_email->getEmailId();
+        } else {
+            $this->caut_update_email_id = null;
+        }
+        return $this;
+    }
+
+    /**
+     * Get update_email
+     *
+     * @return \FreeFW\Model\Email
+     */
+    public function getUpdateEmail()
+    {
+        if (!$this->update_email && $this->caut_update_email_id) {
+            $this->update_email = \FreeFW\Model\Email::findFirst(['email_id' => $this->caut_update_email_id]);
+        }
+        return $this->update_email;
+    }
+
+    /**
+     * Set end email id
+     * 
+     * @param int $p_id
+     * 
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautEndEmailId($p_id)
+    {
+        $this->caut_end_email_id = $p_id;
+        if ($this->end_email) {
+            if ($this->end_email->getEmailId() !== $this->caut_end_email_id) {
+                $this->end_email = null;
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * get caut_end_email_id
+     *
+     * @return int
+     */
+    public function getCautEndEmailId()
+    {
+        return $this->caut_end_email_id;
+    }
+
+    /**
+     * Set end_email
+     *
+     * @param \FreeFW\Model\Email $p_email
+     * 
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setEndEmail($p_email)
+    {
+        $this->end_email = $p_email;
+        if ($this->end_email) {
+            $this->caut_end_email_id = $this->end_email->getEmailId();
+        } else {
+            $this->caut_end_email_id = null;
+        }
+        return $this;
+    }
+
+    /**
+     * Get end_email
+     *
+     * @return \FreeFW\Model\Email
+     */
+    public function getEndEmail()
+    {
+        if (!$this->end_email && $this->caut_end_email_id) {
+            $this->end_email = \FreeFW\Model\Email::findFirst(['email_id' => $this->caut_end_email_id]);
+        }
+        return $this->end_email;
+    }
+
+    /**
+     * Set caut_spo_add_email_id
+     * 
+     * @param int $p_id
+     * 
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautSpoAddEmailId($p_id)
+    {
+        $this->caut_spo_add_email_id = $p_id;
+        if ($this->sponsorship_add_email) {
+            if ($this->sponsorship_add_email->getEmailId() !== $this->caut_spo_add_email_id) {
+                $this->sponsorship_add_email = null;
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Get caut_spo_add_email_id
+     *
+     * @return int
+     */
+    public function getCautSpoAddEmailId()
+    {
+        return $this->caut_spo_add_email_id;
+    }
+
+    /**
+     * Set sponsorship_add_email
+     *
+     * @param \FreeFW\Model\Email $p_email
+     * 
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setSponsorshipAddEmail($p_email)
+    {
+        $this->sponsorship_add_email = $p_email;
+        if ($this->sponsorship_add_email) {
+            $this->caut_spo_add_email_id = $this->sponsorship_add_email->getEmailId();
+        } else {
+            $this->caut_spo_add_email_id = null;
+        }
+        return $this;
+    }
+
+    /**
+     * Get sponsorship_add_email
+     *
+     * @return \FreeFW\Model\Email
+     */
+    public function getSponsorshipAddEmail()
+    {
+        if (!$this->sponsorship_add_email && $this->caut_spo_add_email_id) {
+            $this->sponsorship_add_email = \FreeFW\Model\Email::findFirst(['email_id' => $this->caut_spo_add_email_id]);
+        }
+        return $this->sponsorship_add_email;
+    }
+
+    /**
+     * Set caut_spo_update_email_id
+     * 
+     * @param int $p_id
+     * 
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautSpoUpdateEmailId($p_id)
+    {
+        $this->caut_spo_update_email_id = $p_id;
+        if ($this->sponsorship_update_email) {
+            if ($this->sponsorship_update_email->getEmailId() !== $this->caut_spo_update_email_id) {
+                $this->sponsorship_update_email = null;
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Get caut_spo_update_email_id
+     *
+     * @return int
+     */
+    public function getCautSpoUpdateEmailId()
+    {
+        return $this->caut_spo_update_email_id;
+    }
+
+    /**
+     * Set sponsorship_update_email
+     *
+     * @param \FreeFW\Model\Email $p_email
+     * 
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setSponsorshipUpdateEmail($p_email)
+    {
+        $this->sponsorship_update_email = $p_email;
+        if ($this->sponsorship_update_email) {
+            $this->caut_spo_update_email_id = $this->sponsorship_update_email->getEmailId();
+        } else {
+            $this->caut_spo_update_email_id = null;
+        }
+        return $this;
+    }
+
+    /**
+     * Get sponsorship_update_email
+     *
+     * @return \FreeFW\Model\Email
+     */
+    public function getSponsorshipUpdateEmail()
+    {
+        if (!$this->sponsorship_update_email && $this->caut_spo_update_email_id) {
+            $this->sponsorship_update_email = \FreeFW\Model\Email::findFirst(['email_id' => $this->caut_spo_update_email_id]);
+        }
+        return $this->sponsorship_update_email;
+    }
+
+    /**
+     * Set caut_spo_end_email_id
+     * 
+     * @param int $p_id
+     * 
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautSpoEndEmailId($p_id)
+    {
+        $this->caut_spo_end_email_id = $p_id;
+        if ($this->sponsorship_end_email) {
+            if ($this->sponsorship_end_email->getEmailId() !== $this->caut_spo_end_email_id) {
+                $this->sponsorship_end_email = null;
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Get caut_spo_end_email_id
+     *
+     * @return int
+     */
+    public function getCautSpoEndEmailId()
+    {
+        return $this->caut_spo_end_email_id;
+    }
+
+    /**
+     * Set sponsorship_end_email
+     *
+     * @param \FreeFW\Model\Email $p_email
+     * 
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setSponsorshipEndEmail($p_email)
+    {
+        $this->sponsorship_end_email = $p_email;
+        if ($this->sponsorship_end_email) {
+            $this->caut_spo_end_email_id = $this->sponsorship_end_email->getEmailId();
+        } else {
+            $this->caut_spo_end_email_id = null;
+        }
+        return $this;
+    }
+
+    /**
+     * Get sponsorship_end_email
+     *
+     * @return \FreeFW\Model\Email
+     */
+    public function getSponsorshipEndEmail()
+    {
+        if (!$this->sponsorship_end_email && $this->caut_spo_end_email_id) {
+            $this->sponsorship_end_email = \FreeFW\Model\Email::findFirst(['email_id' => $this->caut_spo_end_email_id]);
+        }
+        return $this->sponsorship_end_email;
+    }
+
+    /**
+     * Set caut_don_add_email_id
+     * 
+     * @param int $p_id
+     * 
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautDonAddEmailId($p_id)
+    {
+        $this->caut_don_add_email_id = $p_id;
+        if ($this->donation_add_email) {
+            if ($this->donation_add_email->getEmailId() !== $this->caut_don_add_email_id) {
+                $this->donation_add_email = null;
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Get caut_don_add_email_id
+     *
+     * @return int
+     */
+    public function getCautDonAddEmailId()
+    {
+        return $this->caut_don_add_email_id;
+    }
+
+    /**
+     * Set donation_add_email
+     *
+     * @param \FreeFW\Model\Email $p_email
+     * 
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setDonationAddEmail($p_email)
+    {
+        $this->donation_add_email = $p_email;
+        if ($this->donation_add_email) {
+            $this->caut_don_add_email_id = $this->donation_add_email->getEmailId();
+        } else {
+            $this->caut_don_add_email_id = null;
+        }
+        return $this;
+    }
+
+    /**
+     * Get donation_add_email
+     *
+     * @return \FreeFW\Model\Email
+     */
+    public function getDonationAddEmail()
+    {
+        if (!$this->donation_add_email && $this->caut_don_add_email_id) {
+            $this->donation_add_email = \FreeFW\Model\Email::findFirst(['email_id' => $this->caut_don_add_email_id]);
+        }
+        return $this->donation_add_email;
+    }
+
+    /**
+     * Set caut_don_update_email_id
+     * 
+     * @param int $p_id
+     * 
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautDonUpdateEmailId($p_id)
+    {
+        $this->caut_don_update_email_id = $p_id;
+        if ($this->donation_update_email) {
+            if ($this->donation_update_email->getEmailId() !== $this->caut_don_update_email_id) {
+                $this->donation_update_email = null;
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Get caut_don_update_email_id
+     *
+     * @return int
+     */
+    public function getCautDonUpdateEmailId()
+    {
+        return $this->caut_don_update_email_id;
+    }
+
+    /**
+     * Set donation_update_email
+     *
+     * @param \FreeFW\Model\Email $p_email
+     * 
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setDonationUpdateEmail($p_email)
+    {
+        $this->donation_update_email = $p_email;
+        if ($this->donation_update_email) {
+            $this->caut_don_update_email_id = $this->donation_update_email->getEmailId();
+        } else {
+            $this->caut_don_update_email_id = null;
+        }
+        return $this;
+    }
+
+    /**
+     * Get donation_update_email
+     *
+     * @return \FreeFW\Model\Email
+     */
+    public function getDonationUpdateEmail()
+    {
+        if (!$this->donation_update_email && $this->caut_don_update_email_id) {
+            $this->donation_update_email = \FreeFW\Model\Email::findFirst(['email_id' => $this->caut_don_update_email_id]);
+        }
+        return $this->donation_update_email;
+    }
+
+    /**
+     * Set caut_don_end_email_id
+     * 
+     * @param int $p_id
+     * 
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautDonEndEmailId($p_id)
+    {
+        $this->caut_don_end_email_id = $p_id;
+        if ($this->donation_end_email) {
+            if ($this->donation_end_email->getEmailId() !== $this->caut_don_end_email_id) {
+                $this->donation_end_email = null;
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Get caut_don_end_email_id
+     *
+     * @return int
+     */
+    public function getCautDonEndEmailId()
+    {
+        return $this->caut_don_end_email_id;
+    }
+
+    /**
+     * Set donation_end_email
+     *
+     * @param \FreeFW\Model\Email $p_email
+     * 
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setDonationEndEmail($p_email)
+    {
+        $this->donation_end_email = $p_email;
+        if ($this->donation_end_email) {
+            $this->caut_don_end_email_id = $this->donation_end_email->getEmailId();
+        } else {
+            $this->caut_don_end_email_id = null;
+        }
+        return $this;
+    }
+
+    /**
+     * Get donation_end_email
+     *
+     * @return \FreeFW\Model\Email
+     */
+    public function getDonationEndEmail()
+    {
+        if (!$this->donation_end_email && $this->caut_don_end_email_id) {
+            $this->donation_end_email = \FreeFW\Model\Email::findFirst(['email_id' => $this->caut_don_end_email_id]);
+        }
+        return $this->donation_end_email;
+    }
+
+    /**
+     * Set caut_don_generate_email_id
+     * 
+     * @param int $p_id
+     * 
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautDonGenerateEmailId($p_id)
+    {
+        $this->caut_don_generate_email_id = $p_id;
+        if ($this->donation_generate_email) {
+            if ($this->donation_generate_email->getEmailId() !== $this->caut_don_generate_email_id) {
+                $this->donation_generate_email = null;
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Get caut_don_generate_email_id
+     *
+     * @return int
+     */
+    public function getCautDonGenerateEmailId()
+    {
+        return $this->caut_don_generate_email_id;
+    }
+
+    /**
+     * Set donation_generate_email
+     *
+     * @param \FreeFW\Model\Email $p_email
+     * 
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setDonationGenerateEmail($p_email)
+    {
+        $this->donation_generate_email = $p_email;
+        if ($this->donation_generate_email) {
+            $this->caut_don_generate_email_id = $this->donation_generate_email->getEmailId();
+        } else {
+            $this->caut_don_generate_email_id = null;
+        }
+        return $this;
+    }
+
+    /**
+     * Get donation_generate_email
+     *
+     * @return \FreeFW\Model\Email
+     */
+    public function getDonationGenerateEmail()
+    {
+        if (!$this->donation_generate_email && $this->caut_don_generate_email_id) {
+            $this->donation_generate_email = \FreeFW\Model\Email::findFirst(['email_id' => $this->caut_don_generate_email_id]);
+        }
+        return $this->donation_generate_email;
     }
 }

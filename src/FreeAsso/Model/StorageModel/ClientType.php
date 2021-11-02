@@ -135,6 +135,42 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
         FFCST::PROPERTY_OPTIONS => []
     ];
+    protected static $PRP_CLIT_ADD_EMAIL_ID = [
+        FFCST::PROPERTY_PRIVATE => 'clit_add_email_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['add_email' =>
+            [
+                'model' => 'FreeFW::Model::Email',
+                'field' => 'email_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
+    protected static $PRP_CLIT_UPDATE_EMAIL_ID = [
+        FFCST::PROPERTY_PRIVATE => 'clit_update_email_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['update_email' =>
+            [
+                'model' => 'FreeFW::Model::Email',
+                'field' => 'email_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
+    protected static $PRP_CLIT_END_EMAIL_ID = [
+        FFCST::PROPERTY_PRIVATE => 'clit_end_email_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['end_email' =>
+            [
+                'model' => 'FreeFW::Model::Email',
+                'field' => 'email_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
 
     /**
      * get properties
@@ -144,30 +180,33 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\Base
     public static function getProperties()
     {
         return [
-            'clit_id'       => self::$PRP_CLIT_ID,
-            'brk_id'        => self::$PRP_BRK_ID,
-            'clit_name'     => self::$PRP_CLIT_NAME,
-            'clit_code'     => self::$PRP_CLIT_CODE,
-            'clit_string_1' => self::$PRP_CLIT_STRING_1,
-            'clit_string_2' => self::$PRP_CLIT_STRING_2,
-            'clit_string_3' => self::$PRP_CLIT_STRING_3,
-            'clit_string_4' => self::$PRP_CLIT_STRING_4,
-            'clit_number_1' => self::$PRP_CLIT_NUMBER_1,
-            'clit_number_2' => self::$PRP_CLIT_NUMBER_2,
-            'clit_number_3' => self::$PRP_CLIT_NUMBER_3,
-            'clit_number_4' => self::$PRP_CLIT_NUMBER_4,
-            'clit_date_1'   => self::$PRP_CLIT_DATE_1,
-            'clit_date_2'   => self::$PRP_CLIT_DATE_2,
-            'clit_date_3'   => self::$PRP_CLIT_DATE_3,
-            'clit_date_4'   => self::$PRP_CLIT_DATE_4,
-            'clit_text_1'   => self::$PRP_CLIT_TEXT_1,
-            'clit_text_2'   => self::$PRP_CLIT_TEXT_2,
-            'clit_text_3'   => self::$PRP_CLIT_TEXT_3,
-            'clit_text_4'   => self::$PRP_CLIT_TEXT_4,
-            'clit_bool_1'   => self::$PRP_CLIT_BOOL_1,
-            'clit_bool_2'   => self::$PRP_CLIT_BOOL_2,
-            'clit_bool_3'   => self::$PRP_CLIT_BOOL_3,
-            'clit_bool_4'   => self::$PRP_CLIT_BOOL_4
+            'clit_id'              => self::$PRP_CLIT_ID,
+            'brk_id'               => self::$PRP_BRK_ID,
+            'clit_name'            => self::$PRP_CLIT_NAME,
+            'clit_code'            => self::$PRP_CLIT_CODE,
+            'clit_string_1'        => self::$PRP_CLIT_STRING_1,
+            'clit_string_2'        => self::$PRP_CLIT_STRING_2,
+            'clit_string_3'        => self::$PRP_CLIT_STRING_3,
+            'clit_string_4'        => self::$PRP_CLIT_STRING_4,
+            'clit_number_1'        => self::$PRP_CLIT_NUMBER_1,
+            'clit_number_2'        => self::$PRP_CLIT_NUMBER_2,
+            'clit_number_3'        => self::$PRP_CLIT_NUMBER_3,
+            'clit_number_4'        => self::$PRP_CLIT_NUMBER_4,
+            'clit_date_1'          => self::$PRP_CLIT_DATE_1,
+            'clit_date_2'          => self::$PRP_CLIT_DATE_2,
+            'clit_date_3'          => self::$PRP_CLIT_DATE_3,
+            'clit_date_4'          => self::$PRP_CLIT_DATE_4,
+            'clit_text_1'          => self::$PRP_CLIT_TEXT_1,
+            'clit_text_2'          => self::$PRP_CLIT_TEXT_2,
+            'clit_text_3'          => self::$PRP_CLIT_TEXT_3,
+            'clit_text_4'          => self::$PRP_CLIT_TEXT_4,
+            'clit_bool_1'          => self::$PRP_CLIT_BOOL_1,
+            'clit_bool_2'          => self::$PRP_CLIT_BOOL_2,
+            'clit_bool_3'          => self::$PRP_CLIT_BOOL_3,
+            'clit_bool_4'          => self::$PRP_CLIT_BOOL_4,
+            'clit_add_email_id'    => self::$PRP_CLIT_ADD_EMAIL_ID,
+            'clit_update_email_id' => self::$PRP_CLIT_UPDATE_EMAIL_ID,
+            'clit_end_email_id'    => self::$PRP_CLIT_END_EMAIL_ID,
         ];
     }
 
