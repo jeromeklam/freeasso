@@ -86,6 +86,16 @@ abstract class Session extends \FreeFW\Core\StorageModel
     }
 
     /**
+     * Get short name
+     *
+     * @return string
+     */
+    public static function getSourceTitle()
+    {
+        return 'Session';
+    }
+
+    /**
      * Composed index
      *
      * @return string[][]|number[][]

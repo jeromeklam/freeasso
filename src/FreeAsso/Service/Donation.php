@@ -178,10 +178,12 @@ class Donation extends \FreeFW\Core\Service
                     'cau_id'                         => [\FreeFW\Storage\Storage::COND_NOT_EMPTY],
                     'spo_id'                         => [\FreeFW\Storage\Storage::COND_EMPTY],
                     'cause.cause_type.caut_mnt_type' => \FreeAsso\Model\CauseType::MNT_TYPE_ANNUAL,
+                    'cause.cau_to'                   => [\FreeFW\Storage\Storage::COND_EMPTY],
                 ]
             )
             ->addRelations(['client', 'cause', 'cause.cause_type'])
-            ->setSort('client.cli_firstname,client.cli_lastname');
+            ->setSort('client.cli_firstname,client.cli_lastname')
+        ;
         if ($query->execute()) {
             /**
              * @var \FreeFW\Model\ResultSet $results

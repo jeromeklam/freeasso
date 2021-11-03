@@ -148,7 +148,9 @@ class Sponsorship extends \FreeFW\Core\Service
                  */
                 $session = \FreeAsso\Model\Session::findFirst(
                     [
-                        'sess_status' => \FreeAsso\Model\Session::STATUS_OPEN
+                        'sess_status' => \FreeAsso\Model\Session::STATUS_OPEN,
+                        'sess_year'   => $year,
+                        'sess_month'  => $month,
                     ]
                 );
                 /**

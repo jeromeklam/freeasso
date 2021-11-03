@@ -1,0 +1,13 @@
+UPDATE `asso_session` SET `sess_name` = '2021 (Corrections)', `sess_type` = 'CORRECTION' WHERE `sess_id` = '177';
+INSERT INTO `asso_session` (`sess_id`, `brk_id`, `sess_name`, `sess_exercice`, `sess_status`, `sess_type`, `sess_month`, `sess_year`) VALUES ('202101', '4', '2021/01', '2021', 'OPEN', 'STANDARD', '01', '2021');
+INSERT INTO `asso_session` (`sess_id`, `brk_id`, `sess_name`, `sess_exercice`, `sess_status`, `sess_type`, `sess_month`, `sess_year`) VALUES ('202102', '4', '2021/02', '2021', 'OPEN', 'STANDARD', '02', '2021');
+INSERT INTO `asso_session` (`sess_id`, `brk_id`, `sess_name`, `sess_exercice`, `sess_status`, `sess_type`, `sess_month`, `sess_year`) VALUES ('202103', '4', '2021/03', '2021', 'OPEN', 'STANDARD', '03', '2021');
+INSERT INTO `asso_session` (`sess_id`, `brk_id`, `sess_name`, `sess_exercice`, `sess_status`, `sess_type`, `sess_month`, `sess_year`) VALUES ('202104', '4', '2021/04', '2021', 'OPEN', 'STANDARD', '04', '2021');
+INSERT INTO `asso_session` (`sess_id`, `brk_id`, `sess_name`, `sess_exercice`, `sess_status`, `sess_type`, `sess_month`, `sess_year`) VALUES ('202105', '4', '2021/05', '2021', 'OPEN', 'STANDARD', '05', '2021');
+INSERT INTO `asso_session` (`sess_id`, `brk_id`, `sess_name`, `sess_exercice`, `sess_status`, `sess_type`, `sess_month`, `sess_year`) VALUES ('202106', '4', '2021/06', '2021', 'OPEN', 'STANDARD', '06', '2021');
+INSERT INTO `asso_session` (`sess_id`, `brk_id`, `sess_name`, `sess_exercice`, `sess_status`, `sess_type`, `sess_month`, `sess_year`) VALUES ('202107', '4', '2021/07', '2021', 'OPEN', 'STANDARD', '07', '2021');
+INSERT INTO `asso_session` (`sess_id`, `brk_id`, `sess_name`, `sess_exercice`, `sess_status`, `sess_type`, `sess_month`, `sess_year`) VALUES ('202108', '4', '2021/08', '2021', 'OPEN', 'STANDARD', '08', '2021');
+INSERT INTO `asso_session` (`sess_id`, `brk_id`, `sess_name`, `sess_exercice`, `sess_status`, `sess_type`, `sess_month`, `sess_year`) VALUES ('202109', '4', '2021/09', '2021', 'OPEN', 'STANDARD', '09', '2021');
+INSERT INTO `asso_session` (`sess_id`, `brk_id`, `sess_name`, `sess_exercice`, `sess_status`, `sess_type`, `sess_month`, `sess_year`) VALUES ('202110', '4', '2021/10', '2021', 'OPEN', 'STANDARD', '10', '2021');
+INSERT INTO `asso_session` (`sess_id`, `brk_id`, `sess_name`, `sess_exercice`, `sess_status`, `sess_type`, `sess_month`, `sess_year`) VALUES ('202111', '4', '2021/11', '2021', 'OPEN', 'STANDARD', '11', '2021');
+INSERT INTO `asso_session` (`sess_id`, `brk_id`, `sess_name`, `sess_exercice`, `sess_status`, `sess_type`, `sess_month`, `sess_year`) VALUES ('202112', '4', '2021/12', '2021', 'OPEN', 'STANDARD', '12', '2021');

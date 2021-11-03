@@ -85,10 +85,18 @@ class Donation extends \FreeAsso\Model\Base\Donation
             return true;
         }
         if ($this->getSessId() <= 0) {
+            $myRealTs = \FreeFW\Tools\Date::mysqlToDatetime($this->don_real_ts);
+            $year  = date('Y');
+            $month = date('m');
+            if ($myRealTs) {
+                $year  = $myRealTs->format('Y');
+                $month = $myRealTs->format('m');
+            }
             $session = \FreeAsso\Model\Session::findFirst(
                 [
-                    'sess_type'     => \FreeAsso\Model\Session::TYPE_STANDARD,
-                    'sess_exercice' => date('Y')
+                    'sess_type'  => \FreeAsso\Model\Session::TYPE_STANDARD,
+                    'sess_year'  => $year,
+                    'sess_month' => $month,
                 ]
             );
             if ($session) {
