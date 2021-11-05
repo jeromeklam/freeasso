@@ -274,6 +274,6 @@ abstract class Donation extends \FreeFW\Core\StorageModel
      */
     public static function getDefaultMergeIncludes()
     {
-        return ['cause', 'client'];
+        return ['cause', 'client', 'client.client_type', 'payment_type'];
     }
 }
