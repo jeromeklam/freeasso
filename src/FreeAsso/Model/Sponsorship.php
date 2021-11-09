@@ -125,20 +125,23 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
         /**
          * @var \DateTime $now
          */
-        $now  = \FreeFW\Tools\Date::getServerDatetime();
-        // On ajoute le premier paiement
-        if ($this->getSpoAddFirst()) {
-            /**
-             * @var \FreeAsso\Model\Donation $donation
-             */
-            if ($from < $now) {
-                $donation = $this->getNewDonation($from);
-            } else {
-                $donation = $this->getNewDonation($now);
-            }
-            if (!$donation->create()) {
-                $this->addErrors($donation->getErrors());
-                return false;
+        $now      = \FreeFW\Tools\Date::getServerDatetime();
+        $nowYear  = $now->format('Y');
+        $nowMonth = $now->format('m');
+        if ($from < $now) {
+            while ($from < $now) {
+                $donation  = $this->getNewDonation($from);
+                $date      = \FreeFW\Tools\Date::mysqlToDatetime($donation->getDonAskTs());
+                $fromYear  = $date->format('Y');
+                $fromMonth = $date->format('m');
+                if ($fromYear < $nowYear || ($fromYear == $nowYear && $fromMonth < $nowMonth) || 
+                    ($fromYear == $nowYear && $fromMonth == $nowMonth && $this->getSpoAddFirst())) {
+                    if (!$donation->create()) {
+                        $this->addErrors($donation->getErrors());
+                        return false;
+                    }
+                }
+                $from->add(new \DateInterval("P1M"));
             }
         }
         return true;

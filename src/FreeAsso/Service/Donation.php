@@ -10,6 +10,58 @@ namespace FreeAsso\Service;
 class Donation extends \FreeFW\Core\Service
 {
 
+    public function verifyDonations($p_params = [])
+    {
+        if (array_key_exists('year', $p_params)) {
+            $year = $p_params['year'];
+        } else {
+            $year = date('Y');
+        }
+        if (array_key_exists('month', $p_params)) {
+            $month = $p_params['month'];
+        } else {
+            $month = date('m');
+        }
+        if ($month > 1) {
+            $month = $month - 1;
+        } else {
+            $month = 1;
+            $year = $year - 1;
+        }
+        $from = new \DateTime();
+        $from->setDate($year, $month, 1);
+        $from->setTime(0, 0, 1);
+        $to = clone($from);
+        $to->add(new \DateInterval("P1M"));
+        $check = \FreeAsso\Model\Sponsorship::find(
+            [
+                'spo_to' =>[\FreeFW\Storage\Storage::COND_GREATER_EQUAL_OR_NULL => \FreeFW\Tools\Date::datetimeToMysql($from)],
+            ]
+        );
+        foreach ($check as $oneSponsorship) {
+            $donations = \FreeAsso\Model\Donation::find(
+                [
+                    'don_ask_ts' => [\FreeFW\Storage\Storage::COND_BETWEEN => [
+                        \FreeFW\Tools\Date::datetimeToMysql($from),
+                        \FreeFW\Tools\Date::datetimeToMysql($to)
+                    ]],
+                    'spo_id' => $oneSponsorship->getSpoId()
+                ]
+            );
+            if ($donations->count() != 1) {
+                $notification = new \FreeFW\Model\Notification();
+                $notification
+                    ->setNotifType(\FreeFW\Model\Notification::TYPE_INFORMATION)
+                    ->setNotifObjectName('FreeAsso_Client')
+                    ->setNotifObjectId($oneSponsorship->getCliId())
+                    ->setNotifSubject("Anomalie de don à contrôler " . $month . "/" . $year . " : " . $oneSponsorship->getSpoMnt())
+                    ->setNotifCode('SPONSORSHIP_CONTROL')
+                    ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp());
+                $notification->create();
+            }
+        }
+    }
+
     /**
      * Send notification
      *
