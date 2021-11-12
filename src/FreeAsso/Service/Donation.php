@@ -51,10 +51,10 @@ class Donation extends \FreeFW\Core\Service
             if ($donations->count() != 1) {
                 $notification = new \FreeFW\Model\Notification();
                 $notification
-                    ->setNotifType(\FreeFW\Model\Notification::TYPE_INFORMATION)
+                    ->setNotifType(\FreeFW\Model\Notification::TYPE_WARNING)
                     ->setNotifObjectName('FreeAsso_Client')
                     ->setNotifObjectId($oneSponsorship->getCliId())
-                    ->setNotifSubject("Anomalie de don à contrôler " . $month . "/" . $year . " : " . $oneSponsorship->getSpoMnt())
+                    ->setNotifSubject("Anomalie de don : à contrôler " . $month . "/" . $year . " : " . $oneSponsorship->getSpoMnt() . '(' . $oneSponsorship->getSpoMoney() . ')')
                     ->setNotifCode('SPONSORSHIP_CONTROL')
                     ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp());
                 $notification->create();
@@ -263,7 +263,7 @@ class Donation extends \FreeFW\Core\Service
                             ->setNotifType(\FreeFW\Model\Notification::TYPE_WARNING)
                             ->setNotifObjectName('FreeAsso_Cause')
                             ->setNotifObjectId($cause->getCauId())
-                            ->setNotifSubject('Active sponsorship on a disabled cause !')
+                            ->setNotifSubject('Parrainage pour un animal mort ou relâché !')
                             ->setNotifCode('DONATION_ON_DISABLED_CAUSE')
                             ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp());
                         $notification->create();

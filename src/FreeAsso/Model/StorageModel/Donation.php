@@ -83,22 +83,26 @@ abstract class Donation extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_PRIVATE => 'don_ts',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
         FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_NOW,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
+        FFCST::PROPERTY_COMMENT => 'Date système d\'enregistrement'
     ];
     protected static $PRP_DON_ASK_TS = [
         FFCST::PROPERTY_PRIVATE => 'don_ask_ts',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
+        FFCST::PROPERTY_COMMENT => 'Date de début prise en compte parrainage'
     ];
     protected static $PRP_DON_REAL_TS = [
         FFCST::PROPERTY_PRIVATE => 'don_real_ts',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
+        FFCST::PROPERTY_COMMENT => 'Date réelle du don, comptable'
     ];
     protected static $PRP_DON_END_TS = [
         FFCST::PROPERTY_PRIVATE => 'don_end_ts',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_COMMENT => 'Date de fin prise en compte parrainage'
     ];
     protected static $PRP_DON_STATUS = [
         FFCST::PROPERTY_PRIVATE => 'don_status',

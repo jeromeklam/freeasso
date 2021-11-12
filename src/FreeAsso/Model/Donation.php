@@ -294,6 +294,19 @@ class Donation extends \FreeAsso\Model\Base\Donation
      */
     public function beforeSave()
     {
+        $test = trim(strip_tags($this->getDonDesc()));
+        if ($test != '') {
+            $add = '<p><b>' . \FreeFW\Tools\Date::mysqlToddmmyyyy(\FreeFW\Tools\Date::getCurrentTimestamp()) . '</b>';
+            $add .= $this->getDonDesc() . '</p>';
+            $test = trim(strip_tags($this->getDonComment()));
+            if ($test != '') {
+                $add .= $this->getDonComment();
+            }
+            $this
+                ->setDonComment($add)
+                ->setDonDesc(null)
+            ;
+        }
         $this->old_donation = \FreeAsso\Model\Donation::findFirst(['don_id' => $this->getDonId()]);
         if ($this->getCliId() != $this->old_donation->getCliId()) {
             $this->addError(\FreeAsso\Constants::ERROR_DONATION_CANT_CHANGE_CLIENT, "Can't change client");
@@ -344,5 +357,29 @@ class Donation extends \FreeAsso\Model\Base\Donation
         }
         $this->updateAfterDbAction();
         return true;
+    }
+
+    /**
+     * @see \FreeFW\Core\Model validate
+     */
+    public function validate()
+    {
+        parent::validate();
+        // EN modification, si la session nesst pas ouverte il faut un motif
+        if ($this->getDonId() > 0) {
+            $session = $this->getSession();
+            if ($session && $session->getSessStatus() != \FreeAsso\Model\Session::STATUS_OPEN) {
+                $test = trim(strip_tags($this->getDonDesc()));
+                if ($test == '') {
+                    $this->addError(
+                        \FreeAsso\Constants::ERROR_DONATION_NEED_REASON,
+                        'Need reason to save',
+                        \FreeFW\Core\Error::TYPE_PRECONDITION,
+                        'don_desc'
+                    );
+                } 
+            }
+        }
+        return $this;
     }
 }

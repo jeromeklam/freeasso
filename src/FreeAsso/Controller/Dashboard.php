@@ -30,7 +30,7 @@ class Dashboard extends \FreeFW\Core\Controller
         $result  = $stm->execute();
         if ($result) {
             while ($row = $stm->fetch(\PDO::FETCH_ASSOC)) {
-                $data['total_contract'] = $row['total'];
+                $data['total_contract'] = intval($row['total']);
             }
         }
         // Causes
@@ -43,7 +43,7 @@ class Dashboard extends \FreeFW\Core\Controller
         $result  = $stm->execute();
         if ($result) {
             while ($row = $stm->fetch(\PDO::FETCH_ASSOC)) {
-                $data['total_cause'] = $row['total'];
+                $data['total_cause'] = intval($row['total']);
             }
         }
         // Sites
@@ -55,7 +55,7 @@ class Dashboard extends \FreeFW\Core\Controller
         $result  = $stm->execute();
         if ($result) {
             while ($row = $stm->fetch(\PDO::FETCH_ASSOC)) {
-                $data['total_site'] = $row['total'];
+                $data['total_site'] = intval($row['total']);
             }
         }
         // Superficies
@@ -66,7 +66,7 @@ class Dashboard extends \FreeFW\Core\Controller
         $result  = $stm->execute();
         if ($result) {
             while ($row = $stm->fetch(\PDO::FETCH_ASSOC)) {
-                $data['area_site'] = $row['total'];
+                $data['area_site'] = floatval($row['total']);
             }
         }
         // Clotures
@@ -78,9 +78,9 @@ class Dashboard extends \FreeFW\Core\Controller
         if ($result) {
             while ($row = $stm->fetch(\PDO::FETCH_ASSOC)) {
                 if ($row['total'] !== null) {
-                    $data['clot_site'] = $row['total'];
+                    $data['clot_site'] = floatval($row['total']);
                 } else {
-                    $data['clot_site'] = '0';
+                    $data['clot_site'] = 0;
                 }
             }
         }
@@ -98,16 +98,28 @@ class Dashboard extends \FreeFW\Core\Controller
         $result  = $stm->execute();
         if ($result) {
             while ($row = $stm->fetch(\PDO::FETCH_ASSOC)) {
-                $data['total_friends'] = $row['total'];
+                $data['total_friends'] = intval($row['total']);
             }
         }
         // Datas
         $datas = \FreeAsso\Model\Data::find();
         foreach ($datas as $oneData) {
-            $data[strtolower($oneData->getDataCode())] = $oneData->getDataContent();
-            /** Hack pb site Kalaweit */
-            if ($oneData->getDataCode() == 'ANIMAUXPROTEGES') {
-                $data['total_cause'] = $oneData->getDataContent();
+            $key = str_replace("'", '', strtolower($oneData->getDataCode()));
+            switch ($key) {
+                case 'animauxproteges':
+                    $data['total_cause'] = intval($oneData->getDataContent());
+                    $data[$key] = intval($oneData->getDataContent());
+                    break;
+                case 'hectaresdeforet':
+                    $content = str_replace(',', '.', $oneData->getDataContent());
+                    $data[$key] = floatval($content);
+                    break;
+                case 'motifdarret':
+                    $data[$key] = json_decode($oneData->getDataContent());
+                    break;
+                default:
+                    $data[$key] = $oneData->getDataContent();
+                    break;
             }
         }
         //
