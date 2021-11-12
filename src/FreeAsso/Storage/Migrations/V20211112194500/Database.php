@@ -14,6 +14,7 @@ class Database extends \FreeFW\Storage\Migrations\AbstractMigration {
      */
     public function up() : bool
     {
+        $this->sqlUp();
         $donations = \FreeAsso\Model\Donation::find(
             [
                 'don_id' => [ \FreeFW\Storage\Storage::COND_LOWER_EQUAL => 1498026 ],
