@@ -1,0 +1,1 @@
+update asso_sponsorship set spo_freq_when = 10;

@@ -41,7 +41,8 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
      */
     public function init()
     {
-        $this->spo_freq_when = date('d');
+        //$this->spo_freq_when = date('d');
+        $this->spo_freq_when = 10;
         return $this;
     }
 
@@ -56,9 +57,9 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
             $p_date = \FreeFW\Tools\Date::getServerDatetime();
         }
         $askTs = clone $p_date;
-        $askTs->setDate($p_date->format('Y'), $p_date->format('m'), 10);
+        $askTs->setDate($p_date->format('Y'), $p_date->format('m'), $this->getSpoFreqWhen());
         $realTs = clone $p_date;
-        $realTs->setDate($p_date->format('Y'), $p_date->format('m'), 10); //$this->getSpoFreqWhen());
+        $realTs->setDate($p_date->format('Y'), $p_date->format('m'), $this->getSpoFreqWhen());
         /**
          * Generate new donation
          * @var \FreeAsso\Model\Donation $donation
