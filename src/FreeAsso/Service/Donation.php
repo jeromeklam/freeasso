@@ -251,59 +251,79 @@ class Donation extends \FreeFW\Core\Service
                  * @var \FreeAsso\Model\Donation $donation
                  */
                 foreach ($results as $donation) {
-                    $client = $donation->getClient();
-                    $cause  = $donation->getCause();
-                    if (!$cause->isActive($dEnd)) {
-                        /**
-                         * Add notification
-                         * @var \FreeFW\Model\Notification $notification
-                         */
-                        $notification = \FreeFW\DI\DI::get('FreeFW::Model::Notification');
-                        $notification
-                            ->setNotifType(\FreeFW\Model\Notification::TYPE_WARNING)
-                            ->setNotifObjectName('FreeAsso_Cause')
-                            ->setNotifObjectId($cause->getCauId())
-                            ->setNotifSubject('Parrainage pour un animal mort ou relâché !')
-                            ->setNotifCode('DONATION_ON_DISABLED_CAUSE')
-                            ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp());
-                        $notification->create();
-                    }
-                    $addN = true;
-                    $mail = trim($client->getCliEmail());
-                    if ($mail !== '') { //\FreeFW\Tools\Email::verify($mail)) {
-                        // Send mail to client...
-                        $filters = [
-                            'email_code' => $emailC
-                        ];
-                        //var_dump($donation->getMergeData());die;
-                        $message = $emailService->getEmailAsMessage($filters, $client->getLangId(), $donation);
-                        if ($message) {
-                            $message
-                                ->addDest($client->getCliEmail())
-                                ->setDestId($client->getCliId())
-                                ->setGrpId($donation->getGrpId())
-                            ;
-                            if ($message->create()) {
-                                $addN = false;
-                            } else {
-                                var_dump($message->getErrors());die;
+                    /**
+                     * @var \FreeFW\Model\Query $query2
+                     */
+                    $query2 = \FreeAsso\Model\Donation::getQuery();
+                    $query2
+                        ->addFromFilters(
+                            [
+                                'don_end_ts' => [ \FreeFW\Storage\Storage::COND_GREATER => $donation->getDonEndTs() ],
+                                'cau_id'     => $donation->getCauId(),
+                                'cli_id'     => $donation->getCliId(),
+                                'spo_id'     => [\FreeFW\Storage\Storage::COND_EMPTY],
+                                'don_status' => \FreeAsso\Model\Donation::STATUS_OK,
+                            ]
+                        )
+                    ;
+                    if ($query2->execute()) {
+                        $otherResults = $query2->getResult();
+                        if ($otherResults->count() <= 0) {
+                            $client = $donation->getClient();
+                            $cause  = $donation->getCause();
+                            if (!$cause->isActive($dEnd)) {
+                                /**
+                                 * Add notification
+                                 * @var \FreeFW\Model\Notification $notification
+                                 */
+                                $notification = \FreeFW\DI\DI::get('FreeFW::Model::Notification');
+                                $notification
+                                    ->setNotifType(\FreeFW\Model\Notification::TYPE_WARNING)
+                                    ->setNotifObjectName('FreeAsso_Cause')
+                                    ->setNotifObjectId($cause->getCauId())
+                                    ->setNotifSubject('Parrainage pour un animal mort ou relâché !')
+                                    ->setNotifCode('DONATION_ON_DISABLED_CAUSE')
+                                    ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp());
+                                $notification->create();
+                            }
+                            $addN = true;
+                            $mail = trim($client->getCliEmail());
+                            if ($mail !== '') { //\FreeFW\Tools\Email::verify($mail)) {
+                                // Send mail to client...
+                                $filters = [
+                                    'email_code' => $emailC
+                                ];
+                                //var_dump($donation->getMergeData());die;
+                                $message = $emailService->getEmailAsMessage($filters, $client->getLangId(), $donation);
+                                if ($message) {
+                                    $message
+                                        ->addDest($client->getCliEmail())
+                                        ->setDestId($client->getCliId())
+                                        ->setGrpId($donation->getGrpId())
+                                    ;
+                                    if ($message->create()) {
+                                        $addN = false;
+                                    } else {
+                                        var_dump($message->getErrors());die;
+                                    }
+                                }
+                            }
+                            if ($addN) {
+                                /**
+                                 * Add notification
+                                 * @var \FreeFW\Model\Notification $notification
+                                 */
+                                $notification = \FreeFW\DI\DI::get('FreeFW::Model::Notification');
+                                $notification
+                                    ->setNotifType(\FreeFW\Model\Notification::TYPE_WARNING)
+                                    ->setNotifObjectName('FreeAsso_Donation')
+                                    ->setNotifObjectId($donation->getDonId())
+                                    ->setNotifSubject('Donation ending !')
+                                    ->setNotifCode($emailC)
+                                    ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp());
+                                $notification->create();
                             }
                         }
-                    }
-                    if ($addN) {
-                        /**
-                         * Add notification
-                         * @var \FreeFW\Model\Notification $notification
-                         */
-                        $notification = \FreeFW\DI\DI::get('FreeFW::Model::Notification');
-                        $notification
-                            ->setNotifType(\FreeFW\Model\Notification::TYPE_WARNING)
-                            ->setNotifObjectName('FreeAsso_Donation')
-                            ->setNotifObjectId($donation->getDonId())
-                            ->setNotifSubject('Donation ending !')
-                            ->setNotifCode($emailC)
-                            ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp());
-                        $notification->create();
                     }
                 }
                 $report .= '</ul>';

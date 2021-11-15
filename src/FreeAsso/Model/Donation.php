@@ -382,4 +382,21 @@ class Donation extends \FreeAsso\Model\Base\Donation
         }
         return $this;
     }
+
+    /**
+     * Specific fields
+     *
+     * @return array
+     */
+    public function getSpecificEditionFields()
+    {
+        $fields  = [];
+        $fields[] = [
+            'name'    => 'don_regular',
+            'type'    => 'boolean',
+            'title'   => 'regular',
+            'content' => $this->getSpoId() > 0,
+        ];
+        return $fields;
+    }
 }

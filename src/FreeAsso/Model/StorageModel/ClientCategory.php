@@ -33,7 +33,8 @@ abstract class ClientCategory extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_CLIC_NAME = [
         FFCST::PROPERTY_PRIVATE => 'clic_name',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
+        FFCST::PROPERTY_TITLE   => 'Catégorie',
     ];
 
     /**

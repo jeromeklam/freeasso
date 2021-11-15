@@ -28,7 +28,8 @@ abstract class ClientType extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_CLIT_NAME = [
         FFCST::PROPERTY_PRIVATE => 'clit_name',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
+        FFCST::PROPERTY_TITLE   => 'Type',
     ];
     protected static $PRP_CLIT_CODE = [
         FFCST::PROPERTY_PRIVATE => 'clit_code',

@@ -44,35 +44,35 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_PRIVATE => 'cau_name',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
         FFCST::PROPERTY_COMMENT => 'Le nom de la cause',
-        FFCST::PROPERTY_MERGE   => 'Nom',
+        FFCST::PROPERTY_TITLE   => 'Nom',
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CAU_DESC = [
         FFCST::PROPERTY_PRIVATE => 'cau_desc',
         FFCST::PROPERTY_COMMENT => 'La description de la cause',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_HTML,
-        FFCST::PROPERTY_MERGE   => 'Description',
+        FFCST::PROPERTY_TITLE   => 'Description',
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CAU_FROM = [
         FFCST::PROPERTY_PRIVATE => 'cau_from',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
         FFCST::PROPERTY_COMMENT => 'Date de début de validité',
-        FFCST::PROPERTY_MERGE   => 'Entrée',
+        FFCST::PROPERTY_TITLE   => 'Entrée',
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CAU_TO = [
         FFCST::PROPERTY_PRIVATE => 'cau_to',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
         FFCST::PROPERTY_COMMENT => 'Date de fin de validité',
-        FFCST::PROPERTY_MERGE   => 'Sortie',
+        FFCST::PROPERTY_TITLE   => 'Sortie',
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CAU_PUBLIC = [
         FFCST::PROPERTY_PRIVATE => 'cau_public',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_COMMENT => 'Cause publique ?',
-        FFCST::PROPERTY_MERGE   => 'Publique',
+        FFCST::PROPERTY_TITLE   => 'Publique',
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
         FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_TRUE,
     ];
@@ -80,7 +80,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_PRIVATE => 'cau_available',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_COMMENT => 'La cause est disponible',
-        FFCST::PROPERTY_MERGE   => 'Valide',
+        FFCST::PROPERTY_TITLE   => 'Valide',
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
         FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_TRUE,
     ];
@@ -88,7 +88,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_PRIVATE => 'sspe_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
         FFCST::PROPERTY_COMMENT => 'L\'espèce',
-        FFCST::PROPERTY_MERGE   => 'Espèce',
+        FFCST::PROPERTY_TITLE   => 'Espèce',
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
         FFCST::PROPERTY_FK      => ['subspecies' =>
             [
@@ -102,7 +102,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_PRIVATE => 'site_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
         FFCST::PROPERTY_COMMENT => 'Le site de rattachement',
-        FFCST::PROPERTY_MERGE   => 'Site',
+        FFCST::PROPERTY_TITLE   => 'Site',
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_FK],
         FFCST::PROPERTY_FK      => ['site' =>
             [
@@ -129,7 +129,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_PRIVATE => 'rais_cli_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
         FFCST::PROPERTY_COMMENT => 'Eleveur',
-        FFCST::PROPERTY_MERGE   => 'Eleveur',
+        FFCST::PROPERTY_TITLE   => 'Eleveur',
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
         FFCST::PROPERTY_FK      => ['raiser' =>
             [
@@ -169,14 +169,14 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_PRIVATE => 'cau_family',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_SELECT,
         FFCST::PROPERTY_COMMENT => 'La famille de la cause',
-        FFCST::PROPERTY_MERGE   => 'Famille',
+        FFCST::PROPERTY_TITLE   => 'Famille',
         FFCST::PROPERTY_ENUM    => ['OTHER','NONE','ANIMAL','FOREST'],
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
         FFCST::PROPERTY_DEFAULT => 'ANIMAL',
     ];
     protected static $PRP_CAU_STRING_1 = [
         FFCST::PROPERTY_PRIVATE => 'cau_string_1',
-        FFCST::PROPERTY_MERGE   => 'Couleur',
+        FFCST::PROPERTY_TITLE   => 'Couleur',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
         FFCST::PROPERTY_OPTIONS => []
     ];
@@ -404,14 +404,14 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_PRIVATE => 'cau_last_news',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
         FFCST::PROPERTY_COMMENT => 'Date de la dernière news',
-        FFCST::PROPERTY_MERGE   => 'News',
+        FFCST::PROPERTY_TITLE   => 'News',
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CAU_LAST_PHOTO = [
         FFCST::PROPERTY_PRIVATE => 'cau_last_photo',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
         FFCST::PROPERTY_COMMENT => 'Date de la dernière photo',
-        FFCST::PROPERTY_MERGE   => 'Photo',
+        FFCST::PROPERTY_TITLE   => 'Photo',
         FFCST::PROPERTY_OPTIONS => []
     ];
 
