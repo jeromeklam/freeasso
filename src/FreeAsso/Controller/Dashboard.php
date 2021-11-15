@@ -113,6 +113,7 @@ class Dashboard extends \FreeFW\Core\Controller
                 case 'hectaresdeforet':
                     $content = str_replace(',', '.', $oneData->getDataContent());
                     $data[$key] = floatval($content);
+                    $data['hectaresproteges'] = floatval($content);
                     break;
                 case 'motifdarret':
                     $data[$key] = json_decode($oneData->getDataContent());
