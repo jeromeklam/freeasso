@@ -41,7 +41,7 @@ class Donation extends \FreeFW\Core\Service
         foreach ($check as $oneSponsorship) {
             $donations = \FreeAsso\Model\Donation::find(
                 [
-                    'don_ask_ts' => [\FreeFW\Storage\Storage::COND_BETWEEN => [
+                    'don_real_ts' => [\FreeFW\Storage\Storage::COND_BETWEEN => [
                         \FreeFW\Tools\Date::datetimeToMysql($from),
                         \FreeFW\Tools\Date::datetimeToMysql($to)
                     ]],
