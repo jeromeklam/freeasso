@@ -52,6 +52,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_COMMENT => 'La description de la cause',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_HTML,
         FFCST::PROPERTY_TITLE   => 'Description',
+        FFCST::PROPERTY_MERGE   => 'Observation',
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_CAU_FROM = [
@@ -162,6 +163,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_PRIVATE => 'cau_code',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
         FFCST::PROPERTY_COMMENT => 'Le code identifiant',
+        FFCST::PROPERTY_MERGE   => 'N° boucle',
         FFCST::PROPERTY_OPTIONS => [],
         FFCST::PROPERTY_OPTIONS => []
     ];
@@ -282,6 +284,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
     ];
     protected static $PRP_CAU_SEX = [
         FFCST::PROPERTY_PRIVATE => 'cau_sex',
+        FFCST::PROPERTY_MERGE   => 'M/F',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_SELECT,
         FFCST::PROPERTY_ENUM    => ['M','F','C','OTHER'],
         FFCST::PROPERTY_DEFAULT => 'OTHER',
@@ -289,6 +292,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
     ];
     protected static $PRP_CAU_YEAR = [
         FFCST::PROPERTY_PRIVATE => 'cau_year',
+        FFCST::PROPERTY_MERGE   => 'Année de naissance',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
         FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_CURRENT_YEAR,
         FFCST::PROPERTY_OPTIONS => []
@@ -365,6 +369,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_PRIVATE => 'cau_waiting',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_MERGE   => 'En attente',
         FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_FALSE,
     ];
     protected static $PRP_CAU_CONFORM = [
@@ -372,6 +377,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [],
         FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_TRUE,
+        FFCST::PROPERTY_MERGE   => 'Conforme',
         FFCST::PROPERTY_COMMENT => 'Indique si la cause est conforme',
         FFCST::PROPERTY_SAMPLE  => true
     ];
@@ -379,6 +385,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_PRIVATE => 'cau_conform_text',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
         FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_MERGE   => 'Commentaire conformité',
         FFCST::PROPERTY_COMMENT => 'Texte lié à la conformité',
         FFCST::PROPERTY_SAMPLE  => 'La cause est conforme'
     ];

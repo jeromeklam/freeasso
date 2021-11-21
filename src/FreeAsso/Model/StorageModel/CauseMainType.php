@@ -28,6 +28,7 @@ abstract class CauseMainType extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_CAMT_NAME = [
         FFCST::PROPERTY_PRIVATE => 'camt_name',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_MERGE   => 'Espèce',
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_CAMT_FAMILY = [

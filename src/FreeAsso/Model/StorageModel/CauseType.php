@@ -40,7 +40,8 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_CAUT_NAME = [
         FFCST::PROPERTY_PRIVATE => 'caut_name',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_MERGE   => 'Race',
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
     ];
     protected static $PRP_CAUT_PATTERN = [
         FFCST::PROPERTY_PRIVATE => 'caut_pattern',
