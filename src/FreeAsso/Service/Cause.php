@@ -225,6 +225,7 @@ class Cause extends \FreeFW\Core\Service
                     'spo_id'     => null
                 ];
                 if ($type->getCautMntType() == \FreeAsso\Model\CauseType::MNT_TYPE_ANNUAL) {
+                    $filters['don_ask_ts'] = [\FreeFW\Storage\Storage::COND_GREATER_EQUAL => \FreeFW\Tools\Date::getCurrentTimestamp()];
                     $filters['don_end_ts'] = [\FreeFW\Storage\Storage::COND_GREATER_EQUAL => \FreeFW\Tools\Date::getCurrentTimestamp()];
                 }
                 $query

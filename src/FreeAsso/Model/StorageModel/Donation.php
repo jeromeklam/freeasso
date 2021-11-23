@@ -213,6 +213,12 @@ abstract class Donation extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_OPTIONS  => [FFCST::OPTION_FUNCTION],
         FFCST::PROPERTY_FUNCTION => [\FreeFW\Storage\Storage::FUNCTION_YEAR => 'don_real_ts']
     ];
+    protected static $PRP_DON_NEWS = [
+        FFCST::PROPERTY_PRIVATE => 'don_news',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_TRUE,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
 
     /**
      * get properties
@@ -248,6 +254,7 @@ abstract class Donation extends \FreeFW\Core\StorageModel
             'dono_id'          => self::$PRP_DONO_ID,
             'sess_id'          => self::$PRP_SESS_ID,
             'don_real_ts_year' => self::$PRP_DON_REAL_TS_YEAR,
+            'don_news'         => self::$PRP_DON_NEWS,
         ];
     }
 

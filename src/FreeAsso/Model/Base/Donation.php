@@ -166,6 +166,12 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
     protected $don_real_ts_year = null;
 
     /**
+     * News
+     * @var boolean
+     */
+    protected $don_news = true;
+
+    /**
      * Set don_id
      *
      * @param int $p_value
@@ -761,5 +767,28 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
     public function getDonRealTsYear()
     {
         return $this->don_real_ts_year;
+    }
+
+    /**
+     * Set don_news
+     *
+     * @param boolean $p_value
+     * 
+     * @return void
+     */
+    public function setDonNews($p_value)
+    {
+        $this->don_news = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get don_news
+     *
+     * @return boolean
+     */
+    public function getDonNews()
+    {
+        return $this->don_news;
     }
 }

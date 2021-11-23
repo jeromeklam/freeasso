@@ -1,0 +1,1 @@
+alter table `asso_donation` add column `don_news` tinyint(1) DEFAULT 1;
