@@ -392,7 +392,7 @@ class Cause extends \FreeFW\Core\Service
                     ->setSponName($donation->getClient()->getFullName())
                     ->setSponEmail($donation->getClient()->getCliEmail())
                     ->setSponSite($donation->getDonDisplaySite())
-                    ->setSponNews(false)
+                    ->setSponNews($donation->getDonNews())
                     ->setCliId($donation->getCliId())
                     ->setSponDonator(true);
                 $data->add($sponsor);
