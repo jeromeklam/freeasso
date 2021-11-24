@@ -1392,16 +1392,16 @@
         },
         {
             "name": "jeromeklam/freeoffice",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jeromeklam/freeoffice.git",
-                "reference": "a2c2a4769541bc6cb329ef804bf081dad2e5ca9d"
+                "reference": "b559db1c721a188a2b5fef0bd161286ab98f2be4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jeromeklam/freeoffice/zipball/a2c2a4769541bc6cb329ef804bf081dad2e5ca9d",
-                "reference": "a2c2a4769541bc6cb329ef804bf081dad2e5ca9d",
+                "url": "https://api.github.com/repos/jeromeklam/freeoffice/zipball/b559db1c721a188a2b5fef0bd161286ab98f2be4",
+                "reference": "b559db1c721a188a2b5fef0bd161286ab98f2be4",
                 "shasum": ""
             },
             "require": {
@@ -1442,9 +1442,9 @@
             ],
             "support": {
                 "issues": "https://github.com/jeromeklam/freeoffice/issues",
-                "source": "https://github.com/jeromeklam/freeoffice/tree/1.2.0"
+                "source": "https://github.com/jeromeklam/freeoffice/tree/1.2.1"
             },
-            "time": "2021-10-03T08:38:46+00:00"
+            "time": "2021-11-24T19:53:36+00:00"
         },
         {
             "name": "jeromeklam/freesso",
