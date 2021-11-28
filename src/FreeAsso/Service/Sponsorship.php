@@ -151,8 +151,18 @@ class Sponsorship extends \FreeFW\Core\Service
                         'sess_status' => \FreeAsso\Model\Session::STATUS_OPEN,
                         'sess_year'   => $year,
                         'sess_month'  => $month,
+                        'grp_id'      => $sponsorship->getGrpId()
                     ]
                 );
+                if (!$session) {
+                    $session = \FreeAsso\Model\Session::findFirst(
+                        [
+                            'sess_status' => \FreeAsso\Model\Session::STATUS_OPEN,
+                            'sess_year'   => $year,
+                            'grp_id'      => $sponsorship->getGrpId()
+                        ]
+                    );
+                }
                 /**
                  * First create Donation Origin
                  * @var \FreeAsso\Model\DonationOrigin $donOrig

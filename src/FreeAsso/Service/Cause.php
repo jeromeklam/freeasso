@@ -49,7 +49,8 @@ class Cause extends \FreeFW\Core\Service
             'don_end_ts' => [\FreeFW\Storage\Storage::COND_GREATER_EQUAL_OR_NULL => \FreeFW\Tools\Date::getCurrentTimestamp()]
         ];
         $query
-            ->addFromFilters($quifils);
+            ->addFromFilters($quifils)
+        ;
         $clients = [];
         if ($query->execute()) {
             $results = $query->getResult();
@@ -60,6 +61,9 @@ class Cause extends \FreeFW\Core\Service
                 }
             }
         }
+        /**
+         * @var \FreeAsso\Model\Client $client
+         */
         foreach ($clients as $client) {
             if ($client->getCliEmail() != '') {
                 /**
@@ -95,10 +99,13 @@ class Cause extends \FreeFW\Core\Service
                 $notification
                     ->setNotifType(\FreeFW\Model\Notification::TYPE_INFORMATION)
                     ->setNotifObjectName('FreeAsso_Client')
+                    ->setNotifObjectInfo($client->getCliFullname())
                     ->setNotifObjectId($client->getCliId())
                     ->setNotifSubject($p_automate->getAutoName() . ' : ' . $p_cause->getCauName())
+                    ->setNotifText($p_automate->getAutoName() . ' : ' . $p_cause->getCauName())
                     ->setNotifCode('END_CAUSE')
-                    ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp());
+                    ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp())
+                ;
                 $notification->create();
             }
         }
@@ -394,19 +401,23 @@ class Cause extends \FreeFW\Core\Service
                     ->setSponSite($donation->getDonDisplaySite())
                     ->setSponNews($donation->getDonNews())
                     ->setCliId($donation->getCliId())
-                    ->setSponDonator(true);
+                    ->setSponDonator(true)
+                ;
                 $data->add($sponsor);
                 $sponsors = json_decode($donation->getDonSponsors(), true);
                 if (is_array($sponsors)) {
                     $i = 0;
                     foreach ($sponsors as $oneSponsor) {
                         $i++;
-                        $site = $donation->getDonDisplaySite();
-                        if (array_key_exists('site', $oneSponsor)) {
+                        $site = true;
+                        if (isset($oneSponsor['site'])) {
                             $site = (bool)$oneSponsor['site'];
                         }
-                        $news = true;
-                        if (array_key_exists('news', $oneSponsor)) {
+                        $news = false;
+                        if (trim($oneSponsor['email']) != '') {
+                            $news = true;
+                        }
+                        if (isset($oneSponsor['news'])) {
                             $news = (bool)$oneSponsor['news'];
                         }
                         /**
@@ -420,7 +431,8 @@ class Cause extends \FreeFW\Core\Service
                             ->setSponSite($site)
                             ->setSponNews($news)
                             ->setCliId($donation->getCliId())
-                            ->setSponDonator(false);
+                            ->setSponDonator(false)
+                        ;
                         $data->add($sponsor2);
                     }
                 }
@@ -453,7 +465,8 @@ class Cause extends \FreeFW\Core\Service
                     ->setSponSite($sponsorship->getSpoDisplaySite())
                     ->setSponNews($sponsorship->getSpoSendNews())
                     ->setCliId($sponsorship->getCliId())
-                    ->setSponDonator(true);
+                    ->setSponDonator(true)
+                ;
                 $data->add($sponsor);
                 $sponsors = json_decode($sponsorship->getSpoSponsors(), true);
                 if (is_array($sponsors)) {

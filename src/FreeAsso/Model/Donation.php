@@ -85,23 +85,9 @@ class Donation extends \FreeAsso\Model\Base\Donation
             return true;
         }
         if ($this->getSessId() <= 0) {
-            $myRealTs = \FreeFW\Tools\Date::mysqlToDatetime($this->don_real_ts);
-            $year  = date('Y');
-            $month = date('m');
-            if ($myRealTs) {
-                $year  = $myRealTs->format('Y');
-                $month = $myRealTs->format('m');
-            }
-            $session = \FreeAsso\Model\Session::findFirst(
-                [
-                    'sess_type'  => \FreeAsso\Model\Session::TYPE_STANDARD,
-                    'sess_year'  => $year,
-                    'sess_month' => $month,
-                ]
-            );
-            if ($session) {
-                $this->setSession($session);
-            }
+            $realTs = \FreeFW\Tools\Date::mysqlToDatetime($this->don_real_ts);
+            $session = \FreeAsso\Model\Session::findSession($realTs);
+            $this->setSession($session);
         }
     }
 
@@ -390,7 +376,7 @@ class Donation extends \FreeAsso\Model\Base\Donation
      */
     public function getSpecificEditionFields()
     {
-        $fields  = [];
+        $fields   = [];
         $fields[] = [
             'name'    => 'don_regular',
             'type'    => 'boolean',
@@ -398,5 +384,21 @@ class Donation extends \FreeAsso\Model\Base\Donation
             'content' => $this->getSpoId() > 0,
         ];
         return $fields;
+    }
+
+    /**
+     * Check session
+     *
+     * @return void
+     */
+    public function verifySession()
+    {
+        $realts  = \FreeFW\Tools\Date::mysqlToDatetime($this->getDonRealTs());
+        $session = \FreeAsso\Model\Session::findSession($realts, $this->getGrpId());
+        if ($session && $session->getSessId() != $this->getSessId()) {
+            $this->setSession($session);
+            $this->logger->info('Session update ' . $this->getDonId());
+            $this->save(true, true);
+        }
     }
 }

@@ -51,7 +51,7 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
      *
      * @return \FreeFW\Interfaces\DependencyInjectorInterface
      */
-    public function getNewDonation(\Datetime $p_date = null)
+    public function getNewDonation(\Datetime $p_date = null, $p_freq = true)
     {
         if ($p_date === null) {
             $p_date = \FreeFW\Tools\Date::getServerDatetime();
@@ -59,7 +59,11 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
         $askTs = clone $p_date;
         $askTs->setDate($p_date->format('Y'), $p_date->format('m'), $this->getSpoFreqWhen());
         $realTs = clone $p_date;
-        $realTs->setDate($p_date->format('Y'), $p_date->format('m'), $this->getSpoFreqWhen());
+        if ($p_freq) {
+            $realTs->setDate($p_date->format('Y'), $p_date->format('m'), $this->getSpoFreqWhen());
+        } else {
+            $realTs->setDate($p_date->format('Y'), $p_date->format('m'), $p_date->format('d'));
+        }
         /**
          * Generate new donation
          * @var \FreeAsso\Model\Donation $donation
@@ -83,6 +87,14 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
             ->setDonMntInput($this->getSpoMntInput())
             ->setDonMoneyInput($this->getSpoMoneyInput())
         ;
+        $year  = date('Y');
+        $month = date('m');
+        if ($realTs) {
+            $year  = $realTs->format('Y');
+            $month = $realTs->format('m');
+        }
+        $session = \FreeAsso\Model\Session::findSession($realTs, $this->getGrpId());
+        $donation->setSession($session);
         return $donation;
     }
 
@@ -127,11 +139,15 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
          * @var \DateTime $now
          */
         $now      = \FreeFW\Tools\Date::getServerDatetime();
+        $first    = true;
         $nowYear  = $now->format('Y');
         $nowMonth = $now->format('m');
         if ($from < $now) {
             while ($from < $now) {
-                $donation  = $this->getNewDonation($from);
+                /**
+                 * @var \FreeAsso\Model\Donation $donation
+                 */
+                $donation  = $this->getNewDonation($from, !$first);
                 $date      = \FreeFW\Tools\Date::mysqlToDatetime($donation->getDonAskTs());
                 $fromYear  = $date->format('Y');
                 $fromMonth = $date->format('m');
@@ -143,6 +159,7 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
                     }
                 }
                 $from->add(new \DateInterval("P1M"));
+                $first = false;
             }
         }
         return true;

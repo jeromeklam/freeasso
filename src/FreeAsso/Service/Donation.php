@@ -10,6 +10,27 @@ namespace FreeAsso\Service;
 class Donation extends \FreeFW\Core\Service
 {
 
+    /**
+     * For each donation, verify session
+     *
+     * @return void
+     */
+    public function updateSession()
+    {
+        /**
+         * @var \FreeAsso\Model\Donation $model
+         */
+        $model = \FreeFW\DI\DI::get('FreeAsso::Model::Donation');
+        $query = $model->getQuery();
+        $query->execute([], 'verifySession');
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param array $p_params
+     * @return void
+     */
     public function verifyDonations($p_params = [])
     {
         if (array_key_exists('year', $p_params)) {
@@ -22,12 +43,6 @@ class Donation extends \FreeFW\Core\Service
         } else {
             $month = date('m');
         }
-        if ($month > 1) {
-            $month = $month - 1;
-        } else {
-            $month = 1;
-            $year = $year - 1;
-        }
         $from = new \DateTime();
         $from->setDate($year, $month, 1);
         $from->setTime(0, 0, 1);
@@ -35,7 +50,8 @@ class Donation extends \FreeFW\Core\Service
         $to->add(new \DateInterval("P1M"));
         $check = \FreeAsso\Model\Sponsorship::find(
             [
-                'spo_to' =>[\FreeFW\Storage\Storage::COND_GREATER_EQUAL_OR_NULL => \FreeFW\Tools\Date::datetimeToMysql($from)],
+                'spo_from' => [\FreeFW\Storage\Storage::COND_LOWER_EQUAL_OR_NULL => \FreeFW\Tools\Date::datetimeToMysql($from)],
+                'spo_to'   => [\FreeFW\Storage\Storage::COND_GREATER_EQUAL_OR_NULL => \FreeFW\Tools\Date::datetimeToMysql($from)],
             ]
         );
         foreach ($check as $oneSponsorship) {
@@ -45,21 +61,41 @@ class Donation extends \FreeFW\Core\Service
                         \FreeFW\Tools\Date::datetimeToMysql($from),
                         \FreeFW\Tools\Date::datetimeToMysql($to)
                     ]],
-                    'spo_id' => $oneSponsorship->getSpoId()
+                    'don_mnt' => [\FreeFW\Storage\Storage::COND_GREATER => 0],
+                    'spo_id'  => $oneSponsorship->getSpoId()
                 ]
             );
             if ($donations->count() != 1) {
+                /**
+                 * @var \FreeAsso\Model\Client $client
+                 */
+                $client = $oneSponsorship->getClient();
+                $subject = "Don à contrôler " . $month . "/" . $year . " : " . $oneSponsorship->getCause()->getCauName() . '(' . $oneSponsorship->getSpoMnt() . $oneSponsorship->getSpoMoney() . ')';
+                $texte   = $subject . "\n" . "Nombre de dons : " . $donations->count();
+                $texte  .= "\n" . "Donateur : " . $client->getCliFullname();
+                $texte  .= "\n------";
+                $this->logger->info($texte);
                 $notification = new \FreeFW\Model\Notification();
                 $notification
                     ->setNotifType(\FreeFW\Model\Notification::TYPE_WARNING)
                     ->setNotifObjectName('FreeAsso_Client')
-                    ->setNotifObjectId($oneSponsorship->getCliId())
-                    ->setNotifSubject("Anomalie de don : à contrôler " . $month . "/" . $year . " : " . $oneSponsorship->getSpoMnt() . '(' . $oneSponsorship->getSpoMoney() . ')')
+                    ->setNotifObjectId($client->getCliId())
+                    ->setNotifObjectInfo($client->getCliFullname())
+                    ->setNotifSubject($subject)
                     ->setNotifCode('SPONSORSHIP_CONTROL')
+                    ->setNotifText($texte)
                     ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp());
                 $notification->create();
             }
         }
+        $month = $month + 1;
+        if ($month > 12) {
+            $year  = $year + 1;
+            $month = 1;
+        }
+        $p_params['year']  = $year;
+        $p_params['month'] = $month;
+        return $p_params;
     }
 
     /**
@@ -163,12 +199,15 @@ class Donation extends \FreeFW\Core\Service
             if ($certificate) {
                 $cause = $p_donation->getCause();
                 $notification = new \FreeFW\Model\Notification();
+                $texte = $p_automate->getAutoName() . ' : ' . $certificate->getCertFullname() . ' ' . $cause->getCauName();
                 $notification
                     ->setNotifType(\FreeFW\Model\Notification::TYPE_INFORMATION)
                     ->setNotifObjectName('FreeAsso_Certificate')
                     ->setNotifObjectId($certificate->getCertId())
-                    ->setNotifSubject($p_automate->getAutoName() . ' : ' . $certificate->getCertFullname() . ' ' . $cause->getCauName())
+                    ->setNotifSubject($texte)
+                    ->setNotifObjectInfo($certificate->getCertFullname())
                     ->setNotifCode('CERTIFICATE_WITHOUT_EMAIL')
+                    ->setNotifText($texte)
                     ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp());
                 return $notification->create();
             }
@@ -281,9 +320,12 @@ class Donation extends \FreeFW\Core\Service
                                     ->setNotifType(\FreeFW\Model\Notification::TYPE_WARNING)
                                     ->setNotifObjectName('FreeAsso_Cause')
                                     ->setNotifObjectId($cause->getCauId())
+                                    ->setNotifObjectInfo($cause->getCauName())
                                     ->setNotifSubject('Parrainage pour un animal mort ou relâché !')
+                                    ->setNotifText('Parrainage pour un animal mort ou relâché !')
                                     ->setNotifCode('DONATION_ON_DISABLED_CAUSE')
-                                    ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp());
+                                    ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp())
+                                ;
                                 $notification->create();
                             }
                             $addN = true;
@@ -301,27 +343,8 @@ class Donation extends \FreeFW\Core\Service
                                         ->setDestId($client->getCliId())
                                         ->setGrpId($donation->getGrpId())
                                     ;
-                                    if ($message->create()) {
-                                        $addN = false;
-                                    } else {
-                                        var_dump($message->getErrors());die;
-                                    }
+                                    $message->create();
                                 }
-                            }
-                            if ($addN) {
-                                /**
-                                 * Add notification
-                                 * @var \FreeFW\Model\Notification $notification
-                                 */
-                                $notification = \FreeFW\DI\DI::get('FreeFW::Model::Notification');
-                                $notification
-                                    ->setNotifType(\FreeFW\Model\Notification::TYPE_WARNING)
-                                    ->setNotifObjectName('FreeAsso_Donation')
-                                    ->setNotifObjectId($donation->getDonId())
-                                    ->setNotifSubject('Donation ending !')
-                                    ->setNotifCode($emailC)
-                                    ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp());
-                                $notification->create();
                             }
                         }
                     }

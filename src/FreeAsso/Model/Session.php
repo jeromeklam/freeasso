@@ -12,6 +12,11 @@ class Session extends \FreeAsso\Model\Base\Session
 {
 
     /**
+     * Comportement
+     */
+    use \FreeSSO\Model\Behaviour\Group;
+
+    /**
      * Status
      * @var string
      */
@@ -31,6 +36,12 @@ class Session extends \FreeAsso\Model\Base\Session
      * @var array
      */
     protected static $factory = [];
+
+    /**
+     * Cache
+     * @var array
+     */
+    protected static $cache = [];
 
     /**
      *
@@ -84,5 +95,67 @@ class Session extends \FreeAsso\Model\Base\Session
             self::$factory[$key] = $session;
         }
         return self::$factory[$key];
+    }
+
+    /**
+     * Find Session
+     *
+     * @param \DateTime $p_date
+     * @param int       $p_grp_id
+     * 
+     * @return \FreeAsso\Model\Session
+     */
+    public static function findSession($p_date, $p_grp_id = null)
+    {
+        $grp_id = $p_grp_id;
+        if ($p_date && $p_date instanceof \DateTime) {
+            if (!$grp_id) {
+                /**
+                 * @var \FreeSSO\Server $sso
+                 */
+                $sso   = \FreeFW\DI\DI::getShared('sso');
+                $group = $sso->getUserGroup();
+                if ($group) {
+                    $grp_id = $group->getGrpId();
+                }
+            }
+            $myRealTs = clone($p_date);
+            $year     = date('Y');
+            $month    = date('m');
+            if ($myRealTs) {
+                $year  = $myRealTs->format('Y');
+                $month = $myRealTs->format('m');
+            }
+            $key = $grp_id . '##' . $year . '##' . $month;
+            if (isset(self::$cache[$key])) {
+                return self::$cache[$key];
+            }
+            $session = \FreeAsso\Model\Session::findFirst(
+                [
+                    'sess_type'  => \FreeAsso\Model\Session::TYPE_STANDARD,
+                    'sess_year'  => $year,
+                    'sess_month' => $month,
+                    'grp_id'     => $grp_id
+                ]
+            );
+            if ($session) {
+                self::$cache[$key] = $session;
+                return $session;
+            } else {
+                $session = \FreeAsso\Model\Session::findFirst(
+                    [
+                        'sess_type'  => \FreeAsso\Model\Session::TYPE_STANDARD,
+                        'sess_year'  => $year,
+                        'grp_id'     => $grp_id
+                    ]
+                );
+                if ($session) {
+                    self::$cache[$key] = $session;
+                    return $session;
+                }
+            }
+            self::$cache[$key] = null;
+        }
+        return null;
     }
 }

@@ -183,7 +183,7 @@ $clientRoutes = [
         FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_PRINT_ONE,
         FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
         FFCSTRT::ROUTE_INCLUDE    => [
-            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['client_type','client_category','last_donation']
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['client_type','client_category','last_donation','country','lang']
         ],
         FFCSTRT::ROUTE_SCOPE      => [],
         FFCSTRT::ROUTE_PARAMETERS => [

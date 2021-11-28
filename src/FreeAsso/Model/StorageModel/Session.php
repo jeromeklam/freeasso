@@ -33,7 +33,7 @@ abstract class Session extends \FreeFW\Core\StorageModel
     protected static $PRP_SESS_EXERCICE = [
         FFCST::PROPERTY_PRIVATE => 'sess_exercice',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_SESS_STATUS = [
         FFCST::PROPERTY_PRIVATE => 'sess_status',
@@ -55,6 +55,19 @@ abstract class Session extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
         FFCST::PROPERTY_OPTIONS => []
     ];
+    protected static $PRP_GRP_ID = [
+        FFCST::PROPERTY_PRIVATE => 'grp_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED,FFCST::OPTION_GROUP],
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_CURRENT_GROUP,
+        FFCST::PROPERTY_FK      => ['group' =>
+            [
+                'model' => 'FreeSSO::Model::Group',
+                'field' => 'grp_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
 
     /**
      * get properties
@@ -72,6 +85,7 @@ abstract class Session extends \FreeFW\Core\StorageModel
             'sess_type'     => self::$PRP_SESS_TYPE,
             'sess_year'     => self::$PRP_SESS_YEAR,
             'sess_month'    => self::$PRP_SESS_MONTH,
+            'grp_id'        => self::$PRP_GRP_ID,
         ];
     }
 
@@ -104,7 +118,7 @@ abstract class Session extends \FreeFW\Core\StorageModel
     {
         return [
             'name' => [
-                FFCST::INDEX_FIELDS => ['brk_id', 'sess_name'],
+                FFCST::INDEX_FIELDS => ['grp_id', 'sess_name'],
                 FFCST::INDEX_EXISTS => \FreeAsso\Constants::ERROR_SESSION_NAME_EXISTS
             ]
         ];

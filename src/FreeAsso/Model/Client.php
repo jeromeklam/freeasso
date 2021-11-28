@@ -378,4 +378,80 @@ class Client extends \FreeAsso\Model\Base\Client implements
         }
         return true;
     }
+
+    /**
+     * Before merge
+     *
+     * @param \FreeFW\Model\MergeModel $p_datas
+     * @param string                   $p_block
+     * @param array                    $p_includes
+     *
+     * @return \FreeFW\Model\MergeModel
+     */
+    public function beforeMerge($p_datas, $p_block, $p_includes)
+    {
+        $sponsorships = [];
+        $donations    = [];
+        if (isset($p_includes['sponsorships']) || in_array('sponsorships', $p_includes)) {
+            /**
+             * @var \FreeFW\Model\Query $query
+             */
+            $query = \FreeAsso\Model\Sponsorship::getQuery();
+            $query
+                ->addFromFilters(['cli_id' => $this->getCliId()])
+                ->addRelations(['cause','paymentType'])
+                ->setSort('-spo_from')
+            ;
+            if ($query->execute()) {
+                $all = $query->getResult();
+                /**
+                 * @var \FreeAsso\Model\Sponsorship $oneSponsorship
+                 */
+                foreach ($all as $oneSponsorship) {
+                    $sponsorships[] = [
+                        'cau_name'  => $oneSponsorship->getCause()->getCauName(),
+                        'spo_from'  => \FreeFW\Tools\Date::mysqlToddmmyyyy($oneSponsorship->getSpoFrom(), false, false),
+                        'spo_to'    => \FreeFW\Tools\Date::mysqlToddmmyyyy($oneSponsorship->getSpoTo(), false, false),
+                        'spo_mnt'   => number_format($oneSponsorship->getSpoMntInput(), 2, ',', ' ') . ' ' . $oneSponsorship->getSpoMoneyInput(),
+                        'ptyp_name' => $oneSponsorship->getPaymentType()->getPtypName()
+                    ];
+                }
+            }
+        }
+        if (isset($p_includes['donations']) || in_array('donations', $p_includes)) {
+            /**
+             * @var \FreeFW\Model\Query $query
+             */
+            $query = \FreeAsso\Model\Donation::getQuery();
+            $query
+                ->addFromFilters(
+                    [
+                        'cli_id'     => $this->getCliId(),
+                    ]
+                )
+                ->addRelations(['cause','paymentType'])
+                ->setSort('-don_real_ts')
+            ;
+            if ($query->execute()) {
+                $all = $query->getResult();
+                /**
+                 * @var \FreeAsso\Model\Donation $oneDonation
+                 */
+                foreach ($all as $oneDonation) {
+                    $donations[] = [
+                        'cau_name'    => $oneDonation->getCause()->getCauName(),
+                        'don_real_ts' => \FreeFW\Tools\Date::mysqlToddmmyyyy($oneDonation->getDonRealTs(), false, false),
+                        'don_mnt'     => number_format($oneDonation->getDonMntInput(), 2, ',', ' ') . ' ' . $oneDonation->getDonMoneyInput(),
+                        'ptyp_name'   => $oneDonation->getPaymentType()->getPtypName() . '(' . $oneDonation->getDonStatus() . ')'
+                    ];
+                }
+            }
+        }
+        // Add blocks
+        $p_datas->addBlock($p_block . '_sponsorships', true);
+        $p_datas->addData($sponsorships, $p_block . '_sponsorships', true);
+        $p_datas->addBlock($p_block . '_donations', true);
+        $p_datas->addData($donations, $p_block . '_donations', true);
+        return $p_datas;
+    }
 }

@@ -104,6 +104,7 @@ class Client extends \FreeFW\Core\Service
             }
         } else {
             // Add notofication for manual send...
+            /*
             $notification = new \FreeFW\Model\Notification();
             $notification
                 ->setNotifType(\FreeFW\Model\Notification::TYPE_INFORMATION)
@@ -113,7 +114,7 @@ class Client extends \FreeFW\Core\Service
                 ->setNotifCode('CLIENT_WITHOUT_EMAIL')
                 ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp())
             ;
-            return $notification->create();
+            return $notification->create();*/
         }
         return true;
     }
