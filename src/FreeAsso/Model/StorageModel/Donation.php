@@ -219,6 +219,16 @@ abstract class Donation extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_TRUE,
         FFCST::PROPERTY_OPTIONS => []
     ];
+    protected static $PRP_DON_CERTNAME = [
+        FFCST::PROPERTY_PRIVATE => 'don_certname',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_LOCAL]
+    ];
+    protected static $PRP_DON_CERTEMAIL = [
+        FFCST::PROPERTY_PRIVATE => 'don_certemail',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_LOCAL]
+    ];
 
     /**
      * get properties
@@ -255,6 +265,8 @@ abstract class Donation extends \FreeFW\Core\StorageModel
             'sess_id'          => self::$PRP_SESS_ID,
             'don_real_ts_year' => self::$PRP_DON_REAL_TS_YEAR,
             'don_news'         => self::$PRP_DON_NEWS,
+            'don_certname'     => self::$PRP_DON_CERTNAME,
+            'don_certemail'    => self::$PRP_DON_CERTEMAIL,
         ];
     }
 

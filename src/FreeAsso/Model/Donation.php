@@ -221,10 +221,14 @@ class Donation extends \FreeAsso\Model\Base\Donation
             if (!$certificate instanceof \FreeAsso\Model\Certificate) {
                 $certificate = new \FreeAsso\Model\Certificate();
             }
-            if ($certificate->getCertFullname() == '') {
-                $certificate->setCertFullname($client->getFullname());
+            if ($this->getDonCertname() != '') {
+                $certificate->setCertFullname($this->getDonCertname());
+            } else {
+                $certificate->setCertFullname($client->getCliFullname());
             }
-            if ($certificate->getCertEmail() == '') {
+            if ($this->getDonCertemail() != '') {
+                $certificate->setCertEmail($this->getDonCertemail());
+            } else {
                 $certificate->setCertEmail($client->getCliEmail());
             }
             $certificate
