@@ -56,6 +56,8 @@ class Constants
      * Specific events
      * @var string
      */
+    const EVENT_NEW_DONATION    = 'new_donation';
+    const EVENT_NEW_SPONSORSHIP = 'new_sponsorship';
     const EVENT_END_CAUSE       = 'end_cause';
     const EVENT_END_SPONSORSHIP = 'end_sponsorship';
 }

@@ -13,6 +13,8 @@ $config = [
         'FreeFW::Middleware::RouteHandler'
     ],
     'event' => [
+        \FreeAsso\Constants::EVENT_NEW_DONATION,
+        \FreeAsso\Constants::EVENT_NEW_SPONSORSHIP,
         \FreeAsso\Constants::EVENT_END_CAUSE,
         \FreeAsso\Constants::EVENT_END_SPONSORSHIP
     ]

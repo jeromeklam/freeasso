@@ -143,27 +143,6 @@ class Sponsorship extends \FreeFW\Core\Service
             $results = $query->getResult();
             if ($results->count() > 0) {
                 /**
-                 * Get first active session, else quit...
-                 * @var \FreeAsso\Model\Session $session
-                 */
-                $session = \FreeAsso\Model\Session::findFirst(
-                    [
-                        'sess_status' => \FreeAsso\Model\Session::STATUS_OPEN,
-                        'sess_year'   => $year,
-                        'sess_month'  => $month,
-                        'grp_id'      => $sponsorship->getGrpId()
-                    ]
-                );
-                if (!$session) {
-                    $session = \FreeAsso\Model\Session::findFirst(
-                        [
-                            'sess_status' => \FreeAsso\Model\Session::STATUS_OPEN,
-                            'sess_year'   => $year,
-                            'grp_id'      => $sponsorship->getGrpId()
-                        ]
-                    );
-                }
-                /**
                  * First create Donation Origin
                  * @var \FreeAsso\Model\DonationOrigin $donOrig
                  */
@@ -178,26 +157,47 @@ class Sponsorship extends \FreeFW\Core\Service
                 if (!$donOrig->create()) {
                     return false;
                 }
-                if (!$session) {
-                    $donOrig
-                        ->setDonoStatus(\FreeAsso\Model\DonationOrigin::STATUS_ERROR)
-                        ->save();
-                    /**
-                     * Add notification
-                     * @var \FreeFW\Model\Notification $notification
-                     */
-                    $notification = \FreeFW\DI\DI::get('FreeFW::Model::Notification');
-                    $notification
-                        ->setNotifType(\FreeFW\Model\Notification::TYPE_ERROR)
-                        ->setNotifObjectName('FreeAsso_DonationOrigin')
-                        ->setNotifObjectId($donOrig->getDonoId())
-                        ->setNotifSubject('Error generating donations !')
-                        ->setNotifCode('DONATION_GENERATION_NO_SESSION')
-                        ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp());
-                    $notification->create();
-                    return false;
-                }
                 foreach ($results as $sponsorship) {
+                    /**
+                     * Get first active session, else quit...
+                     * @var \FreeAsso\Model\Session $session
+                     */
+                    $session = \FreeAsso\Model\Session::findFirst(
+                        [
+                            'sess_status' => \FreeAsso\Model\Session::STATUS_OPEN,
+                            'sess_year'   => $year,
+                            'sess_month'  => $month,
+                            'grp_id'      => $sponsorship->getGrpId()
+                        ]
+                    );
+                    if (!$session) {
+                        $session = \FreeAsso\Model\Session::findFirst(
+                            [
+                                'sess_status' => \FreeAsso\Model\Session::STATUS_OPEN,
+                                'sess_year'   => $year,
+                                'grp_id'      => $sponsorship->getGrpId()
+                            ]
+                        );
+                    }
+                    if (!$session) {
+                        $donOrig
+                            ->setDonoStatus(\FreeAsso\Model\DonationOrigin::STATUS_ERROR)
+                            ->save();
+                        /**
+                         * Add notification
+                         * @var \FreeFW\Model\Notification $notification
+                         */
+                        $notification = \FreeFW\DI\DI::get('FreeFW::Model::Notification');
+                        $notification
+                            ->setNotifType(\FreeFW\Model\Notification::TYPE_ERROR)
+                            ->setNotifObjectName('FreeAsso_DonationOrigin')
+                            ->setNotifObjectId($donOrig->getDonoId())
+                            ->setNotifSubject('Error generating donations !')
+                            ->setNotifCode('DONATION_GENERATION_NO_SESSION')
+                            ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp());
+                        $notification->create();
+                        continue;
+                    }
                     /**
                      * New donation
                      * @var \FreeAsso\Model\Donation $donation

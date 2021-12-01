@@ -15,6 +15,7 @@ class Donation extends \FreeAsso\Model\Base\Donation
     /**
      * Behaviour
      */
+    use \FreeFW\Behaviour\EventManagerAwareTrait;
     use \FreeAsso\Model\Behaviour\Cause;
     use \FreeAsso\Model\Behaviour\Certificate;
     use \FreeAsso\Model\Behaviour\Client;
@@ -40,6 +41,12 @@ class Donation extends \FreeAsso\Model\Base\Donation
     protected $old_donation = null;
 
     /**
+     * Send email
+     * @var boolean
+     */
+    protected $send_email = true;
+
+    /**
      *
      * {@inheritDoc}
      * @see \FreeFW\Core\Model::init()
@@ -58,6 +65,29 @@ class Donation extends \FreeAsso\Model\Base\Donation
         $this->don_display_site = true;
         $this->don_money        = 'EUR';
         return $this;
+    }
+
+    /**
+     * Send email
+     *
+     * @param boolean $p_value
+     * 
+     * @return \FreeAsso\Model\Donation
+     */
+    public function setSendEmail($p_value = true)
+    {
+        $this->send_email = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get send_email
+     *
+     * @return boolean
+     */
+    public function getSendEmail()
+    {
+        return $this->send_email;
     }
 
     /**
@@ -273,6 +303,9 @@ class Donation extends \FreeAsso\Model\Base\Donation
         if (!$this->updateAfterDbAction()) {
             $this->addError(\FreeAsso\Constants::ERROR_DONATION_UPDATEDB, "Erreur updateDb " . $this->getDonId());
             return false;
+        }
+        if ($this->send_email) {
+            $this->forwardRawEvent(\FreeAsso\Constants::EVENT_NEW_DONATION, $this);
         }
         return true;
     }

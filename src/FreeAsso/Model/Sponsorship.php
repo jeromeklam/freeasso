@@ -86,6 +86,7 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
             ->setDonEndTs(\FreeFW\Tools\Date::datetimeToMysql($askTs->add(new \DateInterval('P1Y'))))
             ->setDonMntInput($this->getSpoMntInput())
             ->setDonMoneyInput($this->getSpoMoneyInput())
+            ->setSendEmail(false)
         ;
         $year  = date('Y');
         $month = date('m');
@@ -162,6 +163,7 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
                 $first = false;
             }
         }
+        $this->forwardRawEvent(\FreeAsso\Constants::EVENT_NEW_SPONSORSHIP, $this);
         return true;
     }
 
