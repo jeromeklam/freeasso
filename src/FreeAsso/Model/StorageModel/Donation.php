@@ -229,6 +229,36 @@ abstract class Donation extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_LOCAL]
     ];
+    protected static $PRP_ACCL_ID = [
+        FFCST::PROPERTY_PRIVATE => 'accl_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['accounting' =>
+            [
+                'model' => 'FreeAsso::Model::AccountingLine',
+                'field' => 'accl_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
+    protected static $PRP_DON_VERIF = [
+        FFCST::PROPERTY_PRIVATE => 'don_verif',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_SELECT,
+        FFCST::PROPERTY_ENUM    => ['NONE','AUTO','MANUAL','HISTO'],
+        FFCST::PROPERTY_DEFAULT => 'NONE',
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_DON_VERIF_COMMENT = [
+        FFCST::PROPERTY_PRIVATE => 'don_verif_comment',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_DON_VERIF_MATCH = [
+        FFCST::PROPERTY_PRIVATE => 'don_verif_match',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_DEFAULT => 0,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
 
     /**
      * get properties
@@ -238,35 +268,39 @@ abstract class Donation extends \FreeFW\Core\StorageModel
     public static function getProperties()
     {
         return [
-            'don_id'           => self::$PRP_DON_ID,
-            'brk_id'           => self::$PRP_BRK_ID,
-            'grp_id'           => self::$PRP_GRP_ID,
-            'cli_id'           => self::$PRP_CLI_ID,
-            'cau_id'           => self::$PRP_CAU_ID,
-            'spo_id'           => self::$PRP_SPO_ID,
-            'don_desc'         => self::$PRP_DON_DESC,
-            'don_ts'           => self::$PRP_DON_TS,
-            'don_ask_ts'       => self::$PRP_DON_ASK_TS,
-            'don_real_ts'      => self::$PRP_DON_REAL_TS,
-            'don_end_ts'       => self::$PRP_DON_END_TS,
-            'don_status'       => self::$PRP_DON_STATUS,
-            'don_mnt'          => self::$PRP_DON_MNT,
-            'don_money'        => self::$PRP_DON_MONEY,
-            'don_mnt_input'    => self::$PRP_DON_MNT_INPUT,
-            'don_money_input'  => self::$PRP_DON_MONEY_INPUT,
-            'ptyp_id'          => self::$PRP_PTYP_ID,
-            'don_comment'      => self::$PRP_DON_COMMENT,
-            'don_dstat'        => self::$PRP_DON_DSTAT,
-            'rec_id'           => self::$PRP_REC_ID,
-            'cert_id'          => self::$PRP_CERT_ID,
-            'don_sponsors'     => self::$PRP_DON_SPONSORS,
-            'don_display_site' => self::$PRP_DON_DISPLAY_SITE,
-            'dono_id'          => self::$PRP_DONO_ID,
-            'sess_id'          => self::$PRP_SESS_ID,
-            'don_real_ts_year' => self::$PRP_DON_REAL_TS_YEAR,
-            'don_news'         => self::$PRP_DON_NEWS,
-            'don_certname'     => self::$PRP_DON_CERTNAME,
-            'don_certemail'    => self::$PRP_DON_CERTEMAIL,
+            'don_id'            => self::$PRP_DON_ID,
+            'brk_id'            => self::$PRP_BRK_ID,
+            'grp_id'            => self::$PRP_GRP_ID,
+            'cli_id'            => self::$PRP_CLI_ID,
+            'cau_id'            => self::$PRP_CAU_ID,
+            'spo_id'            => self::$PRP_SPO_ID,
+            'don_desc'          => self::$PRP_DON_DESC,
+            'don_ts'            => self::$PRP_DON_TS,
+            'don_ask_ts'        => self::$PRP_DON_ASK_TS,
+            'don_real_ts'       => self::$PRP_DON_REAL_TS,
+            'don_end_ts'        => self::$PRP_DON_END_TS,
+            'don_status'        => self::$PRP_DON_STATUS,
+            'don_mnt'           => self::$PRP_DON_MNT,
+            'don_money'         => self::$PRP_DON_MONEY,
+            'don_mnt_input'     => self::$PRP_DON_MNT_INPUT,
+            'don_money_input'   => self::$PRP_DON_MONEY_INPUT,
+            'ptyp_id'           => self::$PRP_PTYP_ID,
+            'don_comment'       => self::$PRP_DON_COMMENT,
+            'don_dstat'         => self::$PRP_DON_DSTAT,
+            'rec_id'            => self::$PRP_REC_ID,
+            'cert_id'           => self::$PRP_CERT_ID,
+            'don_sponsors'      => self::$PRP_DON_SPONSORS,
+            'don_display_site'  => self::$PRP_DON_DISPLAY_SITE,
+            'dono_id'           => self::$PRP_DONO_ID,
+            'sess_id'           => self::$PRP_SESS_ID,
+            'don_real_ts_year'  => self::$PRP_DON_REAL_TS_YEAR,
+            'don_news'          => self::$PRP_DON_NEWS,
+            'don_certname'      => self::$PRP_DON_CERTNAME,
+            'don_certemail'     => self::$PRP_DON_CERTEMAIL,
+            'accl_id'           => self::$PRP_ACCL_ID,
+            'don_verif'         => self::$PRP_DON_VERIF,
+            'don_verif_comment' => self::$PRP_DON_VERIF_COMMENT,
+            'don_verif_match'   => self::$PRP_DON_VERIF_MATCH,
         ];
     }
 

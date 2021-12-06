@@ -16,6 +16,113 @@ class Donation extends \FreeFW\Core\ApiController
     use \FreeAsso\Controller\Behaviour\Group;
 
     /**
+     * Set manual matched
+     *
+     * @param \Psr\Http\Message\ServerRequestInterface $p_request
+     */
+    public function setManualMatched(\Psr\Http\Message\ServerRequestInterface $p_request, $p_id = null)
+    {
+        $this->logger->debug('FreeAsso.DonationController.setManualMatched.start');
+        /**
+         * @var \FreeAsso\Model\Donation $donation
+         */
+        $donation = \FreeAsso\Model\Donation::findFirst(['don_id' => $p_id]);
+        if ($donation) {
+            $donation
+                ->setDonVerif(\FreeAsso\Model\Donation::VERIF_MANUAL)
+                ->setDonDesc('validé manuellement')
+                ->setDonVerifComment('Validé le ' . \FreeFW\Tools\Date::mysqlToddmmyyyy(\FreeFW\Tools\Date::getCurrentTimestamp()))
+            ;
+            if ($donation->save()) {
+                return $this->createSuccessOkResponse($donation);
+            }
+            return $this->createErrorResponse(\FreeFW\Constants::ERROR_NOT_UPDATE, $donation);
+        }
+        $this->logger->debug('FreeAsso.DonationController.setManualMatched.end');
+        return $this->createErrorResponse(\FreeFW\Constants::ERROR_NOT_FOUND, null);
+    }
+
+    /**
+     * Set unmatched
+     *
+     * @param \Psr\Http\Message\ServerRequestInterface $p_request
+     */
+    public function setUnmatched(\Psr\Http\Message\ServerRequestInterface $p_request, $p_id = null)
+    {
+        $this->logger->debug('FreeAsso.DonationController.setUnmatched.start');
+        /**
+         * @var \FreeAsso\Model\Donation $donation
+         */
+        $donation = \FreeAsso\Model\Donation::findFirst(['don_id' => $p_id]);
+        if ($donation) {
+            $donation
+                ->setAcclId(null)
+                ->setDonVerif(\FreeAsso\Model\Donation::VERIF_NONE)
+                ->setDonDesc('contrôle dévalidé')
+                ->setDonVerifComment('Dévalidé le ' . \FreeFW\Tools\Date::mysqlToddmmyyyy(\FreeFW\Tools\Date::getCurrentTimestamp()))
+            ;
+            if ($donation->save()) {
+                return $this->createSuccessOkResponse($donation);
+            }
+            return $this->createErrorResponse(\FreeFW\Constants::ERROR_NOT_UPDATE, $donation);
+        }
+        $this->logger->debug('FreeAsso.DonationController.setUnmatched.end');
+        return $this->createErrorResponse(\FreeFW\Constants::ERROR_NOT_FOUND, null);
+    }
+
+    /**
+     * Set paid
+     *
+     * @param \Psr\Http\Message\ServerRequestInterface $p_request
+     */
+    public function setPaid(\Psr\Http\Message\ServerRequestInterface $p_request, $p_id = null)
+    {
+        $this->logger->debug('FreeAsso.DonationController.setPaid.start');
+        /**
+         * @var \FreeAsso\Model\Donation $donation
+         */
+        $donation = \FreeAsso\Model\Donation::findFirst(['don_id' => $p_id]);
+        if ($donation) {
+            $donation
+                ->setDonStatus(\FreeAsso\Model\Donation::STATUS_OK)
+                ->setDonDesc('payé')
+            ;
+            if ($donation->save()) {
+                return $this->createSuccessOkResponse($donation);
+            }
+            return $this->createErrorResponse(\FreeFW\Constants::ERROR_NOT_UPDATE, $donation);
+        }
+        $this->logger->debug('FreeAsso.DonationController.setPaid.end');
+        return $this->createErrorResponse(\FreeFW\Constants::ERROR_NOT_FOUND, null);
+    }
+
+    /**
+     * Set unpaid
+     *
+     * @param \Psr\Http\Message\ServerRequestInterface $p_request
+     */
+    public function setUnpaid(\Psr\Http\Message\ServerRequestInterface $p_request, $p_id = null)
+    {
+        $this->logger->debug('FreeAsso.DonationController.setUnpaid.start');
+        /**
+         * @var \FreeAsso\Model\Donation $donation
+         */
+        $donation = \FreeAsso\Model\Donation::findFirst(['don_id' => $p_id]);
+        if ($donation) {
+            $donation
+                ->setDonStatus(\FreeAsso\Model\Donation::STATUS_NOK)
+                ->setDonDesc('impayé')
+            ;
+            if ($donation->save()) {
+                return $this->createSuccessOkResponse($donation);
+            }
+            return $this->createErrorResponse(\FreeFW\Constants::ERROR_NOT_UPDATE, $donation);
+        }
+        $this->logger->debug('FreeAsso.DonationController.setUnpaid.end');
+        return $this->createErrorResponse(\FreeFW\Constants::ERROR_NOT_FOUND, null);
+    }
+
+    /**
      * Send by email
      *
      * @param \Psr\Http\Message\ServerRequestInterface $p_request

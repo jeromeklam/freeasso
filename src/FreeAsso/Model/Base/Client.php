@@ -358,6 +358,12 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     protected $cli_volunteer = false;
 
     /**
+     * cli_accounting
+     * @var string
+     */
+    protected $cli_accounting = null;
+
+    /**
      * Set cli_id
      *
      * @param int $p_value
@@ -1689,5 +1695,28 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     public function getCliVolunteer()
     {
         return $this->cli_volunteer;
+    }
+
+    /**
+     * Set cli_accounting
+     *
+     * @param boolean $p_value
+     *
+     * @return \FreeAsso\Model\Base\Client
+     */
+    public function setCliAccounting($p_value)
+    {
+        $this->cli_accounting = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get cli_accounting
+     *
+     * @return boolean
+     */
+    public function getCliAccounting()
+    {
+        return $this->cli_accounting;
     }
 }

@@ -184,6 +184,30 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
     protected $don_certemail = null;
 
     /**
+     * Undocumented variable
+     * @var integer
+     */
+    protected $accl_id = null;
+
+    /**
+     * DonVerif
+     * @var string
+     */
+    protected $don_verif = null;
+
+    /**
+     * DonVerifComment
+     * @var string
+     */
+    protected $don_verif_comment = null;
+
+    /**
+     * DonVerifmatch
+     * @var integer
+     */
+    protected $don_verif_match = null;
+
+    /**
      * Set don_id
      *
      * @param int $p_value
@@ -786,7 +810,7 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
      *
      * @param boolean $p_value
      * 
-     * @return void
+     * @return \FreeAsso\Model\Donation
      */
     public function setDonNews($p_value)
     {
@@ -809,7 +833,7 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
      *
      * @param boolean $p_value
      * 
-     * @return void
+     * @return \FreeAsso\Model\Donation
      */
     public function setDonCertname($p_value)
     {
@@ -832,7 +856,7 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
      *
      * @param boolean $p_value
      * 
-     * @return void
+     * @return \FreeAsso\Model\Donation
      */
     public function setDonCertemail($p_value)
     {
@@ -848,5 +872,97 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
     public function getDonCertemail()
     {
         return $this->don_certemail;
+    }
+
+    /**
+     * Set accl_id
+     *
+     * @param integer $p_value
+     * 
+     * @return integer
+     */
+    public function setAcclId($p_value)
+    {
+        $this->accl_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get accl_id
+     *
+     * @return integer
+     */
+    public function getAcclId()
+    {
+        return $this->accl_id;
+    }
+
+    /**
+     * Set don_verif
+     *
+     * @param string $p_value
+     * 
+     * @return \FreeAsso\Model\Donation
+     */
+    public function setDonVerif($p_value)
+    {
+        $this->don_verif = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get don_verif
+     *
+     * @return string
+     */
+    public function getDonVerif()
+    {
+        return $this->don_verif;
+    }
+
+    /**
+     * Set don_verif_comment
+     *
+     * @param string $p_value
+     * 
+     * @return \FreeAsso\Model\Donation
+     */
+    public function setDonVerifComment($p_value)
+    {
+        $this->don_verif_comment = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get don_verif_comment
+     *
+     * @return string
+     */
+    public function getDonVerifComment()
+    {
+        return $this->don_verif_comment;
+    }
+
+    /**
+     * Set don_verif_match
+     *
+     * @param string $p_value
+     * 
+     * @return \FreeAsso\Model\Donation
+     */
+    public function setDonVerifMatch($p_value)
+    {
+        $this->don_verif_match = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get don_verif_match
+     *
+     * @return string
+     */
+    public function getDonVerifMatch()
+    {
+        return $this->don_verif_match;
     }
 }

@@ -16,6 +16,7 @@ class Donation extends \FreeAsso\Model\Base\Donation
      * Behaviour
      */
     use \FreeFW\Behaviour\EventManagerAwareTrait;
+    use \FreeAsso\Model\Behaviour\AccountingLine;
     use \FreeAsso\Model\Behaviour\Cause;
     use \FreeAsso\Model\Behaviour\Certificate;
     use \FreeAsso\Model\Behaviour\Client;
@@ -33,6 +34,10 @@ class Donation extends \FreeAsso\Model\Base\Donation
     const STATUS_WAIT = 'WAIT';
     const STATUS_NEXT = 'NEXT';
     const STATUS_NOK  = 'NOK';
+
+    const VERIF_NONE   = 'NONE';
+    const VERIF_AUTO   = 'AUTO';
+    const VERIF_MANUAL = 'MANUAL';
 
     /**
      * Old donation
@@ -320,7 +325,7 @@ class Donation extends \FreeAsso\Model\Base\Donation
         $test = trim(strip_tags($this->getDonDesc()));
         if ($test != '') {
             $add = '<p><b>' . \FreeFW\Tools\Date::mysqlToddmmyyyy(\FreeFW\Tools\Date::getCurrentTimestamp()) . '</b>';
-            $add .= $this->getDonDesc() . '</p>';
+            $add .= ' : ' . $this->getDonDesc() . '</p>';
             $test = trim(strip_tags($this->getDonComment()));
             if ($test != '') {
                 $add .= $this->getDonComment();
@@ -388,7 +393,7 @@ class Donation extends \FreeAsso\Model\Base\Donation
     public function validate()
     {
         parent::validate();
-        // EN modification, si la session nesst pas ouverte il faut un motif
+        // En modification, si la session n'est pas ouverte il faut un motif
         if ($this->getDonId() > 0) {
             $session = $this->getSession();
             if ($session && $session->getSessStatus() != \FreeAsso\Model\Session::STATUS_OPEN) {
@@ -433,9 +438,12 @@ class Donation extends \FreeAsso\Model\Base\Donation
         $realts  = \FreeFW\Tools\Date::mysqlToDatetime($this->getDonRealTs());
         $session = \FreeAsso\Model\Session::findSession($realts, $this->getGrpId());
         if ($session && $session->getSessId() != $this->getSessId()) {
-            $this->setSession($session);
+            $this
+                ->setSession($session)
+                ->setDonDesc('Mise à jour de la session')
+            ;
             $this->logger->info('Session update ' . $this->getDonId());
-            $this->save(true, true);
+            $this->save(true, false);
         }
     }
 }

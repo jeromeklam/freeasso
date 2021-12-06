@@ -424,6 +424,13 @@ abstract class Client extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_COMMENT => 'Bénévole',
         FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_FALSE,
     ];
+    protected static $PRP_CLI_ACCOUNTING = [
+        FFCST::PROPERTY_PRIVATE => 'cli_accounting',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_MAX     => 80,
+        FFCST::PROPERTY_TITLE   => 'Nom',
+    ];
 
     /**
      * get properties
@@ -492,7 +499,8 @@ abstract class Client extends \FreeFW\Core\StorageModel
             'cli_fullname'      => self::$PRP_CLI_FULLNAME,
             'cli_social_reason' => self::$PRP_CLI_SOCIAL_REASON,
             'cli_name'          => self::$PRP_CLI_NAME,
-            'cli_volunteer'     => self::$PRP_CLI_VOLUNTEER
+            'cli_volunteer'     => self::$PRP_CLI_VOLUNTEER,
+            'cli_accounting'    => self::$PRP_CLI_ACCOUNTING,
         ];
     }
 

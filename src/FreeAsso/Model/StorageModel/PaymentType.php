@@ -51,6 +51,17 @@ abstract class PaymentType extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
         FFCST::PROPERTY_OPTIONS => []
     ];
+    protected static $PRP_PTYP_ACCOUNTING = [
+        FFCST::PROPERTY_PRIVATE => 'ptyp_accounting',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_PTYP_RESTRICTION = [
+        FFCST::PROPERTY_PRIVATE => 'ptyp_restriction',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_SELECT,
+        FFCST::PROPERTY_ENUM    => ['NONE','ONCE','REGULAR'],
+        FFCST::PROPERTY_OPTIONS => []
+    ];
 
     /**
      * get properties
@@ -60,13 +71,15 @@ abstract class PaymentType extends \FreeFW\Core\StorageModel
     public static function getProperties()
     {
         return [
-            'ptyp_id'      => self::$PRP_PTYP_ID,
-            'brk_id'       => self::$PRP_BRK_ID,
-            'ptyp_code'    => self::$PRP_PTYP_CODE,
-            'ptyp_name'    => self::$PRP_PTYP_NAME,
-            'ptyp_receipt' => self::$PRP_PTYP_RECEIPT,
-            'ptyp_from'    => self::$PRP_PTYP_FROM,
-            'ptyp_to'      => self::$PRP_PTYP_TO
+            'ptyp_id'          => self::$PRP_PTYP_ID,
+            'brk_id'           => self::$PRP_BRK_ID,
+            'ptyp_code'        => self::$PRP_PTYP_CODE,
+            'ptyp_name'        => self::$PRP_PTYP_NAME,
+            'ptyp_receipt'     => self::$PRP_PTYP_RECEIPT,
+            'ptyp_from'        => self::$PRP_PTYP_FROM,
+            'ptyp_to'          => self::$PRP_PTYP_TO,
+            'ptyp_accounting'  => self::$PRP_PTYP_ACCOUNTING,
+            'ptyp_restriction' => self::$PRP_PTYP_RESTRICTION,
         ];
     }
 
