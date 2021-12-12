@@ -1,0 +1,1 @@
+ALTER TABLE `asso_accounting_line` ADD COLUMN `don_id` bigint(20) unsigned DEFAULT NULL;

@@ -8,6 +8,64 @@ use \FreeFW\Router\Route as FFCSTRT;
  * @author jeromeklam
  */
 $sessionRoutes = [
+    'free_asso.session.cleanone' => [
+        FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Session',
+        FFCSTRT::ROUTE_COMMENT    => 'Purge des contrôles',
+        FFCSTRT::ROUTE_METHOD     => FFCSTRT::METHOD_PUT,
+        FFCSTRT::ROUTE_MODEL      => 'FreeAsso::Model::Session',
+        FFCSTRT::ROUTE_URL        => '/v1/asso/session/clean/:sess_id',
+        FFCSTRT::ROUTE_CONTROLLER => 'FreeAsso::Controller::Session',
+        FFCSTRT::ROUTE_FUNCTION   => 'cleanOne',
+        FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_UPDATE_ONE,
+        FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
+        FFCSTRT::ROUTE_MIDDLEWARE => [],
+        FFCSTRT::ROUTE_INCLUDE    => [],
+        FFCSTRT::ROUTE_SCOPE      => [],
+        FFCSTRT::ROUTE_PARAMETERS => [
+            'sess_id' => [
+                FFCSTRT::ROUTE_PARAMETER_ORIGIN   => FFCSTRT::ROUTE_PARAMETER_ORIGIN_PATH,
+                FFCSTRT::ROUTE_PARAMETER_TYPE     => FFCST::TYPE_BIGINT,
+                FFCSTRT::ROUTE_PARAMETER_REQUIRED => true,
+                FFCSTRT::ROUTE_PARAMETER_COMMENT  => 'Identifiant de l\'objet'
+            ],
+        ],
+        FFCSTRT::ROUTE_RESULTS    => [
+            '200' => [
+                FFCSTRT::ROUTE_RESULTS_TYPE    => FFCSTRT::RESULT_OBJECT,
+                FFCSTRT::ROUTE_RESULTS_MODEL   => 'FreeAsso::Model::Session',
+                FFCSTRT::ROUTE_RESULTS_COMMENT => 'Objet modifié',
+            ],
+        ]
+    ],
+    'free_asso.session.verifone' => [
+        FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Session',
+        FFCSTRT::ROUTE_COMMENT    => 'Vérification des contrôles',
+        FFCSTRT::ROUTE_METHOD     => FFCSTRT::METHOD_PUT,
+        FFCSTRT::ROUTE_MODEL      => 'FreeAsso::Model::Session',
+        FFCSTRT::ROUTE_URL        => '/v1/asso/session/verif/:sess_id',
+        FFCSTRT::ROUTE_CONTROLLER => 'FreeAsso::Controller::Session',
+        FFCSTRT::ROUTE_FUNCTION   => 'verifOne',
+        FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_UPDATE_ONE,
+        FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
+        FFCSTRT::ROUTE_MIDDLEWARE => [],
+        FFCSTRT::ROUTE_INCLUDE    => [],
+        FFCSTRT::ROUTE_SCOPE      => [],
+        FFCSTRT::ROUTE_PARAMETERS => [
+            'sess_id' => [
+                FFCSTRT::ROUTE_PARAMETER_ORIGIN   => FFCSTRT::ROUTE_PARAMETER_ORIGIN_PATH,
+                FFCSTRT::ROUTE_PARAMETER_TYPE     => FFCST::TYPE_BIGINT,
+                FFCSTRT::ROUTE_PARAMETER_REQUIRED => true,
+                FFCSTRT::ROUTE_PARAMETER_COMMENT  => 'Identifiant de l\'objet'
+            ],
+        ],
+        FFCSTRT::ROUTE_RESULTS    => [
+            '200' => [
+                FFCSTRT::ROUTE_RESULTS_TYPE    => FFCSTRT::RESULT_OBJECT,
+                FFCSTRT::ROUTE_RESULTS_MODEL   => 'FreeAsso::Model::Session',
+                FFCSTRT::ROUTE_RESULTS_COMMENT => 'Objet modifié',
+            ],
+        ]
+    ],
     'free_asso.session.autocomplete' => [
         FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Session',
         FFCSTRT::ROUTE_COMMENT    => 'Autocomplete.',

@@ -71,13 +71,20 @@ abstract class AccountingHeader extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
         FFCST::PROPERTY_TITLE   => '',
         FFCST::PROPERTY_COMMENT => '',
-        FFCST::PROPERTY_MAX     => 7,
         FFCST::PROPERTY_SAMPLE  => '',
     ];
     protected static $PRP_ACCH_STATUS_TS = [
         FFCST::PROPERTY_PRIVATE => 'acch_status_ts',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
+        FFCST::PROPERTY_TITLE   => '',
+        FFCST::PROPERTY_COMMENT => '',
+        FFCST::PROPERTY_SAMPLE  => '',
+    ];
+    protected static $PRP_ACCH_CODE = [
+        FFCST::PROPERTY_PRIVATE => 'acch_code',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => [],
         FFCST::PROPERTY_TITLE   => '',
         FFCST::PROPERTY_COMMENT => '',
         FFCST::PROPERTY_SAMPLE  => '',
@@ -98,7 +105,8 @@ abstract class AccountingHeader extends \FreeFW\Core\StorageModel
             'acch_ts'        => self::$PRP_ACCH_TS,
             'acch_content'   => self::$PRP_ACCH_CONTENT,
             'acch_status'    => self::$PRP_ACCH_STATUS,
-            'acch_status_ts' => self::$PRP_ACCH_STATUS_TS
+            'acch_status_ts' => self::$PRP_ACCH_STATUS_TS,
+            'acch_code'      => self::$PRP_ACCH_CODE,
         ];
     }
 

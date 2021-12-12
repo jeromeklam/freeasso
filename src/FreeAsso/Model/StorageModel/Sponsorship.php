@@ -145,11 +145,17 @@ abstract class Sponsorship extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
         FFCST::PROPERTY_OPTIONS => []
     ];
-    protected static $PRP_SPO_ADD_FIRST = [
-        FFCST::PROPERTY_PRIVATE => 'spo_add_first',
+    protected static $PRP_SPO_TS = [
+        FFCST::PROPERTY_PRIVATE => 'spo_ts',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_NOW,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_SPO_CURRENT_MONTH = [
+        FFCST::PROPERTY_PRIVATE => 'spo_current_month',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_LOCAL],
         FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_TRUE,
+        FFCST::PROPERTY_OPTIONS => []
     ];
 
     /**
@@ -179,7 +185,8 @@ abstract class Sponsorship extends \FreeFW\Core\StorageModel
             'spo_mnt_input'     => self::$PRP_SPO_MNT_INPUT,
             'spo_money_input'   => self::$PRP_SPO_MONEY_INPUT,
             'spo_freq_when_cpl' => self::$PRP_SPO_FREQ_WHEN_CPL,
-            'spo_add_first'     => self::$PRP_SPO_ADD_FIRST,
+            'spo_ts'            => self::$PRP_SPO_TS,
+            'spo_current_month' => self::$PRP_SPO_CURRENT_MONTH,
         ];
     }
 

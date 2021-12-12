@@ -58,6 +58,12 @@ abstract class AccountingHeader extends \FreeAsso\Model\StorageModel\AccountingH
     protected $acch_status_ts = null;
 
     /**
+     * acch_code
+     * @var mixed
+     */
+    protected $acch_code = null;
+
+    /**
      * Set acch_id
      *
      * @param int $p_value
@@ -239,5 +245,28 @@ abstract class AccountingHeader extends \FreeAsso\Model\StorageModel\AccountingH
     public function getAcchStatusTs()
     {
         return $this->acch_status_ts;
+    }
+
+    /**
+     * Set acch_code
+     *
+     * @param mixed $p_value
+     *
+     * @return \FreeAsso\Model\AccountingHeader
+     */
+    public function setAcchCode($p_value)
+    {
+        $this->acch_code = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get acch_code
+     *
+     * @return mixed
+     */
+    public function getAcchCode()
+    {
+        return $this->acch_code;
     }
 }

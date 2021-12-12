@@ -32,6 +32,16 @@ class Session extends \FreeAsso\Model\Base\Session
     const TYPE_CORRECTION = 'CORRECTION';
 
     /**
+     * Verification
+     * @var string
+     */
+    const VERIF_NONE     = 'NONE';
+    const VERIF_DONE     = 'DONE';
+    const VERIF_CLEANING = 'CLEANING';
+    const VERIF_PENDING  = 'PENDING';
+    const VERIF_ERROR    = 'ERROR';
+
+    /**
      * factory
      * @var array
      */

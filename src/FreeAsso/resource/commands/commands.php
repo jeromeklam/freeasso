@@ -59,6 +59,16 @@ $localCommands = [
         'command'    => 'client::updatemessages',
         'controller' => 'FreeAsso::Command::Cron',
         'function'   => 'updateMessages'
+    ],
+    /**
+     * ########################################################################
+     * Import fichier de compta
+     * ########################################################################
+     */
+    'freeasso.cron.updatemessages' => [
+        'command'    => 'accounting::import',
+        'controller' => 'FreeAsso::Command::Accounting',
+        'function'   => 'importFile'
     ]
 ];
 

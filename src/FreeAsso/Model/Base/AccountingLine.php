@@ -52,6 +52,12 @@ abstract class AccountingLine extends \FreeAsso\Model\StorageModel\AccountingLin
     protected $accl_complement = null;
 
     /**
+     * don_id
+     * @var int
+     */
+    protected $don_id = null;
+
+    /**
      * Set accl_id
      *
      * @param int $p_value
@@ -210,5 +216,28 @@ abstract class AccountingLine extends \FreeAsso\Model\StorageModel\AccountingLin
     public function getAcclComplement()
     {
         return $this->accl_complement;
+    }
+
+    /**
+     * Set don_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\ReceiptDonation
+     */
+    public function setDonId($p_value)
+    {
+        $this->don_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get don_id
+     *
+     * @return int
+     */
+    public function getDonId()
+    {
+        return $this->don_id;
     }
 }

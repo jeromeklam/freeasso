@@ -10,4 +10,9 @@ use \FreeFW\Constants as FFCST;
  */
 class AccountingLine extends \FreeAsso\Model\Base\AccountingLine
 {
+
+    /**
+     * Comportement
+     */
+    use \FreeAsso\Model\Behaviour\Donation;
 }

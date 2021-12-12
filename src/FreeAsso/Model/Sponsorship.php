@@ -153,7 +153,7 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
                 $fromYear  = $date->format('Y');
                 $fromMonth = $date->format('m');
                 if ($fromYear < $nowYear || ($fromYear == $nowYear && $fromMonth < $nowMonth) || 
-                    ($fromYear == $nowYear && $fromMonth == $nowMonth && $this->getSpoAddFirst())) {
+                    ($fromYear == $nowYear && $fromMonth == $nowMonth && $this->getSpoCurrentMonth())) {
                     if (!$donation->create()) {
                         $this->addErrors($donation->getErrors());
                         return false;

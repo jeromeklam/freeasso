@@ -124,10 +124,16 @@ abstract class Sponsorship extends \FreeAsso\Model\StorageModel\Sponsorship
     protected $spo_freq_when_cpl = null;
 
     /**
-     * spo_add_first
-     * @var boolean
+     * spo_ts
+     * @var string
      */
-    protected $spo_add_first = true;
+    protected $spo_ts = null;
+
+    /**
+     * spo_current_month
+     * @var string
+     */
+    protected $spo_current_month = 'YES';
 
     /**
      * Set spo_id
@@ -567,25 +573,48 @@ abstract class Sponsorship extends \FreeAsso\Model\StorageModel\Sponsorship
     }
 
     /**
-     * Set spo_add_first
+     * Set spo_ts
      *
      * @param boolean $p_value
      *
      * @return \FreeAsso\Model\Base\Sponsorship
      */
-    public function setSpoAddFirst($p_value)
+    public function setSpoTs($p_value)
     {
-        $this->spo_add_first = $p_value;
+        $this->spo_ts = $p_value;
         return $this;
     }
 
     /**
-     * Get spo_add_first
+     * Get spo_ts
      *
      * @return boolean
      */
-    public function getSpoAddFirst()
+    public function getSpoTs()
     {
-        return $this->spo_add_first;
+        return $this->spo_ts;
+    }
+
+    /**
+     * Set spo_current_month
+     *
+     * @param boolean $p_value
+     *
+     * @return \FreeAsso\Model\Base\Sponsorship
+     */
+    public function setSpoCurrentMonth($p_value)
+    {
+        $this->spo_current_month = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get spo_current_month
+     *
+     * @return boolean
+     */
+    public function getSpoCurrentMonth()
+    {
+        return $this->spo_current_month;
     }
 }

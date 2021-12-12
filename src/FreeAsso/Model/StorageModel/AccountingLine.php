@@ -81,6 +81,18 @@ abstract class AccountingLine extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_MAX     => 255,
         FFCST::PROPERTY_SAMPLE  => '',
     ];
+    protected static $PRP_DON_ID = [
+        FFCST::PROPERTY_PRIVATE => 'don_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['donation' =>
+            [
+                'model' => 'FreeAsso::Model::Donation',
+                'field' => 'don_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
 
     /**
      * get properties
@@ -96,7 +108,8 @@ abstract class AccountingLine extends \FreeFW\Core\StorageModel
             'accl_amount'     => self::$PRP_ACCL_AMOUNT,
             'accl_label'      => self::$PRP_ACCL_LABEL,
             'accl_ptyp_name'  => self::$PRP_ACCL_PTYP_NAME,
-            'accl_complement' => self::$PRP_ACCL_COMPLEMENT
+            'accl_complement' => self::$PRP_ACCL_COMPLEMENT,
+            'don_id'          => self::$PRP_DON_ID,
         ];
     }
 

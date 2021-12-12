@@ -68,6 +68,18 @@ abstract class Session extends \FreeFW\Core\StorageModel
             ]
         ]
     ];
+    protected static $PRP_SESS_VERIF = [
+        FFCST::PROPERTY_PRIVATE => 'sess_verif',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_SELECT,
+        FFCST::PROPERTY_ENUM    => ['NONE','DONE','CLEANING','PENDING','ERROR'],
+        FFCST::PROPERTY_DEFAULT => 'NONE',
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_SESS_VERIF_TEXT = [
+        FFCST::PROPERTY_PRIVATE => 'sess_verif_text',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
+        FFCST::PROPERTY_OPTIONS => []
+    ];
 
     /**
      * get properties
@@ -77,15 +89,17 @@ abstract class Session extends \FreeFW\Core\StorageModel
     public static function getProperties()
     {
         return [
-            'sess_id'       => self::$PRP_SESS_ID,
-            'brk_id'        => self::$PRP_BRK_ID,
-            'sess_name'     => self::$PRP_SESS_NAME,
-            'sess_exercice' => self::$PRP_SESS_EXERCICE,
-            'sess_status'   => self::$PRP_SESS_STATUS,
-            'sess_type'     => self::$PRP_SESS_TYPE,
-            'sess_year'     => self::$PRP_SESS_YEAR,
-            'sess_month'    => self::$PRP_SESS_MONTH,
-            'grp_id'        => self::$PRP_GRP_ID,
+            'sess_id'         => self::$PRP_SESS_ID,
+            'brk_id'          => self::$PRP_BRK_ID,
+            'sess_name'       => self::$PRP_SESS_NAME,
+            'sess_exercice'   => self::$PRP_SESS_EXERCICE,
+            'sess_status'     => self::$PRP_SESS_STATUS,
+            'sess_type'       => self::$PRP_SESS_TYPE,
+            'sess_year'       => self::$PRP_SESS_YEAR,
+            'sess_month'      => self::$PRP_SESS_MONTH,
+            'grp_id'          => self::$PRP_GRP_ID,
+            'sess_verif'      => self::$PRP_SESS_VERIF,
+            'sess_verif_text' => self::$PRP_SESS_VERIF_TEXT,
         ];
     }
 

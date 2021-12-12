@@ -58,6 +58,18 @@ abstract class Session extends \FreeAsso\Model\StorageModel\Session
     protected $sess_month = null;
 
     /**
+     * sess_verif
+     * @var int
+     */
+    protected $sess_verif = null;
+
+    /**
+     * sess_verif_text
+     * @var int
+     */
+    protected $sess_verif_text = null;
+
+    /**
      * Set sess_id
      *
      * @param int $p_value
@@ -239,5 +251,51 @@ abstract class Session extends \FreeAsso\Model\StorageModel\Session
     public function getSessMonth()
     {
         return $this->sess_month;
+    }
+
+    /**
+     * Set sess_verif
+     *
+     * @param int $p_value
+     * 
+     * @return \FreeAsso\Model\Session
+     */
+    public function setSessVerif($p_value)
+    {
+        $this->sess_verif = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get sess_verif
+     *
+     * @return int
+     */
+    public function getSessVerif()
+    {
+        return $this->sess_verif;
+    }
+
+    /**
+     * Set sess_verif_text
+     *
+     * @param int $p_value
+     * 
+     * @return \FreeAsso\Model\Session
+     */
+    public function setSessVerifText($p_value)
+    {
+        $this->sess_verif_text = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get sess_verif_text
+     *
+     * @return int
+     */
+    public function getSessVerifText()
+    {
+        return $this->sess_verif_text;
     }
 }
