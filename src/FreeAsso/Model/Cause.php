@@ -307,7 +307,17 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
     {
         $fields  = [];
         $picture = 0;
-        $medias  = \FreeAsso\Model\CauseMedia::find(['cau_id' => $this->getCauId()]);
+        /**
+         * @var \FreeFW\Model\Query $query
+         */
+        $query   = \FreeAsso\Model\CauseMedia::getQuery();
+        $query
+            ->addFromFilters(['cau_id' => $this->getCauId()])
+            ->setSort('-caum_code')
+        ;
+        $query->execute();
+        $medias = $query->getResult();
+        //$medias  = \FreeAsso\Model\CauseMedia::find(['cau_id' => $this->getCauId()]);
         foreach ($medias as $oneMedia) {
             switch ($oneMedia->getCaumType()) {
                 case \FreeAsso\Model\CauseMedia::TYPE_HTML:
