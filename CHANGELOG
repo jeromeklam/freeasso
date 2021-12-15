@@ -1,3 +1,12 @@
+# 1.13.3 : 15/12/2021
+
+* FreeFW
+    * Nouvelle version 
+* Contrôles
+    * Ajout de la date dans le rapport 
+* PHP
+    * PSR7 upgrade 
+
 # 1.13.2 : 14/12/2021
 
 * Parrainages

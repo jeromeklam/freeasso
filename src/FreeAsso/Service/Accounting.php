@@ -318,6 +318,7 @@ class Accounting extends \FreeFW\Core\Service
                             if ($oneDonation->getDonMntInput() == $oneTest['accl_amount'] && $matching > 80) {
                                 $matching += 10; // Pour le = montant
                                 $comment = $oneTest['accl_label'];
+                                $comment .= ' : ' . $oneTest['accl_ts'];
                                 $comment .= ' (' . $oneTest['accl_ptyp_name'] . ')';
                                 if (strpos($ptyp->getPtypAccounting(), $oneTest['accl_ptyp_name']) === false) {
                                     $comment .= ' : !=! ' . $oneTest['accl_ptyp_name'];
@@ -430,6 +431,7 @@ class Accounting extends \FreeFW\Core\Service
                         }
                         if ($matching > 0) {
                             $comment = $oneTest['accl_label'];
+                            $comment .= ' : ' . $oneTest['accl_ts'];
                             if ($oneDonation->getDonMntInput() == $oneTest['accl_amount']) {
                                 $matching += 10; // Pour le = montant
                             } else {

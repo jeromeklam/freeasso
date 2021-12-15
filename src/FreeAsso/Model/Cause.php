@@ -303,17 +303,18 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
      *
      * @return \StdClass
      */
-    public function getSpecificEditionFields($p_tmp_dir = '/tmp/', $p_keep_binary = true)
+    public function getSpecificEditionFields($p_tmp_dir = '/tmp/', $p_keep_binary = true, $p_lang_code = null)
     {
         $fields  = [];
         $picture = 0;
+        $news    = '';
         /**
          * @var \FreeFW\Model\Query $query
          */
         $query   = \FreeAsso\Model\CauseMedia::getQuery();
         $query
             ->addFromFilters(['cau_id' => $this->getCauId()])
-            ->setSort('-caum_code')
+            ->setSort('caum_order')
         ;
         $query->execute();
         $medias = $query->getResult();
@@ -321,8 +322,22 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
         foreach ($medias as $oneMedia) {
             switch ($oneMedia->getCaumType()) {
                 case \FreeAsso\Model\CauseMedia::TYPE_HTML:
-                    break;
                 case \FreeAsso\Model\CauseMedia::TYPE_NEWS:
+                    if ($p_lang_code == '') {
+                        $p_lang_code = 'fr';
+                    }
+                    /**
+                     * @var \FreeAsso\Model\CauseMediaLang $mediaLang
+                     */
+                    $mediaLang = \FreeAsso\Model\CauseMediaLang::findFirst(
+                        [
+                            'caum_id'        => $oneMedia->getCaumId(),
+                            'lang.lang_code' => $p_lang_code,
+                        ]
+                    );
+                    if ($mediaLang) {
+                        $news .= \FreeFW\Tools\PBXString::htmlToText($mediaLang->getCamlText());
+                    }
                     break;
                 case \FreeAsso\Model\CauseMedia::TYPE_PHOTO:
                     if ($oneMedia->getCaumBlob() !== null && $p_keep_binary) {
@@ -372,6 +387,12 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
                 ];
             }
         }
+        $fields['cau_news'] = [
+            'name'    => 'cau_news',
+            'title'   => 'necau_newsws',
+            'type'    => \FreeFW\Tools\PBXString::truncString(\FreeFW\Constants::TYPE_TEXT, 512),
+            'content' => $news
+        ];
         return $fields;
     }
 
@@ -393,7 +414,7 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
                 $mediaLang = \FreeAsso\Model\CauseMediaLang::findFirst(
                     [
                         'caum_id' => $oneMedia->getCaumId(),
-                        'lang_id' => 368,
+                        'lang_id' => 366,
                     ]
                 );
                 if ($mediaLang) {
