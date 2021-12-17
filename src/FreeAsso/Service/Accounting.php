@@ -337,7 +337,7 @@ class Accounting extends \FreeFW\Core\Service
                                     ->setDonVerifComment($comment)
                                     ->setDonVerifMatch(intval($matching / 10))
                                 ;
-                                if (!$oneDonation->save(true, false)) {
+                                if (!$oneDonation->save(true, true)) {
                                     var_dump($oneDonation->getErrors());
                                     die;
                                 }
@@ -452,7 +452,7 @@ class Accounting extends \FreeFW\Core\Service
                                     ->setDonVerifComment($comment)
                                     ->setDonVerifMatch(intval($matching / 10))
                                 ;
-                                if (!$oneDonation->save(true, false)) {
+                                if (!$oneDonation->save(true, true)) {
                                     var_dump($oneDonation->getErrors());
                                     die;
                                 }
@@ -484,7 +484,7 @@ class Accounting extends \FreeFW\Core\Service
             ]
         );
         foreach ($testing as $oneTest) {
-            $line = $oneTest['accl_label'] . ', ' . $oneTest['accl_amount'] . ', ' . $oneTest['accl_ptyp_name'] . PHP_EOL;
+            $line = $oneTest['accl_ts'] . ', ' . $oneTest['accl_label'] . ', ' . $oneTest['accl_amount'] . ', ' . $oneTest['accl_ptyp_name'] . PHP_EOL;
             $this->logger->debug($line);
         }
         foreach ($sessions as $oneSession) {
