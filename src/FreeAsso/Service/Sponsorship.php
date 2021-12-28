@@ -24,9 +24,6 @@ class Sponsorship extends \FreeFW\Core\Service
         $cause = $p_sponsorship->getCause();
         if ($cause) {
             $cause_type = $cause->getCauseType();
-            if ($cause_type->getCautMntType() !== 'ANNUAL') {
-                return true;
-            }
             $client = $p_sponsorship->getClient();
             if ($client->getCliEmail() != '') {
                 /**
@@ -46,6 +43,9 @@ class Sponsorship extends \FreeFW\Core\Service
                         'email_code' => 'DONATION'
                     ];
                 }
+                $filters = [
+                    'grp_id' => $p_sponsorship->getGrpId()
+                ];
                 /**
                  *
                  * @var \FreeFW\Model\Message $message

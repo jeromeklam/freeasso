@@ -38,6 +38,11 @@ class Cause extends \FreeFW\Core\Service
                 'email_code' => 'CLIENT'
             ];
         }
+        if ($p_automate->getGrpId()) {
+            $filters = [
+                'grp_id' => $p_automate->getGrpId()
+            ];
+        }
         /**
          * @var \FreeAsso\Model\Donation $model
          */
@@ -52,12 +57,14 @@ class Cause extends \FreeFW\Core\Service
             ->addFromFilters($quifils)
         ;
         $clients = [];
+        $groups  = [];
         if ($query->execute()) {
             $results = $query->getResult();
             if ($results) {
                 foreach ($results as $row) {
                     $client = $row->getClient();
                     $clients[$client->getCliId()] = $client;
+                    $groups[$client->getCliId()]  = $row->getGrpId();
                 }
             }
         }
@@ -70,6 +77,7 @@ class Cause extends \FreeFW\Core\Service
                  *
                  * @var \FreeFW\Model\Message $message
                  */
+                $filters['grp_id'] = $groups[$client->getCliId()];
                 $message = $emailService->getEmailAsMessage($filters, $client->getLangId(), [$client, $p_cause]);
                 if ($message) {
                     $message
@@ -92,6 +100,20 @@ class Cause extends \FreeFW\Core\Service
                         }
                     }
                     $message->create();
+                } else {
+                    // Add notofication for manual send...
+                    $notification = new \FreeFW\Model\Notification();
+                    $notification
+                        ->setNotifType(\FreeFW\Model\Notification::TYPE_INFORMATION)
+                        ->setNotifObjectName('FreeAsso_Client')
+                        ->setNotifObjectInfo($client->getCliFullname())
+                        ->setNotifObjectId($client->getCliId())
+                        ->setNotifSubject($p_automate->getAutoName() . ' : ' . $p_cause->getCauName())
+                        ->setNotifText($p_automate->getAutoName() . ' : ' . $p_cause->getCauName())
+                        ->setNotifCode('END_CAUSE')
+                        ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp())
+                    ;
+                    $notification->create();
                 }
             } else {
                 // Add notofication for manual send...

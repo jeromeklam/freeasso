@@ -1,0 +1,9 @@
+ALTER TABLE `asso_certificate` ADD COLUMN `cert_display_mnt` TINYINT(1) DEFAULT 1;
+INSERT INTO `asso_cause_type` (`caut_id`, `brk_id`, `camt_id`, `caut_name`, `caut_pattern`, `caut_mask`, `caut_receipt`, `caut_max_mnt`, `caut_min_mnt`, `caut_money`, `caut_mnt_type`, `caut_certificat`, `caut_donation`, `caut_once_duration`, `caut_regular_duration`, `caut_news`, `caut_family`, `caut_string_1`, `caut_string_2`, `caut_string_3`, `caut_string_4`, `caut_number_1`, `caut_number_2`, `caut_number_3`, `caut_number_4`, `caut_date_1`, `caut_date_2`, `caut_date_3`, `caut_date_4`, `caut_text_1`, `caut_text_2`, `caut_text_3`, `caut_text_4`, `caut_bool_1`, `caut_bool_2`, `caut_bool_3`, `caut_bool_4`, `caut_max_weight`, `caut_max_height`, `caut_growth_freq`, `caut_growth_graph`, `caut_rec_edi_id`, `caut_cert_edi_id`, `caut_ident_edi_id`, `caut_spo_add_email_id`, `caut_spo_update_email_id`, `caut_spo_end_email_id`, `caut_don_add_email_id`, `caut_don_update_email_id`, `caut_don_end_email_id`, `caut_don_generate_email_id`, `caut_add_email_id`, `caut_update_email_id`, `caut_end_email_id`)
+VALUES
+	(91, 4, 115, 'Forêt', NULL, NULL, 1, 0, 0, 'EUR', 'MAXIMUM', 1, 'ALL', 'INFINITE', 'INFINITE', 0, 'NATURE', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+UPDATE `asso_cause_type` set caut_name = 'Dulan' where caut_id = 89;
+UPDATE `asso_cause_main_type` set camt_name = 'Réserves' where camt_id = 115;
+UPDATE `asso_cause_type` set camt_id = 115 where caut_id IN (89,91);
+UPDATE `asso_cause` set caut_id = 89 where cau_id = 12685;
+UPDATE `asso_cause` set caut_id = 91 where cau_id = 12684;

@@ -16,6 +16,7 @@ class Donation extends \FreeAsso\Model\Base\Donation
      * Behaviour
      */
     use \FreeFW\Behaviour\EventManagerAwareTrait;
+    use \FreeFW\Behaviour\AutomateAwareTrait;
     use \FreeAsso\Model\Behaviour\AccountingLine;
     use \FreeAsso\Model\Behaviour\Cause;
     use \FreeAsso\Model\Behaviour\Certificate;

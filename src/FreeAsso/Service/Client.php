@@ -90,6 +90,11 @@ class Client extends \FreeFW\Core\Service
                     'email_code' => 'CLIENT'
                 ];
             }
+            if ($p_automate->getGrpId()) {
+                $filters = [
+                    'grp_id' => $p_automate->getGrpId()
+                ];
+            }
             /**
              *
              * @var \FreeFW\Model\Message $message

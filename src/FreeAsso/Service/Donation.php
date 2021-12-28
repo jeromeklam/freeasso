@@ -128,6 +128,9 @@ class Donation extends \FreeFW\Core\Service
                     'email_code' => 'DONATION'
                 ];
             }
+            $filters = [
+                'grp_id' => $p_donation->getGrpId()
+            ];
             /**
              *
              * @var \FreeFW\Model\Message $message

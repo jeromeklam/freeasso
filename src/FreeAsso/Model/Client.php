@@ -15,6 +15,7 @@ class Client extends \FreeAsso\Model\Base\Client implements
     /**
      * Behaviour
      */
+    use \FreeFW\Behaviour\AutomateAwareTrait;
     use \FreeAsso\Model\Behaviour\ClientCategory;
     use \FreeAsso\Model\Behaviour\ClientType;
     use \FreeAsso\Model\Behaviour\Client;

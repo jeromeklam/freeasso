@@ -17,6 +17,7 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
      * Behaviour
      */
     use \FreeFW\Behaviour\EventManagerAwareTrait;
+    use \FreeFW\Behaviour\AutomateAwareTrait;
     use \FreeAsso\Model\Behaviour\CauseType;
     use \FreeAsso\Model\Behaviour\Site;
     use \FreeAsso\Model\Behaviour\Subspecies;
