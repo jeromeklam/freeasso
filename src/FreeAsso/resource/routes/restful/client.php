@@ -49,7 +49,7 @@ $clientRoutes = [
         FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
         FFCSTRT::ROUTE_MIDDLEWARE => [],
         FFCSTRT::ROUTE_INCLUDE    => [
-            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['lang', 'country', 'last_donation', 'client_category', 'client_type', 'parent_client']
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['lang', 'country', 'last_donation', 'client_category', 'client_type', 'parent_client', 'group']
         ],
         FFCSTRT::ROUTE_SCOPE      => [],
         FFCSTRT::ROUTE_RESULTS    => [
@@ -72,7 +72,7 @@ $clientRoutes = [
         FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
         FFCSTRT::ROUTE_MIDDLEWARE => [],
         FFCSTRT::ROUTE_INCLUDE    => [
-            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['lang', 'country', 'last_donation', 'client_category', 'client_type', 'parent_client']
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['lang', 'country', 'last_donation', 'client_category', 'client_type', 'parent_client', 'group']
         ],
         FFCSTRT::ROUTE_SCOPE      => [],
         FFCSTRT::ROUTE_PARAMETERS => [
@@ -103,7 +103,7 @@ $clientRoutes = [
         FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
         FFCSTRT::ROUTE_MIDDLEWARE => [],
         FFCSTRT::ROUTE_INCLUDE    => [
-            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['lang', 'country', 'last_donation', 'client_category', 'client_type', 'parent_client']
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['lang', 'country', 'last_donation', 'client_category', 'client_type', 'parent_client', 'group']
         ],
         FFCSTRT::ROUTE_SCOPE      => [],
         FFCSTRT::ROUTE_RESULTS    => [
@@ -126,7 +126,7 @@ $clientRoutes = [
         FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
         FFCSTRT::ROUTE_MIDDLEWARE => [],
         FFCSTRT::ROUTE_INCLUDE    => [
-            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['lang', 'country', 'last_donation', 'client_category', 'client_type', 'parent_client']
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['lang', 'country', 'last_donation', 'client_category', 'client_type', 'parent_client', 'group']
         ],
         FFCSTRT::ROUTE_SCOPE      => [],
         FFCSTRT::ROUTE_PARAMETERS => [

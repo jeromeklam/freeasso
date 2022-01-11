@@ -14,15 +14,22 @@ class Sponsorship extends \FreeFW\Core\Service
      * Send notification
      *
      * @param \FreeAsso\Model\Donation $p_sponsorship
-     * @param string                   $p_event_name
-     * @param \FreeFW\Model\Automate   $p_automate
+     * @param string                   $p_action
+     * @param boolean                  $p_send_identity
      *
      * @return boolean
      */
-    public function notification($p_sponsorship, $p_event_name, \FreeFW\Model\Automate $p_automate)
+    public function notification($p_sponsorship, $p_action = "create", $p_send_identity = false)
     {
+        /**
+         * @var \FreeAsso\Model\Cause $cause
+         */
         $cause = $p_sponsorship->getCause();
         if ($cause) {
+            /**
+             * @var \FreeAsso\Model\CauseType $cause_type
+             * @var \FreeAsso\Model\Client    $client
+             */
             $cause_type = $cause->getCauseType();
             $client = $p_sponsorship->getClient();
             if ($client->getCliEmail() != '') {
@@ -30,66 +37,62 @@ class Sponsorship extends \FreeFW\Core\Service
                  * @var \FreeFW\Service\Email $emailService
                  */
                 $emailService = \FreeFW\DI\DI::get('FreeFW::Service::Email');
-                $emailId = $p_automate->getEmailId();
-                if (!$emailId) {
-                    $emailId = $p_automate->getAutoParam('email_id', 0);
+                $emailId = false;
+                $ediId = false;
+                switch ($p_action) {
+                    case 'create':
+                        $emailId = $cause_type->getCautSpoAddEmailId();
+                        $ediId = $cause_type->getCautIdentEdiId();
+                        break;
+                    case 'update':
+                        $emailId = $cause_type->getCautSpoUpdateEmailId();
+                        $ediId = $cause_type->getCautIdentEdiId();
+                        break;
+                    case 'remove':
+                        $emailId = $cause_type->getCautSpoEndEmailId();
+                        $ediId = $cause_type->getCautIdentEdiId();
+                        break;
                 }
                 if ($emailId) {
                     $filters = [
                         'email_id' => $emailId
                     ];
-                } else {
-                    $filters = [
-                        'email_code' => 'DONATION'
-                    ];
-                }
-                $filters = [
-                    'grp_id' => $p_sponsorship->getGrpId()
-                ];
-                /**
-                 *
-                 * @var \FreeFW\Model\Message $message
-                 */
-                $message = $emailService->getEmailAsMessage($filters, $client->getLangId(), $p_sponsorship);
-                if ($message) {
-                    $message
-                        ->addDest($client->getCliEmail())
-                        ->setDestId($client->getCliId())
-                        ->setGrpId($p_sponsorship->getGrpId())
-                    ;
-                    $sendIdentity = $p_automate->getAutoParam('send_identity', false);
-                    if ($sendIdentity) {
-                        $cause = $p_sponsorship->getCause();
-                        if ($cause) {
-                            $causeType = $cause->getCauseType();
-                            $ediId = $causeType->getCautIdentEdiId();
-                            if ($ediId > 0) {
-                                /**
-                                 * @var \FreeFW\Service\Edition $editionService
-                                 */
-                                $editionService = \FreeFW\DI\DI::get('FreeFW::Service::Edition');
-                                $datas = $editionService->printEdition(
-                                    $ediId,
-                                    $client->getLangId(),
-                                    $cause
-                                );
-                                if (isset($datas['filename']) && is_file($datas['filename'])) {
-                                    $message->addAttachment($datas['filename'], $cause->getCauName() . '.pdf');
-                                }
+                    /**
+                     *
+                     * @var \FreeFW\Model\Message $message
+                     */
+                    $message = $emailService->getEmailAsMessage($filters, $client->getLangId(), $p_sponsorship);
+                    if ($message) {
+                        $message
+                            ->addDest($client->getCliEmail())
+                            ->setDestId($client->getCliId())
+                            ->setGrpId($p_sponsorship->getGrpId())
+                        ;
+                        if ($p_send_identity) {
+                            /**
+                             * @var \FreeFW\Service\Edition $editionService
+                             */
+                            $editionService = \FreeFW\DI\DI::get('FreeFW::Service::Edition');
+                            $datas = $editionService->printEdition(
+                                $ediId,
+                                $client->getLangId(),
+                                $cause
+                            );
+                            if (isset($datas['filename']) && is_file($datas['filename'])) {
+                                $message->addAttachment($datas['filename'], $cause->getCauName() . '.pdf');
                             }
                         }
+                        return $message->create();
                     }
-                    return $message->create();
                 }
             } else {
-                $cause = $p_sponsorship->getCause();
                 // Add notification for manual send...
                 $notification = new \FreeFW\Model\Notification();
                 $notification
                     ->setNotifType(\FreeFW\Model\Notification::TYPE_INFORMATION)
                     ->setNotifObjectName('FreeAsso_Sponsorship')
                     ->setNotifObjectId($p_sponsorship->getSpoId())
-                    ->setNotifSubject($p_automate->getAutoName() . ' : ' . $client->getFullname() . ' ' . $cause->getCauName())
+                    ->setNotifSubject('Paiement régulier : ' . $client->getFullname() . ' ' . $cause->getCauName())
                     ->setNotifCode('SPONSORSHIP_WITHOUT_EMAIL')
                     ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp())
                 ;

@@ -184,6 +184,12 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
     protected $don_certemail = null;
 
     /**
+     * Certdispmnt
+     * @var string
+     */
+    protected $don_certdispmnt = null;
+
+    /**
      * Undocumented variable
      * @var integer
      */
@@ -872,6 +878,29 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
     public function getDonCertemail()
     {
         return $this->don_certemail;
+    }
+
+    /**
+     * Set don_certdispmnt
+     *
+     * @param boolean $p_value
+     * 
+     * @return \FreeAsso\Model\Donation
+     */
+    public function setDonCertdispmnt($p_value)
+    {
+        $this->don_certdispmnt = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get don_certdispmnt
+     *
+     * @return boolean
+     */
+    public function getDonCertdispmnt()
+    {
+        return $this->don_certdispmnt;
     }
 
     /**

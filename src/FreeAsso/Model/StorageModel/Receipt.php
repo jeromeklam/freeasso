@@ -102,7 +102,7 @@ abstract class Receipt extends \FreeFW\Core\StorageModel
     ];
     protected static $PRP_REC_MNT = [
         FFCST::PROPERTY_PRIVATE => 'rec_mnt',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DECIMAL,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_MONETARY,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
         FFCST::PROPERTY_TITLE   => 'Montant',
         FFCST::PROPERTY_COMMENT => 'Montant',
@@ -246,6 +246,13 @@ abstract class Receipt extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TITLE   => 'Manuel',
         FFCST::PROPERTY_COMMENT => 'Manuel',
     ];
+    protected static $PRP_REC_FULL_ADDRESS = [
+        FFCST::PROPERTY_PRIVATE => 'rec_full_address',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_LOCAL],
+        FFCST::PROPERTY_TITLE   => 'Adresse',
+        FFCST::PROPERTY_COMMENT => 'Adresse complète',
+    ];
 
     /**
      * get properties
@@ -255,32 +262,33 @@ abstract class Receipt extends \FreeFW\Core\StorageModel
     public static function getProperties()
     {
         return [
-            'rec_id'          => self::$PRP_REC_ID,
-            'brk_id'          => self::$PRP_BRK_ID,
-            'cli_id'          => self::$PRP_CLI_ID,
-            'rett_id'         => self::$PRP_RETT_ID,
-            'rec_mode'        => self::$PRP_REC_MODE,
-            'rec_ts'          => self::$PRP_REC_TS,
-            'rec_gen_ts'      => self::$PRP_REC_GEN_TS,
-            'rec_print_ts'    => self::$PRP_REC_PRINT_TS,
-            'rec_year'        => self::$PRP_REC_YEAR,
-            'rec_number'      => self::$PRP_REC_NUMBER,
-            'rec_mnt'         => self::$PRP_REC_MNT,
-            'rec_money'       => self::$PRP_REC_MONEY,
-            'rec_fullname'    => self::$PRP_REC_FULLNAME,
-            'rec_address1'    => self::$PRP_REC_ADDRESS1,
-            'rec_address2'    => self::$PRP_REC_ADDRESS2,
-            'rec_address3'    => self::$PRP_REC_ADDRESS3,
-            'rec_cp'          => self::$PRP_REC_CP,
-            'rec_town'        => self::$PRP_REC_TOWN,
-            'cnty_id'         => self::$PRP_CNTY_ID,
-            'lang_id'         => self::$PRP_LANG_ID,
-            'rec_email'       => self::$PRP_REC_EMAIL,
-            'rec_send_method' => self::$PRP_REC_SEND_METHOD,
-            'rec_mnt_letter'  => self::$PRP_REC_MNT_LETTER,
-            'file_id'         => self::$PRP_FILE_ID,
-            'grp_id'          => self::$PRP_GRP_ID,
-            'rec_manual'      => self::$PRP_REC_MANUAL,
+            'rec_id'           => self::$PRP_REC_ID,
+            'brk_id'           => self::$PRP_BRK_ID,
+            'cli_id'           => self::$PRP_CLI_ID,
+            'rett_id'          => self::$PRP_RETT_ID,
+            'rec_mode'         => self::$PRP_REC_MODE,
+            'rec_ts'           => self::$PRP_REC_TS,
+            'rec_gen_ts'       => self::$PRP_REC_GEN_TS,
+            'rec_print_ts'     => self::$PRP_REC_PRINT_TS,
+            'rec_year'         => self::$PRP_REC_YEAR,
+            'rec_number'       => self::$PRP_REC_NUMBER,
+            'rec_mnt'          => self::$PRP_REC_MNT,
+            'rec_money'        => self::$PRP_REC_MONEY,
+            'rec_fullname'     => self::$PRP_REC_FULLNAME,
+            'rec_address1'     => self::$PRP_REC_ADDRESS1,
+            'rec_address2'     => self::$PRP_REC_ADDRESS2,
+            'rec_address3'     => self::$PRP_REC_ADDRESS3,
+            'rec_cp'           => self::$PRP_REC_CP,
+            'rec_town'         => self::$PRP_REC_TOWN,
+            'cnty_id'          => self::$PRP_CNTY_ID,
+            'lang_id'          => self::$PRP_LANG_ID,
+            'rec_email'        => self::$PRP_REC_EMAIL,
+            'rec_send_method'  => self::$PRP_REC_SEND_METHOD,
+            'rec_mnt_letter'   => self::$PRP_REC_MNT_LETTER,
+            'file_id'          => self::$PRP_FILE_ID,
+            'grp_id'           => self::$PRP_GRP_ID,
+            'rec_manual'       => self::$PRP_REC_MANUAL,
+            'rec_full_address' => self::$PRP_REC_FULL_ADDRESS,
         ];
     }
 
@@ -312,5 +320,22 @@ abstract class Receipt extends \FreeFW\Core\StorageModel
     public static function getSourceComment()
     {
         return 'Gestion des reçus';
+    }
+
+    /**
+     * Get One To many relationShips
+     *
+     * @return array
+     */
+    public function getRelationships()
+    {
+        return [
+            'donations' => [
+                FFCST::REL_MODEL   => 'FreeAsso::Model::ReceiptDonation',
+                FFCST::REL_FIELD   => 'rec_id',
+                FFCST::REL_TYPE    => \FreeFW\Model\Query::JOIN_LEFT,
+                FFCST::REL_COMMENT => 'Les dons du reçu',
+            ],
+        ];
     }
 }

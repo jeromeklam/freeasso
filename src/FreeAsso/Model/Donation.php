@@ -53,23 +53,45 @@ class Donation extends \FreeAsso\Model\Base\Donation
     protected $send_email = true;
 
     /**
+     * Check session
+     * @var boolean
+     */
+    protected $check_session = true;
+
+    /**
      *
      * {@inheritDoc}
      * @see \FreeFW\Core\Model::init()
      */
     public function init()
     {
+        $ts    = \FreeFW\Tools\Date::getCurrentTimestamp();
+        $year  = date('Y');
+        $month = date('m');
+        //
         $this->don_id           = 0;
-        $this->brk_id           = 0;
-        $this->don_ts           = \FreeFW\Tools\Date::getCurrentTimestamp();
-        $this->don_ask_ts       = \FreeFW\Tools\Date::getCurrentTimestamp();
-        $this->don_real_ts      = \FreeFW\Tools\Date::getCurrentTimestamp();
+        $this->don_ts           = $ts;
+        $this->don_ask_ts       = $ts;
+        $this->don_real_ts      = $ts;
         $this->don_status       = self::STATUS_OK;
         $this->dono_id          = null;
-        $this->sess_id          = null;
         $this->spo_id           = null;
         $this->don_display_site = true;
         $this->don_money        = 'EUR';
+        $this->session          = \FreeAsso\Model\Session::getFactory(intval($year), intval($month));
+        return $this;
+    }
+
+    /**
+     * Set check_session
+     *
+     * @param boolean $p_check
+     * 
+     * @return \FreeAsso\Model\Donation
+     */
+    public function setCheckSession($p_check = true)
+    {
+        $this->check_session = $p_check;
         return $this;
     }
 
@@ -264,8 +286,6 @@ class Donation extends \FreeAsso\Model\Base\Donation
             }
             if ($this->getDonCertemail() != '') {
                 $certificate->setCertEmail($this->getDonCertemail());
-            } else {
-                $certificate->setCertEmail($client->getCliEmail());
             }
             $certificate
                 ->setClient($client)
@@ -287,6 +307,7 @@ class Donation extends \FreeAsso\Model\Base\Donation
                 ->setCntyId($client->getCntyId())
                 ->setLangId($client->getLangId())
                 ->setCauId($this->getCauId())
+                ->setCertDisplayMnt($this->getDonCertdispmnt())
             ;
             $certificate->calculateFields();
             if (!$certificate->create()) {
@@ -311,7 +332,11 @@ class Donation extends \FreeAsso\Model\Base\Donation
             return false;
         }
         if ($this->send_email) {
-            $this->forwardRawEvent(\FreeAsso\Constants::EVENT_NEW_DONATION, $this);
+            /**
+             * @var \FreeAsso\Service\Donation $donationService
+             */
+            $donationService = \FreeFW\DI\DI::get('FreeAsso::Service::Donation');
+            $donationService->notification($this, "create", true);
         }
         return true;
     }
@@ -395,7 +420,7 @@ class Donation extends \FreeAsso\Model\Base\Donation
     {
         parent::validate();
         // En modification, si la session n'est pas ouverte il faut un motif
-        if ($this->getDonId() > 0) {
+        if ($this->getDonId() > 0 && $this->check_session) {
             $session = $this->getSession();
             if ($session && $session->getSessStatus() != \FreeAsso\Model\Session::STATUS_OPEN) {
                 $test = trim(strip_tags($this->getDonDesc()));
@@ -437,14 +462,68 @@ class Donation extends \FreeAsso\Model\Base\Donation
     public function verifySession()
     {
         $realts  = \FreeFW\Tools\Date::mysqlToDatetime($this->getDonRealTs());
-        $session = \FreeAsso\Model\Session::findSession($realts, $this->getGrpId());
+        $session = \FreeAsso\Model\Session::findSession($realts, $this->getGrpId(), false);
         if ($session && $session->getSessId() != $this->getSessId()) {
+            $year = intval($realts->format('Y'));
+            $month = intval($realts->format('m'));
+            $session = \FreeAsso\Model\Session::getFactory($year, $month, $this->getGrpId());
             $this
                 ->setSession($session)
                 ->setDonDesc('Mise à jour de la session')
             ;
             $this->logger->info('Session update ' . $this->getDonId());
-            $this->save(true, false);
+            $this->save(false, true);
         }
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param array $p_types
+     * 
+     * @return int
+     */
+    public function detectReceiptType($p_types)
+    {
+        $type = 0;
+        /**
+         * @var \FreeAsso\Model\Cause $cause
+         */
+        $cause = $this->getCause();
+        $bSpo  = false;
+        $bReg  = false;
+        if ($cause) {
+            /**
+             * @var \FreeAsso\Model\CauseType $causeType
+             */
+            $causeType = $cause->getCauseType();
+            if ($causeType->getCautFamily() == \FreeAsso\Model\CauseType::FAMILY_ANIMAL) {
+                // Parrainage
+                $bSpo = true;
+            }
+        }
+        if ($this->getSpoId() > 0) {
+            $bReg = true;
+        }
+        /**
+         * @var \FreeAsso\Model\ReceiptType $oneType
+         */
+        foreach ($p_types as $oneType) {
+            if ($bReg && strpos($oneType->getRettRegex(), 'AM') === 0) {
+                // Ami : paiement régulier
+                return $oneType->getRettId();
+            } else {
+                if ($bSpo && strpos($oneType->getRettRegex(), 'P') === 0) {
+                    // parrainage ponctuel
+                    return $oneType->getRettId();
+                } else {
+                    if (!$bSpo && strpos($oneType->getRettRegex(), 'D') === 0) {
+                        // don ponctuel
+                        return $oneType->getRettId();
+                    }
+                }
+            }
+        }
+        return $type;
     }
 }

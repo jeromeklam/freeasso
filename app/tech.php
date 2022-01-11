@@ -63,8 +63,8 @@ try {
     if (is_array($myLogCfg)) {
         if (array_key_exists('file', $myLogCfg)) {
             if (array_key_exists('level', $myLogCfg)) {
-                $logFile  = $myLogCfg['file'];
-                $myLogger = new \FreeFW\Log\FileLogger($logFile, $myLogCfg['level']);
+                $logFile  = str_replace('.log', '-tech.log', $myLogCfg['file']);
+                $myLogger = new \FreeFW\Log\FileLogger($logFile, $myLogCfg['level'], false);
             } else {
                 throw new \InvalidArgumentException('Log level missing !');
             }

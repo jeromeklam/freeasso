@@ -1,5 +1,4 @@
 <?php
-
 namespace FreeAsso\Controller;
 
 use \FreeFW\Constants as FFCST;
@@ -67,7 +66,7 @@ class Certificate extends \FreeFW\Core\ApiController
      *
      * @param \Psr\Http\Message\ServerRequestInterface $p_request
      */
-    public function printOne(\Psr\Http\Message\ServerRequestInterface $p_request, $p_id = null)
+    public function downloadOne(\Psr\Http\Message\ServerRequestInterface $p_request, $p_id = null)
     {
         $this->logger->debug('FreeAsso.CertificateController.getOne.start');
         /**

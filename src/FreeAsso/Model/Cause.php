@@ -461,7 +461,11 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
     public function afterSave()
     {
         if (!$this->previous_to && $this->previous_to == '' && $this->getCauTo()) {
-            $this->forwardRawEvent(\FreeAsso\Constants::EVENT_END_CAUSE, $this);
+            /**
+             * @var \FreeAsso\Service\Cause $causeService
+             */
+            $causeService = \FreeFW\DI\DI::get('FreeAsso::Service::Cause');
+            $causeService->notification($this, "remove", false);
         }
         return true;
     }

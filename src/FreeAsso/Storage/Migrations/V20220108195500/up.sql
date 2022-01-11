@@ -1,0 +1,1 @@
+ALTER TABLE `asso_cause_media` MODIFY caum_short_blob LONGBLOB DEFAULT NULL;

@@ -229,6 +229,12 @@ abstract class Donation extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_LOCAL]
     ];
+    protected static $PRP_DON_CERTDISPMNT = [
+        FFCST::PROPERTY_PRIVATE => 'don_certdispmnt',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_TRUE,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_LOCAL]
+    ];
     protected static $PRP_ACCL_ID = [
         FFCST::PROPERTY_PRIVATE => 'accl_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
@@ -297,6 +303,7 @@ abstract class Donation extends \FreeFW\Core\StorageModel
             'don_news'          => self::$PRP_DON_NEWS,
             'don_certname'      => self::$PRP_DON_CERTNAME,
             'don_certemail'     => self::$PRP_DON_CERTEMAIL,
+            'don_certdispmnt'   => self::$PRP_DON_CERTDISPMNT,
             'accl_id'           => self::$PRP_ACCL_ID,
             'don_verif'         => self::$PRP_DON_VERIF,
             'don_verif_comment' => self::$PRP_DON_VERIF_COMMENT,

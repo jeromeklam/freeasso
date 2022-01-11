@@ -24,6 +24,7 @@ require_once __DIR__ . '/family.php';
 require_once __DIR__ . '/item.php';
 require_once __DIR__ . '/movement.php';
 require_once __DIR__ . '/payment_type.php';
+require_once __DIR__ . '/receipt_generation.php';
 require_once __DIR__ . '/receipt_type.php';
 require_once __DIR__ . '/receipt.php';
 require_once __DIR__ . '/session.php';
@@ -34,6 +35,7 @@ require_once __DIR__ . '/site.php';
 require_once __DIR__ . '/species.php';
 require_once __DIR__ . '/specific.php';
 require_once __DIR__ . '/sponsorship.php';
+require_once __DIR__ . '/statistic.php';
 require_once __DIR__ . '/subspecies.php';
 require_once __DIR__ . '/unit.php';
 
@@ -63,6 +65,7 @@ $localRoutes = array_merge(
     $itemRoutes,
     $movementRoutes,
     $paymentTypeRoutes,
+    $receiptGenerationRoutes,
     $receiptTypeRoutes,
     $receiptRoutes,
     $sessionRoutes,
@@ -72,6 +75,7 @@ $localRoutes = array_merge(
     $siteRoutes,
     $specificRoutes,
     $sponsorshipRoutes,
+    $statisticRoutes,
     $unitRoutes,
     $routes_species,
     $routes_subspecies

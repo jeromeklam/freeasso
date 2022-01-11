@@ -15,14 +15,23 @@ class Donation extends \FreeFW\Core\Service
      *
      * @return void
      */
-    public function updateSession()
+    public function updateSession($p_params = [])
     {
         /**
-         * @var \FreeAsso\Model\Donation $model
+         * @var \FreeFW\Model\Query $query
          */
-        $model = \FreeFW\DI\DI::get('FreeAsso::Model::Donation');
-        $query = $model->getQuery();
+        $dNow = new \DateTime('now');
+        $year = $dNow->format('Y');
+        $query = \FreeAsso\Model\Donation::getQuery();
+        $dStart = $year . '-01-01 00:00:00';
+        $dEnd = $year . '-12-31 23:59:59';
+        $query->addFromFilters(
+            [
+                'don_real_ts' => [ \FreeFW\Storage\Storage::COND_BETWEEN => [$dStart, $dEnd] ]
+            ]
+        );
         $query->execute([], 'verifySession');
+        return $p_params;
     }
 
     /**
@@ -33,6 +42,11 @@ class Donation extends \FreeFW\Core\Service
      */
     public function verifyDonations($p_params = [])
     {
+        /**
+         * @var \FreeSSO\Server $sso
+         */
+        $sso = \FreeFW\DI\DI::getShared('sso');
+        $grp = $sso->getUserGroup();
         if (array_key_exists('year', $p_params)) {
             $year = $p_params['year'];
         } else {
@@ -47,11 +61,12 @@ class Donation extends \FreeFW\Core\Service
         $from->setDate($year, $month, 1);
         $from->setTime(0, 0, 1);
         $to = clone($from);
-        $to->add(new \DateInterval("P1M"));
+        $to = \FreeFW\Tools\Date::addMonths($to, 1);
         $check = \FreeAsso\Model\Sponsorship::find(
             [
-                'spo_from' => [\FreeFW\Storage\Storage::COND_LOWER_EQUAL_OR_NULL => \FreeFW\Tools\Date::datetimeToMysql($from)],
-                'spo_to'   => [\FreeFW\Storage\Storage::COND_GREATER_EQUAL_OR_NULL => \FreeFW\Tools\Date::datetimeToMysql($from)],
+                'spo_from' => [\FreeFW\Storage\Storage::COND_LOWER_EQUAL_OR_NULL => \FreeFW\Tools\Date::datetimeToMysql($to)],
+                'spo_to' => [\FreeFW\Storage\Storage::COND_GREATER_EQUAL_OR_NULL => \FreeFW\Tools\Date::datetimeToMysql($from)],
+                'grp_id' => $grp->getGrpId()
             ]
         );
         foreach ($check as $oneSponsorship) {
@@ -88,13 +103,6 @@ class Donation extends \FreeFW\Core\Service
                 $notification->create();
             }
         }
-        $month = $month + 1;
-        if ($month > 12) {
-            $year  = $year + 1;
-            $month = 1;
-        }
-        $p_params['year']  = $year;
-        $p_params['month'] = $month;
         return $p_params;
     }
 
@@ -102,99 +110,94 @@ class Donation extends \FreeFW\Core\Service
      * Send notification
      *
      * @param \FreeAsso\Model\Donation $p_donation
-     * @param string                   $p_event_name
-     * @param \FreeFW\Model\Automate   $p_automate
+     * @param string                   $p_action
+     * @param boolean                  $p_send_identity
      *
      * @return boolean
      */
-    public function notification($p_donation, $p_event_name, \FreeFW\Model\Automate $p_automate)
+    public function notification($p_donation, $p_action = "create", $p_send_identity = false)
     {
+        /**
+         * @var \FreeAsso\Model\Client $client
+         */
         $client = $p_donation->getClient();
         if ($client->getCliEmail() != '') {
             /**
              * @var \FreeFW\Service\Email $emailService
              */
             $emailService = \FreeFW\DI\DI::get('FreeFW::Service::Email');
-            $emailId = $p_automate->getEmailId();
-            if (!$emailId) {
-                $emailId = $p_automate->getAutoParam('email_id', 0);
+            /**
+             * @var \FreeAsso\Model\Cause $cause
+             * @var \FreeAsso\Model\CauseType $causeType
+             */
+            $cause = $p_donation->getCause();
+            if ($cause) {
+                $causeType = $cause->getCauseType();
+            }
+            $emailId = false;
+            $ediId = false;
+            if ($causeType) {
+                switch ($p_action) {
+                    case 'create':
+                        $emailId = $causeType->getCautDonAddEmailId();
+                        $ediId = $causeType->getCautIdentEdiId();
+                        break;
+                    case 'update':
+                        $emailId = $causeType->getCautDonUpdateEmailId();
+                        $ediId = $causeType->getCautIdentEdiId();
+                        break;
+                    case 'remove':
+                        $emailId = $causeType->getCautDonEndEmailId();
+                        $ediId = $causeType->getCautIdentEdiId();
+                        break;
+                }
             }
             if ($emailId) {
                 $filters = [
                     'email_id' => $emailId
                 ];
-            } else {
-                $filters = [
-                    'email_code' => 'DONATION'
-                ];
-            }
-            $filters = [
-                'grp_id' => $p_donation->getGrpId()
-            ];
-            /**
-             *
-             * @var \FreeFW\Model\Message $message
-             */
-            $message = $emailService->getEmailAsMessage($filters, $client->getLangId(), $p_donation);
-            if ($message) {
-                $message
-                    ->addDest($client->getCliEmail())
-                    ->setDestId($client->getCliId())
-                    ->setGrpId($p_donation->getGrpId())
-                ;
-                $edi1Id = $p_automate->getAutoParam('edi1_id', 0);
-                if ($edi1Id) {
-                    /**
-                     * @var \FreeFW\Service\Edition $editionService
-                     */
-                    $editionService = \FreeFW\DI\DI::get('FreeFW::Service::Edition');
-                    $datas = $editionService->printEdition(
-                        $edi1Id,
-                        $client->getLangId(),
-                        $p_donation
-                    );
-                    if (isset($datas['filename']) && is_file($datas['filename'])) {
-                        $message->addAttachment($datas['filename'], $datas['name']);
-                    }
-                }
-                $sendIdentity = $p_automate->getAutoParam('send_identity', false);
-                if ($sendIdentity) {
-                    $cause = $p_donation->getCause();
-                    if ($cause) {
-                        $causeType = $cause->getCauseType();
-                        $ediId = $causeType->getCautIdentEdiId();
-                        if ($ediId > 0) {
-                            /**
-                             * @var \FreeFW\Service\Edition $editionService
-                             */
-                            $editionService = \FreeFW\DI\DI::get('FreeFW::Service::Edition');
-                            $datas = $editionService->printEdition(
-                                $ediId,
-                                $client->getLangId(),
-                                $cause
-                            );
-                            if (isset($datas['filename']) && is_file($datas['filename'])) {
-                                $message->addAttachment($datas['filename'], $cause->getCauName() . '.pdf');
-                            }
+                /**
+                 *
+                 * @var \FreeFW\Model\Message $message
+                 */
+                $message = $emailService->getEmailAsMessage($filters, $client->getLangId(), $p_donation);
+                if ($message) {
+                    $message
+                        ->addDest($client->getCliEmail())
+                        ->setDestId($client->getCliId())
+                        ->setGrpId($p_donation->getGrpId())
+                    ;
+                    if ($p_send_identity && $ediId) {
+                        /**
+                         * @var \FreeFW\Service\Edition $editionService
+                         */
+                        $editionService = \FreeFW\DI\DI::get('FreeFW::Service::Edition');
+                        $datas = $editionService->printEdition(
+                            $ediId,
+                            $client->getLangId(),
+                            $cause
+                        );
+                        if (isset($datas['filename']) && is_file($datas['filename'])) {
+                            $message->addAttachment($datas['filename'], $cause->getCauName() . '.pdf');
                         }
                     }
-                }
-                $certificate = $p_donation->getCertificate();
-                if ($certificate) {
-                    $file = $certificate->getFile();
-                    if ($file) {
-                        $cfg  = $this->getAppConfig();
-                        $dir  = $cfg->get('ged:dir');
-                        $bDir = rtrim(\FreeFW\Tools\Dir::mkStdFolder($dir), '/');
-                        $filename = $bDir . '/certificat_' . uniqid(true) . '.pdf';
-                        file_put_contents($filename, $file->getFileBlob());
-                        $message->addAttachment($filename, 'certificat.pdf');
-                        $certificate->setCertPrintTs(\FreeFW\Tools\Date::getCurrentTimestamp());
-                        $certificate->save();
+                    $certificate = $p_donation->getCertificate();
+                    if ($certificate) {
+                        $file = $certificate->getFile();
+                        if ($file) {
+                            $cfg  = $this->getAppConfig();
+                            $dir  = $cfg->get('ged:dir');
+                            $bDir = rtrim(\FreeFW\Tools\Dir::mkStdFolder($dir), '/');
+                            $filename = $bDir . '/certificat_' . uniqid(true) . '.pdf';
+                            file_put_contents($filename, $file->getFileBlob());
+                            $message->addAttachment($filename, 'certificat.pdf');
+                            $certificate->setCertPrintTs(\FreeFW\Tools\Date::getCurrentTimestamp());
+                            $certificate->save();
+                        }
                     }
-                }
-                if (!$message->create()) {
-                    return false;
+                    if (!$message->create()) {
+                        return false;
+                    }
                 }
             }
         } else {
@@ -202,7 +205,7 @@ class Donation extends \FreeFW\Core\Service
             if ($certificate) {
                 $cause = $p_donation->getCause();
                 $notification = new \FreeFW\Model\Notification();
-                $texte = $p_automate->getAutoName() . ' : ' . $certificate->getCertFullname() . ' ' . $cause->getCauName();
+                $texte = 'Paiement : ' . $certificate->getCertFullname() . ' ' . $cause->getCauName();
                 $notification
                     ->setNotifType(\FreeFW\Model\Notification::TYPE_INFORMATION)
                     ->setNotifObjectName('FreeAsso_Certificate')

@@ -59,7 +59,7 @@ try {
         if (array_key_exists('file', $myLogCfg)) {
             if (array_key_exists('level', $myLogCfg)) {
                 $logFile = $myLogCfg['file'];
-                $logFile = APP_LOG.'/websocket.log';
+                $logFile  = str_replace('.log', '-websocket.log', $myLogCfg['file']);
                 $myLogger = new \FreeFW\Log\FileLogger($logFile, $myLogCfg['level'], false);
             } else {
                 throw new \InvalidArgumentException('Log level missing !');

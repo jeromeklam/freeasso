@@ -142,29 +142,34 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
          */
         $now      = \FreeFW\Tools\Date::getServerDatetime();
         $first    = true;
-        $nowYear  = $now->format('Y');
-        $nowMonth = $now->format('m');
         if ($from < $now) {
-            while ($from < $now) {
+            $nowYear  = $now->format('Y');
+            $nowMonth = $now->format('m');
+            $fromYear  = $from->format('Y');
+            $fromMonth = $from->format('m');
+            while ($fromYear < $nowYear || ($fromYear == $nowYear && $fromMonth < $nowMonth) || 
+                   ($fromYear == $nowYear && $fromMonth == $nowMonth && $this->getSpoCurrentMonth())) {
                 /**
                  * @var \FreeAsso\Model\Donation $donation
                  */
                 $donation  = $this->getNewDonation($from, !$first);
                 $date      = \FreeFW\Tools\Date::mysqlToDatetime($donation->getDonAskTs());
-                $fromYear  = $date->format('Y');
-                $fromMonth = $date->format('m');
-                if ($fromYear < $nowYear || ($fromYear == $nowYear && $fromMonth < $nowMonth) || 
-                    ($fromYear == $nowYear && $fromMonth == $nowMonth && $this->getSpoCurrentMonth())) {
-                    if (!$donation->create()) {
-                        $this->addErrors($donation->getErrors());
-                        return false;
-                    }
+                if (!$donation->create()) {
+                    $this->addErrors($donation->getErrors());
+                    return false;
                 }
-                $from->add(new \DateInterval("P1M"));
+                $from = \FreeFW\Tools\Date::addMonths($from, 1);
+                $fromYear  = $from->format('Y');
+                $fromMonth = $from->format('m');
                 $first = false;
             }
         }
         $this->forwardRawEvent(\FreeAsso\Constants::EVENT_NEW_SPONSORSHIP, $this);
+        /**
+         * @var \FreeAsso\Service\Sponsorship $sponsorshipService
+         */
+        $sponsorshipService = \FreeFW\DI\DI::get('FreeAsso::Service::Sponsorship');
+        $sponsorshipService->notification($this, "create", true);
         return true;
     }
 
@@ -191,6 +196,11 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
     {
         if (!$this->previous_to && $this->previous_to == '' && $this->getSpoTo()) {
             $this->forwardRawEvent(\FreeAsso\Constants::EVENT_END_SPONSORSHIP, $this);
+            /**
+             * @var \FreeAsso\Service\Sponsorship $sponsorshipService
+             */
+            $sponsorshipService = \FreeFW\DI\DI::get('FreeAsso::Service::Sponsorship');
+            $sponsorshipService->notification($this, "remove", false);
         }
         return true;
     }

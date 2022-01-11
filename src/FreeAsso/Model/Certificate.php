@@ -108,4 +108,25 @@ class Certificate extends \FreeAsso\Model\Base\Certificate
         }
         return false;
     }
+
+    /**
+     * Specific fields
+     *
+     * @return array
+     */
+    public function getSpecificEditionFields()
+    {
+        $monnaie = $this->getCertInputMoney();
+        if ($monnaie === 'EUR') {
+            $monnaie = '€';
+        }
+        $fields   = [];
+        $fields[] = [
+            'name'    => 'mon',
+            'type'    => 'string',
+            'title'   => 'Monnaie',
+            'content' => $monnaie
+        ];
+        return $fields;
+    }
 }

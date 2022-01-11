@@ -268,6 +268,14 @@ abstract class Certificate extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TITLE   => 'Manuel',
         FFCST::PROPERTY_COMMENT => 'Manuel',
     ];
+    protected static $PRP_CERT_DISPLAY_MNT = [
+        FFCST::PROPERTY_PRIVATE => 'cert_display_mnt',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_TRUE,
+        FFCST::PROPERTY_TITLE   => 'Afficher',
+        FFCST::PROPERTY_COMMENT => 'Afficher le montant',
+    ];
 
     /**
      * get properties
@@ -306,6 +314,7 @@ abstract class Certificate extends \FreeFW\Core\StorageModel
             'grp_id'            => self::$PRP_GRP_ID,
             'cau_id'            => self::$PRP_CAU_ID,
             'cert_manual'       => self::$PRP_CERT_MANUAL,
+            'cert_display_mnt'  => self::$PRP_CERT_DISPLAY_MNT,
         ];
     }
 

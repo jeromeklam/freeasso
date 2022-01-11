@@ -72,20 +72,32 @@ class Session extends \FreeAsso\Model\Base\Session
      *
      * @param int $p_year
      * @param int $p_month
+     * @param int $p_grp_id
      * 
      * @return \FreeAsso\Model\Session
      */
-    public static function getFactory(int $p_year, int $p_month = null)
+    public static function getFactory(int $p_year, int $p_month = null, $p_grp_id = null)
     {
-        $key = $p_year + '_' . $p_month;
+        $grpId = $p_grp_id;
+        if (!$grpId) {
+            /**
+             * @var \FreeSSO\Server $sso
+             */
+            $sso   = \FreeFW\DI\DI::getShared('sso');
+            $group = $sso->getUserGroup();
+            $grpId = $group->getGrpId();
+        }
+        //
+        $key = $p_year . '_' . $p_month;
         if (!isset(self::$factory[$key])) {
             $session = \FreeAsso\Model\Session::findFirst(
                 [
                     'sess_year'  => $p_year,
                     'sess_month' => $p_month,
+                    'grp_id'     => $grpId
                 ]
             );
-            if ($session) {
+            if (!$session) {
                 if ($p_month) {
                     $name = $p_year + '/' . str_pad($p_month, 2, '0', \STR_PAD_LEFT);
                 } else {
@@ -99,6 +111,7 @@ class Session extends \FreeAsso\Model\Base\Session
                     ->setSessMonth($p_month)
                     ->setSessStatus(self::STATUS_OPEN)
                     ->setSessType(self::TYPE_STANDARD)
+                    ->setGrpId($grpId)
                 ;
                 $session->create();
             }
@@ -112,10 +125,11 @@ class Session extends \FreeAsso\Model\Base\Session
      *
      * @param \DateTime $p_date
      * @param int       $p_grp_id
+     * @param boolean   $p_strict
      * 
      * @return \FreeAsso\Model\Session
      */
-    public static function findSession($p_date, $p_grp_id = null)
+    public static function findSession($p_date, $p_grp_id = null, $p_strict = true)
     {
         $grp_id = $p_grp_id;
         if ($p_date && $p_date instanceof \DateTime) {
@@ -140,25 +154,27 @@ class Session extends \FreeAsso\Model\Base\Session
             if (isset(self::$cache[$key])) {
                 return self::$cache[$key];
             }
-            $session = \FreeAsso\Model\Session::findFirst(
-                [
-                    'sess_type'  => \FreeAsso\Model\Session::TYPE_STANDARD,
-                    'sess_year'  => $year,
-                    'sess_month' => $month,
-                    'grp_id'     => $grp_id
-                ]
-            );
+            $crits = [
+                'sess_year'  => intval($year),
+                'sess_month' => intval($month),
+                'grp_id'     => $grp_id
+            ];
+            if ($p_strict) {
+                $crits['sess_type'] = \FreeAsso\Model\Session::TYPE_STANDARD;
+            }
+            $session = \FreeAsso\Model\Session::findFirst($crits);
             if ($session) {
                 self::$cache[$key] = $session;
                 return $session;
             } else {
-                $session = \FreeAsso\Model\Session::findFirst(
-                    [
-                        'sess_type'  => \FreeAsso\Model\Session::TYPE_STANDARD,
-                        'sess_year'  => $year,
-                        'grp_id'     => $grp_id
-                    ]
-                );
+                $crits = [
+                    'sess_year' => intval($year),
+                    'grp_id'    => $grp_id
+                ];
+                if ($p_strict) {
+                    $crits['sess_type'] = \FreeAsso\Model\Session::TYPE_STANDARD;
+                }
+                $session = \FreeAsso\Model\Session::findFirst($crits);
                 if ($session) {
                     self::$cache[$key] = $session;
                     return $session;

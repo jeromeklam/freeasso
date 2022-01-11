@@ -61,7 +61,7 @@ abstract class ReceiptDonation extends \FreeFW\Core\StorageModel
     ];
     protected static $PRP_RDO_MNT = [
         FFCST::PROPERTY_PRIVATE => 'rdo_mnt',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_MONETARY,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_RDO_MONEY = [

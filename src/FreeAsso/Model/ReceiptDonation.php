@@ -15,4 +15,22 @@ class ReceiptDonation extends \FreeAsso\Model\Base\ReceiptDonation
      * Behaviour
      */
     use \FreeSSO\Model\Behaviour\Group;
+    use \FreeAsso\Model\Behaviour\PaymentType;
+
+    /**
+     * Specific fields
+     *
+     * @return array
+     */
+    public function getSpecificEditionFields()
+    {
+        $fields   = [];
+        $fields[] = [
+            'name'    => 'ptyp_name',
+            'type'    => 'string',
+            'title'   => 'Type',
+            'content' => $this->getPaymentType()->getPtypName()
+        ];
+        return $fields;
+    }
 }
