@@ -355,7 +355,7 @@ class Client extends \FreeAsso\Model\Base\Client implements
             'name'    => 'cli_full_address',
             'type'    => 'string',
             'title'   => 'Addresse',
-            'content' => $this->getCliFullname(),
+            'content' => $full_address,
         ];
         return $fields;
     }
