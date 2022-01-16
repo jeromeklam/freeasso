@@ -144,7 +144,7 @@
         },
         {
             "name": "cakephp/core",
-            "version": "4.3.3",
+            "version": "4.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/core.git",
@@ -201,16 +201,16 @@
         },
         {
             "name": "cakephp/database",
-            "version": "4.3.3",
+            "version": "4.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/database.git",
-                "reference": "02197e9b1517ecdea546b8e7780682b34c967d3f"
+                "reference": "63fafcb9e38e6335c0d90634c54b21926427fb00"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/database/zipball/02197e9b1517ecdea546b8e7780682b34c967d3f",
-                "reference": "02197e9b1517ecdea546b8e7780682b34c967d3f",
+                "url": "https://api.github.com/repos/cakephp/database/zipball/63fafcb9e38e6335c0d90634c54b21926427fb00",
+                "reference": "63fafcb9e38e6335c0d90634c54b21926427fb00",
                 "shasum": ""
             },
             "require": {
@@ -252,11 +252,11 @@
                 "issues": "https://github.com/cakephp/cakephp/issues",
                 "source": "https://github.com/cakephp/database"
             },
-            "time": "2021-12-17T14:28:04+00:00"
+            "time": "2022-01-01T04:04:19+00:00"
         },
         {
             "name": "cakephp/datasource",
-            "version": "4.3.3",
+            "version": "4.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/datasource.git",
@@ -314,7 +314,7 @@
         },
         {
             "name": "cakephp/utility",
-            "version": "4.3.3",
+            "version": "4.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/utility.git",
@@ -508,29 +508,29 @@
         },
         {
             "name": "dragonmantank/cron-expression",
-            "version": "v3.2.3",
+            "version": "v3.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dragonmantank/cron-expression.git",
-                "reference": "47c53bbb260d3c398fba9bfa9683dcf67add2579"
+                "reference": "63f2a76a045bac6ec93cc2daf2b534b412aa0313"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dragonmantank/cron-expression/zipball/47c53bbb260d3c398fba9bfa9683dcf67add2579",
-                "reference": "47c53bbb260d3c398fba9bfa9683dcf67add2579",
+                "url": "https://api.github.com/repos/dragonmantank/cron-expression/zipball/63f2a76a045bac6ec93cc2daf2b534b412aa0313",
+                "reference": "63f2a76a045bac6ec93cc2daf2b534b412aa0313",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.2|^8.0",
-                "webmozart/assert": "^1.7.0"
+                "webmozart/assert": "^1.0"
             },
             "replace": {
                 "mtdowling/cron-expression": "^1.0"
             },
             "require-dev": {
                 "phpstan/extension-installer": "^1.0",
-                "phpstan/phpstan": "^0.12",
-                "phpstan/phpstan-webmozart-assert": "^0.12.7",
+                "phpstan/phpstan": "^1.0",
+                "phpstan/phpstan-webmozart-assert": "^1.0",
                 "phpunit/phpunit": "^7.0|^8.0|^9.0"
             },
             "type": "library",
@@ -557,7 +557,7 @@
             ],
             "support": {
                 "issues": "https://github.com/dragonmantank/cron-expression/issues",
-                "source": "https://github.com/dragonmantank/cron-expression/tree/v3.2.3"
+                "source": "https://github.com/dragonmantank/cron-expression/tree/v3.3.0"
             },
             "funding": [
                 {
@@ -565,7 +565,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-01-06T05:35:07+00:00"
+            "time": "2022-01-14T16:02:05+00:00"
         },
         {
             "name": "evenement/evenement",
@@ -1318,16 +1318,16 @@
         },
         {
             "name": "jeromeklam/freefw",
-            "version": "1.14.0",
+            "version": "1.14.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jeromeklam/freefw.git",
-                "reference": "6e1eba52c0b2c914256e88d008647af28d5f089b"
+                "reference": "85802059f483f37c00f10e3ca7e274d8449f60af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jeromeklam/freefw/zipball/6e1eba52c0b2c914256e88d008647af28d5f089b",
-                "reference": "6e1eba52c0b2c914256e88d008647af28d5f089b",
+                "url": "https://api.github.com/repos/jeromeklam/freefw/zipball/85802059f483f37c00f10e3ca7e274d8449f60af",
+                "reference": "85802059f483f37c00f10e3ca7e274d8449f60af",
                 "shasum": ""
             },
             "require": {
@@ -1389,9 +1389,9 @@
             ],
             "support": {
                 "issues": "https://github.com/jeromeklam/freefw/issues",
-                "source": "https://github.com/jeromeklam/freefw/tree/1.14.0"
+                "source": "https://github.com/jeromeklam/freefw/tree/1.14.1"
             },
-            "time": "2022-01-11T19:28:29+00:00"
+            "time": "2022-01-16T14:18:18+00:00"
         },
         {
             "name": "jeromeklam/freeoffice",
@@ -1451,16 +1451,16 @@
         },
         {
             "name": "jeromeklam/freesso",
-            "version": "1.5.0",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jeromeklam/freesso.git",
-                "reference": "5b4da6f36b87560b976c22a2fad09a35794150d9"
+                "reference": "1cd4144d4ce6b6c3793f952a2d0dc210b3d4606a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jeromeklam/freesso/zipball/5b4da6f36b87560b976c22a2fad09a35794150d9",
-                "reference": "5b4da6f36b87560b976c22a2fad09a35794150d9",
+                "url": "https://api.github.com/repos/jeromeklam/freesso/zipball/1cd4144d4ce6b6c3793f952a2d0dc210b3d4606a",
+                "reference": "1cd4144d4ce6b6c3793f952a2d0dc210b3d4606a",
                 "shasum": ""
             },
             "require": {
@@ -1508,9 +1508,9 @@
             ],
             "support": {
                 "issues": "https://github.com/jeromeklam/freesso/issues",
-                "source": "https://github.com/jeromeklam/freesso/tree/1.5.0"
+                "source": "https://github.com/jeromeklam/freesso/tree/1.6.0"
             },
-            "time": "2022-01-11T19:00:26+00:00"
+            "time": "2022-01-16T14:19:21+00:00"
         },
         {
             "name": "jeromeklam/freews",
@@ -3655,16 +3655,16 @@
         },
         {
             "name": "react/socket",
-            "version": "v1.10.0",
+            "version": "v1.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp/socket.git",
-                "reference": "d132fde589ea97f4165f2d94b5296499eac125ec"
+                "reference": "f474156aaab4f09041144fa8b57c7d70aed32a1c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reactphp/socket/zipball/d132fde589ea97f4165f2d94b5296499eac125ec",
-                "reference": "d132fde589ea97f4165f2d94b5296499eac125ec",
+                "url": "https://api.github.com/repos/reactphp/socket/zipball/f474156aaab4f09041144fa8b57c7d70aed32a1c",
+                "reference": "f474156aaab4f09041144fa8b57c7d70aed32a1c",
                 "shasum": ""
             },
             "require": {
@@ -3673,11 +3673,11 @@
                 "react/dns": "^1.8",
                 "react/event-loop": "^1.2",
                 "react/promise": "^2.6.0 || ^1.2.1",
-                "react/promise-timer": "^1.4.0",
+                "react/promise-timer": "^1.8",
                 "react/stream": "^1.2"
             },
             "require-dev": {
-                "clue/block-react": "^1.2",
+                "clue/block-react": "^1.5",
                 "phpunit/phpunit": "^9.3 || ^5.7 || ^4.8.35",
                 "react/promise-stream": "^1.2"
             },
@@ -3723,7 +3723,7 @@
             ],
             "support": {
                 "issues": "https://github.com/reactphp/socket/issues",
-                "source": "https://github.com/reactphp/socket/tree/v1.10.0"
+                "source": "https://github.com/reactphp/socket/tree/v1.11.0"
             },
             "funding": [
                 {
@@ -3735,7 +3735,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-11-29T10:08:24+00:00"
+            "time": "2022-01-14T10:14:32+00:00"
         },
         {
             "name": "react/stream",

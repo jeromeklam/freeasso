@@ -1,3 +1,13 @@
+# 1.15.0 : 16/01/2022
+
+* FreeFW
+    * Nouvelle version 
+* FreeSSO
+    * Nouvelle version
+* Api
+    * Ajout d'une option permettant dfe convertir la monnaie pour les montants collectés et restants
+    * Corrections bugs de calcul, ...
+
 # 1.14.0 : 11/01/2022
 
 * FreeFW

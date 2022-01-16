@@ -335,6 +335,28 @@ class Client extends \FreeAsso\Model\Base\Client implements
                 'content' => null,
             ];
         }
+        $full_address = '';
+        if (trim($this->getCliAddress1()) != '') {
+            $full_address = trim($this->getCliAddress1());
+        }
+        if (trim($this->getCliAddress2()) != '') {
+            $full_address = trim($full_address) . ' ' . trim($this->getCliAddress2());
+        }
+        if (trim($this->getCliAddress3()) != '') {
+            $full_address = trim($full_address) . ' ' . trim($this->getCliAddress3());
+        }
+        if (trim($this->getCliCp()) != '') {
+            $full_address = trim($full_address) . ' ' . trim($this->getCliCp());
+        }
+        if (trim($this->getCliTown()) != '') {
+            $full_address = trim($full_address) . ' ' . trim($this->getCliTown());
+        }
+        $fields[] = [
+            'name'    => 'cli_full_address',
+            'type'    => 'string',
+            'title'   => 'Addresse',
+            'content' => $this->getCliFullname(),
+        ];
         return $fields;
     }
 

@@ -120,6 +120,9 @@ class Site extends \FreeAsso\Model\Base\Site  implements
     {
         if ($this->site_count_cause === null) {
             $this->site_count_cause = 0;
+            /**
+             * @var \FreeFW\Model\Query $query
+             */
             $query = \FreeAsso\Model\Cause::getQuery();
             $query
                 ->setType(\FreeFW\Model\Query::QUERY_COUNT)
@@ -128,7 +131,7 @@ class Site extends \FreeAsso\Model\Base\Site  implements
                     'cau_to' => null,
                 ])
             ;
-            if ($query->execute()) {
+            if ($query->executeWithCache()) {
                 foreach ($query->getResult() as $row) {
                     $this->site_count_cause = $row->MONTOT;
                 }

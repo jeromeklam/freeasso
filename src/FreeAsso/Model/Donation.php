@@ -434,6 +434,15 @@ class Donation extends \FreeAsso\Model\Base\Donation
                 } 
             }
         }
+        if ($this->getSpoId() <= 0 && $this->getDonEndTs() == '') {
+            $this->addError(
+                \FreeFW\Constants::ERROR_REQUIRED,
+                'Need end date',
+                \FreeFW\Core\Error::TYPE_PRECONDITION,
+                'don_end_ts'
+            );
+            return false;
+        }
         return $this;
     }
 
@@ -450,6 +459,14 @@ class Donation extends \FreeAsso\Model\Base\Donation
             'type'    => 'boolean',
             'title'   => 'regular',
             'content' => $this->getSpoId() > 0,
+        ];
+        $date = \FreeFW\Tools\Date::mysqlToDatetime($this->getDonRealTs());
+        $year = intval($date->format('Y'));
+        $fields[] = [
+            'name'    => 'don_year',
+            'type'    => 'integer',
+            'title'   => 'Année',
+            'content' => $year,
         ];
         return $fields;
     }

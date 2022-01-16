@@ -164,6 +164,14 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
                 $first = false;
             }
         }
+        /**
+         * @var \FreeAsso\Model\Cause $cause
+         */
+        $cause = $this->getCause();
+        $cause->updateMnt();
+        /**
+         * 
+         */
         $this->forwardRawEvent(\FreeAsso\Constants::EVENT_NEW_SPONSORSHIP, $this);
         /**
          * @var \FreeAsso\Service\Sponsorship $sponsorshipService
@@ -194,6 +202,11 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
      */
     public function afterSave()
     {
+        /**
+         * @var \FreeAsso\Model\Cause $cause
+         */
+        $cause = $this->getCause();
+        $cause->updateMnt();
         if (!$this->previous_to && $this->previous_to == '' && $this->getSpoTo()) {
             $this->forwardRawEvent(\FreeAsso\Constants::EVENT_END_SPONSORSHIP, $this);
             /**

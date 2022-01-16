@@ -431,15 +431,6 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
     }
 
     /**
-     *
-     * @return mixed
-     */
-    public function getCauMntRaised()
-    {
-        return $this->cau_mnt;
-    }
-
-    /**
      * Before save
      *
      * @return boolean
@@ -604,5 +595,34 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
             }
         }
         return $path;
+    }
+
+    /**
+     * Amount left
+     * 
+     * @return number
+     */
+    public function getCauMntLeft()
+    {
+        $moneyFrom = 'EUR';
+        $moneyTo = \FreeFW\DI\DI::getShared('money', 'EUR');
+        return \FreeFW\Model\Rate::convert($moneyFrom, $moneyTo, $this->cau_mnt_left);
+    }
+
+    /**
+     * Amount raised
+     * 
+     * @return number
+     */
+    public function getCauMntRaised()
+    {
+        $moneyFrom = 'EUR';
+        $moneyTo = \FreeFW\DI\DI::getShared('money', 'EUR');
+        $amount = $this->cau_mnt;
+        $type = $this->getCauseType();
+        if ($amount > $type->getCautMaxMnt()) {
+            $amount = $type->getCautMaxMnt();
+        }
+        return \FreeFW\Model\Rate::convert($moneyFrom, $moneyTo, $amount);
     }
 }

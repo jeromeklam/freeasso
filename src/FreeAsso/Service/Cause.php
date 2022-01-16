@@ -233,11 +233,14 @@ class Cause extends \FreeFW\Core\Service
             if ($type) {
                 /**
                  * Tous les dons ponctuels déjà enregistrés
-                 * Les dons réhuliers seront gérés à part.
+                 * Les dons réguliers seront gérés à part.
                  * On ne prend que ceux qui sont "payés"
                  * @var \FreeAsso\Model\Donation $model
                  */
                 $model   = \FreeFW\DI\DI::get('FreeAsso::Model::Donation');
+                /**
+                 * @var \FreeFW\Model\Query $query
+                 */
                 $query   = $model->getQuery();
                 $filters = [
                     'cau_id'     => $p_cause->getCauId(),
@@ -245,7 +248,7 @@ class Cause extends \FreeFW\Core\Service
                     'spo_id'     => null
                 ];
                 if ($type->getCautMntType() == \FreeAsso\Model\CauseType::MNT_TYPE_ANNUAL) {
-                    $filters['don_ask_ts'] = [\FreeFW\Storage\Storage::COND_LOWER_EQUAL => \FreeFW\Tools\Date::getCurrentTimestamp()];
+                    $filters['don_real_ts'] = [\FreeFW\Storage\Storage::COND_LOWER_EQUAL => \FreeFW\Tools\Date::getCurrentTimestamp()];
                     $filters['don_end_ts'] = [\FreeFW\Storage\Storage::COND_GREATER_EQUAL => \FreeFW\Tools\Date::getCurrentTimestamp()];
                 }
                 $query
