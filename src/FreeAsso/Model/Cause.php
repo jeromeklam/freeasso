@@ -610,19 +610,29 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
     }
 
     /**
+     * 
+     */
+    public function setCauMnt($p_value)
+    {
+        $this->cau_mnt = $p_value;
+        $moneyFrom = 'EUR';
+        $moneyTo = \FreeFW\DI\DI::getShared('money', 'EUR');
+        $amount = $this->cau_mnt;
+        $type = $this->getCauseType();
+        if ($type && $amount > $type->getCautMaxMnt()) {
+            $amount = $type->getCautMaxMnt();
+        }
+        $this->cau_mnt_raised = \FreeFW\Model\Rate::convert($moneyFrom, $moneyTo, $amount);
+        return $this;
+    }
+
+    /**
      * Amount raised
      * 
      * @return number
      */
     public function getCauMntRaised()
     {
-        $moneyFrom = 'EUR';
-        $moneyTo = \FreeFW\DI\DI::getShared('money', 'EUR');
-        $amount = $this->cau_mnt;
-        $type = $this->getCauseType();
-        if ($amount > $type->getCautMaxMnt()) {
-            $amount = $type->getCautMaxMnt();
-        }
-        return \FreeFW\Model\Rate::convert($moneyFrom, $moneyTo, $amount);
+        return $this->cau_mnt_raised;
     }
 }
