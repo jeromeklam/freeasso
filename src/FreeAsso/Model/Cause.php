@@ -610,7 +610,9 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
     }
 
     /**
+     * Force mnt
      * 
+     * @return \FreeAsso\Model\Cause
      */
     public function setCauMnt($p_value)
     {
@@ -624,6 +626,18 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
         }
         $this->cau_mnt_raised = \FreeFW\Model\Rate::convert($moneyFrom, $moneyTo, $amount);
         return $this;
+    }
+
+    /**
+     * Amount left
+     * 
+     * @return number
+     */
+    public function getCauMnt()
+    {
+        $moneyFrom = 'EUR';
+        $moneyTo = \FreeFW\DI\DI::getShared('money', 'EUR');
+        return \FreeFW\Model\Rate::convert($moneyFrom, $moneyTo, $this->cau_mnt);
     }
 
     /**

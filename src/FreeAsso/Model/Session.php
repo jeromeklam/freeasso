@@ -81,14 +81,14 @@ class Session extends \FreeAsso\Model\Base\Session
         $grpId = $p_grp_id;
         if (!$grpId) {
             /**
-             * @var \FreeSSO\Server $sso
+             * @var \FreeFW\Interfaces\SSOInterface $sso
              */
             $sso   = \FreeFW\DI\DI::getShared('sso');
             $group = $sso->getUserGroup();
             $grpId = $group->getGrpId();
         }
         //
-        $key = $p_year . '_' . $p_month;
+        $key = $p_year . '_' . $p_month . '_' . $grpId;
         if (!isset(self::$factory[$key])) {
             $session = \FreeAsso\Model\Session::findFirst(
                 [

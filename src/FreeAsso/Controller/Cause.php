@@ -28,4 +28,33 @@ class Cause extends \FreeFW\Core\ApiController
         $this->logger->debug('FreeFW.CauseController.getCurrentSponsors.end');
         return $this->createResponse(200, $data);
     }
+
+    /**
+     * Specific filters from site....
+     *
+     * @param \FreeFW\Http\ApiParams $p_api_params
+     * @param string                 $p_method
+     *
+     * @return \FreeFW\Http\ApiParams
+     */
+    public function adaptApiParams(\FreeFW\Http\ApiParams $p_api_params, $p_method='')
+    {
+        $money = \FreeFW\DI\DI::getShared('money', 'EUR');
+        if ($money != 'EUR') {
+            $conditions = $p_api_params->getFilters();
+            $conditions->__callback(function (&$p_condition) use ($money) {
+                $left = $p_condition->getLeftMember();
+                if ($left instanceof \FreeFW\Model\ConditionMember) {
+                    if ($left->getValue() == 'cau_mnt_left') {
+                        $right = $p_condition->getRightMember();
+                        $right->setValue(
+                            \FreeFW\Model\Rate::convert('EUR', $money, $right->getValue())
+                        );
+                        $p_condition->setRightMember($right);
+                    }
+                }
+            });
+        }
+        return $p_api_params;
+    }
 }

@@ -10,6 +10,33 @@ namespace FreeAsso\Command;
 class Cron
 {
     /**
+     * Send errors
+     *
+     * @param \FreeFW\Console\Input\AbstractInput $p_input
+     * @param \FreeFW\Console\Output\AbstractOutput $p_output
+     */
+    public function checkErrors(
+        \FreeFW\Console\Input\AbstractInput $p_input,
+        \FreeFW\Console\Output\AbstractOutput $p_output
+    ) {
+        $p_output->write("Des erreurs ??", true);
+        $file = ini_get('error_log');
+        if (is_file($file)) {
+            $content = file_get_contents($file);
+            if ($content != '') {
+                $p_output->write("Sending errors...", true);
+                /**
+                 * @var \FreeFW\Service\Message $msgService
+                 */
+                $msgService = \FreeFW\DI\DI::get('FreeFW::Service::Message');
+                $msgService->sendAdminMessage('Errors on ' . gethostname(), $content);
+                @unlink($file);
+            }
+        }
+        $p_output->write("Fin de la vérification des erreurs", true);
+    }
+
+    /**
      * Mise à jour des données des clients
      *
      * @param \FreeFW\Console\Input\AbstractInput $p_input
