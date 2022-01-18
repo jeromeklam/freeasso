@@ -168,7 +168,12 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
          * @var \FreeAsso\Model\Cause $cause
          */
         $cause = $this->getCause();
-        $cause->updateMnt();
+        if ($cause) {
+            $causeType = $cause->getCauseType();
+            if ($causeType && $causeType->getCautMntType() === \FreeAsso\Model\CauseType::MNT_TYPE_ANNUAL) {
+                $cause->updateMnt();
+            }
+        }
         /**
          * 
          */
