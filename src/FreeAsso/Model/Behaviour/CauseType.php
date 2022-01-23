@@ -25,6 +25,11 @@ trait CauseType
     public function setCauseType($p_cause_type)
     {
         $this->cause_type = $p_cause_type;
+        if ($this->cause_type) {
+            $this->caut_id = $this->cause_type->getCautId();
+        } else {
+            $this->caut_id = null;  
+        }
         return $this;
     }
 

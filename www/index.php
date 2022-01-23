@@ -65,6 +65,7 @@ try {
     }
     // Le logger
     $myLogCfg = $myConfig->get('logger');
+    $myLogger = new \Psr\Log\NullLogger();
     if (is_array($myLogCfg)) {
         if (array_key_exists('file', $myLogCfg)) {
             if (array_key_exists('level', $myLogCfg)) {
@@ -76,8 +77,6 @@ try {
         } else {
             throw new \UnexpectedValueException('Log type is unknown !');
         }
-    } else {
-        $myLogger = new \Psr\Log\NullLogger();
     }
     // Queue
     $myQueue    = false;

@@ -45,7 +45,9 @@ $routes_subspecies = [
         FFCSTRT::ROUTE_CONTROLLER => 'FreeAsso::Controller::Subspecies',
         FFCSTRT::ROUTE_FUNCTION   => 'getAll',
         FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
-        FFCSTRT::ROUTE_MIDDLEWARE => [],
+        FFCSTRT::ROUTE_MIDDLEWARE => [
+            'FreeFW::Middleware::RouteCache'
+        ],
         FFCSTRT::ROUTE_INCLUDE    => [
             'default' => ['species']
         ],
