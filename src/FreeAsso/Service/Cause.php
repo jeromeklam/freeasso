@@ -277,7 +277,7 @@ class Cause extends \FreeFW\Core\Service
                     $results = $query->getResult();
                     if ($results) {
                         foreach ($results as $row) {
-                            $mnt  = \FreeFW\Tools\Monetary::convert($row->getSpoMnt(), $row->getSpoMoney(), $type->getCautMoney());
+                            $mnt = $row->getSpoMntInput();
                             /**
                              * @var \Datetime $now
                              */
@@ -357,9 +357,11 @@ class Cause extends \FreeFW\Core\Service
                                 if ($mult <= 0) {
                                     continue;
                                 }
-                                $total = $total + ($mult * $mnt);
+                                $mnt = \FreeFW\Tools\Monetary::convert(($mult * $mnt), $row->getSpoMoneyInput(), $type->getCautMoney());
+                                $total = $total + $mnt;
                             } else {
                                 //
+                                $mnt = \FreeFW\Tools\Monetary::convert($mnt, $row->getSpoMoneyInpuy(), $type->getCautMoney());
                                 $total = $total + $mnt;
                             }
                         }

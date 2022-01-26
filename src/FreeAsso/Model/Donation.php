@@ -164,7 +164,7 @@ class Donation extends \FreeAsso\Model\Base\Donation
         // Update cause
         $cause  = $this->getCause();
         if ($cause) {
-            if (!$cause->handleDonation($this, null)) {
+            if (!$cause->handleDonation()) {
                 $this->addErrors($cause->getErrors());
                 $this->addError(\FreeAsso\Constants::ERROR_DONATION_UPDATEDB, "Erreur de mise à jour du bénéficiare");
                 return false;
@@ -173,7 +173,7 @@ class Donation extends \FreeAsso\Model\Base\Donation
         if ($this->old_donation && $this->old_donation->getCauId() !== $this->getCauId()) {
             $cause = $this->old_donation->getCause();
             if ($cause) {
-                if (!$cause->handleDonation($this, $this->old_donation)) {
+                if (!$cause->handleDonation()) {
                     $this->addError(\FreeAsso\Constants::ERROR_DONATION_UPDATEDB, "Erreur de mise à jour du bénéficiare (2)");
                     return false;
                 }
@@ -255,7 +255,7 @@ class Donation extends \FreeAsso\Model\Base\Donation
         // Update cause
         $cause = $this->getCause();
         if ($cause) {
-            return $cause->handleDonation(null, $this->old_donation);
+            return $cause->handleDonation();
         }
         return $this->updateAfterDbAction();
     }
@@ -331,7 +331,8 @@ class Donation extends \FreeAsso\Model\Base\Donation
             $this->addError(\FreeAsso\Constants::ERROR_DONATION_UPDATEDB, "Erreur updateDb " . $this->getDonId());
             return false;
         }
-        if ($this->send_email) {
+        // Jamais de notification pour la création d'un don pour un paiement régulier
+        if ($this->send_email && ($this->getSpoId() === null || $this->getSpoId() <= 0)) {
             /**
              * @var \FreeAsso\Service\Donation $donationService
              */

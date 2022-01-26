@@ -1318,22 +1318,22 @@
         },
         {
             "name": "jeromeklam/freefw",
-            "version": "1.14.2",
+            "version": "1.15.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jeromeklam/freefw.git",
-                "reference": "185dfc1c32a7d68d82191ad2d4432e5aac847b91"
+                "reference": "b7957609f83cdd6bc45f21443270bbc694994e2b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jeromeklam/freefw/zipball/185dfc1c32a7d68d82191ad2d4432e5aac847b91",
-                "reference": "185dfc1c32a7d68d82191ad2d4432e5aac847b91",
+                "url": "https://api.github.com/repos/jeromeklam/freefw/zipball/b7957609f83cdd6bc45f21443270bbc694994e2b",
+                "reference": "b7957609f83cdd6bc45f21443270bbc694994e2b",
                 "shasum": ""
             },
             "require": {
                 "bshaffer/oauth2-server-php": "*",
                 "dragonmantank/cron-expression": "^3.1",
-                "firebase/php-jwt": "*",
+                "firebase/php-jwt": "^5.5.1",
                 "giggsey/libphonenumber-for-php": "*",
                 "gregwar/image": "^2.0",
                 "guzzlehttp/guzzle": "*",
@@ -1389,9 +1389,9 @@
             ],
             "support": {
                 "issues": "https://github.com/jeromeklam/freefw/issues",
-                "source": "https://github.com/jeromeklam/freefw/tree/1.14.2"
+                "source": "https://github.com/jeromeklam/freefw/tree/1.15.2"
             },
-            "time": "2022-01-18T18:32:46+00:00"
+            "time": "2022-01-26T20:51:16+00:00"
         },
         {
             "name": "jeromeklam/freeoffice",
@@ -1451,16 +1451,16 @@
         },
         {
             "name": "jeromeklam/freesso",
-            "version": "1.6.0",
+            "version": "1.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jeromeklam/freesso.git",
-                "reference": "1cd4144d4ce6b6c3793f952a2d0dc210b3d4606a"
+                "reference": "0fe5c86fede7370749a9f2fcfea6326f74a2ad4c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jeromeklam/freesso/zipball/1cd4144d4ce6b6c3793f952a2d0dc210b3d4606a",
-                "reference": "1cd4144d4ce6b6c3793f952a2d0dc210b3d4606a",
+                "url": "https://api.github.com/repos/jeromeklam/freesso/zipball/0fe5c86fede7370749a9f2fcfea6326f74a2ad4c",
+                "reference": "0fe5c86fede7370749a9f2fcfea6326f74a2ad4c",
                 "shasum": ""
             },
             "require": {
@@ -1508,9 +1508,9 @@
             ],
             "support": {
                 "issues": "https://github.com/jeromeklam/freesso/issues",
-                "source": "https://github.com/jeromeklam/freesso/tree/1.6.0"
+                "source": "https://github.com/jeromeklam/freesso/tree/1.6.2"
             },
-            "time": "2022-01-16T14:19:21+00:00"
+            "time": "2022-01-26T20:41:10+00:00"
         },
         {
             "name": "jeromeklam/freews",
@@ -3866,24 +3866,24 @@
         },
         {
             "name": "robmorgan/phinx",
-            "version": "0.12.9",
+            "version": "0.12.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/phinx.git",
-                "reference": "5a0146a74c1bc195d1f5da86afa3b68badf7d90e"
+                "reference": "ad056cff354fc67fedf9bf96c441c2b428afad0c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/phinx/zipball/5a0146a74c1bc195d1f5da86afa3b68badf7d90e",
-                "reference": "5a0146a74c1bc195d1f5da86afa3b68badf7d90e",
+                "url": "https://api.github.com/repos/cakephp/phinx/zipball/ad056cff354fc67fedf9bf96c441c2b428afad0c",
+                "reference": "ad056cff354fc67fedf9bf96c441c2b428afad0c",
                 "shasum": ""
             },
             "require": {
                 "cakephp/database": "^4.0",
                 "php": ">=7.2",
                 "psr/container": "^1.0 || ^2.0",
-                "symfony/config": "^3.4|^4.0|^5.0",
-                "symfony/console": "^3.4|^4.0|^5.0"
+                "symfony/config": "^3.4|^4.0|^5.0|^6.0",
+                "symfony/console": "^3.4|^4.0|^5.0|^6.0"
             },
             "require-dev": {
                 "cakephp/cakephp-codesniffer": "^4.0",
@@ -3946,9 +3946,9 @@
             ],
             "support": {
                 "issues": "https://github.com/cakephp/phinx/issues",
-                "source": "https://github.com/cakephp/phinx/tree/0.12.9"
+                "source": "https://github.com/cakephp/phinx/tree/0.12.10"
             },
-            "time": "2021-10-12T10:49:25+00:00"
+            "time": "2022-01-21T19:53:14+00:00"
         },
         {
             "name": "sabberworm/php-css-parser",
@@ -6206,16 +6206,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.5.11",
+            "version": "9.5.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "2406855036db1102126125537adb1406f7242fdd"
+                "reference": "597cb647654ede35e43b137926dfdfef0fb11743"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/2406855036db1102126125537adb1406f7242fdd",
-                "reference": "2406855036db1102126125537adb1406f7242fdd",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/597cb647654ede35e43b137926dfdfef0fb11743",
+                "reference": "597cb647654ede35e43b137926dfdfef0fb11743",
                 "shasum": ""
             },
             "require": {
@@ -6293,7 +6293,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.5.11"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.5.13"
             },
             "funding": [
                 {
@@ -6305,7 +6305,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-12-25T07:07:57+00:00"
+            "time": "2022-01-24T07:33:35+00:00"
         },
         {
             "name": "sebastian/cli-parser",

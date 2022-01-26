@@ -265,12 +265,9 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
      * Handle donation CRUD
      * Update Mnt, reaised, left, ...
      *
-     * @param \FreeAsso\Model\Donation $p_added_donation
-     * @param \FreeAsso\Model\Donation $p_removed_donation
-     *
      * @return boolean
      */
-    public function handleDonation($p_added_donation = null, $p_removed_donation = null)
+    public function handleDonation()
     {
         $causeType = $this->getCauseType();
         if ($causeType && $causeType->getCautMntType() === \FreeAsso\Model\CauseType::MNT_TYPE_ANNUAL) {

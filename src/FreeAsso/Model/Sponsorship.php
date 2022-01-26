@@ -131,6 +131,20 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
     }
 
     /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    protected function updateDbAction() 
+    {
+        /**
+         * @var \FreeAsso\Model\Cause $cause
+         */
+        $cause = $this->getCause();
+        $cause->handleDonation();
+    }
+
+    /**
      *
      * @return boolean
      */
@@ -165,16 +179,6 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
             }
         }
         /**
-         * @var \FreeAsso\Model\Cause $cause
-         */
-        $cause = $this->getCause();
-        if ($cause) {
-            $causeType = $cause->getCauseType();
-            if ($causeType && $causeType->getCautMntType() === \FreeAsso\Model\CauseType::MNT_TYPE_ANNUAL) {
-                $cause->updateMnt();
-            }
-        }
-        /**
          * 
          */
         $this->forwardRawEvent(\FreeAsso\Constants::EVENT_NEW_SPONSORSHIP, $this);
@@ -183,6 +187,10 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
          */
         $sponsorshipService = \FreeFW\DI\DI::get('FreeAsso::Service::Sponsorship');
         $sponsorshipService->notification($this, "create", true);
+        /**
+         * 
+         */
+        $this->updateDbAction();
         return true;
     }
 
@@ -207,12 +215,7 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
      */
     public function afterSave()
     {
-        /**
-         * @var \FreeAsso\Model\Cause $cause
-         */
-        $cause = $this->getCause();
-        $cause->updateMnt();
-        if (!$this->previous_to && $this->previous_to == '' && $this->getSpoTo()) {
+        if ((!$this->previous_to || $this->previous_to == '') && $this->getSpoTo()) {
             $this->forwardRawEvent(\FreeAsso\Constants::EVENT_END_SPONSORSHIP, $this);
             /**
              * @var \FreeAsso\Service\Sponsorship $sponsorshipService
@@ -220,6 +223,18 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
             $sponsorshipService = \FreeFW\DI\DI::get('FreeAsso::Service::Sponsorship');
             $sponsorshipService->notification($this, "remove", false);
         }
+        $this->updateDbAction();
+        return true;
+    }
+
+    /**
+     * After remove
+     *
+     * @return boolean
+     */
+    public function afterRemove()
+    {
+        $this->updateDbAction();
         return true;
     }
 }
