@@ -1,3 +1,7 @@
+# 1.16.2 : 28/01/2022
+
+* fix: bug de recherche de cause si opérateur 'between'
+
 # 1.16.1 : 26/01/2022
 
 * FreeFW
