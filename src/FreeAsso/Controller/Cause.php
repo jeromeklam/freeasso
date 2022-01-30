@@ -47,9 +47,15 @@ class Cause extends \FreeFW\Core\ApiController
                 if ($left instanceof \FreeFW\Model\ConditionMember) {
                     if ($left->getValue() == 'cau_mnt_left') {
                         $right = $p_condition->getRightMember();
-                        $right->setValue(
-                            \FreeFW\Model\Rate::convert('EUR', $money, $right->getValue())
-                        );
+                        if (is_array($right->getValue())) {
+                            $newRight = [];
+                            foreach ($right->getValue() as $val) {
+                                $newRight[] = \FreeFW\Model\Rate::convert('EUR', $money, $val);
+                            }
+                        } else {
+                            $newRight = \FreeFW\Model\Rate::convert('EUR', $money, $right->getValue());
+                        }
+                        $right->setValue($newRight);
                         $p_condition->setRightMember($right);
                     }
                 }

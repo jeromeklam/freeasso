@@ -96,7 +96,9 @@ class ReceiptGeneration extends \FreeFW\Core\Service
                 $results = $query->getResult();
                 if ($results->count() > 0) {
                     foreach ($results as $oneReceipt) {
-                        $oneReceipt->remove();
+                        if (!$oneReceipt->remove(false)) {
+                            throw new \Exception('Receipt remove error');
+                        }
                     }
                 }
             }
@@ -192,7 +194,7 @@ class ReceiptGeneration extends \FreeFW\Core\Service
                      * @var \FreeAsso\Model\Client $oneClient
                      */
                     foreach ($results as $oneClient) {
-                        $clientService->generateReceiptByYear($oneClient, $year, $types, $stats, $grpId, $generation->getEdiId());
+                        $clientService->generateReceiptByYear($oneClient, $year, $types, $stats, $grpId, $generation->getEdiId(), $generation->getRecgId());
                     }
                 }
                 // Sauvegarde des statistiques

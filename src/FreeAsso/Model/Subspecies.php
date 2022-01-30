@@ -12,6 +12,11 @@ class Subspecies extends \FreeAsso\Model\Base\Subspecies
 {
 
     /**
+     * @see \FreeFW\Core\Model
+     */
+    protected $__cached_model = true;
+
+    /**
      * Species
      * @var \FreeAsso\Model\Species
      */

@@ -132,10 +132,11 @@ class Client extends \FreeFW\Core\Service
      * @param array                  $p_stats
      * @param int                    $p_grp_id
      * @param int                    $p_edi_id
+     * @param int                    $p_recg_id
      * 
      * @return void
      */
-    public function generateReceiptByYear($p_client, $p_year, &$p_types, &$p_stats, $p_grp_id, $p_edi_id)
+    public function generateReceiptByYear($p_client, $p_year, &$p_types, &$p_stats, $p_grp_id, $p_edi_id, $p_recg_id)
     {
         $this->logger->info('Receipt for ' . $p_client->getFullname() . ' START');
         $query2 = \FreeAsso\Model\Donation::getQuery();
@@ -169,7 +170,7 @@ class Client extends \FreeFW\Core\Service
                             $number = '';
                             foreach ($p_types as $idx => $oneType) {
                                 if ($rettId == $oneType->getRettId()) {
-                                    $number = $oneType->getNewNumber();
+                                    $number = $oneType->getNewNumber(true, ['year' => $p_year]);
                                     break;
                                 }
                             }
@@ -191,8 +192,10 @@ class Client extends \FreeFW\Core\Service
                                 ->setRecEmail(null)
                                 ->setRecSendMethod(\FreeAsso\Model\Receipt::SEND_METHOD_MANUAL)
                                 ->setRecMnt(0)
-                                ->setRecMoney('EUR')
-                                ->setRecNumber($number);
+                                ->setRecMoney($oneDonation->getDonMoneyInput())
+                                ->setRecNumber($number)
+                                ->setRecgId($p_recg_id)
+                            ;
                             if ($p_client->getCliEmail() != '') {
                                 $receipt
                                     ->setRecEmail($p_client->getCliEmail())
@@ -201,8 +204,9 @@ class Client extends \FreeFW\Core\Service
                             $receipts[$rettId] = $receipt;
                         }
                         $receipts[$rettId]
-                            ->addMnt($oneDonation->getDonMnt())
-                            ->addDonation($oneDonation);
+                            ->addMnt($oneDonation->getDonMntInput(), $oneDonation->getDonMoneyInput())
+                            ->addDonation($oneDonation)
+                        ;
                     } else {
                         // @todo: error
                         throw new \Exception('Erreur de recherche de type de reçu');
@@ -217,7 +221,7 @@ class Client extends \FreeFW\Core\Service
                         $p_stats[$key] = ['nb' => 0, 'mnt' => 0];
                     }
                     $p_stats[$key]['nb']++;
-                    $p_stats[$key]['mnt'] += $oneDonation->getDonMnt();
+                    $p_stats[$key]['mnt'] += $oneDonation->getDonMntInput();
                     // Cause Type
                     $cause = $oneDonation->getCause();
                     if ($cause) {
@@ -228,14 +232,14 @@ class Client extends \FreeFW\Core\Service
                                 $p_stats[$key] = ['nb' => 0, 'mnt' => 0];
                             }
                             $p_stats[$key]['nb']++;
-                            $p_stats[$key]['mnt'] += $oneDonation->getDonMnt();
+                            $p_stats[$key]['mnt'] += $oneDonation->getDonMntInput();
                         } else {
                             $key = $year . '_' . $month . '_cautponc@' . $cause->getCautId();
                             if (!isset($p_stats[$key])) {
                                 $p_stats[$key] = ['nb' => 0, 'mnt' => 0];
                             }
                             $p_stats[$key]['nb']++;
-                            $p_stats[$key]['mnt'] += $oneDonation->getDonMnt();
+                            $p_stats[$key]['mnt'] += $oneDonation->getDonMntInput();
                         }
                     }
                     // Total
@@ -244,7 +248,7 @@ class Client extends \FreeFW\Core\Service
                         $p_stats[$key] = ['nb' => 0, 'mnt' => 0];
                     }
                     $p_stats[$key]['nb']++;
-                    $p_stats[$key]['mnt'] += $oneDonation->getDonMnt();
+                    $p_stats[$key]['mnt'] += $oneDonation->getDonMntInput();
                 }
                 // End and save...
                 /**
@@ -264,47 +268,49 @@ class Client extends \FreeFW\Core\Service
                             '.'
                         )
                     );
-                    $oneReceipt->startTransaction();
-                    if (!$oneReceipt->create(false)) {
-                        $bErr = true;
-                        // @todo: error
-                        throw new \Exception('Erreur d\'enregistrement du reçu');
-                    } else {
-                        /**
-                         * @var \FreeAsso\Model\Donation $oneDonation
-                         */
-                        foreach ($oneReceipt->getDonations() as $oneDonation) {
-                            $receiptDonation = new \FreeAsso\Model\ReceiptDonation();
-                            $receiptDonation
-                                ->setDonId($oneDonation->getDonId())
-                                ->setRecId($oneReceipt->getRecId())
-                                ->setRdoMoney($oneReceipt->getRecMoney())
-                                ->setRdoMnt($oneReceipt->getRecMnt())
-                                ->setRdoTs(\FreeFW\Tools\Date::getCurrentTimestamp())
-                                ->setPtypId($oneDonation->getPtypId());
-                            if (!$receiptDonation->create(false)) {
-                                $bErr = true;
-                                break;
-                            }
-                            $oneDonation->setRecId($oneReceipt->getRecId());
-                            $oneDonation->setCheckSession(false); // Hook
-                            if (!$oneDonation->save(false, true)) {
-                                $bErr = true;
-                                break;
+                    if ($oneReceipt->getRecMnt() > 0) {
+                        $oneReceipt->startTransaction();
+                        if (!$oneReceipt->create(false)) {
+                            $bErr = true;
+                            // @todo: error
+                            throw new \Exception('Erreur d\'enregistrement du reçu');
+                        } else {
+                            /**
+                             * @var \FreeAsso\Model\Donation $oneDonation
+                             */
+                            foreach ($oneReceipt->getDonations() as $oneDonation) {
+                                $receiptDonation = new \FreeAsso\Model\ReceiptDonation();
+                                $receiptDonation
+                                    ->setDonId($oneDonation->getDonId())
+                                    ->setRecId($oneReceipt->getRecId())
+                                    ->setRdoMoney($oneReceipt->getRecMoney())
+                                    ->setRdoMnt($oneReceipt->getRecMnt())
+                                    ->setRdoTs(\FreeFW\Tools\Date::getCurrentTimestamp())
+                                    ->setPtypId($oneDonation->getPtypId());
+                                if (!$receiptDonation->create(false)) {
+                                    $bErr = true;
+                                    break;
+                                }
+                                $oneDonation->setRecId($oneReceipt->getRecId());
+                                $oneDonation->setCheckSession(false); // Hook
+                                if (!$oneDonation->save(false, true)) {
+                                    $bErr = true;
+                                    break;
+                                }
                             }
                         }
-                    }
-                    if ($bErr) {
-                        throw new \Exception('Erreur d\'enregistrement des lignes du reçu');
-                        $oneReceipt->rollbackTransaction();
-                    } else {
-                        $this->logger->debug('    * ' . $oneReceipt->getRecNumber() . ' : ' . $oneReceipt->getRecMntLetter());
-                        $oneReceipt->commitTransaction();
-                    }
-                    // Génération du PDF et enregistrement
-                    $printReceipt = \FreeAsso\Model\Receipt::findFirst(['rec_id' => $oneReceipt->getRecId()]);
-                    if ($printReceipt) {
-                        $printReceipt->generatePDF($p_edi_id);
+                        if ($bErr) {
+                            throw new \Exception('Erreur d\'enregistrement des lignes du reçu');
+                            $oneReceipt->rollbackTransaction();
+                        } else {
+                            $this->logger->debug('    * ' . $oneReceipt->getRecNumber() . ' : ' . $oneReceipt->getRecMntLetter());
+                            $oneReceipt->commitTransaction();
+                        }
+                        // Génération du PDF et enregistrement
+                        $printReceipt = \FreeAsso\Model\Receipt::findFirst(['rec_id' => $oneReceipt->getRecId()]);
+                        if ($printReceipt) {
+                            $printReceipt->generatePDF($p_edi_id);
+                        }
                     }
                 }
             }

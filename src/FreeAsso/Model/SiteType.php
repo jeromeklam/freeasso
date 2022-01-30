@@ -13,6 +13,11 @@ class SiteType extends \FreeAsso\Model\Base\SiteType implements
 {
     
     /**
+     * @see \FreeFW\Core\Model
+     */
+    protected $__cached_model = true;
+
+    /**
      * Datas
      * @var \FreeFW\Model\ResultSet
      */

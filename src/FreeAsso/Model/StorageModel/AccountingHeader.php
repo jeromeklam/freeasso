@@ -19,8 +19,8 @@ abstract class AccountingHeader extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_PRIVATE => 'acch_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_PK],
-        FFCST::PROPERTY_TITLE   => '',
-        FFCST::PROPERTY_COMMENT => '',
+        FFCST::PROPERTY_TITLE   => 'Id',
+        FFCST::PROPERTY_COMMENT => 'Identifiant',
         FFCST::PROPERTY_SAMPLE  => 123,
     ];
     protected static $PRP_ACCH_NAME = [

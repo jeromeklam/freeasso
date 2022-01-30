@@ -85,7 +85,11 @@ class Session extends \FreeAsso\Model\Base\Session
              */
             $sso   = \FreeFW\DI\DI::getShared('sso');
             $group = $sso->getUserGroup();
-            $grpId = $group->getGrpId();
+            if ($group) {
+                $grpId = $group->getGrpId();
+            } else {
+                $grpId = 1;
+            }
         }
         //
         $key = $p_year . '_' . $p_month . '_' . $grpId;

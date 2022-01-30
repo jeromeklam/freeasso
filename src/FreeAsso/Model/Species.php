@@ -10,4 +10,8 @@ use \FreeFW\Constants as FFCST;
  */
 class Species extends \FreeAsso\Model\Base\Species
 {
+    /**
+     * @see \FreeFW\Core\Model
+     */
+    protected $__cached_model = true;
 }

@@ -13,6 +13,7 @@ class Receipt extends \FreeAsso\Model\Base\Receipt
 
     use \FreeAsso\Model\Behaviour\Client;
     use \FreeAsso\Model\Behaviour\ReceiptType;
+    use \FreeAsso\Model\Behaviour\ReceiptGeneration;
     use \FreeSSO\Model\Behaviour\Group;
     use \FreeFW\Model\Behaviour\Lang;
     use \FreeFW\Model\Behaviour\Country;
@@ -35,15 +36,17 @@ class Receipt extends \FreeAsso\Model\Base\Receipt
      * Add amount
      *
      * @param number $p_mnt
+     * @param string $p_money
      * 
      * @return \FreeAsso\Model\Receipt
      */
-    public function addMnt($p_mnt)
+    public function addMnt($p_mnt, $p_money)
     {
         if (!$this->rec_mnt) {
             $this->rec_mnt = 0;
         }
-        $this->rec_mnt += $p_mnt;
+        $mnt = \FreeFW\Model\Rate::convert($p_money, $this->getRecMoney(), $p_mnt);
+        $this->rec_mnt += $mnt;
         return $this;
     }
 
@@ -103,8 +106,12 @@ class Receipt extends \FreeAsso\Model\Base\Receipt
          * @var \FreeAsso\Model\Donation $oneDonation
          */
         foreach ($donations as $oneDonation) {
-            $oneDonation->setCheckSession(false);
+            $oneDonation
+                ->setCheckSession(false)
+                ->setDonDesc('remove receipt')
+            ;
             if (!$oneDonation->save(false, true)) {
+                $this->addErrors($oneDonation->getErrors());
                 return false;
             }
         }
@@ -119,13 +126,25 @@ class Receipt extends \FreeAsso\Model\Base\Receipt
          */
         foreach ($receiptDonations as $oneDonation) {
             if (!$oneDonation->remove(false, true)) {
+                $this->addErrors($oneDonation->getErrors());
                 return false;
             }
         }
+        return true;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function afterRemove()
+    {
         // Et finalement l'édition
         $file = $this->getFile();
         if ($file) {
             if (!$file->remove(false, true)) {
+                $this->addErrors($file->getErrors());
                 return false;
             }
         }

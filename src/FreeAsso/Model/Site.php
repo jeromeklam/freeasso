@@ -19,6 +19,11 @@ class Site extends \FreeAsso\Model\Base\Site  implements
     use \FreeSSO\Model\Behaviour\Group;
 
     /**
+     * @see \FreeFW\Core\Model
+     */
+    protected $__cached_model = true;
+
+    /**
      * Owner
      * @var \FreeAsso\Model\Client
      */

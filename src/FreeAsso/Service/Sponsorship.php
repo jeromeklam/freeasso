@@ -1,5 +1,4 @@
 <?php
-
 namespace FreeAsso\Service;
 
 /**
@@ -9,6 +8,151 @@ namespace FreeAsso\Service;
  */
 class Sponsorship extends \FreeFW\Core\Service
 {
+
+    /**
+     * Generate one certificate
+     *
+     * @param \FreeAsso\Model\Sponsorship $p_sponsorship
+     * @param string                      $p_start
+     * @param string                      $p_end
+     * 
+     * @return boolean
+     */
+    public function generateOneCertificate($p_sponsorship, $p_start, $p_end)
+    {
+        $to  = $p_sponsorship->getSpoTo();
+        $mnt = 0;
+        $donations = \FreeAsso\Model\Donation::find(
+            [
+                'don_real_ts' => [\FreeFW\Storage\Storage::COND_BETWEEN => [ $p_start, $p_end ]],
+                'spo_id'      => $p_sponsorship->getSpoId()
+            ]
+        );
+        // Calculate mnt
+        $mnt = 0;
+        // Ok, create certificate
+        $p_sponsorship->startTransaction();
+        $client = $p_sponsorship->getClient();
+        $cause = $p_sponsorship->getCause();
+        /**
+         * @var \FreeAsso\Model\Donation $oneDonation
+         */
+        foreach ($donations as $oneDonation) {
+            $mnt = $mnt + $oneDonation->getDonMntInput();
+        }
+        if ($mnt <= 0) {
+            // Add notification for manual send...
+            $notification = new \FreeFW\Model\Notification();
+            $notification
+                ->setNotifType(\FreeFW\Model\Notification::TYPE_INFORMATION)
+                ->setNotifObjectName('FreeAsso_Sponsorship')
+                ->setNotifObjectId($p_sponsorship->getSpoId())
+                ->setNotifSubject('Certificat à 0 : ' . $client->getFullname() . ' ' . $cause->getCauName())
+                ->setNotifCode('SPONSORSHIP_EMPTY_AMOUNT')
+                ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp())
+            ;
+            return $notification->create();
+        }
+        /**
+         * @var \FreeAsso\Model\Certificate $certificate
+         */
+        $certificate = new \FreeAsso\Model\Certificate();
+        $certificate
+            ->setClient($client)
+            ->setCertFullname($client->getCliFullname())
+            ->setCertEmail($client->getCliEmail())
+            ->setCertManual(false)
+            ->setCertTs(\FreeFW\Tools\Date::getCurrentTimestamp())
+            ->setCertGents(null)
+            ->setCertPrintTs(null)
+            ->setCertInputMnt($mnt)
+            ->setCertInputMoney($p_sponsorship->getSpoMoneyInput())
+            ->setCertOutputMoney($cause->getCauUnitMoney())
+            ->setCertUnitBase($cause->getCauUnitBase())
+            ->setCertUnitUnit($cause->getCauUnitUnit())
+            ->setCertUnitMnt($cause->getCauUnitMnt())
+            ->setCertAddress1($client->getCliAddress1())
+            ->setCertAddress2($client->getCliAddress2())
+            ->setCertAddress3($client->getCliAddress3())
+            ->setCertCp($client->getCliCp())
+            ->setCertTown($client->getCliTown())
+            ->setCntyId($client->getCntyId())
+            ->setLangId($client->getLangId())
+            ->setCauId($cause->getCauId())
+            ->setCertDisplayMnt(true)
+        ;
+        $certificate->calculateFields();
+        if ($certificate->create(false)) {
+            /**
+             * Update donations
+             * @var \FreeAsso\Model\Donation $oneDonation
+             */
+            foreach ($donations as $oneDonation) {
+                $oneDonation->setCertId($certificate->getCertId());
+                if (!$oneDonation->save(false)) {
+                    $p_sponsorship->rollbackTransaction();
+                    return false;
+                }
+            }
+            $p_sponsorship->commitTransaction();
+        } else {
+            $p_sponsorship->rollbackTransaction();
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Generate certificate
+     *
+     * @param array $p_params
+     * 
+     * @return void
+     */
+    public function generateCertificate($p_params = [])
+    {
+        $this->logger->debug('Sponsorship.generateCertificate.start');
+        if (!isset($p_params['year'])) {
+            throw new \Exception('Year param not defined !');
+        }
+        $year   = $p_params['year'];
+        $nYear  = $year + 1;
+        $dStart = $year . '-01-01 00:00:00';
+        $dEnd   = $nYear . '-01-01 00:00:00';
+        /**
+         * @var \FreeFW\Model\Query $query
+         */
+        $query  = \FreeAsso\Model\Sponsorship::getQuery();
+        $query
+            ->addFromFilters(
+                [
+                    'spo_from' => [\FreeFW\Storage\Storage::COND_LOWER_EQUAL => $dEnd],
+                    'spo_to' => \FreeFW\Storage\Storage::COND_EMPTY,
+                    'cause.cause_type.caut_certificat' => 1
+                ]
+            )
+            ->addRelations(['client', 'cause'])
+            ->setSort('client.cli_firstname,client.cli_lastname')
+        ;
+        $this->logger->debug('Sponsorship.generateCertificate.before.query');
+        if ($query->execute()) {
+            /**
+             * @var \FreeFW\Model\ResultSet $results
+             */
+            $results = $query->getResult();
+            $this->logger->debug('Sponsorship.generateCertificate.query.count ' . $results->count());
+            if ($results->count() > 0) {
+                /**
+                 * @var \FreeAsso\Model\Sponsorship $sponsorship
+                 */
+                foreach ($results as $sponsorship) {
+                    $this->generateOneCertificate($sponsorship, $dStart, $dEnd);
+                }
+            }
+        }
+        $this->logger->debug('Sponsorship.generateCertificate.end');
+        return $p_params;
+    }
 
     /**
      * Send notification

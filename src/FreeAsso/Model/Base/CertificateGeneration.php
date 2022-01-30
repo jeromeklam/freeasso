@@ -2,18 +2,18 @@
 namespace FreeAsso\Model\Base;
 
 /**
- * ReceiptGeneration
+ * CertificateGeneration
  *
  * @author jeromeklam
  */
-abstract class ReceiptGeneration extends \FreeAsso\Model\StorageModel\ReceiptGeneration
+abstract class CertificateGeneration extends \FreeAsso\Model\StorageModel\CertificateGeneration
 {
 
     /**
-     * recg_id
+     * cerg_id
      * @var int
      */
-    protected $recg_id = null;
+    protected $cerg_id = null;
 
     /**
      * brk_id
@@ -22,28 +22,28 @@ abstract class ReceiptGeneration extends \FreeAsso\Model\StorageModel\ReceiptGen
     protected $brk_id = null;
 
     /**
-     * recg_name
+     * cerg_name
      * @var string
      */
-    protected $recg_name = null;
+    protected $cerg_name = null;
 
     /**
-     * recg_year
+     * cerg_year
      * @var int
      */
-    protected $recg_year = null;
+    protected $cerg_year = null;
 
     /**
-     * recg_status
+     * cerg_status
      * @var string
      */
-    protected $recg_status = null;
+    protected $cerg_status = null;
 
     /**
-     * recg_save
+     * cerg_save
      * @var mixed
      */
-    protected $recg_save = null;
+    protected $cerg_save = null;
 
     /**
      * edi_id
@@ -58,26 +58,26 @@ abstract class ReceiptGeneration extends \FreeAsso\Model\StorageModel\ReceiptGen
     protected $grp_id = null;
 
     /**
-     * Set recg_id
+     * Set cerg_id
      *
      * @param int $p_value
      *
-     * @return \FreeAsso\Model\ReceiptGeneration
+     * @return \FreeAsso\Model\CertificateGeneration
      */
-    public function setRecgId($p_value)
+    public function setCergId($p_value)
     {
-        $this->recg_id = $p_value;
+        $this->cerg_id = $p_value;
         return $this;
     }
 
     /**
-     * Get recg_id
+     * Get cerg_id
      *
      * @return int
      */
-    public function getRecgId()
+    public function getCergId()
     {
-        return $this->recg_id;
+        return $this->cerg_id;
     }
 
     /**
@@ -85,7 +85,7 @@ abstract class ReceiptGeneration extends \FreeAsso\Model\StorageModel\ReceiptGen
      *
      * @param int $p_value
      *
-     * @return \FreeAsso\Model\ReceiptGeneration
+     * @return \FreeAsso\Model\CertificateGeneration
      */
     public function setBrkId($p_value)
     {
@@ -104,95 +104,95 @@ abstract class ReceiptGeneration extends \FreeAsso\Model\StorageModel\ReceiptGen
     }
 
     /**
-     * Set recg_name
+     * Set cerg_name
      *
      * @param string $p_value
      *
-     * @return \FreeAsso\Model\ReceiptGeneration
+     * @return \FreeAsso\Model\CertificateGeneration
      */
-    public function setRecgName($p_value)
+    public function setCergName($p_value)
     {
-        $this->recg_name = $p_value;
+        $this->cerg_name = $p_value;
         return $this;
     }
 
     /**
-     * Get recg_name
+     * Get cerg_name
      *
      * @return string
      */
-    public function getRecgName()
+    public function getCergName()
     {
-        return $this->recg_name;
+        return $this->cerg_name;
     }
 
     /**
-     * Set recg_year
+     * Set cerg_year
      *
      * @param int $p_value
      *
-     * @return \FreeAsso\Model\ReceiptGeneration
+     * @return \FreeAsso\Model\CertificateGeneration
      */
-    public function setRecgYear($p_value)
+    public function setCergYear($p_value)
     {
-        $this->recg_year = $p_value;
+        $this->cerg_year = $p_value;
         return $this;
     }
 
     /**
-     * Get recg_year
+     * Get cerg_year
      *
      * @return int
      */
-    public function getRecgYear()
+    public function getCergYear()
     {
-        return $this->recg_year;
+        return $this->cerg_year;
     }
 
     /**
-     * Set recg_status
+     * Set cerg_status
      *
      * @param string $p_value
      *
-     * @return \FreeAsso\Model\ReceiptGeneration
+     * @return \FreeAsso\Model\CertificateGeneration
      */
-    public function setRecgStatus($p_value)
+    public function setCergStatus($p_value)
     {
-        $this->recg_status = $p_value;
+        $this->cerg_status = $p_value;
         return $this;
     }
 
     /**
-     * Get recg_status
+     * Get cerg_status
      *
      * @return string
      */
-    public function getRecgStatus()
+    public function getCergStatus()
     {
-        return $this->recg_status;
+        return $this->cerg_status;
     }
 
     /**
-     * Set recg_save
+     * Set cerg_save
      *
      * @param mixed $p_value
      *
-     * @return \FreeAsso\Model\ReceiptGeneration
+     * @return \FreeAsso\Model\CertificateGeneration
      */
-    public function setRecgSave($p_value)
+    public function setCergSave($p_value)
     {
-        $this->recg_save = $p_value;
+        $this->cerg_save = $p_value;
         return $this;
     }
 
     /**
-     * Get recg_save
+     * Get cerg_save
      *
      * @return mixed
      */
-    public function getRecgSave()
+    public function getCergSave()
     {
-        return $this->recg_save;
+        return $this->cerg_save;
     }
 
     /**
@@ -200,7 +200,7 @@ abstract class ReceiptGeneration extends \FreeAsso\Model\StorageModel\ReceiptGen
      *
      * @param int $p_value
      *
-     * @return \FreeAsso\Model\ReceiptGeneration
+     * @return \FreeAsso\Model\CertificateGeneration
      */
     public function setEdiId($p_value)
     {
@@ -223,7 +223,7 @@ abstract class ReceiptGeneration extends \FreeAsso\Model\StorageModel\ReceiptGen
      *
      * @param int $p_value
      *
-     * @return \FreeAsso\Model\ReceiptGeneration
+     * @return \FreeAsso\Model\CertificateGeneration
      */
     public function setGrpId($p_value)
     {

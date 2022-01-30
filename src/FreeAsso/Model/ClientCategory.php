@@ -13,6 +13,11 @@ class ClientCategory extends \FreeAsso\Model\Base\ClientCategory implements
 {
 
     /**
+     * @see \FreeFW\Core\Model
+     */
+    protected $__cached_model = true;
+
+    /**
      *
      * {@inheritDoc}
      * @see \FreeFW\Core\Model::init()

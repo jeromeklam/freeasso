@@ -489,4 +489,22 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
             ],
         ];
     }
+
+    /**
+     * Get One To many relationShips
+     *
+     * @return array
+     */
+    public function getRelationships()
+    {
+        return [
+            'settings' => [
+                FFCST::REL_MODEL   => 'FreeAsso::Model::ReceiptTypeCauseType',
+                FFCST::REL_FIELD   => 'caut_id',
+                FFCST::REL_TYPE    => \FreeFW\Model\Query::JOIN_LEFT,
+                FFCST::REL_COMMENT => 'Les liens vers les types de reçus',
+                FFCST::REL_REMOVE  => FFCST::REL_REMOVE_CASCADE,
+            ],
+        ];
+    }
 }

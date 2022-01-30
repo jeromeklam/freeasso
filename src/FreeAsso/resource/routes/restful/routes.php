@@ -10,6 +10,7 @@ require_once __DIR__ . '/cause_sickness.php';
 require_once __DIR__ . '/cause_type.php';
 require_once __DIR__ . '/cause.php';
 require_once __DIR__ . '/certificate.php';
+require_once __DIR__ . '/certificate_generation.php';
 require_once __DIR__ . '/client_category.php';
 require_once __DIR__ . '/client_type.php';
 require_once __DIR__ . '/client.php';
@@ -51,6 +52,7 @@ $localRoutes = array_merge(
     $causeSicknessRoutes,
     $causeTypeRoutes,
     $certificateRoutes,
+    $certificateGenerationRoutes,
     $clientCategoryRoutes,
     $clientTypeRoutes,
     $clientRoutes,

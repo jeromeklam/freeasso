@@ -45,6 +45,7 @@ class Constants
     const ERROR_SITE_CODE_EXISTS              = 6690015;
     const ERROR_CAUSE_CODE_EXISTS             = 6690016;
     const ERROR_DONATION_NEED_REASON          = 6690017;
+    const ERROR_CERTIFICATE_EXISTS            = 6690018;
 
     /**
      * Actions

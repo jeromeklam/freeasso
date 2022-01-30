@@ -276,6 +276,20 @@ abstract class Certificate extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TITLE   => 'Afficher',
         FFCST::PROPERTY_COMMENT => 'Afficher le montant',
     ];
+    protected static $PRP_CERG_ID = [
+        FFCST::PROPERTY_PRIVATE => 'cerg_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_TITLE   => 'Génération',
+        FFCST::PROPERTY_COMMENT => 'Génération',
+        FFCST::PROPERTY_FK      => ['generation' =>
+            [
+                'model' => 'FreeAsso::Model::CertificateGeneration',
+                'field' => 'cerg_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
 
     /**
      * get properties
@@ -315,6 +329,7 @@ abstract class Certificate extends \FreeFW\Core\StorageModel
             'cau_id'            => self::$PRP_CAU_ID,
             'cert_manual'       => self::$PRP_CERT_MANUAL,
             'cert_display_mnt'  => self::$PRP_CERT_DISPLAY_MNT,
+            'cerg_id'           => self::$PRP_CERG_ID,
         ];
     }
 

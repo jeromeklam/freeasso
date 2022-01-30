@@ -199,6 +199,12 @@ class Donation extends \FreeAsso\Model\Base\Donation
      */
     public function beforeRemove()
     {
+        if ($this->getCertId() > 0 && $this->getSpoId() > 0) {
+            $this
+                ->addError(\FreeAsso\Constants::ERROR_CERTIFICATE_EXISTS, 'Il existe un certificat associé')
+            ;
+            return false;
+        }
         $this->old_donation = \FreeAsso\Model\Donation::findFirst(['don_id' => $this->getDonId()]);
         $client = $this->getClient(true);
         if ($client) {
@@ -508,18 +514,7 @@ class Donation extends \FreeAsso\Model\Base\Donation
          * @var \FreeAsso\Model\Cause $cause
          */
         $cause = $this->getCause();
-        $bSpo  = false;
         $bReg  = false;
-        if ($cause) {
-            /**
-             * @var \FreeAsso\Model\CauseType $causeType
-             */
-            $causeType = $cause->getCauseType();
-            if ($causeType->getCautFamily() == \FreeAsso\Model\CauseType::FAMILY_ANIMAL) {
-                // Parrainage
-                $bSpo = true;
-            }
-        }
         if ($this->getSpoId() > 0) {
             $bReg = true;
         }
@@ -527,16 +522,12 @@ class Donation extends \FreeAsso\Model\Base\Donation
          * @var \FreeAsso\Model\ReceiptType $oneType
          */
         foreach ($p_types as $oneType) {
-            if ($bReg && strpos($oneType->getRettRegex(), 'AM') === 0) {
-                // Ami : paiement régulier
-                return $oneType->getRettId();
-            } else {
-                if ($bSpo && strpos($oneType->getRettRegex(), 'P') === 0) {
-                    // parrainage ponctuel
-                    return $oneType->getRettId();
-                } else {
-                    if (!$bSpo && strpos($oneType->getRettRegex(), 'D') === 0) {
-                        // don ponctuel
+            /**
+             * @var \FreeAsso\Model\ReceiptTypeCauseType $oneSetting
+             */
+            foreach ($oneType->getSettings() as $oneSetting) {
+                if ($oneSetting->getCautId() == $cause->getCautId()) {
+                    if (($oneSetting->getRtctOnce() && !$bReg) || ($oneSetting->getRtctRegular() && $bReg)) {
                         return $oneType->getRettId();
                     }
                 }

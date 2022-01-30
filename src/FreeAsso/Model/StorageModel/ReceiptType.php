@@ -53,7 +53,7 @@ abstract class ReceiptType extends \FreeFW\Core\StorageModel
     protected static $PRP_GRP_ID = [
         FFCST::PROPERTY_PRIVATE => 'grp_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK,FFCST::OPTION_GROUP],
         FFCST::PROPERTY_TITLE   => 'Groupe',
         FFCST::PROPERTY_COMMENT => 'Groupe',
         FFCST::PROPERTY_FK      => ['group' =>
@@ -110,5 +110,23 @@ abstract class ReceiptType extends \FreeFW\Core\StorageModel
     public static function getSource()
     {
         return 'asso_receipt_type';
+    }
+
+    /**
+     * Get One To many relationShips
+     *
+     * @return array
+     */
+    public function getRelationships()
+    {
+        return [
+            'settings' => [
+                FFCST::REL_MODEL   => 'FreeAsso::Model::ReceiptTypeCauseType',
+                FFCST::REL_FIELD   => 'rett_id',
+                FFCST::REL_TYPE    => \FreeFW\Model\Query::JOIN_LEFT,
+                FFCST::REL_COMMENT => 'Les liens vers les types de cause',
+                FFCST::REL_REMOVE  => FFCST::REL_REMOVE_CASCADE,
+            ],
+        ];
     }
 }

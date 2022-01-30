@@ -13,6 +13,11 @@ class ClientType extends \FreeAsso\Model\Base\ClientType implements
 {
 
     /**
+     * @see \FreeFW\Core\Model
+     */
+    protected $__cached_model = true;
+
+    /**
      * Add email
      * @var \FreeFW\Model\Email
      */

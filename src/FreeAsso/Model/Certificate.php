@@ -19,6 +19,7 @@ class Certificate extends \FreeAsso\Model\Base\Certificate
     use \FreeFW\Model\Behaviour\File;
     use \FreeAsso\Model\Behaviour\Client;
     use \FreeAsso\Model\Behaviour\Cause;
+    use \FreeAsso\Model\Behaviour\CertificateGeneration;
     use \FreeSSO\Model\Behaviour\Group;
 
     /**
@@ -47,6 +48,7 @@ class Certificate extends \FreeAsso\Model\Base\Certificate
      */
     public function generate()
     {
+        $this->logger->info('certificate.generate.start');
         /**
          * @var \FreeAsso\Model\Cause
          */
@@ -63,11 +65,13 @@ class Certificate extends \FreeAsso\Model\Base\Certificate
                      * @var \FreeFW\Service\Edition
                      */
                     $editionService = \FreeFW\DI\DI::get('FreeFW::Service::Edition');
+                    $this->logger->info('certificate.generate.print.start');
                     $datas = $editionService->printEdition(
                         $ediId,
                         $this->getLangId(),
                         $this
                     );
+                    $this->logger->info('certificate.generate.print.end');
                     if (isset($datas['filename']) && is_file($datas['filename'])) {
                         /**
                          * @var \FreeFW\Model\File $file
@@ -86,9 +90,11 @@ class Certificate extends \FreeAsso\Model\Base\Certificate
                         ;
                         if ($file->getFileId()) {
                             if (!$file->save()) {
+                                $this->logger->info('certificate.generate.file.error');
                                 $this->setErrors($file->getErrors());
                                 return false;
                             }
+                            $this->logger->info('certificate.generate.file.ok');
                             return true;
                         } else {
                             if ($file->create()) {
@@ -98,6 +104,7 @@ class Certificate extends \FreeAsso\Model\Base\Certificate
                                 ;
                                 return $this->save(true, false);
                             } else {
+                                $this->logger->info('certificate.generate.error');
                                 $this->setErrors($file->getErrors());
                                 return false;
                             }
@@ -106,6 +113,7 @@ class Certificate extends \FreeAsso\Model\Base\Certificate
                 }
             }
         }
+        $this->logger->info('certificate.generate.end');
         return false;
     }
 

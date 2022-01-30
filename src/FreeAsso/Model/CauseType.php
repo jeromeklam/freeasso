@@ -47,6 +47,11 @@ class CauseType extends \FreeAsso\Model\Base\CauseType implements
     const DURATION_INFINITE = 'INFINITE';
 
     /**
+     * @see \FreeFW\Core\Model
+     */
+    protected $__cached_model = true;
+
+    /**
      * Type de cause principal
      * @var \FreeAsso\Model\CauseMainType
      */
@@ -135,6 +140,12 @@ class CauseType extends \FreeAsso\Model\Base\CauseType implements
      * @var \FreeFW\Model\Email
      */
     protected $donation_generate_email = null;
+
+    /**
+     * Settings
+     * @var [\FreeAsso\Model\ReceiptTypeCauseType]
+     */
+    protected $settings = null;
 
     /**
      *
@@ -997,5 +1008,31 @@ class CauseType extends \FreeAsso\Model\Base\CauseType implements
             $this->donation_generate_email = \FreeFW\Model\Email::findFirst(['email_id' => $this->caut_don_generate_email_id]);
         }
         return $this->donation_generate_email;
+    }
+
+    /**
+     * Set settings
+     *
+     * @param [\FreeAsso\Model\ReceiptTypeCauseType] $p_settings
+     * 
+     * @return \FreeFW\Model\CauseType
+     */
+    public function setSettings($p_settings)
+    {
+        $this->settings = $p_settings;
+        return $this;
+    }
+
+    /**
+     * Get settings
+     *
+     * @return [\FreeAsso\Model\ReceiptTypeCauseType]
+     */
+    public function getSettings()
+    {
+        if ($this->settings === null) {
+            $this->settings = \FreeAsso\Model\ReceiptTypeCauseType::find(['caut_id' => $this->getCautId()]);
+        }
+        return $this->settings;
     }
 }
