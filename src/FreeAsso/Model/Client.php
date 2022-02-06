@@ -304,7 +304,7 @@ class Client extends \FreeAsso\Model\Base\Client implements
      *
      * @return array
      */
-    public function getSpecificEditionFields()
+    public function getSpecificEditionFields($p_tmp_dir = '/tmp/', $p_keep_binary = true, $p_lang_code = null)
     {
         $fields  = [];
         $sponsor = $this->getFirstSponsor();
@@ -350,6 +350,14 @@ class Client extends \FreeAsso\Model\Base\Client implements
         }
         if (trim($this->getCliTown()) != '') {
             $full_address = trim($full_address) . ' ' . trim($this->getCliTown());
+        }
+        $country = $this->getCountry();
+        if ($country) {
+            if ($p_lang_code == 'fr' && $country->getCntyName() != '') {
+                $full_address = trim($full_address) . ' ' . trim($country->getCntyName());
+            } else {
+                $full_address = trim($full_address) . ' ' . trim($country->getCntyNameEn());
+            }
         }
         $fields[] = [
             'name'    => 'cli_full_address',

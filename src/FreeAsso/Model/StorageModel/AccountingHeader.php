@@ -89,6 +89,14 @@ abstract class AccountingHeader extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_COMMENT => '',
         FFCST::PROPERTY_SAMPLE  => '',
     ];
+    protected static $PRP_ACCH_FORMAT = [
+        FFCST::PROPERTY_PRIVATE => 'acch_format',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_TITLE   => 'Format',
+        FFCST::PROPERTY_COMMENT => 'Format du contenu',
+        FFCST::PROPERTY_SAMPLE  => '',
+    ];
 
     /**
      * get properties
@@ -107,6 +115,7 @@ abstract class AccountingHeader extends \FreeFW\Core\StorageModel
             'acch_status'    => self::$PRP_ACCH_STATUS,
             'acch_status_ts' => self::$PRP_ACCH_STATUS_TS,
             'acch_code'      => self::$PRP_ACCH_CODE,
+            'acch_format'    => self::$PRP_ACCH_FORMAT,
         ];
     }
 
@@ -127,7 +136,7 @@ abstract class AccountingHeader extends \FreeFW\Core\StorageModel
      */
     public static function getSourceTitle()
     {
-        return '';
+        return 'En-tête compta';
     }
 
     /**
@@ -137,7 +146,7 @@ abstract class AccountingHeader extends \FreeFW\Core\StorageModel
      */
     public static function getSourceComments()
     {
-        return '';
+        return 'En-tête compta';
     }
 
     /**
@@ -147,6 +156,6 @@ abstract class AccountingHeader extends \FreeFW\Core\StorageModel
      */
     public static function getAutocompleteField()
     {
-        return '';
+        return 'acch_content';
     }
 }

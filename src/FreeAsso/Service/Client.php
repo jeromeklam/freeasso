@@ -283,10 +283,11 @@ class Client extends \FreeFW\Core\Service
                                 $receiptDonation
                                     ->setDonId($oneDonation->getDonId())
                                     ->setRecId($oneReceipt->getRecId())
-                                    ->setRdoMoney($oneReceipt->getRecMoney())
-                                    ->setRdoMnt($oneReceipt->getRecMnt())
-                                    ->setRdoTs(\FreeFW\Tools\Date::getCurrentTimestamp())
-                                    ->setPtypId($oneDonation->getPtypId());
+                                    ->setRdoMoney($oneDonation->getDonMoneyInput())
+                                    ->setRdoMnt($oneDonation->getDonMntInput())
+                                    ->setRdoTs($oneDonation->getDonRealTs())
+                                    ->setPtypId($oneDonation->getPtypId())
+                                ;
                                 if (!$receiptDonation->create(false)) {
                                     $bErr = true;
                                     break;
@@ -306,7 +307,10 @@ class Client extends \FreeFW\Core\Service
                             $this->logger->debug('    * ' . $oneReceipt->getRecNumber() . ' : ' . $oneReceipt->getRecMntLetter());
                             $oneReceipt->commitTransaction();
                         }
-                        // Génération du PDF et enregistrement
+                        /**
+                         * Génération du PDF et enregistrement
+                         * @var \FreeAsso\Model\Receipt $printReceipt
+                         */
                         $printReceipt = \FreeAsso\Model\Receipt::findFirst(['rec_id' => $oneReceipt->getRecId()]);
                         if ($printReceipt) {
                             $printReceipt->generatePDF($p_edi_id);

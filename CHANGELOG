@@ -1,3 +1,19 @@
+# 1.18.0 : 06/02/2022
+
+* Types de paiement
+    * Ajout du nom anglais
+* Reçus
+    * Prise en compte des différentes langues
+    * Génération + annulation
+* Certificats
+    * Génération des sertificats annuels
+* Divers
+    * Finalisation du champ InputFileContent 
+* FreeFW
+    * Optimisations fusion
+    * Nom du pays en anglais
+    * Correction de bugs  
+
 # 1.17.1 : 31/01/2022
 
 * FreeFW

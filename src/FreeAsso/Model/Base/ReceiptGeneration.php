@@ -58,6 +58,12 @@ abstract class ReceiptGeneration extends \FreeAsso\Model\StorageModel\ReceiptGen
     protected $grp_id = null;
 
     /**
+     * email_id
+     * @var int
+     */
+    protected $email_id = null;
+
+    /**
      * Set recg_id
      *
      * @param int $p_value
@@ -239,5 +245,28 @@ abstract class ReceiptGeneration extends \FreeAsso\Model\StorageModel\ReceiptGen
     public function getGrpId()
     {
         return $this->grp_id;
+    }
+
+    /**
+     * Set email_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\ReceiptGeneration
+     */
+    public function setEmailId($p_value)
+    {
+        $this->email_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get email_id
+     *
+     * @return int
+     */
+    public function getEmailId()
+    {
+        return $this->email_id;
     }
 }

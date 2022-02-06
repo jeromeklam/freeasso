@@ -389,6 +389,30 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
             ]
         ]
     ];
+    protected static $PRP_CAUT_CERT_YEAR_EMAIL_ID = [
+        FFCST::PROPERTY_PRIVATE => 'caut_cert_year_email_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['certificate_year_email' =>
+            [
+                'model' => 'FreeFW::Model::Email',
+                'field' => 'email_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
+    protected static $PRP_CAUT_DON_MONTH_EMAIL_ID = [
+        FFCST::PROPERTY_PRIVATE => 'caut_don_month_email_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['donation_month_email' =>
+            [
+                'model' => 'FreeFW::Model::Email',
+                'field' => 'email_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
 
     /**
      * get properties
@@ -452,6 +476,8 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
             'caut_don_update_email_id'   => self::$PRP_CAUT_DON_UPDATE_EMAIL_ID,
             'caut_don_end_email_id'      => self::$PRP_CAUT_DON_END_EMAIL_ID,
             'caut_don_generate_email_id' => self::$PRP_CAUT_DON_GENERATE_EMAIL_ID,
+            'caut_cert_year_email_id'    => self::$PRP_CAUT_CERT_YEAR_EMAIL_ID,
+            'caut_don_month_email_id'    => self::$PRP_CAUT_DON_MONTH_EMAIL_ID,
         ];
     }
 

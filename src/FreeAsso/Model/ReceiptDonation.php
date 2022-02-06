@@ -31,6 +31,12 @@ class ReceiptDonation extends \FreeAsso\Model\Base\ReceiptDonation
             'title'   => 'Type',
             'content' => $this->getPaymentType()->getPtypName()
         ];
+        $fields[] = [
+            'name'    => 'ptyp_name_en',
+            'type'    => 'string',
+            'title'   => 'Type',
+            'content' => $this->getPaymentType()->getPtypNameEn()
+        ];
         return $fields;
     }
 }

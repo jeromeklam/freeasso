@@ -189,7 +189,7 @@ class Receipt extends \FreeAsso\Model\Base\Receipt
      *
      * @return array
      */
-    public function getSpecificEditionFields()
+    public function getSpecificEditionFields($p_tmp_dir = '/tmp/', $p_keep_binary = true, $p_lang_code = null)
     {
         $donations = $this->getDonations();
         $donation = '';
@@ -199,9 +199,20 @@ class Receipt extends \FreeAsso\Model\Base\Receipt
         }
         if (count($donations) > 0) {
             $firstDonation = $donations[0];
-            $date = \FreeFW\Tools\Date::mysqlToddmmyyyy($firstDonation->getRdoTs());
+            $datD = \FreeFW\Tools\Date::mysqlToDatetime($firstDonation->getRdoTs());
+            if ($p_lang_code == 'fr') {
+                $date = \FreeFW\Tools\DateTime::toFRLetter($datD);
+            } else {
+                $date = \FreeFW\Tools\DateTime::toENLetter($datD);
+            }
             $type = $firstDonation->getPaymentType();
-            $donation = number_format($firstDonation->getRdoMnt(), 2, '.', ' ') . ' ' . $monnaie . ' - ' . $date . ' - (' . $type->getPtypName() . ')';
+            $donation = number_format($firstDonation->getRdoMnt(), 2, '.', ' ') . ' ' . $monnaie . ' - ' . $date . ' - (';
+            if ($p_lang_code == 'fr') {
+                $donation .= $type->getPtypName();
+            } else {
+                $donation .= $type->getPtypNameEn();
+            }
+            $donation .= ')';
         }
         $fields   = [];
         $fields[] = [

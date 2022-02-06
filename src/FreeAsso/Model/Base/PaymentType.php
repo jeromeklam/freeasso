@@ -34,6 +34,12 @@ abstract class PaymentType extends \FreeAsso\Model\StorageModel\PaymentType
     protected $ptyp_name = null;
 
     /**
+     * ptyp_name_en
+     * @var string
+     */
+    protected $ptyp_name_en = null;
+
+    /**
      * ptyp_receipt
      * @var bool
      */
@@ -153,6 +159,29 @@ abstract class PaymentType extends \FreeAsso\Model\StorageModel\PaymentType
     public function getPtypName()
     {
         return $this->ptyp_name;
+    }
+
+    /**
+     * Set ptyp_name_en
+     *
+     * @param string $p_value
+     *
+     * @return \FreeAsso\Model\PaymentType
+     */
+    public function setPtypNameEn($p_value)
+    {
+        $this->ptyp_name_en = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get ptyp_name_en
+     *
+     * @return string
+     */
+    public function getPtypNameEn()
+    {
+        return $this->ptyp_name_en;
     }
 
     /**

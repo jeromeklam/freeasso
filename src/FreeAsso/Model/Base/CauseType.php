@@ -274,24 +274,6 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     protected $caut_ident_edi_id = null;
 
     /**
-     * caut_add_email_id
-     * @var int
-     */
-    protected $caut_add_email_id = null;
-
-    /**
-     * caut_update_email_id
-     * @var int
-     */
-    protected $caut_update_email_id = null;
-
-    /**
-     * caut_end_email_id
-     * @var int
-     */
-    protected $caut_end_email_id = null;
-
-    /**
      * caut_spo_add_email_id
      * @var int
      */
@@ -332,6 +314,36 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
      * @var int
      */
     protected $caut_don_generate_email_id = null;
+
+    /**
+     * caut_add_email_id
+     * @var int
+     */
+    protected $caut_add_email_id = null;
+
+    /**
+     * caut_update_email_id
+     * @var int
+     */
+    protected $caut_update_email_id = null;
+
+    /**
+     * caut_end_email_id
+     * @var int
+     */
+    protected $caut_end_email_id = null;
+
+    /**
+     * caut_cert_year_email_id
+     * @var int
+     */
+    protected $caut_cert_year_email_id = null;
+
+    /**
+     * caut_don_month_email_id
+     * @var int
+     */
+    protected $caut_don_month_email_id = null;
 
     /**
      * Set caut_id
@@ -1281,9 +1293,9 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
      *
      * @param int $p_value
      *
-     * @return \FreeAsso\Model\Base\CauseType
+     * @return \FreeAsso\Model\CauseType
      */
-    public function setCautRecEdiid($p_value)
+    public function setCautRecEdiId($p_value)
     {
         $this->caut_rec_edi_id = $p_value;
         return $this;
@@ -1304,9 +1316,9 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
      *
      * @param int $p_value
      *
-     * @return \FreeAsso\Model\Base\CauseType
+     * @return \FreeAsso\Model\CauseType
      */
-    public function setCautCertEdiid($p_value)
+    public function setCautCertEdiId($p_value)
     {
         $this->caut_cert_edi_id = $p_value;
         return $this;
@@ -1327,9 +1339,9 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
      *
      * @param int $p_value
      *
-     * @return \FreeAsso\Model\Base\CauseType
+     * @return \FreeAsso\Model\CauseType
      */
-    public function setCautIdentEdiid($p_value)
+    public function setCautIdentEdiId($p_value)
     {
         $this->caut_ident_edi_id = $p_value;
         return $this;
@@ -1343,5 +1355,281 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\CauseType
     public function getCautIdentEdiId()
     {
         return $this->caut_ident_edi_id;
+    }
+
+    /**
+     * Set caut_spo_add_email_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautSpoAddEmailId($p_value)
+    {
+        $this->caut_spo_add_email_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_spo_add_email_id
+     *
+     * @return int
+     */
+    public function getCautSpoAddEmailId()
+    {
+        return $this->caut_spo_add_email_id;
+    }
+
+    /**
+     * Set caut_spo_update_email_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautSpoUpdateEmailId($p_value)
+    {
+        $this->caut_spo_update_email_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_spo_update_email_id
+     *
+     * @return int
+     */
+    public function getCautSpoUpdateEmailId()
+    {
+        return $this->caut_spo_update_email_id;
+    }
+
+    /**
+     * Set caut_spo_end_email_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautSpoEndEmailId($p_value)
+    {
+        $this->caut_spo_end_email_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_spo_end_email_id
+     *
+     * @return int
+     */
+    public function getCautSpoEndEmailId()
+    {
+        return $this->caut_spo_end_email_id;
+    }
+
+    /**
+     * Set caut_don_add_email_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautDonAddEmailId($p_value)
+    {
+        $this->caut_don_add_email_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_don_add_email_id
+     *
+     * @return int
+     */
+    public function getCautDonAddEmailId()
+    {
+        return $this->caut_don_add_email_id;
+    }
+
+    /**
+     * Set caut_don_update_email_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautDonUpdateEmailId($p_value)
+    {
+        $this->caut_don_update_email_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_don_update_email_id
+     *
+     * @return int
+     */
+    public function getCautDonUpdateEmailId()
+    {
+        return $this->caut_don_update_email_id;
+    }
+
+    /**
+     * Set caut_don_end_email_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautDonEndEmailId($p_value)
+    {
+        $this->caut_don_end_email_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_don_end_email_id
+     *
+     * @return int
+     */
+    public function getCautDonEndEmailId()
+    {
+        return $this->caut_don_end_email_id;
+    }
+
+    /**
+     * Set caut_don_generate_email_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautDonGenerateEmailId($p_value)
+    {
+        $this->caut_don_generate_email_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_don_generate_email_id
+     *
+     * @return int
+     */
+    public function getCautDonGenerateEmailId()
+    {
+        return $this->caut_don_generate_email_id;
+    }
+
+    /**
+     * Set caut_add_email_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautAddEmailId($p_value)
+    {
+        $this->caut_add_email_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_add_email_id
+     *
+     * @return int
+     */
+    public function getCautAddEmailId()
+    {
+        return $this->caut_add_email_id;
+    }
+
+    /**
+     * Set caut_update_email_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautUpdateEmailId($p_value)
+    {
+        $this->caut_update_email_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_update_email_id
+     *
+     * @return int
+     */
+    public function getCautUpdateEmailId()
+    {
+        return $this->caut_update_email_id;
+    }
+
+    /**
+     * Set caut_end_email_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautEndEmailId($p_value)
+    {
+        $this->caut_end_email_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_end_email_id
+     *
+     * @return int
+     */
+    public function getCautEndEmailId()
+    {
+        return $this->caut_end_email_id;
+    }
+
+    /**
+     * Set caut_cert_year_email_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautCertYearEmailId($p_value)
+    {
+        $this->caut_cert_year_email_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_cert_year_email_id
+     *
+     * @return int
+     */
+    public function getCautCertYearEmailId()
+    {
+        return $this->caut_cert_year_email_id;
+    }
+
+    /**
+     * Set caut_don_month_email_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCautDonMonthEmailId($p_value)
+    {
+        $this->caut_don_month_email_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get caut_don_month_email_id
+     *
+     * @return int
+     */
+    public function getCautDonMonthEmailId()
+    {
+        return $this->caut_don_month_email_id;
     }
 }

@@ -266,15 +266,11 @@ class Sponsorship extends \FreeFW\Core\Service
         /**
          * @var \FreeFW\Model\Query $query
          */
-        $dStart = $p_date;
-        $dStart->setTime(0, 0, 0, 0);
-        $dEnd   = clone $p_date;
-        $dEnd->add(new \DateInterval('P1M'));
-        $query  = $sponsorship->getQuery();
+        $dEnd  = \FreeFW\Tools\Date::addMonths($p_date, 1);
+        $query = $sponsorship->getQuery();
         $query
             ->addFromFilters(
                 [
-                    'spo_from' => [\FreeFW\Storage\Storage::COND_LOWER_EQUAL => \FreeFW\Tools\Date::datetimeToMysql($dStart)],
                     'spo_to' => [\FreeFW\Storage\Storage::COND_GREATER_EQUAL_OR_NULL => \FreeFW\Tools\Date::datetimeToMysql($dEnd)],
                     'spo_freq' => \FreeAsso\Model\Sponsorship::PAYMENT_TYPE_MONTH
                 ]
@@ -305,6 +301,11 @@ class Sponsorship extends \FreeFW\Core\Service
                     return false;
                 }
                 foreach ($results as $sponsorship) {
+                    // On ne génère pas pour le futur
+                    $testStart = \FreeFW\Tools\Date::mysqlToDatetime($sponsorship->getSpoFrom());
+                    if ($testStart >= $dEnd) {
+                        continue;
+                    }
                     /**
                      * Get first active session, else quit...
                      * @var \FreeAsso\Model\Session $session

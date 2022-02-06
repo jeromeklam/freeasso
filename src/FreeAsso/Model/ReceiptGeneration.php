@@ -27,4 +27,5 @@ class ReceiptGeneration extends \FreeAsso\Model\Base\ReceiptGeneration
     use \FreeSSO\Model\Behaviour\Broker;
     use \FreeSSO\Model\Behaviour\Group;
     use \FreeFW\Model\Behaviour\Edition;
+    use \FreeFW\Model\Behaviour\Email;
 }

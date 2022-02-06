@@ -142,6 +142,18 @@ class CauseType extends \FreeAsso\Model\Base\CauseType implements
     protected $donation_generate_email = null;
 
     /**
+     * Certificate year email
+     * @var \FreeFW\Model\Email
+     */
+    protected $certificate_year_email = null;
+
+    /**
+     * Donation month email
+     * @var \FreeFW\Model\Email
+     */
+    protected $donation_month_email = null;
+
+    /**
      * Settings
      * @var [\FreeAsso\Model\ReceiptTypeCauseType]
      */
@@ -1034,5 +1046,97 @@ class CauseType extends \FreeAsso\Model\Base\CauseType implements
             $this->settings = \FreeAsso\Model\ReceiptTypeCauseType::find(['caut_id' => $this->getCautId()]);
         }
         return $this->settings;
+    }
+
+    /**
+     * Get certificate_year_email
+     *
+     * @return int
+     */
+    public function getCertificateYearEmail()
+    {
+        return $this->certificate_year_email;
+    }
+
+    /**
+     * Set certificate_year_email
+     *
+     * @param \FreeFW\Model\Email $p_email
+     * 
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCertificateYearEmail($p_email)
+    {
+        $this->certificate_year_email = $p_email;
+        if ($this->certificate_year_email) {
+            $this->caut_cert_year_email_id = $this->certificate_year_email->getEmailId();
+        } else {
+            $this->caut_cert_year_email_id = null;
+        }
+        return $this;
+    }
+
+    /**
+     * Set caut_cert_year_email_id
+     * 
+     * @param int $p_id
+     * 
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setCertYearEmailId($p_id)
+    {
+        $this->caut_cert_year_email_id = $p_id;
+        if ($this->certificate_year_email) {
+            if ($this->certificate_year_email->getEmailId() !== $this->caut_cert_year_email_id) {
+                $this->certificate_year_email = null;
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Get donation_month_email
+     *
+     * @return int
+     */
+    public function getDonationMonthEmail()
+    {
+        return $this->donation_month_email;
+    }
+
+    /**
+     * Set donation_month_email
+     *
+     * @param \FreeFW\Model\Email $p_email
+     * 
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setDonationMonthEmail($p_email)
+    {
+        $this->donation_month_email = $p_email;
+        if ($this->donation_month_email) {
+            $this->caut_don_month_email_id = $this->donation_month_email->getEmailId();
+        } else {
+            $this->caut_don_month_email_id = null;
+        }
+        return $this;
+    }
+
+    /**
+     * Set caut_don_month_email_id
+     * 
+     * @param int $p_id
+     * 
+     * @return \FreeAsso\Model\CauseType
+     */
+    public function setDonMonthEmailId($p_id)
+    {
+        $this->caut_don_month_email_id = $p_id;
+        if ($this->donation_month_email) {
+            if ($this->donation_month_email->getEmailId() !== $this->caut_don_month_email_id) {
+                $this->donation_month_email = null;
+            }
+        }
+        return $this;
     }
 }

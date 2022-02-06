@@ -388,8 +388,8 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
         $fields['cau_news'] = [
             'name'    => 'cau_news',
             'title'   => 'necau_newsws',
-            'type'    => \FreeFW\Tools\PBXString::truncString(\FreeFW\Constants::TYPE_TEXT, 512),
-            'content' => $news
+            'type'    => \FreeFW\Constants::TYPE_TEXT,
+            'content' => \FreeFW\Tools\PBXString::truncString($news, 600)
         ];
         return $fields;
     }

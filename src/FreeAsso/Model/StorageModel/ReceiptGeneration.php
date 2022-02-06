@@ -94,6 +94,18 @@ abstract class ReceiptGeneration extends \FreeFW\Core\StorageModel
             ]
         ]
     ];
+    protected static $PRP_EMAIL_ID = [
+        FFCST::PROPERTY_PRIVATE => 'email_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_FK      => ['email' =>
+            [
+                'model' => 'FreeFW::Model::Email',
+                'field' => 'email_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
 
     /**
      * get properties
@@ -110,7 +122,8 @@ abstract class ReceiptGeneration extends \FreeFW\Core\StorageModel
             'recg_status' => self::$PRP_RECG_STATUS,
             'recg_save'   => self::$PRP_RECG_SAVE,
             'grp_id'      => self::$PRP_GRP_ID,
-            'edi_id'      => self::$PRP_EDI_ID
+            'edi_id'      => self::$PRP_EDI_ID,
+            'email_id'    => self::$PRP_EMAIL_ID,
         ];
     }
 
