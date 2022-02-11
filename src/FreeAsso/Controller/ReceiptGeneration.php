@@ -84,6 +84,33 @@ class ReceiptGeneration extends \FreeFW\Core\ApiController
                         return $this->createErrorResponse(\FreeFW\Constants::ERROR_VALUES, $receiptGen->getErrors());
                     }
                     break;
+                case 'SEND':
+                    $receiptGen->setRecgStatus(\FreeAsso\Model\ReceiptGeneration::STATUS_WAITING);
+                    $receiptGen->startTransaction();
+                    if ($receiptGen->save(false)) {
+                        /**
+                         * @var \FreeFW\Model\Jobqueue $jobqueue
+                         */
+                        $jobqueue = \FreeFW\Model\Jobqueue::getFactory(
+                            $receiptGen->getRecgName(),
+                            'FreeAsso::Service::ReceiptGeneration',
+                            'send',
+                            [
+                                'recg_id' => $receiptGen->getRecgId()
+                            ]
+                        );
+                        if ($jobqueue->create(false)) {
+                            $receiptGen->commitTransaction();
+                            return $this->createSuccessOkResponse($receiptGen);
+                        } else {
+                            $receiptGen->rollbackTransaction();
+                            return $this->createErrorResponse(\FreeFW\Constants::ERROR_VALUES, $jobqueue->getErrors());
+                        }
+                    } else {
+                        $receiptGen->rollbackTransaction();
+                        return $this->createErrorResponse(\FreeFW\Constants::ERROR_VALUES, $receiptGen->getErrors());
+                    }
+                    break;
                 default:
                     $this->logger->debug('FreeAsso.ReceiptGenerationController.sendAction.error');
                     return $this->createErrorResponse(\FreeFW\Constants::ERROR_VALUES);

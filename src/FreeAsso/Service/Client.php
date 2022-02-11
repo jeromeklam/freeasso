@@ -325,4 +325,56 @@ class Client extends \FreeFW\Core\Service
         $this->logger->info('Receipt for ' . $p_client->getFullname() . ' END');
         return true;
     }
+
+    /**
+     * Send receipt
+     *
+     * @param \FreeAsso\Model\Client $p_client
+     * @param integer                $p_recg_id
+     * @param integer                $p_email_id
+     * @param integer                $p_grp_id
+     * 
+     * @return boolean
+     */
+    public function sendReceipt($p_client, $p_recg_id, $p_email_id, $p_grp_id)
+    {
+        /**
+         * @var \FreeFW\Service\Email $emailService
+         */
+        $emailService = \FreeFW\DI\DI::get('FreeFW::Service::Email');
+        $cfg  = $this->getAppConfig();
+        $dir  = $cfg->get('ged:dir');
+        $bDir = rtrim(\FreeFW\Tools\Dir::mkStdFolder($dir), '/');
+        if ($p_client->getCliEmail() != '') {
+            $receipts = \FreeAsso\Model\Receipt::find(
+                [
+                    'recg_id' => $p_recg_id,
+                    'cli_id'  => $p_client->getCliId()
+                ]
+            );
+            $filters = [
+                'email_id' => $p_email_id
+            ];
+            $message = $emailService->getEmailAsMessage($filters, $p_client->getlangId(), $p_client, true, $p_grp_id);
+            if ($message) {
+                $message
+                    ->addDest($p_client->getCliEmail())
+                    ->setDestId($p_client->getCliId())
+                ;
+                /**
+                 * @var \FreeAsso\Model\Receipt $oneReceipt
+                 */
+                foreach ($receipts as $oneReceipt) {
+                    $file = $oneReceipt->getFile();
+                    if ($file) {
+                        $dest = $bDir . '/' . 'receipt_' . uniqid(true) . '.pdf';
+                        @file_put_contents($dest, $file->getFileBlob());
+                        $message->addAttachment($oneReceipt->getRecNumber() . '.pdf', $dest);
+                    }
+                }
+                return $message->create();
+            }
+        }
+        return true;
+    }
 }

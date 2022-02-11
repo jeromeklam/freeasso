@@ -560,7 +560,15 @@ abstract class Client extends \FreeFW\Core\StorageModel
                 FFCST::REL_TYPE    => \FreeFW\Model\Query::JOIN_LEFT,
                 FFCST::REL_COMMENT => 'Contact 2 du contrat',
                 FFCST::REL_REMOVE  => FFCST::REL_REMOVE_CHECK
-            ]
+            ],
+            'receipts' => [
+                FFCST::REL_MODEL   => 'FreeAsso::Model::Receipt',
+                FFCST::REL_FIELD   => 'cli_id',
+                FFCST::REL_TYPE    => \FreeFW\Model\Query::JOIN_LEFT,
+                FFCST::REL_COMMENT => 'Les reçus du client',
+                FFCST::REL_REMOVE  => FFCST::REL_REMOVE_CHECK,
+                FFCST::REL_EXISTS => '6680005',
+            ],
         ];
     }
 

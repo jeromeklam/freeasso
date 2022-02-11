@@ -11,6 +11,64 @@ class ReceiptGeneration extends \FreeFW\Core\Service
 {
 
     /**
+     * Send emails
+     *
+     * @param array $p_params
+     * 
+     * @return array
+     */
+    public function send($p_params = [])
+    {
+        $this->logger->debug('ReceiptGeneration.send.START');
+        // Vérifications
+        if (!isset($p_params['recg_id'])) {
+            throw new \Exception('L\’identifiant de génération est obligatoire');
+        }
+        $recgId = $p_params['recg_id'];
+        $generation = \FreeAsso\Model\ReceiptGeneration::findFirst(['recg_id' => $recgId]);
+        if (!$generation instanceof \FreeAsso\Model\ReceiptGeneration) {
+            throw new \Exception('Impossible de trouver la génération');
+        }
+        $emailId = $generation->getEmailId();
+        $grpId   = $generation->getGrpId();
+        //
+        $query = \FreeAsso\Model\Client::getQuery();
+        $query
+            ->addFromFilters(
+                [
+                    'receipts.recg_id' => $recgId
+                ]
+            )
+        ;
+        if ($query->execute()) {
+            /**
+             * @var \FreeFW\Model\ResultSet $results
+             */
+            $results = $query->getResult();
+            if ($results->count() > 0) {
+                $this->logger->debug('ReceiptGeneration.send.count ' . $results->count());
+                /**
+                 * @var \FreeAsso\Service\Client $clientService
+                 */
+                $clientService = \FreeFW\DI\DI::get('FreeAsso::Service::Client');
+                $clientService->setLogger($this->logger);
+                /**
+                 * @var \FreeAsso\Model\Client $oneClient
+                 */
+                foreach ($results as $oneClient) {
+                    $clientService->sendReceipt($oneClient, $recgId, $emailId, $grpId);
+                }
+                $generation->setRecgStatus(\FreeAsso\Model\ReceiptGeneration::STATUS_DONE);
+                if (!$generation->save(false, true)) {
+                    throw new \Exception('Erreur de mise à jour de la génération');
+                }
+            }
+        }
+        $this->logger->debug('ReceiptGeneration.send.END');
+        return $p_params;
+    }
+
+    /**
      * Suppression d'une génération
      *
      * @param array $p_params

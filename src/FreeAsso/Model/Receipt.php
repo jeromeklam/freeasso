@@ -227,6 +227,56 @@ class Receipt extends \FreeAsso\Model\Base\Receipt
             'title'   => 'Monnaie',
             'content' => $monnaie
         ];
+        $address = new \FreeFW\Tools\Address();
+        $address
+            ->setFullname($this->getRecFullname())
+            ->setAddress1($this->getRecAddress1())
+            ->setAddress2($this->getRecAddress2())
+            ->setAddress3($this->getRecAddress3())
+            ->setPostcode($this->getRecCp())
+            ->setTown($this->getRecTown())
+        ;
+        $country = $this->getCountry();
+        if ($country) {
+            $address->setCountry($country->getCntyName());
+        }
+        $address->compute();
+        $fields[] = [
+            'name'    => 'addr1',
+            'type'    => 'string',
+            'title'   => 'Address 1',
+            'content' => $address->getLine(0)
+        ];
+        $fields[] = [
+            'name'    => 'addr2',
+            'type'    => 'string',
+            'title'   => 'Address 2',
+            'content' => $address->getLine(1)
+        ];
+        $fields[] = [
+            'name'    => 'addr3',
+            'type'    => 'string',
+            'title'   => 'Address 3',
+            'content' => $address->getLine(2)
+        ];
+        $fields[] = [
+            'name'    => 'addr4',
+            'type'    => 'string',
+            'title'   => 'Address 4',
+            'content' => $address->getLine(3)
+        ];
+        $fields[] = [
+            'name'    => 'addr5',
+            'type'    => 'string',
+            'title'   => 'Address 5',
+            'content' => $address->getLine(4)
+        ];
+        $fields[] = [
+            'name'    => 'addr6',
+            'type'    => 'string',
+            'title'   => 'Address 6',
+            'content' => $address->getLine(5)
+        ];
         return $fields;
     }
 
