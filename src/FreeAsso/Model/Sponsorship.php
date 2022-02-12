@@ -237,4 +237,25 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
         $this->updateDbAction();
         return true;
     }
+
+        /**
+     * Specific fields
+     *
+     * @return array
+     */
+    public function getSpecificEditionFields()
+    {
+        $fields  = [];
+        $monnaie = $this->getSpoMoney();
+        if ($monnaie === 'EUR') {
+            $monnaie = '€';
+        }
+        $fields[] = [
+            'name'    => 'money',
+            'type'    => 'string',
+            'title'   => 'Monnaie',
+            'content' => $monnaie
+        ];
+        return $fields;
+    }
 }

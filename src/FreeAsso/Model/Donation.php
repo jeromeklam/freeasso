@@ -475,6 +475,16 @@ class Donation extends \FreeAsso\Model\Base\Donation
             'title'   => 'Année',
             'content' => $year,
         ];
+        $monnaie = $this->getDonMoney();
+        if ($monnaie === 'EUR') {
+            $monnaie = '€';
+        }
+        $fields[] = [
+            'name'    => 'money',
+            'type'    => 'string',
+            'title'   => 'Monnaie',
+            'content' => $monnaie
+        ];
         return $fields;
     }
 
