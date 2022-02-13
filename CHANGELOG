@@ -1,3 +1,10 @@
+# 1.18.2 : 13/02/2022
+
+* Paiements
+    * Début de gestion associations
+* Général
+    * Champ money pour les éditions et notifications  
+
 # 1.18.1 : 11/02/2022
 
 * FreeFW
