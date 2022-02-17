@@ -308,7 +308,9 @@ class Receipt extends \FreeAsso\Model\Base\Receipt
                 @unlink($result['filename']);
                 if ($file->create()) {
                     $this->setFileId($file->getFileId());
-                    return $this->save(false, true);
+                    if ($this->save(false, true)) {
+                        return \FreeOffice\Tools\Pdf::countPages($file->getFileBlob());
+                    }
                 }
             }
         }

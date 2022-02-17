@@ -209,6 +209,7 @@ class Client extends \FreeFW\Core\Service
                         ;
                     } else {
                         // @todo: error
+                        var_dump($p_types, $oneDonation->getDonId());
                         throw new \Exception('Erreur de recherche de type de reçu');
                     }
                     // Statistics
@@ -251,10 +252,13 @@ class Client extends \FreeFW\Core\Service
                     $p_stats[$key]['mnt'] += $oneDonation->getDonMntInput();
                 }
                 // End and save...
+                $nbR = 0;
+                $nbP = 0;
                 /**
                  * @var \FreeAsso\Model\Receipt $oneReceipt
                  */
                 foreach ($receipts as $oneReceipt) {
+                    $nbR    += 1;
                     $bErr    = false;
                     $isoCode = $lang->getLangIsoNumberWords();
                     if ($isoCode == '') {
@@ -313,9 +317,32 @@ class Client extends \FreeFW\Core\Service
                          */
                         $printReceipt = \FreeAsso\Model\Receipt::findFirst(['rec_id' => $oneReceipt->getRecId()]);
                         if ($printReceipt) {
-                            $printReceipt->generatePDF($p_edi_id);
+                            $nbP += $printReceipt->generatePDF($p_edi_id);
                         }
                     }
+                }
+                if ($p_client->getCliEmail() != '') {
+                    $key = $year . '_' . $month . '_receipt_with_email_total';
+                    if (!isset($p_stats[$key])) {
+                        $p_stats[$key] = ['nb' => 0, 'mnt' => 0];
+                    }
+                    $p_stats[$key]['nb'] += $nbR;
+                    $key = $year . '_' . $month . '_pages_with_email_total';
+                    if (!isset($p_stats[$key])) {
+                        $p_stats[$key] = ['nb' => 0, 'mnt' => 0];
+                    }
+                    $p_stats[$key]['nb'] += $nbP;
+                } else {
+                    $key = $year . '_' . $month . '_receipt_with_email_total';
+                    if (!isset($p_stats[$key])) {
+                        $p_stats[$key] = ['nb' => 0, 'mnt' => 0];
+                    }
+                    $p_stats[$key]['nb'] += $nbR;
+                    $key = $year . '_' . $month . '_pages_without_email_total';
+                    if (!isset($p_stats[$key])) {
+                        $p_stats[$key] = ['nb' => 0, 'mnt' => 0];
+                    }
+                    $p_stats[$key]['nb'] += $nbP;
                 }
             }
         } else {

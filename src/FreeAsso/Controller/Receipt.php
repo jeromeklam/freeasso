@@ -15,7 +15,65 @@ class Receipt extends \FreeFW\Core\ApiController
      */
     use \FreeAsso\Controller\Behaviour\Group;
 
+    /**
+     * Download all
+     *
+     * @param \Psr\Http\Message\ServerRequestInterface $p_request
+     */
+    public function download(\Psr\Http\Message\ServerRequestInterface $p_request)
+    {
+        $this->logger->debug('FreeAsso.ReceiptController.download.start');
         /**
+         * @var \FreeFW\Http\ApiParams $apiParams
+         */
+        $apiParams = $p_request->getAttribute('api_params', false);
+        if (!isset($p_request->default_model)) {
+            throw new \FreeFW\Core\FreeFWStorageException(
+                sprintf('No default model for route !')
+            );
+        }
+        /**
+         * Must add some extra params, filters, ...
+         */
+        if (method_exists($this, 'adaptApiParams')) {
+            $apiParams = $this->adaptApiParams($apiParams, 'getAll');
+        }
+        /**
+         *
+         */
+        $print = $apiParams->getData();
+        if (!$print instanceof \FreeFW\Model\PrintOptions) {
+            $this->logger->info('FreeAsso.ReceiptController.download.error.wrong_body');
+            return $this->createErrorResponse(FFCST::ERROR_IN_DATA);
+        }
+        /**
+         * Save for deferred action
+         */
+        $params = new \stdClass();
+        $params->model = $p_request->default_model;
+        $params->api = serialize($apiParams);
+        /**
+         *
+         * @var \FreeFW\Model\Jobqueue $jobqueue
+         */
+        $jobqueue = new \FreeFW\Model\Jobqueue();
+        /**
+         * All in one sheet
+         */
+        $jobqueue
+            ->setJobqService('FreeAsso::Service::Receipt')
+            ->setJobqMethod('deferredDownload')
+            ->setJobqStatus(\FreeFW\Model\Jobqueue::STATUS_WAITING)
+            ->setJobqName('Demande de téléchargement')
+            ->setJobqType(\FreeFW\Model\Jobqueue::TYPE_ONCE)
+            ->setJobqParams(json_encode($params))
+        ;
+        $jobqueue->create();
+        $this->logger->debug('FreeAsso.ReceiptController.download.end');
+        return $this->createSuccessAddResponse($jobqueue);
+    }
+
+    /**
      * Print one by id
      *
      * @param \Psr\Http\Message\ServerRequestInterface $p_request

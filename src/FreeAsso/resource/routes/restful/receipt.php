@@ -201,6 +201,48 @@ $receiptRoutes = [
             ],
         ]
     ],
+    'free_asso.receipt.download' => [
+        FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Receipt',
+        FFCSTRT::ROUTE_COMMENT    => 'Télécharge les reçus',
+        FFCSTRT::ROUTE_METHOD     => FFCSTRT::METHOD_POST,
+        FFCSTRT::ROUTE_MODEL      => 'FreeAsso::Model::Receipt',
+        FFCSTRT::ROUTE_URL        => '/v1/asso/receipt/download',
+        FFCSTRT::ROUTE_CONTROLLER => 'FreeAsso::Controller::Receipt',
+        FFCSTRT::ROUTE_FUNCTION   => 'download',
+        FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_OTHER,
+        FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
+        FFCSTRT::ROUTE_INCLUDE    => [
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['client', 'cause', 'client.client_type', 'client.client_category', 'client.country', 'client.lang']
+        ],
+        FFCSTRT::ROUTE_SCOPE      => [],
+        FFCSTRT::ROUTE_RESULTS    => [
+            '200' => [
+                FFCSTRT::ROUTE_RESULTS_TYPE    => FFCSTRT::RESULT_BLOB,
+                FFCSTRT::ROUTE_RESULTS_COMMENT => 'Télécharge des reçus',
+            ],
+        ]
+    ],
+    'free_asso.receipt.export' => [
+        FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Receipt',
+        FFCSTRT::ROUTE_COMMENT    => 'Exporte les reçus',
+        FFCSTRT::ROUTE_METHOD     => FFCSTRT::METHOD_POST,
+        FFCSTRT::ROUTE_MODEL      => 'FreeAsso::Model::Receipt',
+        FFCSTRT::ROUTE_URL        => '/v1/asso/receipt/export',
+        FFCSTRT::ROUTE_CONTROLLER => 'FreeAsso::Controller::Receipt',
+        FFCSTRT::ROUTE_FUNCTION   => 'export',
+        FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_EXPORT,
+        FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
+        FFCSTRT::ROUTE_INCLUDE    => [
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['client', 'cause', 'client.client_type', 'client.client_category', 'client.country', 'client.lang']
+        ],
+        FFCSTRT::ROUTE_SCOPE      => [],
+        FFCSTRT::ROUTE_RESULTS    => [
+            '200' => [
+                FFCSTRT::ROUTE_RESULTS_TYPE    => FFCSTRT::RESULT_BLOB,
+                FFCSTRT::ROUTE_RESULTS_COMMENT => 'Export des reçus',
+            ],
+        ]
+    ],
     'free_asso.receipt.downloadone' => [
         FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Receipt',
         FFCSTRT::ROUTE_COMMENT    => 'Télécharge le reçu',
