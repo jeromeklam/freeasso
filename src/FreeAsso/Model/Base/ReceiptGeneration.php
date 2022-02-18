@@ -64,6 +64,24 @@ abstract class ReceiptGeneration extends \FreeAsso\Model\StorageModel\ReceiptGen
     protected $email_id = null;
 
     /**
+     * Date de générartion
+     * @var string
+     */
+    protected $recg_gen = null;
+
+    /**
+     * Date emails
+     * @var string
+     */
+    protected $recg_email = null;
+
+    /**
+     * Date d'impression
+     * @var string
+     */
+    protected $recg_no_email = null;
+
+    /**
      * Set recg_id
      *
      * @param int $p_value
@@ -268,5 +286,74 @@ abstract class ReceiptGeneration extends \FreeAsso\Model\StorageModel\ReceiptGen
     public function getEmailId()
     {
         return $this->email_id;
+    }
+
+    /**
+     * Get date de générartion
+     *
+     * @return  string
+     */ 
+    public function getRecgGen()
+    {
+        return $this->recg_gen;
+    }
+
+    /**
+     * Set date de générartion
+     *
+     * @param  string  $recg_gen  Date de générartion
+     *
+     * @return  self
+     */ 
+    public function setRecgGen($recg_gen)
+    {
+        $this->recg_gen = $recg_gen;
+        return $this;
+    }
+
+    /**
+     * Get date emails
+     *
+     * @return  string
+     */ 
+    public function getRecgEmail()
+    {
+        return $this->recg_email;
+    }
+
+    /**
+     * Set date emails
+     *
+     * @param  string  $recg_email  Date emails
+     *
+     * @return  self
+     */ 
+    public function setRecgEmail($recg_email)
+    {
+        $this->recg_email = $recg_email;
+        return $this;
+    }
+
+    /**
+     * Get date d'impression
+     *
+     * @return  string
+     */ 
+    public function getRecgNoEmail()
+    {
+        return $this->recg_no_email;
+    }
+
+    /**
+     * Set date d'impression
+     *
+     * @param  string  $recg_no_email  Date d'impression
+     *
+     * @return  self
+     */ 
+    public function setRecgNoEmail($recg_no_email)
+    {
+        $this->recg_no_email = $recg_no_email;
+        return $this;
     }
 }

@@ -148,6 +148,7 @@ class Client extends \FreeFW\Core\Service
                     'grp_id' => $p_grp_id,
                     'don_mnt_input' => [\FreeFW\Storage\Storage::COND_GREATER => 0],
                     'don_status' => [\FreeFW\Storage\Storage::COND_NOT_EQUAL => \FreeAsso\Model\Donation::STATUS_NOK],
+                    'payment_type.ptyp_receipt' => [\FreeFW\Storage\Storage::COND_NOT_EQUAL => 1],
                 ]
             )
             ->addRelations(['sponsorship', 'cause', 'cause.cause_type', 'session'])
@@ -372,7 +373,7 @@ class Client extends \FreeFW\Core\Service
         $cfg  = $this->getAppConfig();
         $dir  = $cfg->get('ged:dir');
         $bDir = rtrim(\FreeFW\Tools\Dir::mkStdFolder($dir), '/');
-        if ($p_client->getCliEmail() != '') {
+        if ($p_client->getCliEmail() != '' && $p_client->getCliReceipt() == 1) {
             $receipts = \FreeAsso\Model\Receipt::find(
                 [
                     'recg_id' => $p_recg_id,
@@ -401,6 +402,85 @@ class Client extends \FreeFW\Core\Service
                 }
                 return $message->create();
             }
+        }
+        return true;
+    }
+
+    /**
+     * Print receipt
+     *
+     * @param \FreeAsso\Model\Client $p_client
+     * @param integer                $p_recg_id
+     * @param integer                $p_email_id
+     * @param integer                $p_grp_id
+     * 
+     * @return boolean
+     */
+    public function printReceipt($p_client, $p_recg_id, $p_email_id, $p_grp_id)
+    {
+        $sso  = \FreeFW\DI\DI::getShared('sso');
+        $user = $sso->getUser();
+        /**
+         * @var \FreeFW\Service\Email $emailService
+         */
+        $emailService = \FreeFW\DI\DI::get('FreeFW::Service::Email');
+        $cfg  = $this->getAppConfig();
+        $dir  = $cfg->get('ged:dir');
+        $bDir = rtrim(\FreeFW\Tools\Dir::mkStdFolder($dir), '/');
+        $tmpPrefix  = '/tmp/export_' . uniqid() . '_';
+        $outputFile = '/tmp/export_' . uniqid() . '.pdf';
+        $merger     = new \FreeOffice\Tools\PdfMerger();
+        $files      = [];
+        if ($p_client->getCliEmail() == '' && $p_client->getCliReceipt() == 1) {
+            $receipts = \FreeAsso\Model\Receipt::find(
+                [
+                    'recg_id' => $p_recg_id,
+                    'cli_id'  => $p_client->getCliId()
+                ]
+            );
+            /**
+             * @var \FreeAsso\Model\Receipt $oneReceipt
+             */
+            foreach ($receipts as $oneReceipt) {
+                $file = $oneReceipt->getFile();
+                if ($file) {
+                    $filename = $tmpPrefix . $file->getFileId() . '.pdf';
+                    $files[]  = $filename;
+                    file_put_contents($filename, $file->getFileBlob());
+                    $merger->addFile($filename);
+                }
+            }
+        }
+        $merger->merge('file', $outputFile);
+        foreach ($files as $oneFile) {
+            @unlink($oneFile);
+        }
+        // Add notification and inbox
+        $object = 'FreeAsso_Receipt';
+        $parts  = explode('_', $object);
+        $date   = \str_replace('-', '', \FreeFW\Tools\Date::getCurrentDate());
+        $name   = array_pop($parts) . '_' . $date;
+        $inbox  = new \FreeFW\Model\Inbox();
+        $inbox
+            ->setInboxFilename($name . '.pdf')
+            ->setInboxObjectName($object)
+            ->setInboxContent(file_get_contents($outputFile))
+            ->setUserId($user->getUserId())
+        ;
+        if (!$inbox->create()) {
+            $result = false;
+        }
+        @unlink($outputFile);
+        $notification = new \FreeFW\Model\Notification();
+        $notification
+            ->setNotifCode('EXPORT')
+            ->setNotifType(\FreeFW\Model\Notification::TYPE_INFORMATION)
+            ->setNotifSubject('Export terminé')
+            ->setNotifObjectName($object)
+            ->setUserId($user->getUserId())
+        ;
+        if (!$notification->create()) {
+            $result = false;
         }
         return true;
     }

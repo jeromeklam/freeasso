@@ -106,6 +106,30 @@ abstract class ReceiptGeneration extends \FreeFW\Core\StorageModel
             ]
         ]
     ];
+    protected static $PRP_RECG_GEN = [
+        FFCST::PROPERTY_PRIVATE => 'recg_gen',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_TITLE   => 'Généré le',
+        FFCST::PROPERTY_COMMENT => 'Date de génération',
+        FFCST::PROPERTY_SAMPLE  => '',
+    ];
+    protected static $PRP_RECG_EMAIL = [
+        FFCST::PROPERTY_PRIVATE => 'recg_email',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_TITLE   => 'Emails le',
+        FFCST::PROPERTY_COMMENT => 'Emails envoyés le',
+        FFCST::PROPERTY_SAMPLE  => '',
+    ];
+    protected static $PRP_RECG_NO_EMAIL = [
+        FFCST::PROPERTY_PRIVATE => 'recg_no_email',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_TITLE   => 'Imprimés le',
+        FFCST::PROPERTY_COMMENT => 'Imprimés lé',
+        FFCST::PROPERTY_SAMPLE  => '',
+    ];
 
     /**
      * get properties
@@ -115,15 +139,18 @@ abstract class ReceiptGeneration extends \FreeFW\Core\StorageModel
     public static function getProperties()
     {
         return [
-            'recg_id'     => self::$PRP_RECG_ID,
-            'brk_id'      => self::$PRP_BRK_ID,
-            'recg_name'   => self::$PRP_RECG_NAME,
-            'recg_year'   => self::$PRP_RECG_YEAR,
-            'recg_status' => self::$PRP_RECG_STATUS,
-            'recg_save'   => self::$PRP_RECG_SAVE,
-            'grp_id'      => self::$PRP_GRP_ID,
-            'edi_id'      => self::$PRP_EDI_ID,
-            'email_id'    => self::$PRP_EMAIL_ID,
+            'recg_id'       => self::$PRP_RECG_ID,
+            'brk_id'        => self::$PRP_BRK_ID,
+            'recg_name'     => self::$PRP_RECG_NAME,
+            'recg_year'     => self::$PRP_RECG_YEAR,
+            'recg_status'   => self::$PRP_RECG_STATUS,
+            'recg_save'     => self::$PRP_RECG_SAVE,
+            'grp_id'        => self::$PRP_GRP_ID,
+            'edi_id'        => self::$PRP_EDI_ID,
+            'email_id'      => self::$PRP_EMAIL_ID,
+            'recg_gen'      => self::$PRP_RECG_GEN,
+            'recg_email'    => self::$PRP_RECG_EMAIL,
+            'recg_no_email' => self::$PRP_RECG_NO_EMAIL,
         ];
     }
 

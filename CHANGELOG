@@ -1,3 +1,9 @@
+# 1.20.0 : 18/02/2022
+
+* Génération des reçus
+    * Dates email, impression
+    * Prise en compte de l'indicateur de reçus sur les types de paiement 
+
 # 1.19.0 : 17/02/2022
 
 * FreeFW
