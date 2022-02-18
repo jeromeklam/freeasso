@@ -148,7 +148,7 @@ class Client extends \FreeFW\Core\Service
                     'grp_id' => $p_grp_id,
                     'don_mnt_input' => [\FreeFW\Storage\Storage::COND_GREATER => 0],
                     'don_status' => [\FreeFW\Storage\Storage::COND_NOT_EQUAL => \FreeAsso\Model\Donation::STATUS_NOK],
-                    'payment_type.ptyp_receipt' => [\FreeFW\Storage\Storage::COND_NOT_EQUAL => 1],
+                    'payment_type.ptyp_receipt' => [\FreeFW\Storage\Storage::COND_EQUAL => 1],
                 ]
             )
             ->addRelations(['sponsorship', 'cause', 'cause.cause_type', 'session'])
