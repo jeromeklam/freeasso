@@ -30,6 +30,110 @@ class ReceiptGeneration extends \FreeFW\Core\ApiController
         $receiptGen = \FreeAsso\Model\ReceiptGeneration::findFirst(['recg_id' => $p_id]);
         if ($receiptGen) {
             switch (strtoupper($p_action)) {
+                case 'PDFYEARALLNUMBER':
+                    $params = [
+                        'name'  => 'reçus_' . $receiptGen->getRecgYear() . '_tri_numero',
+                        'year'  => $receiptGen->getRecgYear(),
+                        'sort'  => 'rec_number',
+                        'peer'  => false
+                    ];
+                    /**
+                     * @var \FreeFW\Model\Jobqueue $jobqueue
+                     */
+                    $jobqueue = new \FreeFW\Model\Jobqueue();
+                    /**
+                     * All in one sheet
+                     */
+                    $jobqueue
+                        ->setJobqService('FreeAsso::Service::ReceiptGeneration')
+                        ->setJobqMethod('deferredDownload')
+                        ->setJobqStatus(\FreeFW\Model\Jobqueue::STATUS_WAITING)
+                        ->setJobqName('Reçus sans email avec gestion recto / verso')
+                        ->setJobqType(\FreeFW\Model\Jobqueue::TYPE_ONCE)
+                        ->setJobqParams(json_encode($params))
+                    ;
+                    if ($jobqueue->create()) {
+                        return $this->createSuccessOkResponse($jobqueue);
+                    }
+                    return $this->createErrorResponse(\FreeFW\Constants::ERROR_VALUES, $jobqueue->getErrors());
+                case 'PDFYEARALLMEMBER':
+                    $params = [
+                        'name'  => 'reçus_' . $receiptGen->getRecgYear() . '_tri_membre',
+                        'year'  => $receiptGen->getRecgYear(),
+                        'sort'  => 'rec_fullname',
+                        'peer'  => false
+                    ];
+                    /**
+                     * @var \FreeFW\Model\Jobqueue $jobqueue
+                     */
+                    $jobqueue = new \FreeFW\Model\Jobqueue();
+                    /**
+                     * All in one sheet
+                     */
+                    $jobqueue
+                        ->setJobqService('FreeAsso::Service::ReceiptGeneration')
+                        ->setJobqMethod('deferredDownload')
+                        ->setJobqStatus(\FreeFW\Model\Jobqueue::STATUS_WAITING)
+                        ->setJobqName('Reçus sans email avec gestion recto / verso')
+                        ->setJobqType(\FreeFW\Model\Jobqueue::TYPE_ONCE)
+                        ->setJobqParams(json_encode($params))
+                    ;
+                    if ($jobqueue->create()) {
+                        return $this->createSuccessOkResponse($jobqueue);
+                    }
+                    return $this->createErrorResponse(\FreeFW\Constants::ERROR_VALUES, $jobqueue->getErrors());
+                case 'PDFYEARNOEMAIL':
+                    $params = [
+                        'name'  => 'reçus_' . $receiptGen->getRecgYear() . '_sans_email_recto_verso',
+                        'email' => 'without',
+                        'year'  => $receiptGen->getRecgYear(),
+                        'peer'  => false
+                    ];
+                    /**
+                     * @var \FreeFW\Model\Jobqueue $jobqueue
+                     */
+                    $jobqueue = new \FreeFW\Model\Jobqueue();
+                    /**
+                     * All in one sheet
+                     */
+                    $jobqueue
+                        ->setJobqService('FreeAsso::Service::ReceiptGeneration')
+                        ->setJobqMethod('deferredDownload')
+                        ->setJobqStatus(\FreeFW\Model\Jobqueue::STATUS_WAITING)
+                        ->setJobqName('Reçus sans email avec gestion recto / verso')
+                        ->setJobqType(\FreeFW\Model\Jobqueue::TYPE_ONCE)
+                        ->setJobqParams(json_encode($params))
+                    ;
+                    if ($jobqueue->create()) {
+                        return $this->createSuccessOkResponse($jobqueue);
+                    }
+                    return $this->createErrorResponse(\FreeFW\Constants::ERROR_VALUES, $jobqueue->getErrors());
+                case 'PDFYEARNOEMAILPEER':
+                    $params = [
+                        'name'  => 'reçus_' . $receiptGen->getRecgYear() . '_sans_email_recto_verso',
+                        'email' => 'without',
+                        'year'  => $receiptGen->getRecgYear(),
+                        'peer'  => true
+                    ];
+                    /**
+                     * @var \FreeFW\Model\Jobqueue $jobqueue
+                     */
+                    $jobqueue = new \FreeFW\Model\Jobqueue();
+                    /**
+                     * All in one sheet
+                     */
+                    $jobqueue
+                        ->setJobqService('FreeAsso::Service::ReceiptGeneration')
+                        ->setJobqMethod('deferredDownload')
+                        ->setJobqStatus(\FreeFW\Model\Jobqueue::STATUS_WAITING)
+                        ->setJobqName('Reçus sans email avec gestion recto / verso')
+                        ->setJobqType(\FreeFW\Model\Jobqueue::TYPE_ONCE)
+                        ->setJobqParams(json_encode($params))
+                    ;
+                    if ($jobqueue->create()) {
+                        return $this->createSuccessOkResponse($jobqueue);
+                    }
+                    return $this->createErrorResponse(\FreeFW\Constants::ERROR_VALUES, $jobqueue->getErrors());
                 case 'GENERATE':
                     $receiptGen->setRecgStatus(\FreeAsso\Model\ReceiptGeneration::STATUS_WAITING);
                     $receiptGen->startTransaction();

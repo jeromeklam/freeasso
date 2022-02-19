@@ -299,4 +299,100 @@ class ReceiptGeneration extends \FreeFW\Core\Service
         $this->logger->debug('ReceiptGeneration.generate.END');
         return $p_params;
     }
+
+    /**
+     * Download receipts
+     *
+     * @param array $p_params
+     * 
+     * @return array
+     */
+    public function deferredDownload($p_params = [], $p_user_id)
+    {
+        $this->logger->debug('Receipt.download.start');
+        /**
+         * @var \FreeFW\Model\Query $query
+         */
+        $query = \FreeAsso\Model\Receipt::getQuery();
+        /**
+         *
+         * @var \FreeFW\Model\Conditions $conditions
+         */
+        $filters = [
+            'rec_year' => $p_params['year']
+        ];
+        if (isset($p_params['email'])) {
+            if ($p_params['email'] == 'without') {
+                $filters['rec_email'] = \FreeFW\Storage\Storage::COND_EMPTY;
+            }
+            if ($p_params['email'] == 'with') {
+                $filters['rec_email'] = \FreeFW\Storage\Storage::COND_NOT_EMPTY;
+            }
+        }
+        $sort = 'rec_fullname';
+        if (isset($p_params['sort'])) {
+            $sort = $p_params['sort'];
+        }
+        $query
+            ->addFromFilters($filters)
+            ->setSort($sort)
+        ;
+        $tmpPrefix  = '/tmp/export_' . uniqid() . '_';
+        $outputFile = '/tmp/export_' . uniqid() . '.pdf';
+        $merger     = new \FreeOffice\Tools\PdfMerger();
+        $peer       = false;
+        if (isset($p_params['peer'])) {
+            $peer = $p_params['peer'];
+        }
+        if ($query->execute()) {
+            $files    = [];
+            $receipts = $query->getResult();
+            /**
+             * @var \FreeAsso\Model\Receipt $oneReceipt
+             */
+            foreach ($receipts as $oneReceipt) {
+                $file = $oneReceipt->getFile();
+                if ($file) {
+                    $filename = $tmpPrefix . $file->getFileId() . '.pdf';
+                    $files[]  = $filename;
+                    file_put_contents($filename, $file->getFileBlob());
+                    $merger->addFile($filename);
+                }
+            }
+            $merger->merge('file', $outputFile, $peer);
+            foreach ($files as $oneFile) {
+                @unlink($oneFile);
+            }
+        }
+        // Add notification and inbox
+        $object = 'FreeAsso_Receipt';
+        $date   = \str_replace('-', '', \FreeFW\Tools\Date::getCurrentDate());
+        $name   = $p_params['name'] . $date;
+        $inbox  = new \FreeFW\Model\Inbox();
+        $inbox
+            ->setInboxFilename($name . '.pdf')
+            ->setInboxObjectName($object)
+            ->setInboxParams(json_encode($p_params))
+            ->setInboxContent(file_get_contents($outputFile))
+            ->setUserId($p_user_id)
+        ;
+        if (!$inbox->create()) {
+            $result = false;
+        }
+        @unlink($outputFile);
+        $notification = new \FreeFW\Model\Notification();
+        $notification
+            ->setNotifCode('EXPORT')
+            ->setNotifType(\FreeFW\Model\Notification::TYPE_INFORMATION)
+            ->setNotifSubject('Export terminé')
+            ->setNotifObjectName($object)
+            ->setUserId($p_user_id)
+        ;
+        if (!$notification->create()) {
+            $result = false;
+        }
+        // data can be empty, but it's a 2*
+        $this->logger->debug('Receipt.download.end');
+        return $p_params;
+    }
 }
