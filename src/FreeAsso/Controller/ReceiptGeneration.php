@@ -32,10 +32,11 @@ class ReceiptGeneration extends \FreeFW\Core\ApiController
             switch (strtoupper($p_action)) {
                 case 'PDFYEARALLNUMBER':
                     $params = [
-                        'name'  => 'reçus_' . $receiptGen->getRecgYear() . '_tri_numero',
-                        'year'  => $receiptGen->getRecgYear(),
-                        'sort'  => 'rec_number',
-                        'peer'  => false
+                        'name'   => 'reçus_' . $receiptGen->getRecgYear() . '_tri_numero',
+                        'year'   => $receiptGen->getRecgYear(),
+                        'sort'   => 'rec_number',
+                        'peer'   => false,
+                        'grp_id' => $receiptGen->getGrpId()
                     ];
                     /**
                      * @var \FreeFW\Model\Jobqueue $jobqueue
@@ -58,10 +59,11 @@ class ReceiptGeneration extends \FreeFW\Core\ApiController
                     return $this->createErrorResponse(\FreeFW\Constants::ERROR_VALUES, $jobqueue->getErrors());
                 case 'PDFYEARALLMEMBER':
                     $params = [
-                        'name'  => 'reçus_' . $receiptGen->getRecgYear() . '_tri_membre',
-                        'year'  => $receiptGen->getRecgYear(),
-                        'sort'  => 'rec_fullname',
-                        'peer'  => false
+                        'name'   => 'reçus_' . $receiptGen->getRecgYear() . '_tri_membre',
+                        'year'   => $receiptGen->getRecgYear(),
+                        'sort'   => 'client.cli_lastname,client.cli_firstname',
+                        'peer'   => false,
+                        'grp_id' => $receiptGen->getGrpId()
                     ];
                     /**
                      * @var \FreeFW\Model\Jobqueue $jobqueue
@@ -84,10 +86,11 @@ class ReceiptGeneration extends \FreeFW\Core\ApiController
                     return $this->createErrorResponse(\FreeFW\Constants::ERROR_VALUES, $jobqueue->getErrors());
                 case 'PDFYEARNOEMAIL':
                     $params = [
-                        'name'  => 'reçus_' . $receiptGen->getRecgYear() . '_sans_email_recto_verso',
-                        'email' => 'without',
-                        'year'  => $receiptGen->getRecgYear(),
-                        'peer'  => false
+                        'name'   => 'reçus_' . $receiptGen->getRecgYear() . '_sans_email_recto_verso',
+                        'email'  => 'without',
+                        'year'   => $receiptGen->getRecgYear(),
+                        'peer'   => false,
+                        'grp_id' => $receiptGen->getGrpId()
                     ];
                     /**
                      * @var \FreeFW\Model\Jobqueue $jobqueue
@@ -110,10 +113,11 @@ class ReceiptGeneration extends \FreeFW\Core\ApiController
                     return $this->createErrorResponse(\FreeFW\Constants::ERROR_VALUES, $jobqueue->getErrors());
                 case 'PDFYEARNOEMAILPEER':
                     $params = [
-                        'name'  => 'reçus_' . $receiptGen->getRecgYear() . '_sans_email_recto_verso',
-                        'email' => 'without',
-                        'year'  => $receiptGen->getRecgYear(),
-                        'peer'  => true
+                        'name'   => 'reçus_' . $receiptGen->getRecgYear() . '_sans_email_recto_verso',
+                        'email'  => 'without',
+                        'year'   => $receiptGen->getRecgYear(),
+                        'peer'   => true,
+                        'grp_id' => $receiptGen->getGrpId()
                     ];
                     /**
                      * @var \FreeFW\Model\Jobqueue $jobqueue

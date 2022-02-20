@@ -319,7 +319,8 @@ class ReceiptGeneration extends \FreeFW\Core\Service
          * @var \FreeFW\Model\Conditions $conditions
          */
         $filters = [
-            'rec_year' => $p_params['year']
+            'rec_year' => $p_params['year'],
+            'grp_id'   => $p_params['grp_id'],
         ];
         if (isset($p_params['email'])) {
             if ($p_params['email'] == 'without') {
@@ -329,12 +330,13 @@ class ReceiptGeneration extends \FreeFW\Core\Service
                 $filters['rec_email'] = \FreeFW\Storage\Storage::COND_NOT_EMPTY;
             }
         }
-        $sort = 'rec_fullname';
+        $sort = 'client.cli_lastname,client.cli_firstname';
         if (isset($p_params['sort'])) {
             $sort = $p_params['sort'];
         }
         $query
             ->addFromFilters($filters)
+            ->addRelations(['client'])
             ->setSort($sort)
         ;
         $tmpPrefix  = '/tmp/export_' . uniqid() . '_';

@@ -400,7 +400,19 @@ class Client extends \FreeFW\Core\Service
                         $message->addAttachment($oneReceipt->getRecNumber() . '.pdf', $dest);
                     }
                 }
-                return $message->create();
+                if ($message->create()) {
+                    /**
+                     * @var \FreeAsso\Model\Receipt $oneReceipt
+                     */
+                    foreach ($receipts as $oneReceipt) {
+                        $oneReceipt
+                            ->setRecPrintTs(\FreeFW\Tools\Date::getCurrentTimestamp())
+                            ->save(false, true)
+                        ;
+                    }
+                    return true;
+                }
+                return false;
             }
         }
         return true;
@@ -448,6 +460,10 @@ class Client extends \FreeFW\Core\Service
                     $files[]  = $filename;
                     file_put_contents($filename, $file->getFileBlob());
                     $merger->addFile($filename);
+                    $oneReceipt
+                        ->setRecPrintTs(\FreeFW\Tools\Date::getCurrentTimestamp())
+                        ->save(false, true)
+                    ;
                 }
             }
         }
