@@ -1318,16 +1318,16 @@
         },
         {
             "name": "jeromeklam/freefw",
-            "version": "1.18.0",
+            "version": "1.18.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jeromeklam/freefw.git",
-                "reference": "457d957d581135cf137b076542a0b01b30201d32"
+                "reference": "0f3c52306bf81e4b34a5b4e40bcc432b7ea45646"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jeromeklam/freefw/zipball/457d957d581135cf137b076542a0b01b30201d32",
-                "reference": "457d957d581135cf137b076542a0b01b30201d32",
+                "url": "https://api.github.com/repos/jeromeklam/freefw/zipball/0f3c52306bf81e4b34a5b4e40bcc432b7ea45646",
+                "reference": "0f3c52306bf81e4b34a5b4e40bcc432b7ea45646",
                 "shasum": ""
             },
             "require": {
@@ -1389,9 +1389,9 @@
             ],
             "support": {
                 "issues": "https://github.com/jeromeklam/freefw/issues",
-                "source": "https://github.com/jeromeklam/freefw/tree/1.18.0"
+                "source": "https://github.com/jeromeklam/freefw/tree/1.18.1"
             },
-            "time": "2022-02-20T14:25:31+00:00"
+            "time": "2022-02-21T12:26:19+00:00"
         },
         {
             "name": "jeromeklam/freeoffice",
@@ -5756,16 +5756,16 @@
         },
         {
             "name": "phar-io/version",
-            "version": "3.1.1",
+            "version": "3.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phar-io/version.git",
-                "reference": "15a90844ad40f127afd244c0cad228de2a80052a"
+                "reference": "4f7fd7836c6f332bb2933569e566a0d6c4cbed74"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phar-io/version/zipball/15a90844ad40f127afd244c0cad228de2a80052a",
-                "reference": "15a90844ad40f127afd244c0cad228de2a80052a",
+                "url": "https://api.github.com/repos/phar-io/version/zipball/4f7fd7836c6f332bb2933569e566a0d6c4cbed74",
+                "reference": "4f7fd7836c6f332bb2933569e566a0d6c4cbed74",
                 "shasum": ""
             },
             "require": {
@@ -5801,9 +5801,9 @@
             "description": "Library for handling version information and constraints",
             "support": {
                 "issues": "https://github.com/phar-io/version/issues",
-                "source": "https://github.com/phar-io/version/tree/3.1.1"
+                "source": "https://github.com/phar-io/version/tree/3.2.1"
             },
-            "time": "2022-02-07T21:56:48+00:00"
+            "time": "2022-02-21T01:04:05+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
