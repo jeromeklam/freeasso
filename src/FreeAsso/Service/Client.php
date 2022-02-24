@@ -397,7 +397,7 @@ class Client extends \FreeFW\Core\Service
                     if ($file) {
                         $dest = $bDir . '/' . 'receipt_' . uniqid(true) . '.pdf';
                         @file_put_contents($dest, $file->getFileBlob());
-                        $message->addAttachment($oneReceipt->getRecNumber() . '.pdf', $dest);
+                        $message->addAttachment($dest, $oneReceipt->getRecNumber() . '.pdf');
                     }
                 }
                 if ($message->create()) {
