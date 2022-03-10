@@ -371,22 +371,26 @@ class Client extends \FreeAsso\Model\Base\Client implements
     /**
      * Send Email
      *
-     * @param [type] $p_email
+     * @param \FreeFW\Model\Email $p_email
+     * @param mixed               $p_grp_id
      * 
      * @return void
      */
-    public function sendEmail($p_email)
+    public function sendEmail($p_email, $p_grp_id = null)
     {
         if ($this->getCliEmail() != '') {
             $filters = [
                 'email_id' => $p_email->getEmailId()
             ];
+            /**
+             * @var \FreeFW\Service\Email $emailService
+             */
             $emailService = \FreeFW\DI\DI::get('FreeFW::Service::Email');
             /**
              *
              * @var \FreeFW\Model\Message $message
              */
-            $message = $emailService->getEmailAsMessage($filters, $this->getLangId(), $this);
+            $message = $emailService->getEmailAsMessage($filters, $this->getLangId(), $this, true, $p_grp_id);
             if ($message) {
                 $message
                     ->addDest($this->getCliEmail())
