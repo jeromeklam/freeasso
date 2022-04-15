@@ -217,11 +217,22 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
     {
         if ((!$this->previous_to || $this->previous_to == '') && $this->getSpoTo()) {
             $this->forwardRawEvent(\FreeAsso\Constants::EVENT_END_SPONSORSHIP, $this);
-            /**
+             /**
              * @var \FreeAsso\Service\Sponsorship $sponsorshipService
              */
             $sponsorshipService = \FreeFW\DI\DI::get('FreeAsso::Service::Sponsorship');
-            $sponsorshipService->notification($this, "remove", false);
+            /**
+             * On génère le certificat, car le don régulier se termine
+             */
+            $dTo = \FreeFW\Tools\Date::mysqlToDatetime($this->getSpoTo());
+            $year  = $dTo->format('Y');
+            $start = $year . '-01-01 00:00:00';
+            $end   = $this->getSpoTo();
+            $certificate = $sponsorshipService->generateOneCertificate($this, $start, $end);
+            /**
+             * Notification
+             */
+            $sponsorshipService->notification($this, "remove", false, $certificate);
         }
         $this->updateDbAction();
         return true;

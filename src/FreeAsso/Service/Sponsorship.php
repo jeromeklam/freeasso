@@ -34,6 +34,10 @@ class Sponsorship extends \FreeFW\Core\Service
         $p_sponsorship->startTransaction();
         $client = $p_sponsorship->getClient();
         $cause = $p_sponsorship->getCause();
+        $causeType = $cause->getCauseType();
+        if (!$causeType->getCautCertificat()) {
+            return false;
+        }
         /**
          * @var \FreeAsso\Model\Donation $oneDonation
          */
@@ -99,7 +103,7 @@ class Sponsorship extends \FreeFW\Core\Service
             $p_sponsorship->rollbackTransaction();
             return false;
         }
-        return true;
+        return $certificate;
     }
 
     /**
@@ -157,13 +161,14 @@ class Sponsorship extends \FreeFW\Core\Service
     /**
      * Send notification
      *
-     * @param \FreeAsso\Model\Donation $p_sponsorship
-     * @param string                   $p_action
-     * @param boolean                  $p_send_identity
+     * @param \FreeAsso\Model\Donation    $p_sponsorship
+     * @param string                      $p_action
+     * @param boolean                     $p_send_identity
+     * @param \FreeAsso\Model\Certificate $p_certificate
      *
      * @return boolean
      */
-    public function notification($p_sponsorship, $p_action = "create", $p_send_identity = false)
+    public function notification($p_sponsorship, $p_action = "create", $p_send_identity = false, $p_certificate = null)
     {
         /**
          * @var \FreeAsso\Model\Cause $cause
@@ -212,7 +217,7 @@ class Sponsorship extends \FreeFW\Core\Service
                             ->setDestId($client->getCliId())
                             ->setGrpId($p_sponsorship->getGrpId())
                         ;
-                        if ($p_send_identity) {
+                        if ($p_send_identity && $ediId) {
                             /**
                              * @var \FreeFW\Service\Edition $editionService
                              */
@@ -224,6 +229,19 @@ class Sponsorship extends \FreeFW\Core\Service
                             );
                             if (isset($datas['filename']) && is_file($datas['filename'])) {
                                 $message->addAttachment($datas['filename'], $cause->getCauName() . '.pdf');
+                            }
+                        }
+                        if ($p_certificate && $p_certificate instanceof \FreeAsso\Model\Certificate) {
+                            $file = $p_certificate->getFile();
+                            if ($file) {
+                                $cfg  = $this->getAppConfig();
+                                $dir  = $cfg->get('ged:dir');
+                                $bDir = rtrim(\FreeFW\Tools\Dir::mkStdFolder($dir), '/');
+                                $filename = $bDir . '/certificat_' . uniqid(true) . '.pdf';
+                                file_put_contents($filename, $file->getFileBlob());
+                                $message->addAttachment($filename, 'certificat.pdf');
+                                $p_certificate->setCertPrintTs(\FreeFW\Tools\Date::getCurrentTimestamp());
+                                $p_certificate->save();
                             }
                         }
                         return $message->create();
@@ -240,7 +258,23 @@ class Sponsorship extends \FreeFW\Core\Service
                     ->setNotifCode('SPONSORSHIP_WITHOUT_EMAIL')
                     ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp())
                 ;
-                return $notification->create();
+                $notification->create();
+                if ($p_certificate && $p_certificate instanceof \FreeAsso\Model\Certificate) {
+                    $cause = $p_sponsorship->getCause();
+                    $notification = new \FreeFW\Model\Notification();
+                    $texte = 'Paiement : ' . $p_certificate->getCertFullname() . ' ' . $cause->getCauName();
+                    $notification
+                        ->setNotifType(\FreeFW\Model\Notification::TYPE_INFORMATION)
+                        ->setNotifObjectName('FreeAsso_Certificate')
+                        ->setNotifObjectId($p_certificate->getCertId())
+                        ->setNotifSubject($texte)
+                        ->setNotifObjectInfo($p_certificate->getCertFullname())
+                        ->setNotifCode('CERTIFICATE_WITHOUT_EMAIL')
+                        ->setNotifText($texte)
+                        ->setNotifTs(\FreeFW\Tools\Date::getCurrentTimestamp())
+                    ;
+                    $notification->create();
+                }
             }
         }
         return true;

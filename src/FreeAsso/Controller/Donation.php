@@ -135,16 +135,12 @@ class Donation extends \FreeFW\Core\ApiController
          */
         $donation = \FreeAsso\Model\Donation::findFirst(['don_id' => $p_id]);
         if ($donation) {
-            $automate = \FreeFW\Model\Automate::findFirst(
-                [
-                    'auto_object_name' => 'FreeAsso_Donation', 
-                    'auto_events'      => \FreeFW\Constants::EVENT_STORAGE_CREATE
-                ]
-            );
-            if ($automate) {
-                if ($automate->run($donation, \FreeFW\Constants::EVENT_STORAGE_CREATE)) {
-                    return $this->createSuccessOkResponse($donation);
-                }
+            /**
+             * @var \FreeAsso\Service\Donation $donationService
+             */
+            $donationService = \FreeFW\DI\DI::get('FreeAsso::Service::Donation');
+            if ($donationService->notification($donation, 'create', true)) {
+                return $this->createSuccessEmptyResponse();
             }
         }
         $this->logger->debug('FreeAsso.DonationController.sendOne.end');

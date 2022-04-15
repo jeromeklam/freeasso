@@ -345,6 +345,9 @@ class Client extends \FreeAsso\Model\Base\Client implements
         if (trim($this->getCliAddress3()) != '') {
             $full_address = trim($full_address) . ' ' . trim($this->getCliAddress3());
         }
+        if (trim($this->getCliCp()) != '' || trim($this->getCliTown()) != '') {
+            $full_address .= ' -';
+        }
         if (trim($this->getCliCp()) != '') {
             $full_address = trim($full_address) . ' ' . trim($this->getCliCp());
         }
@@ -354,9 +357,9 @@ class Client extends \FreeAsso\Model\Base\Client implements
         $country = $this->getCountry();
         if ($country) {
             if ($p_lang_code == 'fr' && $country->getCntyName() != '') {
-                $full_address = trim($full_address) . ' ' . trim($country->getCntyName());
+                $full_address = trim($full_address) . ' - ' . trim($country->getCntyName());
             } else {
-                $full_address = trim($full_address) . ' ' . trim($country->getCntyNameEn());
+                $full_address = trim($full_address) . ' - ' . trim($country->getCntyNameEn());
             }
         }
         $fields[] = [
