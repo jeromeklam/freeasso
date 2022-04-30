@@ -31,7 +31,6 @@ class Sponsorship extends \FreeFW\Core\Service
         // Calculate mnt
         $mnt = 0;
         // Ok, create certificate
-        $p_sponsorship->startTransaction();
         $client = $p_sponsorship->getClient();
         $cause = $p_sponsorship->getCause();
         $causeType = $cause->getCauseType();
@@ -57,6 +56,7 @@ class Sponsorship extends \FreeFW\Core\Service
             ;
             return $notification->create();
         }
+        $p_sponsorship->startTransaction();
         /**
          * @var \FreeAsso\Model\Certificate $certificate
          */

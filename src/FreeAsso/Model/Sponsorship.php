@@ -229,10 +229,9 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
             $start = $year . '-01-01 00:00:00';
             $end   = $this->getSpoTo();
             $certificate = $sponsorshipService->generateOneCertificate($this, $start, $end);
-            /**
-             * Notification
-             */
-            $sponsorshipService->notification($this, "remove", false, $certificate);
+            if ($certificate) {
+                $sponsorshipService->notification($this, "remove", false, $certificate);
+            }
         }
         $this->updateDbAction();
         return true;
