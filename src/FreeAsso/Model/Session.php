@@ -103,7 +103,7 @@ class Session extends \FreeAsso\Model\Base\Session
             );
             if (!$session) {
                 if ($p_month) {
-                    $name = $p_year + '/' . str_pad($p_month, 2, '0', \STR_PAD_LEFT);
+                    $name = $p_year . '/' . str_pad($p_month, 2, '0', \STR_PAD_LEFT);
                 } else {
                     $name = $p_year;
                 }
