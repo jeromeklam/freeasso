@@ -1,3 +1,8 @@
+# 1.21.11 : 26/05/2022
+
+* Relances parrainages
+    * Correction d'un bug de génération (utilisation de la bonne notification) 
+
 # 1.21.10 : 23/05/2022
 
 * Site public

@@ -245,12 +245,6 @@ class Donation extends \FreeFW\Core\Service
                 $dEnd->add(new \DateInterval('P1D'));
                 $emailC = 'END_DONATION_1M';
                 break;
-            case '1D':
-                $emailC = 'END_DONATION_1D';
-                $dStart->setTime(0, 0, 0, 0);
-                $dEnd = clone ($dStart);
-                $dEnd->add(new \DateInterval('P1D'));
-                break;
             case 'END':
                 $emailC = 'END_DONATION';
                 $dStart->setTime(0, 0, 0, 0);
@@ -314,8 +308,9 @@ class Donation extends \FreeFW\Core\Service
                     if ($query2->execute()) {
                         $otherResults = $query2->getResult();
                         if ($otherResults->count() <= 0) {
-                            $client = $donation->getClient();
-                            $cause  = $donation->getCause();
+                            $client  = $donation->getClient();
+                            $cause   = $donation->getCause();
+                            $cauType = $cause->getCauseType();
                             if (!$cause->isActive($dEnd)) {
                                 /**
                                  * Add notification
@@ -338,9 +333,15 @@ class Donation extends \FreeFW\Core\Service
                             $mail = trim($client->getCliEmail());
                             if ($mail !== '') { //\FreeFW\Tools\Email::verify($mail)) {
                                 // Send mail to client...
-                                $filters = [
-                                    'email_code' => $emailC
-                                ];
+                                if ($emailC == 'END_DONATION_1M') {
+                                    $filters = [
+                                        'email_id' => $cauType->getCautDonMonthEmailId()
+                                    ];
+                                } else {
+                                    $filters = [
+                                        'email_id' => $cauType->getCautDonEndEmailId()
+                                    ];
+                                }
                                 //var_dump($donation->getMergeData());die;
                                 $message = $emailService->getEmailAsMessage($filters, $client->getLangId(), $donation);
                                 if ($message) {
@@ -392,7 +393,6 @@ class Donation extends \FreeFW\Core\Service
             $result = $this->reviveAdoption(clone $lastOk, 'END');
             $lastOk->add(new \DateInterval('P1D'));
             $this->logger->debug('Generating ' . \FreeFW\Tools\Date::datetimeToMysql($lastOk) . '...');
-            $result = $this->reviveAdoption(clone $lastOk, '1D');
             $result = $this->reviveAdoption(clone $lastOk, '1M');
         }
         $this->logger->debug('Start from ' . \FreeFW\Tools\Date::datetimeToMysql($lastOk) . ' excluded');
