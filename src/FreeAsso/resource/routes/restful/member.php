@@ -31,6 +31,62 @@ $memberRoutes = [
             ],
         ]
     ],
+    /**
+     * ########################################################################
+     * Member
+     * ########################################################################
+     */
+    'freeasso.member.infos.update' => [
+        FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Member',
+        FFCSTRT::ROUTE_COMMENT    => 'Update.',
+        FFCSTRT::ROUTE_METHOD     => \FreeFW\Router\Route::METHOD_PUT,
+        FFCSTRT::ROUTE_URL        => '/v1/asso/member/:cli_email/infos',
+        FFCSTRT::ROUTE_CONTROLLER => 'FreeAsso::Controller::Member',
+        FFCSTRT::ROUTE_FUNCTION   => 'updateInfos',
+        FFCSTRT::ROUTE_AUTH       => \FreeFW\Router\Route::AUTH_IN,
+        FFCSTRT::ROUTE_MIDDLEWARE => [],
+        FFCSTRT::ROUTE_PARAMETERS => [
+            'email' => [
+                FFCSTRT::ROUTE_PARAMETER_ORIGIN   => FFCSTRT::ROUTE_PARAMETER_ORIGIN_PATH,
+                FFCSTRT::ROUTE_PARAMETER_TYPE     => FFCST::TYPE_STRING,
+                FFCSTRT::ROUTE_PARAMETER_REQUIRED => true,
+                FFCSTRT::ROUTE_PARAMETER_COMMENT  => 'Email du membre'
+            ],
+        ],
+        FFCSTRT::ROUTE_RESULTS    => [
+            '200' => [
+                FFCSTRT::ROUTE_RESULTS_COMMENT => 'Réponse ok',
+            ],
+        ]
+    ],
+    /**
+     * ########################################################################
+     * Member
+     * ########################################################################
+     */
+    'freeasso.member.infos.email' => [
+        FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Member',
+        FFCSTRT::ROUTE_COMMENT    => 'Update.',
+        FFCSTRT::ROUTE_METHOD     => \FreeFW\Router\Route::METHOD_PUT,
+        FFCSTRT::ROUTE_URL        => '/v1/asso/member/:cli_email/email',
+        FFCSTRT::ROUTE_CONTROLLER => 'FreeAsso::Controller::Member',
+        FFCSTRT::ROUTE_FUNCTION   => 'updateEmail',
+        FFCSTRT::ROUTE_AUTH       => \FreeFW\Router\Route::AUTH_IN,
+        FFCSTRT::ROUTE_MIDDLEWARE => [],
+        FFCSTRT::ROUTE_PARAMETERS => [
+            'email' => [
+                FFCSTRT::ROUTE_PARAMETER_ORIGIN   => FFCSTRT::ROUTE_PARAMETER_ORIGIN_PATH,
+                FFCSTRT::ROUTE_PARAMETER_TYPE     => FFCST::TYPE_STRING,
+                FFCSTRT::ROUTE_PARAMETER_REQUIRED => true,
+                FFCSTRT::ROUTE_PARAMETER_COMMENT  => 'Email du membre'
+            ],
+        ],
+        FFCSTRT::ROUTE_RESULTS    => [
+            '200' => [
+                FFCSTRT::ROUTE_RESULTS_COMMENT => 'Réponse ok',
+            ],
+        ]
+    ],
     'freeasso.member.gibbons' => [
         FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Member',
         FFCSTRT::ROUTE_COMMENT    => 'Autocomplete.',

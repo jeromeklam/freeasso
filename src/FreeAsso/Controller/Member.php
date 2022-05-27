@@ -36,7 +36,7 @@ class Member extends \FreeFW\Core\Controller
         $member->mbr_city = $p_client->getCliTown();
         $member->mbr_country = 'FR';
         if ($p_client->getCountry()) {
-            $member->mbr_country = strtoupper($p_client->getCountry()->getCntyCode());
+            $member->mbr_country = $p_client->getCountry()->getCntyCode();
         }
         if ($member->mbr_country == '') {
             $member->mbr_country = 'FR';
@@ -45,7 +45,7 @@ class Member extends \FreeFW\Core\Controller
         $member->mbr_phone = $p_client->getCliPhoneHome();
         $member->mbr_langage = 'FR';
         if ($p_client->getLang()) {
-            $member->mbr_langage = strtoupper($p_client->getLang()->getLangCode());
+            $member->mbr_langage = $p_client->getLang()->getLangCode();
         }
         if ($member->mbr_langage == '') {
             $member->mbr_langage = 'FR';
@@ -53,7 +53,7 @@ class Member extends \FreeFW\Core\Controller
         $member->mbr_send_receipt = $p_client->getCliReceipt();
         $member->mbr_category = 'PARTICULIER';
         if ($p_client->getClientCategory()) {
-            $member->mbr_category = strtoupper($p_client->getClientCategory()->getClicCode());
+            $member->mbr_category = $p_client->getClientCategory()->getClicCode();
         }
         if ($member->mbr_category == '') {
             $member->mbr_category = 'PARTICULIER';
@@ -209,7 +209,7 @@ class Member extends \FreeFW\Core\Controller
                     ]
                 )
                 ->addRelations(
-                    ['cause']
+                    ['cause', 'payment_type']
                 )
                 ->setSort('-don_real_ts')
                 ->setLimit($apiParams->getStart(), $apiParams->getlength())
@@ -218,13 +218,16 @@ class Member extends \FreeFW\Core\Controller
                 $tmp = $query->getResult();
                 foreach ($tmp as $oneDonation) {
                     $newDon = new \FreeAsso\Model\MemberDonation();
-                    $newDon->don_id = $oneDonation->getDonId();
-                    $newDon->don_ts = $oneDonation->getDonRealTs();
-                    $newDon->don_mnt = $oneDonation->getDonMntInput();
-                    $newDon->don_money = $oneDonation->getDonMoneyInput();
+                    $newDon->don_id     = $oneDonation->getDonId();
+                    $newDon->don_ts     = $oneDonation->getDonRealTs();
+                    $newDon->don_mnt    = $oneDonation->getDonMntInput();
+                    $newDon->don_money  = $oneDonation->getDonMoneyInput();
                     $newDon->don_status = $oneDonation->getDonStatus();
-                    $newDon->cau_id = $oneDonation->getCauId();
-                    $newDon->cau_name = $oneDonation->getCause()->getCauName();
+                    $newDon->cau_id     = $oneDonation->getCauId();
+                    $newDon->cau_name   = $oneDonation->getCause()->getCauName();
+                    $newDon->ptyp_id    = $oneDonation->getPtypId();
+                    $newDon->ptyp_code  = $oneDonation->getPaymentType()->getPtypCode();
+                    //
                     $donations[] = $newDon;
                 }
             }
@@ -266,7 +269,7 @@ class Member extends \FreeFW\Core\Controller
                     ]
                 )
                 ->addRelations(
-                    ['cause']
+                    ['cause', 'payment_type']
                 )
                 ->setSort('-spo_from')
                 ->setLimit($apiParams->getStart(), $apiParams->getlength())
@@ -275,13 +278,16 @@ class Member extends \FreeFW\Core\Controller
                 $tmp = $query->getResult();
                 foreach ($tmp as $oneSponsorship) {
                     $newSpo = new \FreeAsso\Model\MemberSponsorship();
-                    $newSpo->spo_id = $oneSponsorship->getSpoId();
-                    $newSpo->spo_from = $oneSponsorship->getSpoFrom();
-                    $newSpo->spo_to = $oneSponsorship->getSpoTo();
-                    $newSpo->spo_mnt = $oneSponsorship->getSpoMntInput();
+                    $newSpo->spo_id    = $oneSponsorship->getSpoId();
+                    $newSpo->spo_from  = $oneSponsorship->getSpoFrom();
+                    $newSpo->spo_to    = $oneSponsorship->getSpoTo();
+                    $newSpo->spo_mnt   = $oneSponsorship->getSpoMntInput();
                     $newSpo->spo_money = $oneSponsorship->getSpoMoneyInput();
-                    $newSpo->cau_id = $oneSponsorship->getCauId();
-                    $newSpo->cau_name = $oneSponsorship->getCause()->getCauName();
+                    $newSpo->cau_id    = $oneSponsorship->getCauId();
+                    $newSpo->cau_name  = $oneSponsorship->getCause()->getCauName();
+                    $newSpo->ptyp_id   = $oneSponsorship->getPtypId();
+                    $newSpo->ptyp_code = $oneSponsorship->getPaymentType()->getPtypCode();
+                    //
                     $sponsorships[] = $newSpo;
                 }
             }
@@ -563,6 +569,190 @@ class Member extends \FreeFW\Core\Controller
                         }
                     }
                 }
+            }
+        } catch (\Exception $ex) {
+            switch ($ex->getCode()) {
+                case self::ERROR_DUPLICATE_EMAIL:
+                    return $this->createResponse(412);
+                    break;
+                case self::ERROR_EMAIL_NOT_FOUND:
+                    return $this->createResponse(404);
+                default:
+                    return $this->createResponse(412);
+            }
+        }
+        return $this->createErrorResponse($code);
+    }
+
+    /**
+     * Update member infos
+     *
+     * @param \Psr\Http\Message\ServerRequestInterface $p_request
+     * @param [type] $p_email
+     * 
+     * @return void
+     */
+    public function updateInfos(\Psr\Http\Message\ServerRequestInterface $p_request, $p_email)
+    {
+        $code = FFCST::ERROR_NOT_FOUND;
+        /**
+         * @var \FreeFW\Http\ApiParams $apiParams
+         */
+        $apiParams = $p_request->getAttribute('api_params', false);
+        try {
+            $member = $this->verifyMember($p_email);
+            if ($member) {
+                /**
+                 * @var \FreeAsso\Model\Member $datas
+                 */
+                $datas = $apiParams->getData();
+                if (!$datas instanceof \FreeAsso\Model\Member) {
+                    return $this->createErrorResponse(412, "Unknown model !");
+                }
+                // Must be same ID...
+                if ($member->mbr_id != $datas->mbr_id) {
+                    return $this->createErrorResponse(412, "Different ID : not allowed !");
+                }
+                // And same email
+                if ($member->mbr_email != $datas->mbr_email) {
+                    return $this->createErrorResponse(412, "Different email : not allowed !");
+                }
+                /**
+                 * @var \FreeAsso\Model\Client $client
+                 */
+                $client = \FreeAsso\Model\Client::findFirst(['cli_id' => $member->mbr_id]);
+                if (!$client) {
+                    return $this->createErrorResponse(412, "Can\'t find member !");
+                }
+                // Verify Category
+                $catIn = $datas->mbr_category;
+                /**
+                 * @var \FreeAsso\Model\ClientCategory $category
+                 */
+                $category = \FreeAsso\Model\ClientCategory::findFirst(['clic_code' => $catIn]);
+                if (!$category instanceof \FreeAsso\Model\ClientCategory) {
+                    $datas->addError(FFCST::ERROR_REQUIRED, "Required", \FreeFW\Core\Error::TYPE_PRECONDITION, "mbr_category");
+                }
+                $client->setClicId($category->getClicId());
+                // Verify country
+                $cntyIn = $datas->mbr_country;
+                /**
+                 * @var \FreeFW\Model\Country $country
+                 */
+                $country = \FreeFW\Model\Country::findFirst(['cnty_code' => $cntyIn]);
+                if (!$country instanceof \FreeFW\Model\Country) {
+                    $datas->addError(FFCST::ERROR_REQUIRED, "Required", \FreeFW\Core\Error::TYPE_PRECONDITION, "mbr_country");
+                }
+                $client->setCntyId($country->getCntyId());
+                // Verify lang
+                $langIn = $datas->mbr_langage;
+                /**
+                 * @var \FreeFW\Model\Lang $lang
+                 */
+                $lang = \FreeFW\Model\Lang::findFirst(['lang_code' => $langIn]);
+                if (!$lang instanceof \FreeFW\Model\Lang) {
+                    $datas->addError(FFCST::ERROR_REQUIRED, "Required", \FreeFW\Core\Error::TYPE_PRECONDITION, "mbr_langage");
+                }
+                $client->setLangId($lang->getLangId());
+                // Required minimum fields
+                if (trim($datas->mbr_lastname) == '') {
+                    $datas->addError(FFCST::ERROR_REQUIRED, "Required", \FreeFW\Core\Error::TYPE_PRECONDITION, "mbr_lastname");
+                }
+
+                $client->setCliLastname($datas->mbr_lastname);
+                // Other fields
+                $client->setCliFirstname($datas->mbr_firstname);
+                $client->setCliAddress1($datas->mbr_address1);
+                $client->setCliAddress2($datas->mbr_address2);
+                $client->setCliAddress3($datas->mbr_address3);
+                $client->setCliCp($datas->mbr_zipcode);
+                $client->setCliTown($datas->mbr_city);
+                $client->setCliPhoneHome($datas->mbr_phone);
+                if ($datas->mbr_send_receipt) {
+                    $client->setCliReceipt(true);
+                } else {
+                    $client->setCliReceipt(false);
+                }
+                // Ok, continue ??
+                if ($datas->hasErrors()) {
+                    return $this->createErrorResponse(412, $datas);
+                }
+                if (!$client->save()) {
+                    $datas->setErrors($client->getErrors());
+                    return $this->createErrorResponse(412, $datas);
+                }
+                // Reload...
+                $member = $this->verifyMember($p_email);
+                return $this->createSuccessResponse(200, $member);
+            }
+        } catch (\Exception $ex) {
+            switch ($ex->getCode()) {
+                case self::ERROR_DUPLICATE_EMAIL:
+                    return $this->createResponse(412);
+                    break;
+                case self::ERROR_EMAIL_NOT_FOUND:
+                    return $this->createResponse(404);
+                default:
+                    return $this->createResponse(412);
+            }
+        }
+        return $this->createErrorResponse($code);
+    }
+
+    /**
+     * Update member email
+     *
+     * @param \Psr\Http\Message\ServerRequestInterface $p_request
+     * @param [type] $p_email
+     * 
+     * @return void
+     */
+    public function updateEmail(\Psr\Http\Message\ServerRequestInterface $p_request, $p_email)
+    {
+        $code = FFCST::ERROR_NOT_FOUND;
+        /**
+         * @var \FreeFW\Http\ApiParams $apiParams
+         */
+        $apiParams = $p_request->getAttribute('api_params', false);
+        try {
+            $member = $this->verifyMember($p_email);
+            if ($member) {
+                /**
+                 * @var \FreeAsso\Model\Member $datas
+                 */
+                $datas = $apiParams->getData();
+                if (!$datas instanceof \FreeAsso\Model\Member) {
+                    return $this->createErrorResponse(412, "Unknown model !");
+                }
+                // Must be same ID...
+                if ($member->mbr_id != $datas->mbr_id) {
+                    return $this->createErrorResponse(412, "Different ID : not allowed !");
+                }
+                /**
+                 * @var \FreeAsso\Model\Client $client
+                 */
+                $client = \FreeAsso\Model\Client::findFirst(['cli_id' => $member->mbr_id]);
+                if (!$client) {
+                    return $this->createErrorResponse(412, "Can\'t find member !");
+                }
+                $newEmail = trim($datas->mbr_email);
+                if ($newEmail == '') {
+                    return $this->createErrorResponse(412, "New email required !");
+                }
+                // Find other member with same email 
+                $otherClient = \FreeAsso\Model\Client::findFirst(['cli_email' => $newEmail]);
+                if ($otherClient instanceof \FreeAsso\Model\Client) {
+                    return $this->createErrorResponse(412, "Email allready used !");
+                }
+                // Ok, save
+                $client->setCliEmail($newEmail);
+                if (!$client->save()) {
+                    $datas->setErrors($client->getErrors());
+                    return $this->createErrorResponse(412, $datas);
+                }
+                // Reload...
+                $member = $this->verifyMember($newEmail);
+                return $this->createSuccessResponse(200, $member);
             }
         } catch (\Exception $ex) {
             switch ($ex->getCode()) {

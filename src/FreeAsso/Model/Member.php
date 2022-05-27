@@ -9,7 +9,7 @@ use \FreeFW\Constants as FFCST;
  *
  * @author jeromeklam
  */
-class Member
+class Member extends \FreeFW\Core\Model
 {
 
     public $mbr_id = null;
