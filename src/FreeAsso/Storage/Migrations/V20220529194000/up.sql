@@ -1,0 +1,1 @@
+ALTER TABLE `crm_client` ADD COLUMN `cli_user_last_update` timestamp NULL DEFAULT NULL;

@@ -725,16 +725,16 @@
         },
         {
             "name": "giggsey/libphonenumber-for-php",
-            "version": "8.12.48",
+            "version": "8.12.49",
             "source": {
                 "type": "git",
                 "url": "https://github.com/giggsey/libphonenumber-for-php.git",
-                "reference": "52c0142b39e4eec7f56e3fa8993a47aa84c3ee1f"
+                "reference": "9f0b2147588f548a9382b89b59acd78172d49f7b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/52c0142b39e4eec7f56e3fa8993a47aa84c3ee1f",
-                "reference": "52c0142b39e4eec7f56e3fa8993a47aa84c3ee1f",
+                "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/9f0b2147588f548a9382b89b59acd78172d49f7b",
+                "reference": "9f0b2147588f548a9382b89b59acd78172d49f7b",
                 "shasum": ""
             },
             "require": {
@@ -794,7 +794,7 @@
                 "issues": "https://github.com/giggsey/libphonenumber-for-php/issues",
                 "source": "https://github.com/giggsey/libphonenumber-for-php"
             },
-            "time": "2022-05-06T11:44:08+00:00"
+            "time": "2022-05-27T15:38:27+00:00"
         },
         {
             "name": "giggsey/locale",
@@ -1319,16 +1319,16 @@
         },
         {
             "name": "jeromeklam/freefw",
-            "version": "1.18.6",
+            "version": "1.18.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jeromeklam/freefw.git",
-                "reference": "cd74e420d84eb69d1801ceb5f6bdc172fe72a6ce"
+                "reference": "7de7a54dc5b3cae02a62c9576b75a1d025645d9d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jeromeklam/freefw/zipball/cd74e420d84eb69d1801ceb5f6bdc172fe72a6ce",
-                "reference": "cd74e420d84eb69d1801ceb5f6bdc172fe72a6ce",
+                "url": "https://api.github.com/repos/jeromeklam/freefw/zipball/7de7a54dc5b3cae02a62c9576b75a1d025645d9d",
+                "reference": "7de7a54dc5b3cae02a62c9576b75a1d025645d9d",
                 "shasum": ""
             },
             "require": {
@@ -1390,9 +1390,9 @@
             ],
             "support": {
                 "issues": "https://github.com/jeromeklam/freefw/issues",
-                "source": "https://github.com/jeromeklam/freefw/tree/1.18.6"
+                "source": "https://github.com/jeromeklam/freefw/tree/1.18.7"
             },
-            "time": "2022-05-27T15:37:05+00:00"
+            "time": "2022-05-29T17:45:34+00:00"
         },
         {
             "name": "jeromeklam/freeoffice",
