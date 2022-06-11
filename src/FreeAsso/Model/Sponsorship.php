@@ -156,7 +156,7 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
          */
         $now      = \FreeFW\Tools\Date::getServerDatetime();
         $first    = true;
-        if ($from < $now) {
+        if ($from < $now || $this->getSpoCurrentMonth()) {
             $nowYear  = $now->format('Y');
             $nowMonth = $now->format('m');
             $fromYear  = $from->format('Y');

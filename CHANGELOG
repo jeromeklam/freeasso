@@ -1,3 +1,12 @@
+# 1.22.1 : 11/06/2022
+
+* Dons régulier
+    * Correction d'un bug de génération du premier don
+* Reçus
+    * Export excel simplifié 
+* FreeFW 
+    * Router HAWK et encodage url  
+
 # 1.22.0 : 29/05/2022
 
 * Espace membre

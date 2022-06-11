@@ -30,6 +30,33 @@ class ReceiptGeneration extends \FreeFW\Core\ApiController
         $receiptGen = \FreeAsso\Model\ReceiptGeneration::findFirst(['recg_id' => $p_id]);
         if ($receiptGen) {
             switch (strtoupper($p_action)) {
+                case 'XLSALLYEAR':
+                    $params = [
+                        'name'   => 'reçus_' . $receiptGen->getRecgYear() . '_excel',
+                        'year'   => $receiptGen->getRecgYear(),
+                        'sort'   => 'rec_number',
+                        'peer'   => false,
+                        'grp_id' => $receiptGen->getGrpId()
+                    ];
+                    /**
+                     * @var \FreeFW\Model\Jobqueue $jobqueue
+                     */
+                    $jobqueue = new \FreeFW\Model\Jobqueue();
+                    /**
+                     * All in one sheet
+                     */
+                    $jobqueue
+                        ->setJobqService('FreeAsso::Service::ReceiptGeneration')
+                        ->setJobqMethod('excelDownload')
+                        ->setJobqStatus(\FreeFW\Model\Jobqueue::STATUS_WAITING)
+                        ->setJobqName('Reçus en export Excel')
+                        ->setJobqType(\FreeFW\Model\Jobqueue::TYPE_ONCE)
+                        ->setJobqParams(json_encode($params))
+                    ;
+                    if ($jobqueue->create()) {
+                        return $this->createSuccessOkResponse($jobqueue);
+                    }
+                    return $this->createErrorResponse(\FreeFW\Constants::ERROR_VALUES, $jobqueue->getErrors());
                 case 'PDFYEARALLNUMBER':
                     $params = [
                         'name'   => 'reçus_' . $receiptGen->getRecgYear() . '_tri_numero',

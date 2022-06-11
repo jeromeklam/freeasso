@@ -301,9 +301,131 @@ class ReceiptGeneration extends \FreeFW\Core\Service
     }
 
     /**
+     * Generate Excel for download
+     *
+     * @param array  $p_params
+     * @param int    $p_user_id
+     * 
+     * @return array
+     */
+    public function excelDownload($p_params = [], $p_user_id)
+    {
+        $this->logger->debug('Receipt.excelDownload.start');
+        // Vérifications
+        if (!isset($p_params['year'])) {
+            throw new \Exception('L\'année est obligatoire');
+        }
+        if (!isset($p_params['grp_id'])) {
+            throw new \Exception('Le groupe est obligatoire');
+        }
+        $year  = $p_params['year'];
+        $grpId = $p_params['grp_id'];
+        //
+        $query  = \FreeAsso\Model\Receipt::getQuery();
+        $query
+            ->addFromFilters(
+                [
+                    'rec_year' => $year,
+                    'grp_id'   => $grpId,
+                ]
+            )
+            ->addRelations(['client', 'receipt_type'])
+            ->setSort('client.cli_firstname,client.cli_lastname')
+        ;
+        $object = 'FreeAsso_receipt';
+        $parts  = explode('_', $object);
+        $date   = \str_replace('-', '', \FreeFW\Tools\Date::getCurrentDate());
+        $name   = array_pop($parts) . '_' . $date;
+        if ($query->execute()) {
+            /**
+             * @var \FreeFW\Model\ResultSet $results
+             */
+            $results = $query->getResult();
+            $stats   = [];
+            if ($results->count() > 0) {
+                $tmpFile = '/tmp/export_' . uniqid() . '.xlsx';
+                $sheet = new \FreeOffice\Model\SpreadSheet($tmpFile);
+                try {
+                    foreach ($results as $oneReceipt) {
+                        $client = $oneReceipt->getClient();
+                        $type   = $oneReceipt->getReceiptType();
+                        $datas  = new \FreeFW\Model\MergeModel();
+                        $datas->addBlock('receipt');
+                        $datas->addField('rec_number', 'Numéro', '', 'receipt');
+                        $datas->addField('rec_year', 'Année', '', 'receipt');
+                        $datas->addField('cli_lastname', 'Nom', '', 'receipt');
+                        $datas->addField('cli_firstname', 'Prénom', '', 'receipt');
+                        $datas->addField('rett_name', 'Type', '', 'receipt');
+                        $datas->addField('rec_mnt', 'Montant', '', 'receipt');
+                        $datas->addData(
+                            [
+                                'rec_number'    => $oneReceipt->getRecNumber(),
+                                'rec_year'      => $oneReceipt->getRecYear(),
+                                'cli_lastname'  => $client->getCliLastname(),
+                                'cli_firstname' => $client->getCliFirstname(),
+                                'rett_name'     => $type->getRettName(),
+                                'rec_mnt'       => $oneReceipt->getRecMnt()
+                            ],
+                            'receipt',
+                            true
+                        );
+                        $sheet->addLine($datas);
+                    }
+                } catch (\Exception $ex) {
+                    $myEx = \FreeFW\Tools\Exception::format($ex); 
+                    $this->logger->error($myEx);
+                    $sheet->close();
+                    @unlink($tmpFile);
+                    return false;
+                }
+                $sheet->close();
+                 // Add notification and inbox
+                $inbox = new \FreeFW\Model\Inbox();
+                $inbox
+                    ->setInboxFilename($name . '.xlsx')
+                    ->setInboxObjectName($object)
+                    ->setInboxParams(json_encode($p_params))
+                    ->setInboxContent(file_get_contents($tmpFile))
+                    ->setUserId($p_user_id)
+                ;
+                if (!$inbox->create()) {
+                    $result = false;
+                }
+                $notification = new \FreeFW\Model\Notification();
+                $notification
+                    ->setNotifCode('EXPORT')
+                    ->setNotifType(\FreeFW\Model\Notification::TYPE_INFORMATION)
+                    ->setNotifSubject('Export terminé')
+                    ->setNotifObjectName($object)
+                    ->setUserId($p_user_id)
+                ;
+                if (!$notification->create()) {
+                    $result = false;
+                }
+            }
+        } else {
+            $notification = new \FreeFW\Model\Notification();
+            $notification
+                ->setNotifCode('EXPORT')
+                ->setNotifType(\FreeFW\Model\Notification::TYPE_INFORMATION)
+                ->setNotifSubject('Export vide')
+                ->setNotifObjectName($object)
+                ->setUserId($p_user_id)
+            ;
+            if (!$notification->create()) {
+                $result = false;
+            }
+        }
+        //
+        $this->logger->debug('Receipt.excelDownload.end');
+        return $p_params;
+    }
+
+    /**
      * Download receipts
      *
      * @param array $p_params
+     * @param int   $p_user_id
      * 
      * @return array
      */
