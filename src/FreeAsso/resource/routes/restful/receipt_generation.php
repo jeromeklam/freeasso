@@ -104,7 +104,9 @@ $receiptGenerationRoutes = [
         FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_GET_ONE,
         FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
         FFCSTRT::ROUTE_MIDDLEWARE => [],
-        FFCSTRT::ROUTE_INCLUDE    => [],
+        FFCSTRT::ROUTE_INCLUDE    => [
+            'client_category'
+        ],
         FFCSTRT::ROUTE_SCOPE      => [],
         FFCSTRT::ROUTE_PARAMETERS => [
             'recg_id' => [
@@ -154,7 +156,9 @@ $receiptGenerationRoutes = [
         FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_UPDATE_ONE,
         FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
         FFCSTRT::ROUTE_MIDDLEWARE => [],
-        FFCSTRT::ROUTE_INCLUDE    => [],
+        FFCSTRT::ROUTE_INCLUDE    => [
+            'client_category'
+        ],
         FFCSTRT::ROUTE_SCOPE      => [],
         FFCSTRT::ROUTE_PARAMETERS => [
             'recg_id' => [

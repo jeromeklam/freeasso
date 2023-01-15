@@ -431,6 +431,20 @@ abstract class Client extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_MAX     => 80,
         FFCST::PROPERTY_TITLE   => 'Nom',
     ];
+    protected static $PRP_CLI_STREET_NUM = [
+        FFCST::PROPERTY_PRIVATE => 'cli_street_num',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_MAX     => 20,
+        FFCST::PROPERTY_TITLE   => 'Numéro',
+    ];
+    protected static $PRP_CLI_STREET_NAME = [
+        FFCST::PROPERTY_PRIVATE => 'cli_street_name',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_MAX     => 80,
+        FFCST::PROPERTY_TITLE   => 'Nom',
+    ];
 
     /**
      * get properties
@@ -501,6 +515,8 @@ abstract class Client extends \FreeFW\Core\StorageModel
             'cli_name'          => self::$PRP_CLI_NAME,
             'cli_volunteer'     => self::$PRP_CLI_VOLUNTEER,
             'cli_accounting'    => self::$PRP_CLI_ACCOUNTING,
+            'cli_street_num'    => self::$PRP_CLI_STREET_NUM,
+            'cli_street_name'   => self::$PRP_CLI_STREET_NAME,
         ];
     }
 

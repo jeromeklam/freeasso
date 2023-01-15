@@ -1,0 +1,1 @@
+ALTER TABLE `asso_receipt_type` ADD COLUMN `rett_start_one` tinyint(1) DEFAULT 1;

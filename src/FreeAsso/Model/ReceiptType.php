@@ -116,13 +116,15 @@ class ReceiptType extends \FreeAsso\Model\Base\ReceiptType
 
     /**
      * Save links
+     * 
+     * @param bool $p_force_create
      *
      * @return boolean
      */
-    public function saveLinks()
+    public function saveLinks($p_force_create = false)
     {
         foreach($this->settings as $oneSetting) {
-            if (intval($oneSetting->getRtctId()) <= 0) {
+            if (intval($oneSetting->getRtctId()) <= 0 || $p_force_create) {
                 $oneSetting
                     ->setRtctId(null)
                     ->setReceiptType($this)
@@ -159,7 +161,7 @@ class ReceiptType extends \FreeAsso\Model\Base\ReceiptType
     public function afterSave()
     {
         if ($this->cleanLinks()) {
-            return $this->saveLinks();
+            return $this->saveLinks(true);
         }
         return false;
     }

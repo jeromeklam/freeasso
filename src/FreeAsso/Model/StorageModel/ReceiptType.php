@@ -64,6 +64,14 @@ abstract class ReceiptType extends \FreeFW\Core\StorageModel
             ]
         ]
     ];
+    protected static $PRP_RETT_START_ONE = [
+        FFCST::PROPERTY_PRIVATE => 'rett_start_one',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_TRUE,
+        FFCST::PROPERTY_TITLE   => 'Démarre à 1',
+        FFCST::PROPERTY_COMMENT => 'Démarre à 1',
+    ];
 
     /**
      * Get title
@@ -98,7 +106,8 @@ abstract class ReceiptType extends \FreeFW\Core\StorageModel
             'rett_name'        => self::$PRP_RETT_NAME,
             'rett_last_number' => self::$PRP_RETT_LAST_NUMBER,
             'rett_regex'       => self::$PRP_RETT_REGEX,
-            'grp_id'           => self::$PRP_GRP_ID
+            'grp_id'           => self::$PRP_GRP_ID,
+            'rett_start_one'   => self::$PRP_RETT_START_ONE,
         ];
     }
 

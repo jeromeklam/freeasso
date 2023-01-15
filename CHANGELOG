@@ -1,3 +1,19 @@
+# 1.23.0 : 15/01/2023
+
+* Types de reçu
+    * Bug d'enregistrement
+* Reçus
+    * Reçus de type cerfa, nouveaux champs pour la gestion
+    * Nouvelle gestion de la numérotation
+* Type de paiement
+    * Ajout d'info pour les reçus cerfa
+* Clients
+    * Ajout d'un découpage numérp / nom de rue pour les reçus de type cerfa
+
+# 1.22.2 : 14/01/2023
+
+* SIRET api
+
 # 1.22.1 : 11/06/2022
 
 * Dons régulier

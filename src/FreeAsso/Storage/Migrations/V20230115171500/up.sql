@@ -1,0 +1,14 @@
+ALTER TABLE `asso_payment_type` ADD COLUMN `ptyp_type` enum('CHECK','BANK','CASH','NATURE', 'OTHER') DEFAULT 'OTHER';
+ALTER TABLE `asso_receipt` ADD COLUMN rec_street_num VARCHAR(20) DEFAULT NULL;
+ALTER TABLE `asso_receipt` ADD COLUMN rec_street_name VARCHAR(80) DEFAULT NULL;
+ALTER TABLE `asso_receipt` ADD COLUMN rec_siren VARCHAR(20) DEFAULT NULL;
+ALTER TABLE `asso_receipt` ADD COLUMN rec_social_reason VARCHAR(255) DEFAULT NULL;
+ALTER TABLE `asso_receipt` ADD COLUMN rec_title VARCHAR(255) DEFAULT NULL;
+ALTER TABLE `asso_receipt` ADD COLUMN rec_detail text DEFAULT NULL;
+ALTER TABLE `asso_receipt` ADD COLUMN rec_cash tinyint(1) DEFAULT 0;
+ALTER TABLE `asso_receipt` ADD COLUMN rec_check tinyint(1) DEFAULT 0;
+ALTER TABLE `asso_receipt` ADD COLUMN rec_bank tinyint(1) DEFAULT 0;
+ALTER TABLE `asso_receipt` ADD COLUMN rec_other tinyint(1) DEFAULT 0;
+ALTER TABLE `asso_receipt` ADD COLUMN rec_nature tinyint(1) DEFAULT 0;
+ALTER TABLE `crm_client` ADD COLUMN cli_street_num VARCHAR(20) DEFAULT NULL;
+ALTER TABLE `crm_client` ADD COLUMN cli_street_name VARCHAR(80) DEFAULT NULL;

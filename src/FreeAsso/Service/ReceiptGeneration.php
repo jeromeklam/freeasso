@@ -38,8 +38,7 @@ class ReceiptGeneration extends \FreeFW\Core\Service
                 [
                     'receipts.recg_id' => $recgId
                 ]
-            )
-        ;
+            );
         if ($query->execute()) {
             /**
              * @var \FreeFW\Model\ResultSet $results
@@ -100,8 +99,7 @@ class ReceiptGeneration extends \FreeFW\Core\Service
             }
             $generation
                 ->setRecgSave(json_encode($svgTypes))
-                ->setRecgStatus(\FreeAsso\Model\ReceiptGeneration::STATUS_PENDING)
-            ;
+                ->setRecgStatus(\FreeAsso\Model\ReceiptGeneration::STATUS_PENDING);
             if (!$generation->save(false, true)) {
                 throw new \Exception('Erreur de mise à jour de la génération');
             }
@@ -145,8 +143,7 @@ class ReceiptGeneration extends \FreeFW\Core\Service
                         'rec_manual' => 0,
                         'grp_id' => $grpId
                     ]
-                )
-            ;
+                );
             if ($query->execute()) {
                 /**
                  * @var \FreeFW\Model\ResultSet $results
@@ -163,8 +160,7 @@ class ReceiptGeneration extends \FreeFW\Core\Service
             // End
             $generation
                 ->setRecgSave(null)
-                ->setRecgStatus(\FreeAsso\Model\ReceiptGeneration::STATUS_NONE)
-            ;
+                ->setRecgStatus(\FreeAsso\Model\ReceiptGeneration::STATUS_NONE);
             if (!$generation->save(false, true)) {
                 throw new \Exception('Erreur de mise à jour de la génération');
             }
@@ -211,8 +207,7 @@ class ReceiptGeneration extends \FreeFW\Core\Service
             }
             $generation
                 ->setRecgSave(json_encode($svgTypes))
-                ->setRecgStatus(\FreeAsso\Model\ReceiptGeneration::STATUS_PENDING)
-            ;
+                ->setRecgStatus(\FreeAsso\Model\ReceiptGeneration::STATUS_PENDING);
             if (!$generation->save(false, true)) {
                 throw new \Exception('Erreur de mise à jour de la génération');
             }
@@ -221,21 +216,22 @@ class ReceiptGeneration extends \FreeFW\Core\Service
         }
         try {
             $group = \FreeSSO\Model\Group::findFirst(['grp_id' => $grpId]);
+            $filters = [
+                'donations.session.sess_year' => $year,
+                'donations.don_mnt_input' => [\FreeFW\Storage\Storage::COND_GREATER => 0],
+                'donations.don_status' => [\FreeFW\Storage\Storage::COND_NOT_EQUAL => \FreeAsso\Model\Donation::STATUS_NOK],
+                'donations.grp_id' => $grpId
+            ];
+            if ($generation->getClicId() > 0) {
+                $filters = ['clic_id' => $generation->getClicId()];
+            }
             /**
              * @var \FreeFW\Model\Query $query
              */
             $query  = \FreeAsso\Model\Client::getQuery();
             $query
-                ->addFromFilters(
-                    [
-                        'donations.session.sess_year' => $year,
-                        'donations.don_mnt_input' => [ \FreeFW\Storage\Storage::COND_GREATER => 0 ],
-                        'donations.don_status' => [ \FreeFW\Storage\Storage::COND_NOT_EQUAL => \FreeAsso\Model\Donation::STATUS_NOK ],
-                        'donations.grp_id' => $grpId
-                    ]
-                )
-                ->setSort('cli_firstname,cli_lastname')
-            ;
+                ->addFromFilters($filters)
+                ->setSort('cli_firstname,cli_lastname');
             if ($query->execute()) {
                 /**
                  * @var \FreeFW\Model\ResultSet $results
@@ -265,8 +261,7 @@ class ReceiptGeneration extends \FreeFW\Core\Service
                         ->setStatMonth($parts[1])
                         ->setStatNb($oneStat['nb'])
                         ->setStatMnt($oneStat['mnt'])
-                        ->setGrpId($grpId)
-                    ;
+                        ->setGrpId($grpId);
                     if (!$stat->create()) {
                         var_dump($stat->getErrors());
                     }
@@ -330,8 +325,7 @@ class ReceiptGeneration extends \FreeFW\Core\Service
                 ]
             )
             ->addRelations(['client', 'receipt_type'])
-            ->setSort('client.cli_firstname,client.cli_lastname')
-        ;
+            ->setSort('client.cli_firstname,client.cli_lastname');
         $object = 'FreeAsso_receipt';
         $parts  = explode('_', $object);
         $date   = \str_replace('-', '', \FreeFW\Tools\Date::getCurrentDate());
@@ -372,22 +366,21 @@ class ReceiptGeneration extends \FreeFW\Core\Service
                         $sheet->addLine($datas);
                     }
                 } catch (\Exception $ex) {
-                    $myEx = \FreeFW\Tools\Exception::format($ex); 
+                    $myEx = \FreeFW\Tools\Exception::format($ex);
                     $this->logger->error($myEx);
                     $sheet->close();
                     @unlink($tmpFile);
                     return false;
                 }
                 $sheet->close();
-                 // Add notification and inbox
+                // Add notification and inbox
                 $inbox = new \FreeFW\Model\Inbox();
                 $inbox
                     ->setInboxFilename($name . '.xlsx')
                     ->setInboxObjectName($object)
                     ->setInboxParams(json_encode($p_params))
                     ->setInboxContent(file_get_contents($tmpFile))
-                    ->setUserId($p_user_id)
-                ;
+                    ->setUserId($p_user_id);
                 if (!$inbox->create()) {
                     $result = false;
                 }
@@ -397,8 +390,7 @@ class ReceiptGeneration extends \FreeFW\Core\Service
                     ->setNotifType(\FreeFW\Model\Notification::TYPE_INFORMATION)
                     ->setNotifSubject('Export terminé')
                     ->setNotifObjectName($object)
-                    ->setUserId($p_user_id)
-                ;
+                    ->setUserId($p_user_id);
                 if (!$notification->create()) {
                     $result = false;
                 }
@@ -410,8 +402,7 @@ class ReceiptGeneration extends \FreeFW\Core\Service
                 ->setNotifType(\FreeFW\Model\Notification::TYPE_INFORMATION)
                 ->setNotifSubject('Export vide')
                 ->setNotifObjectName($object)
-                ->setUserId($p_user_id)
-            ;
+                ->setUserId($p_user_id);
             if (!$notification->create()) {
                 $result = false;
             }
@@ -459,8 +450,7 @@ class ReceiptGeneration extends \FreeFW\Core\Service
         $query
             ->addFromFilters($filters)
             ->addRelations(['client'])
-            ->setSort($sort)
-        ;
+            ->setSort($sort);
         $tmpPrefix  = '/tmp/export_' . uniqid() . '_';
         $outputFile = '/tmp/export_' . uniqid() . '.pdf';
         $merger     = new \FreeOffice\Tools\PdfMerger();
@@ -498,8 +488,7 @@ class ReceiptGeneration extends \FreeFW\Core\Service
             ->setInboxObjectName($object)
             ->setInboxParams(json_encode($p_params))
             ->setInboxContent(file_get_contents($outputFile))
-            ->setUserId($p_user_id)
-        ;
+            ->setUserId($p_user_id);
         if (!$inbox->create()) {
             $result = false;
         }
@@ -510,8 +499,7 @@ class ReceiptGeneration extends \FreeFW\Core\Service
             ->setNotifType(\FreeFW\Model\Notification::TYPE_INFORMATION)
             ->setNotifSubject('Export terminé')
             ->setNotifObjectName($object)
-            ->setUserId($p_user_id)
-        ;
+            ->setUserId($p_user_id);
         if (!$notification->create()) {
             $result = false;
         }

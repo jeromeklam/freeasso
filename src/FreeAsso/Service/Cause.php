@@ -345,12 +345,14 @@ class Cause extends \FreeFW\Core\Service
                                 } else {
                                     // Dois-je prendre en compte celui de ce mois ??
                                     if ($from->format('Y') == $y1 && $from->format('m') == $m1) {
-                                        if ($from->format('d') <= $row->getSpoFreqWhen() && $row->getSpoFreqWhen() <= $d1) {
-                                            // C'est censé être un don, j'ignore.
+                                        if (!$row->getSpoCurrentMonth()) {
+                                            // On ne prend pas en compte le mois en cours
                                             $mult = $mult - 1;
                                         }
                                     }
                                 }
+                                // On ne gère pas plus de 12 mois.
+                                // Ce sera actualisé le mois prochain
                                 if ($mult > 12) {
                                     $mult = 12;
                                 }

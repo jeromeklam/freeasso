@@ -130,6 +130,19 @@ abstract class ReceiptGeneration extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_COMMENT => 'Imprimés lé',
         FFCST::PROPERTY_SAMPLE  => '',
     ];
+    protected static $PRP_CLIC_ID = [
+        FFCST::PROPERTY_PRIVATE => 'clic_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_FK],
+        FFCST::PROPERTY_TITLE   => 'Catégorie',
+        FFCST::PROPERTY_FK      => ['client_category' =>
+            [
+                'model' => 'FreeAsso::Model::ClientCategory',
+                'field' => 'clic_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
 
     /**
      * get properties
@@ -151,6 +164,7 @@ abstract class ReceiptGeneration extends \FreeFW\Core\StorageModel
             'recg_gen'      => self::$PRP_RECG_GEN,
             'recg_email'    => self::$PRP_RECG_EMAIL,
             'recg_no_email' => self::$PRP_RECG_NO_EMAIL,
+            'clic_id'       => self::$PRP_CLIC_ID,
         ];
     }
 

@@ -364,6 +364,24 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     protected $cli_accounting = null;
 
     /**
+     * Numéro
+     * @var string
+     */
+    protected $cli_street_num = null;
+
+    /**
+     * Nom
+     * @var string
+     */
+    protected $cli_street_name = null;
+
+    /**
+     * cli_social_reason
+     * @var string
+     */
+    protected $cli_social_reason = null;
+
+    /**
      * Set cli_id
      *
      * @param int $p_value
@@ -1718,5 +1736,51 @@ abstract class Client extends \FreeAsso\Model\StorageModel\Client
     public function getCliAccounting()
     {
         return $this->cli_accounting;
+    }
+
+    /**
+     * Set cli_street_num
+     * 
+     * @param string $p_value
+     * 
+     * @return \FreeAsso\Model\Client
+     */
+    public function setCliStreetNum($p_value)
+    {
+        $this->cli_street_num = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get cli_street_num
+     * 
+     * @return string
+     */
+    public function getCliStreetNum()
+    {
+        return $this->cli_street_num;
+    }
+
+    /**
+     * Set cli_street_name
+     * 
+     * @param string $p_value
+     * 
+     * @return \FreeAsso\Model\Client
+     */
+    public function setCliStreetName($p_value)
+    {
+        $this->cli_street_name = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get cli_street_name
+     * 
+     * @return string
+     */
+    public function getCliStreetName()
+    {
+        return $this->cli_street_name;
     }
 }

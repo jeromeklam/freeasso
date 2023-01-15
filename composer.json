@@ -18,7 +18,8 @@
             "jeromeklam/freefw"     : "../freefw",
             "jeromeklam/freesso"    : "../freesso",
             "jeromeklam/freeoffice" : "../freeoffice",
-            "jeromeklam/freews"     : "../freews"
+            "jeromeklam/freews"     : "../freews",
+            "jeromeklam/freeapi"    : "../freeapi"
         }
     },
     "require" : {
@@ -31,6 +32,7 @@
         "jeromeklam/freesso"                   : "*",
         "jeromeklam/freefw"                    : "*",
         "jeromeklam/freews"                    : "*",
+        "jeromeklam/freeapi"                   : "*",
         "jeromeklam/freeoffice"                : "*",
         "cboden/ratchet"                       : "^0.4.1",
         "php-amqplib/php-amqplib"              : "^2.11",
@@ -39,7 +41,8 @@
         "gregwar/image"                        : "^2.0",
         "html2text/html2text"                  : "^4.3",
         "box/spout"                            : "^3.3",
-        "phpoffice/phpspreadsheet"             : "^1.18"
+        "phpoffice/phpspreadsheet"             : "^1.18",
+        "mikehaertl/php-pdftk": "^0.13.0"
     },
     "require-dev" : {
         "phpunit/phpunit"                 : "*",

@@ -14,6 +14,7 @@ services:
       - ../freesso/:/var/www/freesso/
       - ../freeoffice/:/var/www/freeoffice/
       - ../freews/:/var/www/freews/
+      - ../freeapi/:/var/www/freeapi/
   apache:
     image: jeromeklam/u20_apache
     depends_on:

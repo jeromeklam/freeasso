@@ -9,6 +9,92 @@ namespace FreeAsso\Command;
  */
 class Cron
 {
+
+    /**
+     * Test Sirene API
+     *
+     * @param \FreeFW\Console\Input\AbstractInput $p_input
+     * @param \FreeFW\Console\Output\AbstractOutput $p_output
+     */
+    public function testSirene(
+        \FreeFW\Console\Input\AbstractInput $p_input,
+        \FreeFW\Console\Output\AbstractOutput $p_output
+    ) {
+        $p_output->write("Sirene test START", true);
+        $config  = \FreeFW\Di\Di::getShared('config');
+        $api_cfg = $config->get('api:insee');
+        $api     = \FreeAPI\INSEE\Sirene\Siret::getInstance($api_cfg);
+        $result  = $api->find(['nom' => '*zoo*', 'ville' => 'amneville']);
+        //var_dump($result);
+        $p_output->write("Sirene test END", true);
+    }
+
+    /**
+     * Fill PDF
+     *
+     * @param \FreeFW\Console\Input\AbstractInput $p_input
+     * @param \FreeFW\Console\Output\AbstractOutput $p_output
+     */
+    public function fillPDF(
+        \FreeFW\Console\Input\AbstractInput $p_input,
+        \FreeFW\Console\Output\AbstractOutput $p_output
+    ) {
+        $p_output->write("Fill PDF START", true);
+        $file = APP_ROOT . '/data/2041-mec-sd_4032-lala.pdf';
+        $pdf = new \mikehaertl\pdftk\Pdf($file);
+        $result = $pdf->fillForm([
+                'a1'=>'123456789',
+                'a2' => 'Association KALAWEIT',
+                'a4' => '449 804 053',
+                'a6' => '69',
+                'a7' => 'MOUFFETARD',
+                'a8' => '75005',
+                'a9' => 'PARIS',
+                'a10' => 'FRANCE',
+                'a11' => 'Désignation don',
+                'a12' => '',
+                'a13' => '',
+                'a14' => '',
+                'a15' => '',
+                'a16' => '',
+                'a17' => '',
+                'a18' => '',
+                'a19' => '11',
+                'a20' => 'RUE DE LA MARNE',
+                'a21' => '57050',
+                'a22' => 'LE BAN ST MARTIN',
+                'a23' => '',
+                'a24' => '',
+                'a25' => '',
+                'a26' => '',
+                'a27' => '123,00',
+                'a28' => 'Cent vingt trois euros',
+                'a29' => '',
+                'a30' => '123,00',
+                'a33' => 'Cent vingt trois euros',
+                'a35' => '29/12/2022',
+                'a50' => 'KLAM Jérôme',
+                'a51' => 'SCI',
+                'a52' => '1234567890',
+                'CAC1' => 1,
+                'CAC0' => 1,
+                'CAC11' => 1,
+                //'CAC40' => 'A',
+                //'CAC41' => 'A',
+                'CAC40' => 'C',
+                //'CAC43' => 'A',
+            ])
+            ->flatten()
+            ->saveAs(APP_ROOT . '/data/filled.pdf')
+        ;
+        // Always check for errors
+        if ($result === false) {
+            $error = $pdf->getError();
+            $p_output->write($error, true);
+        }
+        $p_output->write("Fill PDF END", true);
+    }
+
     /**
      * Send errors
      *

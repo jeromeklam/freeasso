@@ -46,6 +46,12 @@ abstract class ReceiptType extends \FreeAsso\Model\StorageModel\ReceiptType
     protected $grp_id = null;
 
     /**
+     * rett_start_one
+     * @var bool
+     */
+    protected $rett_start_one = null;
+
+    /**
      * Set rett_id
      *
      * @param int $p_value
@@ -165,7 +171,7 @@ abstract class ReceiptType extends \FreeAsso\Model\StorageModel\ReceiptType
      *
      * @param int $p_value
      *
-     * @return \FreeAsso\Model\Base\Cause
+     * @return \FreeAsso\Model\ReceiptType
      */
     public function setGrpId($p_value)
     {
@@ -181,5 +187,28 @@ abstract class ReceiptType extends \FreeAsso\Model\StorageModel\ReceiptType
     public function getGrpId()
     {
         return $this->grp_id;
+    }
+
+    /**
+     * Set rett_start_one
+     * 
+     * @param bool $p_value
+     * 
+     * @return \FreeAsso\Model\ReceiptType
+     */
+    public function setRettStartOne($p_value)
+    {
+        $this->rett_start_one = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get rett_start_one
+     * 
+     * @return bool
+     */
+    public function getRettStartOne()
+    {
+        return $this->rett_start_one;
     }
 }

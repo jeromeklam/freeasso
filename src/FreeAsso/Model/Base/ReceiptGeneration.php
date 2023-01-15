@@ -82,6 +82,12 @@ abstract class ReceiptGeneration extends \FreeAsso\Model\StorageModel\ReceiptGen
     protected $recg_no_email = null;
 
     /**
+     * clic_id
+     * @var int
+     */
+    protected $clic_id = null;
+
+    /**
      * Set recg_id
      *
      * @param int $p_value
@@ -355,5 +361,28 @@ abstract class ReceiptGeneration extends \FreeAsso\Model\StorageModel\ReceiptGen
     {
         $this->recg_no_email = $recg_no_email;
         return $this;
+    }
+
+    /**
+     * Set clic_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Client
+     */
+    public function setClicId($p_value)
+    {
+        $this->clic_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get clic_id
+     *
+     * @return int
+     */
+    public function getClicId()
+    {
+        return $this->clic_id;
     }
 }
