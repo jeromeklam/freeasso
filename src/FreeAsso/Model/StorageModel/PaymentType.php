@@ -43,7 +43,7 @@ abstract class PaymentType extends \FreeFW\Core\StorageModel
     protected static $PRP_PTYP_RECEIPT = [
         FFCST::PROPERTY_PRIVATE => 'ptyp_receipt',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
-        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_FALSE,
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_TRUE,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
     ];
     protected static $PRP_PTYP_FROM = [
@@ -65,6 +65,14 @@ abstract class PaymentType extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_PRIVATE => 'ptyp_restriction',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_SELECT,
         FFCST::PROPERTY_ENUM    => ['NONE','ONCE','REGULAR'],
+        FFCST::PROPERTY_DEFAULT => 'NONE',
+        FFCST::PROPERTY_OPTIONS => []
+    ];
+    protected static $PRP_PTYP_TYPE = [
+        FFCST::PROPERTY_PRIVATE => 'ptyp_type',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_SELECT,
+        FFCST::PROPERTY_ENUM    => ['CHECK','BANK','CASH','NATURE', 'OTHER'],
+        FFCST::PROPERTY_DEFAULT => 'OTHER',
         FFCST::PROPERTY_OPTIONS => []
     ];
 
@@ -86,6 +94,7 @@ abstract class PaymentType extends \FreeFW\Core\StorageModel
             'ptyp_to'          => self::$PRP_PTYP_TO,
             'ptyp_accounting'  => self::$PRP_PTYP_ACCOUNTING,
             'ptyp_restriction' => self::$PRP_PTYP_RESTRICTION,
+            'ptyp_type'        => self::$PRP_PTYP_TYPE,
         ];
     }
 

@@ -70,6 +70,12 @@ abstract class PaymentType extends \FreeAsso\Model\StorageModel\PaymentType
     protected $ptyp_restriction = null;
 
     /**
+     * ptyp_type
+     * @var string
+     */
+    protected $ptyp_type = null;
+
+    /**
      * Set ptyp_id
      *
      * @param int $p_value
@@ -297,5 +303,28 @@ abstract class PaymentType extends \FreeAsso\Model\StorageModel\PaymentType
     public function getPtypRestriction()
     {
         return $this->ptyp_restriction;
+    }
+
+    /**
+     * Set ptyp_type
+     * 
+     * @param string ptyp_type
+     * 
+     * @return \FreeAsso\Model\PaymentType
+     */
+    public function setPtypType($p_value)
+    {
+        $this->ptyp_type = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get ptyp_type
+     * 
+     * @return string
+     */
+    public function getPtypType()
+    {
+        return $this->ptyp_type;
     }
 }

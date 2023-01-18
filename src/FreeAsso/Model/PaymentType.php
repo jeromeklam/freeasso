@@ -12,20 +12,25 @@ class PaymentType extends \FreeAsso\Model\Base\PaymentType
 {
 
     /**
+     * Types
+     * @var string
+     */
+    const TYPE_CHECK  = 'CHECK';
+    const TYPE_CASH   = 'BANK';
+    CONST TYPE_BANK   = 'CASH';
+    const TYPE_NATURE = 'NATURE';
+    const TYPE_OTHER  = 'OTHER';
+
+    /**
+     * Restrictions
+     * @var string
+     */
+    const RESTRICTION_NONE    = 'NONE';
+    const RESTRICTION_ONCE    = 'ONCE';
+    const RESTRICTION_REGULAR = 'REGULAR';
+
+    /**
      * @see \FreeFW\Core\Model
      */
     protected $__cached_model = true;
-
-    /**
-     *
-     * {@inheritDoc}
-     * @see \FreeFW\Core\Model::init()
-     */
-    public function init()
-    {
-        $this->ptyp_id      = 0;
-        $this->brk_id       = 0;
-        $this->ptyp_receipt = true;
-        return $this;
-    }
 }

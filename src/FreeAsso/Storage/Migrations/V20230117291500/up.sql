@@ -1,0 +1,1 @@
+ALTER TABLE `crm_client_category` ADD COLUMN `clic_fields` text DEFAULT null;

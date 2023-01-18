@@ -36,6 +36,12 @@ abstract class ClientCategory extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
         FFCST::PROPERTY_TITLE   => 'Catégorie',
     ];
+    protected static $PRP_CLIC_FIELDS = [
+        FFCST::PROPERTY_PRIVATE => 'clic_fields',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_TITLE   => 'Champs supplémentaires',
+    ];
 
     /**
      * get properties
@@ -45,10 +51,11 @@ abstract class ClientCategory extends \FreeAsso\Model\StorageModel\Base
     public static function getProperties()
     {
         return [
-            'clic_id'   => self::$PRP_CLIC_ID,
-            'brk_id'    => self::$PRP_BRK_ID,
-            'clic_code' => self::$PRP_CLIC_CODE,
-            'clic_name' => self::$PRP_CLIC_NAME
+            'clic_id'     => self::$PRP_CLIC_ID,
+            'brk_id'      => self::$PRP_BRK_ID,
+            'clic_code'   => self::$PRP_CLIC_CODE,
+            'clic_name'   => self::$PRP_CLIC_NAME,
+            'clic_fields' => self::$PRP_CLIC_FIELDS,
         ];
     }
 
