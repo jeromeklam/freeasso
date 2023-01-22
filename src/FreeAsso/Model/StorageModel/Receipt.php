@@ -267,6 +267,88 @@ abstract class Receipt extends \FreeFW\Core\StorageModel
             ]
         ]
     ];
+    protected static $PRP_REC_STREET_NUM = [
+        FFCST::PROPERTY_PRIVATE => 'rec_street_num',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_TITLE   => 'Numéro de rue',
+        FFCST::PROPERTY_COMMENT => 'Numéro de rue',
+    ];
+    protected static $PRP_REC_STREET_NAME = [
+        FFCST::PROPERTY_PRIVATE => 'rec_street_name',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_TITLE   => 'Nom de rue',
+        FFCST::PROPERTY_COMMENT => 'Nom de rue',
+    ];
+    protected static $PRP_REC_SIREN = [
+        FFCST::PROPERTY_PRIVATE => 'rec_siren',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_TITLE   => 'SIREN',
+        FFCST::PROPERTY_COMMENT => 'SIREN',
+    ];
+    protected static $PRP_REC_SOCIAL_REASON = [
+        FFCST::PROPERTY_PRIVATE => 'rec_social_reason',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_TITLE   => 'Raison sociale',
+        FFCST::PROPERTY_COMMENT => 'Raison sociale',
+    ];
+    protected static $PRP_REC_TITLE = [
+        FFCST::PROPERTY_PRIVATE => 'rec_title',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_TITLE   => 'Titre',
+        FFCST::PROPERTY_COMMENT => 'Titre',
+    ];
+    protected static $PRP_REC_DETAIL = [
+        FFCST::PROPERTY_PRIVATE => 'rec_detail',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_TITLE   => 'Détail',
+        FFCST::PROPERTY_COMMENT => 'Détail',
+    ];
+    protected static $PRP_REC_CASH = [
+        FFCST::PROPERTY_PRIVATE => 'rec_cash',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_FALSE,
+        FFCST::PROPERTY_TITLE   => 'Espèce',
+        FFCST::PROPERTY_COMMENT => 'Espèce',
+    ];
+    protected static $PRP_REC_CHECK = [
+        FFCST::PROPERTY_PRIVATE => 'rec_check',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_FALSE,
+        FFCST::PROPERTY_TITLE   => 'Chèque',
+        FFCST::PROPERTY_COMMENT => 'Chèque',
+    ];
+    protected static $PRP_REC_BANK = [
+        FFCST::PROPERTY_PRIVATE => 'rec_bank',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_FALSE,
+        FFCST::PROPERTY_TITLE   => 'Banque',
+        FFCST::PROPERTY_COMMENT => 'Banque',
+    ];
+    protected static $PRP_REC_OTHER = [
+        FFCST::PROPERTY_PRIVATE => 'rec_bank',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_FALSE,
+        FFCST::PROPERTY_TITLE   => 'Autre',
+        FFCST::PROPERTY_COMMENT => 'Autre',
+    ];
+    protected static $PRP_REC_NATURE = [
+        FFCST::PROPERTY_PRIVATE => 'rec_nature',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_FALSE,
+        FFCST::PROPERTY_TITLE   => 'Nature',
+        FFCST::PROPERTY_COMMENT => 'Nature',
+    ];
 
     /**
      * get properties
@@ -276,34 +358,45 @@ abstract class Receipt extends \FreeFW\Core\StorageModel
     public static function getProperties()
     {
         return [
-            'rec_id'           => self::$PRP_REC_ID,
-            'brk_id'           => self::$PRP_BRK_ID,
-            'cli_id'           => self::$PRP_CLI_ID,
-            'rett_id'          => self::$PRP_RETT_ID,
-            'rec_mode'         => self::$PRP_REC_MODE,
-            'rec_ts'           => self::$PRP_REC_TS,
-            'rec_gen_ts'       => self::$PRP_REC_GEN_TS,
-            'rec_print_ts'     => self::$PRP_REC_PRINT_TS,
-            'rec_year'         => self::$PRP_REC_YEAR,
-            'rec_number'       => self::$PRP_REC_NUMBER,
-            'rec_mnt'          => self::$PRP_REC_MNT,
-            'rec_money'        => self::$PRP_REC_MONEY,
-            'rec_fullname'     => self::$PRP_REC_FULLNAME,
-            'rec_address1'     => self::$PRP_REC_ADDRESS1,
-            'rec_address2'     => self::$PRP_REC_ADDRESS2,
-            'rec_address3'     => self::$PRP_REC_ADDRESS3,
-            'rec_cp'           => self::$PRP_REC_CP,
-            'rec_town'         => self::$PRP_REC_TOWN,
-            'cnty_id'          => self::$PRP_CNTY_ID,
-            'lang_id'          => self::$PRP_LANG_ID,
-            'rec_email'        => self::$PRP_REC_EMAIL,
-            'rec_send_method'  => self::$PRP_REC_SEND_METHOD,
-            'rec_mnt_letter'   => self::$PRP_REC_MNT_LETTER,
-            'file_id'          => self::$PRP_FILE_ID,
-            'grp_id'           => self::$PRP_GRP_ID,
-            'rec_manual'       => self::$PRP_REC_MANUAL,
-            'rec_full_address' => self::$PRP_REC_FULL_ADDRESS,
-            'recg_id'          => self::$PRP_RECG_ID,
+            'rec_id'            => self::$PRP_REC_ID,
+            'brk_id'            => self::$PRP_BRK_ID,
+            'cli_id'            => self::$PRP_CLI_ID,
+            'rett_id'           => self::$PRP_RETT_ID,
+            'rec_mode'          => self::$PRP_REC_MODE,
+            'rec_ts'            => self::$PRP_REC_TS,
+            'rec_gen_ts'        => self::$PRP_REC_GEN_TS,
+            'rec_print_ts'      => self::$PRP_REC_PRINT_TS,
+            'rec_year'          => self::$PRP_REC_YEAR,
+            'rec_number'        => self::$PRP_REC_NUMBER,
+            'rec_mnt'           => self::$PRP_REC_MNT,
+            'rec_money'         => self::$PRP_REC_MONEY,
+            'rec_fullname'      => self::$PRP_REC_FULLNAME,
+            'rec_address1'      => self::$PRP_REC_ADDRESS1,
+            'rec_address2'      => self::$PRP_REC_ADDRESS2,
+            'rec_address3'      => self::$PRP_REC_ADDRESS3,
+            'rec_cp'            => self::$PRP_REC_CP,
+            'rec_town'          => self::$PRP_REC_TOWN,
+            'cnty_id'           => self::$PRP_CNTY_ID,
+            'lang_id'           => self::$PRP_LANG_ID,
+            'rec_email'         => self::$PRP_REC_EMAIL,
+            'rec_send_method'   => self::$PRP_REC_SEND_METHOD,
+            'rec_mnt_letter'    => self::$PRP_REC_MNT_LETTER,
+            'file_id'           => self::$PRP_FILE_ID,
+            'grp_id'            => self::$PRP_GRP_ID,
+            'rec_manual'        => self::$PRP_REC_MANUAL,
+            'rec_full_address'  => self::$PRP_REC_FULL_ADDRESS,
+            'recg_id'           => self::$PRP_RECG_ID,
+            'rec_street_num'    => self::$PRP_REC_STREET_NUM,
+            'rec_street_name'   => self::$PRP_REC_STREET_NAME,
+            'rec_siren'         => self::$PRP_REC_SIREN,
+            'rec_social_reason' => self::$PRP_REC_SOCIAL_REASON,
+            'rec_title'         => self::$PRP_REC_TITLE,
+            'rec_detail'        => self::$PRP_REC_DETAIL,
+            'rec_cash'          => self::$PRP_REC_CASH,
+            'rec_check'         => self::$PRP_REC_CHECK,
+            'rec_bank'          => self::$PRP_REC_BANK,
+            'rec_other'         => self::$PRP_REC_OTHER,
+            'rec_nature'        => self::$PRP_REC_NATURE,
         ];
     }
 

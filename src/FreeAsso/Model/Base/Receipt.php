@@ -166,6 +166,72 @@ abstract class Receipt extends \FreeAsso\Model\StorageModel\Receipt
     protected $rec_manual;
 
     /**
+     * Numéro de rue
+     * @var string
+     */
+    protected $rec_street_num = null;
+
+    /**
+     * Nom de rue
+     * @var string
+     */
+    protected $rec_street_name = null;
+
+    /**
+     * Siren
+     * @var string
+     */
+    protected $rec_siren = null;
+
+    /**
+     * Raison sociale
+     * @var string
+     */
+    protected $rec_social_reason = null;
+
+    /**
+     * Titre
+     * @var string
+     */
+    protected $rec_title = null;
+
+    /**
+     * Detail
+     * @var string
+     */
+    protected $rec_detail = null;
+
+    /**
+     * Cash
+     * @var bool
+     */
+    protected $rec_cash = false;
+
+    /**
+     * Check
+     * @var bool
+     */
+    protected $rec_check = false;
+
+    /**
+     * Bank
+     * @var bool
+     */
+    protected $rec_bank = false;
+
+    /**
+     * Autre
+     * @var bool
+     */
+    protected $rec_other = false;
+
+    /**
+     * Nature
+     * @var bool
+     */
+    protected $rec_nature = false;
+
+    /**
      * Set rec_id
      *
      * @param int $p_value
@@ -745,7 +811,7 @@ abstract class Receipt extends \FreeAsso\Model\StorageModel\Receipt
      *
      * @param bool $p_value
      *
-     * @return \FreeAsso\Model\Donation
+     * @return \FreeAsso\Model\Receipt
      */
     public function setRecManual($p_value)
     {
@@ -761,5 +827,258 @@ abstract class Receipt extends \FreeAsso\Model\StorageModel\Receipt
     public function getRecManual()
     {
         return $this->rec_manual;
+    }
+
+    /**
+     * Set rec_street_num
+     * 
+     * @param string $p_value
+     * 
+     * @return \FreeAsso\Model\Receipt
+     */
+    public function setRecStreetNum($p_value)
+    {
+        $this->rec_street_num = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get rec_street_num
+     * 
+     * @return string
+     */
+    public function getRecStreetNum()
+    {
+        return $this->rec_street_num;
+    }
+
+    /**
+     * Set rec_street_name
+     * 
+     * @param string $p_value
+     * 
+     * @return \FreeAsso\Model\Receipt
+     */
+    public function setRecStreetName($p_value)
+    {
+        $this->rec_street_name = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get rec_street_name
+     * 
+     * @return string
+     */
+    public function getRecStreetName()
+    {
+        return $this->rec_street_name;
+    }
+
+    /**
+     * Set rec_siren
+     * 
+     * @param string $p_value
+     * 
+     * return \FreeAsso\Model\Receipt
+     */
+    public function setRecSiren($p_value)
+    {
+        $this->rec_siren = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get rec_siren
+     * 
+     * @return string
+     */
+    public function getRecSiren()
+    {
+        return $this->rec_siren;
+    }
+
+    /**
+     * Set rec_social_reason
+     * 
+     * @param string $p_value
+     * 
+     * @return \FreeAsso\Model\Receipt
+     */
+    public function setRecSocialReason($p_value)
+    {
+        $this->rec_social_reason = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get rec_social_reason
+     * 
+     * @return string
+     */
+    public function getRecSocialReason()
+    {
+        return $this->rec_social_reason;
+    }
+
+    /**
+     * Set rec_title
+     * 
+     * @param string $p_value
+     * 
+     * @return \FreeAsso\Model\Receipt
+     */
+    public function setRecTitle($p_value)
+    {
+        $this->rec_title = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get rec_title
+     * 
+     * @return string
+     */
+    public function getRecTitle()
+    {
+        return $this->rec_title;
+    }
+
+    /**
+     * Set rec_detail
+     * 
+     * @param string $p_value;
+     * 
+     * @return \FreeAsso\Model\Receipt
+     */
+    public function setRecDetail($p_value)
+    {
+        $this->rec_detail = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get rec_detail
+     * 
+     * @return string
+     */
+    public function getRecDetail()
+    {
+        return $this->rec_detail;
+    }
+
+    /**
+     * Set rec_cash
+     * 
+     * @param bool $p_value
+     * 
+     * @return \FreeAsso\Model\Receipt
+     */
+    public function setRecCash($p_value)
+    {
+        $this->rec_cash = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get rec_cash
+     * 
+     * @return bool
+     */
+    public function getRecCash()
+    {
+        return $this->rec_cash;
+    }
+
+    /**
+     * Set rec_check
+     * 
+     * @param bool $p_value;
+     * 
+     * @return \FreeAsso\Model\Receipt
+     */
+    public function setRecCheck($p_value)
+    {
+        $this->rec_check = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get rec_check
+     * 
+     * @return bool
+     */
+    public function getRecCheck()
+    {
+        return $this->rec_check;
+    }
+
+    /**
+     * Set rec_bank
+     * 
+     * @param bool $p_value
+     * 
+     * @return \FreeAsso\Model\Receipt
+     */
+    public function setRecBank($p_value)
+    {
+        $this->rec_bank = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get rec_bank
+     * 
+     * @return bool
+     */
+    public function getRecBank()
+    {
+        return $this->rec_bank;
+    }
+
+    /**
+     * Set rec_other
+     * 
+     * @param bool $p_value
+     * 
+     * @return \FreeAsso\Model\Receipt
+     */
+    public function setRecOther($p_value)
+    {
+        $this->rec_other = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get rec_other
+     * 
+     * @return bool
+     */
+    public function getRecOther()
+    {
+        return $this->rec_other;
+    }
+
+    /**
+     * Set rec_nature
+     * 
+     * @param bool $p_value;
+     * 
+     * @return \FreeAsso\Model\Receipt
+     */
+    public function setRecNature($p_value)
+    {
+        $this->rec_nature = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get rec_nature
+     * 
+     * @return bool
+     */
+    public function getRecNature()
+    {
+        return $this->rec_nature;
     }
 }
