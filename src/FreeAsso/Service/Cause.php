@@ -270,7 +270,9 @@ class Cause extends \FreeFW\Core\Service
                 $model   = \FreeFW\DI\DI::get('FreeAsso::Model::Sponsorship');
                 $query   = $model->getQuery();
                 $filters = [
-                    'cau_id'   => $p_cause->getCauId()
+                    'cau_id'   => $p_cause->getCauId(),
+                    'spo_from' => [\FreeFW\Storage\Storage::COND_LOWER_EQUAL => \FreeFW\Tools\Date::getCurrentTimestamp()],
+                    'spo_to'   => [\FreeFW\Storage\Storage::COND_GREATER_EQUAL_OR_NULL => \FreeFW\Tools\Date::getCurrentTimestamp()]
                 ];
                 $query->addFromFilters($filters);
                 if ($query->execute()) {

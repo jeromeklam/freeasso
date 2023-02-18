@@ -133,7 +133,7 @@ abstract class ReceiptGeneration extends \FreeFW\Core\StorageModel
     protected static $PRP_CLIC_ID = [
         FFCST::PROPERTY_PRIVATE => 'clic_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_FK],
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
         FFCST::PROPERTY_TITLE   => 'Catégorie',
         FFCST::PROPERTY_FK      => ['client_category' =>
             [

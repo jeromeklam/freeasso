@@ -71,6 +71,175 @@ class Accounting extends \FreeFW\Core\Service
     }
 
     /**
+     * Import headers
+     * 
+     * 
+     */
+    public function handleWaiting($p_params = [])
+    {
+        $accoutings = \FreeAsso\Model\AccountingHeader::find(
+            [
+                'acch_year'   => $p_params['year'],
+                'acch_month'  => $p_params['month'],
+                'acch_status' => \FreeAsso\Model\AccountingHeader::STATUS_WAITING
+            ]
+        );
+        /**
+         * @var \FreeAsso\Model\AccountingHeader $oneAccounting
+         */
+        foreach ($accoutings as $oneAccounting) {
+            \FreeAsso\Model\AccountingLine::delete(['acch_id' => $oneAccounting->getAcchId()]);
+            switch (strtoupper($oneAccounting->getAcchFormat())) {
+                case 'PAYPAL':
+                    $content = $oneAccounting->getAcchContent();
+                    $file = '/tmp/acc_' . uniqid() . '.csv';
+                    file_put_contents($file, $content);
+                    if (($handle = fopen($file, "r")) !== false) {
+                        $first = true;
+                        while (($data = fgetcsv($handle, 1000, ",")) !== false) {
+                            if (!$first && trim($data[16]) == '' && $data[0] != '') {
+                                $nbCols = count($data);
+                                $wDate = \FreeFW\Tools\Date::ddmmyyyyToDateTime($data[0]);
+                                $wMonth = intval($wDate->format('m'));
+                                if ($wMonth == $oneAccounting->getAcchMonth()) {
+                                    $label = strtoupper($data[3]);
+                                    $mnt01 = preg_replace("/[^0-9.]/", "", str_replace(',', '.', $data[7]));
+                                    $oneLine = new \FreeAsso\Model\AccountingLine();
+                                    $oneLine
+                                        ->setAcchId($oneAccounting->getAcchId())
+                                        ->setAcclLabel($label)
+                                        ->setAcclPtypName('PAY')
+                                        ->setAcclTs(\FreeFW\Tools\Date::datetimeToMysql($wDate))
+                                        ->setAcclAmount($mnt01)
+                                        ->setAcclComplement($data[10]);
+                                    if (!$oneLine->create()) {
+                                        var_dump($oneLine->getErrors());
+                                    }
+                                }
+                            }
+                            $first = false;
+                        }
+                        fclose($handle);
+                    }
+                    @unlink($file);
+                    break;
+                case 'HELLOASSO':
+                    $content = $oneAccounting->getAcchContent();
+                    $file = '/tmp/acc_' . uniqid() . '.csv';
+                    file_put_contents($file, $content);
+                    if (($handle = fopen($file, "r")) !== false) {
+                        $first = true;
+                        while (($data = fgetcsv($handle, 1000, ";")) !== false) {
+                            $nbCols = count($data);
+                            if (!$first && $data[4] != '') {
+                                $wDate = \FreeFW\Tools\Date::ddmmyyyyToDateTime($data[4]);
+                                $wMonth = intval($wDate->format('m'));
+                                if ($wMonth == $oneAccounting->getAcchMonth()) {
+                                    $label = strtoupper($data[12] . ' ' . $data[13]);
+                                    $mnt01 = preg_replace("/[^0-9.]/", "", str_replace(',', '.', $data[5]));
+                                    $oneLine = new \FreeAsso\Model\AccountingLine();
+                                    $oneLine
+                                        ->setAcchId($oneAccounting->getAcchId())
+                                        ->setAcclLabel($label)
+                                        ->setAcclPtypName('HELLO')
+                                        ->setAcclTs(\FreeFW\Tools\Date::datetimeToMysql($wDate))
+                                        ->setAcclAmount($mnt01)
+                                        ->setAcclComplement($data[19]);
+                                    if (!$oneLine->create()) {
+                                        var_dump($oneLine->getErrors());
+                                    }
+                                }
+                            }
+                            $first = false;
+                        }
+                    }
+                    @unlink($file);
+                    break;
+                case 'STRIPE':
+                    $content = $oneAccounting->getAcchContent();
+                    $file = '/tmp/acc_' . uniqid() . '.csv';
+                    file_put_contents($file, $content);
+                    if (($handle = fopen($file, "r")) !== false) {
+                        $first = true;
+                        while (($data = fgetcsv($handle, 1000, ";")) !== false) {
+                            $nbCols = count($data);
+                            if (!$first && $data[1] != '') {
+                                $wDate = \FreeFW\Tools\Date::ddmmyyyyToDateTime($data[1]);
+                                $wMonth = intval($wDate->format('m'));
+                                if ($wMonth == $oneAccounting->getAcchMonth()) {
+                                    $label = strtoupper($data[9]);
+                                    $mnt01 = preg_replace("/[^0-9.]/", "", str_replace(',', '.', $data[2]));
+                                    $oneLine = new \FreeAsso\Model\AccountingLine();
+                                    $oneLine
+                                        ->setAcchId($oneAccounting->getAcchId())
+                                        ->setAcclLabel($label)
+                                        ->setAcclPtypName('STR')
+                                        ->setAcclTs(\FreeFW\Tools\Date::datetimeToMysql($wDate))
+                                        ->setAcclAmount($mnt01)
+                                        ->setAcclComplement($data[10]);
+                                    if (!$oneLine->create()) {
+                                        var_dump($oneLine->getErrors());
+                                    }
+                                }
+                            }
+                            $first = false;
+                        }
+                    }
+                    @unlink($file);
+                    break;
+                case 'LIVRE':
+                    $content = $oneAccounting->getAcchContent();
+                    $file = '/tmp/acc_' . uniqid() . '.csv';
+                    file_put_contents($file, $content);
+                    if (($handle = fopen($file, "r")) !== false) {
+                        $first = true;
+                        while (($data = fgetcsv($handle, 1000, ";")) !== false) {
+                            $nbCols = count($data);
+                            if ($data[4] != '') {
+                                $wDate = \FreeFW\Tools\Date::ddmmyyyyToDateTime($data[1]);
+                                $wMonth = intval($wDate->format('m'));
+                                if ($wMonth == $oneAccounting->getAcchMonth()) {
+                                    $label = strtoupper($data[4]);
+                                    $list  = ['VIR', 'M', 'MME', 'M.', 'OU', 'ET', 'MR'];
+                                    $cont  = true;
+                                    while ($cont) {
+                                        $cont = false;
+                                        foreach ($list as $rem) {
+                                            $pos = strpos($label, $rem . ' ');
+                                            if ($pos === 0) {
+                                                $label = trim(substr($label, strlen($rem)));
+                                                $cont  = true;
+                                            }
+                                        }
+                                    }
+                                    $mnt01 = preg_replace("/[^0-9.]/", "", str_replace(',', '.', $data[5]));
+                                    $mnt02 = preg_replace("/[^0-9.]/", "", str_replace(',', '.', $data[6]));
+                                    $oneLine = new \FreeAsso\Model\AccountingLine();
+                                    $oneLine
+                                        ->setAcchId($oneAccounting->getAcchId())
+                                        ->setAcclLabel($label)
+                                        ->setAcclPtypName($this->getCode($data[2]))
+                                        ->setAcclTs(\FreeFW\Tools\Date::datetimeToMysql($wDate))
+                                        ->setAcclAmount($mnt01 > 0 ? 0 - $mnt01 : $mnt02);
+                                    if (!$oneLine->create()) {
+                                        var_dump($oneLine->getErrors());
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    @unlink($file);
+                    break;
+            }
+            $oneAccounting->setAcchStatus(\FreeAsso\Model\AccountingHeader::STATUS_IMPORTED);
+            if (!$oneAccounting->save()) {
+                var_dump($oneAccounting->getErrors());
+            }
+        }
+        return $p_params;
+    }
+
+    /**
      * Import account file
      *
      * @param string $p_filename
@@ -88,11 +257,11 @@ class Accounting extends \FreeFW\Core\Service
                     $date  = $data[1];
                     $code  = $this->getCode($data[2]);
                     $label = $data[4];
-                    $list  = ['VIR','M','MME', 'M.', 'OU', 'ET', 'MR'];
+                    $list  = ['VIR', 'M', 'MME', 'M.', 'OU', 'ET', 'MR'];
                     $cont  = true;
                     while ($cont) {
                         $cont = false;
-                        foreach($list as $rem) {
+                        foreach ($list as $rem) {
                             $pos = strpos($label, $rem . ' ');
                             if ($pos === 0) {
                                 $label = trim(substr($label, strlen($rem)));
@@ -117,8 +286,7 @@ class Accounting extends \FreeFW\Core\Service
                                 ->setAcchName($this->getCode($code) . ' ' . $wDate->format('m/Y'))
                                 ->setAcchStatus(\FreeAsso\Model\AccountingHeader::STATUS_IMPORTED)
                                 ->setAcchStatusTs(\FreeFW\Tools\Date::getCurrentTimestamp())
-                                ->initContent()
-                            ;
+                                ->initContent();
                             if (!$oneHeader->create()) {
                                 var_dump($oneHeader->getErrors());
                                 die;
@@ -132,8 +300,7 @@ class Accounting extends \FreeFW\Core\Service
                             ->setAcclLabel($label)
                             ->setAcclPtypName($code)
                             ->setAcclTs(\FreeFW\Tools\Date::datetimeToMysql($wDate))
-                            ->setAcclAmount($mnt01 > 0 ? $mnt01 : $mnt02)
-                        ;
+                            ->setAcclAmount($mnt01 > 0 ? $mnt01 : $mnt02);
                         if (!$oneLine->create()) {
                             var_dump($oneLine->getErrors());
                         }
@@ -169,13 +336,11 @@ class Accounting extends \FreeFW\Core\Service
             foreach ($lines as $oneLine) {
                 $oneLine
                     ->setDonId(null)
-                    ->save(false, true)
-                ;
+                    ->save(false, true);
             }
             $oneAccounting
                 ->setAcchStatus(\FreeAsso\Model\AccountingHeader::STATUS_IMPORTED)
-                ->save()
-            ;
+                ->save();
         }
         $query = \FreeAsso\Model\Donation::getQuery();
         $query
@@ -183,11 +348,10 @@ class Accounting extends \FreeFW\Core\Service
                 [
                     'session.sess_year'  => $p_params['year'],
                     'session.sess_month' => $p_params['month'],
-                    'don_verif'          => [ \FreeFW\Storage\Storage::COND_NOT_EQUAL => 'NONE' ],
+                    'don_verif'          => [\FreeFW\Storage\Storage::COND_NOT_EQUAL => 'NONE'],
                 ]
             )
-            ->addRelations(['client','payment_type','session'])
-        ;
+            ->addRelations(['client', 'payment_type', 'session']);
         if ($query->execute()) {
             $donations = $query->getResult();
             /**
@@ -199,8 +363,7 @@ class Accounting extends \FreeFW\Core\Service
                     ->setDonVerifMatch(0)
                     ->setDonVerifComment(null)
                     ->setAcclId(null)
-                    ->save(false, true)
-                ;
+                    ->save(false, true);
             }
         }
         $sessions = \FreeAsso\Model\Session::find(
@@ -213,8 +376,7 @@ class Accounting extends \FreeFW\Core\Service
             $oneSession
                 ->setSessVerif(\FreeAsso\Model\Session::VERIF_NONE)
                 ->setSessVerifText(null)
-                ->save()
-            ;
+                ->save();
         }
     }
 
@@ -245,23 +407,16 @@ class Accounting extends \FreeFW\Core\Service
             }
         }
         if (count($testing) > 0) {
-            $from = new \DateTime();
-            $from->setDate($p_params['year'], $p_params['month'], 1);
-            $from->setTime(0, 0, 1);
-            $to = clone($from);
-            $to->add(new \DateInterval('P1M'));
             $query = \FreeAsso\Model\Donation::getQuery();
+            $filters = [
+                'session.sess_year'  => $p_params['year'],
+                'don_mnt_input'      => [\FreeFW\Storage\Storage::COND_GREATER => 0],
+                'don_status'         => [\FreeFW\Storage\Storage::COND_NOT_EQUAL => 'NOK'],
+                'session.sess_month' => $p_params['month']
+            ];
             $query
-                ->addFromFilters(
-                    [
-                        'session.sess_year'  => $p_params['year'],
-                        'session.sess_month' => $p_params['month'],
-                        'don_mnt_input'      => [ \FreeFW\Storage\Storage::COND_GREATER => 0 ],
-                        'don_status'         => [ \FreeFW\Storage\Storage::COND_NOT_EQUAL => 'NOK' ],
-                    ]
-                )
-                ->addRelations(['client','payment_type','session'])
-            ;
+                ->addFromFilters($filters)
+                ->addRelations(['client', 'payment_type', 'session']);
             if ($query->execute()) {
                 $donations = $query->getResult();
                 /**
@@ -277,17 +432,21 @@ class Accounting extends \FreeFW\Core\Service
                     $lastname  = strtoupper(\FreeFW\Tools\PBXString::withoutAccent($client->getCliLastname()));
                     foreach ($testing as $idx => $oneTest) {
                         $comment  = null;
+                        $email1   = strtolower($oneTest['accl_complement']);
+                        $email2   = strtolower($client->getCliEmail());
                         $full1    = strtoupper(str_replace([' ', '\'', '-', '.'], '', $oneTest['accl_label']));
-                        $full2    = strtoupper(str_replace([' ', '\'', '-', '.'], '', $client->getCliLastname() . $client->getCliFirstname()));
-                        $full3    = strtoupper(str_replace([' ', '\'', '-', '.'], '', $client->getCliFirstname() . $client->getCliLastname()));
+                        $full2    = strtoupper(str_replace([' ', '\'', '-', '.'], '', $lastname . $firstname));
+                        $full3    = strtoupper(str_replace([' ', '\'', '-', '.'], '', $firstname . $lastname));
                         $full4    = strtoupper(str_replace([' ', '\'', '-', '.'], '', $client->getCliAccounting()));
                         $words    = explode(' ', $oneTest['accl_label']);
                         $matching = 0;
-                        if ($full1 == $full2 || $full1 == $full3 || $full1 == $full4) {
+                        if ($full1 == $full2 || $full1 == $full3 || $full1 == $full4 || ($email1 != '' && $email1 == $email2)) {
                             $matching = 100;
                         } else {
-                            if (\FreeFW\Tools\PBXString::soundLike($full1, $full2) || 
-                                ($full4 != '' && strpos($full1, $full4) !== false)) {
+                            if (
+                                \FreeFW\Tools\PBXString::soundLike($full1, $full2) ||
+                                ($full4 != '' && strpos($full1, $full4) !== false)
+                            ) {
                                 $matching = 70;
                             } else {
                                 foreach ($words as $oneWord) {
@@ -335,8 +494,7 @@ class Accounting extends \FreeFW\Core\Service
                                     ->setDonVerif(\FreeAsso\Model\Donation::VERIF_AUTO)
                                     ->setDonDesc('Contrôlé avec : ' . $oneTest['accl_label'])
                                     ->setDonVerifComment($comment)
-                                    ->setDonVerifMatch(intval($matching / 10))
-                                ;
+                                    ->setDonVerifMatch(intval($matching / 10));
                                 if (!$oneDonation->save(true, true)) {
                                     var_dump($oneDonation->getErrors());
                                     die;
@@ -360,23 +518,22 @@ class Accounting extends \FreeFW\Core\Service
             $from = new \DateTime();
             $from->setDate($p_params['year'], $p_params['month'], 1);
             $from->setTime(0, 0, 1);
-            $to = clone($from);
+            $to = clone ($from);
             $to->add(new \DateInterval('P1M'));
             $query = \FreeAsso\Model\Donation::getQuery();
             $query
                 ->addFromFilters(
                     [
-                        'don_real_ts'   => [ \FreeFW\Storage\Storage::COND_BETWEEN => [
+                        'don_real_ts'   => [\FreeFW\Storage\Storage::COND_BETWEEN => [
                             \FreeFW\Tools\Date::datetimeToMysql($from),
                             \FreeFW\Tools\Date::datetimeToMysql($to)
                         ]],
-                        'don_mnt_input' => [ \FreeFW\Storage\Storage::COND_GREATER => 0 ],
+                        'don_mnt_input' => [\FreeFW\Storage\Storage::COND_GREATER => 0],
                         'accl_id'       => \FreeFW\Storage\Storage::COND_EMPTY,
-                        'don_status'    => [ \FreeFW\Storage\Storage::COND_NOT_EQUAL => 'NOK' ],
+                        'don_status'    => [\FreeFW\Storage\Storage::COND_NOT_EQUAL => 'NOK'],
                     ]
                 )
-                ->addRelations(['client','payment_type'])
-            ;
+                ->addRelations(['client', 'payment_type']);
             if ($query->execute()) {
                 $donations = $query->getResult();
                 /**
@@ -401,8 +558,10 @@ class Accounting extends \FreeFW\Core\Service
                         if ($full1 == $full2 || $full1 == $full3 || $full1 == $full4) {
                             $matching = 100;
                         } else {
-                            if (\FreeFW\Tools\PBXString::soundLike($full1, $full2) || 
-                                ($full4 != '' && strpos($full1, $full4) !== false)) {
+                            if (
+                                \FreeFW\Tools\PBXString::soundLike($full1, $full2) ||
+                                ($full4 != '' && strpos($full1, $full4) !== false)
+                            ) {
                                 $matching = 70;
                             } else {
                                 foreach ($words as $oneWord) {
@@ -450,8 +609,7 @@ class Accounting extends \FreeFW\Core\Service
                                     ->setDonVerif(\FreeAsso\Model\Donation::VERIF_AUTO)
                                     ->setDonDesc('Contrôlé avec : ' . $oneTest['accl_label'])
                                     ->setDonVerifComment($comment)
-                                    ->setDonVerifMatch(intval($matching / 10))
-                                ;
+                                    ->setDonVerifMatch(intval($matching / 10));
                                 if (!$oneDonation->save(true, true)) {
                                     var_dump($oneDonation->getErrors());
                                     die;
@@ -472,10 +630,10 @@ class Accounting extends \FreeFW\Core\Service
             }
         }
         foreach ($accoutings as $oneAccounting) {
-            $oneAccounting
-                ->setAcchStatus(\FreeAsso\Model\AccountingHeader::STATUS_DONE)
-                ->save()
-            ;
+            $oneAccounting->setAcchStatus(\FreeAsso\Model\AccountingHeader::STATUS_DONE);
+            if (!$oneAccounting->save()) {
+                var_dump($oneAccounting->getErrors());
+            }
         }
         $sessions = \FreeAsso\Model\Session::find(
             [
@@ -490,8 +648,7 @@ class Accounting extends \FreeFW\Core\Service
         foreach ($sessions as $oneSession) {
             $oneSession
                 ->setSessVerif(\FreeAsso\Model\Session::VERIF_DONE)
-                ->save()
-            ;
+                ->save();
         }
         return true;
     }

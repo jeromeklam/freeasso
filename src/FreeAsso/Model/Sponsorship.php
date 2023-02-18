@@ -107,6 +107,7 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
      */
     protected function validate()
     {
+        parent::validate();
         if (in_array($this->getSpoFreq(), [self::PAYMENT_TYPE_MONTH, self::PAYMENT_TYPE_YEAR])) {
             if (intval($this->getSpoFreqWhen()) <= 0) {
                 $this->addError(

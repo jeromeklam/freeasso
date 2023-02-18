@@ -196,6 +196,10 @@ class Client extends \FreeFW\Core\Service
                                 ->setRecMoney($oneDonation->getDonMoneyInput())
                                 ->setRecNumber($number)
                                 ->setRecgId($p_recg_id)
+                                ->setRecStreetName($p_client->getCliStreetName())
+                                ->setRecStreetNum($p_client->getCliStreetNum())
+                                ->setRecSiren($p_client->getCliSiren())
+                                ->setRecSocialReason($p_client->getCliSocialReason())
                             ;
                             if ($p_client->getCliEmail() != '') {
                                 $receipt
@@ -208,6 +212,24 @@ class Client extends \FreeFW\Core\Service
                             ->addMnt($oneDonation->getDonMntInput(), $oneDonation->getDonMoneyInput())
                             ->addDonation($oneDonation)
                         ;
+                        $ptyp = $oneDonation->getPaymentType();
+                        switch($ptyp->getPtypType()) {
+                            case \FreeAsso\Model\PaymentType::TYPE_BANK:
+                                $receipts[$rettId]->setRecBank(true);
+                                break;
+                            case \FreeAsso\Model\PaymentType::TYPE_CASH:
+                                $receipts[$rettId]->setRecCash(true);
+                                break;
+                            case \FreeAsso\Model\PaymentType::TYPE_CHECK:
+                                $receipts[$rettId]->setRecCheck(true);
+                                break;
+                            case \FreeAsso\Model\PaymentType::TYPE_NATURE:
+                                $receipts[$rettId]->setRecNature(true);
+                                break;
+                            default:
+                                $receipts[$rettId]->setRecOther(true);
+                                break;
+                        }
                     } else {
                         // @todo: error
                         var_dump($p_types, $oneDonation->getDonId());

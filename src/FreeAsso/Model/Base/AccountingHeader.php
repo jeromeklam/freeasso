@@ -227,6 +227,7 @@ abstract class AccountingHeader extends \FreeAsso\Model\StorageModel\AccountingH
      */
     public function getAcchStatus()
     {
+        $this->acch_status_ts = \FreeFW\Tools\Date::getCurrentTimestamp();
         return $this->acch_status;
     }
 
