@@ -334,7 +334,7 @@ abstract class Receipt extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_COMMENT => 'Banque',
     ];
     protected static $PRP_REC_OTHER = [
-        FFCST::PROPERTY_PRIVATE => 'rec_bank',
+        FFCST::PROPERTY_PRIVATE => 'rec_other',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_OPTIONS => [],
         FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_FALSE,

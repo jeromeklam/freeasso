@@ -31,20 +31,13 @@ class ReceiptType extends \FreeAsso\Model\Base\ReceiptType
     /**
      * Get new number
      *
-     * @param boolean $p_increment
      * @param array   $p_params
      * 
      * @return string
      */
-    public function getNewNumber($p_increment = true, $p_params = [])
+    public function getNewNumber($p_params = [])
     {
-        $fullNumber = '';
-        $number = intval($this->getRettLastNumber());
-        if ($p_increment) {
-            $number++;
-            $this->setRettLastNumber($number);
-        }
-        $fullNumber = \FreeFW\Tools\PBXString::parse($this->getRettRegex(), array_merge($p_params, ['number' => $number]));
+        $fullNumber = \FreeFW\Tools\PBXString::parse($this->getRettRegex(), $p_params);
         return $fullNumber;
     }
 

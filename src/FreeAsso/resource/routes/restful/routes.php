@@ -41,6 +41,7 @@ require_once __DIR__ . '/sponsorship.php';
 require_once __DIR__ . '/statistic.php';
 require_once __DIR__ . '/subspecies.php';
 require_once __DIR__ . '/unit.php';
+require_once __DIR__ . '/year.php';
 
 $localRoutes = array_merge(
     $accountingHeader,
@@ -84,6 +85,7 @@ $localRoutes = array_merge(
     $statisticRoutes,
     $unitRoutes,
     $routes_species,
-    $routes_subspecies
+    $routes_subspecies,
+    $routes_year
 );
 return $localRoutes;

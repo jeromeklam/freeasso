@@ -16,8 +16,8 @@ class PaymentType extends \FreeAsso\Model\Base\PaymentType
      * @var string
      */
     const TYPE_CHECK  = 'CHECK';
-    const TYPE_CASH   = 'BANK';
-    CONST TYPE_BANK   = 'CASH';
+    const TYPE_CASH   = 'CASH';
+    CONST TYPE_BANK   = 'BANK';
     const TYPE_NATURE = 'NATURE';
     const TYPE_OTHER  = 'OTHER';
 

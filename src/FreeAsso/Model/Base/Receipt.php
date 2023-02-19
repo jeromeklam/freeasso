@@ -516,7 +516,7 @@ abstract class Receipt extends \FreeAsso\Model\StorageModel\Receipt
      */
     public function setRecFullname($p_value)
     {
-        $this->rec_fullname = $p_value;
+        $this->rec_fullname = \FreeFW\Tools\PBXString::postalString($p_value);
         return $this;
     }
 
@@ -539,7 +539,7 @@ abstract class Receipt extends \FreeAsso\Model\StorageModel\Receipt
      */
     public function setRecAddress1($p_value)
     {
-        $this->rec_address1 = $p_value;
+        $this->rec_address1 = \FreeFW\Tools\PBXString::postalString($p_value);
         return $this;
     }
 
@@ -562,7 +562,7 @@ abstract class Receipt extends \FreeAsso\Model\StorageModel\Receipt
      */
     public function setRecAddress2($p_value)
     {
-        $this->rec_address2 = $p_value;
+        $this->rec_address2 = \FreeFW\Tools\PBXString::postalString($p_value);
         return $this;
     }
 
@@ -585,7 +585,7 @@ abstract class Receipt extends \FreeAsso\Model\StorageModel\Receipt
      */
     public function setRecAddress3($p_value)
     {
-        $this->rec_address3 = $p_value;
+        $this->rec_address3 = \FreeFW\Tools\PBXString::postalString($p_value);
         return $this;
     }
 
@@ -631,7 +631,7 @@ abstract class Receipt extends \FreeAsso\Model\StorageModel\Receipt
      */
     public function setRecTown($p_value)
     {
-        $this->rec_town = $p_value;
+        $this->rec_town = \FreeFW\Tools\PBXString::postalString($p_value);
         return $this;
     }
 
@@ -838,7 +838,7 @@ abstract class Receipt extends \FreeAsso\Model\StorageModel\Receipt
      */
     public function setRecStreetNum($p_value)
     {
-        $this->rec_street_num = $p_value;
+        $this->rec_street_num = \FreeFW\Tools\PBXString::postalString($p_value);
         return $this;
     }
 
@@ -861,7 +861,7 @@ abstract class Receipt extends \FreeAsso\Model\StorageModel\Receipt
      */
     public function setRecStreetName($p_value)
     {
-        $this->rec_street_name = $p_value;
+        $this->rec_street_name = \FreeFW\Tools\PBXString::postalString($p_value);
         return $this;
     }
 
@@ -907,7 +907,7 @@ abstract class Receipt extends \FreeAsso\Model\StorageModel\Receipt
      */
     public function setRecSocialReason($p_value)
     {
-        $this->rec_social_reason = $p_value;
+        $this->rec_social_reason = \FreeFW\Tools\PBXString::postalString($p_value);
         return $this;
     }
 

@@ -151,7 +151,7 @@ class Client extends \FreeFW\Core\Service
                     'payment_type.ptyp_receipt' => [\FreeFW\Storage\Storage::COND_EQUAL => 1],
                 ]
             )
-            ->addRelations(['sponsorship', 'cause', 'cause.cause_type', 'session'])
+            ->addRelations(['sponsorship', 'cause', 'cause.cause_type', 'session', 'payment_type'])
             ->setSort('don_real_ts');
         if ($query2->execute()) {
             /**
@@ -171,7 +171,8 @@ class Client extends \FreeFW\Core\Service
                             $number = '';
                             foreach ($p_types as $idx => $oneType) {
                                 if ($rettId == $oneType->getRettId()) {
-                                    $number = $oneType->getNewNumber(true, ['year' => $p_year]);
+                                    $newnum = \FreeAsso\Model\Year::getNextNumber($p_year, $p_grp_id);
+                                    $number = $oneType->getNewNumber(['year' => $p_year, 'number' => $newnum]);
                                     break;
                                 }
                             }
@@ -199,8 +200,7 @@ class Client extends \FreeFW\Core\Service
                                 ->setRecStreetName($p_client->getCliStreetName())
                                 ->setRecStreetNum($p_client->getCliStreetNum())
                                 ->setRecSiren($p_client->getCliSiren())
-                                ->setRecSocialReason($p_client->getCliSocialReason())
-                            ;
+                                ->setRecSocialReason($p_client->getCliSocialReason());
                             if ($p_client->getCliEmail() != '') {
                                 $receipt
                                     ->setRecEmail($p_client->getCliEmail())
@@ -210,10 +210,9 @@ class Client extends \FreeFW\Core\Service
                         }
                         $receipts[$rettId]
                             ->addMnt($oneDonation->getDonMntInput(), $oneDonation->getDonMoneyInput())
-                            ->addDonation($oneDonation)
-                        ;
+                            ->addDonation($oneDonation);
                         $ptyp = $oneDonation->getPaymentType();
-                        switch($ptyp->getPtypType()) {
+                        switch ($ptyp->getPtypType()) {
                             case \FreeAsso\Model\PaymentType::TYPE_BANK:
                                 $receipts[$rettId]->setRecBank(true);
                                 break;
@@ -313,8 +312,7 @@ class Client extends \FreeFW\Core\Service
                                     ->setRdoMoney($oneDonation->getDonMoneyInput())
                                     ->setRdoMnt($oneDonation->getDonMntInput())
                                     ->setRdoTs($oneDonation->getDonRealTs())
-                                    ->setPtypId($oneDonation->getPtypId())
-                                ;
+                                    ->setPtypId($oneDonation->getPtypId());
                                 if (!$receiptDonation->create(false)) {
                                     $bErr = true;
                                     break;
@@ -409,8 +407,7 @@ class Client extends \FreeFW\Core\Service
             if ($message) {
                 $message
                     ->addDest($p_client->getCliEmail())
-                    ->setDestId($p_client->getCliId())
-                ;
+                    ->setDestId($p_client->getCliId());
                 /**
                  * @var \FreeAsso\Model\Receipt $oneReceipt
                  */
@@ -429,8 +426,7 @@ class Client extends \FreeFW\Core\Service
                     foreach ($receipts as $oneReceipt) {
                         $oneReceipt
                             ->setRecPrintTs(\FreeFW\Tools\Date::getCurrentTimestamp())
-                            ->save(false, true)
-                        ;
+                            ->save(false, true);
                     }
                     return true;
                 }
@@ -484,8 +480,7 @@ class Client extends \FreeFW\Core\Service
                     $merger->addFile($filename);
                     $oneReceipt
                         ->setRecPrintTs(\FreeFW\Tools\Date::getCurrentTimestamp())
-                        ->save(false, true)
-                    ;
+                        ->save(false, true);
                 }
             }
         }
@@ -503,8 +498,7 @@ class Client extends \FreeFW\Core\Service
             ->setInboxFilename($name . '.pdf')
             ->setInboxObjectName($object)
             ->setInboxContent(file_get_contents($outputFile))
-            ->setUserId($user->getUserId())
-        ;
+            ->setUserId($user->getUserId());
         if (!$inbox->create()) {
             $result = false;
         }
@@ -515,8 +509,7 @@ class Client extends \FreeFW\Core\Service
             ->setNotifType(\FreeFW\Model\Notification::TYPE_INFORMATION)
             ->setNotifSubject('Export terminé')
             ->setNotifObjectName($object)
-            ->setUserId($user->getUserId())
-        ;
+            ->setUserId($user->getUserId());
         if (!$notification->create()) {
             $result = false;
         }
