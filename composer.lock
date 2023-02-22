@@ -1399,16 +1399,16 @@
         },
         {
             "name": "jeromeklam/freefw",
-            "version": "1.19.3",
+            "version": "1.19.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jeromeklam/freefw.git",
-                "reference": "77eb7989c60cd27ce45dc0116572da45facb146a"
+                "reference": "2eb1f0bdbafdd1b34d8599437d4046ba82093eda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jeromeklam/freefw/zipball/77eb7989c60cd27ce45dc0116572da45facb146a",
-                "reference": "77eb7989c60cd27ce45dc0116572da45facb146a",
+                "url": "https://api.github.com/repos/jeromeklam/freefw/zipball/2eb1f0bdbafdd1b34d8599437d4046ba82093eda",
+                "reference": "2eb1f0bdbafdd1b34d8599437d4046ba82093eda",
                 "shasum": ""
             },
             "require": {
@@ -1470,9 +1470,9 @@
             ],
             "support": {
                 "issues": "https://github.com/jeromeklam/freefw/issues",
-                "source": "https://github.com/jeromeklam/freefw/tree/1.19.3"
+                "source": "https://github.com/jeromeklam/freefw/tree/1.19.5"
             },
-            "time": "2023-02-19T14:26:11+00:00"
+            "time": "2023-02-22T19:57:44+00:00"
         },
         {
             "name": "jeromeklam/freeoffice",
@@ -1534,16 +1534,16 @@
         },
         {
             "name": "jeromeklam/freesso",
-            "version": "1.6.5",
+            "version": "1.6.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jeromeklam/freesso.git",
-                "reference": "ffc64e71d628fe0db13530591039b36309160c4f"
+                "reference": "119838550619132dc069f89a3b41638baa6e454f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jeromeklam/freesso/zipball/ffc64e71d628fe0db13530591039b36309160c4f",
-                "reference": "ffc64e71d628fe0db13530591039b36309160c4f",
+                "url": "https://api.github.com/repos/jeromeklam/freesso/zipball/119838550619132dc069f89a3b41638baa6e454f",
+                "reference": "119838550619132dc069f89a3b41638baa6e454f",
                 "shasum": ""
             },
             "require": {
@@ -1591,9 +1591,9 @@
             ],
             "support": {
                 "issues": "https://github.com/jeromeklam/freesso/issues",
-                "source": "https://github.com/jeromeklam/freesso/tree/1.6.5"
+                "source": "https://github.com/jeromeklam/freesso/tree/1.6.6"
             },
-            "time": "2022-04-15T19:20:57+00:00"
+            "time": "2023-02-22T19:44:50+00:00"
         },
         {
             "name": "jeromeklam/freews",
