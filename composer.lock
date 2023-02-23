@@ -1399,16 +1399,16 @@
         },
         {
             "name": "jeromeklam/freefw",
-            "version": "1.19.5",
+            "version": "1.19.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jeromeklam/freefw.git",
-                "reference": "2eb1f0bdbafdd1b34d8599437d4046ba82093eda"
+                "reference": "f26ad6e0a2f4db3d9299baa8123282687e7df8ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jeromeklam/freefw/zipball/2eb1f0bdbafdd1b34d8599437d4046ba82093eda",
-                "reference": "2eb1f0bdbafdd1b34d8599437d4046ba82093eda",
+                "url": "https://api.github.com/repos/jeromeklam/freefw/zipball/f26ad6e0a2f4db3d9299baa8123282687e7df8ab",
+                "reference": "f26ad6e0a2f4db3d9299baa8123282687e7df8ab",
                 "shasum": ""
             },
             "require": {
@@ -1470,9 +1470,9 @@
             ],
             "support": {
                 "issues": "https://github.com/jeromeklam/freefw/issues",
-                "source": "https://github.com/jeromeklam/freefw/tree/1.19.5"
+                "source": "https://github.com/jeromeklam/freefw/tree/1.19.6"
             },
-            "time": "2023-02-22T19:57:44+00:00"
+            "time": "2023-02-23T20:47:03+00:00"
         },
         {
             "name": "jeromeklam/freeoffice",
@@ -7421,16 +7421,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.7.1",
+            "version": "3.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "1359e176e9307e906dc3d890bcc9603ff6d90619"
+                "reference": "ed8e00df0a83aa96acf703f8c2979ff33341f879"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/1359e176e9307e906dc3d890bcc9603ff6d90619",
-                "reference": "1359e176e9307e906dc3d890bcc9603ff6d90619",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/ed8e00df0a83aa96acf703f8c2979ff33341f879",
+                "reference": "ed8e00df0a83aa96acf703f8c2979ff33341f879",
                 "shasum": ""
             },
             "require": {
@@ -7466,14 +7466,15 @@
             "homepage": "https://github.com/squizlabs/PHP_CodeSniffer",
             "keywords": [
                 "phpcs",
-                "standards"
+                "standards",
+                "static analysis"
             ],
             "support": {
                 "issues": "https://github.com/squizlabs/PHP_CodeSniffer/issues",
                 "source": "https://github.com/squizlabs/PHP_CodeSniffer",
                 "wiki": "https://github.com/squizlabs/PHP_CodeSniffer/wiki"
             },
-            "time": "2022-06-18T07:21:10+00:00"
+            "time": "2023-02-22T23:07:41+00:00"
         },
         {
             "name": "theseer/tokenizer",

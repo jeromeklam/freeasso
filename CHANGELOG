@@ -1,3 +1,7 @@
+# 1.24.2 : 23/02/2023
+
+* Bug empechant la mise à jour des parrainages (boucle infinie sur getmergeData)
+
 # 1.24.1 : 22/02/2023
 
 * Correction édition Fiche parrainage
