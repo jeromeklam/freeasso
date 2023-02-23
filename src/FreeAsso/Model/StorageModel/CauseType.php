@@ -236,7 +236,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_CAUT_REC_EDI_ID = [
         FFCST::PROPERTY_PRIVATE => 'caut_rec_edi_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK,FFCST::OPTION_NOMERGE],
         FFCST::PROPERTY_FK      => ['receipt_edition' =>
             [
                 'model' => 'FreeFW::Model::Edition',
@@ -248,7 +248,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_CAUT_CERT_EDI_ID = [
         FFCST::PROPERTY_PRIVATE => 'caut_cert_edi_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK,FFCST::OPTION_NOMERGE],
         FFCST::PROPERTY_FK      => ['certificate_edition' =>
             [
                 'model' => 'FreeFW::Model::Edition',
@@ -260,7 +260,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_CAUT_IDENT_EDI_ID = [
         FFCST::PROPERTY_PRIVATE => 'caut_ident_edi_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK,FFCST::OPTION_NOMERGE],
         FFCST::PROPERTY_FK      => ['identity_edition' =>
             [
                 'model' => 'FreeFW::Model::Edition',
@@ -272,7 +272,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_CAUT_ADD_EMAIL_ID = [
         FFCST::PROPERTY_PRIVATE => 'caut_add_email_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK,FFCST::OPTION_NOMERGE],
         FFCST::PROPERTY_FK      => ['add_email' =>
             [
                 'model' => 'FreeFW::Model::Email',
@@ -284,7 +284,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_CAUT_UPDATE_EMAIL_ID = [
         FFCST::PROPERTY_PRIVATE => 'caut_update_email_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK,FFCST::OPTION_NOMERGE],
         FFCST::PROPERTY_FK      => ['update_email' =>
             [
                 'model' => 'FreeFW::Model::Email',
@@ -296,7 +296,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_CAUT_END_EMAIL_ID = [
         FFCST::PROPERTY_PRIVATE => 'caut_end_email_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK,FFCST::OPTION_NOMERGE],
         FFCST::PROPERTY_FK      => ['end_email' =>
             [
                 'model' => 'FreeFW::Model::Email',
@@ -308,7 +308,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_CAUT_SPO_ADD_EMAIL_ID = [
         FFCST::PROPERTY_PRIVATE => 'caut_spo_add_email_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK,FFCST::OPTION_NOMERGE],
         FFCST::PROPERTY_FK      => ['sponsorship_add_email' =>
             [
                 'model' => 'FreeFW::Model::Email',
@@ -320,7 +320,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_CAUT_SPO_UPDATE_EMAIL_ID = [
         FFCST::PROPERTY_PRIVATE => 'caut_spo_update_email_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK,FFCST::OPTION_NOMERGE],
         FFCST::PROPERTY_FK      => ['sponsorship_update_email' =>
             [
                 'model' => 'FreeFW::Model::Email',
@@ -332,7 +332,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_CAUT_SPO_END_EMAIL_ID = [
         FFCST::PROPERTY_PRIVATE => 'caut_spo_end_email_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK,FFCST::OPTION_NOMERGE],
         FFCST::PROPERTY_FK      => ['sponsorship_end_email' =>
             [
                 'model' => 'FreeFW::Model::Email',
@@ -344,7 +344,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_CAUT_DON_ADD_EMAIL_ID = [
         FFCST::PROPERTY_PRIVATE => 'caut_don_add_email_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK,FFCST::OPTION_NOMERGE],
         FFCST::PROPERTY_FK      => ['donation_add_email' =>
             [
                 'model' => 'FreeFW::Model::Email',
@@ -356,7 +356,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_CAUT_DON_UPDATE_EMAIL_ID = [
         FFCST::PROPERTY_PRIVATE => 'caut_don_update_email_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK,FFCST::OPTION_NOMERGE],
         FFCST::PROPERTY_FK      => ['donation_update_email' =>
             [
                 'model' => 'FreeFW::Model::Email',
@@ -368,7 +368,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_CAUT_DON_END_EMAIL_ID = [
         FFCST::PROPERTY_PRIVATE => 'caut_don_end_email_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK,FFCST::OPTION_NOMERGE],
         FFCST::PROPERTY_FK      => ['donation_end_email' =>
             [
                 'model' => 'FreeFW::Model::Email',
@@ -380,7 +380,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_CAUT_DON_GENERATE_EMAIL_ID = [
         FFCST::PROPERTY_PRIVATE => 'caut_don_generate_email_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK,FFCST::OPTION_NOMERGE],
         FFCST::PROPERTY_FK      => ['donation_generate_email' =>
             [
                 'model' => 'FreeFW::Model::Email',
@@ -392,7 +392,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_CAUT_CERT_YEAR_EMAIL_ID = [
         FFCST::PROPERTY_PRIVATE => 'caut_cert_year_email_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK,FFCST::OPTION_NOMERGE],
         FFCST::PROPERTY_FK      => ['certificate_year_email' =>
             [
                 'model' => 'FreeFW::Model::Email',
@@ -404,7 +404,7 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
     protected static $PRP_CAUT_DON_MONTH_EMAIL_ID = [
         FFCST::PROPERTY_PRIVATE => 'caut_don_month_email_id',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK,FFCST::OPTION_NOMERGE],
         FFCST::PROPERTY_FK      => ['donation_month_email' =>
             [
                 'model' => 'FreeFW::Model::Email',
