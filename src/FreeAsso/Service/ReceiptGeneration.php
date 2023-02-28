@@ -31,14 +31,15 @@ class ReceiptGeneration extends \FreeFW\Core\Service
         }
         $emailId = $generation->getEmailId();
         $grpId   = $generation->getGrpId();
+        $filters = ['receipts.recg_id' => $recgId];
+        if ($generation->getClicId() > 0) {
+            $filters = ['clic_id' => $generation->getClicId()];
+        }
         //
         $query = \FreeAsso\Model\Client::getQuery();
         $query
-            ->addFromFilters(
-                [
-                    'receipts.recg_id' => $recgId
-                ]
-            );
+            ->addFromFilters($filters)
+        ;
         if ($query->execute()) {
             /**
              * @var \FreeFW\Model\ResultSet $results
@@ -122,28 +123,22 @@ class ReceiptGeneration extends \FreeFW\Core\Service
                     }
                 }
             }
-            // Stats
-            $stats = \FreeAsso\Model\Statistic::find(
-                [
-                    'stat_year' => $year,
-                    'grp_id' => $grpId
-                ]
-            );
-            foreach ($stats as $oneStat) {
-                $oneStat->remove();
+            $filters = [
+                'rec_year' => $year,
+                'rec_manual' => 0,
+                'grp_id' => $grpId
+            ];
+            if ($generation->getClicId() > 0) {
+                $filters = ['client.clic_id' => $generation->getClicId()];
+            }
+            if ($generation->getPtypId() > 0) {
+                $filters = ['donations.ptyp_id' => $generation->getPtypId()];
             }
             /**
              * @var \FreeFW\Model\Query $query
              */
             $query  = \FreeAsso\Model\Receipt::getQuery();
-            $query
-                ->addFromFilters(
-                    [
-                        'rec_year' => $year,
-                        'rec_manual' => 0,
-                        'grp_id' => $grpId
-                    ]
-                );
+            $query->addFromFilters($filters);
             if ($query->execute()) {
                 /**
                  * @var \FreeFW\Model\ResultSet $results
@@ -220,10 +215,14 @@ class ReceiptGeneration extends \FreeFW\Core\Service
                 'donations.session.sess_year' => $year,
                 'donations.don_mnt_input' => [\FreeFW\Storage\Storage::COND_GREATER => 0],
                 'donations.don_status' => [\FreeFW\Storage\Storage::COND_NOT_EQUAL => \FreeAsso\Model\Donation::STATUS_NOK],
-                'donations.grp_id' => $grpId
+                'donations.grp_id' => $grpId,
+                'donations.rec_id' => \FreeFW\Storage\Storage::COND_EMPTY
             ];
             if ($generation->getClicId() > 0) {
                 $filters = ['clic_id' => $generation->getClicId()];
+            }
+            if ($generation->getPtypId() > 0) {
+                $filters = ['donations.ptyp_id' => $generation->getPtypId()];
             }
             /**
              * @var \FreeFW\Model\Query $query
@@ -248,22 +247,7 @@ class ReceiptGeneration extends \FreeFW\Core\Service
                      * @var \FreeAsso\Model\Client $oneClient
                      */
                     foreach ($results as $oneClient) {
-                        $clientService->generateReceiptByYear($oneClient, $year, $types, $stats, $grpId, $generation->getEdiId(), $generation->getRecgId());
-                    }
-                }
-                // Sauvegarde des statistiques
-                foreach ($stats as $key => $oneStat) {
-                    $parts = explode('_', $key);
-                    $stat  = new \FreeAsso\Model\Statistic();
-                    $stat
-                        ->setStatCode($parts[2])
-                        ->setStatYear($parts[0])
-                        ->setStatMonth($parts[1])
-                        ->setStatNb($oneStat['nb'])
-                        ->setStatMnt($oneStat['mnt'])
-                        ->setGrpId($grpId);
-                    if (!$stat->create()) {
-                        var_dump($stat->getErrors());
+                        $clientService->generateReceiptByYear($oneClient, $year, $types, $stats, $grpId, $generation->getEdiId(), $generation->getRecgId(), $generation->getPtypId());
                     }
                 }
                 // Sauvegarde des numéros

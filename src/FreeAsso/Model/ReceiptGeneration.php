@@ -29,4 +29,5 @@ class ReceiptGeneration extends \FreeAsso\Model\Base\ReceiptGeneration
     use \FreeFW\Model\Behaviour\Edition;
     use \FreeFW\Model\Behaviour\Email;
     use \FreeAsso\Model\Behaviour\ClientCategory;
+    use \FreeAsso\Model\Behaviour\PaymentType;
 }

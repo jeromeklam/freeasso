@@ -88,6 +88,12 @@ abstract class ReceiptGeneration extends \FreeAsso\Model\StorageModel\ReceiptGen
     protected $clic_id = null;
 
     /**
+     * ptyp_id
+     * @var int
+     */
+    protected $ptyp_id = null;
+
+    /**
      * Set recg_id
      *
      * @param int $p_value
@@ -384,5 +390,28 @@ abstract class ReceiptGeneration extends \FreeAsso\Model\StorageModel\ReceiptGen
     public function getClicId()
     {
         return $this->clic_id;
+    }
+
+    /**
+     * Set ptyp_id
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\ReceiptGeneration
+     */
+    public function setPtypId($p_value)
+    {
+        $this->ptyp_id = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get ptyp_id
+     *
+     * @return int
+     */
+    public function getPtypId()
+    {
+        return $this->ptyp_id;
     }
 }

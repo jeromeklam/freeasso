@@ -133,24 +133,28 @@ class Client extends \FreeFW\Core\Service
      * @param int                    $p_grp_id
      * @param int                    $p_edi_id
      * @param int                    $p_recg_id
+     * @param int                    $p_ptyp_id
      * 
      * @return void
      */
-    public function generateReceiptByYear($p_client, $p_year, &$p_types, &$p_stats, $p_grp_id, $p_edi_id, $p_recg_id)
+    public function generateReceiptByYear($p_client, $p_year, &$p_types, &$p_stats, $p_grp_id, $p_edi_id, $p_recg_id, $p_ptyp_id = null)
     {
+        $filters = [
+            'session.sess_year' => $p_year,
+            'cli_id' => $p_client->getCliId(),
+            'grp_id' => $p_grp_id,
+            'don_mnt_input' => [\FreeFW\Storage\Storage::COND_GREATER => 0],
+            'don_status' => [\FreeFW\Storage\Storage::COND_NOT_EQUAL => \FreeAsso\Model\Donation::STATUS_NOK],
+            'payment_type.ptyp_receipt' => [\FreeFW\Storage\Storage::COND_EQUAL => 1],
+            'rec_id' => \FreeFW\Storage\Storage::COND_EMPTY
+        ];
+        if ($p_ptyp_id) {
+            $filters['ptyp_id'] = $p_ptyp_id;
+        }
         $this->logger->info('Receipt for ' . $p_client->getFullname() . ' START');
         $query2 = \FreeAsso\Model\Donation::getQuery();
         $query2
-            ->addFromFilters(
-                [
-                    'session.sess_year' => $p_year,
-                    'cli_id' => $p_client->getCliId(),
-                    'grp_id' => $p_grp_id,
-                    'don_mnt_input' => [\FreeFW\Storage\Storage::COND_GREATER => 0],
-                    'don_status' => [\FreeFW\Storage\Storage::COND_NOT_EQUAL => \FreeAsso\Model\Donation::STATUS_NOK],
-                    'payment_type.ptyp_receipt' => [\FreeFW\Storage\Storage::COND_EQUAL => 1],
-                ]
-            )
+            ->addFromFilters($filters)
             ->addRelations(['sponsorship', 'cause', 'cause.cause_type', 'session', 'payment_type'])
             ->setSort('don_real_ts');
         if ($query2->execute()) {
@@ -234,44 +238,6 @@ class Client extends \FreeFW\Core\Service
                         var_dump($p_types, $oneDonation->getDonId());
                         throw new \Exception('Erreur de recherche de type de reçu');
                     }
-                    // Statistics
-                    $realTs = \FreeFW\Tools\Date::mysqlToDatetime($oneDonation->getDonRealTs());
-                    $year   = $realTs->format('Y');
-                    $month  = $realTs->format('m');
-                    // Paiement Type
-                    $key = $year . '_' . $month . '_ptyp@' . $oneDonation->getPtypId();
-                    if (!isset($p_stats[$key])) {
-                        $p_stats[$key] = ['nb' => 0, 'mnt' => 0];
-                    }
-                    $p_stats[$key]['nb']++;
-                    $p_stats[$key]['mnt'] += $oneDonation->getDonMntInput();
-                    // Cause Type
-                    $cause = $oneDonation->getCause();
-                    if ($cause) {
-                        $spoId = $oneDonation->getSpoId();
-                        if ($spoId > 0) {
-                            $key = $year . '_' . $month . '_cautreg@' . $cause->getCautId();
-                            if (!isset($p_stats[$key])) {
-                                $p_stats[$key] = ['nb' => 0, 'mnt' => 0];
-                            }
-                            $p_stats[$key]['nb']++;
-                            $p_stats[$key]['mnt'] += $oneDonation->getDonMntInput();
-                        } else {
-                            $key = $year . '_' . $month . '_cautponc@' . $cause->getCautId();
-                            if (!isset($p_stats[$key])) {
-                                $p_stats[$key] = ['nb' => 0, 'mnt' => 0];
-                            }
-                            $p_stats[$key]['nb']++;
-                            $p_stats[$key]['mnt'] += $oneDonation->getDonMntInput();
-                        }
-                    }
-                    // Total
-                    $key = $year . '_' . $month . '_total';
-                    if (!isset($p_stats[$key])) {
-                        $p_stats[$key] = ['nb' => 0, 'mnt' => 0];
-                    }
-                    $p_stats[$key]['nb']++;
-                    $p_stats[$key]['mnt'] += $oneDonation->getDonMntInput();
                 }
                 // End and save...
                 $nbR = 0;
@@ -341,29 +307,6 @@ class Client extends \FreeFW\Core\Service
                             $nbP += $printReceipt->generatePDF($p_edi_id);
                         }
                     }
-                }
-                if ($p_client->getCliEmail() != '') {
-                    $key = $year . '_' . $month . '_receipt_with_email_total';
-                    if (!isset($p_stats[$key])) {
-                        $p_stats[$key] = ['nb' => 0, 'mnt' => 0];
-                    }
-                    $p_stats[$key]['nb'] += $nbR;
-                    $key = $year . '_' . $month . '_pages_with_email_total';
-                    if (!isset($p_stats[$key])) {
-                        $p_stats[$key] = ['nb' => 0, 'mnt' => 0];
-                    }
-                    $p_stats[$key]['nb'] += $nbP;
-                } else {
-                    $key = $year . '_' . $month . '_receipt_with_email_total';
-                    if (!isset($p_stats[$key])) {
-                        $p_stats[$key] = ['nb' => 0, 'mnt' => 0];
-                    }
-                    $p_stats[$key]['nb'] += $nbR;
-                    $key = $year . '_' . $month . '_pages_without_email_total';
-                    if (!isset($p_stats[$key])) {
-                        $p_stats[$key] = ['nb' => 0, 'mnt' => 0];
-                    }
-                    $p_stats[$key]['nb'] += $nbP;
                 }
             }
         } else {

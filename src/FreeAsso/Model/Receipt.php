@@ -108,7 +108,7 @@ class Receipt extends \FreeAsso\Model\Base\Receipt
         foreach ($donations as $oneDonation) {
             $oneDonation
                 ->setCheckSession(false)
-                ->setDonDesc('remove receipt')
+                ->setRecId(null)
             ;
             if (!$oneDonation->save(false, true)) {
                 $this->addErrors($oneDonation->getErrors());

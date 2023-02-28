@@ -1,3 +1,10 @@
+# 1.25.0 : 28/02/2023
+
+* Reçus par type de paiement
+* Reçus : génération
+    *  que les dons non déjà ajoutés
+    *  correction de la suppression
+
 # 1.24.3 : 23/02/2023
 
 * Bug empechant la mise à jour des parrainages (boucle infinie sur getmergeData)

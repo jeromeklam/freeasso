@@ -143,6 +143,19 @@ abstract class ReceiptGeneration extends \FreeFW\Core\StorageModel
             ]
         ]
     ];
+    protected static $PRP_PTYP_ID = [
+        FFCST::PROPERTY_PRIVATE => 'ptyp_id',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
+        FFCST::PROPERTY_TITLE   => 'Paiement',
+        FFCST::PROPERTY_FK      => ['payment_type' =>
+            [
+                'model' => 'FreeAsso::Model::PaymentType',
+                'field' => 'ptyp_id',
+                'type'  => \FreeFW\Model\Query::JOIN_LEFT
+            ]
+        ]
+    ];
 
     /**
      * get properties
@@ -165,6 +178,7 @@ abstract class ReceiptGeneration extends \FreeFW\Core\StorageModel
             'recg_email'    => self::$PRP_RECG_EMAIL,
             'recg_no_email' => self::$PRP_RECG_NO_EMAIL,
             'clic_id'       => self::$PRP_CLIC_ID,
+            'ptyp_id'       => self::$PRP_PTYP_ID,
         ];
     }
 
