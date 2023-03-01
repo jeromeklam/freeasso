@@ -33,7 +33,7 @@ class ReceiptGeneration extends \FreeFW\Core\Service
         $grpId   = $generation->getGrpId();
         $filters = ['receipts.recg_id' => $recgId];
         if ($generation->getClicId() > 0) {
-            $filters = ['clic_id' => $generation->getClicId()];
+            $filters['clic_id'] = $generation->getClicId();
         }
         //
         $query = \FreeAsso\Model\Client::getQuery();
@@ -129,10 +129,10 @@ class ReceiptGeneration extends \FreeFW\Core\Service
                 'grp_id' => $grpId
             ];
             if ($generation->getClicId() > 0) {
-                $filters = ['client.clic_id' => $generation->getClicId()];
+                $filters['client.clic_id'] = $generation->getClicId();
             }
             if ($generation->getPtypId() > 0) {
-                $filters = ['donations.ptyp_id' => $generation->getPtypId()];
+                $filters['donations.ptyp_id'] = $generation->getPtypId();
             }
             /**
              * @var \FreeFW\Model\Query $query
@@ -219,10 +219,10 @@ class ReceiptGeneration extends \FreeFW\Core\Service
                 'donations.rec_id' => \FreeFW\Storage\Storage::COND_EMPTY
             ];
             if ($generation->getClicId() > 0) {
-                $filters = ['clic_id' => $generation->getClicId()];
+                $filters['clic_id'] = $generation->getClicId();
             }
             if ($generation->getPtypId() > 0) {
-                $filters = ['donations.ptyp_id' => $generation->getPtypId()];
+                $filters['donations.ptyp_id'] = $generation->getPtypId();
             }
             /**
              * @var \FreeFW\Model\Query $query
