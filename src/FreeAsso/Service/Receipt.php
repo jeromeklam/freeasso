@@ -55,7 +55,7 @@ class Receipt extends \FreeFW\Core\Service
                     $merger->addFile($filename);
                 }
             }
-            $merger->merge('file', $outputFile);
+            $merger->merge('file', $outputFile, true);
             foreach ($files as $oneFile) {
                 @unlink($oneFile);
             }
