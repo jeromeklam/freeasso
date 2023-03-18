@@ -232,6 +232,12 @@ abstract class Receipt extends \FreeAsso\Model\StorageModel\Receipt
     protected $rec_nature = false;
 
     /**
+     * Year order
+     * @var bool
+     */
+    protected $rec_year_order = null;
+
+    /**
      * Set rec_id
      *
      * @param int $p_value
@@ -1080,5 +1086,28 @@ abstract class Receipt extends \FreeAsso\Model\StorageModel\Receipt
     public function getRecNature()
     {
         return $this->rec_nature;
+    }
+
+    /**
+     * Set rec_year_order
+     * 
+     * @param int $p_value
+     * 
+     * @return \FreeAsso\Model\Receipt
+     */
+    public function setRecYearOrder($p_value)
+    {
+        $this->rec_year_order = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get rec_year_order
+     * 
+     * @return int
+     */
+    public function getRecYearOrder()
+    {
+        return $this->rec_year_order;
     }
 }
