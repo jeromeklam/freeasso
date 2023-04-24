@@ -214,6 +214,12 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
     protected $don_verif_match = null;
 
     /**
+     * DonSendEmail
+     * @var bool
+     */
+    protected $don_send_email = true;
+
+    /**
      * Set don_id
      *
      * @param int $p_value
@@ -993,5 +999,28 @@ abstract class Donation extends \FreeAsso\Model\StorageModel\Donation
     public function getDonVerifMatch()
     {
         return $this->don_verif_match;
+    }
+
+    /**
+     * Set don_send_email
+     *
+     * @param string $p_value
+     * 
+     * @return \FreeAsso\Model\Donation
+     */
+    public function setDonSendEmail($p_value)
+    {
+        $this->don_send_email = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get don_send_email
+     *
+     * @return string
+     */
+    public function getDonSendEmail()
+    {
+        return $this->don_send_email;
     }
 }

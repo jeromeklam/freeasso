@@ -339,11 +339,14 @@ class Donation extends \FreeAsso\Model\Base\Donation
         }
         // Jamais de notification pour la création d'un don pour un paiement régulier
         if ($this->send_email && ($this->getSpoId() === null || $this->getSpoId() <= 0)) {
-            /**
-             * @var \FreeAsso\Service\Donation $donationService
-             */
-            $donationService = \FreeFW\DI\DI::get('FreeAsso::Service::Donation');
-            $donationService->notification($this, "create", true);
+            // Idem pas de notification si non souhaitée
+            if ($this->getDonSendEmail()) {
+                /**
+                 * @var \FreeAsso\Service\Donation $donationService
+                 */
+                $donationService = \FreeFW\DI\DI::get('FreeAsso::Service::Donation');
+                $donationService->notification($this, "create", true);
+            }
         }
         return true;
     }
@@ -544,5 +547,54 @@ class Donation extends \FreeAsso\Model\Base\Donation
             }
         }
         return $type;
+    }
+
+    /**
+     * Generate statistics
+     * 
+     * @param array $p_stats
+     * 
+     * @return void
+     */
+    public function computeStatistics(&$p_stats)
+    {
+        $real = \FreeFW\Tools\Date::mysqlToDatetime($this->getDonRealTs());
+        $key  = $real->format('Ym');
+        $mnt  = number_format($this->getDonMnt(), 2);
+        if (!isset($p_stats[$key])) {
+            $p_stats[$key] = [
+                'total' => 0
+            ];
+            $p_stats[$key]['donation'] = [
+                'total' => 0
+            ];
+            $p_stats[$key]['sponsorship'] = [
+                'total' => 0
+            ];
+            $payments = \FreeAsso\Model\PaymentType::find();
+            foreach ($payments as $onePayment) {
+                $p_stats[$key]['donation']['ptyp_' . $onePayment->getPtypId()] = 0;
+                $p_stats[$key]['sponsorship']['ptyp_' . $onePayment->getPtypId()] = 0;
+                $p_stats[$key][$onePayment->getPtypId()] = 0;
+            }
+            $causeType = \FreeAsso\Model\CauseType::find();
+            foreach ($causeType as $oneType) {
+                $p_stats[$key]['donation']['caut_' . $oneType->getCautId()] = 0;
+                $p_stats[$key]['sponsorship']['caut_' . $oneType->getCautId()] = 0;
+                $p_stats[$key][$oneType->getCautId()] = 0;
+            }
+        }
+        $p_stats[$key]['total'] += $mnt;
+        $p_stats[$key]['ptyp_' . $this->getPtypId()] += $mnt;
+        $p_stats[$key]['caut_' . $this->getCause()->getCautId()] += $mnt;
+        if ($this->getSpoId() > 0) {
+            $p_stats[$key]['sponsorship']['total'] += $mnt;
+            $p_stats[$key]['sponsorship']['ptyp_' . $this->getPtypId()] += $mnt;
+            $p_stats[$key]['sponsorship']['caut_' . $this->getCause()->getCautId()] += $mnt;
+        } else {
+            $p_stats[$key]['donation']['total'] += $mnt;
+            $p_stats[$key]['donation']['ptyp_' . $this->getPtypId()] += $mnt;
+            $p_stats[$key]['donation']['caut_' . $this->getCause()->getCautId()] += $mnt;
+        }
     }
 }

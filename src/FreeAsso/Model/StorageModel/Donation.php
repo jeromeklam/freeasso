@@ -323,6 +323,14 @@ abstract class Donation extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TITLE   => 'Note',
         FFCST::PROPERTY_COMMENT => 'Note',
     ];
+    protected static $PRP_DON_SEND_EMAIL = [
+        FFCST::PROPERTY_PRIVATE => 'don_send_email',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_TRUE,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_LOCAL],
+        FFCST::PROPERTY_TITLE   => 'Notification',
+        FFCST::PROPERTY_COMMENT => 'Notification',
+    ];
 
     /**
      * get properties
@@ -366,6 +374,7 @@ abstract class Donation extends \FreeFW\Core\StorageModel
             'don_verif'         => self::$PRP_DON_VERIF,
             'don_verif_comment' => self::$PRP_DON_VERIF_COMMENT,
             'don_verif_match'   => self::$PRP_DON_VERIF_MATCH,
+            'don_send_email'    => self::$PRP_DON_SEND_EMAIL,
         ];
     }
 

@@ -182,6 +182,29 @@ $donationRoutes = [
             ],
         ]
     ],
+    'free_asso.donation.statistics' => [
+        FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Donation',
+        FFCSTRT::ROUTE_COMMENT    => 'Retourne les statistiques de la sélection',
+        FFCSTRT::ROUTE_METHOD     => FFCSTRT::METHOD_GET,
+        FFCSTRT::ROUTE_MODEL      => 'FreeAsso::Model::Donation',
+        FFCSTRT::ROUTE_URL        => '/v1/asso/statistics',
+        FFCSTRT::ROUTE_CONTROLLER => 'FreeAsso::Controller::Donation',
+        FFCSTRT::ROUTE_FUNCTION   => 'getStatistics',
+        FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_GET_FILTERED,
+        FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
+        FFCSTRT::ROUTE_MIDDLEWARE => [],
+        FFCSTRT::ROUTE_INCLUDE    => [
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['client', 'cause', 'cause.cause_type', 'payment_type', 'sponsorship', 'certificate', 'session']
+        ],
+        FFCSTRT::ROUTE_SCOPE      => [],
+        FFCSTRT::ROUTE_RESULTS    => [
+            '200' => [
+                FFCSTRT::ROUTE_RESULTS_TYPE    => FFCSTRT::RESULT_LIST,
+                FFCSTRT::ROUTE_RESULTS_MODEL   => 'FreeAsso::Model::Donation',
+                FFCSTRT::ROUTE_RESULTS_COMMENT => 'Réponse ok',
+            ],
+        ]
+    ],
     'free_asso.donation.getall' => [
         FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Donation',
         FFCSTRT::ROUTE_COMMENT    => 'Retourne une liste filtrée, triée et paginée.',
