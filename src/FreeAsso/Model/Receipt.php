@@ -197,6 +197,7 @@ class Receipt extends \FreeAsso\Model\Base\Receipt
         if ($monnaie === 'EUR') {
             $monnaie = '€';
         }
+        $exercice = $this->getRecYear();
         if (count($donations) > 0) {
             $firstDonation = $donations[0];
             $datD = \FreeFW\Tools\Date::mysqlToDatetime($firstDonation->getRdoTs());
@@ -204,6 +205,9 @@ class Receipt extends \FreeAsso\Model\Base\Receipt
                 $date = \FreeFW\Tools\DateTime::toFRLetter($datD);
             } else {
                 $date = \FreeFW\Tools\DateTime::toENLetter($datD);
+            }
+            if (count($donations) == 1) {
+                $exercice = $date;
             }
             $type = $firstDonation->getPaymentType();
             $donation = number_format($firstDonation->getRdoMnt(), 2, '.', ' ') . ' ' . $monnaie . ' - ' . $date . ' - (';
@@ -276,6 +280,12 @@ class Receipt extends \FreeAsso\Model\Base\Receipt
             'type'    => 'string',
             'title'   => 'Address 6',
             'content' => $address->getLine(5)
+        ];
+        $fields[] = [
+            'name'    => 'exercice',
+            'type'    => 'string',
+            'title'   => 'Exercice',
+            'content' => $exercice
         ];
         return $fields;
     }

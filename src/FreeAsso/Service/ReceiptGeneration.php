@@ -11,6 +11,39 @@ class ReceiptGeneration extends \FreeFW\Core\Service
 {
 
     /**
+     * Regenerate receipts
+     * 
+     * @param array $p_params
+     * 
+     * @return array
+     */
+    public function regen($p_params = [])
+    {
+        $this->logger->debug('ReceiptGeneration.regen.START');
+        // Vérifications
+        if (!isset($p_params['recg_id'])) {
+            throw new \Exception('L\’identifiant de génération est obligatoire');
+        }
+        $recgId = $p_params['recg_id'];
+        $generation = \FreeAsso\Model\ReceiptGeneration::findFirst(['recg_id' => $recgId]);
+        if (!$generation instanceof \FreeAsso\Model\ReceiptGeneration) {
+            throw new \Exception('Impossible de trouver la génération');
+        }
+
+        $receipts = \FreeAsso\Model\Receipt::find(['recg_id' => $recgId]);
+        foreach ($receipts as $one_receipt) {
+            $one_receipt->generatePDF($generation->getEdiId());
+        }
+
+        $generation->setRecgStatus(\FreeAsso\Model\ReceiptGeneration::STATUS_DONE);
+        if (!$generation->save(false, true)) {
+            throw new \Exception('Erreur de mise à jour de la génération');
+        }
+        $this->logger->debug('ReceiptGeneration.regen.END');
+        return $p_params;
+    }
+
+    /**
      * Send emails
      *
      * @param array $p_params
