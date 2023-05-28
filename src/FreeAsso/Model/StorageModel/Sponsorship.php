@@ -51,13 +51,13 @@ abstract class Sponsorship extends \FreeFW\Core\StorageModel
     ];
     protected static $PRP_SPO_FROM = [
         FFCST::PROPERTY_PRIVATE => 'spo_from',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATE,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
         FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_NOW
     ];
     protected static $PRP_SPO_TO = [
         FFCST::PROPERTY_PRIVATE => 'spo_to',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATE,
         FFCST::PROPERTY_OPTIONS => []
     ];
     protected static $PRP_SPO_MNT = [

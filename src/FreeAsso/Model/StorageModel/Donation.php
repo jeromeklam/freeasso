@@ -103,21 +103,21 @@ abstract class Donation extends \FreeFW\Core\StorageModel
     ];
     protected static $PRP_DON_ASK_TS = [
         FFCST::PROPERTY_PRIVATE => 'don_ask_ts',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATE,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
         FFCST::PROPERTY_TITLE   => 'Date début',
         FFCST::PROPERTY_COMMENT => 'Date de début prise en compte parrainage'
     ];
     protected static $PRP_DON_REAL_TS = [
         FFCST::PROPERTY_PRIVATE => 'don_real_ts',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATE,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
         FFCST::PROPERTY_TITLE   => 'Date réelle',
         FFCST::PROPERTY_COMMENT => 'Date réelle du don, comptable'
     ];
     protected static $PRP_DON_END_TS = [
         FFCST::PROPERTY_PRIVATE => 'don_end_ts',
-        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATE,
         FFCST::PROPERTY_OPTIONS => [],
         FFCST::PROPERTY_TITLE   => 'Date fin',
         FFCST::PROPERTY_COMMENT => 'Date de fin prise en compte parrainage'
