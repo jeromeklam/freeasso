@@ -376,7 +376,10 @@ class Donation extends \FreeAsso\Model\Base\Donation
             $this->addError(\FreeAsso\Constants::ERROR_DONATION_CANT_CHANGE_CLIENT, "Can't change client");
         }
         if ($this->getCauId() != $this->old_donation->getCauId()) {
-            $this->addError(\FreeAsso\Constants::ERROR_DONATION_CANT_CHANGE_CAUSE, "Can't change cause");
+            // On ne peut le changer que si le type ne change pas...
+            if ($this->getCause()->getCautId() !== $this->old_donation->getCause()->getCautId()) {
+                $this->addError(\FreeAsso\Constants::ERROR_DONATION_CANT_CHANGE_CAUSE, "Can't change cause");
+            }
         }
         if (!$this->hasErrors()) {
             if ($this->getDonMntInput() != $this->old_donation->getDonMntInput() ||
