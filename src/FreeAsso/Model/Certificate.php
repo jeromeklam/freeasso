@@ -137,4 +137,24 @@ class Certificate extends \FreeAsso\Model\Base\Certificate
         ];
         return $fields;
     }
+
+    /**
+     * Before remove
+     *
+     * @return boolean
+     */
+    public function beforeRemove()
+    {
+        $donations = \FreeAsso\Model\Donation::find(['cert_id' => $this->getCertId()]);
+        /**
+         * @var \FreeAsso\Model\Donation $oneDonation
+         */
+        foreach ($donations as $oneDonation) {
+            $oneDonation->setCertId(null);
+            if (!$oneDonation->save(false, true)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

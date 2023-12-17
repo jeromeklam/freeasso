@@ -90,6 +90,38 @@ class Accounting extends \FreeFW\Core\Service
         foreach ($accoutings as $oneAccounting) {
             \FreeAsso\Model\AccountingLine::delete(['acch_id' => $oneAccounting->getAcchId()]);
             switch (strtoupper($oneAccounting->getAcchFormat())) {
+                case 'LCL':
+                    $content = $oneAccounting->getAcchContent();
+                    $file = '/tmp/acc_' . uniqid() . '.csv';
+                    file_put_contents($file, $content);
+                    if (($handle = fopen($file, "r")) !== false) {
+                        $first = true;
+                        while (($data = fgetcsv($handle, 1000, ";")) !== false) {
+                            if (!$first && trim($data[8]) != '' && $data[5] != '') {
+                                $nbCols = count($data);
+                                $wDate = \FreeFW\Tools\Date::ddmmyyyyToDateTime($data[5]);
+                                $wMonth = intval($wDate->format('m'));
+                                if ($wMonth == $oneAccounting->getAcchMonth()) {
+                                    $label = strtoupper($data[8]);
+                                    $mnt01 = preg_replace("/[^0-9.]/", "", str_replace(',', '.', $data[6]));
+                                    $oneLine = new \FreeAsso\Model\AccountingLine();
+                                    $oneLine
+                                        ->setAcchId($oneAccounting->getAcchId())
+                                        ->setAcclLabel($label)
+                                        ->setAcclPtypName('BQ')
+                                        ->setAcclTs(\FreeFW\Tools\Date::datetimeToMysql($wDate))
+                                        ->setAcclAmount($mnt01);
+                                    if (!$oneLine->create()) {
+                                        var_dump($oneLine->getErrors());
+                                    }
+                                }
+                            }
+                            $first = false;
+                        }
+                        fclose($handle);
+                    }
+                    @unlink($file);
+                    break;
                 case 'PAYPAL':
                     $content = $oneAccounting->getAcchContent();
                     $file = '/tmp/acc_' . uniqid() . '.csv';
@@ -416,13 +448,24 @@ class Accounting extends \FreeFW\Core\Service
             ];
             $query
                 ->addFromFilters($filters)
-                ->addRelations(['client', 'payment_type', 'session']);
+                ->addRelations(['client', 'payment_type', 'session'])
+                ->setSort('cli_id');
             if ($query->execute()) {
                 $donations = $query->getResult();
+                $totalCli  = 0;
+                $oldCliId  = 0;
+                $ids       = [];
                 /**
                  * @var \FreeAsso\Model\Donation $oneDonation
                  */
                 foreach ($donations as $oneDonation) {
+                    if ($oldCliId != $oneDonation->getCliId()) {
+                        $oldCliId = $oneDonation->getCliId();
+                        $totalCli = 0;
+                        $ids = [];
+                    }
+                    $totalCli += $oneDonation->getDonMntInput();
+                    $ids[] = $oneDonation->getDonId();
                     /**
                      * @var \FreeAsso\Model\Client $client
                      */
@@ -474,7 +517,7 @@ class Accounting extends \FreeFW\Core\Service
                             }
                         }
                         if ($matching > 0) {
-                            if ($oneDonation->getDonMntInput() == $oneTest['accl_amount'] && $matching > 80) {
+                            if (($oneDonation->getDonMntInput() == $oneTest['accl_amount'] || $totalCli == $oneTest['accl_amount']) && $matching > 80) {
                                 $matching += 10; // Pour le = montant
                                 $comment = $oneTest['accl_label'];
                                 $comment .= ' : ' . $oneTest['accl_ts'];
@@ -498,6 +541,24 @@ class Accounting extends \FreeFW\Core\Service
                                 if (!$oneDonation->save(true, true)) {
                                     var_dump($oneDonation->getErrors());
                                     die;
+                                }
+                                array_pop($ids);
+                                if (count($ids) > 0) {
+                                    foreach ($ids as $id) {
+                                        $aDon = \FreeAsso\Model\Donation::findFirst(['don_id' => $id]);
+                                        if ($aDon) {
+                                            $aDon
+                                                ->setAcclId($oneTest['accl_id'])
+                                                ->setDonVerif(\FreeAsso\Model\Donation::VERIF_AUTO)
+                                                ->setDonDesc('Contrôlé avec : ' . $oneTest['accl_label'])
+                                                ->setDonVerifComment($comment)
+                                                ->setDonVerifMatch(intval($matching / 10));
+                                            if (!$aDon->save(true, true)) {
+                                                var_dump($aDon->getErrors());
+                                                die;
+                                            }
+                                        }
+                                    }
                                 }
                                 $line = \FreeAsso\Model\AccountingLine::findFirst(
                                     ['accl_id' => $oneTest['accl_id']]
@@ -539,7 +600,17 @@ class Accounting extends \FreeFW\Core\Service
                 /**
                  * @var \FreeAsso\Model\Donation $oneDonation
                  */
+                $totalCli  = 0;
+                $oldCliId  = 0;
+                $ids       = [];
                 foreach ($donations as $oneDonation) {
+                    if ($oldCliId != $oneDonation->getCliId()) {
+                        $oldCliId = $oneDonation->getCliId();
+                        $totalCli = 0;
+                        $ids = [];
+                    }
+                    $totalCli += $oneDonation->getDonMntInput();
+                    $ids[] = $oneDonation->getDonId();
                     /**
                      * @var \FreeAsso\Model\Client $client
                      */

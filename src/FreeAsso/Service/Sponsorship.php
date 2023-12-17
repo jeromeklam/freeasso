@@ -18,17 +18,9 @@ class Sponsorship extends \FreeFW\Core\Service
      * 
      * @return boolean
      */
-    public function generateOneCertificate($p_sponsorship, $p_start, $p_end)
+    public function generateOneCertificate($p_sponsorship, $p_start, $p_end, $p_with_transaction = true)
     {
         $to  = $p_sponsorship->getSpoTo();
-        $mnt = 0;
-        $donations = \FreeAsso\Model\Donation::find(
-            [
-                'don_real_ts' => [\FreeFW\Storage\Storage::COND_BETWEEN => [ $p_start, $p_end ]],
-                'spo_id'      => $p_sponsorship->getSpoId()
-            ]
-        );
-        // Calculate mnt
         $mnt = 0;
         // Ok, create certificate
         $client = $p_sponsorship->getClient();
@@ -37,6 +29,13 @@ class Sponsorship extends \FreeFW\Core\Service
         if (!$causeType->getCautCertificat()) {
             return false;
         }
+        $donations = \FreeAsso\Model\Donation::find(
+            [
+                'don_real_ts' => [\FreeFW\Storage\Storage::COND_BETWEEN => [ $p_start, $p_end ]],
+                'spo_id'      => $p_sponsorship->getSpoId(),
+                'don_status'  => \FreeAsso\Model\Donation::STATUS_OK
+            ]
+        );
         /**
          * @var \FreeAsso\Model\Donation $oneDonation
          */
@@ -56,7 +55,9 @@ class Sponsorship extends \FreeFW\Core\Service
             ;
             return $notification->create();
         }
-        $p_sponsorship->startTransaction();
+        if ($p_with_transaction) {
+            $p_sponsorship->startTransaction();
+        }
         /**
          * @var \FreeAsso\Model\Certificate $certificate
          */
@@ -94,13 +95,22 @@ class Sponsorship extends \FreeFW\Core\Service
             foreach ($donations as $oneDonation) {
                 $oneDonation->setCertId($certificate->getCertId());
                 if (!$oneDonation->save(false)) {
-                    $p_sponsorship->rollbackTransaction();
+                    if ($p_with_transaction) {
+                        $p_sponsorship->rollbackTransaction();
+                    }
                     return false;
                 }
             }
-            $p_sponsorship->commitTransaction();
+            if ($p_with_transaction) {
+                $p_sponsorship->commitTransaction();
+            }
+            if (!$certificate->generate()) {
+                $certificate->addErrors($certificate->getErrors());
+            }
         } else {
-            $p_sponsorship->rollbackTransaction();
+            if ($p_with_transaction) {
+                $p_sponsorship->rollbackTransaction();
+            }
             return false;
         }
         return $certificate;

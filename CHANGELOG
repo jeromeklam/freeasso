@@ -1,3 +1,11 @@
+# 1.25.8 : 17/12/2023
+
+* Pour la relance des dons poctuels on ne tient pas compte d'un éventuel autre don sur le même parrainage. La relance est donc systématique.
+* Fin d'un don régulier avec cdertificat
+    * Correction d'un bug sur l'ajout de la pièce jointe au mail.
+    * Augmentation du timeout à 120s pour la génération du PDF
+* Intégration du montant en gras dans les certificats pour la forêt
+
 # 1.25.7 : 28/11/2023
 
 * Possibilité de changer l'affectation d'un don si de même type.
