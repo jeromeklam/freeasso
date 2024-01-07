@@ -1,3 +1,10 @@
+# 1.26.0 : 07/01/2024
+
+* Compléments sur les pays
+* Notification pour les certificats de fin d'année
+* Possibilité de filtrer les générations de reçu par pays (code cog)
+* Possibilité de bloquer les notifications pour des dons.
+
 # 1.25.8 : 17/12/2023
 
 * Pour la relance des dons poctuels on ne tient pas compte d'un éventuel autre don sur le même parrainage. La relance est donc systématique.

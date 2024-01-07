@@ -89,9 +89,15 @@ abstract class ReceiptGeneration extends \FreeAsso\Model\StorageModel\ReceiptGen
 
     /**
      * ptyp_id
-     * @var int
+     * @var Integer
      */
     protected $ptyp_id = null;
+
+    /**
+     * recg_cogs
+     * @var String
+     */
+    protected $recg_cogs = null;
 
     /**
      * Set recg_id
@@ -413,5 +419,28 @@ abstract class ReceiptGeneration extends \FreeAsso\Model\StorageModel\ReceiptGen
     public function getPtypId()
     {
         return $this->ptyp_id;
+    }
+
+    /**
+     * Set recg_cogs
+     *
+     * @param String $p_value
+     *
+     * @return \FreeAsso\Model\ReceiptGeneration
+     */
+    public function setRecgCogs($p_value)
+    {
+        $this->recg_cogs = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get recg_cogs
+     *
+     * @return String
+     */
+    public function getRecgCogs()
+    {
+        return $this->recg_cogs;
     }
 }

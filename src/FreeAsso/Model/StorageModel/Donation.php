@@ -327,7 +327,7 @@ abstract class Donation extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_PRIVATE => 'don_send_email',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
         FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_TRUE,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_LOCAL],
+        FFCST::PROPERTY_OPTIONS => [],
         FFCST::PROPERTY_TITLE   => 'Notification',
         FFCST::PROPERTY_COMMENT => 'Notification',
     ];

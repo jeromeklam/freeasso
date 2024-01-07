@@ -47,12 +47,6 @@ class Donation extends \FreeAsso\Model\Base\Donation
     protected $old_donation = null;
 
     /**
-     * Send email
-     * @var boolean
-     */
-    protected $send_email = true;
-
-    /**
      * Check session
      * @var boolean
      */
@@ -93,29 +87,6 @@ class Donation extends \FreeAsso\Model\Base\Donation
     {
         $this->check_session = $p_check;
         return $this;
-    }
-
-    /**
-     * Send email
-     *
-     * @param boolean $p_value
-     * 
-     * @return \FreeAsso\Model\Donation
-     */
-    public function setSendEmail($p_value = true)
-    {
-        $this->send_email = $p_value;
-        return $this;
-    }
-
-    /**
-     * Get send_email
-     *
-     * @return boolean
-     */
-    public function getSendEmail()
-    {
-        return $this->send_email;
     }
 
     /**
@@ -338,15 +309,12 @@ class Donation extends \FreeAsso\Model\Base\Donation
             return false;
         }
         // Jamais de notification pour la création d'un don pour un paiement régulier
-        if ($this->send_email && ($this->getSpoId() === null || $this->getSpoId() <= 0)) {
-            // Idem pas de notification si non souhaitée
-            if ($this->getDonSendEmail()) {
-                /**
-                 * @var \FreeAsso\Service\Donation $donationService
-                 */
-                $donationService = \FreeFW\DI\DI::get('FreeAsso::Service::Donation');
-                $donationService->notification($this, "create", true);
-            }
+        if ($this->getDonSendEmail() && ($this->getSpoId() === null || $this->getSpoId() <= 0)) {
+            /**
+             * @var \FreeAsso\Service\Donation $donationService
+             */
+            $donationService = \FreeFW\DI\DI::get('FreeAsso::Service::Donation');
+            $donationService->notification($this, "create", true);
         }
         return true;
     }

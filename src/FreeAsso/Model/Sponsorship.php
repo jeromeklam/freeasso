@@ -36,6 +36,11 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
     protected $previous_to = null;
 
     /**
+     * Certificate year
+     */
+    protected $certificate_year = null;
+
+    /**
      *
      * {@inheritDoc}
      * @see \FreeFW\Core\Model::init()
@@ -248,7 +253,30 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
         return true;
     }
 
-        /**
+    /**
+     * Set certificate year
+     * 
+     * @param Integer $p_year
+     * 
+     * @return self
+     */
+    public function setCertificateYear($p_year)
+    {
+        $this->certificate_year = $p_year;
+        return $this;
+    }
+
+    /**
+     * Get certificate year
+     * 
+     * @return Integer
+     */
+    public function getCertificateYear()
+    {
+        return $this->certificate_year;
+    }
+
+    /**
      * Specific fields
      *
      * @return array
@@ -265,6 +293,12 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
             'type'    => 'string',
             'title'   => 'Monnaie',
             'content' => $monnaie
+        ];
+        $fields[] = [
+            'name'    => 'year',
+            'type'    => 'integer',
+            'title'   => 'Année',
+            'content' => $this->getCertificateYear()
         ];
         return $fields;
     }

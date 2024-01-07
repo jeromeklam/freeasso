@@ -156,6 +156,14 @@ abstract class ReceiptGeneration extends \FreeFW\Core\StorageModel
             ]
         ]
     ];
+    protected static $PRP_RECG_COGS = [
+        FFCST::PROPERTY_PRIVATE => 'recg_cogs',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_TITLE   => 'Codes cog',
+        FFCST::PROPERTY_COMMENT => 'Codes cog',
+        FFCST::PROPERTY_SAMPLE  => '99100',
+    ];
 
     /**
      * get properties
@@ -179,6 +187,7 @@ abstract class ReceiptGeneration extends \FreeFW\Core\StorageModel
             'recg_no_email' => self::$PRP_RECG_NO_EMAIL,
             'clic_id'       => self::$PRP_CLIC_ID,
             'ptyp_id'       => self::$PRP_PTYP_ID,
+            'recg_cogs'     => self::$PRP_RECG_COGS,
         ];
     }
 

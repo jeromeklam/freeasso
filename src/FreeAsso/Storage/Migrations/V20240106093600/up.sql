@@ -1,0 +1,1 @@
+ALTER TABLE `asso_donation` ADD COLUMN `don_send_email` int(4) DEFAULT 1;

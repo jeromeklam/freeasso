@@ -1,0 +1,1 @@
+ALTER TABLE `asso_receipt_generation` ADD COLUMN `recg_cogs` text DEFAULT null;

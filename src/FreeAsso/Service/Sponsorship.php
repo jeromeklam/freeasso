@@ -117,7 +117,7 @@ class Sponsorship extends \FreeFW\Core\Service
     }
 
     /**
-     * Generate certificate
+     * Generate certificate by Year
      *
      * @param array $p_params
      * 
@@ -160,11 +160,17 @@ class Sponsorship extends \FreeFW\Core\Service
                  * @var \FreeAsso\Model\Sponsorship $sponsorship
                  */
                 foreach ($results as $sponsorship) {
-                    $this->generateOneCertificate($sponsorship, $dStart, $dEnd);
+                    $certificate = $this->generateOneCertificate($sponsorship, $dStart, $dEnd);
+                    if ($certificate) {
+                        // Notification...
+                        $sponsorship->setCertificateYear($year);
+                        $this->notification($sponsorship, "year", false, $certificate);
+                    }
                 }
             }
         }
         $this->logger->debug('Sponsorship.generateCertificate.end');
+        $p_params['year'] = $nYear;
         return $p_params;
     }
 
@@ -210,6 +216,10 @@ class Sponsorship extends \FreeFW\Core\Service
                     case 'remove':
                         $emailId = $cause_type->getCautSpoEndEmailId();
                         $ediId = $cause_type->getCautIdentEdiId();
+                        break;
+                    case 'year':
+                        $emailId = $cause_type->getCautCertYearEmailId();
+                        $ediId = null;
                         break;
                 }
                 if ($emailId) {

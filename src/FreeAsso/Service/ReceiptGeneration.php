@@ -257,6 +257,34 @@ class ReceiptGeneration extends \FreeFW\Core\Service
             if ($generation->getPtypId() > 0) {
                 $filters['donations.ptyp_id'] = $generation->getPtypId();
             }
+            if ($generation->getRecgCogs() != '') {
+                $parts     = explode(',', $generation->getRecgCogs());
+                $without   = [];
+                $with      = [];
+                foreach ($parts as $oneCog) {
+                    $oneCog  = trim($oneCog);
+                    if (strpos($oneCog, "-") !== false) {
+                        $without[] = str_replace('-', '', $oneCog);
+                    } else {
+                        $with[] = $oneCog;
+                    }
+                }
+                if (count($with) > 0 && count($without) > 0) {
+                    throw new \Exception('Soit inclusion, soit exclusion, on en peut pas mélanger');
+                } else {
+                    if (count($with) > 0) {
+                        $countries = \POFW\Model\Country::getIdsByCog($with);
+                        $filters['donations.client.cnty_id'] = [\FreeFW\Storage\Storage::COND_IN => $countries];
+                    } else {
+                        if (count($without) > 0) {
+                            $countries = \POFW\Model\Country::getIdsByCog($without);
+                            $filters['donations.client.cnty_id'] = [\FreeFW\Storage\Storage::COND_NOT_IN => $countries];
+                        } else {
+                            throw new \Exception('Problème lors du traitement des pays');
+                        }
+                    }
+                }
+            }
             /**
              * @var \FreeFW\Model\Query $query
              */
