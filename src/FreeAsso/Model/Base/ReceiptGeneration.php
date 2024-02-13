@@ -100,6 +100,18 @@ abstract class ReceiptGeneration extends \FreeAsso\Model\StorageModel\ReceiptGen
     protected $recg_cogs = null;
 
     /**
+     * recg_prefix
+     * @var String
+     */
+    protected $recg_prefix = null;
+
+    /**
+     * recg_receipt
+     * @var Boolean
+     */
+    protected $recg_receipt = true;
+
+    /**
      * Set recg_id
      *
      * @param int $p_value
@@ -442,5 +454,51 @@ abstract class ReceiptGeneration extends \FreeAsso\Model\StorageModel\ReceiptGen
     public function getRecgCogs()
     {
         return $this->recg_cogs;
+    }
+
+    /**
+     * Set recg_prefix
+     *
+     * @param String $p_value
+     *
+     * @return \FreeAsso\Model\ReceiptGeneration
+     */
+    public function setRecgPrefix($p_value)
+    {
+        $this->recg_prefix = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get recg_prefix
+     *
+     * @return String
+     */
+    public function getRecgPrefix()
+    {
+        return $this->recg_prefix;
+    }
+
+    /**
+     * Set recg_receipt
+     *
+     * @param Boolean $p_value
+     *
+     * @return \FreeAsso\Model\ReceiptGeneration
+     */
+    public function setRecgReceipt($p_value)
+    {
+        $this->recg_receipt = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get recg_receipt
+     *
+     * @return Boolean
+     */
+    public function getRecgReceipt()
+    {
+        return $this->recg_receipt;
     }
 }

@@ -1,3 +1,11 @@
+# 1.27.0 : 13/02/2024
+
+* freesso : group cog
+* freefw : country
+* stats
+* receipt par code cog
+* receipt / attestation
+
 # 1.26.2 : 27/01/2024
 
 * freesso : second sign for group
@@ -5,7 +13,7 @@
 
 # 1.26.1 : 08/01/2024
 
-* Correction enregistrement péiament régulier suite modif don ponctuel
+* Correction enregistrement paiement régulier suite modif don ponctuel
 
 # 1.26.0 : 07/01/2024
 

@@ -38,6 +38,12 @@ abstract class Year extends \FreeAsso\Model\StorageModel\Year
      * @var int
      */
     protected $year_number = null;
+    
+    /**
+     * year_attest
+     * @var int
+     */
+    protected $year_attest = null;
 
     /**
      * Set year_id
@@ -152,5 +158,28 @@ abstract class Year extends \FreeAsso\Model\StorageModel\Year
     public function getYearNumber()
     {
         return $this->year_number;
+    }
+
+    /**
+     * Set year_attest
+     *
+     * @param int $p_value
+     *
+     * @return \FreeAsso\Model\Year
+     */
+    public function setYearAttest($p_value)
+    {
+        $this->year_attest = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get year_attest
+     *
+     * @return int
+     */
+    public function getYearAttest()
+    {
+        return $this->year_attest;
     }
 }

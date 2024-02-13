@@ -71,8 +71,7 @@ class ReceiptGeneration extends \FreeFW\Core\Service
         //
         $query = \FreeAsso\Model\Client::getQuery();
         $query
-            ->addFromFilters($filters)
-        ;
+            ->addFromFilters($filters);
         if ($query->execute()) {
             /**
              * @var \FreeFW\Model\ResultSet $results
@@ -273,11 +272,11 @@ class ReceiptGeneration extends \FreeFW\Core\Service
                     throw new \Exception('Soit inclusion, soit exclusion, on en peut pas mélanger');
                 } else {
                     if (count($with) > 0) {
-                        $countries = \POFW\Model\Country::getIdsByCog($with);
+                        $countries = \FreeFW\Model\Country::getIdsByCog($with);
                         $filters['donations.client.cnty_id'] = [\FreeFW\Storage\Storage::COND_IN => $countries];
                     } else {
                         if (count($without) > 0) {
-                            $countries = \POFW\Model\Country::getIdsByCog($without);
+                            $countries = \FreeFW\Model\Country::getIdsByCog($without);
                             $filters['donations.client.cnty_id'] = [\FreeFW\Storage\Storage::COND_NOT_IN => $countries];
                         } else {
                             throw new \Exception('Problème lors du traitement des pays');
@@ -308,7 +307,7 @@ class ReceiptGeneration extends \FreeFW\Core\Service
                      * @var \FreeAsso\Model\Client $oneClient
                      */
                     foreach ($results as $oneClient) {
-                        $clientService->generateReceiptByYear($oneClient, $year, $types, $stats, $grpId, $generation->getEdiId(), $generation->getRecgId(), $generation->getPtypId());
+                        $clientService->generateReceiptByYear($oneClient, $year, $types, $stats, $grpId, $generation->getEdiId(), $generation->getRecgId(), $generation->getPtypId(), $generation->getRecgPrefix(), $generation->getRecgReceipt());
                     }
                 }
                 // Sauvegarde des numéros

@@ -134,11 +134,16 @@ class Client extends \FreeFW\Core\Service
      * @param int                    $p_edi_id
      * @param int                    $p_recg_id
      * @param int                    $p_ptyp_id
+     * @param string                 $p_prefix
+     * @param boolean                $p_receipt
      * 
      * @return void
      */
-    public function generateReceiptByYear($p_client, $p_year, &$p_types, &$p_stats, $p_grp_id, $p_edi_id, $p_recg_id, $p_ptyp_id = null)
+    public function generateReceiptByYear($p_client, $p_year, &$p_types, &$p_stats, $p_grp_id, $p_edi_id, $p_recg_id, $p_ptyp_id = null, $p_prefix = '', $p_receipt = true)
     {
+        if ($p_prefix === null) {
+            $p_prefix = '';
+        }
         $filters = [
             'session.sess_year' => $p_year,
             'cli_id' => $p_client->getCliId(),
@@ -175,7 +180,11 @@ class Client extends \FreeFW\Core\Service
                             $number = '';
                             foreach ($p_types as $idx => $oneType) {
                                 if ($rettId == $oneType->getRettId()) {
-                                    $newnum = \FreeAsso\Model\Year::getNextNumber($p_year, $p_grp_id);
+                                    if ($p_receipt) {
+                                        $newnum = \FreeAsso\Model\Year::getNextNumber($p_year, $p_grp_id);
+                                    } else {
+                                        $newnum = \FreeAsso\Model\Year::getNextAttest($p_year, $p_grp_id);
+                                    }
                                     $number = $oneType->getNewNumber(['year' => $p_year, 'number' => $newnum]);
                                     break;
                                 }
@@ -199,12 +208,14 @@ class Client extends \FreeFW\Core\Service
                                 ->setRecSendMethod(\FreeAsso\Model\Receipt::SEND_METHOD_MANUAL)
                                 ->setRecMnt(0)
                                 ->setRecMoney($oneDonation->getDonMoneyInput())
-                                ->setRecNumber($number)
+                                ->setRecNumber($p_prefix . $number)
                                 ->setRecgId($p_recg_id)
                                 ->setRecStreetName($p_client->getCliStreetName())
                                 ->setRecStreetNum($p_client->getCliStreetNum())
                                 ->setRecSiren($p_client->getCliSiren())
-                                ->setRecSocialReason($p_client->getCliSocialReason());
+                                ->setRecSocialReason($p_client->getCliSocialReason())
+                                ->setRecReceipt($p_receipt)
+                            ;
                             if ($p_client->getCliEmail() != '') {
                                 $receipt
                                     ->setRecEmail($p_client->getCliEmail())

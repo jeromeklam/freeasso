@@ -62,6 +62,14 @@ abstract class Year extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_COMMENT => '',
         FFCST::PROPERTY_SAMPLE  => 123,
     ];
+    protected static $PRP_YEAR_ATTEST = [
+        FFCST::PROPERTY_PRIVATE => 'year_attest',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_TITLE   => '',
+        FFCST::PROPERTY_COMMENT => '',
+        FFCST::PROPERTY_SAMPLE  => 123,
+    ];
 
     /**
      * get properties
@@ -75,7 +83,8 @@ abstract class Year extends \FreeFW\Core\StorageModel
             'year'        => self::$PRP_YEAR,
             'grp_id'      => self::$PRP_GRP_ID,
             'year_open'   => self::$PRP_YEAR_OPEN,
-            'year_number' => self::$PRP_YEAR_NUMBER
+            'year_number' => self::$PRP_YEAR_NUMBER,
+            'year_attest' => self::$PRP_YEAR_ATTEST
         ];
     }
 

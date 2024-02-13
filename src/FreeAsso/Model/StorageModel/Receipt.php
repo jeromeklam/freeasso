@@ -356,6 +356,14 @@ abstract class Receipt extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TITLE   => 'Ordre',
         FFCST::PROPERTY_COMMENT => 'Ordre',
     ];
+    protected static $PRP_REC_RECEIPT = [
+        FFCST::PROPERTY_PRIVATE => 'rec_receipt',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_TRUE,
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
+        FFCST::PROPERTY_TITLE   => 'Reçu / attestation',
+        FFCST::PROPERTY_COMMENT => 'Reçu / attestation',
+    ];
 
     /**
      * get properties
@@ -404,7 +412,8 @@ abstract class Receipt extends \FreeFW\Core\StorageModel
             'rec_bank'          => self::$PRP_REC_BANK,
             'rec_other'         => self::$PRP_REC_OTHER,
             'rec_nature'        => self::$PRP_REC_NATURE,
-            'rec_year_order'    => self::$PRP_REC_YEAR_ORDER
+            'rec_year_order'    => self::$PRP_REC_YEAR_ORDER,
+            'rec_receipt'       => self::$PRP_REC_RECEIPT
         ];
     }
 

@@ -238,6 +238,12 @@ abstract class Receipt extends \FreeAsso\Model\StorageModel\Receipt
     protected $rec_year_order = null;
 
     /**
+     * Is receipt / attestation
+     * @var bool
+     */
+    protected $rec_receipt = true;
+
+    /**
      * Set rec_id
      *
      * @param int $p_value
@@ -1109,5 +1115,28 @@ abstract class Receipt extends \FreeAsso\Model\StorageModel\Receipt
     public function getRecYearOrder()
     {
         return $this->rec_year_order;
+    }
+
+    /**
+     * Set rec_receipt
+     * 
+     * @param int $p_value
+     * 
+     * @return \FreeAsso\Model\Receipt
+     */
+    public function setRecReceipt($p_value)
+    {
+        $this->rec_receipt = $p_value;
+        return $this;
+    }
+
+    /**
+     * Get rec_receipt
+     * 
+     * @return int
+     */
+    public function getRecReceipt()
+    {
+        return $this->rec_receipt;
     }
 }

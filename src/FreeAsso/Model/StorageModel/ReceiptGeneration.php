@@ -164,6 +164,23 @@ abstract class ReceiptGeneration extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_COMMENT => 'Codes cog',
         FFCST::PROPERTY_SAMPLE  => '99100',
     ];
+    protected static $PRP_RECG_PREFIX = [
+        FFCST::PROPERTY_PRIVATE => 'recg_prefix',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_TITLE   => 'Prefixe numéro',
+        FFCST::PROPERTY_COMMENT => 'Préfixe numéro',
+        FFCST::PROPERTY_SAMPLE  => 'HF-',
+    ];
+    protected static $PRP_RECG_RECEIPT = [
+        FFCST::PROPERTY_PRIVATE => 'recg_receipt',
+        FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_TRUE,
+        FFCST::PROPERTY_TITLE   => 'Reçu / attestation',
+        FFCST::PROPERTY_COMMENT => 'Reçu / attestation',
+        FFCST::PROPERTY_SAMPLE  => false,
+    ];
 
     /**
      * get properties
@@ -188,6 +205,8 @@ abstract class ReceiptGeneration extends \FreeFW\Core\StorageModel
             'clic_id'       => self::$PRP_CLIC_ID,
             'ptyp_id'       => self::$PRP_PTYP_ID,
             'recg_cogs'     => self::$PRP_RECG_COGS,
+            'recg_prefix'   => self::$PRP_RECG_PREFIX,
+            'recg_receipt'  => self::$PRP_RECG_RECEIPT,
         ];
     }
 
