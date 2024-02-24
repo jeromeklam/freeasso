@@ -357,17 +357,17 @@ class ReceiptGeneration extends \FreeFW\Core\Service
         if (!isset($p_params['grp_id'])) {
             throw new \Exception('Le groupe est obligatoire');
         }
-        $year  = $p_params['year'];
-        $grpId = $p_params['grp_id'];
+        $filters = [
+            'rec_year' => $p_params['year'],
+            'grp_id'   => $p_params['grp_id'],
+        ];
+        if (isset($p_params['recg_id'])) {
+            $filters['recg_id'] = $p_params['recg_id'];
+        }
         //
         $query  = \FreeAsso\Model\Receipt::getQuery();
         $query
-            ->addFromFilters(
-                [
-                    'rec_year' => $year,
-                    'grp_id'   => $grpId,
-                ]
-            )
+            ->addFromFilters($filters)
             ->addRelations(['client', 'receipt_type'])
             ->setSort('client.cli_firstname,client.cli_lastname');
         $object = 'FreeAsso_receipt';
@@ -479,6 +479,9 @@ class ReceiptGeneration extends \FreeFW\Core\Service
             'rec_year' => $p_params['year'],
             'grp_id'   => $p_params['grp_id'],
         ];
+        if (isset($p_params['recg_id'])) {
+            $filters['recg_id'] = $p_params['recg_id'];
+        }
         if (isset($p_params['email'])) {
             if ($p_params['email'] == 'without') {
                 $filters['rec_email'] = \FreeFW\Storage\Storage::COND_EMPTY;

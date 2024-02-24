@@ -181,6 +181,32 @@ EOT;
     }
 
     /**
+     * Test print
+     *
+     * @param \FreeFW\Console\Input\AbstractInput $p_input
+     * @param \FreeFW\Console\Output\AbstractOutput $p_output
+     * 
+     * @return void
+     */
+    public function printAttestation(
+        \FreeFW\Console\Input\AbstractInput $p_input,
+        \FreeFW\Console\Output\AbstractOutput $p_output
+    ) {
+        $p_output->write("printAttestation", true);
+
+        $model = \FreeAsso\Model\Receipt::findFirst(['rec_id' => 317328]);
+
+        /**
+         * @var \FreeFW\Service\Edition $editionService
+         */
+        $editionService = \FreeFW\DI\DI::get('FreeFW::Service::Edition');
+        $result = $editionService->printEdition(16, 368, $model);
+        var_dump($result);
+
+        $p_output->write("printAttestation", true);
+    }
+
+    /**
      * Mise à jour des données des causes
      *
      * @param \FreeFW\Console\Input\AbstractInput $p_input

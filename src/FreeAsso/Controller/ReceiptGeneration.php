@@ -1,4 +1,5 @@
 <?php
+
 namespace FreeAsso\Controller;
 
 /**
@@ -32,11 +33,12 @@ class ReceiptGeneration extends \FreeFW\Core\ApiController
             switch (strtoupper($p_action)) {
                 case 'XLSALLYEAR':
                     $params = [
-                        'name'   => 'reçus_' . $receiptGen->getRecgYear() . '_excel',
-                        'year'   => $receiptGen->getRecgYear(),
-                        'sort'   => 'rec_number',
-                        'peer'   => false,
-                        'grp_id' => $receiptGen->getGrpId()
+                        'name'    => 'reçus_' . $receiptGen->getRecgYear() . '_excel',
+                        'year'    => $receiptGen->getRecgYear(),
+                        'sort'    => 'rec_number',
+                        'peer'    => false,
+                        'grp_id'  => $receiptGen->getGrpId(),
+                        'recg_id' => $receiptGen->getRecgId()
                     ];
                     /**
                      * @var \FreeFW\Model\Jobqueue $jobqueue
@@ -51,19 +53,19 @@ class ReceiptGeneration extends \FreeFW\Core\ApiController
                         ->setJobqStatus(\FreeFW\Model\Jobqueue::STATUS_WAITING)
                         ->setJobqName('Reçus en export Excel')
                         ->setJobqType(\FreeFW\Model\Jobqueue::TYPE_ONCE)
-                        ->setJobqParams(json_encode($params))
-                    ;
+                        ->setJobqParams(json_encode($params));
                     if ($jobqueue->create()) {
                         return $this->createSuccessOkResponse($jobqueue);
                     }
                     return $this->createErrorResponse(\FreeFW\Constants::ERROR_VALUES, $jobqueue->getErrors());
                 case 'PDFYEARALLNUMBER':
                     $params = [
-                        'name'   => 'reçus_' . $receiptGen->getRecgYear() . '_tri_numero',
-                        'year'   => $receiptGen->getRecgYear(),
-                        'sort'   => 'rec_number',
-                        'peer'   => false,
-                        'grp_id' => $receiptGen->getGrpId()
+                        'name'    => 'reçus_' . $receiptGen->getRecgYear() . '_tri_numero',
+                        'year'    => $receiptGen->getRecgYear(),
+                        'sort'    => 'rec_number',
+                        'peer'    => false,
+                        'grp_id'  => $receiptGen->getGrpId(),
+                        'recg_id' => $receiptGen->getRecgId()
                     ];
                     /**
                      * @var \FreeFW\Model\Jobqueue $jobqueue
@@ -78,19 +80,19 @@ class ReceiptGeneration extends \FreeFW\Core\ApiController
                         ->setJobqStatus(\FreeFW\Model\Jobqueue::STATUS_WAITING)
                         ->setJobqName('Reçus sans email avec gestion recto / verso')
                         ->setJobqType(\FreeFW\Model\Jobqueue::TYPE_ONCE)
-                        ->setJobqParams(json_encode($params))
-                    ;
+                        ->setJobqParams(json_encode($params));
                     if ($jobqueue->create()) {
                         return $this->createSuccessOkResponse($jobqueue);
                     }
                     return $this->createErrorResponse(\FreeFW\Constants::ERROR_VALUES, $jobqueue->getErrors());
                 case 'PDFYEARALLMEMBER':
                     $params = [
-                        'name'   => 'reçus_' . $receiptGen->getRecgYear() . '_tri_membre',
-                        'year'   => $receiptGen->getRecgYear(),
-                        'sort'   => 'client.cli_lastname,client.cli_firstname',
-                        'peer'   => false,
-                        'grp_id' => $receiptGen->getGrpId()
+                        'name'    => 'reçus_' . $receiptGen->getRecgYear() . '_tri_membre',
+                        'year'    => $receiptGen->getRecgYear(),
+                        'sort'    => 'client.cli_lastname,client.cli_firstname',
+                        'peer'    => false,
+                        'grp_id'  => $receiptGen->getGrpId(),
+                        'recg_id' => $receiptGen->getRecgId()
                     ];
                     /**
                      * @var \FreeFW\Model\Jobqueue $jobqueue
@@ -105,19 +107,19 @@ class ReceiptGeneration extends \FreeFW\Core\ApiController
                         ->setJobqStatus(\FreeFW\Model\Jobqueue::STATUS_WAITING)
                         ->setJobqName('Reçus sans email avec gestion recto / verso')
                         ->setJobqType(\FreeFW\Model\Jobqueue::TYPE_ONCE)
-                        ->setJobqParams(json_encode($params))
-                    ;
+                        ->setJobqParams(json_encode($params));
                     if ($jobqueue->create()) {
                         return $this->createSuccessOkResponse($jobqueue);
                     }
                     return $this->createErrorResponse(\FreeFW\Constants::ERROR_VALUES, $jobqueue->getErrors());
                 case 'PDFYEARNOEMAIL':
                     $params = [
-                        'name'   => 'reçus_' . $receiptGen->getRecgYear() . '_sans_email_recto_verso',
-                        'email'  => 'without',
-                        'year'   => $receiptGen->getRecgYear(),
-                        'peer'   => false,
-                        'grp_id' => $receiptGen->getGrpId()
+                        'name'    => 'reçus_' . $receiptGen->getRecgYear() . '_sans_email_recto_verso',
+                        'email'   => 'without',
+                        'year'    => $receiptGen->getRecgYear(),
+                        'peer'    => false,
+                        'grp_id'  => $receiptGen->getGrpId(),
+                        'recg_id' => $receiptGen->getRecgId()
                     ];
                     /**
                      * @var \FreeFW\Model\Jobqueue $jobqueue
@@ -132,19 +134,19 @@ class ReceiptGeneration extends \FreeFW\Core\ApiController
                         ->setJobqStatus(\FreeFW\Model\Jobqueue::STATUS_WAITING)
                         ->setJobqName('Reçus sans email avec gestion recto / verso')
                         ->setJobqType(\FreeFW\Model\Jobqueue::TYPE_ONCE)
-                        ->setJobqParams(json_encode($params))
-                    ;
+                        ->setJobqParams(json_encode($params));
                     if ($jobqueue->create()) {
                         return $this->createSuccessOkResponse($jobqueue);
                     }
                     return $this->createErrorResponse(\FreeFW\Constants::ERROR_VALUES, $jobqueue->getErrors());
                 case 'PDFYEARNOEMAILPEER':
                     $params = [
-                        'name'   => 'reçus_' . $receiptGen->getRecgYear() . '_sans_email_recto_verso',
-                        'email'  => 'without',
-                        'year'   => $receiptGen->getRecgYear(),
-                        'peer'   => true,
-                        'grp_id' => $receiptGen->getGrpId()
+                        'name'    => 'reçus_' . $receiptGen->getRecgYear() . '_sans_email_recto_verso',
+                        'email'   => 'without',
+                        'year'    => $receiptGen->getRecgYear(),
+                        'peer'    => true,
+                        'grp_id'  => $receiptGen->getGrpId(),
+                        'recg_id' => $receiptGen->getRecgId()
                     ];
                     /**
                      * @var \FreeFW\Model\Jobqueue $jobqueue
@@ -159,8 +161,7 @@ class ReceiptGeneration extends \FreeFW\Core\ApiController
                         ->setJobqStatus(\FreeFW\Model\Jobqueue::STATUS_WAITING)
                         ->setJobqName('Reçus sans email avec gestion recto / verso')
                         ->setJobqType(\FreeFW\Model\Jobqueue::TYPE_ONCE)
-                        ->setJobqParams(json_encode($params))
-                    ;
+                        ->setJobqParams(json_encode($params));
                     if ($jobqueue->create()) {
                         return $this->createSuccessOkResponse($jobqueue);
                     }
@@ -246,7 +247,7 @@ class ReceiptGeneration extends \FreeFW\Core\ApiController
                         return $this->createErrorResponse(\FreeFW\Constants::ERROR_VALUES, $receiptGen->getErrors());
                     }
                     break;
-                    case 'SEND':
+                case 'SEND':
                     $receiptGen->setRecgStatus(\FreeAsso\Model\ReceiptGeneration::STATUS_WAITING);
                     $receiptGen->startTransaction();
                     if ($receiptGen->save(false)) {
