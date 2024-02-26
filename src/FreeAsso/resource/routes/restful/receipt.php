@@ -248,10 +248,39 @@ $receiptRoutes = [
         FFCSTRT::ROUTE_COMMENT    => 'Télécharge le reçu',
         FFCSTRT::ROUTE_METHOD     => FFCSTRT::METHOD_POST,
         FFCSTRT::ROUTE_MODEL      => 'FreeAsso::Model::Receipt',
-        FFCSTRT::ROUTE_URL        => '/v1/asso/receipt/download/:cert_id',
+        FFCSTRT::ROUTE_URL        => '/v1/asso/receipt/download/:rec_id',
         FFCSTRT::ROUTE_CONTROLLER => 'FreeAsso::Controller::Receipt',
         FFCSTRT::ROUTE_FUNCTION   => 'downloadOne',
         FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_PRINT_ONE,
+        FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
+        FFCSTRT::ROUTE_INCLUDE    => [
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['cause', 'client', 'donations']
+        ],
+        FFCSTRT::ROUTE_SCOPE      => [],
+        FFCSTRT::ROUTE_PARAMETERS => [
+            'rec_id' => [
+                FFCSTRT::ROUTE_PARAMETER_ORIGIN   => FFCSTRT::ROUTE_PARAMETER_ORIGIN_PATH,
+                FFCSTRT::ROUTE_PARAMETER_TYPE     => FFCST::TYPE_BIGINT,
+                FFCSTRT::ROUTE_PARAMETER_REQUIRED => true,
+                FFCSTRT::ROUTE_PARAMETER_COMMENT  => 'Identifiant du reçu'
+            ],
+        ],
+        FFCSTRT::ROUTE_RESULTS    => [
+            '200' => [
+                FFCSTRT::ROUTE_RESULTS_TYPE    => FFCSTRT::RESULT_BLOB,
+                FFCSTRT::ROUTE_RESULTS_COMMENT => 'Un reçu',
+            ],
+        ]
+    ],
+    'free_asso.receipt.generateone' => [
+        FFCSTRT::ROUTE_COLLECTION => 'FreeAsso/Asso/Receipt',
+        FFCSTRT::ROUTE_COMMENT    => 'Génère le reçu',
+        FFCSTRT::ROUTE_METHOD     => FFCSTRT::METHOD_PUT,
+        FFCSTRT::ROUTE_MODEL      => 'FreeAsso::Model::Receipt',
+        FFCSTRT::ROUTE_URL        => '/v1/asso/receipt/generate/:rec_id',
+        FFCSTRT::ROUTE_CONTROLLER => 'FreeAsso::Controller::Receipt',
+        FFCSTRT::ROUTE_FUNCTION   => 'generateOne',
+        FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_OTHER,
         FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
         FFCSTRT::ROUTE_INCLUDE    => [
             FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['cause', 'client', 'donations']

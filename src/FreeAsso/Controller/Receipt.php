@@ -1,4 +1,5 @@
 <?php
+
 namespace FreeAsso\Controller;
 
 use \FreeFW\Constants as FFCST;
@@ -66,8 +67,7 @@ class Receipt extends \FreeFW\Core\ApiController
             ->setJobqStatus(\FreeFW\Model\Jobqueue::STATUS_WAITING)
             ->setJobqName('Demande de téléchargement')
             ->setJobqType(\FreeFW\Model\Jobqueue::TYPE_ONCE)
-            ->setJobqParams(json_encode($params))
-        ;
+            ->setJobqParams(json_encode($params));
         $jobqueue->create();
         $this->logger->debug('FreeAsso.ReceiptController.download.end');
         return $this->createSuccessAddResponse($jobqueue);
@@ -80,7 +80,7 @@ class Receipt extends \FreeFW\Core\ApiController
      */
     public function downloadOne(\Psr\Http\Message\ServerRequestInterface $p_request, $p_id = null)
     {
-        $this->logger->debug('FreeAsso.ReceiptController.getOne.start');
+        $this->logger->debug('FreeAsso.ReceiptController.downloadOne.start');
         /**
          * @var \FreeFW\Http\ApiParams $apiParams
          */
@@ -91,7 +91,7 @@ class Receipt extends \FreeFW\Core\ApiController
             );
         }
         if (method_exists($this, 'adaptApiParams')) {
-            $apiParams = $this->adaptApiParams($apiParams, 'getOne');
+            $apiParams = $this->adaptApiParams($apiParams, 'downloadOne');
         }
         $code    = FFCST::ERROR_VALUES;
         $default = $p_request->default_model;
@@ -110,7 +110,7 @@ class Receipt extends \FreeFW\Core\ApiController
                  */
                 $file = \FreeFW\Model\File::findFirst(['file_id' => $receipt->getFileId()]);
                 if ($file) {
-                    $this->logger->info('FreeAsso.ReceiptController.printOne.end');
+                    $this->logger->info('FreeAsso.ReceiptController.downloadOne.end');
                     return $this->createMimeTypeResponse($receipt->getRecNumber() . '.pdf', $file->getFileBlob());
                 } else {
                     $data = null;
@@ -124,7 +124,59 @@ class Receipt extends \FreeFW\Core\ApiController
             $data = null;
             $code = FFCST::ERROR_ID_IS_MANDATORY; // 409
         }
-        $this->logger->info('FreeAsso.ReceiptController.printOne.end');
+        $this->logger->info('FreeAsso.ReceiptController.downloadOne.end');
+        return $this->createErrorResponse($code);
+    }
+
+    /**
+     * Generate one by id
+     *
+     * @param \Psr\Http\Message\ServerRequestInterface $p_request
+     */
+    public function generateOne(\Psr\Http\Message\ServerRequestInterface $p_request, $p_id = null)
+    {
+        $this->logger->debug('FreeAsso.ReceiptController.generateOne.start');
+        /**
+         * @var \FreeFW\Http\ApiParams $apiParams
+         */
+        $apiParams = $p_request->getAttribute('api_params', false);
+        if (!isset($p_request->default_model)) {
+            throw new \FreeFW\Core\FreeFWStorageException(
+                sprintf('No default model for route !')
+            );
+        }
+        if (method_exists($this, 'adaptApiParams')) {
+            $apiParams = $this->adaptApiParams($apiParams, 'generateOne');
+        }
+        $code    = FFCST::ERROR_VALUES;
+        /**
+         * Id
+         */
+        if (intval($p_id) > 0) {
+            /**
+             * @var \FreeAsso\Model\Receipt $receipt
+             */
+            $receipt = \FreeAsso\Model\Receipt::findFirst(['rec_id' => $p_id]);
+            if ($receipt) {
+                // Detect edition.........
+                $receipt_generation = $receipt->getReceiptGeneration();
+                if ($receipt_generation) {
+                    $edition = $receipt_generation->getEdition();
+                    if ($edition) {
+                        if ($receipt->generatePDF($edition->getEdiId())) {
+                            $this->logger->info('FreeAsso.ReceiptController.printOne.end');
+                            return $this->createSuccessUpdateResponse($receipt);
+                        }
+                    }
+                }
+                die('tretretre');
+            } else {
+                $code = FFCST::ERROR_NOT_FOUND;
+            }
+        } else {
+            $code = FFCST::ERROR_ID_IS_MANDATORY; // 409
+        }
+        $this->logger->info('FreeAsso.ReceiptController.generateOne.end');
         return $this->createErrorResponse($code);
     }
 }
