@@ -1,0 +1,1 @@
+ALTER TABLE `sso_group` ADD COLUMN `grp_cog`  varchar(20) DEFAULT NULL;
