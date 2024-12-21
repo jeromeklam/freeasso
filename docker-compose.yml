@@ -1,22 +1,17 @@
 version: "3.2"
 services:
   php:
-    image: jeromeklam/u20_php
+    image: freeasso/debian-12-php83
     networks:
       - frontend
       - backend
     ports:
-      - "8108:8080"
+      - "8109:9000"
     volumes:
       - ./:/var/www/html/
       - ~/.ssh/:/user.ssh
-      - ../freefw/:/var/www/freefw/
-      - ../freesso/:/var/www/freesso/
-      - ../freeoffice/:/var/www/freeoffice/
-      - ../freews/:/var/www/freews/
-      - ../freeapi/:/var/www/freeapi/
   apache:
-    image: jeromeklam/u20_apache
+    image: freeasso/debian-12-apache2
     depends_on:
       - php
     networks:
@@ -24,14 +19,14 @@ services:
       - backend
     environment:
       - DOCUMENTROOT=www
-      - SERVERNAME=omegaweb.jvsonline.fr
+      - SERVERNAME=dev.freeasso.fr
     ports:
       - "8180:80"
     volumes:
       - ./:/var/www/html/
       - ./docker-logs:/var/log/apache2
   mailhog:
-    image: jeromeklam/u20_mailhog
+    image: freeasso/debian-12-mailhog
     ports:
       - "8225:8025"
     networks:

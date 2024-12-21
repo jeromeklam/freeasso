@@ -1,4 +1,5 @@
 <?php
+
 namespace FreeFW\Log;
 
 /**
@@ -85,7 +86,7 @@ class FileLogger extends \Psr\Log\AbstractLogger implements \Serializable
      *
      * @return null
      */
-    public function log($level, $message, array $context = array())
+    public function log($level, string|\Stringable $message, array $context = []): void
     {
         // On ne logge qu'en fonction du niveau souhaité
         if (self::getLevelAsInt($level) <= self::getLevelAsInt($this->level)) {
@@ -112,12 +113,16 @@ class FileLogger extends \Psr\Log\AbstractLogger implements \Serializable
             $headers = $_SERVER;
         }
         //Get the forwarded IP if it exists
-        if (isset($headers['X-Forwarded-For']) &&
-            filter_var($headers['X-Forwarded-For'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+        if (
+            isset($headers['X-Forwarded-For']) &&
+            filter_var($headers['X-Forwarded-For'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)
+        ) {
             $the_ip = $headers['X-Forwarded-For'];
         } else {
-            if (isset($headers['HTTP_X_FORWARDED_FOR']) &&
-                filter_var($headers['HTTP_X_FORWARDED_FOR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+            if (
+                isset($headers['HTTP_X_FORWARDED_FOR']) &&
+                filter_var($headers['HTTP_X_FORWARDED_FOR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)
+            ) {
                 $the_ip = $headers['HTTP_X_FORWARDED_FOR'];
             } else {
                 if (isset($headers['X-ClientSide'])) {
@@ -287,7 +292,8 @@ class FileLogger extends \Psr\Log\AbstractLogger implements \Serializable
     /**
      * @see \Serializable 
      */
-    public function serialize() {
+    public function serialize()
+    {
         $this->commit();
         $datas = [
             'file' => $this->file,
@@ -300,10 +306,27 @@ class FileLogger extends \Psr\Log\AbstractLogger implements \Serializable
     /**
      * @see \Serializable 
      */
-    public function unserialize($data) {
+    public function unserialize($data)
+    {
         $datas = unserialize($data);
         $this->tabCache = $datas['tab'];
         $this->file = $datas['file'];
         $this->cache = $datas['cache'];
+    }
+
+    public function __serialize(): array
+    {
+        $this->commit();
+        return [
+            'file' => $this->file,
+            'cache' => $this->cache,
+            'tab' => $this->tabCache,
+        ];
+    }
+    public function __unserialize(array $data): void
+    {
+        $this->tabCache = $data['tab'];
+        $this->file = $data['file'];
+        $this->cache = $data['cache'];
     }
 }

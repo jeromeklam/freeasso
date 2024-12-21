@@ -177,4 +177,5 @@ try {
     // @todo
     //var_dump($ex);
     header($_SERVER['SERVER_PROTOCOL'] . ' 500 ' . $ex->getMessage(), true, 500);
+    $myLogger->error(print_r($ex, true));
 }

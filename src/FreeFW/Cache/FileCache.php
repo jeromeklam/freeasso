@@ -49,7 +49,7 @@ class FileCache implements CacheItemPoolInterface
      * @return CacheItemInterface
      *   The corresponding Cache Item.
      */
-    public function getItem($key)
+    public function getItem(string $key): CacheItemInterface
     {
         $this->assertValidKey($key);
         if (isset($this->deferredStack[$key])) {
@@ -80,7 +80,7 @@ class FileCache implements CacheItemPoolInterface
      *
      * @todo performance tune to fetch all keys at once from driver
      */
-    public function getItems(array $keys = array())
+    public function getItems(array $keys = []): iterable
     {
         $items = [];
         foreach ($keys as $key) {
@@ -106,7 +106,7 @@ class FileCache implements CacheItemPoolInterface
      * @return bool
      *  True if item exists in the cache, false otherwise.
      */
-    public function hasItem($key)
+    public function hasItem(string $key): bool
     {
         $this->assertValidKey($key);
         $itemInDeferredNotExpired = isset($this->deferredStack[$key]) && $this->deferredStack[$key]->isHit();
@@ -119,7 +119,7 @@ class FileCache implements CacheItemPoolInterface
      * @return bool
      *   True if the pool was successfully cleared. False if there was an error.
      */
-    public function clear()
+    public function clear() : bool
     {
         $this->deferredStack = [];
         $result = true;
@@ -142,7 +142,7 @@ class FileCache implements CacheItemPoolInterface
      * @return bool
      *   True if the item was successfully removed. False if there was an error.
      */
-    public function deleteItem($key)
+    public function deleteItem(string $key) : bool
     {
         $keys = $this->findKeys($key);
         foreach ($keys as $oneKey) {
@@ -167,7 +167,7 @@ class FileCache implements CacheItemPoolInterface
      * @return bool
      *   True if the items were successfully removed. False if there was an error.
      */
-    public function deleteItems(array $keys)
+    public function deleteItems(array $keys) : bool
     {
         $result = true;
         foreach ($keys as $key) {
@@ -185,7 +185,7 @@ class FileCache implements CacheItemPoolInterface
      * @return bool
      *   True if the item was successfully persisted. False if there was an error.
      */
-    public function save(CacheItemInterface $item)
+    public function save(CacheItemInterface $item) : bool
     {
         if ( ! $item->isHit()) {
             return false;
@@ -203,7 +203,7 @@ class FileCache implements CacheItemPoolInterface
      * @return bool
      *   False if the item could not be queued or if a commit was attempted and failed. True otherwise.
      */
-    public function saveDeferred(CacheItemInterface $item)
+    public function saveDeferred(CacheItemInterface $item) : bool
     {
         $this->deferredStack[$item->getKey()] = $item;
         return true;
@@ -215,7 +215,7 @@ class FileCache implements CacheItemPoolInterface
      * @return bool
      *   True if all not-yet-saved items were successfully saved or there were none. False otherwise.
      */
-    public function commit()
+    public function commit() : bool
     {
         $result = true;
         foreach ($this->deferredStack as $key => $item) {

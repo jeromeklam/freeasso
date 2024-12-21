@@ -45,7 +45,7 @@ class Item implements CacheItemInterface
      * @return string
      *   The key string for this cache item.
      */
-    public function getKey()
+    public function getKey() : string
     {
         return $this->key;
     }
@@ -62,7 +62,7 @@ class Item implements CacheItemInterface
      * @return mixed
      *   The value corresponding to this cache item's key, or null if not found.
      */
-    public function get()
+    public function get() : mixed
     {
         if ($this->isHit()) {
             return $this->value;
@@ -80,7 +80,7 @@ class Item implements CacheItemInterface
      * @return bool
      *   True if the request resulted in a cache hit. False otherwise.
      */
-    public function isHit()
+    public function isHit() : bool
     {
         if (! $this->isHit) {
             return false;
@@ -105,7 +105,7 @@ class Item implements CacheItemInterface
      * @return static
      *   The invoked object.
      */
-    public function set($value)
+    public function set(mixed $value): static
     {
         $this->isHit = true;
         $this->value = $value;
@@ -124,7 +124,7 @@ class Item implements CacheItemInterface
      * @return static
      *   The called object.
      */
-    public function expiresAt($expiration)
+    public function expiresAt(?\DateTimeInterface $expiration): static
     {
         $this->expiresAt = $expiration;
         return $this;
@@ -143,7 +143,7 @@ class Item implements CacheItemInterface
      * @return static
      *   The called object.
      */
-    public function expiresAfter($time)
+    public function expiresAfter(int|\DateInterval|null $time): static
     {
         if ($time instanceof \DateInterval) {
             $this->expiresAt = (new \DateTime())->add($time);

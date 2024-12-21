@@ -146,14 +146,14 @@ class Mysql extends \PDO implements \FreeFW\Interfaces\StorageProviderInterface
      * {@inheritDoc}
      * @see \PDO::prepare()
      */
-    public function prepare($statement, $driver_options = [])
+    public function prepare(string $query, array $options = []): \PDOStatement|false
     {
         // @todo ; prévoir une option pour désactiver ce système.
-        $sql = trim($statement);
+        $sql = trim($query);
         if (stripos($sql, 'SELECT ') === 0) {
             $sql = 'SELECT SQL_CALC_FOUND_ROWS ' . substr($sql, 6);
         }
-        return parent::prepare($sql, $driver_options);
+        return parent::prepare($sql, $options);
     }
 
     /**
