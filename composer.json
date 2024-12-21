@@ -1,57 +1,50 @@
 {
-    "name"        : "jeromeklam/freeasso",
-    "type"        : "application",
-    "description" : "Free Association Manager",
-    "keywords"    : ["FREE", "ASSOCIATION", "PHP"],
-    "homepage"    : "http://github.com/jeromeklam",
-    "license"     : "LGPL-3.0-only",
-    "authors" : [
-        {
-            "name"  : "KLAM Jérôme",
-            "email" : "jeromeklam@free.fr"
-        }
-    ],
-    "config": {
-        "secure-http" : false,
-        "bin-dir"     : "install",
-        "localdev": {
-            "jeromeklam/freefw"     : "../freefw",
-            "jeromeklam/freesso"    : "../freesso",
-            "jeromeklam/freeoffice" : "../freeoffice",
-            "jeromeklam/freews"     : "../freews",
-            "jeromeklam/freeapi"    : "../freeapi"
-        }
-    },
-    "require" : {
-        "php"                                  : ">=7.2",
-        "psr/log"                              : "*",
-        "psr/cache"                            : "*",
-        "psr/http-message"                     : "*",
-        "psr/http-server-middleware"           : "*",
-        "guzzlehttp/guzzle"                    : "*",
-        "jeromeklam/freesso"                   : "*",
-        "jeromeklam/freefw"                    : "*",
-        "jeromeklam/freews"                    : "*",
-        "jeromeklam/freeapi"                   : "*",
-        "jeromeklam/freeoffice"                : "*",
-        "cboden/ratchet"                       : "^0.4.1",
-        "php-amqplib/php-amqplib"              : "^2.11",
-        "react/zmq"                            : "^0.4.0",
-        "zumba/json-serializer"                : "^3.0",
-        "gregwar/image"                        : "^2.0",
-        "html2text/html2text"                  : "^4.3",
-        "box/spout"                            : "^3.3",
-        "phpoffice/phpspreadsheet"             : "^1.18",
-        "mikehaertl/php-pdftk": "^0.13.0"
-    },
-    "require-dev" : {
-        "phpunit/phpunit"                 : "*",
-        "squizlabs/php_codesniffer"       : "*",
-        "phing/phing"                     : "*"
-    },
-    "autoload" : {
-        "psr-4" : {
-            "FreeAsso\\" : "src/FreeAsso/"
-        }
+  "name": "jeromeklam/freeasso",
+  "type": "application",
+  "description": "Free Association Manager",
+  "keywords": [
+    "FREE",
+    "ASSOCIATION",
+    "PHP"
+  ],
+  "homepage": "http://github.com/jeromeklam",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "KLAM Jérôme",
+      "email": "jeromeklam@free.fr"
     }
+  ],
+  "require": {
+    "php": ">=7.2",
+    "psr/log": "*",
+    "psr/cache": "*",
+    "psr/http-message": "*",
+    "psr/http-server-middleware": "*",
+    "guzzlehttp/guzzle": "*",
+    "cboden/ratchet": "^0.4.1",
+    "php-amqplib/php-amqplib": "^2.11",
+    "react/zmq": "^0.4.0",
+    "zumba/json-serializer": "^3.0",
+    "gregwar/image": "^2.0",
+    "html2text/html2text": "^4.3",
+    "box/spout": "^3.3",
+    "phpoffice/phpspreadsheet": "^1.18",
+    "mikehaertl/php-pdftk": "^0.13.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "*",
+    "squizlabs/php_codesniffer": "*",
+    "phing/phing": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "FreeAPI\\": "src/FreeAPI/",
+      "FreeAsso\\": "src/FreeAsso/",
+      "FreeFW\\": "src/FreeFW/",
+      "FreeOffice\\": "src/FreeOffice/",
+      "FreeSSO\\": "src/FreeSSO/",
+      "FreeWS\\": "src/FreeWS/"
+    }
+  }
 }
