@@ -79,7 +79,7 @@ class IncludedObject implements \Countable
      * {@inheritDoc}
      * @see \Countable::count()
      */
-    public function count()
+    public function count() : int
     {
         return count($this->resources);
     }

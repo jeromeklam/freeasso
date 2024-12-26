@@ -1,7 +1,18 @@
-version: "3.2"
 services:
+  mariadb:
+    image: freeasso/debian-12-mariadb10
+    networks:
+      - frontend
+      - backend
+    ports:
+      - "8106:3306"
+    volumes:
+      - ./docker-db:/data
+      - ./docker-dumps:/dumps
   php:
     image: freeasso/debian-12-php83
+    depends_on:
+      - mariadb
     networks:
       - frontend
       - backend

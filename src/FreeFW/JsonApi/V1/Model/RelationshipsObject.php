@@ -96,7 +96,7 @@ class RelationshipsObject implements \Countable, \JsonSerializable
      * {@inheritDoc}
      * @see \Countable::count()
      */
-    public function count()
+    public function count() : int
     {
         return count($this->relationships);
     }
@@ -106,7 +106,7 @@ class RelationshipsObject implements \Countable, \JsonSerializable
      * {@inheritDoc}
      * @see \JsonSerializable::jsonSerialize()
      */
-    public function jsonSerialize()
+    public function jsonSerialize() : mixed
     {
         $rels = [];
         foreach ($this->relationships as $name => $relation) {

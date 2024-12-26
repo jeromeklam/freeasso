@@ -1,4 +1,5 @@
 <?php
+
 namespace FreeSSO\Model;
 
 use \FreeFW\Constants as FFCST;
@@ -136,7 +137,7 @@ class Group extends \FreeSSO\Model\Base\Group
      */
     public function getGrpLineAddress()
     {
-        return trim($this->getGrpAddress1()) . ' - ' . trim($this->getGrpCp()) . ' ' . trim($this->getGrpTown());
+        return trim($this->getGrpAddress1() || '') . ' - ' . trim($this->getGrpCp() || '') . ' ' . trim($this->getGrpTown() || '');
     }
 
     /**

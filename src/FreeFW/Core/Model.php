@@ -820,6 +820,12 @@ abstract class Model implements
         return serialize($serializable);
     }
 
+    public function __serialize(): array
+    {
+        $serializable = $this->unset();
+        return $serializable;
+    }
+
     /**
      *
      * {@inheritDoc}
@@ -844,6 +850,16 @@ abstract class Model implements
     public function unserialize($data)
     {
         $unserialized = unserialize($data);
+        if (is_array($unserialized) === true) {
+            foreach ($unserialized as $property => $value) {
+                $this->{$property} = $value;
+            }
+        }
+    }
+
+    public function __unserialize(array $data): void
+    {
+        $unserialized = $data;
         if (is_array($unserialized) === true) {
             foreach ($unserialized as $property => $value) {
                 $this->{$property} = $value;
@@ -1143,7 +1159,7 @@ abstract class Model implements
                 }
             }
             if (isset($oneProperty[FFCST::PROPERTY_MAX])) {
-                if (strlen($value) > $oneProperty[FFCST::PROPERTY_MAX]) {
+                if ($value && strlen($value) > $oneProperty[FFCST::PROPERTY_MAX]) {
                     $this->addError(
                         FFCST::ERROR_MAXLENGTH,
                         sprintf('%s field is too long !', $public),

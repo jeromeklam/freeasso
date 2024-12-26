@@ -81,7 +81,7 @@ class ResultSet extends \FreeFW\Core\Model implements
      * {@inheritDoc}
      * @see \Iterator::rewind()
      */
-    public function rewind()
+    public function rewind() : void
     {
         reset($this->var);
     }
@@ -91,7 +91,7 @@ class ResultSet extends \FreeFW\Core\Model implements
      * {@inheritDoc}
      * @see \Iterator::current()
      */
-    public function current()
+    public function current() : mixed
     {
         $var = current($this->var);
         return $var;
@@ -102,7 +102,7 @@ class ResultSet extends \FreeFW\Core\Model implements
      * {@inheritDoc}
      * @see \Iterator::key()
      */
-    public function key()
+    public function key() : mixed
     {
         $var = key($this->var);
         return $var;
@@ -113,10 +113,9 @@ class ResultSet extends \FreeFW\Core\Model implements
      * {@inheritDoc}
      * @see \Iterator::next()
      */
-    public function next()
+    public function next() : void
     {
         $var = next($this->var);
-        return $var;
     }
 
     /**
@@ -124,7 +123,7 @@ class ResultSet extends \FreeFW\Core\Model implements
      * {@inheritDoc}
      * @see \Iterator::valid()
      */
-    public function valid()
+    public function valid() : bool
     {
         $key = key($this->var);
         $var = ($key !== null && $key !== false);
@@ -136,7 +135,7 @@ class ResultSet extends \FreeFW\Core\Model implements
      * {@inheritDoc}
      * @see \Countable::count()
      */
-    public function count()
+    public function count() : int
     {
         return $this->my_count;
     }
@@ -159,7 +158,7 @@ class ResultSet extends \FreeFW\Core\Model implements
      * {@inheritDoc}
      * @see \ArrayAccess::offsetSet()
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         if (is_null($offset)) {
             $this->var[] = $value;
@@ -174,7 +173,7 @@ class ResultSet extends \FreeFW\Core\Model implements
      * {@inheritDoc}
      * @see \ArrayAccess::offsetExists()
      */
-    public function offsetExists($offset)
+    public function offsetExists(mixed $offset) : bool
     {
         return isset($this->var[$offset]);
     }
@@ -184,7 +183,7 @@ class ResultSet extends \FreeFW\Core\Model implements
      * {@inheritDoc}
      * @see \ArrayAccess::offsetUnset()
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset) : void
     {
         unset($this->var[$offset]);
         $this->my_count = count($this->var);
@@ -195,7 +194,7 @@ class ResultSet extends \FreeFW\Core\Model implements
      * {@inheritDoc}
      * @see \ArrayAccess::offsetGet()
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset) : mixed
     {
         return isset($this->var[$offset]) ? $this->var[$offset] : null;
     }
@@ -266,7 +265,7 @@ class ResultSet extends \FreeFW\Core\Model implements
      * {@inheritDoc}
      * @see \JsonSerializable::jsonSerialize()
      */
-    public function jsonSerialize()
+    public function jsonSerialize() : mixed
     {
         return $this->__toArray();
     }

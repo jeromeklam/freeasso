@@ -73,7 +73,7 @@ class Certificate extends \FreeFW\Core\ApiController
          * @var \FreeFW\Http\ApiParams $apiParams
          */
         $apiParams = $p_request->getAttribute('api_params', false);
-        if (!isset($p_request->default_model)) {
+        if ($p_request->getAttribute('default_model') === null) {
             throw new \FreeFW\Core\FreeFWStorageException(
                 sprintf('No default model for route !')
             );
@@ -81,7 +81,7 @@ class Certificate extends \FreeFW\Core\ApiController
         if (method_exists($this, 'adaptApiParams')) {
             $apiParams = $this->adaptApiParams($apiParams, 'getOne');
         }
-        $default = $p_request->default_model;
+        $default = $p_request->getAttribute('default_model');
         $model   = \FreeFW\DI\DI::get($default);
         /**
          * Id

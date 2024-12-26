@@ -100,7 +100,7 @@ class RouteHandler implements
         $this->logger->info('FreeFW.Middleware.RouteHandler : ' . $this->model);
         if ($route instanceof \FreeFW\Router\Route) {
             $this->beforeProcess($route);
-            $p_request->default_model = $this->model;
+            $p_request = $p_request->withAttribute('default_model', $this->model);
             $object                   = \FreeFW\DI\DI::get($this->controller);
             if ($apiParams instanceof \FreeFW\Http\ApiParams) {
                 $this->setInclude($apiParams);

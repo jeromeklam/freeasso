@@ -457,7 +457,7 @@ class Conditions extends \FreeFW\Core\Model implements
      * {@inheritDoc}
      * @see \Iterator::current()
      */
-    public function current()
+    public function current() : mixed
     {
         $var = current($this->conditions);
         return $var;
@@ -468,7 +468,7 @@ class Conditions extends \FreeFW\Core\Model implements
      * {@inheritDoc}
      * @see \Iterator::key()
      */
-    public function key()
+    public function key() : mixed
     {
         $var = key($this->conditions);
         return $var;
@@ -560,7 +560,7 @@ class Conditions extends \FreeFW\Core\Model implements
      * {@inheritDoc}
      * @see \ArrayAccess::offsetGet()
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset) : mixed
     {
         return isset($this->conditions[$offset]) ? $this->conditions[$offset] : null;
     }

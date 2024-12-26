@@ -1,4 +1,5 @@
 <?php
+
 namespace FreeFW\JsonApi\V1\Model;
 
 /**
@@ -50,7 +51,7 @@ class AttributeObject
      * @var boolean
      */
     protected $json_ignore = false;
-    
+
     /**
      * Constructor
      * 
@@ -188,7 +189,7 @@ class AttributeObject
      */
     public function getJsonName()
     {
-        if (trim($this->json_name) == '') {
+        if (trim($this->json_name || '') == '') {
             $this->json_name = $this->name;
         }
         return $this->json_name;

@@ -146,7 +146,7 @@ class ResourceObject implements \JsonSerializable
      * {@inheritDoc}
      * @see \JsonSerializable::jsonSerialize()
      */
-    public function jsonSerialize()
+    public function jsonSerialize() : mixed
     {
         $obj       = new \stdClass();
         $obj->type = $this->getType();

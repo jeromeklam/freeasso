@@ -21,7 +21,7 @@ class Export extends \FreeFW\Core\ApiController
          * @var \FreeFW\Http\ApiParams $apiParams
          */
         $apiParams = $p_request->getAttribute('api_params', false);
-        if (!isset($p_request->default_model)) {
+        if ($p_request->getAttribute('default_model') === null) {
             throw new \FreeFW\Core\FreeFWStorageException(
                 sprintf('No default model for route !')
             );

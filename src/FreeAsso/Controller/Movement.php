@@ -1,4 +1,5 @@
 <?php
+
 namespace FreeAsso\Controller;
 
 use \FreeFW\Constants as FFCST;
@@ -24,12 +25,12 @@ class Movement extends \FreeFW\Core\ApiController
          * @var \FreeFW\Http\ApiParams $apiParams
          */
         $apiParams = $p_request->getAttribute('api_params', false);
-        if (!isset($p_request->default_model)) {
+        if ($p_request->getAttribute('default_model') === null) {
             throw new \FreeFW\Core\FreeFWStorageException(
                 sprintf('No default model for route !')
-                );
+            );
         }
-        $default = $p_request->default_model;
+        $default = $p_request->getAttribute('default_model');
         $model   = \FreeFW\DI\DI::get($default);
         $filters = new \FreeFW\Model\Conditions();
         $filters->initFromArray(
@@ -42,9 +43,9 @@ class Movement extends \FreeFW\Core\ApiController
          */
         $query = $model->getQuery();
         $query
-        ->addConditions($filters)
-        ->addRelations($apiParams->getInclude())
-        ->setSort($apiParams->getSort())
+            ->addConditions($filters)
+            ->addRelations($apiParams->getInclude())
+            ->setSort($apiParams->getSort())
         ;
         $data = new \FreeFW\Model\ResultSet();
         if ($query->execute()) {
@@ -53,7 +54,7 @@ class Movement extends \FreeFW\Core\ApiController
         $this->logger->debug('FreeAsso.Movement.getPendings.end');
         return $this->createResponse(200, $data);
     }
-    
+
     /**
      * Get file content for download
      *
@@ -98,5 +99,4 @@ class Movement extends \FreeFW\Core\ApiController
         }
         return $this->createResponse(409);
     }
-    
 }

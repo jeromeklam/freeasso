@@ -66,12 +66,12 @@ class ApiController extends \FreeFW\Core\Controller
          * @var \FreeFW\Http\ApiParams $apiParams
          */
         $apiParams = $p_request->getAttribute('api_params', false);
-        if (!isset($p_request->default_model)) {
+        if ($p_request->getAttribute('default_model') === null) {
             throw new \FreeFW\Core\FreeFWStorageException(
                 sprintf('No default model for route !')
             );
         }
-        $default = $p_request->default_model;
+        $default = $p_request->getAttribute('default_model');
         $model   = \FreeFW\DI\DI::get($default);
         $fields  = $model->getAutocompleteField();
         $filters = [];
@@ -123,12 +123,12 @@ class ApiController extends \FreeFW\Core\Controller
          * @var \FreeFW\Http\ApiParams $apiParams
          */
         $apiParams = $p_request->getAttribute('api_params', false);
-        if (!isset($p_request->default_model)) {
+        if ($p_request->getAttribute('default_model') === null) {
             throw new \FreeFW\Core\FreeFWStorageException(
                 sprintf('No default model for route !')
                 );
         }
-        $default = $p_request->default_model;
+        $default = $p_request->getAttribute('default_model');
         $model   = \FreeFW\DI\DI::get($default);
         /**
          * Id
@@ -191,7 +191,7 @@ class ApiController extends \FreeFW\Core\Controller
          * @var \FreeFW\Http\ApiParams $apiParams
          */
         $apiParams = $p_request->getAttribute('api_params', false);
-        if (!isset($p_request->default_model)) {
+        if ($p_request->getAttribute('default_model') === null) {
             throw new \FreeFW\Core\FreeFWStorageException(
                 sprintf('No default model for route !')
             );
@@ -199,7 +199,7 @@ class ApiController extends \FreeFW\Core\Controller
         if (method_exists($this, 'adaptApiParams')) {
             $apiParams = $this->adaptApiParams($apiParams, 'getAll');
         }
-        $default = $p_request->default_model;
+        $default = $p_request->getAttribute('default_model');
         $model = \FreeFW\DI\DI::get($default);
         /**
          * @var \FreeFW\Model\Query $query
@@ -232,7 +232,7 @@ class ApiController extends \FreeFW\Core\Controller
          * @var \FreeFW\Http\ApiParams $apiParams
          */
         $apiParams = $p_request->getAttribute('api_params', false);
-        if (!isset($p_request->default_model)) {
+        if ($p_request->getAttribute('default_model') === null) {
             throw new \FreeFW\Core\FreeFWStorageException(
                 sprintf('No default model for route !')
             );
@@ -240,7 +240,7 @@ class ApiController extends \FreeFW\Core\Controller
         if (method_exists($this, 'adaptApiParams')) {
             $apiParams = $this->adaptApiParams($apiParams, 'getOne');
         }
-        $default = $p_request->default_model;
+        $default = $p_request->getAttribute('default_model');
         $model   = \FreeFW\DI\DI::get($default);
         /**
          * Id
@@ -311,7 +311,7 @@ class ApiController extends \FreeFW\Core\Controller
          * @var \FreeFW\Http\ApiParams $apiParams
          */
         $apiParams = $p_request->getAttribute('api_params', false);
-        if (!isset($p_request->default_model)) {
+        if ($p_request->getAttribute('default_model') === null) {
             throw new \FreeFW\Core\FreeFWStorageException(
                 sprintf('No default model for route !')
             );
@@ -354,12 +354,12 @@ class ApiController extends \FreeFW\Core\Controller
          * @var \FreeFW\Http\ApiParams $apiParams
          */
         $apiParams = $p_request->getAttribute('api_params', false);
-        if (!isset($p_request->default_model)) {
+        if ($p_request->getAttribute('default_model') === null) {
             throw new \FreeFW\Core\FreeFWStorageException(
                 sprintf('No default model for route !')
             );
         }
-        $default = $p_request->default_model;
+        $default = $p_request->getAttribute('default_model');
         $model = \FreeFW\DI\DI::get($default);
         if (intval($p_id) > 0) {
             if ($apiParams->hasData()) {
@@ -414,12 +414,12 @@ class ApiController extends \FreeFW\Core\Controller
          * @var \FreeFW\Http\ApiParams $apiParams
          */
         $apiParams = $p_request->getAttribute('api_params', false);
-        if (!isset($p_request->default_model)) {
+        if ($p_request->getAttribute('default_model') === null) {
             throw new \FreeFW\Core\FreeFWStorageException(
                 sprintf('No default model for route !')
             );
         }
-        $default = $p_request->default_model;
+        $default = $p_request->getAttribute('default_model');
         $model = \FreeFW\DI\DI::get($default);
         if (intval($p_id) > 0) {
             if (method_exists($this, 'adaptApiParams')) {
@@ -463,12 +463,12 @@ class ApiController extends \FreeFW\Core\Controller
          * @var \FreeFW\Http\ApiParams $apiParams
          */
         $apiParams = $p_request->getAttribute('api_params', false);
-        if (!isset($p_request->default_model)) {
+        if ($p_request->getAttribute('default_model') === null) {
             throw new \FreeFW\Core\FreeFWStorageException(
                 sprintf('No default model for route !')
             );
         }
-        $default = $p_request->default_model;
+        $default = $p_request->getAttribute('default_model');
         $model = \FreeFW\DI\DI::get($default);
         /**
          * @var \FreeFW\Model\PrintOptions $print
@@ -629,7 +629,7 @@ class ApiController extends \FreeFW\Core\Controller
          * @var \FreeFW\Http\ApiParams $apiParams
          */
         $apiParams = $p_request->getAttribute('api_params', false);
-        if (!isset($p_request->default_model)) {
+        if ($p_request->getAttribute('default_model') === null) {
             throw new \FreeFW\Core\FreeFWStorageException(
                 sprintf('No default model for route !')
             );
@@ -652,7 +652,7 @@ class ApiController extends \FreeFW\Core\Controller
          * Save for deferred action
          */
         $params = new \stdClass();
-        $params->model = $p_request->default_model;
+        $params->model = $p_request->getAttribute('default_model');
         $params->api = serialize($apiParams);
         /**
          *

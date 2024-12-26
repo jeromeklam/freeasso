@@ -323,6 +323,7 @@ class FileLogger extends \Psr\Log\AbstractLogger implements \Serializable
             'tab' => $this->tabCache,
         ];
     }
+    
     public function __unserialize(array $data): void
     {
         $this->tabCache = $data['tab'];

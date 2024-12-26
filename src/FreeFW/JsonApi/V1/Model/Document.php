@@ -177,7 +177,7 @@ class Document implements \JsonSerializable
      * {@inheritDoc}
      * @see \JsonSerializable::jsonSerialize()
      */
-    public function jsonSerialize()
+    public function jsonSerialize() : mixed
     {
         return $this->__toJson();
     }

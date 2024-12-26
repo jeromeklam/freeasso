@@ -20,7 +20,7 @@ class Cookies implements \Countable, \Iterator, \ArrayAccess
      * {@inheritDoc}
      * @see \Iterator::next()
      */
-    public function next()
+    public function next() : void
     {
         next($this->cookies);
     }
@@ -30,7 +30,7 @@ class Cookies implements \Countable, \Iterator, \ArrayAccess
      * {@inheritDoc}
      * @see \Iterator::valid()
      */
-    public function valid()
+    public function valid() : bool
     {
         return key($this->cookies) !== null;
     }
@@ -40,7 +40,7 @@ class Cookies implements \Countable, \Iterator, \ArrayAccess
      * {@inheritDoc}
      * @see \Iterator::current()
      */
-    public function current()
+    public function current() : mixed
     {
         return current($this->cookies);
     }
@@ -50,7 +50,7 @@ class Cookies implements \Countable, \Iterator, \ArrayAccess
      * {@inheritDoc}
      * @see \Iterator::rewind()
      */
-    public function rewind()
+    public function rewind() : void
     {
         reset($this->cookies);
     }
@@ -60,7 +60,7 @@ class Cookies implements \Countable, \Iterator, \ArrayAccess
      * {@inheritDoc}
      * @see \Countable::count()
      */
-    public function count()
+    public function count() : int
     {
         return count($this->cookies);
     }
@@ -70,7 +70,7 @@ class Cookies implements \Countable, \Iterator, \ArrayAccess
      * {@inheritDoc}
      * @see \Iterator::key()
      */
-    public function key()
+    public function key() : mixed
     {
         $key = key($this->cookies);
         if ($key === null) {
@@ -85,7 +85,7 @@ class Cookies implements \Countable, \Iterator, \ArrayAccess
      * {@inheritDoc}
      * @see \ArrayAccess::offsetGet()
      */
-    public function offsetGet($offset)
+    public function offsetGet(mixed $offset) : mixed
     {
         return isset($this->cookies[$offset]) ? $this->cookies[$offset] : null;
     }
@@ -95,7 +95,7 @@ class Cookies implements \Countable, \Iterator, \ArrayAccess
      * {@inheritDoc}
      * @see \ArrayAccess::offsetExists()
      */
-    public function offsetExists($offset)
+    public function offsetExists(mixed $offset) : bool
     {
         return isset($this->cookies[$offset]);
     }
@@ -105,7 +105,7 @@ class Cookies implements \Countable, \Iterator, \ArrayAccess
      * {@inheritDoc}
      * @see \ArrayAccess::offsetUnset()
      */
-    public function offsetUnset($offset)
+    public function offsetUnset(mixed $offset) : void
     {
         unset($this->cookies[$offset]);
     }
@@ -115,7 +115,7 @@ class Cookies implements \Countable, \Iterator, \ArrayAccess
      * {@inheritDoc}
      * @see \ArrayAccess::offsetSet()
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet(mixed $offset, mixed $value) : void
     {
         if (is_null($offset)) {
             $this->cookies[] = $value;

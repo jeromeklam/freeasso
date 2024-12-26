@@ -30,7 +30,15 @@
     "html2text/html2text": "^4.3",
     "box/spout": "^3.3",
     "phpoffice/phpspreadsheet": "^1.18",
-    "mikehaertl/php-pdftk": "^0.13.0"
+    "mikehaertl/php-pdftk": "^0.13.0",
+    "phpmailer/phpmailer": "*",
+    "giggsey/libphonenumber-for-php": "*",
+    "psr/http-factory": "*",
+    "guzzlehttp/psr7": "*",
+    "firebase/php-jwt": "^5.5.1",
+    "bshaffer/oauth2-server-php": "*",
+    "jeromeklam/freeoffice": "*",
+    "dragonmantank/cron-expression": "^3.1"
   },
   "require-dev": {
     "phpunit/phpunit": "*",

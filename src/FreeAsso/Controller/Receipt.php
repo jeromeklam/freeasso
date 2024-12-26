@@ -28,7 +28,7 @@ class Receipt extends \FreeFW\Core\ApiController
          * @var \FreeFW\Http\ApiParams $apiParams
          */
         $apiParams = $p_request->getAttribute('api_params', false);
-        if (!isset($p_request->default_model)) {
+        if ($p_request->getAttribute('default_model') === null) {
             throw new \FreeFW\Core\FreeFWStorageException(
                 sprintf('No default model for route !')
             );
@@ -51,7 +51,7 @@ class Receipt extends \FreeFW\Core\ApiController
          * Save for deferred action
          */
         $params = new \stdClass();
-        $params->model = $p_request->default_model;
+        $params->model = $p_request->getAttribute('default_model');
         $params->api = serialize($apiParams);
         /**
          *
@@ -85,7 +85,7 @@ class Receipt extends \FreeFW\Core\ApiController
          * @var \FreeFW\Http\ApiParams $apiParams
          */
         $apiParams = $p_request->getAttribute('api_params', false);
-        if (!isset($p_request->default_model)) {
+        if ($p_request->getAttribute('default_model') === null) {
             throw new \FreeFW\Core\FreeFWStorageException(
                 sprintf('No default model for route !')
             );
@@ -94,7 +94,7 @@ class Receipt extends \FreeFW\Core\ApiController
             $apiParams = $this->adaptApiParams($apiParams, 'downloadOne');
         }
         $code    = FFCST::ERROR_VALUES;
-        $default = $p_request->default_model;
+        $default = $p_request->getAttribute('default_model');
         $model   = \FreeFW\DI\DI::get($default);
         /**
          * Id
@@ -140,7 +140,7 @@ class Receipt extends \FreeFW\Core\ApiController
          * @var \FreeFW\Http\ApiParams $apiParams
          */
         $apiParams = $p_request->getAttribute('api_params', false);
-        if (!isset($p_request->default_model)) {
+        if ($p_request->getAttribute('default_model') === null) {
             throw new \FreeFW\Core\FreeFWStorageException(
                 sprintf('No default model for route !')
             );

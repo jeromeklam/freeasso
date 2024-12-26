@@ -76,7 +76,7 @@ class AttributesObject implements \Countable, \JsonSerializable
     /**
      * @see \Countable
      */
-    public function count()
+    public function count() : int
     {
         return count($this->attributes);
     }
@@ -86,7 +86,7 @@ class AttributesObject implements \Countable, \JsonSerializable
      * {@inheritDoc}
      * @see \JsonSerializable::jsonSerialize()
      */
-    public function jsonSerialize()
+    public function jsonSerialize() : mixed
     {
         $obj = new \stdClass();
         foreach ($this->attributes as $idx => $attribute) {
@@ -95,7 +95,7 @@ class AttributesObject implements \Countable, \JsonSerializable
                 switch ($attribute->getType()) {
                     case FFCST::TYPE_IMAGE:
                     case FFCST::TYPE_BLOB:
-                        $obj->$attName = base64_encode($attribute->getValue());
+                        $obj->$attName = base64_encode($attribute->getValue() || '');
                         break;
                     case FFCST::TYPE_TEXT:
                     case FFCST::TYPE_STRING:
