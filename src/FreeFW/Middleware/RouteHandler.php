@@ -1,9 +1,9 @@
 <?php
+
 namespace FreeFW\Middleware;
 
 use \Psr\Http\Server\MiddlewareInterface;
 use \Psr\Http\Server\RequestHandlerInterface;
-use \Psr\Http\Message\ResponseFactoryInterface;
 use \Psr\Http\Message\ServerRequestInterface;
 use \Psr\Http\Message\ResponseInterface;
 use \FreeFW\Router\Route as FFCSTRT;
@@ -25,6 +25,7 @@ class RouteHandler implements
     use \Psr\Log\LoggerAwareTrait;
     use \FreeFW\Behaviour\EventManagerAwareTrait;
     use \FreeFW\Behaviour\ConfigAwareTrait;
+    use \FreeFW\Behaviour\HttpFactoryTrait;
 
     /**
      * Controller
@@ -101,13 +102,19 @@ class RouteHandler implements
         if ($route instanceof \FreeFW\Router\Route) {
             $this->beforeProcess($route);
             $p_request = $p_request->withAttribute('default_model', $this->model);
-            $object                   = \FreeFW\DI\DI::get($this->controller);
+            $object = \FreeFW\DI\DI::get($this->controller);
             if ($apiParams instanceof \FreeFW\Http\ApiParams) {
                 $this->setInclude($apiParams);
                 $p_request = $p_request->withAttribute('api_params', $apiParams);
             }
             $this->logger->info('FreeFW.Middleware.RouteHandler.call ' . $this->controller . '.' . $this->function);
-            $response = call_user_func_array([$object, $this->function], array_merge([$p_request], $this->params));
+            // @todo : HACK => REAL PARAMETER NAME
+            $callParams = array_merge([$p_request], $this->params);
+            $newParams = [];
+            foreach ($callParams as $key => $value) {
+                $newParams[] = $value;
+            }
+            $response = call_user_func_array([$object, $this->function], $newParams);
         } else {
             $this->logger->info('FreeFW.Middleware.RouteHandler.noRoute');
             $response = $this->createResponse(412, "No route or wrong config !");
@@ -127,7 +134,7 @@ class RouteHandler implements
         if (count($includes) == 0 && array_key_exists(FFCSTRT::ROUTE_INCLUDE_DEFAULT, $this->include)) {
             $includes = $p_apiParams->renderInclude($this->include[FFCSTRT::ROUTE_INCLUDE_DEFAULT]);
         }
-        if (array_key_exists(FFCSTRT::ROUTE_INCLUDE_LIST,$this->include)) {
+        if (array_key_exists(FFCSTRT::ROUTE_INCLUDE_LIST, $this->include)) {
             if (count($p_apiParams->renderInclude($this->include[FFCSTRT::ROUTE_INCLUDE_LIST])) > 0) {
                 $includes = array_intersect(
                     $includes,
@@ -135,7 +142,7 @@ class RouteHandler implements
                 );
             }
         }
-        if (array_key_exists(FFCSTRT::ROUTE_INCLUDE_REQUIRED,$this->include)) {
+        if (array_key_exists(FFCSTRT::ROUTE_INCLUDE_REQUIRED, $this->include)) {
             $includes = array_merge(
                 $includes,
                 $p_apiParams->renderInclude($this->include[FFCSTRT::ROUTE_INCLUDE_REQUIRED])

@@ -321,7 +321,7 @@ class Jobqueue extends \FreeFW\Model\Base\Jobqueue implements \Psr\Log\LoggerInt
      * {@inheritDoc}
      * @see \Psr\Log\LoggerInterface::critical()
      */
-    public function critical($message, array $context = [])
+    public function critical($message, array $context = []): void
     {
         $this->log(\Psr\Log\LogLevel::CRITICAL, $message, $context);
     }
@@ -331,7 +331,7 @@ class Jobqueue extends \FreeFW\Model\Base\Jobqueue implements \Psr\Log\LoggerInt
      * {@inheritDoc}
      * @see \Psr\Log\LoggerInterface::log()
      */
-    public function log($level, $message, array $context = [])
+    public function log($level, $message, array $context = []): void
     {
         $this->logs[] = [
             'level' => $level,
@@ -344,7 +344,7 @@ class Jobqueue extends \FreeFW\Model\Base\Jobqueue implements \Psr\Log\LoggerInt
      * {@inheritDoc}
      * @see \Psr\Log\LoggerInterface::emergency()
      */
-    public function emergency($message, array $context = [])
+    public function emergency($message, array $context = []): void
     {
         $this->log(\Psr\Log\LogLevel::EMERGENCY, $message, $context);
     }
@@ -354,7 +354,7 @@ class Jobqueue extends \FreeFW\Model\Base\Jobqueue implements \Psr\Log\LoggerInt
      * {@inheritDoc}
      * @see \Psr\Log\LoggerInterface::error()
      */
-    public function error($message, array $context = [])
+    public function error($message, array $context = []): void
     {
         $this->log(\Psr\Log\LogLevel::ERROR, $message, $context);
     }
@@ -364,7 +364,7 @@ class Jobqueue extends \FreeFW\Model\Base\Jobqueue implements \Psr\Log\LoggerInt
      * {@inheritDoc}
      * @see \Psr\Log\LoggerInterface::alert()
      */
-    public function alert($message, array $context = [])
+    public function alert($message, array $context = []): void
     {
         $this->log(\Psr\Log\LogLevel::ALERT, $message, $context);
     }
@@ -374,7 +374,7 @@ class Jobqueue extends \FreeFW\Model\Base\Jobqueue implements \Psr\Log\LoggerInt
      * {@inheritDoc}
      * @see \Psr\Log\LoggerInterface::warning()
      */
-    public function warning($message, array $context = [])
+    public function warning($message, array $context = []): void
     {
         $this->log(\Psr\Log\LogLevel::WARNING, $message, $context);
     }
@@ -384,7 +384,7 @@ class Jobqueue extends \FreeFW\Model\Base\Jobqueue implements \Psr\Log\LoggerInt
      * {@inheritDoc}
      * @see \Psr\Log\LoggerInterface::notice()
      */
-    public function notice($message, array $context = [])
+    public function notice($message, array $context = []): void
     {
         $this->log(\Psr\Log\LogLevel::NOTICE, $message, $context);
     }
@@ -394,7 +394,7 @@ class Jobqueue extends \FreeFW\Model\Base\Jobqueue implements \Psr\Log\LoggerInt
      * {@inheritDoc}
      * @see \Psr\Log\LoggerInterface::info()
      */
-    public function info($message, array $context = [])
+    public function info($message, array $context = []): void
     {
         $this->log(\Psr\Log\LogLevel::INFO, $message, $context);
     }
@@ -404,7 +404,7 @@ class Jobqueue extends \FreeFW\Model\Base\Jobqueue implements \Psr\Log\LoggerInt
      * {@inheritDoc}
      * @see \Psr\Log\LoggerInterface::debug()
      */
-    public function debug($message, array $context = [])
+    public function debug($message, array $context = []): void
     {
         $this->log(\Psr\Log\LogLevel::DEBUG, $message, $context);
     }

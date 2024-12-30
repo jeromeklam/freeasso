@@ -1,4 +1,5 @@
 <?php
+
 namespace FreeAsso\Model;
 
 use \FreeFW\Constants as FFCST;
@@ -159,7 +160,7 @@ class Client extends \FreeAsso\Model\Base\Client implements
      */
     public function getCliFullname()
     {
-        $name = trim($this->getCliFirstname()) . ' ' . trim($this->getCliLastname());
+        $name = trim($this->getCliFirstname() || '') . ' ' . trim($this->getCliLastname() || '');
         return trim($name);
     }
 
@@ -290,8 +291,8 @@ class Client extends \FreeAsso\Model\Base\Client implements
         return \FreeAsso\Model\Sponsorship::findFirst(
             [
                 'cli_id'   => $this->getCliId(),
-                'spo_to'   => [ \FreeFW\Storage\Storage::COND_GREATER_EQUAL_OR_NULL => $now ],
-                'spo_from' => [ \FreeFW\Storage\Storage::COND_LOWER_EQUAL_OR_NULL => $now ],
+                'spo_to'   => [\FreeFW\Storage\Storage::COND_GREATER_EQUAL_OR_NULL => $now],
+                'spo_from' => [\FreeFW\Storage\Storage::COND_LOWER_EQUAL_OR_NULL => $now],
             ],
             [
                 'spo_from' => \FreeFW\Storage\Storage::SORT_DESC
@@ -437,7 +438,7 @@ class Client extends \FreeAsso\Model\Base\Client implements
             $query = \FreeAsso\Model\Sponsorship::getQuery();
             $query
                 ->addFromFilters(['cli_id' => $this->getCliId()])
-                ->addRelations(['cause','paymentType'])
+                ->addRelations(['cause', 'paymentType'])
                 ->setSort('-spo_from')
             ;
             if ($query->execute()) {
@@ -467,7 +468,7 @@ class Client extends \FreeAsso\Model\Base\Client implements
                         'cli_id'     => $this->getCliId(),
                     ]
                 )
-                ->addRelations(['cause','paymentType'])
+                ->addRelations(['cause', 'paymentType'])
                 ->setSort('-don_real_ts')
             ;
             if ($query->execute()) {

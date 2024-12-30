@@ -1,4 +1,5 @@
 <?php
+
 namespace FreeFW\JsonApi\V1\Model;
 
 use \FreeFW\Constants as FFCST;
@@ -27,10 +28,10 @@ class AttributesObject implements \Countable, \JsonSerializable
         $this->attributes = [];
         foreach ($p_attributes as $key => $value) {
             if ($value instanceof \FreeFW\JsonApi\V1\Model\AttributeObject) {
-                $this->addAttribute($value); 
+                $this->addAttribute($value);
             } else {
                 $oneAttr = new \FreeFW\JsonApi\V1\Model\AttributeObject($key, $value);
-                $this->addAttribute($oneAttr); 
+                $this->addAttribute($oneAttr);
             }
         }
     }
@@ -76,7 +77,7 @@ class AttributesObject implements \Countable, \JsonSerializable
     /**
      * @see \Countable
      */
-    public function count() : int
+    public function count(): int
     {
         return count($this->attributes);
     }
@@ -86,7 +87,7 @@ class AttributesObject implements \Countable, \JsonSerializable
      * {@inheritDoc}
      * @see \JsonSerializable::jsonSerialize()
      */
-    public function jsonSerialize() : mixed
+    public function jsonSerialize(): mixed
     {
         $obj = new \stdClass();
         foreach ($this->attributes as $idx => $attribute) {
@@ -95,7 +96,11 @@ class AttributesObject implements \Countable, \JsonSerializable
                 switch ($attribute->getType()) {
                     case FFCST::TYPE_IMAGE:
                     case FFCST::TYPE_BLOB:
-                        $obj->$attName = base64_encode($attribute->getValue() || '');
+                        $value = $attribute->getValue();
+                        if (!$value) {
+                            $value = '';
+                        }
+                        $obj->$attName = base64_encode($value);
                         break;
                     case FFCST::TYPE_TEXT:
                     case FFCST::TYPE_STRING:
@@ -110,7 +115,11 @@ class AttributesObject implements \Countable, \JsonSerializable
                         if (strpos($attName, 'blob') === false) {
                             $obj->$attName = $attribute->getValue();
                         } else {
-                            $obj->$attName = base64_encode($attribute->getValue());
+                            $value = $attribute->getValue();
+                            if (!$value) {
+                                $value = '';
+                            }
+                            $obj->$attName = base64_encode($value);
                         }
                         break;
                 }
