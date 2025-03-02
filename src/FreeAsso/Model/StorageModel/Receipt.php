@@ -241,7 +241,7 @@ abstract class Receipt extends \FreeFW\Core\StorageModel
     protected static $PRP_REC_MANUAL = [
         FFCST::PROPERTY_PRIVATE => 'rec_manual',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BOOLEAN,
-        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_DEPRECATED],
         FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_FALSE,
         FFCST::PROPERTY_TITLE   => 'Manuel',
         FFCST::PROPERTY_COMMENT => 'Manuel',
@@ -352,7 +352,7 @@ abstract class Receipt extends \FreeFW\Core\StorageModel
     protected static $PRP_REC_YEAR_ORDER = [
         FFCST::PROPERTY_PRIVATE => 'rec_year_order',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
-        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_DEPRECATED],
         FFCST::PROPERTY_TITLE   => 'Ordre',
         FFCST::PROPERTY_COMMENT => 'Ordre',
     ];

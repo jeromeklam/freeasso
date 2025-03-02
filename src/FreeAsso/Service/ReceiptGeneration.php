@@ -157,7 +157,7 @@ class ReceiptGeneration extends \FreeFW\Core\Service
             }
             $filters = [
                 'rec_year' => $year,
-                'rec_manual' => 0,
+                'rec_mode' => 'AUTO',
                 'grp_id' => $grpId
             ];
             if ($generation->getClicId() > 0) {

@@ -171,7 +171,7 @@ class Jobqueue extends \FreeFW\Model\Base\Jobqueue implements \Psr\Log\LoggerInt
             if ($service) {
                 $method = $this->getJobqMethod();
                 if (method_exists($service, $method)) {
-                    $params = json_decode($this->getJobqParams(), true);
+                    $params = json_decode($this->getJobqParams() ?? '', true);
                     if (!is_array($params)) {
                         $params = [];
                     }
@@ -189,7 +189,7 @@ class Jobqueue extends \FreeFW\Model\Base\Jobqueue implements \Psr\Log\LoggerInt
                     try {
                         $result = call_user_func_array(
                             [$service, $method],
-                            ['params' => $params, 'user' => $this->getUserId(), 'group' => $this->getGrpId()]
+                            [$params, $this->getUserId(), $this->getGrpId()]
                         );
                     } catch (\Exception $ex) {
                         $result = false;

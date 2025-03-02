@@ -55,7 +55,7 @@ class Pdf extends \FreeFW\Core\Service
                 $exitcode = $result['exitcode'];
             }
             if ($exitcode > 0) {
-                var_dump('retry');
+                //var_dump('retry');
             }
             @unlink($xfdf);
             $try--;

@@ -48,7 +48,7 @@ class Automate extends \FreeFW\Model\Base\Automate
             if (method_exists($service, $method)) {
                 return call_user_func_array(
                     [$service, $method],
-                    ['object' => $p_model, 'event' => $p_event_name, 'automate' => $this]
+                    [$p_model, $p_event_name, $this]
                 );
             }
         }

@@ -38,7 +38,11 @@
     "firebase/php-jwt": "^5.5.1",
     "bshaffer/oauth2-server-php": "*",
     "jeromeklam/freeoffice": "*",
-    "dragonmantank/cron-expression": "^3.1"
+    "dragonmantank/cron-expression": "^3.1",
+    "setasign/fpdi": "^2.6",
+    "setasign/fpdf": "^1.8",
+    "setasign/fpdi-tcpdf": "^2.3",
+    "fpdf/fpdf": "^1.86"
   },
   "require-dev": {
     "phpunit/phpunit": "*",

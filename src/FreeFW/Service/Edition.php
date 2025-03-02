@@ -130,7 +130,7 @@ class Edition extends \FreeFW\Core\Service
                 $try = 5;
                 $exitcode = 255;
                 while ($try > 0 && $exitcode > 0) {
-                    $result = \FreeFW\Tools\Shell::exec_timeout('/usr/bin/unoconv -f pdf -o ' . $dPdf . ' ' . $dest, 60);
+                    $result = \FreeFW\Tools\Shell::exec_timeout('/usr/bin/unoconv -f pdf -o ' . $dPdf . ' ' . $dest . ' 2>/dev/null', 60);
                     if (is_array($result) && isset($result['exitcode'])) {
                         $exitcode = $result['exitcode'];
                     }

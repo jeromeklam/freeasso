@@ -1,4 +1,5 @@
 <?php
+
 use \FreeFW\Constants as FFCST;
 use \FreeFW\Router\Route as FFCSTRT;
 
@@ -49,7 +50,7 @@ $receiptRoutes = [
         FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
         FFCSTRT::ROUTE_MIDDLEWARE => [],
         FFCSTRT::ROUTE_INCLUDE    => [
-            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['country', 'client', 'lang']
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['country', 'client', 'lang', 'generation']
         ],
         FFCSTRT::ROUTE_SCOPE      => [],
         FFCSTRT::ROUTE_RESULTS    => [
@@ -72,7 +73,7 @@ $receiptRoutes = [
         FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
         FFCSTRT::ROUTE_MIDDLEWARE => [],
         FFCSTRT::ROUTE_INCLUDE    => [
-            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['country', 'client', 'lang']
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['country', 'client', 'lang', 'generation']
         ],
         FFCSTRT::ROUTE_SCOPE      => [],
         FFCSTRT::ROUTE_PARAMETERS => [
@@ -103,7 +104,7 @@ $receiptRoutes = [
         FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
         FFCSTRT::ROUTE_MIDDLEWARE => [],
         FFCSTRT::ROUTE_INCLUDE    => [
-            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['country', 'client', 'lang']
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['country', 'client', 'lang', 'generation']
         ],
         FFCSTRT::ROUTE_SCOPE      => [],
         FFCSTRT::ROUTE_RESULTS    => [
@@ -126,7 +127,7 @@ $receiptRoutes = [
         FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
         FFCSTRT::ROUTE_MIDDLEWARE => [],
         FFCSTRT::ROUTE_INCLUDE    => [
-            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['country', 'client', 'lang']
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['country', 'client', 'lang', 'generation']
         ],
         FFCSTRT::ROUTE_SCOPE      => [],
         FFCSTRT::ROUTE_PARAMETERS => [
@@ -183,7 +184,7 @@ $receiptRoutes = [
         FFCSTRT::ROUTE_ROLE       => \FreeFW\Router\Route::ROLE_PRINT_ONE,
         FFCSTRT::ROUTE_AUTH       => FFCSTRT::AUTH_IN,
         FFCSTRT::ROUTE_INCLUDE    => [
-            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['cause', 'client', 'donations']
+            FFCSTRT::ROUTE_INCLUDE_DEFAULT => ['cause', 'client', 'donations', 'generation']
         ],
         FFCSTRT::ROUTE_SCOPE      => [],
         FFCSTRT::ROUTE_PARAMETERS => [

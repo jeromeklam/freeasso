@@ -189,7 +189,7 @@ class AttributeObject
      */
     public function getJsonName()
     {
-        if (trim($this->json_name || '') == '') {
+        if (trim($this->json_name ?? '') == '') {
             $this->json_name = $this->name;
         }
         return $this->json_name;

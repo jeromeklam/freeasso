@@ -1386,7 +1386,7 @@ class Server implements
                 if ($query->execute()) {
                     foreach ($query->getResult() as $line) {
                         $this->scope       = $line->getGruScope();
-                        $this->permissions = json_decode($line->getGruPermissions() || '');
+                        $this->permissions = json_decode($line->getGruPermissions() ?? '');
                         $this->user_group  = \FreeSSO\Model\Group::findFirst(['grp_id' => $grp_id]);
                         return true;
                     }

@@ -169,7 +169,6 @@ class Receipt extends \FreeFW\Core\ApiController
                         }
                     }
                 }
-                die('tretretre');
             } else {
                 $code = FFCST::ERROR_NOT_FOUND;
             }

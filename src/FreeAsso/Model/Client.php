@@ -160,7 +160,7 @@ class Client extends \FreeAsso\Model\Base\Client implements
      */
     public function getCliFullname()
     {
-        $name = trim($this->getCliFirstname() || '') . ' ' . trim($this->getCliLastname() || '');
+        $name = trim($this->getCliFirstname() ?? '') . ' ' . trim($this->getCliLastname() ?? '');
         return trim($name);
     }
 
@@ -337,30 +337,30 @@ class Client extends \FreeAsso\Model\Base\Client implements
             ];
         }
         $full_address = '';
-        if (trim($this->getCliAddress1()) != '') {
-            $full_address = trim($this->getCliAddress1());
+        if (trim($this->getCliAddress1() ?? '') != '') {
+            $full_address = trim($this->getCliAddress1() ?? '');
         }
-        if (trim($this->getCliAddress2()) != '') {
-            $full_address = trim($full_address) . ' ' . trim($this->getCliAddress2());
+        if (trim($this->getCliAddress2() ?? '') != '') {
+            $full_address = trim($full_address) . ' ' . trim($this->getCliAddress2() ?? '');
         }
-        if (trim($this->getCliAddress3()) != '') {
-            $full_address = trim($full_address) . ' ' . trim($this->getCliAddress3());
+        if (trim($this->getCliAddress3() ?? '') != '') {
+            $full_address = trim($full_address) . ' ' . trim($this->getCliAddress3() ?? '');
         }
-        if (trim($this->getCliCp()) != '' || trim($this->getCliTown()) != '') {
+        if (trim($this->getCliCp() ?? '') != '' || trim($this->getCliTown() ?? '') != '') {
             $full_address .= ' -';
         }
-        if (trim($this->getCliCp()) != '') {
-            $full_address = trim($full_address) . ' ' . trim($this->getCliCp());
+        if (trim($this->getCliCp() ?? '') != '') {
+            $full_address = trim($full_address) . ' ' . trim($this->getCliCp() ?? '');
         }
-        if (trim($this->getCliTown()) != '') {
-            $full_address = trim($full_address) . ' ' . trim($this->getCliTown());
+        if (trim($this->getCliTown() ?? '') != '') {
+            $full_address = trim($full_address) . ' ' . trim($this->getCliTown() ?? '');
         }
         $country = $this->getCountry();
         if ($country) {
             if ($p_lang_code == 'fr' && $country->getCntyName() != '') {
-                $full_address = trim($full_address) . ' - ' . trim($country->getCntyName());
+                $full_address = trim($full_address) . ' - ' . trim($country->getCntyName() ?? '');
             } else {
-                $full_address = trim($full_address) . ' - ' . trim($country->getCntyNameEn());
+                $full_address = trim($full_address) . ' - ' . trim($country->getCntyNameEn() ?? '');
             }
         }
         $fields[] = [

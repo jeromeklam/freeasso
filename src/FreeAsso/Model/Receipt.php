@@ -174,6 +174,12 @@ class Receipt extends \FreeAsso\Model\Base\Receipt
         if ($this->getRecAddress1() != '') {
             $address .= ' - ' . trim($this->getRecAddress1());
         }
+        if ($this->getRecAddress2() != '') {
+            $address .= ' - ' . trim($this->getRecAddress2());
+        }
+        if ($this->getRecAddress3() != '') {
+            $address .= ' - ' . trim($this->getRecAddress3());
+        }
         if ($this->getRecCp() != '' || $this->getRecTown() != '') {
             $cpl = trim($this->getRecCp()) . ' ' . trim($this->getRecTown());
             $address .= ' - ' . trim($cpl);

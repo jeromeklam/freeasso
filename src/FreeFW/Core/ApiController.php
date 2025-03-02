@@ -595,7 +595,8 @@ class ApiController extends \FreeFW\Core\Controller
                     }
                     $mergeService = \FreeFW\DI\DI::get('FreeOffice::Service::Merge');
                     $mergeService->merge($src, $dest, $mergeDatas);
-                    exec('/usr/bin/unoconv -f pdf -o ' . $dPdf . ' ' . $dest);
+                    exec('/usr/bin/unoconv -f pdf -o ' . $dPdf . ' ' . $dest . ' 2>/dev/null');
+                    //echo '/usr/bin/unoconv -f pdf -o ' . $dPdf . ' ' . $dest . ' 2>/dev/null';
                     @unlink($dest);
                     @unlink($src);
                 }

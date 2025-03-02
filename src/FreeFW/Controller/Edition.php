@@ -84,7 +84,7 @@ class Edition extends \FreeFW\Core\ApiController
             $mergeDatas->addGenericData($group->getFieldsAsArray(), 'group');
             $mergeService = \FreeFW\DI\DI::get('FreeOffice::Service::Merge');
             $mergeService->merge($src, $dest, $mergeDatas);
-            exec('/usr/bin/unoconv -f pdf -o ' . $dpdf . ' ' . $dest);
+            exec('/usr/bin/unoconv -f pdf -o ' . $dpdf . ' ' . $dest . ' 2>/dev/null');
             @unlink($dest);
         }
         @unlink($src);
