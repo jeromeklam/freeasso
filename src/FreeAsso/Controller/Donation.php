@@ -13,7 +13,7 @@ class Donation extends \FreeFW\Core\ApiController
     /**
      * Comportement
      */
-    use \FreeAsso\Controller\Behaviour\Group;
+    use \FreeAsso\Controller\Behavior\Group;
 
     /**
      * Set manual matched

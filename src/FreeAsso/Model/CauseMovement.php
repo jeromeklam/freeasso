@@ -14,9 +14,9 @@ class CauseMovement extends \FreeAsso\Model\Base\CauseMovement
     /**
      * Comportement
      */
-    use \FreeAsso\Model\Behaviour\Cause;
-    use \FreeAsso\Model\Behaviour\Movement;
-    use \FreeSSO\Model\Behaviour\Group;
+    use \FreeAsso\Model\Behavior\Cause;
+    use \FreeAsso\Model\Behavior\Movement;
+    use \FreeSSO\Model\Behavior\Group;
 
     /**
      * Status

@@ -22,12 +22,12 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
     /**
      * Comportement
      */
-    use \FreeFW\Behaviour\EventManagerAwareTrait;
-    use \FreeFW\Behaviour\AutomateAwareTrait;
-    use \FreeAsso\Model\Behaviour\Cause;
-    use \FreeAsso\Model\Behaviour\Client;
-    use \FreeAsso\Model\Behaviour\PaymentType;
-    use \FreeSSO\Model\Behaviour\Group;
+    use \FreeFW\Behavior\EventManagerAwareTrait;
+    use \FreeFW\Behavior\AutomateAwareTrait;
+    use \FreeAsso\Model\Behavior\Cause;
+    use \FreeAsso\Model\Behavior\Client;
+    use \FreeAsso\Model\Behavior\PaymentType;
+    use \FreeSSO\Model\Behavior\Group;
 
     /**
      * Previous to

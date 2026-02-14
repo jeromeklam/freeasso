@@ -12,10 +12,10 @@ class ReceiptDonation extends \FreeAsso\Model\Base\ReceiptDonation
 {
 
     /**
-     * Behaviour
+     * Behavior
      */
-    use \FreeSSO\Model\Behaviour\Group;
-    use \FreeAsso\Model\Behaviour\PaymentType;
+    use \FreeSSO\Model\Behavior\Group;
+    use \FreeAsso\Model\Behavior\PaymentType;
 
     /**
      * Specific fields

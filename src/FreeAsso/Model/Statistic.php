@@ -14,6 +14,6 @@ class Statistic extends \FreeAsso\Model\Base\Statistic
     /**
      * Comportement
      */
-    use \FreeSSO\Model\Behaviour\Broker;
-    use \FreeSSO\Model\Behaviour\Group;
+    use \FreeSSO\Model\Behavior\Broker;
+    use \FreeSSO\Model\Behavior\Group;
 }

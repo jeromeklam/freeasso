@@ -22,10 +22,10 @@ class CauseMedia extends \FreeAsso\Model\Base\CauseMedia
     const TYPE_OTHER = 'OTHER';
 
     /**
-     * Behaviour
+     * Behavior
      */
-    use \FreeAsso\Model\Behaviour\Cause;
-    use \FreeSSO\Model\Behaviour\Group;
+    use \FreeAsso\Model\Behavior\Cause;
+    use \FreeSSO\Model\Behavior\Group;
 
     /**
      * Versions

@@ -20,9 +20,9 @@ class DonationOrigin extends \FreeAsso\Model\Base\DonationOrigin
     const STATUS_ERROR   = 'ERROR';
 
     /**
-     * Behaviour;
+     * Behavior;
      */
-    use \FreeSSO\Model\Behaviour\Group;
+    use \FreeSSO\Model\Behavior\Group;
 
     /**
      *

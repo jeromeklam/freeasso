@@ -12,8 +12,8 @@ class CauseGrowth extends \FreeAsso\Model\Base\CauseGrowth
 {
 
     /**
-     * Behaviour
+     * Behavior
      */
-    use \FreeAsso\Model\Behaviour\Cause;
-    use \FreeSSO\Model\Behaviour\Group;
+    use \FreeAsso\Model\Behavior\Cause;
+    use \FreeSSO\Model\Behavior\Group;
 }

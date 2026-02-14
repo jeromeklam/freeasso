@@ -13,8 +13,8 @@ class CauseLink extends \FreeAsso\Model\Base\CauseLink implements
 {
 
     /**
-     * Behaviour
+     * Behavior
      */
-    use \FreeAsso\Model\Behaviour\Cause;
-    use \FreeSSO\Model\Behaviour\Group;
+    use \FreeAsso\Model\Behavior\Cause;
+    use \FreeSSO\Model\Behavior\Group;
 }

@@ -24,7 +24,7 @@ class CertificateGeneration extends \FreeAsso\Model\Base\CertificateGeneration
     /**
      * Comportement
      */
-    use \FreeSSO\Model\Behaviour\Broker;
-    use \FreeSSO\Model\Behaviour\Group;
-    use \FreeFW\Model\Behaviour\Edition;
+    use \FreeSSO\Model\Behavior\Broker;
+    use \FreeSSO\Model\Behavior\Group;
+    use \FreeFW\Model\Behavior\Edition;
 }

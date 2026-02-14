@@ -14,10 +14,10 @@ class Contract extends \FreeAsso\Model\Base\Contract
     /**
      * Comportement
      */
-    use \FreeAsso\Model\Behaviour\Site;
-    use \FreeAsso\Model\Behaviour\Contact1;
-    use \FreeAsso\Model\Behaviour\Contact2;
-    use \FreeSSO\Model\Behaviour\Group;
+    use \FreeAsso\Model\Behavior\Site;
+    use \FreeAsso\Model\Behavior\Contact1;
+    use \FreeAsso\Model\Behavior\Contact2;
+    use \FreeSSO\Model\Behavior\Group;
 
     /**
      * Retourne le dernier numéro disponible pour une année

@@ -228,7 +228,7 @@ class Kalaweit
         $p_output->write("Import des Paramètres", true);
         // Motif d'arrêt d'une cause
         $myDataMotif = \FreeFW\DI\DI::get('FreeAsso::Model::Data');
-        $myDataMotif->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
+        $myDataMotif->setModelBehavior(\FreeFW\Core\Model::MODEL_BEHAVIOR_RAW);
         $myDataMotif
             ->setDataId(3)
             ->setDataName("Motif d'arrêt")
@@ -241,7 +241,7 @@ class Kalaweit
         }
         // Config 4
         $myCfgMotif = \FreeFW\DI\DI::get('FreeAsso::Model::Config');
-        $myCfgMotif->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
+        $myCfgMotif->setModelBehavior(\FreeFW\Core\Model::MODEL_BEHAVIOR_RAW);
         $myCfgMotif
             ->setAcfgCode(\FreeAsso\Model\Config::CONFIG_CAU_STRING_3)
             ->setAcfgValue($myDataMotif->getDataId())
@@ -251,7 +251,7 @@ class Kalaweit
         }
         // Hectares
         $myDataHectares = \FreeFW\DI\DI::get('FreeAsso::Model::Data');
-        $myDataHectares->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
+        $myDataHectares->setModelBehavior(\FreeFW\Core\Model::MODEL_BEHAVIOR_RAW);
         $myDataHectares
             ->setDataId(4)
             ->setDataName("Hectares de forêt")
@@ -264,7 +264,7 @@ class Kalaweit
         }
         // Animaux
         $myDataAnimals = \FreeFW\DI\DI::get('FreeAsso::Model::Data');
-        $myDataAnimals->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
+        $myDataAnimals->setModelBehavior(\FreeFW\Core\Model::MODEL_BEHAVIOR_RAW);
         $myDataAnimals
             ->setDataId(5)
             ->setDataName("Animaux protégés")
@@ -277,7 +277,7 @@ class Kalaweit
         }
         // Site Ile
         $mySiteType = \FreeFW\DI\DI::get('FreeAsso::Model::SiteType');
-        $mySiteType->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
+        $mySiteType->setModelBehavior(\FreeFW\Core\Model::MODEL_BEHAVIOR_RAW);
         $mySiteType
             ->setSittName("Ile")
         ;
@@ -286,7 +286,7 @@ class Kalaweit
         }
         // Bornéo
         $myIleBorneo = \FreeFW\DI\DI::get('FreeAsso::Model::Site');
-        $myIleBorneo->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
+        $myIleBorneo->setModelBehavior(\FreeFW\Core\Model::MODEL_BEHAVIOR_RAW);
         $myIleBorneo
             ->setSiteName("Bornéo")
             ->setSittId($mySiteType->getSittId())
@@ -296,7 +296,7 @@ class Kalaweit
         }
         // Sumatra
         $myIleSumatra = \FreeFW\DI\DI::get('FreeAsso::Model::Site');
-        $myIleSumatra->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
+        $myIleSumatra->setModelBehavior(\FreeFW\Core\Model::MODEL_BEHAVIOR_RAW);
         $myIleSumatra
             ->setSiteName("Sumatra")
             ->setSittId($mySiteType->getSittId())
@@ -306,7 +306,7 @@ class Kalaweit
         }
         // Autre
         $myIleAutre = \FreeFW\DI\DI::get('FreeAsso::Model::Site');
-        $myIleAutre->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
+        $myIleAutre->setModelBehavior(\FreeFW\Core\Model::MODEL_BEHAVIOR_RAW);
         $myIleAutre
             ->setSiteName("Autre")
             ->setSittId($mySiteType->getSittId())
@@ -316,28 +316,28 @@ class Kalaweit
         }
         // Grandes causes
         $myGibbonCause = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMainType');
-        $myGibbonCause->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
+        $myGibbonCause->setModelBehavior(\FreeFW\Core\Model::MODEL_BEHAVIOR_RAW);
         $myGibbonCause
             ->setCamtName('Animaux')
             ->setCamtFamily(\FreeAsso\Model\CauseMainType::FAMILY_ANIMAL)
         ;
         $myGibbonCause->create();
         $myForestCause = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMainType');
-        $myForestCause->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
+        $myForestCause->setModelBehavior(\FreeFW\Core\Model::MODEL_BEHAVIOR_RAW);
         $myForestCause
             ->setCamtName('Forêt')
             ->setCamtFamily(\FreeAsso\Model\CauseMainType::FAMILY_NATURE)
         ;
         $myForestCause->create();
         $myReserveCause = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMainType');
-        $myReserveCause->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
+        $myReserveCause->setModelBehavior(\FreeFW\Core\Model::MODEL_BEHAVIOR_RAW);
         $myReserveCause
             ->setCamtName('Réserve')
             ->setCamtFamily(\FreeAsso\Model\CauseMainType::FAMILY_NATURE)
         ;
         $myReserveCause->create();
         $myKalaweitCause = \FreeFW\DI\DI::get('FreeAsso::Model::CauseMainType');
-        $myKalaweitCause->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
+        $myKalaweitCause->setModelBehavior(\FreeFW\Core\Model::MODEL_BEHAVIOR_RAW);
         $myKalaweitCause
             ->setCamtName('Kalaweit')
             ->setCamtFamily(\FreeAsso\Model\CauseMainType::FAMILY_ADMINISTRATIV)
@@ -346,7 +346,7 @@ class Kalaweit
         // Causes Gibbon
         $tabCausesGibbon = [];
         $myCauseGibbon = \FreeFW\DI\DI::get('FreeAsso::Model::CauseType');
-        $myCauseGibbon->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
+        $myCauseGibbon->setModelBehavior(\FreeFW\Core\Model::MODEL_BEHAVIOR_RAW);
         $myCauseGibbon
             ->setCautName('Gibbons')
             ->setCautMntType(\FreeAsso\Model\CauseType::MNT_TYPE_ANNUAL)
@@ -370,7 +370,7 @@ class Kalaweit
         $tabCausesGibbon['default'] = $myCauseGibbon->getCautId();
         //
         $mySpecies = \FreeFW\DI\DI::get('FreeAsso::Model::Species');
-        $mySpecies->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
+        $mySpecies->setModelBehavior(\FreeFW\Core\Model::MODEL_BEHAVIOR_RAW);
         $mySpecies->setSpeName('Gibbon');
         $mySpecies->create();
         //
@@ -380,7 +380,7 @@ class Kalaweit
             $query->execute();
             while ($row = $query->fetch(\PDO::FETCH_OBJ)) {
                 $mySubspecies = \FreeFW\DI\DI::get('FreeAsso::Model::Subspecies');
-                $mySubspecies->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
+                $mySubspecies->setModelBehavior(\FreeFW\Core\Model::MODEL_BEHAVIOR_RAW);
                 $name = $row->Especes_nom_francais . ' (' . $row->Especes_nom_latin . ')';
                 $name = \FreeFW\Tools\Encoding::toUTF8($name);
                 $name = \FreeFW\Tools\Encoding::fixUTF8($name);
@@ -405,7 +405,7 @@ class Kalaweit
         }
         // Cause Forêt
         $myCauseTForet = \FreeFW\DI\DI::get('FreeAsso::Model::CauseType');
-        $myCauseTForet->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
+        $myCauseTForet->setModelBehavior(\FreeFW\Core\Model::MODEL_BEHAVIOR_RAW);
         $myCauseTForet
             ->setCautName('Réserves')
             ->setCautMntType(\FreeAsso\Model\CauseType::MNT_TYPE_MAXIMUM)
@@ -426,7 +426,7 @@ class Kalaweit
             var_export($myCauseTForet->getErrors());die;
         }
         $myCauseForet = \FreeFW\DI\DI::get('FreeAsso::Model::Cause');
-        $myCauseForet->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
+        $myCauseForet->setModelBehavior(\FreeFW\Core\Model::MODEL_BEHAVIOR_RAW);
         $myCauseForet
             ->setCauName('Forêt')
             ->setCautId($myCauseTForet->getCautId())
@@ -443,7 +443,7 @@ class Kalaweit
         }
         // Cause Dulan
         $myCauseDulan = \FreeFW\DI\DI::get('FreeAsso::Model::Cause');
-        $myCauseDulan->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
+        $myCauseDulan->setModelBehavior(\FreeFW\Core\Model::MODEL_BEHAVIOR_RAW);
         $myCauseDulan
             ->setCauName('Dulan')
             ->setCautId($myCauseTForet->getCautId())
@@ -460,7 +460,7 @@ class Kalaweit
         }
         // Cause Kalaweit
         $myCauseTKalaweit = \FreeFW\DI\DI::get('FreeAsso::Model::CauseType');
-        $myCauseTKalaweit->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
+        $myCauseTKalaweit->setModelBehavior(\FreeFW\Core\Model::MODEL_BEHAVIOR_RAW);
         $myCauseTKalaweit
             ->setCautName('Kalaweit')
             ->setCautMntType(\FreeAsso\Model\CauseType::MNT_TYPE_MAXIMUM)
@@ -481,7 +481,7 @@ class Kalaweit
             var_export($myCauseTKalaweit->getErrors());die;
         }
         $myCauseKalaweit = \FreeFW\DI\DI::get('FreeAsso::Model::Cause');
-        $myCauseKalaweit->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
+        $myCauseKalaweit->setModelBehavior(\FreeFW\Core\Model::MODEL_BEHAVIOR_RAW);
         $myCauseKalaweit
             ->setCauName('Kalaweit')
             ->setCautId($myCauseTKalaweit->getCautId())
@@ -495,7 +495,7 @@ class Kalaweit
         }
         // Type de client
         $myTypeMembre = \FreeFW\DI\DI::get('FreeAsso::Model::ClientType');
-        $myTypeMembre->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
+        $myTypeMembre->setModelBehavior(\FreeFW\Core\Model::MODEL_BEHAVIOR_RAW);
         $myTypeMembre
             ->setClitName('Membre')
         ;
@@ -685,7 +685,7 @@ class Kalaweit
                 $name = \FreeFW\Tools\Encoding::fixUTF8($name);
                 $name = \FreeFW\Tools\PBXString::clean($name);
                 $myCause = \FreeFW\DI\DI::get('FreeAsso::Model::Cause');
-                $myCause->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
+                $myCause->setModelBehavior(\FreeFW\Core\Model::MODEL_BEHAVIOR_RAW);
                 $myCause
                     ->setCauId($row->Numero_gibbon)
                     ->setCauName($name)
@@ -886,7 +886,7 @@ class Kalaweit
             $query->execute();
             while ($row = $query->fetch(\PDO::FETCH_OBJ)) {
                 $myClient = \FreeFW\DI\DI::get('FreeAsso::Model::Client');
-                $myClient->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
+                $myClient->setModelBehavior(\FreeFW\Core\Model::MODEL_BEHAVIOR_RAW);
                 $name = trim($row->nom);
                 if ($name == '') {
                     $name = 'membre ' . $row->id;
@@ -1047,7 +1047,7 @@ class Kalaweit
                     }
                 }
                 $mySponsorship = \FreeFW\DI\DI::get('FreeAsso::Model::Sponsorship');
-                $mySponsorship->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
+                $mySponsorship->setModelBehavior(\FreeFW\Core\Model::MODEL_BEHAVIOR_RAW);
                 $mySponsorship
                     ->setSpoDisplaySite($row->afficher_nom_parrain)
                     ->setSpoFreq(\FreeAsso\Model\Sponsorship::PAYMENT_TYPE_MONTH)
@@ -1070,7 +1070,7 @@ class Kalaweit
                     } else {
                         echo 'Pb Gibbon parrainage ' . $row->id_gibbon . ' !' . PHP_EOL;
                         $myCause = \FreeFW\DI\DI::get('FreeAsso::Model::Cause');
-                        $myCause->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
+                        $myCause->setModelBehavior(\FreeFW\Core\Model::MODEL_BEHAVIOR_RAW);
                         $myCause
                             ->setCauName('Gibbon ' . $row->id_gibbon)
                             ->setCautId($myCauseGibbon->getCautId())
@@ -1101,7 +1101,7 @@ class Kalaweit
                 } else {
                     echo 'Member not found : ' . $row->id_membre . ', ' . $row->id_ligne_amis . ' !' . PHP_EOL;
                     $myClient = \FreeFW\DI\DI::get('FreeAsso::Model::Client');
-                    $myClient->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
+                    $myClient->setModelBehavior(\FreeFW\Core\Model::MODEL_BEHAVIOR_RAW);
                     $myClient
                         ->setCliExternId($row->id_membre)
                         ->setCliLastname('Membre ' . $row->id_membre)
@@ -1216,7 +1216,7 @@ class Kalaweit
             $query->execute();
             while ($row = $query->fetch(\PDO::FETCH_OBJ)) {
                 $myReceipt = new \FreeAsso\Model\Receipt();
-                $myReceipt->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
+                $myReceipt->setModelBehavior(\FreeFW\Core\Model::MODEL_BEHAVIOR_RAW);
                 $myReceipt->setRettId($tabTypesRecus['O']->getRettId());
                 if (strpos($row->numero, 'ADH') !== false) {
                     $myReceipt->setRettId($tabTypesRecus['ADH']->getRettId());
@@ -1238,7 +1238,7 @@ class Kalaweit
                 } else {
                     echo 'Member not found : ' . $row->id_membre . ' !' . PHP_EOL;
                     $myClient = \FreeFW\DI\DI::get('FreeAsso::Model::Client');
-                    $myClient->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
+                    $myClient->setModelBehavior(\FreeFW\Core\Model::MODEL_BEHAVIOR_RAW);
                     $myClient
                         ->setCliExternId($row->id_membre)
                         ->setCliLastname('Membre ' . $row->id_membre)
@@ -1384,7 +1384,7 @@ class Kalaweit
                 }
                 // @TODO grp_id
                 $myDonation = \FreeFW\DI\DI::get('FreeAsso::Model::Donation');
-                $myDonation->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
+                $myDonation->setModelBehavior(\FreeFW\Core\Model::MODEL_BEHAVIOR_RAW);
                 $myDonation
                     ->setDonStatus(\FreeAsso\Model\Donation::STATUS_NOK)
                     ->setGrpId(15)
@@ -1468,7 +1468,7 @@ class Kalaweit
                     } else {
                         echo 'Pb Gibbon don : ' . $row->id_adoption . ' !' . PHP_EOL;
                         $myCause = \FreeFW\DI\DI::get('FreeAsso::Model::Cause');
-                        $myCause->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
+                        $myCause->setModelBehavior(\FreeFW\Core\Model::MODEL_BEHAVIOR_RAW);
                         $myCause
                             ->setCauName('Gibbon ' . $row->id_adoption)
                             ->setCautId($myCauseGibbon->getCautId())
@@ -1517,7 +1517,7 @@ class Kalaweit
                 } else {
                     echo 'Member not found : ' . $row->id_membre . ' !' . PHP_EOL;
                     $myClient = \FreeFW\DI\DI::get('FreeAsso::Model::Client');
-                    $myClient->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
+                    $myClient->setModelBehavior(\FreeFW\Core\Model::MODEL_BEHAVIOR_RAW);
                     $myClient
                         ->setCliExternId($row->id_membre)
                         ->setCliLastname('Membre ' . $row->id_membre)
@@ -1559,7 +1559,7 @@ class Kalaweit
                         $fullname = \FreeFW\Tools\Encoding::fixUTF8($fullname);
                         $fullname = \FreeFW\Tools\PBXString::clean($fullname);
                         $myCertificate = \FreeFW\DI\DI::get('FreeAsso::Model::Certificate');
-                        $myCertificate->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
+                        $myCertificate->setModelBehavior(\FreeFW\Core\Model::MODEL_BEHAVIOR_RAW);
                         $myCertificate
                             ->setCliId($member->getCliId())
                             ->setLangId($member->getLangId())
@@ -1629,7 +1629,7 @@ class Kalaweit
                     echo '.';
                     if (array_key_exists($rowRecu->id_recus_fiscaux, $tabReceipts)) {
                         $myReceiptDonation = \FreeFW\DI\DI::get('FreeAsso::Model::ReceiptDonation');
-                        $myReceiptDonation->setModelBehaviour(\FreeFW\Core\Model::MODEL_BEHAVIOUR_RAW);
+                        $myReceiptDonation->setModelBehavior(\FreeFW\Core\Model::MODEL_BEHAVIOR_RAW);
                         $myReceiptDonation
                             ->setDonId($myDonation->getDonId())
                             ->setRecid($tabReceipts[$rowRecu->id_recus_fiscaux])

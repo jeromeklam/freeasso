@@ -1,28 +1,17 @@
 services:
-  mariadb:
-    image: freeasso/debian-12-mariadb10
-    networks:
-      - frontend
-      - backend
-    ports:
-      - "8106:3306"
-    volumes:
-      - ./docker-db:/data
-      - ./docker-dumps:/dumps
   php:
-    image: freeasso/debian-12-php83
-    depends_on:
-      - mariadb
+    image: registry.sapaig.local:5000/sapaig/debian-12-php82:2.6.0
     networks:
       - frontend
       - backend
     ports:
-      - "8109:9000"
+      - '8409:9000'
     volumes:
       - ./:/var/www/html/
+      - ./../free:/var/www/composer/free
       - ~/.ssh/:/user.ssh
   apache:
-    image: freeasso/debian-12-apache2
+    image: registry.sapaig.local:5000/sapaig/debian-12-apache2:2.0.5
     depends_on:
       - php
     networks:
@@ -32,14 +21,14 @@ services:
       - DOCUMENTROOT=www
       - SERVERNAME=dev.freeasso.fr
     ports:
-      - "8180:80"
+      - '8480:80'
     volumes:
       - ./:/var/www/html/
       - ./docker-logs:/var/log/apache2
   mailhog:
-    image: freeasso/debian-12-mailhog
+    image: registry.sapaig.local:5000/sapaig/debian-12-mailhog:2.0.0
     ports:
-      - "8225:8025"
+      - '8425:8025'
     networks:
       - backend
 networks:

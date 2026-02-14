@@ -30,21 +30,16 @@ if (!$server) {
 }
 
 /**
- * Standard config
- */
-$config = include_once APP_ROOT . '/app/config.php';
-
-/**
  * Fichier de configuration
  */
-if (is_file(APP_ROOT . '/config/' . strtolower($server) . '.ini.php')) {
-    require_once APP_ROOT . '/config/' . strtolower($server) . '.ini.php';
+if (is_file(APP_ROOT . '/config/' . strtolower($server) . '.ini-cli.php')) {
+    require_once APP_ROOT . '/config/' . strtolower($server) . '.ini-cli.php';
 } else {
     $server = gethostname();
-    if (is_file(APP_ROOT . '/config/' . strtolower($server) . '.ini.php')) {
-        require_once APP_ROOT . '/config/' . strtolower($server) . '.ini.php';
+    if (is_file(APP_ROOT . '/config/' . strtolower($server) . '.ini-cli.php')) {
+        require_once APP_ROOT . '/config/' . strtolower($server) . '.ini-cli.php';
     } else {
-        require_once APP_ROOT . '/config/ini.php';
+        require_once APP_ROOT . '/config/ini-cli.php';
     }
 }
 
@@ -53,10 +48,10 @@ if (is_file(APP_ROOT . '/config/' . strtolower($server) . '.ini.php')) {
  */
 try {
     // Si pas de "prefligths" : Config
-    if (is_file(APP_ROOT . '/config/' . strtolower($server) . '.config.php')) {
-        $myConfig = \FreeFW\Application\Config::load(APP_ROOT . '/config/' . strtolower($server) . '.config.php');
+    if (is_file(APP_ROOT . '/config/' . strtolower($server) . '.config-cli.php')) {
+        $myConfig = \FreeFW\Application\Config::load(APP_ROOT . '/config/' . strtolower($server) . '.config-cli.php');
     } else {
-        $myConfig = \FreeFW\Application\Config::load(APP_ROOT . '/config/config.php');
+        $myConfig = \FreeFW\Application\Config::load(APP_ROOT . '/config/config-cli.php');
     }
     // Le logger
     $myLogCfg = $myConfig->get('logger');
@@ -107,7 +102,7 @@ try {
         throw new \FreeFW\Core\FreeFWException('No storage configuration found !');
     }
     // Micro application
-    $app = \FreeFW\Application\Console::getInstance($myConfig, $myLogger);
+    $app = \FreeFW\Application\Console::getInstance($myConfig, $myLogger, $myConfig->get('middleware', []));
     $myEvents->bind(\FreeFW\Constants::EVENT_ROUTE_NOT_FOUND, function () {
         //@todo
         echo "Commande introuvable\n";
@@ -131,7 +126,7 @@ try {
                 \FreeFW\Constants::EVENT_STORAGE_COMMIT,
                 \FreeFW\Constants::EVENT_STORAGE_ROLLBACK,
             ],
-            $config['event']
+            $myConfig->get('event', [])
         ),
         function ($p_object, $p_event_name = null) use ($app, $myQueue, $myQueueCfg) {
             $app->listen($p_object, $myQueue, $myQueueCfg, $p_event_name, false);
@@ -162,7 +157,7 @@ try {
         ->addCommands($freeOfficeCommands)
     ;
     // GO
-    $app->handle();
+    $app->handle(true);
     // Finish
     if ($myQueue) {
         $myQueue->close();

@@ -1,1 +1,0 @@
-ALTER TABLE `sys_alert` ADD COLUMN `alert_checklist` LONGTEXT DEFAULT NULL COMMENT 'Les checklist au format json';

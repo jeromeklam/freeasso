@@ -1,1 +1,0 @@
-ALTER TABLE `sso_group` ADD COLUMN `grp_email_payment` longtext DEFAULT NULL;

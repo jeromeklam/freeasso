@@ -1,5 +1,5 @@
 <?php
-namespace FreeAsso\Controller\Behaviour;
+namespace FreeAsso\Controller\Behavior;
 
 /**
  *

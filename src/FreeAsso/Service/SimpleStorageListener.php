@@ -8,7 +8,7 @@ use \Psr\Log\LoggerAwareInterface;
 use \Psr\Log\LoggerAwareTrait;
 use \FreeWS\Socket\Topic;
 use \FreeFW\Interfaces\ConfigAwareTraitInterface;
-use \FreeFW\Behaviour\ConfigAwareTrait;
+use \FreeFW\Behavior\ConfigAwareTrait;
 
 /**
  *
@@ -44,7 +44,7 @@ class SimpleStorageListener implements MessageComponentInterface, LoggerAwareInt
     const MSG_YIELD        = "70";
 
     /**
-     * Behaviour
+     * Behavior
      */
     use LoggerAwareTrait;
     use ConfigAwareTrait;

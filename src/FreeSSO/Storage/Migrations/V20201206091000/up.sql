@@ -1,1 +1,0 @@
-ALTER TABLE `sso_user_broker` ADD COLUMN `grp_id` bigint(20) unsigned DEFAULT NULL;

@@ -1,1 +1,0 @@
-ALTER TABLE `sys_notification` ADD COLUMN `notif_object_info` varchar(80) DEFAULT NULL;

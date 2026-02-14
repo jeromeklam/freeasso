@@ -14,6 +14,6 @@ class ReceiptTypeCauseType extends \FreeAsso\Model\Base\ReceiptTypeCauseType
     /**
      * Comportement
      */
-    use \FreeAsso\Model\Behaviour\CauseType;
-    use \FreeAsso\Model\Behaviour\ReceiptType;
+    use \FreeAsso\Model\Behavior\CauseType;
+    use \FreeAsso\Model\Behavior\ReceiptType;
 }

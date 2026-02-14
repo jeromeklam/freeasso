@@ -24,10 +24,10 @@ class ReceiptGeneration extends \FreeAsso\Model\Base\ReceiptGeneration
     /**
      * Comportement
      */
-    use \FreeSSO\Model\Behaviour\Broker;
-    use \FreeSSO\Model\Behaviour\Group;
-    use \FreeFW\Model\Behaviour\Edition;
-    use \FreeFW\Model\Behaviour\Email;
-    use \FreeAsso\Model\Behaviour\ClientCategory;
-    use \FreeAsso\Model\Behaviour\PaymentType;
+    use \FreeSSO\Model\Behavior\Broker;
+    use \FreeSSO\Model\Behavior\Group;
+    use \FreeFW\Model\Behavior\Edition;
+    use \FreeFW\Model\Behavior\Email;
+    use \FreeAsso\Model\Behavior\ClientCategory;
+    use \FreeAsso\Model\Behavior\PaymentType;
 }

@@ -1,1 +1,0 @@
-ALTER TABLE `sys_edition` ADD COLUMN `edi_includes` varchar(255) DEFAULT NULL;

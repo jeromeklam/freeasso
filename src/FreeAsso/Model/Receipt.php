@@ -11,13 +11,13 @@ use \FreeFW\Constants as FFCST;
 class Receipt extends \FreeAsso\Model\Base\Receipt
 {
 
-    use \FreeAsso\Model\Behaviour\Client;
-    use \FreeAsso\Model\Behaviour\ReceiptType;
-    use \FreeAsso\Model\Behaviour\ReceiptGeneration;
-    use \FreeSSO\Model\Behaviour\Group;
-    use \FreeFW\Model\Behaviour\Lang;
-    use \FreeFW\Model\Behaviour\Country;
-    use \FreeFW\Model\Behaviour\File;
+    use \FreeAsso\Model\Behavior\Client;
+    use \FreeAsso\Model\Behavior\ReceiptType;
+    use \FreeAsso\Model\Behavior\ReceiptGeneration;
+    use \FreeSSO\Model\Behavior\Group;
+    use \FreeFW\Model\Behavior\Lang;
+    use \FreeFW\Model\Behavior\Country;
+    use \FreeFW\Model\Behavior\File;
 
     const MODE_AUTO   = 'AUTO';
     const MODE_MANUAL = 'MANUAL';

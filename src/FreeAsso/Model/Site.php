@@ -15,8 +15,8 @@ class Site extends \FreeAsso\Model\Base\Site  implements
     /**
      * behaviour
      */
-    use \FreeAsso\Model\Behaviour\SiteType;
-    use \FreeSSO\Model\Behaviour\Group;
+    use \FreeAsso\Model\Behavior\SiteType;
+    use \FreeSSO\Model\Behavior\Group;
 
     /**
      * @see \FreeFW\Core\Model

@@ -1,0 +1,191 @@
+<?php
+
+/**
+ * Config array
+ */
+$config = [
+    'development' => false,
+    'basepath'    => '/api',
+    'logger'      => array(
+        'file'  => APP_LOG . '/freeasso.log',
+        'level' => \Psr\Log\LogLevel::DEBUG
+    ),
+    'sso' => array(
+        'broker' => 'kalaweit'
+    ),
+    'storage'     => [
+        'default' => [
+            'dsn'   => 'mysql:host=localhost;dbname=KALAWEIT;charset=utf8;',
+            'user'  => 'root',
+            'paswd' => 'm0n1c4po'
+        ]
+    ],
+    'middleware'  => [
+        'FreeFW::Middleware::IgnoreMethod',
+        'FreeFW::Middleware::ApiNegociator',
+        'FreeSSO::Middleware::Broker',
+        'FreeFW::Middleware::AuthNegociator'
+    ],
+    'default' => [
+        'lang_id' => 368,
+        'cnty_id' => 25605,
+    ],
+    'api' => [
+        'currency' => '8ca8190bac150690f494a9af',
+        'insee' => [
+            'key'    => 'm8WSAYKpzKZnklrjPmmw8TtKfUAa',
+            'secret' => 'HVwitgoKpyHFvrGvUafRRzeO8GEa',
+            'path'   => '/tmp/'
+        ]
+    ],
+    'properties' => [
+        'FreeAsso_Cause' => [
+            'cau_name' => [
+                \FreeFW\Constants::PROPERTY_OPTIONS => [\FreeFW\Constants::OPTION_REQUIRED]
+            ],
+            'cau_code' => [
+                \FreeFW\Constants::PROPERTY_OPTIONS => []
+            ]
+        ]
+    ],
+    'indexes' => [
+        'FreeAsso_Cause' => [
+            'name' => [
+                \FreeFW\Constants::INDEX_FIELDS => 'cau_name',
+                \FreeFW\Constants::INDEX_EXISTS => \FreeAsso\Constants::ERROR_CAUSE_NAME_EXISTS
+            ]
+        ]
+    ],
+    'models' => [
+        'FreeAsso_Cause' => [
+            'merge' => [
+                'main' => ['cau_id', 'cau_name', 'cau_from', 'cau_to'],
+                'include' => ['cau_name', 'cau_from', 'cau_to'],
+            ]
+        ],
+        'FreeAsso_Cause_Type' => [
+            'merge' => [
+                'main' => ['caut_id', 'caut_name'],
+                'include' => ['caut_name'],
+            ]
+        ],
+        'FreeAsso_Client' => [
+            'default' => ['clic_id' => 148, 'clit_id' => 28],
+            'merge' => [
+                'main' => ['cli_id', 'cli_firstname', 'cli_lastname', 'cli_address1', 'cli_address2', 'cli_address3', 'cli_cp', 'cli_town', 'cli_phone_home', 'cli_phone_gsm', 'cli_email', 'cli_email_2', 'cli_desc'],
+                'include' => ['cli_firstname', 'cli_lastname', 'cli_address1', 'cli_address2', 'cli_address3', 'cli_cp', 'cli_town', 'cli_email']
+            ]
+        ],
+        'FreeAsso_ClientCategory' => [
+            'merge' => [
+                'main' => ['clic_id', 'clic_code', 'clic_name'],
+                'include' => ['clic_name']
+            ]
+        ],
+        'FreeAsso_ClientType' => [
+            'merge' => [
+                'main' => ['clit_id', 'clit_code', 'clit_name'],
+                'include' => ['clit_name']
+            ]
+        ],
+        'FreeAsso_Donation' => [
+            'merge' => [
+                'main' => ['don_id', 'don_real_ts', 'don_ask_ts', 'don_end_ts', 'don_mnt_input', 'don_money_input', 'don_mnt', 'don_money', 'don_status', 'don_regular', 'don_verif', 'don_verif_comment', 'don_verif_match'],
+                'include' => ['don_real_ts', 'don_ask_ts', 'don_end_ts', 'don_mnt_input', 'don_money_input', 'don_mnt', 'don_money', 'don_status', 'don_regular']
+            ]
+        ],
+        'FreeAsso_PaymentType' => [
+            'merge' => [
+                'main' => ['ptyp_id', 'ptyp_code', 'ptyp_name'],
+                'include' => ['ptyp_name']
+            ]
+        ],
+        'FreeAsso_Receipt' => [
+            'merge' => [
+                'main' => ['rec_id', 'rec_year', 'rec_number', 'rec_mnt'],
+                'include' => ['rec_year', 'rec_number', 'rec_mnt']
+            ]
+        ],
+        'FreeAsso_Sponsorship' => [
+            'merge' => [
+                'main' => ['spo_id', 'spo_from', 'spo_to'],
+                'include' => ['spo_from', 'spo_to']
+            ]
+        ],
+        'FreeFw_country' => [
+            'merge' => [
+                'main' => ['cnty_id', 'cnty_name'],
+                'include' => ['cnty_name']
+            ]
+        ],
+    ],
+    'cache' => [
+        'type' => \FreeFW\Cache\CacheFactory::FILE,
+        'arg0' => APP_CACHE,
+    ],
+    'ged' => [
+        'dir' => '/shared/data/kalaweit/prod/ged/'
+    ],
+    'email' => [
+        'mode'       => 'SMTP',
+        'real'       => true,
+        'server'     => 'SSL0.OVH.NET',
+        'port'       => 465,
+        'incoming'   => 143,
+        'secure'     => 'ssl',
+        'username'   => 'contact@kalaweit.org',
+        'password'   => 'g6K7_t89K!Abug',
+        'fromName'   => 'Contact Kalaweit',
+        'fromEmail'  => 'contact@kalaweit.org',
+        'maxEmails'  => 80,
+        'send_loop'  => false,
+        'replyEmail' => 'kalaweit.france@yahoo.fr',
+        'replyName'  => 'Contact Kalaweit'
+    ]
+];
+// JWT config
+$config['jwt'] = [
+    'duration' => 360000
+];
+$config['jwt']['privateKey'] = <<<EOD
+-----BEGIN RSA PRIVATE KEY-----
+MIIEowIBAAKCAQEAuHhmkr976lyEm0sdGIWrQUyaAtuo25cOaW6GzbL2tmhzotqj
+/fDujwyiDgrQtTcjXLMDV59MvKccKnjO/BO4E493qZ/KBSlgpO7j7CVLPstIkzrY
+a7KnRwAlGyQkooZq3Mzjc3Ge15ICNgQQSG2L+4ajc7DQh/o/wZxUmBg0GWULXTv6
+B3i4wklWmQCw5yrN2FHefLLtN5mWIkSiAhARH3qQrJxTmC71bYefSxz1aFKWowrU
+RZueow3FXA1xDHs4oejyAO/yWi323aFY/7c6/9Iz7lvnmNCUIVSHDzNbOKi4dnxJ
+SwPx2dpj8ArAYb+ToZMAhOJXDapDF+J+ulc3CQIDAQABAoIBAHA60Cz30qwDHapd
+SJZivI49zHVwrorqnBoI5HrBJthTNAcgfiVBL+JYDT/91Hxrz1fWkXH9uPINuVUd
+qtAyLwu3fVX1oTMCuYmezYweJGlPxBfO9VyQlLTdobWhh6hZnyo2fSr/NWRxsGas
+kjt+amvcvhTkvfn8hk2EjvL5xrireEdizZniiTTY8sXwU+nAq922tqG/OvGngXUh
+trXEhv4TUctOryWCoM32JnhyTXRhYvDzG4s+Q9ybZH40nf3mdRfNEKd+K3gZ/RdD
+K7BfmFQ6pMEyqcc4xGFAYi8eFSZ+ZiHENE5QVIchNg94LYpJj0oqunxi3ep2tIXh
+5u6G6wECgYEA47/f0cdWOdTsnsa1/xL7OfhjifZbX+aBfg043sUDUCdA564bqJBJ
+BrHwYZ1DSETSzw7cTIdg19tJO2nB1kWiZSAE0YYG0kbOTj5sHNAC3qQ5S09F+4Jt
+4161we9+s0hmqmWtJ9WxybMjjbUHuwOI/Y/IHxRGtzyMDmp/u1UX/BcCgYEAz1o0
+/E3L+nZjcwAWwN2BNf20q+SBsSnWBP8KqMoGMy/w04hciw4nOjwPTWfV8LD2y5H8
+UYNNlOMZLiXozdEXXmhmib9wMc63QMFP7PWxbbHEgr3A/3CQo3Gjrc7A9MAOMtdr
+jC1hjEOLTELu58QtYcGz1up2D+k6xVdcT9Kqud8CgYEAqVxC9X3VehYDi6LbLf6Q
+gbBbXPmtQ2hnPTRZ6Rb6er1l/6MygCwjke36gqxunyxG06EKY4J8mqhAEgV4Fn4b
+4DVqP+D5656pxfeXb+mjaKsYzA78TKbWTrFcWgZd4rZhWi9YD3pSxloHg1ZulDxx
+v5UPTUVHvPUydXnu2IDT4CsCgYB10GZsuPNeIyhMbk9/VBwXhkjCpjo+ZGvzOMpg
+rzEoomOufTs/01Hcl8WGEKqRcKs5bYA0/Gr3XrWu7+FAGD6z6JPiToC7/B1JUM1N
+8SfYEPp74r8nJFk6VNZQajpelkU7BAVah2p2nOYn9Zvy2heDBOFfCqb8UWOQPxv3
+StawdwKBgAENbZqLtbkF+z4RbmzsBhFhwHRS+Heka1MXUvqVjGh0Tfvn4q20qeYf
+MeFQKruHo+vVjZCyJtQHQmmwIt71Q1aQzRbduTA+xh3wRTD/b4V4uNx51d0ROYW6
+ZXOoTLTGv0mMuS70tY4FlwvIVfgNzDYOSBUNHqdCB/MZ4aqZFIkm
+-----END RSA PRIVATE KEY-----
+EOD;
+$config['jwt']['publicKey'] = <<<EOD
+-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuHhmkr976lyEm0sdGIWr
+QUyaAtuo25cOaW6GzbL2tmhzotqj/fDujwyiDgrQtTcjXLMDV59MvKccKnjO/BO4
+E493qZ/KBSlgpO7j7CVLPstIkzrYa7KnRwAlGyQkooZq3Mzjc3Ge15ICNgQQSG2L
++4ajc7DQh/o/wZxUmBg0GWULXTv6B3i4wklWmQCw5yrN2FHefLLtN5mWIkSiAhAR
+H3qQrJxTmC71bYefSxz1aFKWowrURZueow3FXA1xDHs4oejyAO/yWi323aFY/7c6
+/9Iz7lvnmNCUIVSHDzNbOKi4dnxJSwPx2dpj8ArAYb+ToZMAhOJXDapDF+J+ulc3
+CQIDAQAB
+-----END PUBLIC KEY-----
+EOD;
+
+return $config;

@@ -14,15 +14,15 @@ class Client extends \FreeAsso\Model\Base\Client implements
 {
 
     /**
-     * Behaviour
+     * Behavior
      */
-    use \FreeFW\Behaviour\AutomateAwareTrait;
-    use \FreeAsso\Model\Behaviour\ClientCategory;
-    use \FreeAsso\Model\Behaviour\ClientType;
-    use \FreeAsso\Model\Behaviour\Client;
-    use \FreeFW\Model\Behaviour\Country;
-    use \FreeFW\Model\Behaviour\Lang;
-    use \FreeSSO\Model\Behaviour\Group;
+    use \FreeFW\Behavior\AutomateAwareTrait;
+    use \FreeAsso\Model\Behavior\ClientCategory;
+    use \FreeAsso\Model\Behavior\ClientType;
+    use \FreeAsso\Model\Behavior\Client;
+    use \FreeFW\Model\Behavior\Country;
+    use \FreeFW\Model\Behavior\Lang;
+    use \FreeSSO\Model\Behavior\Group;
 
     /**
      * Genres
@@ -184,7 +184,7 @@ class Client extends \FreeAsso\Model\Base\Client implements
      *
      * @param number $p_id
      *
-     * @return \FreeAsso\Model\Behaviour\Client
+     * @return \FreeAsso\Model\Behavior\Client
      */
     public function setParentCliId($p_id)
     {

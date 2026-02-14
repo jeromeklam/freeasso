@@ -13,5 +13,5 @@ class Statistic extends \FreeFW\Core\ApiController
     /**
      * Comportement
      */
-    use \FreeAsso\Controller\Behaviour\Group;
+    use \FreeAsso\Controller\Behavior\Group;
 }

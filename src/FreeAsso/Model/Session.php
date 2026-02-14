@@ -14,7 +14,7 @@ class Session extends \FreeAsso\Model\Base\Session
     /**
      * Comportement
      */
-    use \FreeSSO\Model\Behaviour\Group;
+    use \FreeSSO\Model\Behavior\Group;
 
     /**
      * Status

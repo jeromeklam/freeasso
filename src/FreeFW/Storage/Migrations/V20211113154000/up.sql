@@ -1,1 +1,0 @@
-ALTER TABLE `sys_jobqueue` ADD COLUMN `jobq_max_hour` int(11) NOT NULL DEFAULT 48;

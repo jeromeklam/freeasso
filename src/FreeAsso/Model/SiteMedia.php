@@ -14,7 +14,7 @@ class SiteMedia extends \FreeAsso\Model\Base\SiteMedia
     /**
      * Comportements
      */
-    use \FreeAsso\Model\Behaviour\Site;
-    use \FreeFW\Model\Behaviour\Lang;
-    use \FreeSSO\Model\Behaviour\Group;
+    use \FreeAsso\Model\Behavior\Site;
+    use \FreeFW\Model\Behavior\Lang;
+    use \FreeSSO\Model\Behavior\Group;
 }

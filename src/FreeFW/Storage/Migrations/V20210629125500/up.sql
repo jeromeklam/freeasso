@@ -1,1 +1,0 @@
-ALTER TABLE `sys_history` ADD COLUMN `grp_id` bigint(20) unsigned DEFAULT NULL;

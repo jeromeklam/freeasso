@@ -12,7 +12,7 @@ class Session extends \FreeFW\Core\ApiController
     /**
      * Comportement
      */
-    use \FreeAsso\Controller\Behaviour\Group;
+    use \FreeAsso\Controller\Behavior\Group;
 
     /**
      * Demande de purge

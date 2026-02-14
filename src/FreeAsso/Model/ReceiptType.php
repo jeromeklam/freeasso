@@ -13,9 +13,9 @@ class ReceiptType extends \FreeAsso\Model\Base\ReceiptType
 {
 
     /**
-     * Behaviour
+     * Behavior
      */
-    use \FreeSSO\Model\Behaviour\Group;
+    use \FreeSSO\Model\Behavior\Group;
 
     /**
      * @see \FreeFW\Core\Model

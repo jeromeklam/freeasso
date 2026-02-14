@@ -13,19 +13,19 @@ class Donation extends \FreeAsso\Model\Base\Donation
 {
 
     /**
-     * Behaviour
+     * Behavior
      */
-    use \FreeFW\Behaviour\EventManagerAwareTrait;
-    use \FreeFW\Behaviour\AutomateAwareTrait;
-    use \FreeAsso\Model\Behaviour\AccountingLine;
-    use \FreeAsso\Model\Behaviour\Cause;
-    use \FreeAsso\Model\Behaviour\Certificate;
-    use \FreeAsso\Model\Behaviour\Client;
-    use \FreeAsso\Model\Behaviour\DonationOrigin;
-    use \FreeAsso\Model\Behaviour\PaymentType;
-    use \FreeAsso\Model\Behaviour\Session;
-    use \FreeAsso\Model\Behaviour\Sponsorship;
-    use \FreeSSO\Model\Behaviour\Group;
+    use \FreeFW\Behavior\EventManagerAwareTrait;
+    use \FreeFW\Behavior\AutomateAwareTrait;
+    use \FreeAsso\Model\Behavior\AccountingLine;
+    use \FreeAsso\Model\Behavior\Cause;
+    use \FreeAsso\Model\Behavior\Certificate;
+    use \FreeAsso\Model\Behavior\Client;
+    use \FreeAsso\Model\Behavior\DonationOrigin;
+    use \FreeAsso\Model\Behavior\PaymentType;
+    use \FreeAsso\Model\Behavior\Session;
+    use \FreeAsso\Model\Behavior\Sponsorship;
+    use \FreeSSO\Model\Behavior\Group;
 
     /**
      * STATUS
@@ -139,7 +139,7 @@ class Donation extends \FreeAsso\Model\Base\Donation
      */
     public function afterRead()
     {
-        if ($this->isRawBehaviour()) {
+        if ($this->isRawBehavior()) {
             return true;
         }
         if ($this->getSessId() <= 0) {
@@ -255,7 +255,7 @@ class Donation extends \FreeAsso\Model\Base\Donation
                 }
             }
         }
-        if ($this->isRawBehaviour()) {
+        if ($this->isRawBehavior()) {
             return true;
         }
         // Update cause
@@ -419,7 +419,7 @@ class Donation extends \FreeAsso\Model\Base\Donation
      */
     public function afterSave()
     {
-        if ($this->isRawBehaviour()) {
+        if ($this->isRawBehavior()) {
             return true;
         }
         $this->updateAfterDbAction();

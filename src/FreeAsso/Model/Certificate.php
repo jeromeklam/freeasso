@@ -14,13 +14,13 @@ class Certificate extends \FreeAsso\Model\Base\Certificate
     /**
      * Bahaviours
      */
-    use \FreeFW\Model\Behaviour\Country;
-    use \FreeFW\Model\Behaviour\Lang;
-    use \FreeFW\Model\Behaviour\File;
-    use \FreeAsso\Model\Behaviour\Client;
-    use \FreeAsso\Model\Behaviour\Cause;
-    use \FreeAsso\Model\Behaviour\CertificateGeneration;
-    use \FreeSSO\Model\Behaviour\Group;
+    use \FreeFW\Model\Behavior\Country;
+    use \FreeFW\Model\Behavior\Lang;
+    use \FreeFW\Model\Behavior\File;
+    use \FreeAsso\Model\Behavior\Client;
+    use \FreeAsso\Model\Behavior\Cause;
+    use \FreeAsso\Model\Behavior\CertificateGeneration;
+    use \FreeSSO\Model\Behavior\Group;
 
     /**
      *

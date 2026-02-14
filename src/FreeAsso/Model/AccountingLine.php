@@ -14,5 +14,5 @@ class AccountingLine extends \FreeAsso\Model\Base\AccountingLine
     /**
      * Comportement
      */
-    use \FreeAsso\Model\Behaviour\Donation;
+    use \FreeAsso\Model\Behavior\Donation;
 }

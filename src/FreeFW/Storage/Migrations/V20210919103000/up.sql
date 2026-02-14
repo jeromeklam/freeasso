@@ -1,1 +1,0 @@
-ALTER TABLE `sys_jobqueue` ADD COLUMN `jobq_cron` varchar(80) DEFAULT NULL;

@@ -14,14 +14,14 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
 {
 
     /**
-     * Behaviour
+     * Behavior
      */
-    use \FreeFW\Behaviour\EventManagerAwareTrait;
-    use \FreeFW\Behaviour\AutomateAwareTrait;
-    use \FreeAsso\Model\Behaviour\CauseType;
-    use \FreeAsso\Model\Behaviour\Site;
-    use \FreeAsso\Model\Behaviour\Subspecies;
-    use \FreeSSO\Model\Behaviour\Group;
+    use \FreeFW\Behavior\EventManagerAwareTrait;
+    use \FreeFW\Behavior\AutomateAwareTrait;
+    use \FreeAsso\Model\Behavior\CauseType;
+    use \FreeAsso\Model\Behavior\Site;
+    use \FreeAsso\Model\Behavior\Subspecies;
+    use \FreeSSO\Model\Behavior\Group;
 
     /**
      * Constantes

@@ -1,1 +1,0 @@
-ALTER TABLE `sys_message` ADD COLUMN `msg_retry` tinyint(1) DEFAULT 0;

@@ -1,1 +1,0 @@
-ALTER TABLE `sso_group_user` ADD COLUMN `gru_permissions` longtext DEFAULT NULL;
