@@ -633,4 +633,51 @@ abstract class Client extends \FreeFW\Core\StorageModel
     {
         return 'Personne';
     }
+
+    /**
+     * Get LLM configuration for this model
+     *
+     * @return array
+     */
+    public static function getLlmConfig(): array
+    {
+        return [
+            'keywords'    => ['donateurs', 'donneur', 'donors', 'parrains', 'sponsors', 'clients', 'personnes', 'membres', 'contacts', 'people'],
+            'description' => 'Personnes, donateurs, parrains, contacts (people). Use for: "donateurs", "donneur", "donors", "parrains", "sponsors", "clients", "personnes", "membres", "contacts".',
+            'default_filters' => [
+                'don_status' => [
+                    'value' => 'OK',
+                    'exclude_keywords' => [
+                        'annulé', 'annulés', 'annulee', 'annulees', 'cancelled', 'canceled',
+                        'refusé', 'refusés', 'refused', 'rejected',
+                        'rejeté', 'rejetés', 'rejetee', 'rejetees',
+                        'échoué', 'échoués', 'failed',
+                        'tous les statuts', 'all status', 'tout statut',
+                        'y compris', 'including',
+                    ],
+                ],
+            ],
+            'examples' => [
+                [
+                    'query' => 'donateurs ayant fait un don de plus de 100 euros ce mois',
+                    'filter' => ['$and' => [['don_mnt' => ['$gte' => 100]], ['don_real_ts' => ['$gte' => '%%MONTH_START%%']]]],
+                    'sort' => ['cli_lastname' => 1],
+                    'limit' => 50,
+                    'include' => ['donations'],
+                ],
+                [
+                    'query' => 'personnes dont le nom contient Martin',
+                    'filter' => ['cli_lastname' => ['$contains' => 'Martin']],
+                    'sort' => ['cli_lastname' => 1],
+                    'limit' => 50,
+                ],
+                [
+                    'query' => 'personnes de Paris ou Lyon',
+                    'filter' => ['$or' => [['cli_town' => ['$eq' => 'Paris']], ['cli_town' => ['$eq' => 'Lyon']]]],
+                    'sort' => ['cli_lastname' => 1],
+                    'limit' => 50,
+                ],
+            ],
+        ];
+    }
 }

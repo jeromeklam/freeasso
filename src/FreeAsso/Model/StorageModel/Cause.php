@@ -581,4 +581,17 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
     {
         return 'Cause';
     }
+
+    /**
+     * Get LLM configuration for this model
+     *
+     * @return array
+     */
+    public static function getLlmConfig(): array
+    {
+        return [
+            'keywords'    => ['causes', 'animaux', 'animals', 'forêts', 'forests', 'cause'],
+            'description' => 'Animals, forest areas, or other causes that can be sponsored.',
+        ];
+    }
 }

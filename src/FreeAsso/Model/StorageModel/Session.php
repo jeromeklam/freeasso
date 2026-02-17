@@ -140,4 +140,17 @@ abstract class Session extends \FreeFW\Core\StorageModel
             ]
         ];
     }
+
+    /**
+     * Get LLM configuration for this model
+     *
+     * @return array
+     */
+    public static function getLlmConfig(): array
+    {
+        return [
+            'keywords'    => ['sessions', 'session', 'exercices', 'exercice'],
+            'description' => 'Accounting sessions for grouping donations.',
+        ];
+    }
 }

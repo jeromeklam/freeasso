@@ -365,4 +365,18 @@ abstract class Certificate extends \FreeFW\Core\StorageModel
     {
         return 'Gestion des certificats';
     }
+
+    /**
+     * Get LLM configuration for this model
+     *
+     * @return array
+     */
+    public static function getLlmConfig(): array
+    {
+        return [
+            'keywords'    => ['certificats', 'certificat', 'certificates', 'certificate'],
+            'description' => 'Sponsorship certificates for donors.',
+            'date_field'  => 'cert_ts',
+        ];
+    }
 }

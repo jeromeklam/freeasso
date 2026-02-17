@@ -533,4 +533,17 @@ abstract class CauseType extends \FreeAsso\Model\StorageModel\Base
             ],
         ];
     }
+
+    /**
+     * Get LLM configuration for this model
+     *
+     * @return array
+     */
+    public static function getLlmConfig(): array
+    {
+        return [
+            'keywords'    => ['types de cause', 'cause types', 'type cause'],
+            'description' => 'Classification types for causes (e.g., Soutien, Parrainage).',
+        ];
+    }
 }

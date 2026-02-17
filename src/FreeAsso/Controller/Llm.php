@@ -58,37 +58,52 @@ class Llm extends \FreeFW\Core\ApiController
         }
 
         try {
-            // Get Ollama config
+            // Get LLM config
             $config = $this->getAppConfig();
-            $ollamaUrl = $config->get('llm:ollama_url', 'http://localhost:11434');
-            $ollamaModel = $config->get('llm:ollama_model', 'llama3.1:8b');
+            $llmProvider = $config->get('llm:provider', 'ollama');
 
-            // Create Ollama provider
-            $ollamaTimeout = intval($config->get('llm:ollama_timeout', 300));
-            $provider = new \FreeFW\Service\Llm\Providers\OllamaProvider($ollamaUrl, $ollamaModel);
-            $provider->setTimeout($ollamaTimeout);
+            // Instantiate centralized LLM configuration
+            $llmConfig = new \FreeAsso\Service\LlmConfiguration($config, $this->logger);
+
+            // Create provider based on config
+            if ($llmProvider === 'anthropic') {
+                $apiKey = $config->get('llm:anthropic_api_key', '');
+                $model = $config->get('llm:anthropic_model', 'claude-sonnet-4-5-20250929');
+                $timeout = intval($config->get('llm:anthropic_timeout', 30));
+                $provider = new \FreeFW\Service\Llm\Providers\AnthropicProvider($apiKey, $model);
+                $provider->setTimeout($timeout);
+            } else {
+                $ollamaUrl = $config->get('llm:ollama_url', 'http://localhost:11434');
+                $ollamaModel = $config->get('llm:ollama_model', 'llama3.1:8b');
+                $ollamaTimeout = intval($config->get('llm:ollama_timeout', 300));
+                $provider = new \FreeFW\Service\Llm\Providers\OllamaProvider($ollamaUrl, $ollamaModel);
+                $provider->setTimeout($ollamaTimeout);
+            }
             if (!$provider->isAvailable()) {
                 return $this->createErrorResponse(
                     FFCST::ERROR_IN_DATA,
-                    'LLM provider (Ollama) is not available'
+                    'LLM provider (' . $llmProvider . ') is not available'
                 );
             }
 
             // Create QueryParser
             $parser = new \FreeFW\Service\Llm\QueryParser($provider, $config, $this->logger);
 
-            // Build FreeAsso-specific model metadata
-            $modelMetadataMap = $this->buildFreeAssoMetadataMap();
+            // Build FreeAsso-specific model metadata (with FK fields)
+            $modelMetadataMap = $this->buildFreeAssoMetadataMap($llmConfig);
             $parser->setAvailableResources($modelMetadataMap);
 
-            // Inject few-shot examples for better accuracy
-            $parser->setExamples($this->getFewShotExamples());
+            // Inject few-shot examples from centralized config
+            $parser->setExamples($llmConfig->getFewShotExamples());
 
             // Parse natural language to MongoDB-style query
             $result = $parser->parseNaturalLanguage($query, $modelMetadataMap);
 
             // Post-process: enrich filter with date context the LLM may have missed
-            $result['filter'] = $this->enrichFilterWithDateContext($query, $result['filter'] ?? [], $result['resource'] ?? null);
+            $result['filter'] = $this->enrichFilterWithDateContext($query, $result['filter'] ?? [], $result['resource'] ?? null, $llmConfig);
+
+            // Post-process: add don_status = OK for donation queries (unless user asks for cancelled/rejected)
+            $result['filter'] = $this->enrichFilterWithDonationStatus($query, $result['filter'] ?? [], $result['resource'] ?? null, $llmConfig);
 
             // Convert MongoDB filter to JSON:API filter format
             $mongoFilter = $result['filter'] ?? [];
@@ -286,63 +301,21 @@ class Llm extends \FreeFW\Core\ApiController
      *
      * Loads actual field names, types, and descriptions from each model's
      * StorageModel so the LLM knows the real database field names.
+     * Enriches with FK fields using dot-notation (e.g., payment_type.ptyp_type).
+     *
+     * @param \FreeAsso\Service\LlmConfiguration|null $llmConfig
      *
      * @return array
      */
-    protected function buildFreeAssoMetadataMap(): array
+    protected function buildFreeAssoMetadataMap(\FreeAsso\Service\LlmConfiguration $llmConfig = null): array
     {
-        $modelDefs = [
-            'FreeAsso_Donation' => [
-                'title' => 'Dons',
-                'description' => 'Dons / donations (montants, transactions). Use for: "dons", "donations", "versements", "gifts". NOT for people/donateurs.',
-                'class' => 'FreeAsso::Model::Donation',
-            ],
-            'FreeAsso_Client' => [
-                'title' => 'Personnes / Donateurs',
-                'description' => 'Personnes, donateurs, parrains, contacts (people). Use for: "donateurs", "donneur", "donors", "parrains", "sponsors", "clients", "personnes", "membres", "contacts".',
-                'class' => 'FreeAsso::Model::Client',
-            ],
-            'FreeAsso_Cause' => [
-                'title' => 'Causes',
-                'description' => 'Animals, forest areas, or other causes that can be sponsored',
-                'class' => 'FreeAsso::Model::Cause',
-            ],
-            'FreeAsso_Sponsorship' => [
-                'title' => 'Parrainages',
-                'description' => 'Recurring sponsorship contracts between a client and a cause',
-                'class' => 'FreeAsso::Model::Sponsorship',
-            ],
-            'FreeAsso_Receipt' => [
-                'title' => 'Reçus',
-                'description' => 'Tax receipts issued to donors',
-                'class' => 'FreeAsso::Model::Receipt',
-            ],
-            'FreeAsso_Certificate' => [
-                'title' => 'Certificats',
-                'description' => 'Sponsorship certificates for donors',
-                'class' => 'FreeAsso::Model::Certificate',
-            ],
-            'FreeAsso_Session' => [
-                'title' => 'Sessions',
-                'description' => 'Accounting sessions for grouping donations',
-                'class' => 'FreeAsso::Model::Session',
-            ],
-            'FreeAsso_Site' => [
-                'title' => 'Sites',
-                'description' => 'Physical locations where causes are housed (regions, islands, sanctuaries)',
-                'class' => 'FreeAsso::Model::Site',
-            ],
-            'FreeAsso_CauseType' => [
-                'title' => 'Types de cause',
-                'description' => 'Classification types for causes (e.g., Soutien, Parrainage)',
-                'class' => 'FreeAsso::Model::CauseType',
-            ],
-            'FreeAsso_PaymentType' => [
-                'title' => 'Types de paiement',
-                'description' => 'Payment methods (bank transfer, check, PayPal, etc.)',
-                'class' => 'FreeAsso::Model::PaymentType',
-            ],
-        ];
+        // Get resource definitions from centralized config (or fallback)
+        if ($llmConfig) {
+            $modelDefs = $llmConfig->getResourceDefinitions();
+        } else {
+            $llmConfig = new \FreeAsso\Service\LlmConfiguration($this->getAppConfig(), $this->logger);
+            $modelDefs = $llmConfig->getResourceDefinitions();
+        }
 
         // Enrich each model with compact filterable field metadata
         $logger = ($this->logger instanceof \Psr\Log\AbstractLogger) ? $this->logger : null;
@@ -378,12 +351,34 @@ class Llm extends \FreeFW\Core\ApiController
                             $compactFields[$fname] = $compact;
                         }
                     }
-                    $result[$resourceName] = [
-                        'title'       => $def['title'],
-                        'description' => $def['description'],
-                        'class'       => $def['class'],
-                        'fields'      => $compactFields,
+                    // Extract relationships (one-to-many) for cross-resource queries
+                    $relationships = [];
+                    if (method_exists($model, 'getRelationships')) {
+                        foreach ($model->getRelationships() as $relName => $relDef) {
+                            $relModel = $relDef[\FreeFW\Constants::REL_MODEL] ?? '';
+                            // Convert FreeAsso::Model::Donation to FreeAsso_Donation
+                            $relResource = str_replace(['::Model::', '::'], ['_', '_'], $relModel);
+                            $relationships[$relName] = [
+                                'resource' => $relResource,
+                                'comment'  => $relDef[\FreeFW\Constants::REL_COMMENT] ?? '',
+                            ];
+                        }
+                    }
+                    $resourceMeta = [
+                        'title'         => $def['title'],
+                        'description'   => $def['description'],
+                        'class'         => $def['class'],
+                        'fields'        => $compactFields,
+                        'relationships' => $relationships,
                     ];
+                    // Enrich with FK fields (dot-notation: payment_type.ptyp_type, etc.)
+                    $resourceMeta = $llmConfig->enrichMetadataWithFkFields($resourceMeta, $def['class']);
+                    // Add synonyms from model's getLlmConfig()
+                    $synonyms = $llmConfig->getSynonymsForResource($resourceName);
+                    if (!empty($synonyms)) {
+                        $resourceMeta['synonyms'] = $synonyms;
+                    }
+                    $result[$resourceName] = $resourceMeta;
                 } else {
                     $result[$resourceName] = $def;
                 }
@@ -407,15 +402,16 @@ class Llm extends \FreeFW\Core\ApiController
      * @param string $query Original natural language query
      * @param array $filter MongoDB-style filter from LLM
      * @param string|null $resource Identified resource
+     * @param \FreeAsso\Service\LlmConfiguration|null $llmConfig
      *
      * @return array Enriched filter
      */
-    protected function enrichFilterWithDateContext(string $query, array $filter, ?string $resource): array
+    protected function enrichFilterWithDateContext(string $query, array $filter, ?string $resource, \FreeAsso\Service\LlmConfiguration $llmConfig = null): array
     {
         $queryLower = mb_strtolower($query);
 
-        // Map resources to their main date field
-        $dateFields = [
+        // Get date field map from centralized config
+        $dateFields = $llmConfig ? $llmConfig->getDateFieldMap() : [
             'FreeAsso_Donation'    => 'don_real_ts',
             'FreeAsso_Sponsorship' => 'spo_from',
             'FreeAsso_Receipt'     => 'rec_ts',
@@ -523,6 +519,68 @@ class Llm extends \FreeFW\Core\ApiController
     }
 
     /**
+     * Apply default filters from model getLlmConfig() unless user explicitly asks otherwise
+     *
+     * Reads default_filters from each model's getLlmConfig() via LlmConfiguration.
+     * For example, Donation defines don_status=OK unless user says "annulé", "tous les statuts", etc.
+     *
+     * @param string $query Original natural language query
+     * @param array $filter MongoDB-style filter from LLM
+     * @param string|null $resource Identified resource
+     * @param \FreeAsso\Service\LlmConfiguration|null $llmConfig
+     *
+     * @return array Enriched filter
+     */
+    protected function enrichFilterWithDonationStatus(string $query, array $filter, ?string $resource, \FreeAsso\Service\LlmConfiguration $llmConfig = null): array
+    {
+        if (!$llmConfig || !$resource) {
+            return $filter;
+        }
+
+        $rules = $llmConfig->getDefaultFilterRules();
+        $queryLower = mb_strtolower($query);
+
+        foreach ($rules as $rule) {
+            // Only apply rules matching this resource
+            if ($rule['resource'] !== $resource) {
+                continue;
+            }
+
+            $field = $rule['field'];
+            $value = $rule['value'];
+
+            // Skip if filter already has this field
+            if ($this->filterContainsField($filter, $field)) {
+                continue;
+            }
+
+            // Skip if user explicitly asks for excluded values
+            $excluded = false;
+            foreach ($rule['exclude_keywords'] as $kw) {
+                if (mb_strpos($queryLower, $kw) !== false) {
+                    $excluded = true;
+                    break;
+                }
+            }
+            if ($excluded) {
+                continue;
+            }
+
+            // Add default filter
+            $condition = [$field => ['$eq' => $value]];
+            if (empty($filter)) {
+                $filter = $condition;
+            } elseif (isset($filter['$and'])) {
+                $filter['$and'][] = $condition;
+            } else {
+                $filter = ['$and' => [$filter, $condition]];
+            }
+        }
+
+        return $filter;
+    }
+
+    /**
      * Save a successful query to LLM memory for future few-shot learning
      *
      * Avoids duplicates by checking if the same query already exists.
@@ -581,162 +639,4 @@ class Llm extends \FreeFW\Core\ApiController
         }
     }
 
-    /**
-     * Get few-shot examples for the LLM prompt
-     *
-     * These examples train the LLM to produce correct field names,
-     * proper JSON format, and accurate operator usage.
-     *
-     * @return array
-     */
-    protected function getFewShotExamples(): array
-    {
-        return [
-            // Simple amount filter
-            [
-                'query' => 'dons de plus de 100 euros',
-                'response' => [
-                    'resource' => 'FreeAsso_Donation',
-                    'filter' => ['don_mnt' => ['$gt' => 100]],
-                    'sort' => ['don_real_ts' => -1],
-                    'limit' => 50,
-                ],
-            ],
-            // Date range (this month)
-            [
-                'query' => 'dons de ce mois',
-                'response' => [
-                    'resource' => 'FreeAsso_Donation',
-                    'filter' => ['don_real_ts' => ['$gte' => date('Y-m-01')]],
-                    'sort' => ['don_real_ts' => -1],
-                    'limit' => 50,
-                ],
-            ],
-            // Amount + date combined (this month)
-            [
-                'query' => 'dons de plus de 100 euros ce mois',
-                'response' => [
-                    'resource' => 'FreeAsso_Donation',
-                    'filter' => [
-                        '$and' => [
-                            ['don_mnt' => ['$gt' => 100]],
-                            ['don_real_ts' => ['$gte' => date('Y-m-01')]],
-                        ],
-                    ],
-                    'sort' => ['don_real_ts' => -1],
-                    'limit' => 50,
-                ],
-            ],
-            // Amount + date combined (this year)
-            [
-                'query' => 'donations over 50 euros this year',
-                'response' => [
-                    'resource' => 'FreeAsso_Donation',
-                    'filter' => [
-                        '$and' => [
-                            ['don_mnt' => ['$gt' => 50]],
-                            ['don_real_ts' => ['$gte' => date('Y-01-01')]],
-                        ],
-                    ],
-                    'sort' => ['don_real_ts' => -1],
-                    'limit' => 50,
-                ],
-            ],
-            // Combined conditions
-            [
-                'query' => 'dons validés de plus de 50 euros',
-                'response' => [
-                    'resource' => 'FreeAsso_Donation',
-                    'filter' => [
-                        '$and' => [
-                            ['don_status' => ['$eq' => 'OK']],
-                            ['don_mnt' => ['$gt' => 50]],
-                        ],
-                    ],
-                    'sort' => ['don_mnt' => -1],
-                    'limit' => 50,
-                ],
-            ],
-            // Text search on person
-            [
-                'query' => 'personnes dont le nom contient Martin',
-                'response' => [
-                    'resource' => 'FreeAsso_Client',
-                    'filter' => ['cli_lastname' => ['$contains' => 'Martin']],
-                    'sort' => ['cli_lastname' => 1],
-                    'limit' => 50,
-                ],
-            ],
-            // Causes / animals
-            [
-                'query' => 'toutes les causes actives',
-                'response' => [
-                    'resource' => 'FreeAsso_Cause',
-                    'filter' => ['cau_to' => ['$exists' => false]],
-                    'sort' => ['cau_name' => 1],
-                    'limit' => 50,
-                ],
-            ],
-            // Sponsorships with amount
-            [
-                'query' => 'parrainages de plus de 20 euros par mois',
-                'response' => [
-                    'resource' => 'FreeAsso_Sponsorship',
-                    'filter' => ['spo_mnt' => ['$gt' => 20]],
-                    'sort' => ['spo_mnt' => -1],
-                    'limit' => 50,
-                ],
-            ],
-            // Top N with sort
-            [
-                'query' => 'les 10 plus gros dons',
-                'response' => [
-                    'resource' => 'FreeAsso_Donation',
-                    'filter' => [],
-                    'sort' => ['don_mnt' => -1],
-                    'limit' => 10,
-                ],
-            ],
-            // OR condition
-            [
-                'query' => 'personnes de Paris ou Lyon',
-                'response' => [
-                    'resource' => 'FreeAsso_Client',
-                    'filter' => [
-                        '$or' => [
-                            ['cli_town' => ['$eq' => 'Paris']],
-                            ['cli_town' => ['$eq' => 'Lyon']],
-                        ],
-                    ],
-                    'sort' => ['cli_lastname' => 1],
-                    'limit' => 50,
-                ],
-            ],
-            // Receipts by year
-            [
-                'query' => 'reçus fiscaux de 2025',
-                'response' => [
-                    'resource' => 'FreeAsso_Receipt',
-                    'filter' => ['rec_year' => ['$eq' => '2025']],
-                    'sort' => ['rec_ts' => -1],
-                    'limit' => 50,
-                ],
-            ],
-            // Donations between amounts
-            [
-                'query' => 'dons entre 50 et 200 euros',
-                'response' => [
-                    'resource' => 'FreeAsso_Donation',
-                    'filter' => [
-                        '$and' => [
-                            ['don_mnt' => ['$gte' => 50]],
-                            ['don_mnt' => ['$lte' => 200]],
-                        ],
-                    ],
-                    'sort' => ['don_mnt' => -1],
-                    'limit' => 50,
-                ],
-            ],
-        ];
-    }
 }

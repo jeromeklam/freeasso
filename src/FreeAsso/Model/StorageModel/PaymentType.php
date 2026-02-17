@@ -122,4 +122,17 @@ abstract class PaymentType extends \FreeFW\Core\StorageModel
             ],
         ];
     }
+
+    /**
+     * Get LLM configuration for this model
+     *
+     * @return array
+     */
+    public static function getLlmConfig(): array
+    {
+        return [
+            'keywords'    => ['types de paiement', 'payment types', 'moyens de paiement', 'paiement'],
+            'description' => 'Payment methods (bank transfer, check, PayPal, etc.).',
+        ];
+    }
 }

@@ -241,4 +241,26 @@ abstract class Sponsorship extends \FreeFW\Core\StorageModel
             ],
         ];
     }
+
+    /**
+     * Get LLM configuration for this model
+     *
+     * @return array
+     */
+    public static function getLlmConfig(): array
+    {
+        return [
+            'keywords'    => ['parrainages', 'sponsorships', 'parrainage', 'sponsorship'],
+            'description' => 'Recurring sponsorship contracts between a client and a cause.',
+            'date_field'  => 'spo_from',
+            'examples' => [
+                [
+                    'query' => 'parrainages de plus de 20 euros par mois',
+                    'filter' => ['spo_mnt' => ['$gte' => 20]],
+                    'sort' => ['spo_mnt' => -1],
+                    'limit' => 50,
+                ],
+            ],
+        ];
+    }
 }

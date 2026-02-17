@@ -577,4 +577,17 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
             ]
         ];
     }
+
+    /**
+     * Get LLM configuration for this model
+     *
+     * @return array
+     */
+    public static function getLlmConfig(): array
+    {
+        return [
+            'keywords'    => ['sites', 'site', 'lieux', 'lieu', 'sanctuaires', 'sanctuaire', 'îles'],
+            'description' => 'Physical locations where causes are housed (regions, islands, sanctuaries).',
+        ];
+    }
 }

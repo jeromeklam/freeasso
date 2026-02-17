@@ -468,4 +468,26 @@ abstract class Receipt extends \FreeFW\Core\StorageModel
             ],
         ];
     }
+
+    /**
+     * Get LLM configuration for this model
+     *
+     * @return array
+     */
+    public static function getLlmConfig(): array
+    {
+        return [
+            'keywords'    => ['reçus', 'reçu', 'receipts', 'receipt', 'reçus fiscaux', 'tax receipts'],
+            'description' => 'Tax receipts issued to donors.',
+            'date_field'  => 'rec_ts',
+            'examples' => [
+                [
+                    'query' => 'reçus fiscaux de 2025',
+                    'filter' => ['rec_year' => ['$eq' => '2025']],
+                    'sort' => ['rec_ts' => -1],
+                    'limit' => 50,
+                ],
+            ],
+        ];
+    }
 }

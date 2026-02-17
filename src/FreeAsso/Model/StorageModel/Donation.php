@@ -415,4 +415,116 @@ abstract class Donation extends \FreeFW\Core\StorageModel
     {
         return ['cause', 'client', 'client.client_type', 'payment_type'];
     }
+
+    /**
+     * Get LLM configuration for this model
+     *
+     * @return array
+     */
+    public static function getLlmConfig(): array
+    {
+        return [
+            'keywords'    => ['dons', 'donations', 'versements', 'gifts', 'don'],
+            'description' => 'Dons / donations (montants, transactions). Use for: "dons", "donations", "versements", "gifts". NOT for people/donateurs.',
+            'date_field'  => 'don_real_ts',
+            'default_filters' => [
+                'don_status' => [
+                    'value' => 'OK',
+                    'exclude_keywords' => [
+                        'annulé', 'annulés', 'annulee', 'annulees', 'cancelled', 'canceled',
+                        'refusé', 'refusés', 'refusee', 'refusees', 'refused', 'rejected',
+                        'rejeté', 'rejetés', 'rejetee', 'rejetees',
+                        'échoué', 'échoués', 'failed',
+                        'tous les statuts', 'all status', 'tout statut',
+                        'y compris', 'including',
+                    ],
+                ],
+            ],
+            'synonyms' => [
+                'en nature'    => ['field' => 'payment_type.ptyp_type', 'op' => '$eq', 'value' => 'NATURE'],
+                'par chèque'   => ['field' => 'payment_type.ptyp_type', 'op' => '$eq', 'value' => 'CHECK'],
+                'chèque'       => ['field' => 'payment_type.ptyp_type', 'op' => '$eq', 'value' => 'CHECK'],
+                'par virement' => ['field' => 'payment_type.ptyp_type', 'op' => '$eq', 'value' => 'BANK'],
+                'virement'     => ['field' => 'payment_type.ptyp_type', 'op' => '$eq', 'value' => 'BANK'],
+                'en espèces'   => ['field' => 'payment_type.ptyp_type', 'op' => '$eq', 'value' => 'CASH'],
+                'espèces'      => ['field' => 'payment_type.ptyp_type', 'op' => '$eq', 'value' => 'CASH'],
+                'régulier'       => ['field' => 'spo_id', 'op' => '$ne', 'value' => null],
+                'réguliers'      => ['field' => 'spo_id', 'op' => '$ne', 'value' => null],
+                'don régulier'   => ['field' => 'spo_id', 'op' => '$ne', 'value' => null],
+                'dons réguliers' => ['field' => 'spo_id', 'op' => '$ne', 'value' => null],
+                'ponctuel'       => ['field' => 'spo_id', 'op' => '$eq', 'value' => null],
+                'ponctuels'      => ['field' => 'spo_id', 'op' => '$eq', 'value' => null],
+                'don ponctuel'   => ['field' => 'spo_id', 'op' => '$eq', 'value' => null],
+                'dons ponctuels' => ['field' => 'spo_id', 'op' => '$eq', 'value' => null],
+            ],
+            'examples' => [
+                [
+                    'query' => 'dons de plus de 100 euros',
+                    'filter' => ['don_mnt' => ['$gte' => 100]],
+                    'sort' => ['don_real_ts' => -1],
+                    'limit' => 50,
+                ],
+                [
+                    'query' => 'dons de ce mois',
+                    'filter' => ['don_real_ts' => ['$gte' => '%%MONTH_START%%']],
+                    'sort' => ['don_real_ts' => -1],
+                    'limit' => 50,
+                ],
+                [
+                    'query' => 'dons de plus de 100 euros ce mois',
+                    'filter' => ['$and' => [['don_mnt' => ['$gte' => 100]], ['don_real_ts' => ['$gte' => '%%MONTH_START%%']]]],
+                    'sort' => ['don_real_ts' => -1],
+                    'limit' => 50,
+                ],
+                [
+                    'query' => 'donations over 50 euros this year',
+                    'filter' => ['$and' => [['don_mnt' => ['$gte' => 50]], ['don_real_ts' => ['$gte' => '%%YEAR_START%%']]]],
+                    'sort' => ['don_real_ts' => -1],
+                    'limit' => 50,
+                ],
+                [
+                    'query' => 'dons de l\'année 2025',
+                    'filter' => ['don_real_ts' => ['$between' => ['2025-01-01', '2025-12-31']]],
+                    'sort' => ['don_real_ts' => -1],
+                    'limit' => 50,
+                ],
+                [
+                    'query' => 'dons en nature pour l\'année 2025',
+                    'filter' => ['$and' => [['payment_type.ptyp_type' => ['$eq' => 'NATURE']], ['don_real_ts' => ['$between' => ['2025-01-01', '2025-12-31']]]]],
+                    'sort' => ['don_real_ts' => -1],
+                    'limit' => 50,
+                ],
+                [
+                    'query' => 'dons par chèque ce mois',
+                    'filter' => ['$and' => [['payment_type.ptyp_type' => ['$eq' => 'CHECK']], ['don_real_ts' => ['$gte' => '%%MONTH_START%%']]]],
+                    'sort' => ['don_real_ts' => -1],
+                    'limit' => 50,
+                ],
+                [
+                    'query' => 'dons par virement',
+                    'filter' => ['payment_type.ptyp_type' => ['$eq' => 'BANK']],
+                    'sort' => ['don_real_ts' => -1],
+                    'limit' => 50,
+                ],
+                [
+                    'query' => 'dons validés de plus de 50 euros',
+                    'filter' => ['$and' => [['don_status' => ['$eq' => 'OK']], ['don_mnt' => ['$gte' => 50]]]],
+                    'sort' => ['don_mnt' => -1],
+                    'limit' => 50,
+                ],
+                [
+                    'query' => 'les 10 plus gros dons',
+                    'filter' => [],
+                    'sort' => ['don_mnt' => -1],
+                    'limit' => 10,
+                ],
+                [
+                    'query' => 'dons entre 50 et 200 euros',
+                    'filter' => ['$and' => [['don_mnt' => ['$gte' => 50]], ['don_mnt' => ['$lte' => 200]]]],
+                    'sort' => ['don_mnt' => -1],
+                    'limit' => 50,
+                ],
+            ],
+        ];
+    }
 }
