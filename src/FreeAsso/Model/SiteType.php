@@ -11,7 +11,8 @@ use \FreeFW\Constants as FFCST;
 class SiteType extends \FreeAsso\Model\Base\SiteType implements
 \FreeFW\Interfaces\ApiResponseInterface
 {
-    
+    use \FreeFW\Behavior\LlmAwareTrait;
+
     /**
      * @see \FreeFW\Core\Model
      */

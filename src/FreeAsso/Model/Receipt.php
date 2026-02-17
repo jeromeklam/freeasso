@@ -18,6 +18,7 @@ class Receipt extends \FreeAsso\Model\Base\Receipt
     use \FreeFW\Model\Behavior\Lang;
     use \FreeFW\Model\Behavior\Country;
     use \FreeFW\Model\Behavior\File;
+    use \FreeFW\Behavior\LlmAwareTrait;
 
     const MODE_AUTO   = 'AUTO';
     const MODE_MANUAL = 'MANUAL';

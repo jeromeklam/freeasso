@@ -10,6 +10,7 @@ use \FreeFW\Constants as FFCST;
  */
 class Item extends \FreeAsso\Model\Base\Item
 {
+    use \FreeFW\Behavior\LlmAwareTrait;
 
     /**
      * Family

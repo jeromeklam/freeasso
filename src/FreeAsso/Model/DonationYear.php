@@ -10,6 +10,7 @@ use \FreeFW\Constants as FFCST;
  */
 class DonationYear extends \FreeAsso\Model\Donation
 {
+    use \FreeFW\Behavior\LlmAwareTrait;
 
     /**
      * Field properties as static arrays

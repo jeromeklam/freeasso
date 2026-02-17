@@ -10,4 +10,5 @@ use \FreeFW\Constants as FFCST;
  */
 class CauseLinkType extends \FreeAsso\Model\Base\CauseLinkType
 {
+    use \FreeFW\Behavior\LlmAwareTrait;
 }

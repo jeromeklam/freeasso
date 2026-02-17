@@ -11,6 +11,7 @@ use \FreeFW\Constants as FFCST;
 class ClientType extends \FreeAsso\Model\Base\ClientType implements
     \FreeFW\Interfaces\ApiResponseInterface
 {
+    use \FreeFW\Behavior\LlmAwareTrait;
 
     /**
      * @see \FreeFW\Core\Model

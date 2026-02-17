@@ -17,6 +17,7 @@ class Site extends \FreeAsso\Model\Base\Site  implements
      */
     use \FreeAsso\Model\Behavior\SiteType;
     use \FreeSSO\Model\Behavior\Group;
+    use \FreeFW\Behavior\LlmAwareTrait;
 
     /**
      * @see \FreeFW\Core\Model

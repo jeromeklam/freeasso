@@ -16,6 +16,7 @@ class ReceiptDonation extends \FreeAsso\Model\Base\ReceiptDonation
      */
     use \FreeSSO\Model\Behavior\Group;
     use \FreeAsso\Model\Behavior\PaymentType;
+    use \FreeFW\Behavior\LlmAwareTrait;
 
     /**
      * Specific fields

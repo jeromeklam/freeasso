@@ -99,7 +99,8 @@ abstract class Donation extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_NOW,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
         FFCST::PROPERTY_TITLE   => 'Date système',
-        FFCST::PROPERTY_COMMENT => 'Date système d\'enregistrement'
+        FFCST::PROPERTY_COMMENT => 'Date système d\'enregistrement',
+        FFCST::PROPERTY_LLM_DESC => 'System timestamp when the donation was recorded. Use $gte/$lte for date ranges.',
     ];
     protected static $PRP_DON_ASK_TS = [
         FFCST::PROPERTY_PRIVATE => 'don_ask_ts',
@@ -113,7 +114,8 @@ abstract class Donation extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATE,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
         FFCST::PROPERTY_TITLE   => 'Date réelle',
-        FFCST::PROPERTY_COMMENT => 'Date réelle du don, comptable'
+        FFCST::PROPERTY_COMMENT => 'Date réelle du don, comptable',
+        FFCST::PROPERTY_LLM_DESC => 'Actual accounting date of the donation. Use $gte/$lte for date range queries. This is the main date field for financial reporting.',
     ];
     protected static $PRP_DON_END_TS = [
         FFCST::PROPERTY_PRIVATE => 'don_end_ts',
@@ -129,7 +131,8 @@ abstract class Donation extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_DEFAULT => 'OK',
         FFCST::PROPERTY_TITLE   => 'Status',
         FFCST::PROPERTY_COMMENT => 'Status',
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
+        FFCST::PROPERTY_LLM_DESC => 'Donation status. Values: WAIT (pending), OK (validated), NOK (rejected), NEXT (deferred). Use $eq for exact match.',
     ];
     protected static $PRP_DON_MNT = [
         FFCST::PROPERTY_PRIVATE => 'don_mnt',
@@ -137,6 +140,7 @@ abstract class Donation extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
         FFCST::PROPERTY_TITLE   => 'Montant DB',
         FFCST::PROPERTY_COMMENT => 'Montant DB',
+        FFCST::PROPERTY_LLM_DESC => 'Donation amount in database currency (see don_money). Use $gt/$lt for amount ranges.',
     ];
     protected static $PRP_DON_MONEY = [
         FFCST::PROPERTY_PRIVATE => 'don_money',
@@ -145,6 +149,7 @@ abstract class Donation extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
         FFCST::PROPERTY_TITLE   => 'Monnaie DB',
         FFCST::PROPERTY_COMMENT => 'Monnaie DB',
+        FFCST::PROPERTY_LLM_DESC => 'Currency code for don_mnt (e.g., EUR, USD). Use $eq for filtering by currency.',
     ];
     protected static $PRP_DON_MNT_INPUT = [
         FFCST::PROPERTY_PRIVATE => 'don_mnt_input',
@@ -152,6 +157,7 @@ abstract class Donation extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
         FFCST::PROPERTY_TITLE   => 'Montant saisi',
         FFCST::PROPERTY_COMMENT => 'Montant saisi',
+        FFCST::PROPERTY_LLM_DESC => 'Donation amount as entered by the donor (in don_money_input currency).',
     ];
     protected static $PRP_DON_MONEY_INPUT = [
         FFCST::PROPERTY_PRIVATE => 'don_money_input',
@@ -306,7 +312,8 @@ abstract class Donation extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_DEFAULT => 'NONE',
         FFCST::PROPERTY_TITLE   => 'Vérifié',
         FFCST::PROPERTY_COMMENT => 'Vérifié',
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_LLM_DESC => 'Verification status. Values: NONE, AUTO, MANUAL, HISTO. Use $eq for exact match.',
     ];
     protected static $PRP_DON_VERIF_COMMENT = [
         FFCST::PROPERTY_PRIVATE => 'don_verif_comment',
@@ -330,6 +337,7 @@ abstract class Donation extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_OPTIONS => [],
         FFCST::PROPERTY_TITLE   => 'Notification',
         FFCST::PROPERTY_COMMENT => 'Notification',
+        FFCST::PROPERTY_LLM_DESC => 'Whether an email notification should be sent for this donation.',
     ];
 
     /**

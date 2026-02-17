@@ -16,4 +16,5 @@ class CauseGrowth extends \FreeAsso\Model\Base\CauseGrowth
      */
     use \FreeAsso\Model\Behavior\Cause;
     use \FreeSSO\Model\Behavior\Group;
+    use \FreeFW\Behavior\LlmAwareTrait;
 }

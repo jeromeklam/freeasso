@@ -45,7 +45,8 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
         FFCST::PROPERTY_COMMENT => 'Le nom de la cause',
         FFCST::PROPERTY_TITLE   => 'Nom',
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_LLM_DESC => 'Name of the cause (animal, forest area, etc.). Use $contains for partial matching.',
     ];
     protected static $PRP_CAU_DESC = [
         FFCST::PROPERTY_PRIVATE => 'cau_desc',
@@ -59,14 +60,16 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
         FFCST::PROPERTY_COMMENT => 'Date de début de validité',
         FFCST::PROPERTY_TITLE   => 'Entrée',
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_LLM_DESC => 'Start date of the cause validity. Use $gte/$lte for date ranges.',
     ];
     protected static $PRP_CAU_TO = [
         FFCST::PROPERTY_PRIVATE => 'cau_to',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
         FFCST::PROPERTY_COMMENT => 'Date de fin de validité',
         FFCST::PROPERTY_TITLE   => 'Sortie',
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_LLM_DESC => 'End date of the cause validity. NULL means still active. Use $exists:false for active causes.',
     ];
     protected static $PRP_CAU_PUBLIC = [
         FFCST::PROPERTY_PRIVATE => 'cau_public',
@@ -83,6 +86,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_TITLE   => 'Valide',
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
         FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_TRUE,
+        FFCST::PROPERTY_LLM_DESC => 'Whether the cause is available for sponsorship. Use $eq with true/false.',
     ];
     protected static $PRP_SSPE_ID = [
         FFCST::PROPERTY_PRIVATE => 'sspe_id',
@@ -163,7 +167,8 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
         FFCST::PROPERTY_COMMENT => 'Le code identifiant',
         FFCST::PROPERTY_OPTIONS => [],
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_LLM_DESC => 'Short identifying code for the cause. Use $eq for exact match.',
     ];
     protected static $PRP_CAU_FAMILY = [
         FFCST::PROPERTY_PRIVATE => 'cau_family',
@@ -173,6 +178,7 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_ENUM    => ['OTHER','NONE','ANIMAL','FOREST'],
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
         FFCST::PROPERTY_DEFAULT => 'ANIMAL',
+        FFCST::PROPERTY_LLM_DESC => 'Cause family category. Values: OTHER, NONE, ANIMAL, FOREST. Use $eq for filtering by family.',
     ];
     protected static $PRP_CAU_STRING_1 = [
         FFCST::PROPERTY_PRIVATE => 'cau_string_1',
@@ -285,7 +291,8 @@ abstract class Cause extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_SELECT,
         FFCST::PROPERTY_ENUM    => ['M','F','C','OTHER'],
         FFCST::PROPERTY_DEFAULT => 'OTHER',
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_LLM_DESC => 'Sex of the animal cause. Values: M (male), F (female), C (castrated), OTHER. Use $eq.',
     ];
     protected static $PRP_CAU_YEAR = [
         FFCST::PROPERTY_PRIVATE => 'cau_year',

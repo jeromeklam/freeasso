@@ -23,6 +23,7 @@ class Client extends \FreeAsso\Model\Base\Client implements
     use \FreeFW\Model\Behavior\Country;
     use \FreeFW\Model\Behavior\Lang;
     use \FreeSSO\Model\Behavior\Group;
+    use \FreeFW\Behavior\LlmAwareTrait;
 
     /**
      * Genres

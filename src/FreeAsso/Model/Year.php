@@ -11,6 +11,7 @@ use \FreeFW\Constants as FFCST;
  */
 class Year extends \FreeAsso\Model\Base\Year
 {
+    use \FreeFW\Behavior\LlmAwareTrait;
 
     /**
      * Get next number

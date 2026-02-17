@@ -10,4 +10,5 @@ use \FreeFW\Constants as FFCST;
  */
 class Sickness extends \FreeAsso\Model\Base\Sickness
 {
+    use \FreeFW\Behavior\LlmAwareTrait;
 }

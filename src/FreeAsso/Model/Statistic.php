@@ -16,4 +16,5 @@ class Statistic extends \FreeAsso\Model\Base\Statistic
      */
     use \FreeSSO\Model\Behavior\Broker;
     use \FreeSSO\Model\Behavior\Group;
+    use \FreeFW\Behavior\LlmAwareTrait;
 }

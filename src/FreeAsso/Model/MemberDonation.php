@@ -12,6 +12,8 @@ use \FreeFW\Constants as FFCST;
 class MemberDonation
 {
 
+    use \FreeFW\Behavior\LlmAwareTrait;
+
     public $don_id = null;
     public $don_ts = null;
     public $don_mnt = null;

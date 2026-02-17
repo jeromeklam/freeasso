@@ -28,7 +28,8 @@ abstract class Session extends \FreeFW\Core\StorageModel
     protected static $PRP_SESS_NAME = [
         FFCST::PROPERTY_PRIVATE => 'sess_name',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
+        FFCST::PROPERTY_LLM_DESC => 'Session name. Use $contains for partial matching, $eq for exact.',
     ];
     protected static $PRP_SESS_EXERCICE = [
         FFCST::PROPERTY_PRIVATE => 'sess_exercice',
@@ -38,7 +39,8 @@ abstract class Session extends \FreeFW\Core\StorageModel
     protected static $PRP_SESS_STATUS = [
         FFCST::PROPERTY_PRIVATE => 'sess_status',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
+        FFCST::PROPERTY_LLM_DESC => 'Session status. Use $eq for filtering by status.',
     ];
     protected static $PRP_SESS_TYPE = [
         FFCST::PROPERTY_PRIVATE => 'sess_type',
@@ -48,7 +50,8 @@ abstract class Session extends \FreeFW\Core\StorageModel
     protected static $PRP_SESS_YEAR = [
         FFCST::PROPERTY_PRIVATE => 'sess_year',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_LLM_DESC => 'Session year. Use $eq for specific year.',
     ];
     protected static $PRP_SESS_MONTH = [
         FFCST::PROPERTY_PRIVATE => 'sess_month',

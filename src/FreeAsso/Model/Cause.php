@@ -22,6 +22,7 @@ class Cause extends \FreeAsso\Model\Base\Cause implements
     use \FreeAsso\Model\Behavior\Site;
     use \FreeAsso\Model\Behavior\Subspecies;
     use \FreeSSO\Model\Behavior\Group;
+    use \FreeFW\Behavior\LlmAwareTrait;
 
     /**
      * Constantes

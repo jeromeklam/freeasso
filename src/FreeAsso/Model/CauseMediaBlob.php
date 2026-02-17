@@ -10,4 +10,5 @@ use \FreeFW\Constants as FFCST;
  */
 class CauseMediaBlob extends \FreeAsso\Model\Base\CauseMediaBlob
 {
+    use \FreeFW\Behavior\LlmAwareTrait;
 }

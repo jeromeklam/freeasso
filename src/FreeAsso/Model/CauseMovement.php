@@ -17,6 +17,7 @@ class CauseMovement extends \FreeAsso\Model\Base\CauseMovement
     use \FreeAsso\Model\Behavior\Cause;
     use \FreeAsso\Model\Behavior\Movement;
     use \FreeSSO\Model\Behavior\Group;
+    use \FreeFW\Behavior\LlmAwareTrait;
 
     /**
      * Status

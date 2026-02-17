@@ -26,4 +26,5 @@ class ContractMedia extends \FreeAsso\Model\Base\ContractMedia
     use \FreeAsso\Model\Behavior\Contract;
     use \FreeFW\Model\Behavior\Lang;
     use \FreeSSO\Model\Behavior\Group;
+    use \FreeFW\Behavior\LlmAwareTrait;
 }

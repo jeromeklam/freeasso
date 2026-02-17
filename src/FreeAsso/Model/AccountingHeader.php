@@ -11,6 +11,8 @@ use \FreeFW\Constants as FFCST;
 class AccountingHeader extends \FreeAsso\Model\Base\AccountingHeader
 {
 
+    use \FreeFW\Behavior\LlmAwareTrait;
+
     /**
      * Status
      */

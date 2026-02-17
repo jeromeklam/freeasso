@@ -15,4 +15,5 @@ class AccountingLine extends \FreeAsso\Model\Base\AccountingLine
      * Comportement
      */
     use \FreeAsso\Model\Behavior\Donation;
+    use \FreeFW\Behavior\LlmAwareTrait;
 }

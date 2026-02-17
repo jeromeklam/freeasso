@@ -11,6 +11,8 @@ use \FreeFW\Constants as FFCST;
 class PaymentType extends \FreeAsso\Model\Base\PaymentType
 {
 
+    use \FreeFW\Behavior\LlmAwareTrait;
+
     /**
      * Types
      * @var string

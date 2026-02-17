@@ -12,6 +12,8 @@ class CauseType extends \FreeAsso\Model\Base\CauseType implements
     \FreeFW\Interfaces\ApiResponseInterface
 {
 
+    use \FreeFW\Behavior\LlmAwareTrait;
+
     /**
      * Constantes
      * @var string

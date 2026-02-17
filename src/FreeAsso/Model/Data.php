@@ -11,6 +11,7 @@ use \FreeFW\Constants as FFCST;
 class Data extends \FreeAsso\Model\Base\Data implements
     \FreeFW\Interfaces\ApiResponseInterface
 {
+    use \FreeFW\Behavior\LlmAwareTrait;
 
     /**
      * Types

@@ -18,6 +18,7 @@ class Contract extends \FreeAsso\Model\Base\Contract
     use \FreeAsso\Model\Behavior\Contact1;
     use \FreeAsso\Model\Behavior\Contact2;
     use \FreeSSO\Model\Behavior\Group;
+    use \FreeFW\Behavior\LlmAwareTrait;
 
     /**
      * Retourne le dernier numéro disponible pour une année

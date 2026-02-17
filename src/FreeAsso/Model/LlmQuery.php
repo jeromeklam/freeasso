@@ -4,11 +4,10 @@ namespace FreeAsso\Model;
 use \FreeFW\Constants as FFCST;
 
 /**
- * Model Stat
+ * LlmQuery
  *
  * @author jeromeklam
  */
-class Stat extends \FreeAsso\Model\Base\Stat
+class LlmQuery extends \FreeAsso\Model\Base\LlmQuery
 {
-    use \FreeFW\Behavior\LlmAwareTrait;
 }

@@ -28,6 +28,7 @@ class Sponsorship extends \FreeAsso\Model\Base\Sponsorship
     use \FreeAsso\Model\Behavior\Client;
     use \FreeAsso\Model\Behavior\PaymentType;
     use \FreeSSO\Model\Behavior\Group;
+    use \FreeFW\Behavior\LlmAwareTrait;
 
     /**
      * Previous to

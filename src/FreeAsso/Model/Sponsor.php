@@ -10,6 +10,7 @@ use \FreeFW\Constants as FFCST;
  */
 class Sponsor extends \FreeAsso\Model\Base\Sponsor
 {
+    use \FreeFW\Behavior\LlmAwareTrait;
 
     /**
      *

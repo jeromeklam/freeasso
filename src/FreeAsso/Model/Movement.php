@@ -33,6 +33,7 @@ class Movement extends \FreeAsso\Model\Base\Movement
      * Behavior
      */
     use \FreeSSO\Model\Behavior\Group;
+    use \FreeFW\Behavior\LlmAwareTrait;
 
     /**
      * From site

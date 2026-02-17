@@ -17,4 +17,5 @@ class SiteMedia extends \FreeAsso\Model\Base\SiteMedia
     use \FreeAsso\Model\Behavior\Site;
     use \FreeFW\Model\Behavior\Lang;
     use \FreeSSO\Model\Behavior\Group;
+    use \FreeFW\Behavior\LlmAwareTrait;
 }

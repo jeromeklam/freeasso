@@ -26,6 +26,7 @@ class CauseMedia extends \FreeAsso\Model\Base\CauseMedia
      */
     use \FreeAsso\Model\Behavior\Cause;
     use \FreeSSO\Model\Behavior\Group;
+    use \FreeFW\Behavior\LlmAwareTrait;
 
     /**
      * Versions

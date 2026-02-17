@@ -53,17 +53,20 @@ abstract class Sponsorship extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_PRIVATE => 'spo_from',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATE,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
-        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_NOW
+        FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_NOW,
+        FFCST::PROPERTY_LLM_DESC => 'Sponsorship start date. Use $gte/$lte for date ranges.',
     ];
     protected static $PRP_SPO_TO = [
         FFCST::PROPERTY_PRIVATE => 'spo_to',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATE,
-        FFCST::PROPERTY_OPTIONS => []
+        FFCST::PROPERTY_OPTIONS => [],
+        FFCST::PROPERTY_LLM_DESC => 'Sponsorship end date. NULL means ongoing. Use $exists:false for active sponsorships.',
     ];
     protected static $PRP_SPO_MNT = [
         FFCST::PROPERTY_PRIVATE => 'spo_mnt',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DECIMAL,
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
+        FFCST::PROPERTY_LLM_DESC => 'Sponsorship amount per period (in spo_money currency). Use $gt/$lt for ranges.',
     ];
     protected static $PRP_SPO_MONEY = [
         FFCST::PROPERTY_PRIVATE => 'spo_money',
@@ -76,6 +79,7 @@ abstract class Sponsorship extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_ENUM    => ['MONTH','YEAR','OTHER'],
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
         FFCST::PROPERTY_DEFAULT => 'MONTH',
+        FFCST::PROPERTY_LLM_DESC => 'Payment frequency. Values: MONTH (monthly), YEAR (yearly), OTHER. Use $eq.',
     ];
     protected static $PRP_SPO_FREQ_WHEN = [
         FFCST::PROPERTY_PRIVATE => 'spo_freq_when',

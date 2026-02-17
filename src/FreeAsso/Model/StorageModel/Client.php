@@ -65,6 +65,7 @@ abstract class Client extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_OPTIONS => [],
         FFCST::PROPERTY_MAX     => 80,
         FFCST::PROPERTY_TITLE   => 'Prénom',
+        FFCST::PROPERTY_LLM_DESC => 'Client first name. Use $contains for partial matching, $eq for exact match.',
     ];
     protected static $PRP_CLI_LASTNAME = [
         FFCST::PROPERTY_PRIVATE => 'cli_lastname',
@@ -72,6 +73,7 @@ abstract class Client extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
         FFCST::PROPERTY_MAX     => 80,
         FFCST::PROPERTY_TITLE   => 'Nom',
+        FFCST::PROPERTY_LLM_DESC => 'Client last name (family name). Required field. Use $contains for partial matching, $soundex for phonetic search.',
     ];
     protected static $PRP_CLI_ADDRESS1 = [
         FFCST::PROPERTY_PRIVATE => 'cli_address1',
@@ -100,6 +102,7 @@ abstract class Client extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_OPTIONS => [],
         FFCST::PROPERTY_MAX     => 20,
         FFCST::PROPERTY_TITLE   => 'CP',
+        FFCST::PROPERTY_LLM_DESC => 'Postal/ZIP code. Use $eq for exact match, $startsWith for area filtering.',
     ];
     protected static $PRP_CLI_TOWN = [
         FFCST::PROPERTY_PRIVATE => 'cli_town',
@@ -107,6 +110,7 @@ abstract class Client extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_OPTIONS => [],
         FFCST::PROPERTY_MAX     => 80,
         FFCST::PROPERTY_TITLE   => 'Ville',
+        FFCST::PROPERTY_LLM_DESC => 'City/town name. Use $contains for partial matching, $eq for exact match.',
     ];
     protected static $PRP_CNTY_ID = [
         FFCST::PROPERTY_PRIVATE => 'cnty_id',
@@ -128,6 +132,7 @@ abstract class Client extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
         FFCST::PROPERTY_DEFAULT => FFCST::DEFAULT_TRUE,
         FFCST::PROPERTY_TITLE   => 'Actif',
+        FFCST::PROPERTY_LLM_DESC => 'Whether the client is active. Use $eq with true/false to filter active/inactive clients.',
     ];
     protected static $PRP_LANG_ID = [
         FFCST::PROPERTY_PRIVATE => 'lang_id',
@@ -159,6 +164,7 @@ abstract class Client extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_OPTIONS => [],
         FFCST::PROPERTY_MAX     => 80,
         FFCST::PROPERTY_TITLE   => 'Tel 1',
+        FFCST::PROPERTY_LLM_DESC => 'Home phone number. Use $contains for partial matching.',
     ];
     protected static $PRP_CLI_PHONE_GSM = [
         FFCST::PROPERTY_PRIVATE => 'cli_phone_gsm',
@@ -166,6 +172,7 @@ abstract class Client extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_OPTIONS => [],
         FFCST::PROPERTY_MAX     => 80,
         FFCST::PROPERTY_TITLE   => 'Tel 2',
+        FFCST::PROPERTY_LLM_DESC => 'Mobile phone number. Use $contains for partial matching.',
     ];
     protected static $PRP_CLI_DESC = [
         FFCST::PROPERTY_PRIVATE => 'cli_desc',
@@ -179,6 +186,7 @@ abstract class Client extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_OPTIONS => [],
         FFCST::PROPERTY_MAX     => 255,
         FFCST::PROPERTY_TITLE   => 'Email',
+        FFCST::PROPERTY_LLM_DESC => 'Primary email address. Use $contains for partial matching, $eq for exact lookup.',
     ];
     protected static $PRP_CLI_EMAIL_2 = [
         FFCST::PROPERTY_PRIVATE => 'cli_email_2',

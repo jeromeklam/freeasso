@@ -119,6 +119,16 @@ $localCommands = [
         'command'    => 'accounting::import',
         'controller' => 'FreeAsso::Command::Accounting',
         'function'   => 'importFile'
+    ],
+    /**
+     * ########################################################################
+     * LLM Metadata generation
+     * ########################################################################
+     */
+    'freeasso.llm.generate' => [
+        'command'    => 'llm::generate',
+        'controller' => 'FreeAsso::Command::Llm',
+        'function'   => 'generateMetadata'
     ]
 ];
 

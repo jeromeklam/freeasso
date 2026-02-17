@@ -21,6 +21,7 @@ class Certificate extends \FreeAsso\Model\Base\Certificate
     use \FreeAsso\Model\Behavior\Cause;
     use \FreeAsso\Model\Behavior\CertificateGeneration;
     use \FreeSSO\Model\Behavior\Group;
+    use \FreeFW\Behavior\LlmAwareTrait;
 
     /**
      *

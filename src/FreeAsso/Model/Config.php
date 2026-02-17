@@ -11,6 +11,7 @@ use \FreeFW\Constants as FFCST;
 class Config extends \FreeAsso\Model\Base\Config implements
     \FreeFW\Interfaces\ApiResponseInterface
 {
+    use \FreeFW\Behavior\LlmAwareTrait;
 
     /**
      * Config codes

@@ -10,4 +10,5 @@ use \FreeFW\Constants as FFCST;
  */
 class SiteMediaBlob extends \FreeAsso\Model\Base\SiteMediaBlob
 {
+    use \FreeFW\Behavior\LlmAwareTrait;
 }

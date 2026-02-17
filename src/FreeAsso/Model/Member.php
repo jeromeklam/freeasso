@@ -12,6 +12,8 @@ use \FreeFW\Constants as FFCST;
 class Member extends \FreeFW\Core\Model
 {
 
+    use \FreeFW\Behavior\LlmAwareTrait;
+
     public $mbr_id = null;
     public $mbr_firstname = null;
     public $mbr_lastname = null;

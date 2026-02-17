@@ -17,4 +17,5 @@ class CauseMediaLang extends \FreeAsso\Model\Base\CauseMediaLang
     use \FreeAsso\Model\Behavior\CauseMedia;
     use \FreeSSO\Model\Behavior\Group;
     use \FreeFW\Model\Behavior\Lang;
+    use \FreeFW\Behavior\LlmAwareTrait;
 }

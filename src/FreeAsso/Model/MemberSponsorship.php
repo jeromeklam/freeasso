@@ -12,6 +12,8 @@ use \FreeFW\Constants as FFCST;
 class MemberSponsorship
 {
 
+    use \FreeFW\Behavior\LlmAwareTrait;
+
     public $spo_id = null;
     public $spo_from = null;
     public $spo_to = null;

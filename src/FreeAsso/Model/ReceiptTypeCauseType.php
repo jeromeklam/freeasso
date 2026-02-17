@@ -16,4 +16,5 @@ class ReceiptTypeCauseType extends \FreeAsso\Model\Base\ReceiptTypeCauseType
      */
     use \FreeAsso\Model\Behavior\CauseType;
     use \FreeAsso\Model\Behavior\ReceiptType;
+    use \FreeFW\Behavior\LlmAwareTrait;
 }

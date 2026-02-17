@@ -71,6 +71,7 @@ abstract class Receipt extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
         FFCST::PROPERTY_TITLE   => 'Créé le',
         FFCST::PROPERTY_COMMENT => 'Date de création',
+        FFCST::PROPERTY_LLM_DESC => 'Receipt creation timestamp. Use $gte/$lte for date ranges.',
     ];
     protected static $PRP_REC_GEN_TS = [
         FFCST::PROPERTY_PRIVATE => 'rec_gen_ts',
@@ -92,6 +93,7 @@ abstract class Receipt extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_OPTIONS => [],
         FFCST::PROPERTY_TITLE   => 'Année',
         FFCST::PROPERTY_COMMENT => 'Année',
+        FFCST::PROPERTY_LLM_DESC => 'Fiscal year of the receipt. Use $eq for specific year, $gte/$lte for year ranges.',
     ];
     protected static $PRP_REC_NUMBER = [
         FFCST::PROPERTY_PRIVATE => 'rec_number',
@@ -99,6 +101,7 @@ abstract class Receipt extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_OPTIONS => [],
         FFCST::PROPERTY_TITLE   => 'Numéro',
         FFCST::PROPERTY_COMMENT => 'Numéro',
+        FFCST::PROPERTY_LLM_DESC => 'Receipt number. Use $eq for exact match, $contains for partial.',
     ];
     protected static $PRP_REC_MNT = [
         FFCST::PROPERTY_PRIVATE => 'rec_mnt',
@@ -106,6 +109,7 @@ abstract class Receipt extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
         FFCST::PROPERTY_TITLE   => 'Montant',
         FFCST::PROPERTY_COMMENT => 'Montant',
+        FFCST::PROPERTY_LLM_DESC => 'Receipt total amount. Use $gt/$lt for amount ranges.',
     ];
     protected static $PRP_REC_MONEY = [
         FFCST::PROPERTY_PRIVATE => 'rec_money',
@@ -200,7 +204,8 @@ abstract class Receipt extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_DEFAULT => 'EMAIL',
         FFCST::PROPERTY_TITLE   => 'Expédition',
         FFCST::PROPERTY_COMMENT => 'Mode d\'expédition',
-        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED]
+        FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
+        FFCST::PROPERTY_LLM_DESC => 'Send method. Values: EMAIL, MANUAL, UNKNOWN. Use $eq.',
     ];
     protected static $PRP_REC_MNT_LETTER = [
         FFCST::PROPERTY_PRIVATE => 'rec_mnt_letter',

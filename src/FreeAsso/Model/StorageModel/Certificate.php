@@ -37,6 +37,7 @@ abstract class Certificate extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_OPTIONS => [],
         FFCST::PROPERTY_TITLE   => 'Création',
         FFCST::PROPERTY_COMMENT => 'Date de création',
+        FFCST::PROPERTY_LLM_DESC => 'Certificate creation timestamp. Use $gte/$lte for date ranges.',
     ];
     protected static $PRP_CLI_ID = [
         FFCST::PROPERTY_PRIVATE => 'cli_id',
@@ -72,6 +73,7 @@ abstract class Certificate extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_OPTIONS => [],
         FFCST::PROPERTY_TITLE   => 'Nom complet',
         FFCST::PROPERTY_COMMENT => 'Nom complet du donateur',
+        FFCST::PROPERTY_LLM_DESC => 'Full name of the donor on the certificate. Use $contains for partial matching.',
     ];
     protected static $PRP_CERT_ADDRESS1 = [
         FFCST::PROPERTY_PRIVATE => 'cert_address1',
@@ -151,6 +153,7 @@ abstract class Certificate extends \FreeFW\Core\StorageModel
         FFCST::PROPERTY_OPTIONS => [],
         FFCST::PROPERTY_TITLE   => 'Montant',
         FFCST::PROPERTY_COMMENT => 'Montant',
+        FFCST::PROPERTY_LLM_DESC => 'Input amount for the certificate. Use $gt/$lt for ranges.',
     ];
     protected static $PRP_CERT_INPUT_MONEY = [
         FFCST::PROPERTY_PRIVATE => 'cert_input_money',

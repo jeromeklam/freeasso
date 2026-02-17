@@ -15,6 +15,7 @@ class Session extends \FreeAsso\Model\Base\Session
      * Comportement
      */
     use \FreeSSO\Model\Behavior\Group;
+    use \FreeFW\Behavior\LlmAwareTrait;
 
     /**
      * Status

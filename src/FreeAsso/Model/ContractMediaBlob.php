@@ -10,4 +10,5 @@ use \FreeFW\Constants as FFCST;
  */
 class ContractMediaBlob extends \FreeAsso\Model\Base\ContractMediaBlob
 {
+    use \FreeFW\Behavior\LlmAwareTrait;
 }

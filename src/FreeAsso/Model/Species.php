@@ -10,6 +10,8 @@ use \FreeFW\Constants as FFCST;
  */
 class Species extends \FreeAsso\Model\Base\Species
 {
+    use \FreeFW\Behavior\LlmAwareTrait;
+
     /**
      * @see \FreeFW\Core\Model
      */

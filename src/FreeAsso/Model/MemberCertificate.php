@@ -12,6 +12,8 @@ use \FreeFW\Constants as FFCST;
 class MemberCertificate
 {
 
+    use \FreeFW\Behavior\LlmAwareTrait;
+
     public $cert_id = null;
     public $cert_ts = null;
     public $cau_id = null;

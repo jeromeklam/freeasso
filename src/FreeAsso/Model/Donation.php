@@ -26,6 +26,7 @@ class Donation extends \FreeAsso\Model\Base\Donation
     use \FreeAsso\Model\Behavior\Session;
     use \FreeAsso\Model\Behavior\Sponsorship;
     use \FreeSSO\Model\Behavior\Group;
+    use \FreeFW\Behavior\LlmAwareTrait;
 
     /**
      * STATUS

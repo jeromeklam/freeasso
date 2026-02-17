@@ -17,4 +17,5 @@ class CauseLink extends \FreeAsso\Model\Base\CauseLink implements
      */
     use \FreeAsso\Model\Behavior\Cause;
     use \FreeSSO\Model\Behavior\Group;
+    use \FreeFW\Behavior\LlmAwareTrait;
 }

@@ -12,6 +12,8 @@ use \FreeFW\Constants as FFCST;
 class MemberReceipt
 {
 
+    use \FreeFW\Behavior\LlmAwareTrait;
+
     public $rec_id = null;
     public $rec_ts = null;
     public $rec_year = null;

@@ -23,6 +23,7 @@ class DonationOrigin extends \FreeAsso\Model\Base\DonationOrigin
      * Behavior;
      */
     use \FreeSSO\Model\Behavior\Group;
+    use \FreeFW\Behavior\LlmAwareTrait;
 
     /**
      *

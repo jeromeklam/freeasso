@@ -34,7 +34,6 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED, FFCST::OPTION_FK],
         FFCST::PROPERTY_COMMENT => 'Identifiant du type de site',
-        FFCST::PROPERTY_MERGE   => 'Type',
         FFCST::PROPERTY_SAMPLE  => 1,
         FFCST::PROPERTY_FK      => ['site_type' =>
             [
@@ -49,16 +48,15 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_REQUIRED],
         FFCST::PROPERTY_COMMENT => 'Nom du site',
-        FFCST::PROPERTY_MERGE   => 'Nom',
         FFCST::PROPERTY_SAMPLE  => 'Mon site',
         FFCST::PROPERTY_MAX     => 80,
+        FFCST::PROPERTY_LLM_DESC => 'Site name. Use $contains for partial matching, $eq for exact.',
     ];
     protected static $PRP_SITE_FROM = [
         FFCST::PROPERTY_PRIVATE => 'site_from',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
         FFCST::PROPERTY_OPTIONS => [],
         FFCST::PROPERTY_COMMENT => 'Début de validité',
-        FFCST::PROPERTY_MERGE   => 'Entrée',
         FFCST::PROPERTY_SAMPLE  => '2020-04-01',
     ];
     protected static $PRP_SITE_TO = [
@@ -66,7 +64,6 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_DATETIMETZ,
         FFCST::PROPERTY_OPTIONS => [],
         FFCST::PROPERTY_COMMENT => 'Fin de validité',
-        FFCST::PROPERTY_MERGE   => 'Sortie',
         FFCST::PROPERTY_SAMPLE  => '2020-04-01',
     ];
     protected static $PRP_SITE_CODE = [
@@ -74,16 +71,15 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
         FFCST::PROPERTY_OPTIONS => [],
         FFCST::PROPERTY_COMMENT => 'Code identifiant court du site',
-        FFCST::PROPERTY_MERGE   => 'Code',
         FFCST::PROPERTY_SAMPLE  => 'SITEA',
         FFCST::PROPERTY_MAX     => 32,
+        FFCST::PROPERTY_LLM_DESC => 'Short code identifying the site. Use $eq for exact match.',
     ];
     protected static $PRP_SITE_ADDRESS1 = [
         FFCST::PROPERTY_PRIVATE => 'site_address1',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
         FFCST::PROPERTY_OPTIONS => [],
         FFCST::PROPERTY_COMMENT => 'Première ligne d\'adresse',
-        FFCST::PROPERTY_MERGE   => 'Adresse',
         FFCST::PROPERTY_SAMPLE  => '1 Rue Test',
         FFCST::PROPERTY_MAX     => 80,
     ];
@@ -92,7 +88,6 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
         FFCST::PROPERTY_OPTIONS => [],
         FFCST::PROPERTY_COMMENT => 'Seconde ligne d\'adresse',
-        FFCST::PROPERTY_MERGE   => 'Cplt Adresse 1',
         FFCST::PROPERTY_SAMPLE  => 'Batiment A',
         FFCST::PROPERTY_MAX     => 80,
     ];
@@ -101,7 +96,6 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
         FFCST::PROPERTY_OPTIONS => [],
         FFCST::PROPERTY_COMMENT => 'Troisième ligne d\'adresse',
-        FFCST::PROPERTY_MERGE   => 'Cplt Adresse 2',
         FFCST::PROPERTY_SAMPLE  => 'Cedex',
         FFCST::PROPERTY_MAX     => 80,
     ];
@@ -110,7 +104,6 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
         FFCST::PROPERTY_OPTIONS => [],
         FFCST::PROPERTY_COMMENT => 'Code postal',
-        FFCST::PROPERTY_MERGE   => 'CP',
         FFCST::PROPERTY_SAMPLE  => '99999',
         FFCST::PROPERTY_MAX     => 20,
     ];
@@ -119,7 +112,6 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_STRING,
         FFCST::PROPERTY_OPTIONS => [],
         FFCST::PROPERTY_COMMENT => 'Ville',
-        FFCST::PROPERTY_MERGE   => 'Ville',
         FFCST::PROPERTY_SAMPLE  => 'Ma ville',
         FFCST::PROPERTY_MAX     => 80,
     ];
@@ -128,7 +120,6 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
         FFCST::PROPERTY_COMMENT => 'Identifiant du propriétaire',
-        FFCST::PROPERTY_MERGE   => 'Propriétaire',
         FFCST::PROPERTY_SAMPLE  => 1,
         FFCST::PROPERTY_FK      => ['owner' =>
             [
@@ -143,7 +134,6 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
         FFCST::PROPERTY_COMMENT => 'Identifiant du vétérinaire',
-        FFCST::PROPERTY_MERGE   => 'Vétérinaire',
         FFCST::PROPERTY_SAMPLE  => 1,
         FFCST::PROPERTY_FK      => ['sanitary' =>
             [
@@ -158,7 +148,6 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_BIGINT,
         FFCST::PROPERTY_OPTIONS => [FFCST::OPTION_FK],
         FFCST::PROPERTY_COMMENT => 'Identifiant du site parent',
-        FFCST::PROPERTY_MERGE   => 'Site parent',
         FFCST::PROPERTY_SAMPLE  => 1,
         FFCST::PROPERTY_FK      => ['parent_site' =>
             [
@@ -173,15 +162,14 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
         FFCST::PROPERTY_OPTIONS => [],
         FFCST::PROPERTY_COMMENT => 'Superficie du site (m2)',
-        FFCST::PROPERTY_MERGE   => 'Superficie (m2)',
         FFCST::PROPERTY_SAMPLE  => 100,
+        FFCST::PROPERTY_LLM_DESC => 'Site area in square meters. Use $gt/$lt for size ranges.',
     ];
     protected static $PRP_SITE_POSITION = [
         FFCST::PROPERTY_PRIVATE => 'site_position',
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_INTEGER,
         FFCST::PROPERTY_OPTIONS => [],
         FFCST::PROPERTY_COMMENT => 'Ordre par rapport aux sites frères',
-        FFCST::PROPERTY_MERGE   => 'Position',
         FFCST::PROPERTY_SAMPLE  => 1,
     ];
     protected static $PRP_SITE_PLOTS = [
@@ -189,7 +177,6 @@ abstract class Site extends \FreeAsso\Model\StorageModel\Base
         FFCST::PROPERTY_TYPE    => FFCST::TYPE_TEXT,
         FFCST::PROPERTY_OPTIONS => [],
         FFCST::PROPERTY_COMMENT => 'Description des parcelles au format json',
-        FFCST::PROPERTY_MERGE   => 'Parcelles',
         FFCST::PROPERTY_SAMPLE  => '[{"section:["A"],"number":["200","201"]},{"section:["B","C"],"number":["300"]}]',
     ];
     protected static $PRP_SITE_LEFT = [

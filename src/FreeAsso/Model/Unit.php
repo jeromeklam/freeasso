@@ -10,6 +10,7 @@ use \FreeFW\Constants as FFCST;
  */
 class Unit extends \FreeAsso\Model\Base\Unit
 {
+    use \FreeFW\Behavior\LlmAwareTrait;
 
     /**
      *

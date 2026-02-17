@@ -16,6 +16,7 @@ class ReceiptType extends \FreeAsso\Model\Base\ReceiptType
      * Behavior
      */
     use \FreeSSO\Model\Behavior\Group;
+    use \FreeFW\Behavior\LlmAwareTrait;
 
     /**
      * @see \FreeFW\Core\Model

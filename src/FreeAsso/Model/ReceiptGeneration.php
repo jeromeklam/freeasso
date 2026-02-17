@@ -30,4 +30,5 @@ class ReceiptGeneration extends \FreeAsso\Model\Base\ReceiptGeneration
     use \FreeFW\Model\Behavior\Email;
     use \FreeAsso\Model\Behavior\ClientCategory;
     use \FreeAsso\Model\Behavior\PaymentType;
+    use \FreeFW\Behavior\LlmAwareTrait;
 }

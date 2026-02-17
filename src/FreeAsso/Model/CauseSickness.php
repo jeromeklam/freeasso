@@ -16,6 +16,7 @@ class CauseSickness extends \FreeAsso\Model\Base\CauseSickness
      */
     use \FreeAsso\Model\Behavior\Cause;
     use \FreeSSO\Model\Behavior\Group;
+    use \FreeFW\Behavior\LlmAwareTrait;
 
     /**
      * Sickness
